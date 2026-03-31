@@ -4,18 +4,20 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && npm run prerender && npm run sitemap && npm run rss && npm run rss-linkedin",
-    "prerender": "node scripts/prerender.js",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "sitemap": "node scripts/generate-sitemap.js",
-    "rss": "node scripts/generate-rss.js",
-    "rss-linkedin": "node scripts/generate-linkedin-rss.js",
-    "deploy": "npx vite build && node scripts/deploy-ftp.js",
-    "deploy:full": "npm run build && node scripts/deploy-ftp.js",
-    "deploy:ftp": "node scripts/deploy-ftp.js",
-    "watch:deploy": "vite build --watch --mode production"
+  "dev": "vite",
+  "build": "vite build && npm run prerender && npm run sitemap && npm run rss && npm run rss-linkedin",
+  "build:ci": "vite build && npm run sitemap && npm run rss && npm run rss-linkedin",
+  "prerender": "node scripts/prerender.js",
+  "lint": "eslint .",
+  "preview": "vite preview",
+  "sitemap": "node scripts/generate-sitemap.js",
+  "rss": "node scripts/generate-rss.js",
+  "rss-linkedin": "node scripts/generate-linkedin-rss.js",
+  "deploy": "npx vite build && node scripts/deploy-ftp.js",
+  "deploy:full": "npm run build && node scripts/deploy-ftp.js",
+  "deploy:ftp": "node scripts/deploy-ftp.js",
+  "watch:deploy": "vite build --watch --mode production"
+}
   },
   "dependencies": {
     "pdf-parse": "^2.4.5",
