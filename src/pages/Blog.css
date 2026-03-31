@@ -1,0 +1,320 @@
+/* Blog Index */
+.blog-hero {
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 10rem 0 8rem;
+    text-align: center;
+}
+
+.blog-hero .container {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.legal-hero {
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 10rem 0 8rem;
+    text-align: center;
+}
+
+.legal-hero h1 {
+    color: var(--color-white);
+    font-size: 2.4rem;
+    max-width: 800px;
+    margin: 0 auto 1rem auto;
+    line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+    .legal-hero h1 {
+        font-size: 2.8rem;
+    }
+}
+
+.blog-hero h1 {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.2;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.blog-card {
+    background: var(--color-white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.blog-card-content {
+    padding: 2rem;
+}
+
+.blog-date {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+}
+
+.blog-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.blog-card h3 a {
+    color: var(--color-primary);
+}
+
+.blog-card h3 a:hover {
+    color: var(--color-secondary);
+}
+
+.blog-card p {
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.read-more {
+    color: var(--color-secondary);
+    font-weight: 600;
+}
+
+.blog-card-date {
+    font-size: 0.78rem;
+    color: #888;
+    margin-bottom: 0.75rem !important;
+    margin-top: -0.75rem;
+    letter-spacing: 0.03em;
+    font-style: italic;
+}
+
+/* Under individual post hero */
+.blog-post-date {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin-top: 0.75rem;
+    letter-spacing: 0.03em;
+    font-style: italic;
+}
+
+/* Single Blog Post */
+.blog-post-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 4rem !important;
+    padding-bottom: 6rem !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.blog-post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.blog-post-content h2 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+}
+
+.blog-post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.blog-post-content ul {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+    list-style-type: disc;
+}
+
+.blog-post-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+    list-style-type: decimal;
+}
+
+.blog-post-content li {
+    margin-bottom: 0.75rem;
+    padding-left: 0.5rem;
+}
+
+.blog-post-content li::marker {
+    color: var(--color-secondary);
+    font-size: 1.1em;
+}
+
+.blog-post-content a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.blog-post-content a:hover {
+    color: var(--color-secondary);
+    text-decoration: none;
+}
+
+.blog-meta {
+    margin-top: 2.5rem;
+    padding: 0 2rem 2.5rem 2rem;
+}
+
+/* Blog Layout Grid */
+.blog-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-bottom: 6rem;
+    /* Clean internal padding */
+    margin-bottom: 6rem !important;
+    /* Reduced margin to ~96px as requested */
+    position: relative;
+    z-index: 10;
+    margin-top: -2.5rem !important;
+    /* Reduced negative margin to move content down as requested */
+}
+
+.sidebar-overlap-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-overlap-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 25% center;
+}
+
+@media (min-width: 768px) {
+    .blog-hero h1 {
+        font-size: 2.8rem;
+    }
+}
+
+@media (min-width: 900px) {
+    .blog-layout {
+        grid-template-columns: 2fr 1fr;
+        align-items: start;
+    }
+}
+
+.blog-main-card {
+    background: #fff;
+    border-radius: 20px;
+    /* Rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.blog-sidebar {
+    /* Sidebar styles inheriting from Sidebar.css */
+    display: block;
+}
+
+/* Adjustments for new layout */
+.blog-post-content {
+    padding: 2rem;
+}
+
+.blog-header-image {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    margin: 0 !important;
+    /* Override inline styles from previous iteration */
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Sidebar */
+.director-cards.single-column {
+    grid-template-columns: 1fr !important;
+    max-width: 100%;
+}
+
+.director-cards.single-column .director-card {
+    width: 100%;
+}
+
+/* Comparison Table Styling */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 1.05rem;
+    text-align: left;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #eaeaea;
+}
+
+.comparison-table thead tr {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-align: left;
+    font-weight: 600;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.comparison-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.comparison-table tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+
+.comparison-table tbody tr:hover {
+    background-color: #f1f4f8;
+}
+
+.comparison-table tbody td:first-child {
+    font-weight: 600;
+    color: var(--color-primary);
+    border-right: 1px solid #eaeaea;
+}
+
+@media (max-width: 768px) {
+    .comparison-table {
+        font-size: 0.95rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.75rem 0.5rem;
+    }
+}

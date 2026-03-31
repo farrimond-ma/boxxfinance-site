@@ -1,0 +1,138 @@
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    /* Fallback gradient */
+    background: linear-gradient(135deg, #010816 0%, #0a192f 100%);
+    /* Default: Lighten for general visibility */
+    background-image: linear-gradient(rgba(1, 8, 22, 0.75), rgba(1, 8, 22, 0.65)), url('/header_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--color-white);
+    padding-top: 80px;
+}
+
+@media (min-width: 768px) {
+    .hero {
+        /* Standard Dark Navy Gradient for Desktop */
+        background-image: linear-gradient(rgba(1, 10, 30, 0.85), rgba(1, 10, 30, 0.7)), url('/header_bg.png');
+    }
+}
+
+@media (max-width: 767px) {
+    .hero {
+        /* Balanced Darker Gradient for Mobile (85%/75%) + No Fixed Attachment for sharpness */
+        background-image: linear-gradient(rgba(1, 10, 30, 0.85), rgba(1, 10, 30, 0.75)), url('/header_bg.png');
+        background-attachment: scroll !important;
+    }
+}
+
+/* Texture overlay */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+    background-size: 30px 30px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.hero-brand-text {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 3rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    opacity: 1;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--color-white);
+}
+
+.text-gold {
+    color: var(--color-secondary);
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+    color: var(--color-text-light);
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        align-items: center;
+        /* Ensure vertical centering */
+        padding-top: 60px;
+        /* Slight adjustment */
+    }
+
+    .hero-content {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .hero-brand-text {
+        margin-bottom: 1.5rem;
+        /* Reduced from 3rem to save space */
+        font-size: 0.8rem;
+    }
+
+    .hero h1 {
+        font-size: 2.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-btns {
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        /* Let it fill container width */
+        gap: 1rem;
+    }
+
+    .hero a.btn {
+        /* Target anchor tags specifically if needed */
+        width: 100%;
+        display: block;
+        /* Ensure full width block */
+        text-align: center;
+    }
+}

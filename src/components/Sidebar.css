@@ -1,0 +1,84 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebar-widget {
+    background-color: var(--color-white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid #eee;
+}
+
+.sidebar-widget h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+    display: inline-block;
+}
+
+.service-list-widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.service-list-widget li {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.service-list-widget li:last-child {
+    border-bottom: none;
+}
+
+.service-list-widget a {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--color-text-dark);
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.service-list-widget a:hover {
+    color: var(--color-secondary);
+    padding-left: 5px;
+}
+
+.sidebar-widget.cta-widget {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-align: center;
+}
+
+.sidebar-widget.cta-widget h3 {
+    color: var(--color-white);
+}
+
+.sidebar-widget.cta-widget p {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.sidebar-widget.cta-widget .btn {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-email-cta {
+    font-size: 0.85rem !important;
+    opacity: 0.8;
+    margin-bottom: 0 !important;
+}
+
+.gold-link {
+    color: var(--color-secondary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.gold-link:hover {
+    text-decoration: underline;
+}

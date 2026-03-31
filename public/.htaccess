@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Ensure directory index is set correctly for statically generated folders (like /insights/)
+  DirectoryIndex index.html
+
+  # If an existing asset or directory is requested, serve it directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # If the request is not for a valid file, then serve the root index.html to let React Router take over
+  RewriteRule ^ index.html [L]
+</IfModule>

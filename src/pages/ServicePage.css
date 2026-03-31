@@ -1,0 +1,162 @@
+.service-hero {
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 10rem 0 8rem;
+    text-align: center;
+}
+
+.service-hero .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.service-hero h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.service-hero p {
+    font-size: 1.25rem;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.9;
+    color: var(--color-white);
+}
+
+/* container rule removed as it's handled above */
+
+.service-hero h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+    line-height: 1.2;
+    /* Better line height for multi-line text */
+}
+
+.service-hero p {
+    font-size: 1.25rem;
+    max-width: 100%;
+    /* container handles constraint now */
+    margin: 0 auto;
+    opacity: 0.9;
+    color: var(--color-white);
+}
+
+/* Main Layout Grid */
+.service-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-bottom: 6rem;
+    /* Clean internal padding */
+    margin-bottom: 6rem !important;
+    /* Reduced margin to ~96px as requested */
+    position: relative;
+    z-index: 10;
+    margin-top: -2.5rem !important;
+    /* Reduced negative margin to move content down as requested */
+}
+
+@media (max-width: 768px) {
+    .service-hero {
+        padding: 8rem 0 6rem;
+    }
+
+    .service-hero h1 {
+        font-size: 2.4rem;
+    }
+
+    .service-hero p {
+        font-size: 1rem;
+    }
+}
+
+/* desktop background image media query removed */
+
+@media (min-width: 900px) {
+    .service-layout {
+        grid-template-columns: 2fr 1fr;
+        align-items: start;
+    }
+}
+
+.service-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebar-overlap-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-overlap-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 25% center;
+}
+
+/* Main Content Area */
+.service-main {
+    background: #fff;
+    border-radius: 20px;
+    /* Rounded corners like screenshot */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.service-header-image {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.service-header-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.service-content {
+    padding: 1.5rem;
+    /* Reduced inner padding */
+}
+
+.service-content h3 {
+    margin-top: 1.5rem;
+    font-size: 1.4rem;
+    color: var(--color-primary);
+}
+
+.service-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.service-content li {
+    margin-bottom: 0.75rem;
+    color: #555;
+}
+
+.cta-box {
+    background-color: var(--color-bg-light);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 4rem;
+    border: 1px solid #ddd;
+}
+
+.cta-box h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}

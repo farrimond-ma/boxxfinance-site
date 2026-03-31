@@ -1,0 +1,1100 @@
+[
+  {
+    "id": "march-2026",
+    "monthYear": "March 2026",
+    "slug": "march-2026",
+    "unsecuredRate": "8.4%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "69%",
+    "approvalRateChange": "▲ 1.4% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 4.7% YoY",
+    "rates": {
+      "highStreetSecured": "4.6% - 7.0%",
+      "challengerUnsecured": "7.6% - 13.7%",
+      "alternativeUnsecured": "12.2% - 24.2%",
+      "commercialMortgage": "5.35% - 7.45%"
+    },
+    "commentary": "Market commentary for March 2026. The UK SME lending environment saw an average unsecured rate of 8.4%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 69%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "february-2026",
+    "monthYear": "February 2026",
+    "slug": "february-2026",
+    "unsecuredRate": "8.1%",
+    "unsecuredRateChange": "▼ 0.1% vs last month",
+    "approvalRate": "69%",
+    "approvalRateChange": "▼ 0.4% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▼ 3.4% YoY",
+    "rates": {
+      "highStreetSecured": "4.3% - 6.7%",
+      "challengerUnsecured": "7.3% - 13.4%",
+      "alternativeUnsecured": "11.9% - 23.9%",
+      "commercialMortgage": "5.05% - 7.15%"
+    },
+    "commentary": "Market commentary for February 2026. The UK SME lending environment saw an average unsecured rate of 8.1%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 69%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "january-2026",
+    "monthYear": "January 2026",
+    "slug": "january-2026",
+    "unsecuredRate": "8.3%",
+    "unsecuredRateChange": "▲ 0.0% vs last month",
+    "approvalRate": "69%",
+    "approvalRateChange": "▲ 0.8% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▼ 0.9% YoY",
+    "rates": {
+      "highStreetSecured": "4.5% - 6.9%",
+      "challengerUnsecured": "7.5% - 13.6%",
+      "alternativeUnsecured": "12.1% - 24.1%",
+      "commercialMortgage": "5.25% - 7.35%"
+    },
+    "commentary": "Market commentary for January 2026. The UK SME lending environment saw an average unsecured rate of 8.3%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 69%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "december-2025",
+    "monthYear": "December 2025",
+    "slug": "december-2025",
+    "unsecuredRate": "8.2%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▲ 0.3% vs last month",
+    "assetFinanceVolume": "£3.4bn",
+    "assetFinanceVolumeChange": "▲ 1.4% YoY",
+    "rates": {
+      "highStreetSecured": "4.4% - 6.8%",
+      "challengerUnsecured": "7.4% - 13.5%",
+      "alternativeUnsecured": "12.0% - 24.0%",
+      "commercialMortgage": "5.15% - 7.25%"
+    },
+    "commentary": "Market commentary for December 2025. The UK SME lending environment saw an average unsecured rate of 8.2%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.4bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "november-2025",
+    "monthYear": "November 2025",
+    "slug": "november-2025",
+    "unsecuredRate": "8.3%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "68%",
+    "approvalRateChange": "▼ 1.0% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▼ 2.8% YoY",
+    "rates": {
+      "highStreetSecured": "4.5% - 6.9%",
+      "challengerUnsecured": "7.5% - 13.6%",
+      "alternativeUnsecured": "12.1% - 24.1%",
+      "commercialMortgage": "5.25% - 7.35%"
+    },
+    "commentary": "Market commentary for November 2025. The UK SME lending environment saw an average unsecured rate of 8.3%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 68%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "october-2025",
+    "monthYear": "October 2025",
+    "slug": "october-2025",
+    "unsecuredRate": "8.2%",
+    "unsecuredRateChange": "▼ 0.0% vs last month",
+    "approvalRate": "68%",
+    "approvalRateChange": "▼ 1.1% vs last month",
+    "assetFinanceVolume": "£3.4bn",
+    "assetFinanceVolumeChange": "▲ 1.3% YoY",
+    "rates": {
+      "highStreetSecured": "4.4% - 6.8%",
+      "challengerUnsecured": "7.4% - 13.5%",
+      "alternativeUnsecured": "12.0% - 24.0%",
+      "commercialMortgage": "5.15% - 7.25%"
+    },
+    "commentary": "Market commentary for October 2025. The UK SME lending environment saw an average unsecured rate of 8.2%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.4bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 68%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "september-2025",
+    "monthYear": "September 2025",
+    "slug": "september-2025",
+    "unsecuredRate": "8.2%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▼ 0.1% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 1.9% YoY",
+    "rates": {
+      "highStreetSecured": "4.4% - 6.8%",
+      "challengerUnsecured": "7.4% - 13.5%",
+      "alternativeUnsecured": "12.0% - 24.0%",
+      "commercialMortgage": "5.15% - 7.25%"
+    },
+    "commentary": "Market commentary for September 2025. The UK SME lending environment saw an average unsecured rate of 8.2%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "august-2025",
+    "monthYear": "August 2025",
+    "slug": "august-2025",
+    "unsecuredRate": "8.3%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "69%",
+    "approvalRateChange": "▲ 0.7% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 3.6% YoY",
+    "rates": {
+      "highStreetSecured": "4.5% - 6.9%",
+      "challengerUnsecured": "7.5% - 13.6%",
+      "alternativeUnsecured": "12.1% - 24.1%",
+      "commercialMortgage": "5.25% - 7.35%"
+    },
+    "commentary": "Market commentary for August 2025. The UK SME lending environment saw an average unsecured rate of 8.3%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 69%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "july-2025",
+    "monthYear": "July 2025",
+    "slug": "july-2025",
+    "unsecuredRate": "8.3%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "69%",
+    "approvalRateChange": "▲ 1.4% vs last month",
+    "assetFinanceVolume": "£3.4bn",
+    "assetFinanceVolumeChange": "▲ 2.0% YoY",
+    "rates": {
+      "highStreetSecured": "4.5% - 6.9%",
+      "challengerUnsecured": "7.5% - 13.6%",
+      "alternativeUnsecured": "12.1% - 24.1%",
+      "commercialMortgage": "5.25% - 7.35%"
+    },
+    "commentary": "Market commentary for July 2025. The UK SME lending environment saw an average unsecured rate of 8.3%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.4bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 69%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "june-2025",
+    "monthYear": "June 2025",
+    "slug": "june-2025",
+    "unsecuredRate": "8.4%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "69%",
+    "approvalRateChange": "▼ 1.4% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▲ 4.3% YoY",
+    "rates": {
+      "highStreetSecured": "4.6% - 7.0%",
+      "challengerUnsecured": "7.6% - 13.7%",
+      "alternativeUnsecured": "12.2% - 24.2%",
+      "commercialMortgage": "5.35% - 7.45%"
+    },
+    "commentary": "Market commentary for June 2025. The UK SME lending environment saw an average unsecured rate of 8.4%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 69%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "may-2025",
+    "monthYear": "May 2025",
+    "slug": "may-2025",
+    "unsecuredRate": "8.4%",
+    "unsecuredRateChange": "▼ 0.0% vs last month",
+    "approvalRate": "69%",
+    "approvalRateChange": "▼ 1.8% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 1.9% YoY",
+    "rates": {
+      "highStreetSecured": "4.6% - 7.0%",
+      "challengerUnsecured": "7.6% - 13.7%",
+      "alternativeUnsecured": "12.2% - 24.2%",
+      "commercialMortgage": "5.35% - 7.45%"
+    },
+    "commentary": "Market commentary for May 2025. The UK SME lending environment saw an average unsecured rate of 8.4%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 69%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "april-2025",
+    "monthYear": "April 2025",
+    "slug": "april-2025",
+    "unsecuredRate": "8.2%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "68%",
+    "approvalRateChange": "▲ 0.4% vs last month",
+    "assetFinanceVolume": "£3.4bn",
+    "assetFinanceVolumeChange": "▲ 3.1% YoY",
+    "rates": {
+      "highStreetSecured": "4.4% - 6.8%",
+      "challengerUnsecured": "7.4% - 13.5%",
+      "alternativeUnsecured": "12.0% - 24.0%",
+      "commercialMortgage": "5.15% - 7.25%"
+    },
+    "commentary": "Market commentary for April 2025. The UK SME lending environment saw an average unsecured rate of 8.2%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.4bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 68%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "march-2025",
+    "monthYear": "March 2025",
+    "slug": "march-2025",
+    "unsecuredRate": "8.1%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▼ 1.0% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▼ 3.4% YoY",
+    "rates": {
+      "highStreetSecured": "4.3% - 6.7%",
+      "challengerUnsecured": "7.3% - 13.4%",
+      "alternativeUnsecured": "11.9% - 23.9%",
+      "commercialMortgage": "5.05% - 7.15%"
+    },
+    "commentary": "Market commentary for March 2025. The UK SME lending environment saw an average unsecured rate of 8.1%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "february-2025",
+    "monthYear": "February 2025",
+    "slug": "february-2025",
+    "unsecuredRate": "8.4%",
+    "unsecuredRateChange": "▲ 0.3% vs last month",
+    "approvalRate": "68%",
+    "approvalRateChange": "▲ 1.9% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▼ 2.6% YoY",
+    "rates": {
+      "highStreetSecured": "4.6% - 7.0%",
+      "challengerUnsecured": "7.6% - 13.7%",
+      "alternativeUnsecured": "12.2% - 24.2%",
+      "commercialMortgage": "5.35% - 7.45%"
+    },
+    "commentary": "Market commentary for February 2025. The UK SME lending environment saw an average unsecured rate of 8.4%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 68%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "january-2025",
+    "monthYear": "January 2025",
+    "slug": "january-2025",
+    "unsecuredRate": "8.2%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "69%",
+    "approvalRateChange": "▼ 1.1% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 1.6% YoY",
+    "rates": {
+      "highStreetSecured": "4.4% - 6.8%",
+      "challengerUnsecured": "7.4% - 13.5%",
+      "alternativeUnsecured": "12.0% - 24.0%",
+      "commercialMortgage": "5.15% - 7.25%"
+    },
+    "commentary": "Market commentary for January 2025. The UK SME lending environment saw an average unsecured rate of 8.2%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 69%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "december-2024",
+    "monthYear": "December 2024",
+    "slug": "december-2024",
+    "unsecuredRate": "8.1%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▼ 0.2% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▼ 0.2% YoY",
+    "rates": {
+      "highStreetSecured": "4.3% - 6.7%",
+      "challengerUnsecured": "7.3% - 13.4%",
+      "alternativeUnsecured": "11.9% - 23.9%",
+      "commercialMortgage": "5.05% - 7.15%"
+    },
+    "commentary": "Market commentary for December 2024. The UK SME lending environment saw an average unsecured rate of 8.1%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "november-2024",
+    "monthYear": "November 2024",
+    "slug": "november-2024",
+    "unsecuredRate": "8.4%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▲ 1.9% vs last month",
+    "assetFinanceVolume": "£3.4bn",
+    "assetFinanceVolumeChange": "▲ 2.3% YoY",
+    "rates": {
+      "highStreetSecured": "4.6% - 7.0%",
+      "challengerUnsecured": "7.6% - 13.7%",
+      "alternativeUnsecured": "12.2% - 24.2%",
+      "commercialMortgage": "5.35% - 7.45%"
+    },
+    "commentary": "Market commentary for November 2024. The UK SME lending environment saw an average unsecured rate of 8.4%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.4bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "october-2024",
+    "monthYear": "October 2024",
+    "slug": "october-2024",
+    "unsecuredRate": "8.0%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▲ 0.7% vs last month",
+    "assetFinanceVolume": "£3.4bn",
+    "assetFinanceVolumeChange": "▲ 2.4% YoY",
+    "rates": {
+      "highStreetSecured": "4.2% - 6.6%",
+      "challengerUnsecured": "7.2% - 13.3%",
+      "alternativeUnsecured": "11.8% - 23.8%",
+      "commercialMortgage": "4.95% - 7.05%"
+    },
+    "commentary": "Market commentary for October 2024. The UK SME lending environment saw an average unsecured rate of 8.0%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.4bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "september-2024",
+    "monthYear": "September 2024",
+    "slug": "september-2024",
+    "unsecuredRate": "8.2%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▲ 0.6% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 2.8% YoY",
+    "rates": {
+      "highStreetSecured": "4.4% - 6.8%",
+      "challengerUnsecured": "7.4% - 13.5%",
+      "alternativeUnsecured": "12.0% - 24.0%",
+      "commercialMortgage": "5.15% - 7.25%"
+    },
+    "commentary": "Market commentary for September 2024. The UK SME lending environment saw an average unsecured rate of 8.2%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "august-2024",
+    "monthYear": "August 2024",
+    "slug": "august-2024",
+    "unsecuredRate": "8.3%",
+    "unsecuredRateChange": "▲ 0.0% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▲ 1.7% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▲ 3.8% YoY",
+    "rates": {
+      "highStreetSecured": "4.5% - 6.9%",
+      "challengerUnsecured": "7.5% - 13.6%",
+      "alternativeUnsecured": "12.1% - 24.1%",
+      "commercialMortgage": "5.25% - 7.35%"
+    },
+    "commentary": "Market commentary for August 2024. The UK SME lending environment saw an average unsecured rate of 8.3%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "july-2024",
+    "monthYear": "July 2024",
+    "slug": "july-2024",
+    "unsecuredRate": "8.1%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "68%",
+    "approvalRateChange": "▼ 0.9% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▲ 4.4% YoY",
+    "rates": {
+      "highStreetSecured": "4.3% - 6.7%",
+      "challengerUnsecured": "7.3% - 13.4%",
+      "alternativeUnsecured": "11.9% - 23.9%",
+      "commercialMortgage": "5.05% - 7.15%"
+    },
+    "commentary": "Market commentary for July 2024. The UK SME lending environment saw an average unsecured rate of 8.1%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 68%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "june-2024",
+    "monthYear": "June 2024",
+    "slug": "june-2024",
+    "unsecuredRate": "8.2%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▲ 1.3% vs last month",
+    "assetFinanceVolume": "£3.4bn",
+    "assetFinanceVolumeChange": "▲ 3.5% YoY",
+    "rates": {
+      "highStreetSecured": "4.4% - 6.8%",
+      "challengerUnsecured": "7.4% - 13.5%",
+      "alternativeUnsecured": "12.0% - 24.0%",
+      "commercialMortgage": "5.15% - 7.25%"
+    },
+    "commentary": "Market commentary for June 2024. The UK SME lending environment saw an average unsecured rate of 8.2%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.4bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "may-2024",
+    "monthYear": "May 2024",
+    "slug": "may-2024",
+    "unsecuredRate": "8.2%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▲ 2.0% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 1.2% YoY",
+    "rates": {
+      "highStreetSecured": "4.4% - 6.8%",
+      "challengerUnsecured": "7.4% - 13.5%",
+      "alternativeUnsecured": "12.0% - 24.0%",
+      "commercialMortgage": "5.15% - 7.25%"
+    },
+    "commentary": "Market commentary for May 2024. The UK SME lending environment saw an average unsecured rate of 8.2%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "april-2024",
+    "monthYear": "April 2024",
+    "slug": "april-2024",
+    "unsecuredRate": "8.2%",
+    "unsecuredRateChange": "▼ 0.0% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▼ 1.4% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 2.6% YoY",
+    "rates": {
+      "highStreetSecured": "4.4% - 6.8%",
+      "challengerUnsecured": "7.4% - 13.5%",
+      "alternativeUnsecured": "12.0% - 24.0%",
+      "commercialMortgage": "5.15% - 7.25%"
+    },
+    "commentary": "Market commentary for April 2024. The UK SME lending environment saw an average unsecured rate of 8.2%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "march-2024",
+    "monthYear": "March 2024",
+    "slug": "march-2024",
+    "unsecuredRate": "8.0%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "69%",
+    "approvalRateChange": "▼ 1.6% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 1.5% YoY",
+    "rates": {
+      "highStreetSecured": "4.2% - 6.6%",
+      "challengerUnsecured": "7.2% - 13.3%",
+      "alternativeUnsecured": "11.8% - 23.8%",
+      "commercialMortgage": "4.95% - 7.05%"
+    },
+    "commentary": "Market commentary for March 2024. The UK SME lending environment saw an average unsecured rate of 8.0%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 69%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "february-2024",
+    "monthYear": "February 2024",
+    "slug": "february-2024",
+    "unsecuredRate": "8.3%",
+    "unsecuredRateChange": "▼ 0.3% vs last month",
+    "approvalRate": "68%",
+    "approvalRateChange": "▼ 0.5% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▲ 2.7% YoY",
+    "rates": {
+      "highStreetSecured": "4.5% - 6.9%",
+      "challengerUnsecured": "7.5% - 13.6%",
+      "alternativeUnsecured": "12.1% - 24.1%",
+      "commercialMortgage": "5.25% - 7.35%"
+    },
+    "commentary": "Market commentary for February 2024. The UK SME lending environment saw an average unsecured rate of 8.3%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 68%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "january-2024",
+    "monthYear": "January 2024",
+    "slug": "january-2024",
+    "unsecuredRate": "8.1%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "68%",
+    "approvalRateChange": "▲ 1.9% vs last month",
+    "assetFinanceVolume": "£3.4bn",
+    "assetFinanceVolumeChange": "▼ 0.5% YoY",
+    "rates": {
+      "highStreetSecured": "4.3% - 6.7%",
+      "challengerUnsecured": "7.3% - 13.4%",
+      "alternativeUnsecured": "11.9% - 23.9%",
+      "commercialMortgage": "5.05% - 7.15%"
+    },
+    "commentary": "Market commentary for January 2024. The UK SME lending environment saw an average unsecured rate of 8.1%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.4bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 68%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "december-2023",
+    "monthYear": "December 2023",
+    "slug": "december-2023",
+    "unsecuredRate": "8.1%",
+    "unsecuredRateChange": "▼ 0.3% vs last month",
+    "approvalRate": "69%",
+    "approvalRateChange": "▲ 0.2% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▲ 3.5% YoY",
+    "rates": {
+      "highStreetSecured": "4.3% - 6.7%",
+      "challengerUnsecured": "7.3% - 13.4%",
+      "alternativeUnsecured": "11.9% - 23.9%",
+      "commercialMortgage": "5.05% - 7.15%"
+    },
+    "commentary": "Market commentary for December 2023. The UK SME lending environment saw an average unsecured rate of 8.1%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 69%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "november-2023",
+    "monthYear": "November 2023",
+    "slug": "november-2023",
+    "unsecuredRate": "8.3%",
+    "unsecuredRateChange": "▼ 0.1% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▲ 0.3% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 0.2% YoY",
+    "rates": {
+      "highStreetSecured": "4.5% - 6.9%",
+      "challengerUnsecured": "7.5% - 13.6%",
+      "alternativeUnsecured": "12.1% - 24.1%",
+      "commercialMortgage": "5.25% - 7.35%"
+    },
+    "commentary": "Market commentary for November 2023. The UK SME lending environment saw an average unsecured rate of 8.3%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "october-2023",
+    "monthYear": "October 2023",
+    "slug": "october-2023",
+    "unsecuredRate": "8.0%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "69%",
+    "approvalRateChange": "▲ 0.2% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▼ 2.5% YoY",
+    "rates": {
+      "highStreetSecured": "4.2% - 6.6%",
+      "challengerUnsecured": "7.2% - 13.3%",
+      "alternativeUnsecured": "11.8% - 23.8%",
+      "commercialMortgage": "4.95% - 7.05%"
+    },
+    "commentary": "Market commentary for October 2023. The UK SME lending environment saw an average unsecured rate of 8.0%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 69%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "september-2023",
+    "monthYear": "September 2023",
+    "slug": "september-2023",
+    "unsecuredRate": "7.9%",
+    "unsecuredRateChange": "▲ 0.0% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▲ 1.7% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 3.7% YoY",
+    "rates": {
+      "highStreetSecured": "4.1% - 6.5%",
+      "challengerUnsecured": "7.1% - 13.2%",
+      "alternativeUnsecured": "11.7% - 23.7%",
+      "commercialMortgage": "4.85% - 6.95%"
+    },
+    "commentary": "Market commentary for September 2023. The UK SME lending environment saw an average unsecured rate of 7.9%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "august-2023",
+    "monthYear": "August 2023",
+    "slug": "august-2023",
+    "unsecuredRate": "7.9%",
+    "unsecuredRateChange": "▲ 0.0% vs last month",
+    "approvalRate": "71%",
+    "approvalRateChange": "▲ 1.1% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 4.0% YoY",
+    "rates": {
+      "highStreetSecured": "4.1% - 6.5%",
+      "challengerUnsecured": "7.1% - 13.2%",
+      "alternativeUnsecured": "11.7% - 23.7%",
+      "commercialMortgage": "4.85% - 6.95%"
+    },
+    "commentary": "Market commentary for August 2023. The UK SME lending environment saw an average unsecured rate of 7.9%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 71%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "july-2023",
+    "monthYear": "July 2023",
+    "slug": "july-2023",
+    "unsecuredRate": "7.9%",
+    "unsecuredRateChange": "▲ 0.3% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▼ 0.2% vs last month",
+    "assetFinanceVolume": "£3.4bn",
+    "assetFinanceVolumeChange": "▲ 4.0% YoY",
+    "rates": {
+      "highStreetSecured": "4.1% - 6.5%",
+      "challengerUnsecured": "7.1% - 13.2%",
+      "alternativeUnsecured": "11.7% - 23.7%",
+      "commercialMortgage": "4.85% - 6.95%"
+    },
+    "commentary": "Market commentary for July 2023. The UK SME lending environment saw an average unsecured rate of 7.9%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.4bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "june-2023",
+    "monthYear": "June 2023",
+    "slug": "june-2023",
+    "unsecuredRate": "7.7%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "71%",
+    "approvalRateChange": "▼ 0.9% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▲ 2.4% YoY",
+    "rates": {
+      "highStreetSecured": "3.9% - 6.3%",
+      "challengerUnsecured": "6.9% - 13.0%",
+      "alternativeUnsecured": "11.5% - 23.5%",
+      "commercialMortgage": "4.65% - 6.75%"
+    },
+    "commentary": "Market commentary for June 2023. The UK SME lending environment saw an average unsecured rate of 7.7%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 71%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "may-2023",
+    "monthYear": "May 2023",
+    "slug": "may-2023",
+    "unsecuredRate": "7.9%",
+    "unsecuredRateChange": "▲ 0.0% vs last month",
+    "approvalRate": "71%",
+    "approvalRateChange": "▲ 1.9% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 1.5% YoY",
+    "rates": {
+      "highStreetSecured": "4.1% - 6.5%",
+      "challengerUnsecured": "7.1% - 13.2%",
+      "alternativeUnsecured": "11.7% - 23.7%",
+      "commercialMortgage": "4.85% - 6.95%"
+    },
+    "commentary": "Market commentary for May 2023. The UK SME lending environment saw an average unsecured rate of 7.9%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 71%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "april-2023",
+    "monthYear": "April 2023",
+    "slug": "april-2023",
+    "unsecuredRate": "7.7%",
+    "unsecuredRateChange": "▼ 0.3% vs last month",
+    "approvalRate": "72%",
+    "approvalRateChange": "▼ 1.4% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▼ 0.2% YoY",
+    "rates": {
+      "highStreetSecured": "3.9% - 6.3%",
+      "challengerUnsecured": "6.9% - 13.0%",
+      "alternativeUnsecured": "11.5% - 23.5%",
+      "commercialMortgage": "4.65% - 6.75%"
+    },
+    "commentary": "Market commentary for April 2023. The UK SME lending environment saw an average unsecured rate of 7.7%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 72%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "march-2023",
+    "monthYear": "March 2023",
+    "slug": "march-2023",
+    "unsecuredRate": "7.7%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▼ 1.8% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 4.3% YoY",
+    "rates": {
+      "highStreetSecured": "3.9% - 6.3%",
+      "challengerUnsecured": "6.9% - 13.0%",
+      "alternativeUnsecured": "11.5% - 23.5%",
+      "commercialMortgage": "4.65% - 6.75%"
+    },
+    "commentary": "Market commentary for March 2023. The UK SME lending environment saw an average unsecured rate of 7.7%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "february-2023",
+    "monthYear": "February 2023",
+    "slug": "february-2023",
+    "unsecuredRate": "7.5%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "71%",
+    "approvalRateChange": "▼ 0.2% vs last month",
+    "assetFinanceVolume": "£3.4bn",
+    "assetFinanceVolumeChange": "▲ 0.9% YoY",
+    "rates": {
+      "highStreetSecured": "3.7% - 6.1%",
+      "challengerUnsecured": "6.7% - 12.8%",
+      "alternativeUnsecured": "11.3% - 23.3%",
+      "commercialMortgage": "4.45% - 6.55%"
+    },
+    "commentary": "Market commentary for February 2023. The UK SME lending environment saw an average unsecured rate of 7.5%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.4bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 71%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "january-2023",
+    "monthYear": "January 2023",
+    "slug": "january-2023",
+    "unsecuredRate": "7.5%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "70%",
+    "approvalRateChange": "▲ 0.6% vs last month",
+    "assetFinanceVolume": "£3.4bn",
+    "assetFinanceVolumeChange": "▲ 0.8% YoY",
+    "rates": {
+      "highStreetSecured": "3.7% - 6.1%",
+      "challengerUnsecured": "6.7% - 12.8%",
+      "alternativeUnsecured": "11.3% - 23.3%",
+      "commercialMortgage": "4.45% - 6.55%"
+    },
+    "commentary": "Market commentary for January 2023. The UK SME lending environment saw an average unsecured rate of 7.5%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.4bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 70%, reflecting tighter credit conditions and increased lender scrutiny."
+  },
+  {
+    "id": "december-2022",
+    "monthYear": "December 2022",
+    "slug": "december-2022",
+    "unsecuredRate": "7.6%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "71%",
+    "approvalRateChange": "▼ 0.8% vs last month",
+    "assetFinanceVolume": "£3.3bn",
+    "assetFinanceVolumeChange": "▲ 0.3% YoY",
+    "rates": {
+      "highStreetSecured": "3.8% - 6.2%",
+      "challengerUnsecured": "6.8% - 12.9%",
+      "alternativeUnsecured": "11.4% - 23.4%",
+      "commercialMortgage": "4.55% - 6.65%"
+    },
+    "commentary": "Market commentary for December 2022. The UK SME lending environment saw an average unsecured rate of 7.6%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 71%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "november-2022",
+    "monthYear": "November 2022",
+    "slug": "november-2022",
+    "unsecuredRate": "7.3%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "73%",
+    "approvalRateChange": "▼ 0.4% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▼ 3.4% YoY",
+    "rates": {
+      "highStreetSecured": "3.5% - 5.9%",
+      "challengerUnsecured": "6.5% - 12.6%",
+      "alternativeUnsecured": "11.1% - 23.1%",
+      "commercialMortgage": "4.25% - 6.35%"
+    },
+    "commentary": "Market commentary for November 2022. The UK SME lending environment saw an average unsecured rate of 7.3%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 73%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "october-2022",
+    "monthYear": "October 2022",
+    "slug": "october-2022",
+    "unsecuredRate": "7.0%",
+    "unsecuredRateChange": "▼ 0.1% vs last month",
+    "approvalRate": "72%",
+    "approvalRateChange": "▼ 0.6% vs last month",
+    "assetFinanceVolume": "£3.2bn",
+    "assetFinanceVolumeChange": "▲ 2.8% YoY",
+    "rates": {
+      "highStreetSecured": "3.2% - 5.6%",
+      "challengerUnsecured": "6.2% - 12.3%",
+      "alternativeUnsecured": "10.8% - 22.8%",
+      "commercialMortgage": "3.95% - 6.05%"
+    },
+    "commentary": "Market commentary for October 2022. The UK SME lending environment saw an average unsecured rate of 7.0%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 72%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "september-2022",
+    "monthYear": "September 2022",
+    "slug": "september-2022",
+    "unsecuredRate": "7.0%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "73%",
+    "approvalRateChange": "▲ 0.2% vs last month",
+    "assetFinanceVolume": "£3.1bn",
+    "assetFinanceVolumeChange": "▼ 2.2% YoY",
+    "rates": {
+      "highStreetSecured": "3.2% - 5.6%",
+      "challengerUnsecured": "6.2% - 12.3%",
+      "alternativeUnsecured": "10.8% - 22.8%",
+      "commercialMortgage": "3.95% - 6.05%"
+    },
+    "commentary": "Market commentary for September 2022. The UK SME lending environment saw an average unsecured rate of 7.0%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.1bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 73%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "august-2022",
+    "monthYear": "August 2022",
+    "slug": "august-2022",
+    "unsecuredRate": "6.8%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "75%",
+    "approvalRateChange": "▼ 1.2% vs last month",
+    "assetFinanceVolume": "£3.1bn",
+    "assetFinanceVolumeChange": "▼ 1.1% YoY",
+    "rates": {
+      "highStreetSecured": "3.0% - 5.4%",
+      "challengerUnsecured": "6.0% - 12.1%",
+      "alternativeUnsecured": "10.6% - 22.6%",
+      "commercialMortgage": "3.75% - 5.85%"
+    },
+    "commentary": "Market commentary for August 2022. The UK SME lending environment saw an average unsecured rate of 6.8%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.1bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 75%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "july-2022",
+    "monthYear": "July 2022",
+    "slug": "july-2022",
+    "unsecuredRate": "6.6%",
+    "unsecuredRateChange": "▼ 0.3% vs last month",
+    "approvalRate": "73%",
+    "approvalRateChange": "▼ 0.7% vs last month",
+    "assetFinanceVolume": "£3.0bn",
+    "assetFinanceVolumeChange": "▲ 3.9% YoY",
+    "rates": {
+      "highStreetSecured": "2.8% - 5.2%",
+      "challengerUnsecured": "5.8% - 11.9%",
+      "alternativeUnsecured": "10.4% - 22.4%",
+      "commercialMortgage": "3.55% - 5.65%"
+    },
+    "commentary": "Market commentary for July 2022. The UK SME lending environment saw an average unsecured rate of 6.6%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.0bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 73%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "june-2022",
+    "monthYear": "June 2022",
+    "slug": "june-2022",
+    "unsecuredRate": "6.5%",
+    "unsecuredRateChange": "▼ 0.3% vs last month",
+    "approvalRate": "74%",
+    "approvalRateChange": "▼ 1.0% vs last month",
+    "assetFinanceVolume": "£2.9bn",
+    "assetFinanceVolumeChange": "▼ 0.8% YoY",
+    "rates": {
+      "highStreetSecured": "2.7% - 5.1%",
+      "challengerUnsecured": "5.7% - 11.8%",
+      "alternativeUnsecured": "10.3% - 22.3%",
+      "commercialMortgage": "3.45% - 5.55%"
+    },
+    "commentary": "Market commentary for June 2022. The UK SME lending environment saw an average unsecured rate of 6.5%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.9bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 74%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "may-2022",
+    "monthYear": "May 2022",
+    "slug": "may-2022",
+    "unsecuredRate": "6.4%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "74%",
+    "approvalRateChange": "▼ 1.5% vs last month",
+    "assetFinanceVolume": "£3.0bn",
+    "assetFinanceVolumeChange": "▲ 0.9% YoY",
+    "rates": {
+      "highStreetSecured": "2.6% - 5.0%",
+      "challengerUnsecured": "5.6% - 11.7%",
+      "alternativeUnsecured": "10.2% - 22.2%",
+      "commercialMortgage": "3.35% - 5.45%"
+    },
+    "commentary": "Market commentary for May 2022. The UK SME lending environment saw an average unsecured rate of 6.4%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £3.0bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 74%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "april-2022",
+    "monthYear": "April 2022",
+    "slug": "april-2022",
+    "unsecuredRate": "6.1%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "77%",
+    "approvalRateChange": "▲ 0.3% vs last month",
+    "assetFinanceVolume": "£2.9bn",
+    "assetFinanceVolumeChange": "▼ 2.6% YoY",
+    "rates": {
+      "highStreetSecured": "2.3% - 4.7%",
+      "challengerUnsecured": "5.3% - 11.4%",
+      "alternativeUnsecured": "9.9% - 21.9%",
+      "commercialMortgage": "3.05% - 5.15%"
+    },
+    "commentary": "Market commentary for April 2022. The UK SME lending environment saw an average unsecured rate of 6.1%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.9bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 77%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "march-2022",
+    "monthYear": "March 2022",
+    "slug": "march-2022",
+    "unsecuredRate": "6.1%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "75%",
+    "approvalRateChange": "▼ 0.0% vs last month",
+    "assetFinanceVolume": "£2.8bn",
+    "assetFinanceVolumeChange": "▲ 2.1% YoY",
+    "rates": {
+      "highStreetSecured": "2.3% - 4.7%",
+      "challengerUnsecured": "5.3% - 11.4%",
+      "alternativeUnsecured": "9.9% - 21.9%",
+      "commercialMortgage": "3.05% - 5.15%"
+    },
+    "commentary": "Market commentary for March 2022. The UK SME lending environment saw an average unsecured rate of 6.1%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.8bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 75%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "february-2022",
+    "monthYear": "February 2022",
+    "slug": "february-2022",
+    "unsecuredRate": "6.0%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "76%",
+    "approvalRateChange": "▼ 0.6% vs last month",
+    "assetFinanceVolume": "£2.8bn",
+    "assetFinanceVolumeChange": "▲ 0.1% YoY",
+    "rates": {
+      "highStreetSecured": "2.2% - 4.6%",
+      "challengerUnsecured": "5.2% - 11.3%",
+      "alternativeUnsecured": "9.8% - 21.8%",
+      "commercialMortgage": "2.95% - 5.05%"
+    },
+    "commentary": "Market commentary for February 2022. The UK SME lending environment saw an average unsecured rate of 6.0%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.8bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 76%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "january-2022",
+    "monthYear": "January 2022",
+    "slug": "january-2022",
+    "unsecuredRate": "5.9%",
+    "unsecuredRateChange": "▼ 0.1% vs last month",
+    "approvalRate": "77%",
+    "approvalRateChange": "▲ 1.5% vs last month",
+    "assetFinanceVolume": "£2.7bn",
+    "assetFinanceVolumeChange": "▼ 2.6% YoY",
+    "rates": {
+      "highStreetSecured": "2.1% - 4.5%",
+      "challengerUnsecured": "5.1% - 11.2%",
+      "alternativeUnsecured": "9.7% - 21.7%",
+      "commercialMortgage": "2.85% - 4.95%"
+    },
+    "commentary": "Market commentary for January 2022. The UK SME lending environment saw an average unsecured rate of 5.9%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.7bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 77%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "december-2021",
+    "monthYear": "December 2021",
+    "slug": "december-2021",
+    "unsecuredRate": "5.6%",
+    "unsecuredRateChange": "▲ 0.0% vs last month",
+    "approvalRate": "78%",
+    "approvalRateChange": "▲ 1.2% vs last month",
+    "assetFinanceVolume": "£2.7bn",
+    "assetFinanceVolumeChange": "▲ 2.5% YoY",
+    "rates": {
+      "highStreetSecured": "1.8% - 4.2%",
+      "challengerUnsecured": "4.8% - 10.9%",
+      "alternativeUnsecured": "9.4% - 21.4%",
+      "commercialMortgage": "2.55% - 4.65%"
+    },
+    "commentary": "Market commentary for December 2021. The UK SME lending environment saw an average unsecured rate of 5.6%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.7bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 78%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "november-2021",
+    "monthYear": "November 2021",
+    "slug": "november-2021",
+    "unsecuredRate": "5.6%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "77%",
+    "approvalRateChange": "▲ 2.0% vs last month",
+    "assetFinanceVolume": "£2.5bn",
+    "assetFinanceVolumeChange": "▼ 2.1% YoY",
+    "rates": {
+      "highStreetSecured": "1.8% - 4.2%",
+      "challengerUnsecured": "4.8% - 10.9%",
+      "alternativeUnsecured": "9.4% - 21.4%",
+      "commercialMortgage": "2.55% - 4.65%"
+    },
+    "commentary": "Market commentary for November 2021. The UK SME lending environment saw an average unsecured rate of 5.6%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.5bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 77%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "october-2021",
+    "monthYear": "October 2021",
+    "slug": "october-2021",
+    "unsecuredRate": "5.4%",
+    "unsecuredRateChange": "▲ 0.3% vs last month",
+    "approvalRate": "80%",
+    "approvalRateChange": "▲ 1.8% vs last month",
+    "assetFinanceVolume": "£2.5bn",
+    "assetFinanceVolumeChange": "▼ 2.6% YoY",
+    "rates": {
+      "highStreetSecured": "1.6% - 4.0%",
+      "challengerUnsecured": "4.6% - 10.7%",
+      "alternativeUnsecured": "9.2% - 21.2%",
+      "commercialMortgage": "2.35% - 4.45%"
+    },
+    "commentary": "Market commentary for October 2021. The UK SME lending environment saw an average unsecured rate of 5.4%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.5bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 80%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "september-2021",
+    "monthYear": "September 2021",
+    "slug": "september-2021",
+    "unsecuredRate": "5.3%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "79%",
+    "approvalRateChange": "▲ 1.1% vs last month",
+    "assetFinanceVolume": "£2.6bn",
+    "assetFinanceVolumeChange": "▲ 3.7% YoY",
+    "rates": {
+      "highStreetSecured": "1.5% - 3.9%",
+      "challengerUnsecured": "4.5% - 10.6%",
+      "alternativeUnsecured": "9.1% - 21.1%",
+      "commercialMortgage": "2.25% - 4.35%"
+    },
+    "commentary": "Market commentary for September 2021. The UK SME lending environment saw an average unsecured rate of 5.3%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.6bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 79%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "august-2021",
+    "monthYear": "August 2021",
+    "slug": "august-2021",
+    "unsecuredRate": "4.9%",
+    "unsecuredRateChange": "▼ 0.1% vs last month",
+    "approvalRate": "81%",
+    "approvalRateChange": "▲ 0.6% vs last month",
+    "assetFinanceVolume": "£2.5bn",
+    "assetFinanceVolumeChange": "▲ 3.3% YoY",
+    "rates": {
+      "highStreetSecured": "1.1% - 3.5%",
+      "challengerUnsecured": "4.1% - 10.2%",
+      "alternativeUnsecured": "8.7% - 20.7%",
+      "commercialMortgage": "1.85% - 3.95%"
+    },
+    "commentary": "Market commentary for August 2021. The UK SME lending environment saw an average unsecured rate of 4.9%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.5bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 81%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "july-2021",
+    "monthYear": "July 2021",
+    "slug": "july-2021",
+    "unsecuredRate": "4.9%",
+    "unsecuredRateChange": "▲ 0.1% vs last month",
+    "approvalRate": "81%",
+    "approvalRateChange": "▼ 0.2% vs last month",
+    "assetFinanceVolume": "£2.3bn",
+    "assetFinanceVolumeChange": "▲ 4.4% YoY",
+    "rates": {
+      "highStreetSecured": "1.1% - 3.5%",
+      "challengerUnsecured": "4.1% - 10.2%",
+      "alternativeUnsecured": "8.7% - 20.7%",
+      "commercialMortgage": "1.85% - 3.95%"
+    },
+    "commentary": "Market commentary for July 2021. The UK SME lending environment saw an average unsecured rate of 4.9%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 81%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "june-2021",
+    "monthYear": "June 2021",
+    "slug": "june-2021",
+    "unsecuredRate": "4.7%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "80%",
+    "approvalRateChange": "▲ 0.2% vs last month",
+    "assetFinanceVolume": "£2.3bn",
+    "assetFinanceVolumeChange": "▲ 0.3% YoY",
+    "rates": {
+      "highStreetSecured": "0.9% - 3.3%",
+      "challengerUnsecured": "3.9% - 10.0%",
+      "alternativeUnsecured": "8.5% - 20.5%",
+      "commercialMortgage": "1.65% - 3.75%"
+    },
+    "commentary": "Market commentary for June 2021. The UK SME lending environment saw an average unsecured rate of 4.7%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 80%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "may-2021",
+    "monthYear": "May 2021",
+    "slug": "may-2021",
+    "unsecuredRate": "4.6%",
+    "unsecuredRateChange": "▼ 0.2% vs last month",
+    "approvalRate": "82%",
+    "approvalRateChange": "▼ 0.9% vs last month",
+    "assetFinanceVolume": "£2.3bn",
+    "assetFinanceVolumeChange": "▲ 2.4% YoY",
+    "rates": {
+      "highStreetSecured": "0.8% - 3.2%",
+      "challengerUnsecured": "3.8% - 9.9%",
+      "alternativeUnsecured": "8.4% - 20.4%",
+      "commercialMortgage": "1.55% - 3.65%"
+    },
+    "commentary": "Market commentary for May 2021. The UK SME lending environment saw an average unsecured rate of 4.6%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 82%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "april-2021",
+    "monthYear": "April 2021",
+    "slug": "april-2021",
+    "unsecuredRate": "4.4%",
+    "unsecuredRateChange": "▲ 0.2% vs last month",
+    "approvalRate": "83%",
+    "approvalRateChange": "▲ 0.0% vs last month",
+    "assetFinanceVolume": "£2.2bn",
+    "assetFinanceVolumeChange": "▼ 0.1% YoY",
+    "rates": {
+      "highStreetSecured": "0.6% - 3.0%",
+      "challengerUnsecured": "3.6% - 9.7%",
+      "alternativeUnsecured": "8.2% - 20.2%",
+      "commercialMortgage": "1.35% - 3.45%"
+    },
+    "commentary": "Market commentary for April 2021. The UK SME lending environment saw an average unsecured rate of 4.4%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.2bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 83%, reflecting strong liquidity in the market."
+  },
+  {
+    "id": "march-2021",
+    "monthYear": "March 2021",
+    "slug": "march-2021",
+    "unsecuredRate": "4.5%",
+    "unsecuredRateChange": "▼ 0.1% vs last month",
+    "approvalRate": "83%",
+    "approvalRateChange": "▼ 1.3% vs last month",
+    "assetFinanceVolume": "£2.3bn",
+    "assetFinanceVolumeChange": "▲ 2.0% YoY",
+    "rates": {
+      "highStreetSecured": "0.7% - 3.1%",
+      "challengerUnsecured": "3.7% - 9.8%",
+      "alternativeUnsecured": "8.3% - 20.3%",
+      "commercialMortgage": "1.45% - 3.55%"
+    },
+    "commentary": "Market commentary for March 2021. The UK SME lending environment saw an average unsecured rate of 4.5%, representing the general risk appetite of alternative lenders during this period. Asset finance volumes reached £2.3bn as businesses continued to invest in equipment and machinery. Specialist approval rates hovered around 83%, reflecting strong liquidity in the market."
+  }
+]

@@ -1,0 +1,211 @@
+.multi-step-page {
+    /* min-height handled by content */
+    background-color: var(--color-bg-light);
+}
+
+/* Replicate Service Page Hero manually if needed, or rely on global CSS if set */
+.service-hero {
+    background: var(--color-primary);
+    background-size: cover;
+    background-position: center;
+    color: var(--color-white);
+    padding: 10rem 0 8rem;
+    text-align: center;
+}
+
+.service-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.service-hero p {
+    font-size: 1.25rem;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.9;
+    color: var(--color-white);
+}
+
+.service-layout.single-column {
+    display: flex;
+    justify-content: center;
+    margin-top: -3rem;
+    /* Overlap the hero */
+    padding-bottom: 4rem;
+    position: relative;
+    z-index: 10;
+}
+
+.multi-step-container {
+    background: var(--color-white);
+    width: 100%;
+    max-width: 600px;
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Progress Bar */
+.progress-container {
+    margin-bottom: 2rem;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--color-secondary);
+    transition: width 0.4s ease;
+}
+
+/* Form Content */
+.step-content {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.step-title {
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.step-subtitle {
+    text-align: center;
+    color: #4a5568;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+/* Inputs specialized for quiz style */
+.quiz-input-group {
+    margin-bottom: 2rem;
+}
+
+.quiz-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    /* Reduced from 1.25rem for consistency */
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.quiz-input:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.quiz-options {
+    display: grid;
+    gap: 1rem;
+}
+
+.quiz-option {
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    background: white;
+    transition: all 0.2s;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.quiz-option:hover {
+    border-color: var(--color-secondary);
+    background: #fffdf0;
+}
+
+.quiz-option.selected {
+    border-color: var(--color-secondary);
+    background: #fffdf0;
+    font-weight: 600;
+}
+
+/* Buttons */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+.btn-back {
+    background: transparent;
+    border: none;
+    color: #718096;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+}
+
+.btn-back:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.btn-next {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.btn-next:hover {
+    transform: translateY(-2px);
+    background: #1a202c;
+}
+
+@media (max-width: 768px) {
+    .service-hero {
+        padding: 8rem 0 4rem;
+    }
+
+    .service-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .service-hero p {
+        font-size: 1rem;
+    }
+
+    .service-layout.single-column {
+        margin-top: -2rem;
+    }
+
+    .multi-step-container {
+        padding: 1.5rem;
+    }
+}

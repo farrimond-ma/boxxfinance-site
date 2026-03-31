@@ -1,0 +1,165 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: transparent;
+    padding: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-sm);
+    padding: 1rem 0;
+    backdrop-filter: blur(5px);
+}
+
+
+
+.navbar.scrolled .navbar-link {
+    color: var(--color-text-dark);
+}
+
+.navbar.scrolled .navbar-logo a {
+    color: var(--color-primary);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo a {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo-img {
+    height: 4.9rem;
+    width: auto;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+
+
+.navbar.scrolled .navbar-logo a {
+    color: var(--color-primary);
+}
+
+.navbar-logo span {
+    color: var(--color-secondary);
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navbar-link {
+    font-weight: 500;
+    color: var(--color-white);
+    position: relative;
+}
+
+.navbar-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--color-secondary);
+    transition: width 0.3s ease;
+}
+
+.navbar-link:hover::after {
+    width: 100%;
+}
+
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-white);
+    transition: 0.3s;
+}
+
+.navbar.scrolled .bar {
+    background-color: var(--color-primary);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        background-color: transparent !important;
+        padding: 1rem 0;
+        box-shadow: none !important;
+    }
+
+    .navbar-logo-img {
+        height: 3rem !important;
+    }
+
+    /* Ensure solid navbar on mobile behaves like scrolled/white */
+    .navbar.scrolled,
+    .navbar.navbar-solid {
+        background-color: var(--color-white) !important;
+        box-shadow: var(--shadow-sm) !important;
+    }
+
+    .navbar.scrolled .navbar-link,
+    .navbar.navbar-solid .navbar-link {
+        color: var(--color-primary);
+    }
+
+    .navbar.scrolled .bar,
+    .navbar.navbar-solid .bar {
+        background-color: var(--color-primary);
+    }
+
+    .navbar-logo a {
+        color: var(--color-white);
+    }
+
+    .navbar-link {
+        color: var(--color-primary);
+    }
+
+    .bar {
+        background-color: var(--color-white);
+    }
+
+    .navbar-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-white);
+        flex-direction: column;
+        padding: 2rem 0;
+        gap: 1.5rem;
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        box-shadow: var(--shadow-md);
+        z-index: -1;
+    }
+
+    .navbar-menu.active {
+        transform: translateY(0);
+    }
+
+    .navbar-toggle {
+        display: flex;
+    }
+}
