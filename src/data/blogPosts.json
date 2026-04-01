@@ -1,4 +1,40 @@
 [
+{
+  "id": 999,
+  "status": "published",
+  "title": "Test Article for GitHub Publishing",
+  "slug": "test-article-for-github-publishing",
+  "excerpt": "This is a test article to confirm that blogPosts.json is creating pages automatically on the Boxx site.",
+  "metaTitle": "Test Article for GitHub Publishing | Boxx Commercial Finance",
+  "metaDescription": "This is a test article to confirm that blogPosts.json is creating pages automatically on the Boxx site.",
+  "keywords": "test article, github publishing, boxx commercial finance",
+  "date": "2026-04-01",
+  "author": "Mark Higgins",
+  "authorEmail": "mark@boxxfinance.co.uk",
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is this a live test article?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. This article is being used to confirm that GitHub deployment and blog page creation are working correctly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does blogPosts.json create pages automatically?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Each article object added to blogPosts.json can be rendered automatically by the existing Blog and BlogPost React files."
+        }
+      }
+    ]
+  },
+  "content": "<p>This is a test article added directly into blogPosts.json.</p><p>If you can see this page live on the site, it means the automated article page system is working correctly.</p><h2>Why this matters</h2><p>It means future articles do not need new React pages creating manually.</p><p>They simply need to be added into the JSON file and GitHub will handle the rebuild and deployment.</p><h2>Frequently Asked Questions</h2><p><strong>Is this a live test article?</strong><br>Yes. This article is being used to confirm that GitHub deployment and blog page creation are working correctly.</p><p><strong>Does blogPosts.json create pages automatically?</strong><br>Yes. Each article object added to blogPosts.json can be rendered automatically by the existing Blog and BlogPost React files.</p><h2>Speak to Boxx Commercial Finance</h2><p><a href=\"/chat-about-funding\">Chat about funding</a></p>"
+}, 
   {
     "id": "ultimate-guide-commercial-finance-uk",
     "status": "published",
