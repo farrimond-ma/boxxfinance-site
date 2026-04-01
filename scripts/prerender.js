@@ -1,169 +1,148 @@
 import fs from 'fs';
 import path from 'path';
+import http from 'http';
 import { fileURLToPath } from 'url';
 import puppeteer from 'puppeteer';
-import { spawn, execSync } from 'child_process';
-import net from 'net';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DIST_DIR = path.join(__dirname, '../dist');
+const rootDir = path.resolve(__dirname, '..');
+const distDir = path.join(rootDir, 'dist');
+const dataPath = path.join(rootDir, 'src', 'data', 'blogPosts.json');
 
-// ── Kill any lingering vite preview processes ──────────────────────────────
-const killOrphanedServers = () => {
+const PORT = 4173;
+
+function mimeType(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+  const map = {
+    '.html': 'text/html; charset=utf-8',
+    '.js': 'application/javascript; charset=utf-8',
+    '.mjs': 'application/javascript; charset=utf-8',
+    '.css': 'text/css; charset=utf-8',
+    '.json': 'application/json; charset=utf-8',
+    '.svg': 'image/svg+xml',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.webp': 'image/webp',
+    '.gif': 'image/gif',
+    '.ico': 'image/x-icon',
+    '.xml': 'application/xml; charset=utf-8',
+    '.txt': 'text/plain; charset=utf-8',
+    '.woff': 'font/woff',
+    '.woff2': 'font/woff2'
+  };
+  return map[ext] || 'application/octet-stream';
+}
+
+function startStaticServer() {
+  const server = http.createServer((req, res) => {
     try {
-        execSync('taskkill /f /im node.exe /fi "WINDOWTITLE eq vite*"', { stdio: 'ignore' });
-    } catch (_) { }
-    // Aggressively free ports 4173-4190
-    for (let p = 4173; p <= 4190; p++) {
-        try {
-            execSync(`for /f "tokens=5" %a in ('netstat -aon ^| findstr :${p}') do taskkill /f /pid %a`, { stdio: 'ignore', shell: true });
-        } catch (_) { }
+      let reqPath = decodeURIComponent((req.url || '/').split('?')[0]);
+      if (reqPath === '/') reqPath = '/index.html';
+
+      let filePath = path.join(distDir, reqPath);
+
+      if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+        filePath = path.join(filePath, 'index.html');
+      }
+
+      if (!fs.existsSync(filePath)) {
+        filePath = path.join(distDir, 'index.html');
+      }
+
+      const data = fs.readFileSync(filePath);
+      res.writeHead(200, { 'Content-Type': mimeType(filePath) });
+      res.end(data);
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end(`Server error: ${err.message}`);
     }
-};
+  });
 
-// ── Find a free port ───────────────────────────────────────────────────────
-const findFreePort = (start = 4173) => new Promise((resolve, reject) => {
-    const server = net.createServer();
-    server.listen(start, () => {
-        const { port } = server.address();
-        server.close(() => resolve(port));
-    });
-    server.on('error', () => findFreePort(start + 1).then(resolve).catch(reject));
-});
+  return new Promise((resolve) => {
+    server.listen(PORT, () => resolve(server));
+  });
+}
 
-// ── Route helpers ──────────────────────────────────────────────────────────
-const getServiceSlugs = () => {
-    try {
-        const content = fs.readFileSync(path.join(__dirname, '../src/data/services.jsx'), 'utf8');
-        const slugs = [];
-        const lines = content.split('\n');
-        let inside = false;
-        for (const line of lines) {
-            if (line.includes('export const serviceContent = {')) { inside = true; continue; }
-            if (inside && line.trim() === '};') { inside = false; break; }
-            if (inside) {
-                const m = line.match(/^ {4}['"]?([a-zA-Z0-9-]+)['"]?:\s*\{/);
-                if (m) slugs.push(m[1]);
-            }
-        }
-        return slugs;
-    } catch (e) { console.warn('Could not read services.jsx', e); return []; }
-};
+function ensureDir(dirPath) {
+  fs.mkdirSync(dirPath, { recursive: true });
+}
 
-const getSmeFundingSlugs = () => {
-    try {
-        const content = fs.readFileSync(path.join(__dirname, '../src/data/smeFundingData.json'), 'utf8');
-        const smeData = JSON.parse(content);
-        return smeData.map(item => item.slug).filter(slug => slug !== 'latest');
-    } catch (e) {
-        console.warn('Could not read smeFundingData.json', e);
-        return [];
-    }
-};
+async function renderRoute(browser, route) {
+  const page = await browser.newPage();
+  await page.goto(`http://127.0.0.1:${PORT}${route}`, {
+    waitUntil: 'networkidle0',
+    timeout: 120000
+  });
 
-const getBlogSlugs = () => {
-    try {
-        const content = fs.readFileSync(path.join(__dirname, '../src/data/blogPosts.json'), 'utf8');
-        const blogPosts = JSON.parse(content);
-        const slugs = [];
-        const now = new Date();
+  const html = await page.content();
+  await page.close();
 
-        for (const post of blogPosts) {
-            if (post.status === 'published' || (post.publishDate && new Date(post.publishDate) <= now)) {
-                if (post.slug) slugs.push(post.slug);
-            }
-        }
-        return slugs;
-    } catch (e) {
-        console.warn('Could not read blogPosts.json', e);
-        return [];
-    }
-};
+  const cleanRoute = route.startsWith('/') ? route.slice(1) : route;
+  const outputDir = cleanRoute ? path.join(distDir, cleanRoute) : distDir;
+  ensureDir(outputDir);
 
-const routes = [
+  const outputPath = path.join(outputDir, 'index.html');
+  fs.writeFileSync(outputPath, html, 'utf8');
+
+  console.log(`Prerendered: ${route} -> ${outputPath}`);
+}
+
+async function main() {
+  if (!fs.existsSync(distDir)) {
+    throw new Error(`dist folder not found at ${distDir}`);
+  }
+
+  if (!fs.existsSync(dataPath)) {
+    throw new Error(`blogPosts.json not found at ${dataPath}`);
+  }
+
+  const blogPosts = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+
+  const routes = new Set([
     '/',
-    '/insights',
-    '/uk-sme-funding-index',
-    '/chat-about-funding',
-    '/privacy-policy',
-    '/legal-disclaimer',
-    '/terms-and-conditions',
-];
-getServiceSlugs().forEach(s => routes.push(`/funding-solutions/${s}`));
-getBlogSlugs().forEach(s => routes.push(`/insights/${s}`));
-getSmeFundingSlugs().forEach(s => routes.push(`/uk-sme-funding-index/${s}`));
+    '/insights'
+  ]);
 
-// ── Start preview server on a known free port ──────────────────────────────
-const startServer = async (port) => {
-    return new Promise((resolve, reject) => {
-        const server = spawn('npx', ['vite', 'preview', '--port', String(port), '--strictPort'], {
-            cwd: path.join(__dirname, '..'),
-            stdio: ['ignore', 'pipe', 'pipe'],
-            shell: true,
-            windowsHide: true,
-        });
-
-        let ready = false;
-        const onData = (data) => {
-            if (!ready && data.toString().includes('localhost')) {
-                ready = true;
-                resolve(server);
-            }
-        };
-        server.stdout.on('data', onData);
-        server.stderr.on('data', onData);
-
-        setTimeout(() => {
-            if (!ready) { ready = true; resolve(server); }
-        }, 8000);
-
-        server.on('error', reject);
-    });
-};
-
-// ── Main prerender ─────────────────────────────────────────────────────────
-const prerender = async () => {
-    console.log('\n🔧 Killing any orphaned preview servers...');
-    killOrphanedServers();
-    await new Promise(r => setTimeout(r, 1000));
-
-    const port = await findFreePort(4173);
-    console.log(`🚀 Starting preview server on port ${port}...`);
-    const serverProcess = await startServer(port);
-    const BASE_URL = `http://localhost:${port}`;
-
-    console.log(`✅ Server ready at ${BASE_URL}\n`);
-
-    const browser = await puppeteer.launch({ headless: 'new' });
-    const page = await browser.newPage();
-
-    for (const route of routes) {
-        process.stdout.write(`   Prerendering: ${route} ...`);
-        try {
-            await page.goto(`${BASE_URL}${route}`, { waitUntil: 'networkidle0', timeout: 30000 });
-            try { await page.waitForSelector('#root', { timeout: 5000 }); } catch (_) { }
-
-            const html = await page.content();
-            const filePath = route === '/'
-                ? path.join(DIST_DIR, 'index.html')
-                : path.join(DIST_DIR, route, 'index.html');
-
-            fs.mkdirSync(path.dirname(filePath), { recursive: true });
-            fs.writeFileSync(filePath, html);
-            process.stdout.write(' ✓\n');
-        } catch (err) {
-            process.stdout.write(` ✗ ${err.message}\n`);
-        }
+  for (const post of blogPosts) {
+    if (post?.slug) {
+      routes.add(`/insights/${post.slug}`);
     }
+  }
 
+  const executablePath =
+    process.env.PUPPETEER_EXECUTABLE_PATH ||
+    process.env.CHROME_BIN ||
+    undefined;
+
+  const browser = await puppeteer.launch({
+    headless: true,
+    executablePath,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--no-zygote',
+      '--single-process'
+    ]
+  });
+
+  const server = await startStaticServer();
+
+  try {
+    for (const route of routes) {
+      await renderRoute(browser, route);
+    }
+  } finally {
     await browser.close();
-    console.log('\n✅ Prerendering complete.');
+    server.close();
+  }
+}
 
-    // Clean kill on Windows
-    try { execSync(`taskkill /pid ${serverProcess.pid} /f /t`, { stdio: 'ignore' }); } catch (_) { }
-    process.exit(0);
-};
-
-prerender().catch(err => { console.error(err); process.exit(1); });
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
