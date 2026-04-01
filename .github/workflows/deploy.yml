@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
@@ -27,6 +30,8 @@ jobs:
       - name: Build site
         env:
           CI: false
+          PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: npm run build:ci
 
       - name: Deploy via FTP
