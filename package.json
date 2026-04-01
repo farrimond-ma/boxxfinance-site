@@ -6,7 +6,7 @@
   "scripts": {
   "dev": "vite",
   "build": "vite build && npm run prerender && npm run sitemap && npm run rss && npm run rss-linkedin",
-  "build:ci": "vite build && npm run sitemap && npm run rss && npm run rss-linkedin",
+  "build:ci": "vite build && npm run prerender && npm run sitemap && npm run rss && npm run rss-linkedin",
   "prerender": "node scripts/prerender.js",
   "lint": "eslint .",
   "preview": "vite preview",
@@ -17,7 +17,7 @@
   "deploy:full": "npm run build && node scripts/deploy-ftp.js",
   "deploy:ftp": "node scripts/deploy-ftp.js",
   "watch:deploy": "vite build --watch --mode production"
-  },
+}
   "dependencies": {
     "pdf-parse": "^2.4.5",
     "react": "^19.2.0",
