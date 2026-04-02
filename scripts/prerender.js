@@ -40,7 +40,10 @@ function startStaticServer() {
   const server = http.createServer((req, res) => {
     try {
       let reqPath = decodeURIComponent((req.url || '/').split('?')[0]);
-      if (reqPath === '/') reqPath = '/index.html';
+
+      if (reqPath === '/') {
+        reqPath = '/index.html';
+      }
 
       let filePath = path.join(distDir, reqPath);
 
@@ -70,14 +73,35 @@ function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
 }
 
-async function renderRoute(browser, route) {
+async function renderRoute(browser, route, expectedSlug = null) {
   const page = await browser.newPage();
+
   await page.goto(`http://127.0.0.1:${PORT}${route}`, {
     waitUntil: 'networkidle0',
     timeout: 120000
   });
 
+  if (route.startsWith('/insights/')) {
+    await page.waitForSelector('.blog-post-content', {
+      timeout: 10000
+    }).catch(() => {
+      console.log(`Blog content selector not found for ${route}`);
+    });
+  }
+
+  const finalUrl = page.url();
   const html = await page.content();
+
+  if (expectedSlug) {
+    if (finalUrl.endsWith('/insights') || finalUrl.endsWith('/insights/')) {
+      throw new Error(`Prerender failed for ${route}: page redirected to /insights instead of rendering article.`);
+    }
+
+    if (!html.includes(expectedSlug)) {
+      throw new Error(`Prerender failed for ${route}: rendered HTML does not contain expected slug "${expectedSlug}".`);
+    }
+  }
+
   await page.close();
 
   const cleanRoute = route.startsWith('/') ? route.slice(1) : route;
@@ -101,17 +125,6 @@ async function main() {
 
   const blogPosts = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 
-  const routes = new Set([
-    '/',
-    '/insights'
-  ]);
-
-  for (const post of blogPosts) {
-    if (post?.slug) {
-      routes.add(`/insights/${post.slug}`);
-    }
-  }
-
   const executablePath =
     process.env.PUPPETEER_EXECUTABLE_PATH ||
     process.env.CHROME_BIN ||
@@ -133,8 +146,13 @@ async function main() {
   const server = await startStaticServer();
 
   try {
-    for (const route of routes) {
-      await renderRoute(browser, route);
+    await renderRoute(browser, '/');
+    await renderRoute(browser, '/insights');
+
+    for (const post of blogPosts) {
+      if (post?.slug) {
+        await renderRoute(browser, `/insights/${post.slug}`, post.slug);
+      }
     }
   } finally {
     await browser.close();
