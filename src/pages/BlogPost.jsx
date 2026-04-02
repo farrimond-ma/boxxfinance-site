@@ -10,11 +10,14 @@ import '../components/About.css';
 const BlogPost = () => {
     const { slug } = useParams();
 
-    const normalisedSlug = decodeURIComponent((slug || '').trim())
+    const normalisedSlug = decodeURIComponent(String(slug || ''))
+        .trim()
         .replace(/^\/+|\/+$/g, '')
         .toLowerCase();
 
-    const post = blogPosts.find((p) => {
+    const publishedPosts = blogPosts.filter((post) => post && post.status === 'published');
+
+    const post = publishedPosts.find((p) => {
         const postSlug = String(p.slug || '')
             .trim()
             .replace(/^\/+|\/+$/g, '')
@@ -31,11 +34,8 @@ const BlogPost = () => {
     ];
 
     const sidebarImage = useMemo(() => {
-        if (normalisedSlug === 'merchant-cash-advance-retailers') {
-            return '/about_bg.png';
-        }
         return sidebarImages[Math.floor(Math.random() * sidebarImages.length)];
-    }, [normalisedSlug]);
+    }, []);
 
     const formatDate = (dateStr) => {
         const d = new Date(dateStr);
@@ -71,23 +71,23 @@ const BlogPost = () => {
                 <div className="blog-hero" style={{ padding: '10rem 0 6rem' }}>
                     <div className="container">
                         <h1>Article <span className="text-highlight">Not Found</span></h1>
-                        <p>The article slug in the URL did not match any post in blogPosts.json.</p>
+                        <p>The requested article slug did not match any published post.</p>
                     </div>
                 </div>
 
                 <div className="container" style={{ paddingBottom: '4rem' }}>
                     <div className="blog-main-card">
-                        <p><strong>Requested slug:</strong> {slug}</p>
-                        <p><strong>Normalised slug:</strong> {normalisedSlug}</p>
+                        <p><strong>Requested slug:</strong> {normalisedSlug}</p>
+                        <p><strong>Published posts found:</strong> {publishedPosts.length}</p>
 
-                        <h2>Available article slugs</h2>
+                        <h2>Available slugs</h2>
                         <ul>
-                            {blogPosts.map((p) => (
+                            {publishedPosts.map((p) => (
                                 <li key={p.id || p.slug}>{p.slug}</li>
                             ))}
                         </ul>
 
-                        <p>
+                        <p style={{ marginTop: '1.5rem' }}>
                             <Link to="/insights" className="read-more">Back to Insights</Link>
                         </p>
                     </div>
@@ -138,10 +138,14 @@ const BlogPost = () => {
                                 <p className="director-bio">{authorData.bio}</p>
                                 <div className="director-social-links">
                                     <div className="contact-link-row">
-                                        <a href={`mailto:${authorData.email}`} className="director-email gold-link">{authorData.email}</a>
+                                        <a href={`mailto:${authorData.email}`} className="director-email gold-link">
+                                            {authorData.email}
+                                        </a>
                                     </div>
                                     <div className="contact-link-row">
-                                        <a href="tel:03300434281" className="director-phone gold-link">0330 043 4281</a>
+                                        <a href="tel:03300434281" className="director-phone gold-link">
+                                            0330 043 4281
+                                        </a>
                                     </div>
                                     {authorData.linkedIn && (
                                         <div className="contact-link-row">
