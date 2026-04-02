@@ -73,7 +73,33 @@ function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
 }
 
-async function renderRoute(browser, route, isArticleRoute = false) {
+async function waitForInsightsPage(page, expectedMinimumCards = 2) {
+  await page.waitForSelector('.blog-card', {
+    timeout: 15000
+  });
+
+  await page.waitForFunction(
+    (minCards) => {
+      return document.querySelectorAll('.blog-card').length >= minCards;
+    },
+    { timeout: 15000 },
+    expectedMinimumCards
+  );
+}
+
+async function waitForArticlePage(page) {
+  await page.waitForSelector('.blog-post-content', {
+    timeout: 15000
+  });
+}
+
+async function renderRoute(browser, route, options = {}) {
+  const {
+    isArticleRoute = false,
+    isInsightsRoute = false,
+    expectedMinimumCards = 2
+  } = options;
+
   const page = await browser.newPage();
 
   await page.goto(`http://127.0.0.1:${PORT}${route}`, {
@@ -81,13 +107,16 @@ async function renderRoute(browser, route, isArticleRoute = false) {
     timeout: 120000
   });
 
-  if (isArticleRoute) {
-    await page.waitForSelector('.blog-post-content', {
-      timeout: 10000
-    }).catch(() => {
-      console.log(`Blog content selector not found for ${route}`);
-    });
+  if (isInsightsRoute) {
+    await waitForInsightsPage(page, expectedMinimumCards);
   }
+
+  if (isArticleRoute) {
+    await waitForArticlePage(page);
+  }
+
+  // Small extra wait to let React fully settle before capturing
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const finalUrl = page.url();
   const html = await page.content();
@@ -108,6 +137,15 @@ async function renderRoute(browser, route, isArticleRoute = false) {
 
     if (html.includes('Article Not Found')) {
       throw new Error(`Prerender failed for ${route}: rendered the Article Not Found page.`);
+    }
+  }
+
+  if (isInsightsRoute) {
+    const cardMatches = html.match(/class="blog-card"/g) || [];
+    if (cardMatches.length < expectedMinimumCards) {
+      throw new Error(
+        `Prerender failed for ${route}: only ${cardMatches.length} blog cards were rendered, expected at least ${expectedMinimumCards}.`
+      );
     }
   }
 
@@ -133,6 +171,7 @@ async function main() {
   }
 
   const blogPosts = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+  const publishedPosts = blogPosts.filter((post) => post.status === 'published');
 
   const executablePath =
     process.env.PUPPETEER_EXECUTABLE_PATH ||
@@ -156,11 +195,16 @@ async function main() {
 
   try {
     await renderRoute(browser, '/');
-    await renderRoute(browser, '/insights');
+    await renderRoute(browser, '/insights', {
+      isInsightsRoute: true,
+      expectedMinimumCards: Math.min(2, publishedPosts.length || 1)
+    });
 
-    for (const post of blogPosts) {
+    for (const post of publishedPosts) {
       if (post?.slug) {
-        await renderRoute(browser, `/insights/${post.slug}`, true);
+        await renderRoute(browser, `/insights/${post.slug}`, {
+          isArticleRoute: true
+        });
       }
     }
   } finally {
