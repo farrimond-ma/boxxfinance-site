@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './Layout';
 import Home from './pages/Home';
 import ServicePage from './pages/ServicePage';
@@ -11,7 +11,6 @@ import LegalDisclaimer from './pages/LegalDisclaimer';
 import TermsConditions from './pages/TermsConditions';
 import SmeFundingIndex from './pages/SmeFundingIndex';
 import './App.css';
-
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -31,8 +30,7 @@ function App() {
           <Route path="terms-and-conditions" element={<TermsConditions />} />
           <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
           <Route path="uk-sme-funding-index/:archiveSlug" element={<SmeFundingIndex />} />
-          {/* Fallback for unknown routes */}
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </>
