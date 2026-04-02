@@ -19,13 +19,14 @@ jobs:
           node-version: 20
 
       - name: Setup Chrome
+        id: setup-chrome
         uses: browser-actions/setup-chrome@v1
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
       - name: Check blogPosts.json content
-        run: head -n 40 src/data/blogPosts.json
+        run: head -n 60 src/data/blogPosts.json
 
       - name: Build site
         env:
@@ -34,6 +35,15 @@ jobs:
           CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: npm run build:ci
 
+      - name: Show built insights folder
+        run: |
+          echo "=== DIST ROOT ==="
+          ls -la dist
+          echo "=== DIST INSIGHTS ==="
+          ls -la dist/insights || true
+          echo "=== DIST TEST ARTICLE ==="
+          ls -la dist/insights/test-article-for-github-publishing || true
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -41,3 +51,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
+          server-dir: boxxfinance.co.uk/public_html/
