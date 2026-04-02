@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import React, { useMemo, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import blogPosts from '../data/blogPosts.json';
 import Sidebar from '../components/Sidebar';
 import SEO from '../components/SEO';
@@ -10,8 +10,13 @@ import '../components/About.css';
 const BlogPost = () => {
     const { slug } = useParams();
     const [imageError, setImageError] = useState(false);
-    const post = blogPosts.find(p => p.slug === slug);
-    console.log(`DEBUG: Viewing post [${slug}]:`, post);
+
+    const normalisedSlug = decodeURIComponent((slug || '').replace(/^\/+|\/+$/g, '').trim()).toLowerCase();
+
+    const post = blogPosts.find((p) => {
+        const postSlug = String(p.slug || '').replace(/^\/+|\/+$/g, '').trim().toLowerCase();
+        return postSlug === normalisedSlug;
+    });
 
     const sidebarImages = [
         '/header_bg.png',
@@ -21,16 +26,11 @@ const BlogPost = () => {
     ];
 
     const sidebarImage = useMemo(() => {
-        if (slug === 'merchant-cash-advance-retailers') {
+        if (normalisedSlug === 'merchant-cash-advance-retailers') {
             return '/about_bg.png';
         }
         return sidebarImages[Math.floor(Math.random() * sidebarImages.length)];
-    }, [slug]);
-
-    if (!post) {
-        return <Navigate to="/insights" replace />;
-    }
-
+    }, [normalisedSlug]);
 
     const formatDate = (dateStr) => {
         const d = new Date(dateStr);
@@ -54,6 +54,38 @@ const BlogPost = () => {
         }
     };
 
+    if (!post) {
+        return (
+            <div className="blog-post-page">
+                <div className="blog-hero" style={{ padding: '10rem 0 6rem' }}>
+                    <div className="container">
+                        <h1>Article <span className="text-highlight">Not Found</span></h1>
+                        <p>The article slug in the URL did not match any post in blogPosts.json.</p>
+                    </div>
+                </div>
+
+                <div className="container" style={{ paddingBottom: '4rem' }}>
+                    <div className="blog-main-card">
+                        <h2>Debug information</h2>
+                        <p><strong>Requested slug:</strong> {slug}</p>
+                        <p><strong>Normalised slug:</strong> {normalisedSlug}</p>
+                        <h3>Available slugs in blogPosts.json</h3>
+                        <ul>
+                            {blogPosts.map((p) => (
+                                <li key={p.id || p.slug}>
+                                    {p.slug}
+                                </li>
+                            ))}
+                        </ul>
+                        <p>
+                            <Link to="/insights" className="read-more">Back to Insights</Link>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     const authorData = authors[post.author] || authors['Mark Higgins'];
 
     return (
@@ -65,6 +97,7 @@ const BlogPost = () => {
                 schema={post.schema}
                 type="article"
             />
+
             <div className="blog-hero" style={{ padding: '10rem 0 6rem' }}>
                 <div className="container">
                     <h1>
@@ -78,13 +111,14 @@ const BlogPost = () => {
             </div>
 
             <div className="container blog-layout">
-                {/* Main Content */}
                 <div className="blog-main">
                     <div className="blog-main-card">
-                        <div className="blog-post-content" dangerouslySetInnerHTML={{ __html: post.content }}></div>
+                        <div
+                            className="blog-post-content"
+                            dangerouslySetInnerHTML={{ __html: post.content || '<p>No article content found.</p>' }}
+                        />
                     </div>
 
-                    {/* Author Bio - Moved inside blog-main to match content width */}
                     <div className="director-cards single-column" style={{ marginTop: '0', marginBottom: '3rem' }}>
                         <div className="director-card">
                             <img src={authorData.image} alt={post.author} className="director-avatar-photo" />
@@ -101,7 +135,13 @@ const BlogPost = () => {
                                     </div>
                                     {authorData.linkedIn && (
                                         <div className="contact-link-row">
-                                            <a href={authorData.linkedIn} target="_blank" rel="noopener noreferrer" className="director-linkedin-btn" title="Connect on LinkedIn">
+                                            <a
+                                                href={authorData.linkedIn}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="director-linkedin-btn"
+                                                title="Connect on LinkedIn"
+                                            >
                                                 <svg className="linkedin-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                                                 </svg>
@@ -114,13 +154,11 @@ const BlogPost = () => {
                         </div>
                     </div>
 
-                    {/* Related Articles - Moved inside blog-main to ensure left alignment with content */}
                     <div style={{ marginBottom: '4rem' }}>
-                        <RelatedArticles currentSlug={slug} />
+                        <RelatedArticles currentSlug={post.slug} />
                     </div>
                 </div>
 
-                {/* Sidebar */}
                 <div className="blog-sidebar">
                     <div className="sidebar-overlap-image">
                         <img src={sidebarImage} alt="Commercial finance funding specialists — Boxx Commercial Finance" />
