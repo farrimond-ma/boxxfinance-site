@@ -73,7 +73,7 @@ function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
 }
 
-async function renderRoute(browser, route, expectedSlug = null) {
+async function renderRoute(browser, route, isArticleRoute = false) {
   const page = await browser.newPage();
 
   await page.goto(`http://127.0.0.1:${PORT}${route}`, {
@@ -81,7 +81,7 @@ async function renderRoute(browser, route, expectedSlug = null) {
     timeout: 120000
   });
 
-  if (route.startsWith('/insights/')) {
+  if (isArticleRoute) {
     await page.waitForSelector('.blog-post-content', {
       timeout: 10000
     }).catch(() => {
@@ -92,13 +92,22 @@ async function renderRoute(browser, route, expectedSlug = null) {
   const finalUrl = page.url();
   const html = await page.content();
 
-  if (expectedSlug) {
-    if (finalUrl.endsWith('/insights') || finalUrl.endsWith('/insights/')) {
-      throw new Error(`Prerender failed for ${route}: page redirected to /insights instead of rendering article.`);
+  if (isArticleRoute) {
+    if (
+      finalUrl.endsWith('/insights') ||
+      finalUrl.endsWith('/insights/') ||
+      finalUrl.endsWith('/') ||
+      finalUrl === `http://127.0.0.1:${PORT}/`
+    ) {
+      throw new Error(`Prerender failed for ${route}: page redirected to ${finalUrl}`);
     }
 
-    if (!html.includes(expectedSlug)) {
-      throw new Error(`Prerender failed for ${route}: rendered HTML does not contain expected slug "${expectedSlug}".`);
+    if (!html.includes('blog-post-content')) {
+      throw new Error(`Prerender failed for ${route}: rendered HTML does not contain the article content container.`);
+    }
+
+    if (html.includes('Article Not Found')) {
+      throw new Error(`Prerender failed for ${route}: rendered the Article Not Found page.`);
     }
   }
 
@@ -151,7 +160,7 @@ async function main() {
 
     for (const post of blogPosts) {
       if (post?.slug) {
-        await renderRoute(browser, `/insights/${post.slug}`, post.slug);
+        await renderRoute(browser, `/insights/${post.slug}`, true);
       }
     }
   } finally {
