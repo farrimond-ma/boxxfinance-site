@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import blogPosts from '../data/blogPosts.json';
 import Sidebar from '../components/Sidebar';
@@ -9,12 +9,17 @@ import '../components/About.css';
 
 const BlogPost = () => {
     const { slug } = useParams();
-    const [imageError, setImageError] = useState(false);
 
-    const normalisedSlug = decodeURIComponent((slug || '').replace(/^\/+|\/+$/g, '').trim()).toLowerCase();
+    const normalisedSlug = decodeURIComponent((slug || '').trim())
+        .replace(/^\/+|\/+$/g, '')
+        .toLowerCase();
 
     const post = blogPosts.find((p) => {
-        const postSlug = String(p.slug || '').replace(/^\/+|\/+$/g, '').trim().toLowerCase();
+        const postSlug = String(p.slug || '')
+            .trim()
+            .replace(/^\/+|\/+$/g, '')
+            .toLowerCase();
+
         return postSlug === normalisedSlug;
     });
 
@@ -57,6 +62,12 @@ const BlogPost = () => {
     if (!post) {
         return (
             <div className="blog-post-page">
+                <SEO
+                    title="Article Not Found | Boxx Commercial Finance"
+                    description="The requested article could not be found."
+                    keywords="boxx commercial finance, insights"
+                />
+
                 <div className="blog-hero" style={{ padding: '10rem 0 6rem' }}>
                     <div className="container">
                         <h1>Article <span className="text-highlight">Not Found</span></h1>
@@ -66,17 +77,16 @@ const BlogPost = () => {
 
                 <div className="container" style={{ paddingBottom: '4rem' }}>
                     <div className="blog-main-card">
-                        <h2>Debug information</h2>
                         <p><strong>Requested slug:</strong> {slug}</p>
                         <p><strong>Normalised slug:</strong> {normalisedSlug}</p>
-                        <h3>Available slugs in blogPosts.json</h3>
+
+                        <h2>Available article slugs</h2>
                         <ul>
                             {blogPosts.map((p) => (
-                                <li key={p.id || p.slug}>
-                                    {p.slug}
-                                </li>
+                                <li key={p.id || p.slug}>{p.slug}</li>
                             ))}
                         </ul>
+
                         <p>
                             <Link to="/insights" className="read-more">Back to Insights</Link>
                         </p>
