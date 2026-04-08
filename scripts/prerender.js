@@ -9,7 +9,8 @@ const __dirname = path.dirname(__filename);
 
 const rootDir = path.resolve(__dirname, '..');
 const distDir = path.join(rootDir, 'dist');
-const dataPath = path.join(rootDir, 'src', 'data', 'blogPosts.json');
+const blogDataPath = path.join(rootDir, 'src', 'data', 'blogPosts.json');
+const locationDataPath = path.join(rootDir, 'src', 'data', 'locationPages.json');
 
 const PORT = 4173;
 
@@ -93,10 +94,17 @@ async function waitForArticlePage(page) {
   });
 }
 
+async function waitForLocationPage(page) {
+  await page.waitForSelector('main h1', {
+    timeout: 15000
+  });
+}
+
 async function renderRoute(browser, route, options = {}) {
   const {
     isArticleRoute = false,
     isInsightsRoute = false,
+    isLocationRoute = false,
     expectedMinimumCards = 2
   } = options;
 
@@ -113,6 +121,10 @@ async function renderRoute(browser, route, options = {}) {
 
   if (isArticleRoute) {
     await waitForArticlePage(page);
+  }
+
+  if (isLocationRoute) {
+    await waitForLocationPage(page);
   }
 
   // Small extra wait to let React fully settle before capturing
@@ -149,6 +161,23 @@ async function renderRoute(browser, route, options = {}) {
     }
   }
 
+  if (isLocationRoute) {
+    if (
+      finalUrl.endsWith('/') ||
+      finalUrl === `http://127.0.0.1:${PORT}/`
+    ) {
+      throw new Error(`Prerender failed for ${route}: page redirected to ${finalUrl}`);
+    }
+
+    if (html.includes('Page not found')) {
+      throw new Error(`Prerender failed for ${route}: rendered the Page not found view.`);
+    }
+
+    if (!html.includes('<h1')) {
+      throw new Error(`Prerender failed for ${route}: rendered HTML does not contain an h1.`);
+    }
+  }
+
   await page.close();
 
   const cleanRoute = route.startsWith('/') ? route.slice(1) : route;
@@ -166,12 +195,19 @@ async function main() {
     throw new Error(`dist folder not found at ${distDir}`);
   }
 
-  if (!fs.existsSync(dataPath)) {
-    throw new Error(`blogPosts.json not found at ${dataPath}`);
+  if (!fs.existsSync(blogDataPath)) {
+    throw new Error(`blogPosts.json not found at ${blogDataPath}`);
   }
 
-  const blogPosts = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+  if (!fs.existsSync(locationDataPath)) {
+    throw new Error(`locationPages.json not found at ${locationDataPath}`);
+  }
+
+  const blogPosts = JSON.parse(fs.readFileSync(blogDataPath, 'utf8'));
   const publishedPosts = blogPosts.filter((post) => post.status === 'published');
+
+  const locationPages = JSON.parse(fs.readFileSync(locationDataPath, 'utf8'));
+  const publishedLocationPages = locationPages.filter((page) => page.status === 'published');
 
   const executablePath =
     process.env.PUPPETEER_EXECUTABLE_PATH ||
@@ -204,6 +240,14 @@ async function main() {
       if (post?.slug) {
         await renderRoute(browser, `/insights/${post.slug}`, {
           isArticleRoute: true
+        });
+      }
+    }
+
+    for (const locationPage of publishedLocationPages) {
+      if (locationPage?.slug) {
+        await renderRoute(browser, `/locations/${locationPage.slug}`, {
+          isLocationRoute: true
         });
       }
     }
