@@ -32,7 +32,7 @@ function App() {
           <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
           <Route path="uk-sme-funding-index/:archiveSlug" element={<SmeFundingIndex />} />
           <Route path="*" element={<Navigate to="/" replace />} />
-          <Route path="/:slug" element={<LocationPage />} />
+         <Route path="/locations/:slug" element={<LocationPage />} />
         </Route>
       </Routes>
     </>
