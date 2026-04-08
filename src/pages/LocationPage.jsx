@@ -5,8 +5,10 @@ import locationPages from "../data/locationPages.json";
 export default function LocationPage() {
   const { slug } = useParams();
 
+  const cleanSlug = slug ? slug.replace(/\.html$/, "") : "";
+
   const page = locationPages.find(
-    (item) => item.slug === slug && item.status === "published"
+    (item) => item.slug === cleanSlug && item.status === "published"
   );
 
   const pageStyle = {
@@ -53,14 +55,11 @@ export default function LocationPage() {
           name="keywords"
           content={`${page.title.toLowerCase()}, ${page.location.toLowerCase()} business finance, uk commercial finance`}
         />
-
         <link rel="canonical" href={canonicalUrl} />
-
         <meta property="og:type" content="website" />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:url" content={canonicalUrl} />
-
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
@@ -85,9 +84,7 @@ export default function LocationPage() {
 
       <main style={pageStyle} data-page-type="location-page">
         <h1>{page.title}</h1>
-
         <div dangerouslySetInnerHTML={{ __html: page.content }} />
-
         <div style={{ marginTop: "40px" }}>
           <h3>Speak to Boxx Commercial Finance</h3>
           <p>
