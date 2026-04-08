@@ -80,9 +80,7 @@ async function waitForInsightsPage(page, expectedMinimumCards = 2) {
   });
 
   await page.waitForFunction(
-    (minCards) => {
-      return document.querySelectorAll('.blog-card').length >= minCards;
-    },
+    (minCards) => document.querySelectorAll('.blog-card').length >= minCards,
     { timeout: 15000 },
     expectedMinimumCards
   );
@@ -95,7 +93,7 @@ async function waitForArticlePage(page) {
 }
 
 async function waitForLocationPage(page) {
-  await page.waitForSelector('main h1', {
+  await page.waitForSelector('[data-page-type="location-page"]', {
     timeout: 15000
   });
 }
@@ -105,7 +103,8 @@ async function renderRoute(browser, route, options = {}) {
     isArticleRoute = false,
     isInsightsRoute = false,
     isLocationRoute = false,
-    expectedMinimumCards = 2
+    expectedMinimumCards = 2,
+    expectedTitle = ''
   } = options;
 
   const page = await browser.newPage();
@@ -127,7 +126,6 @@ async function renderRoute(browser, route, options = {}) {
     await waitForLocationPage(page);
   }
 
-  // Small extra wait to let React fully settle before capturing
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const finalUrl = page.url();
@@ -163,18 +161,21 @@ async function renderRoute(browser, route, options = {}) {
 
   if (isLocationRoute) {
     if (
-      finalUrl.endsWith('/') ||
-      finalUrl === `http://127.0.0.1:${PORT}/`
+      finalUrl !== `http://127.0.0.1:${PORT}${route}`
     ) {
       throw new Error(`Prerender failed for ${route}: page redirected to ${finalUrl}`);
     }
 
-    if (html.includes('Page not found')) {
-      throw new Error(`Prerender failed for ${route}: rendered the Page not found view.`);
+    if (html.includes('data-page-type="location-not-found"')) {
+      throw new Error(`Prerender failed for ${route}: rendered the not found location page.`);
     }
 
-    if (!html.includes('<h1')) {
-      throw new Error(`Prerender failed for ${route}: rendered HTML does not contain an h1.`);
+    if (!html.includes('data-page-type="location-page"')) {
+      throw new Error(`Prerender failed for ${route}: location page container not found.`);
+    }
+
+    if (expectedTitle && !html.includes(expectedTitle)) {
+      throw new Error(`Prerender failed for ${route}: expected title "${expectedTitle}" was not found in HTML.`);
     }
   }
 
@@ -247,7 +248,8 @@ async function main() {
     for (const locationPage of publishedLocationPages) {
       if (locationPage?.slug) {
         await renderRoute(browser, `/locations/${locationPage.slug}`, {
-          isLocationRoute: true
+          isLocationRoute: true,
+          expectedTitle: locationPage.title
         });
       }
     }
