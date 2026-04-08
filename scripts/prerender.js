@@ -160,9 +160,7 @@ async function renderRoute(browser, route, options = {}) {
   }
 
   if (isLocationRoute) {
-    if (
-      finalUrl !== `http://127.0.0.1:${PORT}${route}`
-    ) {
+    if (finalUrl !== `http://127.0.0.1:${PORT}${route}`) {
       throw new Error(`Prerender failed for ${route}: page redirected to ${finalUrl}`);
     }
 
@@ -181,13 +179,22 @@ async function renderRoute(browser, route, options = {}) {
 
   await page.close();
 
-  const cleanRoute = route.startsWith('/') ? route.slice(1) : route;
-  const outputDir = cleanRoute ? path.join(distDir, cleanRoute) : distDir;
-  ensureDir(outputDir);
+  let outputPath;
 
-  const outputPath = path.join(outputDir, 'index.html');
+  if (route === '/') {
+    outputPath = path.join(distDir, 'index.html');
+  } else if (isLocationRoute) {
+    const cleanRoute = route.startsWith('/') ? route.slice(1) : route;
+    outputPath = path.join(distDir, `${cleanRoute}.html`);
+    ensureDir(path.dirname(outputPath));
+  } else {
+    const cleanRoute = route.startsWith('/') ? route.slice(1) : route;
+    const outputDir = path.join(distDir, cleanRoute);
+    ensureDir(outputDir);
+    outputPath = path.join(outputDir, 'index.html');
+  }
+
   fs.writeFileSync(outputPath, html, 'utf8');
-
   console.log(`Prerendered: ${route} -> ${outputPath}`);
 }
 
