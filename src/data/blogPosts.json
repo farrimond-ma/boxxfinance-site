@@ -1,5 +1,1 @@
-if(
-  length(existingInner) > 0;
-  concat("[", 9.json, ",", existingInner, "]");
-  concat("[", 9.json, "]")
-)
+[]
