@@ -12,7 +12,7 @@ import TermsConditions from './pages/TermsConditions';
 import SmeFundingIndex from './pages/SmeFundingIndex';
 import './App.css';
 import ScrollToTop from './components/ScrollToTop';
-import LocationPage from "./pages/LocationPage";
+import LocationPage from './pages/LocationPage';
 
 function App() {
   return (
@@ -31,9 +31,8 @@ function App() {
           <Route path="terms-and-conditions" element={<TermsConditions />} />
           <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
           <Route path="uk-sme-funding-index/:archiveSlug" element={<SmeFundingIndex />} />
-          <Route path="/locations/:slug" element={<LocationPage />} />
+          <Route path="locations/:slug" element={<LocationPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
-         
         </Route>
       </Routes>
     </>
