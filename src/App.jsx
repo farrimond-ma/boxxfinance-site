@@ -12,6 +12,7 @@ import TermsConditions from './pages/TermsConditions';
 import SmeFundingIndex from './pages/SmeFundingIndex';
 import './App.css';
 import ScrollToTop from './components/ScrollToTop';
+import LocationPage from "./pages/LocationPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
           <Route path="uk-sme-funding-index/:archiveSlug" element={<SmeFundingIndex />} />
           <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/:slug" element={<LocationPage />} />
         </Route>
       </Routes>
     </>
