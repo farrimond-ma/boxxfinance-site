@@ -36,6 +36,9 @@ const LocationPage = () => {
                 <div className="blog-hero" style={{ padding: '10rem 0 6rem' }}>
                     <div className="container">
                         <h1>Page <span className="text-highlight">Not Found</span></h1>
+                        <p style={{ color: 'red', fontWeight: 'bold' }}>
+  LOCATION TEMPLATE VERSION 2 TEST
+</p>
                         <p>The requested location page could not be found.</p>
                     </div>
                 </div>
