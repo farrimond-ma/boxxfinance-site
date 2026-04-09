@@ -2,8 +2,6 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import locationPages from '../data/locationPages.json';
 import SEO from '../components/SEO';
-import './Blog.css';
-import '../components/About.css';
 
 const LocationPage = () => {
     const { slug } = useParams();
