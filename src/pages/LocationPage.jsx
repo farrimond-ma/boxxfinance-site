@@ -33,12 +33,9 @@ const LocationPage = () => {
                     keywords="boxx commercial finance, locations"
                 />
 
-                <div className="blog-hero" style={{ padding: '10rem 0 6rem' }}>
+                <div className="blog-hero location-hero" style={{ padding: '10rem 0 6rem' }}>
                     <div className="container">
                         <h1>Page <span className="text-highlight">Not Found</span></h1>
-                        <p style={{ color: 'red', fontWeight: 'bold' }}>
-  LOCATION TEMPLATE VERSION 2 TEST
-</p>
                         <p>The requested location page could not be found.</p>
                     </div>
                 </div>
@@ -73,7 +70,7 @@ const LocationPage = () => {
         : undefined;
 
     return (
-        <div className="blog-post-page" data-page-type="location-page">
+        <div className="blog-post-page location-page" data-page-type="location-page">
             <SEO
                 title={page.metaTitle || page.title}
                 description={page.metaDescription || page.title}
@@ -88,27 +85,27 @@ const LocationPage = () => {
                 type="article"
             />
 
-            <div className="blog-hero" style={{ padding: '10rem 0 6rem' }}>
+            <div className="blog-hero location-hero" style={{ padding: '10rem 0 6rem' }}>
                 <div className="container">
                     <h1>{page.title}</h1>
                     {page.metaDescription && (
-                        <p className="blog-post-date" style={{ maxWidth: '800px' }}>
+                        <p className="location-subheading">
                             {page.metaDescription}
                         </p>
                     )}
                 </div>
             </div>
 
-            <div className="container blog-layout">
+            <div className="container blog-layout location-layout">
                 <div className="blog-main">
-                    <div className="blog-main-card">
+                    <div className="blog-main-card location-main-card">
                         <div
-                            className="blog-post-content"
+                            className="blog-post-content location-post-content"
                             dangerouslySetInnerHTML={{ __html: page.content || '<p>No page content found.</p>' }}
                         />
                     </div>
 
-                    <div className="blog-main-card" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+                    <div className="blog-main-card location-cta-card" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
                         <h2>Speak to Boxx Commercial Finance</h2>
                         <p>
                             If you want to explore funding options for your business, speak to our team today.
@@ -121,17 +118,19 @@ const LocationPage = () => {
                     </div>
 
                     {sameServicePages.length > 0 && (
-                        <div className="blog-main-card" style={{ marginBottom: '4rem' }}>
+                        <div className="blog-main-card related-locations-card" style={{ marginBottom: '4rem' }}>
                             <h2>Related locations</h2>
-                            <ul>
+                            <div className="related-locations-grid">
                                 {sameServicePages.map((relatedPage) => (
-                                    <li key={relatedPage.slug}>
-                                        <Link to={`/locations/${relatedPage.slug}`} className="read-more">
-                                            {relatedPage.title}
-                                        </Link>
-                                    </li>
+                                    <Link
+                                        key={relatedPage.slug}
+                                        to={`/locations/${relatedPage.slug}`}
+                                        className="related-location-link"
+                                    >
+                                        {relatedPage.title}
+                                    </Link>
                                 ))}
-                            </ul>
+                            </div>
                         </div>
                     )}
                 </div>
@@ -146,11 +145,10 @@ const LocationPage = () => {
 
 const SidebarLocationCard = ({ currentPage }) => {
     return (
-        <div className="sidebar-card">
+        <div className="sidebar-card location-sidebar-card">
             <h3>{currentPage.title}</h3>
             <p>
-                Looking for support with {currentPage.service?.replace(/-/g, ' ')} in {currentPage.location}?
-                Boxx Commercial Finance helps businesses access tailored funding solutions.
+                Looking for support with {currentPage.service?.replace(/-/g, ' ')} in {currentPage.location}? Boxx Commercial Finance helps businesses access tailored funding solutions.
             </p>
             <p style={{ marginTop: '1rem' }}>
                 <a href="/chat-about-funding" className="btn btn-primary">
