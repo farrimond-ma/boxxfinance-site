@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import './index.css'
+import './pages/Blog.css'
+import './components/About.css'
 
 import ErrorBoundary from './components/ErrorBoundary';
 import { HelmetProvider } from 'react-helmet-async';
