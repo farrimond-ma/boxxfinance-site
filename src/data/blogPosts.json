@@ -1,1 +1,23 @@
-]\
+[
+  {
+    "id": 999,
+    "type": "blog",
+    "status": "published",
+    "slug": "test-article",
+    "url": "/insights/test-article",
+    "title": "Test Article",
+    "excerpt": "This is a test article used to keep the insights page rendering correctly.",
+    "metaTitle": "Test Article | Boxx Commercial Finance",
+    "metaDescription": "This is a test article used to keep the insights page rendering correctly.",
+    "primaryKeyword": "test article",
+    "secondaryKeywords": [],
+    "category": "Business Loans",
+    "publishDate": "2026-04-15",
+    "publishedAt": "2026-04-15T15:00:00Z",
+    "author": "Mark Farrimond",
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "faqSchema": null,
+    "contentHtml": "<h1>Test Article</h1><p>This is a test article.</p>"
+  }
+]
