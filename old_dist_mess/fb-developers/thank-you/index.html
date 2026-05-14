@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="../../favicon.png?v=2">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You | Boxx Commercial Finance</title>
+  <meta name="description" content="Thank you for your enquiry. A funding specialist will be in touch shortly.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '3452187911622354');
+  fbq('track', 'PageView');
+  fbq('track', 'Lead');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=3452187911622354&ev=Lead&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <style>
+    .ty-page {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 160px);
+      text-align: center;
+      padding: 3rem 1.5rem;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .ty-icon {
+      width: 80px; height: 80px;
+      margin-bottom: 1.5rem;
+      background: rgba(34, 197, 94, 0.1);
+      border: 2px solid #22c55e;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .ty-icon svg {
+      width: 36px; height: 36px;
+      color: #22c55e;
+    }
+    @keyframes scaleIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .ty-page h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+    .ty-page h1 .highlight {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ty-page .subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 2rem;
+      max-width: 440px;
+    }
+
+    .ty-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      margin-bottom: 2.5rem;
+    }
+    .ty-step {
+      text-align: center;
+      padding: 1.25rem 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+    }
+    .ty-step .step-num {
+      width: 32px; height: 32px;
+      margin: 0 auto 0.6rem;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(200, 163, 85, 0.1);
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+    }
+    .ty-step p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .ty-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.75rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--bg-primary);
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      margin-bottom: 0.75rem;
+    }
+    .ty-phone:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--gold-glow);
+    }
+    .ty-phone svg {
+      width: 20px; height: 20px;
+    }
+
+    .ty-or {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .ty-email {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .ty-email:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .ty-steps { grid-template-columns: 1fr; gap: 0.6rem; }
+      .ty-step { 
+        display: flex; align-items: center; gap: 0.75rem;
+        text-align: left; padding: 1rem;
+      }
+      .ty-step .step-num { margin: 0; flex-shrink: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<!-- Header -->
+<header class="lp-header">
+  <a href="https://boxxfinance.co.uk">
+    <img src="../../logo.png?v=2" alt="Boxx Commercial Finance" class="lp-logo">
+  </a>
+</header>
+
+<!-- Thank You Content -->
+<main class="ty-page">
+  <div class="ty-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+  </div>
+
+  <h1>Thank You.<br><span class="highlight">We're On It.</span></h1>
+  <p class="subtitle">Your enquiry has been received. A funding specialist will review your requirements and be in touch within <strong>1 working hour</strong>.</p>
+
+  <!-- What happens next -->
+  <div class="ty-steps">
+    <div class="ty-step">
+      <div class="step-num">1</div>
+      <p>We review your requirements</p>
+    </div>
+    <div class="ty-step">
+      <div class="step-num">2</div>
+      <p>We match you with suitable lenders</p>
+    </div>
+    <div class="ty-step">
+      <div class="step-num">3</div>
+      <p>We present your best options</p>
+    </div>
+  </div>
+
+  <p class="ty-or">Need to speak sooner?</p>
+  <a href="tel:03300431612" class="ty-phone">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    0330 043 1612
+  </a>
+  <br>
+  <a href="mailto:hello@boxxfinance.co.uk" class="ty-email">hello@boxxfinance.co.uk</a>
+</main>
+
+<!-- Minimal Footer -->
+<footer class="lp-footer">
+  <p>We are a commercial finance broker and not a lender. Funding is subject to lender criteria, status and terms. We may receive commission from lenders for arranging finance.</p>
+  <p>&copy; 2026 Boxx Commercial Finance. All rights reserved. | <a href="/privacy-policy">Privacy</a> | <a href="/terms-and-conditions">Terms</a></p>
+</footer>
+
+</body>
+</html>

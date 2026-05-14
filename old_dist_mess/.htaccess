@@ -1,0 +1,34 @@
+Options -MultiViews
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Serve existing files directly
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+
+  # Serve existing directories directly
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Location pages: /locations/slug -> /locations/slug.html
+  RewriteCond %{DOCUMENT_ROOT}/locations/$1.html -f
+  RewriteRule ^locations/([^/]+)/?$ locations/$1.html [L]
+
+  # Blog posts
+  RewriteCond %{DOCUMENT_ROOT}/insights/$1/index.html -f
+  RewriteRule ^insights/([^/]+)/?$ insights/$1/index.html [L]
+
+  RewriteRule ^insights/?$ insights/index.html [L]
+
+  # SME funding index
+  RewriteCond %{DOCUMENT_ROOT}/uk-sme-funding-index/$1/index.html -f
+  RewriteRule ^uk-sme-funding-index/([^/]+)/?$ uk-sme-funding-index/$1/index.html [L]
+
+  RewriteRule ^uk-sme-funding-index/?$ uk-sme-funding-index/index.html [L]
+
+  # Fallback to SPA
+  RewriteRule ^ index.html [L]
+</IfModule>

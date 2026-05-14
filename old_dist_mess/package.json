@@ -1,0 +1,41 @@
+{
+  "name": "pyro-quasar",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && npm run prerender && npm run sitemap && npm run rss && npm run rss-linkedin",
+    "prerender": "node scripts/prerender.js",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "sitemap": "node scripts/generate-sitemap.js",
+    "rss": "node scripts/generate-rss.js",
+    "rss-linkedin": "node scripts/generate-linkedin-rss.js",
+    "deploy": "npx vite build && node scripts/deploy-ftp.js",
+    "deploy:full": "npm run build && node scripts/deploy-ftp.js",
+    "deploy:ftp": "node scripts/deploy-ftp.js",
+    "watch:deploy": "vite build --watch --mode production"
+  },
+  "dependencies": {
+    "pdf-parse": "^2.4.5",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^7.13.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "dotenv": "^17.3.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "ftp-deploy": "^2.4.7",
+    "globals": "^16.5.0",
+    "puppeteer": "^24.37.4",
+    "vite": "^7.3.1"
+  }
+}

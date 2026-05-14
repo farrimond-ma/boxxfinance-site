@@ -1,0 +1,32 @@
+.brand-text-bo {
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+    /* Establish stacking context if needed */
+}
+
+/* Blocker for 'b' hole */
+.brand-text-bo::before {
+    content: '';
+    position: absolute;
+    background-color: currentColor;
+    width: 0.2em;
+    height: 0.2em;
+    border-radius: 50%;
+    left: 0.18em;
+    top: 0.53em;
+    z-index: -1;
+}
+
+/* Blocker for 'o' hole */
+.brand-text-bo::after {
+    content: '';
+    position: absolute;
+    background-color: currentColor;
+    width: 0.23em;
+    height: 0.23em;
+    border-radius: 50%;
+    left: 0.57em;
+    top: 0.52em;
+    z-index: -1;
+}

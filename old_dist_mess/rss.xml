@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Boxx Commercial Finance Insights</title>
+        <link>https://www.boxxfinance.co.uk</link>
+        <description>Commercial finance insights and funding intelligence for UK business owners.</description>
+        <language>en-gb</language>
+        <atom:link href="https://www.boxxfinance.co.uk/rss.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Business Loans UK</title>
+            <link>https://www.boxxfinance.co.uk/insights/business-loans-uk</link>
+            <guid>https://www.boxxfinance.co.uk/insights/business-loans-uk</guid>
+            <pubDate>Invalid Date</pubDate>
+            <description>Business loans UK can be a useful way to fund growth, manage cash flow, or invest in new equipment, but the right structure matters as much as the rate. This guide explains how business loans work, what lenders look for, common mistakes to avoid, and when alternatives may be better for UK SMEs.</description>
+            <author>info@boxxfinance.co.uk (Mark Farrimond)</author>
+        </item>
+    </channel>
+</rss>

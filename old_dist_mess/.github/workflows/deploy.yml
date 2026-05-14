@@ -1,0 +1,50 @@
+name: Build and Deploy to SiteGround
+
+# Trigger the workflow on push to the main branch
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/data/blogPosts.json'
+      - 'src/data/linkedinPosts.json'
+      - '.github/workflows/deploy.yml'
+
+# Alternatively, allow manual triggering from the GitHub interface
+  workflow_dispatch:
+
+jobs:
+  web-deploy:
+    name: 🎉 Build & Deploy
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+    
+    - name: ⚙️ Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        
+    - name: 📦 Install Dependencies
+      run: npm install
+        
+    - name: 🔨 Build Project
+      run: npm run build
+        
+    - name: 📂 Sync files via FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      with:
+        # These references require you to add the values securely in your GitHub repo 
+        # under Settings > Secrets and variables > Actions
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./dist/ 
+        protocol: ftps
+        # This will only upload files that have changed, which is much faster
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**

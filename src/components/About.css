@@ -1,0 +1,251 @@
+.about {
+    background-color: var(--color-white);
+    overflow: hidden;
+}
+
+.about-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+@media (min-width: 900px) {
+    .about-container {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .about-content {
+        flex: 1;
+    }
+
+    .about-image {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.about h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+    .about h2 {
+        font-size: 2.5rem;
+    }
+}
+
+.about-intro {
+    font-weight: 700;
+    /* Bold */
+    margin-bottom: 1.5rem;
+    color: #333;
+    /* Slightly darker for emphasis */
+}
+
+.stats-grid {
+    display: flex;
+    gap: 1rem;
+    margin: 2.5rem 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 1.5rem 0;
+}
+
+.stat-item {
+    flex: 1;
+}
+
+.stat-item h3 {
+    color: var(--color-secondary);
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+}
+
+.stat-item p {
+    font-size: 0.9rem;
+    margin: 0;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.about-img-container {
+    flex: 1;
+    width: 100%;
+    min-height: 450px;
+    background-color: #f5f5f5;
+    background-image: url('/about_bg.webp');
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 768px) {
+    /* Kept text left-aligned by removing .about-content { text-align: center; } */
+
+    .stats-grid {
+        justify-content: center;
+        gap: 1.5rem;
+        /* slightly increased gap for better spacing */
+    }
+
+    .stat-item {
+        text-align: center;
+        flex: 1;
+        /* Ensure they share width */
+    }
+
+    .about-content .btn {
+        display: table;
+        margin: 0 auto;
+    }
+}
+
+/* ── Director Cards ── */
+.director-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+    .director-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+.director-card {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    background: #f8f9fc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #eef0f5;
+}
+
+.director-avatar-photo {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid var(--color-secondary);
+}
+
+
+.director-info h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.15rem;
+}
+
+.director-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #888;
+    margin-bottom: 0.75rem;
+}
+
+.director-bio {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 0.75rem;
+}
+
+.director-social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    align-items: flex-start;
+}
+
+.contact-link-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.director-email,
+.director-phone {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.director-linkedin-link,
+.director-linkedin-btn {
+    display: inline-flex;
+    align-items: center;
+    color: #0077b5;
+    /* LinkedIn Brand Color */
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    padding-top: 2px;
+}
+
+.director-linkedin-btn {
+    gap: 0.5rem;
+    background: #f0f7fc;
+    border: 1px solid #0077b5;
+    padding: 4px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+}
+
+.director-linkedin-btn:hover {
+    background: #e0f0f9;
+    transform: translateY(-1px);
+}
+
+.director-linkedin-link:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+.linkedin-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* ── Trust Signals Bar ── */
+.trust-bar {
+    background: var(--color-primary);
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+}
+
+.trust-bar-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem 3rem;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.trust-icon {
+    font-size: 1.1rem;
+}

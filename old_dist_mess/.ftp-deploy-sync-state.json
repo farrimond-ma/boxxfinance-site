@@ -1,0 +1,241 @@
+{
+    "description": "DO NOT DELETE THIS FILE. This file is used to keep track of which files have been synced in the most recent deployment. If you delete this file a resync will need to be done (which can take a while) - read more: https://github.com/SamKirkland/FTP-Deploy-Action",
+    "version": "1.0.0",
+    "generatedTime": 1776898445869,
+    "data": [
+        {
+            "type": "file",
+            "name": ".htaccess",
+            "size": 505,
+            "hash": "34cdbbcd913345e931fa9cefe9ac123c316df81a4e145184db0b364ecd2118b1"
+        },
+        {
+            "type": "file",
+            "name": "about_bg.png",
+            "size": 1986931,
+            "hash": "9b4a00bbea50b81354aacfe31325c360755db919802cd80f18fc1840ca89c037"
+        },
+        {
+            "type": "file",
+            "name": "advice_hero_bg.png",
+            "size": 85153,
+            "hash": "cbfb02a98e13d8e8bbb5978f05934c39a72fdff19729a448ed2e64d07c5806ff"
+        },
+        {
+            "type": "file",
+            "name": "andrew-farrimond.png",
+            "size": 1962083,
+            "hash": "19b4c6e3528ff18306915dcddee49e9759c1c190067bb1e4e48ea8c5d8f9c360"
+        },
+        {
+            "type": "file",
+            "name": "application_hero_bg.png",
+            "size": 45415,
+            "hash": "9ecd1efc4fa99c1aec2539b897ef9399b6f42bb61602f265ac502abef8e1eedd"
+        },
+        {
+            "type": "folder",
+            "name": "assets"
+        },
+        {
+            "type": "file",
+            "name": "build_bg.png",
+            "size": 4892899,
+            "hash": "e60ed81982dda7fc1be2ded072686f76da1d1e7107528a5a2025a34931e6a062"
+        },
+        {
+            "type": "file",
+            "name": "favicon.png",
+            "size": 25661,
+            "hash": "431220b47a36eda7c97fecc491b4ab9230207b8c97d36cf864c2f0f7dc9a58c0"
+        },
+        {
+            "type": "file",
+            "name": "header_bg.png",
+            "size": 1692512,
+            "hash": "82894c8aef51d7842027f1e20a67a1d897afe6f3fb8f09925cfffa48d1b3a8ad"
+        },
+        {
+            "type": "file",
+            "name": "header_bg.svg",
+            "size": 769,
+            "hash": "2f58913c70806662567b37bbc16129f3fd78ab894cfe4540a43fc6081065d132"
+        },
+        {
+            "type": "folder",
+            "name": "images"
+        },
+        {
+            "type": "file",
+            "name": "index.html",
+            "size": 26874,
+            "hash": "966bc72fb9cc978e628d97e9edb355f8adc0bb93f196166fa0a2b01c6804f2b8"
+        },
+        {
+            "type": "folder",
+            "name": "insights"
+        },
+        {
+            "type": "file",
+            "name": "legal_hero_bg.png",
+            "size": 53670,
+            "hash": "73dcdfbaeb40ec853bc7b7a6dec1957125af1e876a6388b553aab2a0dc7b51ee"
+        },
+        {
+            "type": "file",
+            "name": "linkedin-rss.xml",
+            "size": 55307,
+            "hash": "a86f0910c00f9e6a128df905167a54014353c3e287c107aea46595e30a3e306a"
+        },
+        {
+            "type": "folder",
+            "name": "locations"
+        },
+        {
+            "type": "file",
+            "name": "logo-scroll.png",
+            "size": 38827,
+            "hash": "300eddb794714c85499b7ea5b3e7ec685aba35febb14cb74be5bc2a8f3a8b0a3"
+        },
+        {
+            "type": "file",
+            "name": "logo.png",
+            "size": 19318,
+            "hash": "fdf1453f3b037da7e33f622a9743abe7948359e4b35cffacf131dc658d372908"
+        },
+        {
+            "type": "file",
+            "name": "logo_rect.png",
+            "size": 10474,
+            "hash": "85d9b93ddccc0f367e2c6ce268af849e38da3d2f27371711c0fd754abac360f5"
+        },
+        {
+            "type": "file",
+            "name": "logo_scroll.png",
+            "size": 38827,
+            "hash": "300eddb794714c85499b7ea5b3e7ec685aba35febb14cb74be5bc2a8f3a8b0a3"
+        },
+        {
+            "type": "file",
+            "name": "logo_solid.png",
+            "size": 11076,
+            "hash": "e47bbc886e148bc45da2ab3ee60f00f7e7f3fd1fb9dc36a41b5873d25e80be65"
+        },
+        {
+            "type": "file",
+            "name": "mark-higgins.png",
+            "size": 2208652,
+            "hash": "ae2fa2f81f8ad4786ba35e2fcb4ae6a50386c2107e01657d12e06f3b1ea7b08d"
+        },
+        {
+            "type": "file",
+            "name": "ribbon_wave.png",
+            "size": 42,
+            "hash": "983dd2006fb0ba0ad3da9c0fce591525e8103f8a03038323ade200914a7dcd24"
+        },
+        {
+            "type": "file",
+            "name": "rss.xml",
+            "size": 1192,
+            "hash": "8da6a469bb6ef456b931835276678e3dec62503968255cad6fc54f14c65abc40"
+        },
+        {
+            "type": "file",
+            "name": "service_hero_bg.png",
+            "size": 65917,
+            "hash": "d2b856a0939d2336e4c068076dbf6b95376efcf98e38f9fb73fc670ceb31d264"
+        },
+        {
+            "type": "file",
+            "name": "sitemap.xml",
+            "size": 12647,
+            "hash": "e71519a1d7055cebfcd4f76d176e82e28ddbf47d5dfb33f6cb742b498f9ffe7b"
+        },
+        {
+            "type": "file",
+            "name": "vite.svg",
+            "size": 1497,
+            "hash": "4a748afd443918bb16591c834c401dae33e87861ab5dbad0811c3a3b4a9214fb"
+        },
+        {
+            "type": "file",
+            "name": "assets/index-BOBR3p5o.js",
+            "size": 437240,
+            "hash": "0c6ac95c017ba78049073156068b7e53fa0c3437ca67b2530ed86d9534574319"
+        },
+        {
+            "type": "file",
+            "name": "assets/index-CAdgC4O1.css",
+            "size": 32098,
+            "hash": "2404dac4761ff5fdbf1eb291ca5c2c984cae6eaa31156a90e842bd220d76a80b"
+        },
+        {
+            "type": "folder",
+            "name": "images/sidebar"
+        },
+        {
+            "type": "folder",
+            "name": "insights/business-loans-uk"
+        },
+        {
+            "type": "file",
+            "name": "insights/index.html",
+            "size": 6119,
+            "hash": "a7e417e6aa1d1b08ea728d6bf7709dbf4a20bfc55d5d1a64f0384ade69eb673b"
+        },
+        {
+            "type": "file",
+            "name": "locations/business-loans-birmingham.html",
+            "size": 7256,
+            "hash": "e59873239fe7e869ebb92f824abf56e99bd6f2469fee0e0e8c065557f42ae3a7"
+        },
+        {
+            "type": "file",
+            "name": "locations/business-loans-leeds.html",
+            "size": 6993,
+            "hash": "57fd31206921314b7295a0dcc814240f5e7c55f2b4a2cedcc1ff9970616b6609"
+        },
+        {
+            "type": "file",
+            "name": "locations/business-loans-liverpool.html",
+            "size": 6981,
+            "hash": "9b5af744951ff3a9d190ea977e6ab205d01bc13c4b404f2050f9cd85853f27ff"
+        },
+        {
+            "type": "file",
+            "name": "locations/business-loans-london.html",
+            "size": 8104,
+            "hash": "59e8596d0291913aaf88d18b1390cd38a84a8e4cbb19f8a86b83dc9b4d0f0691"
+        },
+        {
+            "type": "file",
+            "name": "locations/business-loans-manchester.html",
+            "size": 7685,
+            "hash": "5ebd806c3b61e40363cbe0341d423562454955829dd4001674abc959f16e3ffc"
+        },
+        {
+            "type": "file",
+            "name": "images/sidebar/sidebar_handshake.jpg",
+            "size": 240709,
+            "hash": "57e7ae140c4a14d46800db97a15566762c8ae6e878d317cd3b806f96ed410a76"
+        },
+        {
+            "type": "file",
+            "name": "images/sidebar/sidebar_meeting.jpg",
+            "size": 296793,
+            "hash": "4a139155f46047ac6a882b8456d1d81eb74e0f8903f4e8b79eb463a8666c6eb4"
+        },
+        {
+            "type": "file",
+            "name": "images/sidebar/sidebar_office.jpg",
+            "size": 320571,
+            "hash": "68829c20cbaf182d6fdb9d8c8b554003e0b765aeefec1d8f8cb902bbea452fd4"
+        },
+        {
+            "type": "file",
+            "name": "insights/business-loans-uk/index.html",
+            "size": 8828,
+            "hash": "9ebb9489433aad89e6e1aa78afbfb36e701a781bb9ce707debc22190f8e7b088"
+        }
+    ]
+}
