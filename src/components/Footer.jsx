@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="footer-content">
                     <div className="footer-brand">
                         <Link to="/" className="footer-logo">
-                            <img src="/logo.webp" alt="Boxx Commercial Finance" className="footer-logo-img" />
+                            <img src="/logo.png" alt="Boxx Commercial Finance" className="footer-logo-img" />
                             <span className="footer-logo-text"><span className="text-highlight">Commercial Finance</span></span>
                         </Link>
                         <p>Funding Done Properly. Structured for Growth.</p>

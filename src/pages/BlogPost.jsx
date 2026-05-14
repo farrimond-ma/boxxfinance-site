@@ -27,7 +27,7 @@ const BlogPost = () => {
     });
 
     const sidebarImages = [
-        '/header_bg.webp',
+        '/images/header_bg.webp',
         '/images/sidebar/sidebar_meeting.jpg',
         '/images/sidebar/sidebar_handshake.jpg',
         '/images/sidebar/sidebar_office.jpg'
@@ -45,14 +45,14 @@ const BlogPost = () => {
     const authors = {
         'Mark Higgins': {
             title: 'Managing Partner, Commercial Finance',
-            image: '/mark-higgins.webp',
+            image: '/images/mark-higgins.webp',
             bio: 'With extensive experience across commercial mortgages, development finance and structured lending, Mark leads client relationships and complex case structuring. He has helped hundreds of UK businesses secure the right funding at the right terms.',
             email: 'mark@boxxfinance.co.uk',
             linkedIn: 'https://www.linkedin.com/in/mark-higgins-05ab363b2/'
         },
         'Andrew Farrimond': {
             title: 'Managing Partner, Commercial Finance',
-            image: '/andrew-farrimond.webp',
+            image: '/images/andrew-farrimond.webp',
             bio: 'Andrew specialises in invoice finance, asset finance and working capital solutions, with a strong track record in helping growth-stage businesses unlock the liquidity they need to scale. His whole-of-market approach ensures clients receive competitive, lender-agnostic advice.',
             email: 'andrew@boxxfinance.co.uk',
             linkedIn: 'https://www.linkedin.com/in/commercial-funding/'

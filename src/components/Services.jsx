@@ -15,7 +15,7 @@ const Services = () => {
             <div className="container">
                 <div className="section-header">
                     <h2>Our <span className="text-highlight">Funding Solutions</span></h2>
-                    <p>We don’t sell finance products. We design strategic funding solutions that solve real business challenges.<br />Every case is shaped around your cash flow, sector and growth plans.</p>
+                    <p>We don’t sell finance products. We design strategic funding solutions that solve real business&nbsp;challenges.<br />Every case is shaped around your cash flow, sector and growth plans.</p>
                     <p>Explore our core funding options below, or speak to us directly to discuss your requirements.</p>
                     <br />
                     <Link to="/chat-about-funding" className="btn btn-primary">Speak to a Funding Specialist</Link>

@@ -28,7 +28,7 @@ const Navbar = () => {
                 <div className="navbar-logo">
                     <Link to="/">
                         <img
-                            src={scrolled ? "/logo_scroll.webp?v=2" : "/logo.webp?v=2"}
+                            src={scrolled ? "/logo_scroll.png?v=2" : "/logo.png?v=2"}
                             alt="Boxx Commercial Finance"
                             className="navbar-logo-img"
                         />

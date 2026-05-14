@@ -12,7 +12,7 @@ const ServicePage = () => {
     const service = serviceContent[slug];
 
     const sidebarImages = [
-        '/header_bg.webp',
+        '/images/header_bg.webp',
         '/images/sidebar/sidebar_meeting.jpg',
         '/images/sidebar/sidebar_handshake.jpg',
         '/images/sidebar/sidebar_office.jpg'

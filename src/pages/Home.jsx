@@ -19,7 +19,7 @@ const Home = () => {
                         "@type": "Organization",
                         "name": "Boxx Commercial Finance",
                         "url": "https://boxxfinance.co.uk",
-                        "logo": "https://boxxfinance.co.uk/logo.webp",
+                        "logo": "https://boxxfinance.co.uk/logo.png",
                         "contactPoint": {
                             "@type": "ContactPoint",
                             "telephone": "+44-0-000-0000",

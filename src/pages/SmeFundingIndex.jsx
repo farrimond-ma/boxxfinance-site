@@ -57,7 +57,7 @@ const SmeFundingIndex = () => {
                     "name": "Boxx Commercial Finance",
                     "logo": {
                         "@type": "ImageObject",
-                        "url": "https://www.boxxfinance.co.uk/logo.webp"
+                        "url": "https://www.boxxfinance.co.uk/logo.png"
                     }
                 },
                 "datePublished": "2026-01-01",
@@ -428,7 +428,7 @@ const SmeFundingIndex = () => {
 
                 {/* Author Bio */}
                 <div className="author-bio">
-                    <img src="/andrew-farrimond.webp" alt="Andrew Farrimond — Managing Partner, Boxx Commercial Finance" className="author-img" onError={(e) => { e.target.onerror = null; e.target.style.display = 'none' }} />
+                    <img src="/images/andrew-farrimond.webp" alt="Andrew Farrimond — Managing Partner, Boxx Commercial Finance" className="author-img" onError={(e) => { e.target.onerror = null; e.target.style.display = 'none' }} />
                     <div className="author-info">
                         <h4>Andrew Farrimond</h4>
                         <span className="author-role">Managing Partner, Commercial Finance</span>
