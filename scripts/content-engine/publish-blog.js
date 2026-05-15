@@ -24,10 +24,19 @@ const BLOG_FILE = 'src/data/blogPosts.json';
 
 // ─── Google Sheets Auth ──────────────────────────────────────────────────────
 async function getSheetsClient() {
-  const auth = new google.auth.GoogleAuth({
-    keyFile: 'google-credentials.json',
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-  });
+  let auth;
+  if (process.env.GOOGLE_CREDENTIALS) {
+    const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    auth = new google.auth.GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+  } else {
+    auth = new google.auth.GoogleAuth({
+      keyFile: 'google-credentials.json',
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+  }
   return google.sheets({ version: 'v4', auth });
 }
 
