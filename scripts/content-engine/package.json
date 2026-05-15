@@ -1,0 +1,19 @@
+{
+  "name": "boxx-content-engine",
+  "version": "1.0.0",
+  "description": "Boxx Content Engine publishing scripts",
+  "type": "commonjs",
+  "scripts": {
+    "publish-blog": "node publish-blog.js",
+    "publish-location": "node publish-location.js",
+    "update-links": "node update-internal-links.js",
+    "publish-linkedin": "node publish-linkedin.js",
+    "publish-facebook": "node publish-facebook.js"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.0.2",
+    "dotenv": "^16.3.1",
+    "googleapis": "^140.0.0",
+    "openai": "^4.28.0"
+  }
+}
