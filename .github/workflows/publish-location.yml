@@ -1,0 +1,57 @@
+name: Publish Location
+
+on:
+  schedule:
+    # 7:30 AM UTC = 8:30 AM UK time (BST). AM slot. Runs Monday to Friday.
+    - cron: '30 7 * * 1-5'
+    # 12:30 PM UTC = 1:30 PM UK time (BST). PM slot. Runs Monday to Friday.
+    - cron: '30 12 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: 'Publishing slot (AM or PM)'
+        required: true
+        default: 'AM'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+
+      - name: Determine slot
+        id: slot
+        run: |
+          HOUR=$(date -u +%H)
+          if [ "$HOUR" -lt "10" ]; then
+            echo "slot=AM" >> $GITHUB_OUTPUT
+          else
+            echo "slot=PM" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run location publisher
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          GITHUB_OWNER: farrimond-ma
+          GITHUB_REPO: boxxfinance-site
+        run: node publish-location.js ${{ steps.slot.outputs.slot }}
+        working-directory: scripts/content-engine
