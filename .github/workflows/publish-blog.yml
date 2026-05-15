@@ -28,6 +28,7 @@ jobs:
           GITHUB_PAT: ${{ secrets.GH_PAT }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           GITHUB_OWNER: farrimond-ma
           GITHUB_REPO: boxxfinance-site
         run: node publish-blog.js
