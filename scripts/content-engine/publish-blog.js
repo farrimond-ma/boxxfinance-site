@@ -4,7 +4,7 @@ const OpenAI = require('openai');
 const { google } = require('googleapis');
 
 // ─── Clients ────────────────────────────────────────────────────────────────
-const octokit = new Octokit({ auth: process.env.GITHUB_PAT });
+const octokit = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_PAT });
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
