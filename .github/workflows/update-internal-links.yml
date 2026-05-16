@@ -1,0 +1,39 @@
+name: Update Internal Links
+
+on:
+  schedule:
+    # 9:30 AM UTC = 10:30 AM UK time (BST). Runs after blog (7:30am) and location AM (8:30am). Monday to Friday.
+    - cron: '30 9 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+
+      - name: Run internal linking updater
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          GITHUB_OWNER: farrimond-ma
+          GITHUB_REPO: boxxfinance-site
+        run: node update-internal-links.js
+        working-directory: scripts/content-engine
