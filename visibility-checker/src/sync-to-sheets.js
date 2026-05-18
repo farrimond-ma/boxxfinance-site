@@ -349,7 +349,7 @@ async function main() {
   ];
 
   // Only blog rows where linkedInRequired = yes
-  const liRows = rows
+  const linkedInRows = rows
     .filter(r => r[1] === 'blog' && r[24] === 'yes')
     .map(r => [
       r[0],   // id
@@ -361,14 +361,14 @@ async function main() {
       r[11],  // url
       r[25],  // author
       'pending', // liStatus
-      '',        // liPostText — populated by Make/LinkedIn scenario
-      '',        // liFirstComment — the blog URL goes here
+      '',        // liPostText — populated by LinkedIn GitHub Action
+      '',        // liFirstComment — blog URL goes here
       '',        // notes
     ]);
 
-  console.log(`  ${liRows.length} LinkedIn posts queued`);
-  const liSheetId = await ensureTab(sheets, 'LinkedIn_Queue', liRows.length + 1);
-  await writeToSheet(sheets, liSheetId, 'LinkedIn_Queue', liHeader, liRows);
+  console.log(`  ${linkedInRows.length} LinkedIn posts queued`);
+  const liSheetId = await ensureTab(sheets, 'LinkedIn_Queue', linkedInRows.length + 1);
+  await writeToSheet(sheets, liSheetId, 'LinkedIn_Queue', liHeader, linkedInRows);
 
   console.log(`\n✅ Done. Sheets updated:`);
   console.log(`   https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}\n`);
