@@ -1,0 +1,57 @@
+name: Sync ContentEngine to Sheets
+
+on:
+  # Run every Sunday at 06:00 UTC — rebuilds the schedule weekly
+  schedule:
+    - cron: "0 6 * * 0"
+
+  # Manual trigger from GitHub UI
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — print stats only, don't write to sheet"
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  sync:
+    name: Rebuild and sync schedule
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: visibility-checker
+        run: npm install
+
+      - name: Run sync
+        working-directory: visibility-checker
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node src/sync-to-sheets.js --dry-run
+          else
+            node src/sync-to-sheets.js
+          fi
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## ContentEngine Sync" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Schedule:** 1 blog + 2 locations/day (weeks 1-2), then 1 blog + 5 locations/day" >> $GITHUB_STEP_SUMMARY
+          echo "**Pillars:** 12 (Bridging Finance leading)" >> $GITHUB_STEP_SUMMARY
+          echo "**Cities:** Top 50 UK cities" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View ContentEngine](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY
