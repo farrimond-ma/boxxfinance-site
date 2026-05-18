@@ -79,6 +79,16 @@ function getWeekdays(start, end) {
   return days;
 }
 
+function getAllDays(start, end) {
+  const days = [];
+  let d = new Date(start);
+  while (d <= end) {
+    days.push(new Date(d));
+    d = addDays(d, 1);
+  }
+  return days;
+}
+
 function fmt(d) {
   return d.toISOString().slice(0, 10);
 }
@@ -88,10 +98,19 @@ function fmt(d) {
 function buildSchedule() {
   const start = new Date('2026-05-19');
   const end   = new Date('2027-05-19');
-  const weekdays = getWeekdays(start, end);
 
-  const phase1 = weekdays.slice(0, 10);   // 2 weeks: 2 locations/day
-  const phase2 = weekdays.slice(10);      // rest:    5 locations/day
+  // Blogs publish every day (weekdays + weekends)
+  const allDays    = getAllDays(start, end);
+  const weekdays   = allDays.filter(d => isWeekday(d));
+
+  // Phase split based on weekdays (location pages weekdays only)
+  const phase1Weekdays = weekdays.slice(0, 10);   // 2 weeks: 2 locations/day
+  const phase2Weekdays = weekdays.slice(10);       // rest:    5 locations/day
+
+  // Blog days: every calendar day, split at the same calendar boundary
+  const phase1End  = phase1Weekdays[phase1Weekdays.length - 1];
+  const phase1Days = allDays.filter(d => d <= phase1End);
+  const phase2Days = allDays.filter(d => d > phase1End);
 
   const rows = [];
   let id = 8;
@@ -108,7 +127,7 @@ function buildSchedule() {
     return kws[kwIdx[pillarName]++ % kws.length];
   }
 
-  function blogRow(d, pillar, keyword) {
+  function blogRow(d, pillar, keyword, isWeekday) {
     const title = keyword.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
     const slug  = keyword.toLowerCase().replace(/\s+/g, '-').replace(/[&']/g, '');
     return [
@@ -123,7 +142,7 @@ function buildSchedule() {
       `Comprehensive guide targeting '${keyword}'. Cover what it is, how it works, eligibility, rates, and why Boxx. Include FAQ. Target 1500+ words.`,
       pillar.url, '', '', '',
       '', '', '',
-      'yes', 'yes',
+      'yes', isWeekday ? 'yes' : 'no',
       'Mark Higgins', 'pending', '',
       `Priority ${pillar.priority} pillar`,
     ];
@@ -150,20 +169,22 @@ function buildSchedule() {
     ];
   }
 
-  // Phase 1 — 2 locations/day
-  for (const d of phase1) {
+  // Phase 1 — blog every day, 2 locations every day
+  for (const d of phase1Days) {
     const pillar = nextPillar();
     const kw = nextKeyword(pillar.name);
-    rows.push(blogRow(d, pillar, kw));
+    const isWd = isWeekday(d);
+    rows.push(blogRow(d, pillar, kw, isWd));
     rows.push(locationRow(d, pillar, TOP_50_CITIES[cityIdx++ % 50], 'PM'));
     rows.push(locationRow(d, pillar, TOP_50_CITIES[cityIdx++ % 50], 'PM2'));
   }
 
-  // Phase 2 — 5 locations/day
-  for (const d of phase2) {
+  // Phase 2 — blog every day, 5 locations every day
+  for (const d of phase2Days) {
     const pillar = nextPillar();
     const kw = nextKeyword(pillar.name);
-    rows.push(blogRow(d, pillar, kw));
+    const isWd = isWeekday(d);
+    rows.push(blogRow(d, pillar, kw, isWd));
     for (const slot of ['PM','PM2','PM3','PM4','PM5']) {
       rows.push(locationRow(d, pillar, TOP_50_CITIES[cityIdx++ % 50], slot));
     }
@@ -295,7 +316,8 @@ async function main() {
   const rows = buildSchedule();
   const blogs = rows.filter(r => r[1] === 'blog').length;
   const locs  = rows.filter(r => r[1] === 'location').length;
-  console.log(`  ${rows.length.toLocaleString()} rows — ${blogs} blogs + ${locs} location pages`);
+  const liRows = rows.filter(r => r[1] === 'blog' && r[24] === 'yes').length;
+  console.log(`  ${rows.length.toLocaleString()} rows — ${blogs} blogs (${liRows} with LinkedIn) + ${locs} location pages`);
   console.log(`  Phase 1 (2 locations/day): 19 May – 1 Jun 2026`);
   console.log(`  Phase 2 (5 locations/day): 2 Jun 2026 – 19 May 2027\n`);
 
