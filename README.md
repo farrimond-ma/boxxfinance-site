@@ -1,17 +1,134 @@
-# React + Vite
+# Boxx Finance — AI Visibility Checker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tests 80 property finance prompts across **ChatGPT**, **Perplexity**, and **Claude** to measure how often Boxx Finance is mentioned vs competitors. Results export to CSV and your Google Sheet.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup
 
-## React Compiler
+### 1. Install dependencies
+```bash
+npm install
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. Create `.env` file (local runs only)
+```bash
+cp .env.example .env
+```
 
-## Expanding the ESLint configuration
+Fill in your keys:
+```
+OPENAI_API_KEY=sk-...
+ANTHROPIC_API_KEY=sk-ant-...
+PERPLEXITY_API_KEY=pplx-...
+GOOGLE_CREDENTIALS=<base64-encoded service account JSON>
+SPREADSHEET_ID=1244VCHh0asyN9Uav9_7UHcoa8LyuLvHK0uprnHNAVrg
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-test deploy again
+To encode your Google service account JSON:
+```bash
+base64 -i boxx-content-engine.json | tr -d '\n'
+```
+
+---
+
+## Running
+
+```bash
+# Full run — all 80 prompts, all 3 services
+npm start
+
+# Dry run (no API calls, tests the pipeline)
+npm run dry-run
+
+# High-priority prompts only (faster, ~30 queries)
+npm run high-priority
+
+# Single service
+npm run chatgpt-only
+npm run perplexity-only
+npm run claude-only
+
+# Skip Google Sheets export
+npm run no-sheets
+
+# Custom flags
+node src/checker.js --services=chatgpt,perplexity --high-only
+```
+
+---
+
+## GitHub Actions
+
+The workflow runs **every Monday at 07:00 UTC** automatically.
+
+### Required GitHub Secrets
+Add these under **Settings → Secrets → Actions**:
+
+| Secret | Value |
+|--------|-------|
+| `OPENAI_API_KEY` | Your OpenAI API key |
+| `ANTHROPIC_API_KEY` | Your Anthropic API key |
+| `PERPLEXITY_API_KEY` | Your Perplexity API key |
+| `GOOGLE_CREDENTIALS` | Base64-encoded service account JSON |
+| `SPREADSHEET_ID` | `1244VCHh0asyN9Uav9_7UHcoa8LyuLvHK0uprnHNAVrg` |
+
+### Manual trigger
+Go to **Actions → AI Visibility Check → Run workflow** and optionally override:
+- Priority filter (`high` / `medium` / `low` / `all`)
+- Services to test
+- Dry run toggle
+
+### Artifacts
+Each run uploads a CSV to the workflow artifacts (retained 90 days).
+
+---
+
+## Output
+
+### Console
+```
+  [001] chatgpt     | Bridging Finance        | What are the best bridging loan lenders...   · 1243ms
+  [002] chatgpt     | Bridging Finance        | How do I get a bridging loan...               ✅ 987ms
+  ...
+
+📊 Visibility by pillar:
+  Bridging Finance         ████░░░░░░ 40% (4/10)
+  General Brand            ███░░░░░░░ 30% (3/10)
+  ...
+
+🏆 Most mentioned competitors:
+  Together                  12x
+  MT Finance                8x
+```
+
+### CSV
+Saved to `results/boxx_visibility_YYYY-MM-DD.csv` with columns:
+- Prompt ID, Prompt, Pillar, Priority
+- Service, Boxx Mentioned (YES/NO), Boxx Snippet
+- Competitor Mentions, Competitor Count
+- Response Preview, Elapsed MS, Run Date
+
+### Google Sheet
+Written to the `AI_Visibility` tab with bold headers and auto-sized columns.
+
+---
+
+## Prompts structure
+
+| Pillar | Count | Priority |
+|--------|-------|----------|
+| Bridging Finance | 10 | High |
+| Development Finance | 10 | High |
+| General Brand | 10 | High |
+| Refurbishment Loans | 10 | Medium |
+| Commercial Finance | 10 | Medium |
+| Buy-to-Let | 10 | Medium |
+| Auction Finance | 10 | Mixed |
+| Second Charge | 10 | Mixed |
+
+---
+
+## Competitors tracked
+
+Together, MT Finance, West One, Roma Finance, Precise, Octane Capital, United Trust Bank, LendInvest, Masthaven, TML, Funding 365, InterBay, Shawbrook, Together Money, Castle Trust, Landbay, Paragon
