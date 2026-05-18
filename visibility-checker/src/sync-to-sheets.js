@@ -118,6 +118,22 @@ function buildSchedule() {
   let cityIdx = 0;
   const kwIdx = Object.fromEntries(PILLARS.map(p => [p.name, 0]));
 
+  // Author rotation:
+  // Week 1: Mark = Mon/Wed/Fri, Andrew = Tue/Thu
+  // Week 2: Andrew = Mon/Wed/Fri, Mark = Tue/Thu
+  // Alternates every week. Week number relative to start date.
+  function getAuthor(d) {
+    const startMonday = new Date('2026-05-18'); // Monday of week 1
+    const msPerWeek = 7 * 24 * 60 * 60 * 1000;
+    const weekNum = Math.floor((d - startMonday) / msPerWeek);
+    const dow = d.getDay(); // 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
+    const markWeekdays  = weekNum % 2 === 0 ? [1, 3, 5] : [2, 4]; // week 1: Mon/Wed/Fri
+    const andrewWeekdays = weekNum % 2 === 0 ? [2, 4] : [1, 3, 5];
+    if (markWeekdays.includes(dow)) return 'Mark Higgins';
+    if (andrewWeekdays.includes(dow)) return 'Andrew Farrimond';
+    return 'Mark Higgins'; // weekends default to Mark
+  }
+
   function nextPillar() {
     return PILLARS[pillarIdx++ % PILLARS.length];
   }
@@ -128,8 +144,9 @@ function buildSchedule() {
   }
 
   function blogRow(d, pillar, keyword, isWeekday) {
-    const title = keyword.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-    const slug  = keyword.toLowerCase().replace(/\s+/g, '-').replace(/[&']/g, '');
+    const title  = keyword.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    const slug   = keyword.toLowerCase().replace(/\s+/g, '-').replace(/[&']/g, '');
+    const author = getAuthor(d);
     return [
       id++, 'blog', 'scheduled', fmt(d), 'AM',
       pillar.name, '',
@@ -143,10 +160,9 @@ function buildSchedule() {
       pillar.url, '', '', '',
       '', '', '',
       'yes', isWeekday ? 'yes' : 'no',
-      'Mark Higgins', 'pending', '',
+      author, 'pending', '',
       `Priority ${pillar.priority} pillar`,
     ];
-  }
 
   function locationRow(d, pillar, city, slot) {
     const title = `${pillar.name} ${city}`;
@@ -348,9 +364,10 @@ async function main() {
     'author', 'liStatus', 'liPostText', 'liFirstComment', 'notes',
   ];
 
-  // Only blog rows where linkedInRequired = yes
+  // Only blog rows where linkedInRequired = yes, sorted by date
   const linkedInRows = rows
     .filter(r => r[1] === 'blog' && r[24] === 'yes')
+    .sort((a, b) => a[3].localeCompare(b[3]))
     .map(r => [
       r[0],   // id
       r[3],   // publishDate
