@@ -1,0 +1,24 @@
+{
+  "name": "boxx-visibility-checker",
+  "version": "1.0.0",
+  "description": "AI visibility checker for Boxx Finance — tests brand mentions across ChatGPT, Perplexity, and Claude",
+  "type": "module",
+  "scripts": {
+    "start": "node src/checker.js",
+    "dry-run": "node src/checker.js --dry-run",
+    "high-priority": "node src/checker.js --high-only",
+    "chatgpt-only": "node src/checker.js --services=chatgpt",
+    "perplexity-only": "node src/checker.js --services=perplexity",
+    "claude-only": "node src/checker.js --services=claude",
+    "no-sheets": "node src/checker.js --skip-sheets"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "googleapis": "^144.0.0",
+    "node-fetch": "^3.3.2",
+    "openai": "^4.77.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
