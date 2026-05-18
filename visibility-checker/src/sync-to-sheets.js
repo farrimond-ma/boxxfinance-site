@@ -341,7 +341,36 @@ async function main() {
   console.log('Writing to sheet...');
   await writeToSheet(sheets, sheetId, SHEET_TAB, header, rows);
 
-  console.log(`\n✅ Done. Sheet updated:`);
+  // ── LinkedIn Queue tab ──
+  console.log(`\nBuilding LinkedIn Queue...`);
+  const liHeader = [
+    'id', 'publishDate', 'service', 'keyword', 'title', 'slug', 'url',
+    'author', 'liStatus', 'liPostText', 'liFirstComment', 'notes',
+  ];
+
+  // Only blog rows where linkedInRequired = yes
+  const liRows = rows
+    .filter(r => r[1] === 'blog' && r[24] === 'yes')
+    .map(r => [
+      r[0],   // id
+      r[3],   // publishDate
+      r[5],   // service (pillar)
+      r[7],   // keyword
+      r[9],   // title
+      r[10],  // slug
+      r[11],  // url
+      r[25],  // author
+      'pending', // liStatus
+      '',        // liPostText — populated by Make/LinkedIn scenario
+      '',        // liFirstComment — the blog URL goes here
+      '',        // notes
+    ]);
+
+  console.log(`  ${liRows.length} LinkedIn posts queued`);
+  const liSheetId = await ensureTab(sheets, 'LinkedIn_Queue', liRows.length + 1);
+  await writeToSheet(sheets, liSheetId, 'LinkedIn_Queue', liHeader, liRows);
+
+  console.log(`\n✅ Done. Sheets updated:`);
   console.log(`   https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}\n`);
 }
 
