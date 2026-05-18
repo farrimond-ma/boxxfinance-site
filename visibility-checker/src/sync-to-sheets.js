@@ -261,12 +261,11 @@ async function writeToSheet(sheets, sheetId, tabName, header, rows) {
             range: { sheetId, startRowIndex: 0, endRowIndex: 1 },
             cell: {
               userEnteredFormat: {
-                textFormat: { bold: true },
+                textFormat: { bold: true, foregroundColor: { red: 1, green: 1, blue: 1 } },
                 backgroundColor: { red: 0.13, green: 0.18, blue: 0.35 },
-                foregroundColor: { red: 1, green: 1, blue: 1 },
               },
             },
-            fields: 'userEnteredFormat(textFormat,backgroundColor,foregroundColor)',
+            fields: 'userEnteredFormat(textFormat,backgroundColor)',
           },
         },
         {
