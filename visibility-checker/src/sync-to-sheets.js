@@ -181,17 +181,52 @@ async function getSheets() {
   return google.sheets({ version: 'v4', auth });
 }
 
-async function ensureTab(sheets, tabName) {
+async function ensureTab(sheets, tabName, requiredRows) {
   const meta = await sheets.spreadsheets.get({ spreadsheetId: SPREADSHEET_ID });
-  const exists = meta.data.sheets?.some(s => s.properties?.title === tabName);
-  if (!exists) {
+  const existing = meta.data.sheets?.find(s => s.properties?.title === tabName);
+
+  if (!existing) {
+    // Create tab with enough rows
     await sheets.spreadsheets.batchUpdate({
       spreadsheetId: SPREADSHEET_ID,
-      requestBody: { requests: [{ addSheet: { properties: { title: tabName } } }] },
+      requestBody: {
+        requests: [{
+          addSheet: {
+            properties: {
+              title: tabName,
+              gridProperties: { rowCount: requiredRows + 10, columnCount: 30 },
+            },
+          },
+        }],
+      },
     });
-    console.log(`  Created tab: ${tabName}`);
+    console.log(`  Created tab: ${tabName} (${requiredRows + 10} rows)`);
+    // Re-fetch to get the new sheetId
+    const meta2 = await sheets.spreadsheets.get({ spreadsheetId: SPREADSHEET_ID });
+    return meta2.data.sheets?.find(s => s.properties?.title === tabName)?.properties?.sheetId;
   }
-  return meta.data.sheets?.find(s => s.properties?.title === tabName)?.properties?.sheetId;
+
+  // Tab exists — expand rows if needed
+  const currentRows = existing.properties?.gridProperties?.rowCount || 1000;
+  if (currentRows < requiredRows + 10) {
+    await sheets.spreadsheets.batchUpdate({
+      spreadsheetId: SPREADSHEET_ID,
+      requestBody: {
+        requests: [{
+          updateSheetProperties: {
+            properties: {
+              sheetId: existing.properties.sheetId,
+              gridProperties: { rowCount: requiredRows + 10, columnCount: 30 },
+            },
+            fields: 'gridProperties.rowCount,gridProperties.columnCount',
+          },
+        }],
+      },
+    });
+    console.log(`  Expanded tab to ${requiredRows + 10} rows`);
+  }
+
+  return existing.properties?.sheetId;
 }
 
 async function writeToSheet(sheets, sheetId, tabName, header, rows) {
@@ -269,7 +304,7 @@ async function main() {
   const sheets = await getSheets();
 
   console.log(`Ensuring tab "${SHEET_TAB}" exists...`);
-  const sheetId = await ensureTab(sheets, SHEET_TAB);
+  const sheetId = await ensureTab(sheets, SHEET_TAB, rows.length + 1);
 
   const header = [
     'id','type','status','publishDate','publishSlot',
