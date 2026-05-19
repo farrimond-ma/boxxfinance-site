@@ -17,7 +17,16 @@ const MAX_LOCATION_LINKS_PER_BLOG = 4;
 async function getSheetsClient() {
   let auth;
   if (process.env.GOOGLE_CREDENTIALS) {
-    const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    let credentials;
+    try {
+      // Try base64 decode first (GitHub Actions)
+      credentials = JSON.parse(
+        Buffer.from(process.env.GOOGLE_CREDENTIALS, 'base64').toString('utf8')
+      );
+    } catch {
+      // Fall back to raw JSON (local .env)
+      credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    }
     auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
@@ -49,7 +58,6 @@ async function getUnlinkedLocations(sheets) {
     const url = row[11] || '';
     const service = row[5] || '';
 
-    // Find location pages that are published but not yet linked
     if (type === 'location' && status === 'published' && jsonStatus !== 'linked' && url) {
       unlinked.push({
         rowIndex: i + 2,
@@ -111,7 +119,6 @@ async function main() {
   const sheets = await getSheetsClient();
   console.log('Connected to Google Sheets');
 
-  // 1. Find location pages that haven't been linked yet
   const unlinkedLocations = await getUnlinkedLocations(sheets);
 
   if (unlinkedLocations.length === 0) {
@@ -121,7 +128,6 @@ async function main() {
 
   console.log(`Found ${unlinkedLocations.length} unlinked location page(s)`);
 
-  // 2. Get current blogPosts.json
   console.log('Fetching blogPosts.json from GitHub...');
   let { sha, posts } = await getBlogPostsFile();
   console.log(`Current file has ${posts.length} blog posts`);
@@ -129,11 +135,9 @@ async function main() {
   let totalUpdates = 0;
   const processedLocations = [];
 
-  // 3. Process each unlinked location
   for (const location of unlinkedLocations) {
     console.log(`\nProcessing: ${location.title} (${location.url})`);
 
-    // Find blogs in the same service category
     const serviceSlug = location.service.toLowerCase().replace(/\s+/g, '-');
 
     const matchingBlogs = posts.filter(post => {
@@ -153,11 +157,9 @@ async function main() {
 
     let updatesForThisLocation = 0;
 
-    // Add location URL to matching blogs (up to MAX_LOCATION_LINKS_PER_BLOG)
     for (const post of matchingBlogs) {
       const existing = post.relatedLocationUrls || [];
 
-      // Skip if already linked or at max capacity
       if (existing.includes(location.url)) {
         console.log(`  - ${post.slug}: already linked, skipping`);
         continue;
@@ -168,7 +170,6 @@ async function main() {
         continue;
       }
 
-      // Add the new location URL
       post.relatedLocationUrls = [...existing, location.url];
       updatesForThisLocation++;
       totalUpdates++;
@@ -183,7 +184,6 @@ async function main() {
     }
   }
 
-  // 4. Push updated blogPosts.json if anything changed
   if (totalUpdates > 0) {
     const locationSlugs = processedLocations.map(l => l.slug).join(', ');
     await pushBlogPostsFile(
@@ -196,7 +196,6 @@ async function main() {
     console.log('\nNo blog posts needed updating');
   }
 
-  // 5. Mark all processed locations as linked in the sheet
   for (const location of processedLocations) {
     await markLocationAsLinked(sheets, location.rowIndex);
     console.log(`Marked row ${location.rowIndex} as linked: ${location.slug}`);
