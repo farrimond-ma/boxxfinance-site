@@ -302,30 +302,31 @@ async function main() {
   const publishedAt = new Date().toISOString();
   const fullUrl = `https://boxxfinance.co.uk${url}`;
 
+  const authorEmails = {
+    'Mark Higgins': 'mark@boxxfinance.co.uk',
+    'Andrew Farrimond': 'andrew@boxxfinance.co.uk',
+  };
+
   const newPost = {
     id: Date.now(),
-    type: 'blog',
     status: 'published',
     slug: finalSlug,
-    url,
+    url: url,
     title: row.title || article.title,
     excerpt: article.excerpt,
     metaTitle: row.metaTitle || article.metaTitle,
     metaDescription: row.metaDescription || article.metaDescription,
-    primaryKeyword: row.keyword || article.primaryKeyword,
-    keywords: article.secondaryKeywords || [],
-    secondaryKeywords: article.secondaryKeywords || [],
-    category: row.category || article.category,
-    publishDate: row.publishDate,
-    date: publishedAt,
-    publishedAt,
+    keywords: Array.isArray(article.secondaryKeywords)
+      ? article.secondaryKeywords.join(', ')
+      : (article.secondaryKeywords || row.keyword),
+    date: row.publishDate,
     author: row.author || 'Mark Higgins',
+    authorEmail: authorEmails[row.author] || 'mark@boxxfinance.co.uk',
+    image: `https://source.unsplash.com/1200x600/?${encodeURIComponent(row.keyword)},business,uk`,
+    schema: article.faqSchema || null,
     relatedLocationUrls: locationLinks.map(l => l.startsWith('http') ? l : `https://boxxfinance.co.uk${l}`),
     relatedBlogUrls: relatedBlogs.map(b => b.url),
-    schema: article.faqSchema || null,
-    faqSchema: article.faqSchema || null,
     content: article.contentHtml,
-    contentHtml: article.contentHtml,
   };
 
   posts.push(newPost);
