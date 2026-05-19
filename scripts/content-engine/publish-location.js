@@ -24,7 +24,16 @@ const LOCATION_FILE = 'src/data/locationPages.json';
 async function getSheetsClient() {
   let auth;
   if (process.env.GOOGLE_CREDENTIALS) {
-    const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    let credentials;
+    try {
+      // Try base64 decode first (GitHub Actions)
+      credentials = JSON.parse(
+        Buffer.from(process.env.GOOGLE_CREDENTIALS, 'base64').toString('utf8')
+      );
+    } catch {
+      // Fall back to raw JSON (local .env)
+      credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    }
     auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
@@ -220,7 +229,6 @@ async function updateSheetRow(sheets, rowIndex, slug, liveUrl, publishedAt) {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
-  // Determine slot from argument or default to AM
   const slot = (process.argv[2] || 'AM').toUpperCase();
 
   console.log(`=== Boxx Content Engine: Location Publisher (${slot} slot) ===`);
