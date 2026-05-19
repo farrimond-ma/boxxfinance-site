@@ -237,11 +237,25 @@ async function main() {
   const locationLinks = await getPublishedLocations(sheets, row.service);
   console.log(`Found ${locationLinks.length} published location pages for ${row.service}`);
 
+  // Fetch blogPosts.json early so we can check for duplicates before generating
+  console.log('Fetching current blogPosts.json from GitHub...');
+  const { sha, posts } = await getBlogPostsFile();
+  console.log(`Current file has ${posts.length} posts, SHA: ${sha}`);
+
+  // Skip if slug already exists — prevents duplicate posts after sheet rebuilds
+  const slug = row.slug;
+  const existingPost = posts.find(p => p.slug === slug);
+  if (existingPost) {
+    console.log(`Slug "${slug}" already exists — marking sheet row as published and skipping generation.`);
+    await updateSheetRow(sheets, row.rowIndex, slug, `https://boxxfinance.co.uk/insights/${slug}`, existingPost.publishedAt || new Date().toISOString());
+    return;
+  }
+
   const article = await generateArticle(row, locationLinks);
   console.log(`Article generated: ${article.title}`);
 
-  const slug = row.slug || article.slug;
-  const url = `/insights/${slug}`;
+  const finalSlug = slug || article.slug;
+  const url = `/insights/${finalSlug}`;
   const publishedAt = new Date().toISOString();
   const fullUrl = `https://boxxfinance.co.uk${url}`;
 
@@ -249,7 +263,7 @@ async function main() {
     id: Date.now(),
     type: 'blog',
     status: 'published',
-    slug,
+    slug: finalSlug,
     url,
     title: row.title || article.title,
     excerpt: article.excerpt,
@@ -271,13 +285,9 @@ async function main() {
     contentHtml: article.contentHtml,
   };
 
-  console.log('Fetching current blogPosts.json from GitHub...');
-  const { sha, posts } = await getBlogPostsFile();
-  console.log(`Current file has ${posts.length} posts, SHA: ${sha}`);
-
   posts.push(newPost);
-  await pushBlogPostsFile(posts, sha, slug);
-  await updateSheetRow(sheets, row.rowIndex, slug, fullUrl, publishedAt);
+  await pushBlogPostsFile(posts, sha, finalSlug);
+  await updateSheetRow(sheets, row.rowIndex, finalSlug, fullUrl, publishedAt);
 
   console.log('=== Done! ===');
   console.log(`Published: ${fullUrl}`);
