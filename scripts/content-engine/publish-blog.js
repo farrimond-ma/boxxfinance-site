@@ -85,6 +85,7 @@ async function getScheduledRow(sheets) {
         faqRequired: row[23] || 'yes',
         linkedInRequired: row[24] || 'no',
         author: row[25] || 'Mark Higgins',
+        internalLinkService: row[16] || '',
       };
     }
   }
@@ -115,13 +116,46 @@ async function getPublishedLocations(sheets, service) {
   return locations.slice(0, 4);
 }
 
+// ─── Get published blogs for related article linking ─────────────────────────
+async function getPublishedBlogs(sheets, service) {
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: 'ContentEngine!A2:L',
+  });
+
+  const rows = res.data.values || [];
+  const blogs = [];
+
+  for (const row of rows) {
+    const type = (row[1] || '').toLowerCase().trim();
+    const status = (row[2] || '').toLowerCase().trim();
+    const rowService = (row[5] || '').toLowerCase().trim();
+    const url = row[11] || '';
+    const title = row[9] || '';
+
+    if (type === 'blog' && status === 'published' && rowService === service.toLowerCase() && url) {
+      blogs.push({ url: url.startsWith('http') ? url : `https://boxxfinance.co.uk${url}`, title });
+    }
+  }
+
+  return blogs.slice(0, 3);
+}
+
 // ─── Generate article with OpenAI ────────────────────────────────────────────
-async function generateArticle(row, locationLinks) {
+async function generateArticle(row, locationLinks, relatedBlogs) {
   console.log(`Generating article for: ${row.keyword || row.title}`);
+
+  const serviceUrl = row.internalLinkService
+    ? `https://boxxfinance.co.uk${row.internalLinkService}`
+    : `https://boxxfinance.co.uk/funding-solutions/${row.service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`;
 
   const locationLinksText = locationLinks.length > 0
     ? `\nInternal location links to include as contextual links within the article body:\n${locationLinks.map(l => `https://boxxfinance.co.uk${l}`).join('\n')}`
-    : '\nNo location pages published yet for this service - do not include location links.';
+    : '';
+
+  const relatedBlogsText = relatedBlogs.length > 0
+    ? `\nRelated blog posts to link to naturally within the article body (use the title as anchor text):\n${relatedBlogs.map(b => `${b.url} — "${b.title}"`).join('\n')}`
+    : '';
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
@@ -146,7 +180,13 @@ Rules:
 - Only use location links explicitly provided below - do not invent any
 - No markdown, no backticks, no code fences, no curly quotes - return raw JSON only
 - slug should be the keyword in lowercase with hyphens
+- You MUST include at least 3 contextual links to the service page (${serviceUrl}) at natural points throughout the article — not all in one place
+- You MUST include a contextual link to https://boxxfinance.co.uk/chat-about-funding as a call to action within the article body
+- You MUST include a contextual link to https://boxxfinance.co.uk/funding-solutions as an anchor to the full range of funding solutions Boxx offers
+- You MUST include a contextual link to https://boxxfinance.co.uk/about-us when mentioning Boxx Commercial Finance by name for the first time
+- If related blog links are provided below, include them as contextual links within the article body using the post title as anchor text
 ${locationLinksText}
+${relatedBlogsText}
 
 Keyword: ${row.keyword}
 Service: ${row.service}
@@ -237,6 +277,9 @@ async function main() {
   const locationLinks = await getPublishedLocations(sheets, row.service);
   console.log(`Found ${locationLinks.length} published location pages for ${row.service}`);
 
+  const relatedBlogs = await getPublishedBlogs(sheets, row.service);
+  console.log(`Found ${relatedBlogs.length} related published blogs for ${row.service}`);
+
   // Fetch blogPosts.json early so we can check for duplicates before generating
   console.log('Fetching current blogPosts.json from GitHub...');
   const { sha, posts } = await getBlogPostsFile();
@@ -251,7 +294,7 @@ async function main() {
     return;
   }
 
-  const article = await generateArticle(row, locationLinks);
+  const article = await generateArticle(row, locationLinks, relatedBlogs);
   console.log(`Article generated: ${article.title}`);
 
   const finalSlug = slug || article.slug;
@@ -278,7 +321,7 @@ async function main() {
     publishedAt,
     author: row.author || 'Mark Higgins',
     relatedLocationUrls: locationLinks.map(l => l.startsWith('http') ? l : `https://boxxfinance.co.uk${l}`),
-    relatedBlogUrls: [],
+    relatedBlogUrls: relatedBlogs.map(b => b.url),
     schema: article.faqSchema || null,
     faqSchema: article.faqSchema || null,
     content: article.contentHtml,
