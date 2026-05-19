@@ -1,0 +1,56 @@
+name: Publish LinkedIn Post
+
+on:
+  # Trigger after publish-blog completes successfully
+  workflow_run:
+    workflows: ["Publish Blog"]
+    types:
+      - completed
+
+  # Also run on a schedule as a safety net (8:00 AM UTC = 9:00 AM BST)
+  schedule:
+    - cron: '0 8 * * 1-5'
+
+  # Manual trigger
+  workflow_dispatch:
+
+jobs:
+  publish-linkedin:
+    name: Generate and post to LinkedIn
+    runs-on: ubuntu-latest
+    # Only run if the blog publish succeeded (or if triggered manually/scheduled)
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name != 'workflow_run' }}
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run LinkedIn publisher
+        working-directory: scripts/content-engine
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          LINKEDIN_ACCESS_TOKEN_MARK: ${{ secrets.LINKEDIN_ACCESS_TOKEN_MARK }}
+          LINKEDIN_ACCESS_TOKEN_ANDREW: ${{ secrets.LINKEDIN_ACCESS_TOKEN_ANDREW }}
+          LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+        run: node publish-linkedin.js
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## LinkedIn Publisher" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View LinkedIn Queue](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY
