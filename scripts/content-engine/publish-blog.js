@@ -26,7 +26,16 @@ const BLOG_FILE = 'src/data/blogPosts.json';
 async function getSheetsClient() {
   let auth;
   if (process.env.GOOGLE_CREDENTIALS) {
-    const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    let credentials;
+    try {
+      // Try base64 decode first (GitHub Actions)
+      credentials = JSON.parse(
+        Buffer.from(process.env.GOOGLE_CREDENTIALS, 'base64').toString('utf8')
+      );
+    } catch {
+      // Fall back to raw JSON (local .env)
+      credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    }
     auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
@@ -75,6 +84,7 @@ async function getScheduledRow(sheets) {
         contentBrief: row[15] || '',
         faqRequired: row[23] || 'yes',
         linkedInRequired: row[24] || 'no',
+        author: row[25] || 'Mark Higgins',
       };
     }
   }
@@ -252,7 +262,7 @@ async function main() {
     publishDate: row.publishDate,
     date: publishedAt,
     publishedAt,
-    author: 'Andrew Farrimond',
+    author: row.author || 'Mark Higgins',
     relatedLocationUrls: locationLinks.map(l => l.startsWith('http') ? l : `https://boxxfinance.co.uk${l}`),
     relatedBlogUrls: [],
     schema: article.faqSchema || null,
