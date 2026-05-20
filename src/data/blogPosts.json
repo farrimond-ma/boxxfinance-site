@@ -1,22 +1,5 @@
 [
   {
-    "id": 999,
-    "status": "published",
-    "title": "Test Article for GitHub Publishing",
-    "slug": "test-article-for-github-publishing",
-    "excerpt": "This is a test article to confirm that blogPosts.json is creating pages automatically on the Boxx site.",
-    "metaTitle": "Test Article for GitHub Publishing | Boxx Commercial Finance",
-    "metaDescription": "This is a test article to confirm that blogPosts.json is creating pages automatically on the Boxx site.",
-    "keywords": "test article, github publishing, boxx commercial finance",
-    "date": "2026-04-01",
-    "author": "Mark Higgins",
-    "content": "<h2>Test Article Body</h2><p>This is a test article added directly into blogPosts.json.</p><p>If you can see this page live on the site, it means the automated article page system is working correctly.</p><h3>Why this matters</h3><p>It means future articles do not need new React pages creating manually.</p><p>They simply need to be added into the JSON file and GitHub will handle the rebuild and deployment.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
-  },
-  {
     "id": "ultimate-guide-commercial-finance-uk",
     "status": "published",
     "title": "The Ultimate Guide to Commercial Finance in the UK (2026 Edition)",
@@ -28,11 +11,97 @@
     "date": "2026-03-03",
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
-    "content": "\n      <h2>Commercial Finance in the UK – What It Really Means</h2>\n\n      <p>Commercial finance in the UK is not a single product.</p>\n\n      <p>It’s a broad term covering structured funding solutions used by businesses, property investors and developers to:</p>\n      <ul>\n      <li>Acquire assets</li>\n      <li>Purchase property</li>\n      <li>Manage cash flow</li>\n      <li>Fund growth</li>\n      <li>Refinance debt</li>\n      <li>Unlock capital</li>\n      </ul>\n\n      <p>Unlike personal finance, commercial funding is risk-priced, individually structured and often negotiable.</p>\n\n      <p>Understanding how it fits together changes outcomes materially.</p>\n\n      <h2>The Core Types of Commercial Finance in the UK</h2>\n\n      <h3>1. Business Loans</h3>\n      <p>Structured <a href='/funding-solutions/business-loans'>Business Loans</a> are typically used for expansion, equipment purchases, staff growth, debt consolidation, and general working capital.</p>\n\n      <h3>2. Commercial Mortgages</h3>\n      <p>A <a href='/funding-solutions/commercial-mortgages'>Commercial Mortgage</a> is long-term property-backed finance used for owner-occupied premises, investment property, and refinancing existing property debt.</p>\n\n      <h3>3. Development Finance</h3>\n      <p>For ground-up or heavy refurbishment projects, <a href='/funding-solutions/development-finance'>Development Finance</a> is used. It differs from standard mortgages because funds are released in stages.</p>\n\n      <h3>4. Bridging Finance</h3>\n      <p><a href='/funding-solutions/bridging-finance'>Bridging Finance</a> is short-term lending, typically 3–18 months. Used when speed is critical, property chain breaks, or for auction purchases.</p>\n\n      <h3>5. Asset Finance</h3>\n      <p><a href='/funding-solutions/asset-finance'>Asset Finance</a> allows businesses to acquire equipment, vehicles or machinery without large upfront capital outlay.</p>\n\n      <h3>6. Invoice Finance</h3>\n      <p><a href='/funding-solutions/invoice-finance'>Invoice Finance</a> releases capital tied up in unpaid invoices.</p>\n\n      <h2>Frequently Asked Questions</h2>\n      <dl>\n      <dt>What is commercial finance in the UK?</dt>\n      <dd>Commercial finance refers to funding solutions used by businesses, including business loans, commercial mortgages, development finance and asset-backed lending.</dd>\n      <dt>Is commercial finance regulated?</dt>\n      <dd>Some areas are regulated, particularly where residential property or consumer elements are involved, but much commercial lending is unregulated.</dd>\n      </dl>\n\n      <h2>Speak to a Commercial Finance Specialist</h2>\n      <p>👉 <a href='/chat-about-funding'>Book a chat with Mark Higgins</a></p>\n    ",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is commercial finance in the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Commercial finance refers to funding solutions used by businesses, including business loans, commercial mortgages, development finance and asset-backed lending."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between commercial and residential finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Commercial finance is risk-priced and based on business performance or asset viability, whereas residential finance is income-based for individuals."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is commercial finance regulated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Some areas are regulated, particularly where residential property or consumer elements are involved, but much commercial lending is unregulated."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to arrange commercial finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It varies by product. Unsecured loans may complete in days, while property-backed transactions can take several weeks."
+          }
+        }
+      ]
+    },
+    "content": "<h2>Commercial Finance in the UK</h2><p>Commercial finance in the UK is not a single product. It is a broad term covering structured funding solutions used by businesses, property investors and developers to acquire assets, purchase property, manage cash flow, fund growth, refinance debt, and unlock capital.</p><h2>The Core Types of Commercial Finance in the UK</h2><h3>1. Business Loans</h3><p>Structured <a href='/funding-solutions/business-loans'>Business Loans</a> are typically used for expansion, equipment purchases, staff growth, debt consolidation, and general working capital.</p><h3>2. Commercial Mortgages</h3><p>A <a href='/funding-solutions/commercial-mortgages'>Commercial Mortgage</a> is long-term property-backed finance used for owner-occupied premises, investment property, and refinancing existing property debt.</p><h3>3. Development Finance</h3><p>For ground-up or heavy refurbishment projects, <a href='/funding-solutions/development-finance'>Development Finance</a> is used. Funds are released in stages based on monitored drawdowns.</p><h3>4. Bridging Finance</h3><p><a href='/funding-solutions/bridging-finance'>Bridging Finance</a> is short-term lending, typically 3 to 18 months, used when speed is critical or for auction purchases.</p><h3>5. Asset Finance</h3><p><a href='/funding-solutions/asset-finance'>Asset Finance</a> allows businesses to acquire equipment, vehicles or machinery without large upfront capital outlay.</p><h3>6. Invoice Finance</h3><p><a href='/funding-solutions/invoice-finance'>Invoice Finance</a> releases capital tied up in unpaid invoices.</p><h2>Frequently Asked Questions</h2><dl><dt>What is commercial finance in the UK?</dt><dd>Commercial finance refers to funding solutions used by businesses, including business loans, commercial mortgages, development finance and asset-backed lending.</dd><dt>What is the difference between commercial and residential finance?</dt><dd>Commercial finance is risk-priced and based on business performance or asset viability, whereas residential finance is income-based for individuals.</dd><dt>Is commercial finance regulated?</dt><dd>Some areas are regulated, but much commercial lending is unregulated.</dd><dt>How long does it take to arrange commercial finance?</dt><dd>It varies by product. Unsecured loans may complete in days, while property-backed transactions can take several weeks.</dd></dl><h2>Speak to a Specialist</h2><p><a href='/chat-about-funding'>Book a chat with Mark Higgins</a></p>"
+  },
+  {
+    "id": "commercial-mortgages-uk-guide",
+    "status": "published",
+    "title": "Commercial Mortgages UK: What Business Owners Should Know Before Applying",
+    "metaTitle": "Commercial Mortgages UK | Rates, Deposits and How to Structure Them Properly",
+    "metaDescription": "A practical guide to commercial mortgages in the UK. Learn about rates, deposits, lender requirements and how to structure business property finance correctly.",
+    "keywords": "commercial mortgages UK, property finance UK, business mortgages, commercial property loans, buy to let commercial",
+    "slug": "commercial-mortgages-uk-guide",
+    "excerpt": "A practical guide to commercial mortgages in the UK. Learn about rates, deposits, lender requirements and how to structure business property finance correctly.",
+    "date": "2026-02-28",
+    "author": "Andrew Farrimond",
+    "authorEmail": "andrew@boxxfinance.co.uk",
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the typical deposit for a commercial mortgage in the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Deposits usually range from 20% to 40%, depending on property type, risk profile and business strength."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to arrange a commercial mortgage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most transactions complete within 4 to 10 weeks, depending on valuation, legal work and lender speed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are commercial mortgage rates fixed or variable?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both options are available. Fixed rates provide payment certainty, while variable rates may offer flexibility depending on market conditions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I refinance a commercial mortgage later?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Many businesses refinance to release equity, reduce cost of capital or restructure facilities as the business grows."
+          }
+        }
+      ]
+    },
+    "content": "<h2>Commercial Mortgages UK</h2><p>If you are buying or refinancing business premises, a <a href='/funding-solutions/commercial-mortgages'>commercial mortgage</a> is usually the most appropriate long-term funding solution. For shorter-term property requirements, businesses sometimes use <a href='/funding-solutions/bridging-finance'>Bridging Finance</a> before refinancing onto a longer-term commercial mortgage.</p><h2>How Much Deposit Is Required?</h2><p>Deposits for commercial mortgages in the UK typically range between 20% to 40%. Loan-to-value depends on property type, tenant strength, business performance, sector risk, and director profile.</p><h2>What Lenders Actually Assess</h2><p>Lenders examine latest accounts, management figures, debt levels, director experience, property valuation, and exit strategy. A well-structured case submitted through a <a href='/'>commercial finance broker in the UK</a> will usually receive a more commercially aligned response.</p><h2>Frequently Asked Questions</h2><dl><dt>What is the typical deposit for a commercial mortgage in the UK?</dt><dd>Deposits usually range from 20% to 40%, depending on property type, risk profile and business strength.</dd><dt>How long does it take to arrange a commercial mortgage?</dt><dd>Most transactions complete within 4 to 10 weeks.</dd><dt>Are commercial mortgage rates fixed or variable?</dt><dd>Both options are available. Fixed rates provide payment certainty, while variable rates may offer flexibility.</dd><dt>Can I refinance a commercial mortgage later?</dt><dd>Yes. Many businesses refinance to release equity or reduce cost of capital as the business grows.</dd></dl><h2>Speak to a Specialist</h2><p><a href='/chat-about-funding'>Chat about your funding requirement here</a></p>"
   },
   {
     "id": 1,
@@ -40,16 +109,50 @@
     "title": "The Ultimate Guide to Commercial Loans for SMEs",
     "keywords": "SME loans UK, business loans for SMEs, commercial lending, small business funding, UK SME finance",
     "slug": "ultimate-guide-commercial-loans-smes",
-    "excerpt": "A complete guide to commercial loans for UK SMEs — covering loan types, lender assessment criteria, interest rates, and how to choose the right facility for your business.",
+    "excerpt": "A complete guide to commercial loans for UK SMEs covering loan types, lender assessment criteria, interest rates, and how to choose the right facility for your business.",
     "date": "2026-02-12",
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>Securing funding is rarely about simply borrowing money. For most SMEs, it is about timing, structure and ensuring that capital supports growth rather than restricting it.</p><p>Commercial loans remain one of the most common forms of funding for UK businesses. Understanding the wider landscape of commercial finance, including <a href='/funding-solutions/asset-finance'>structured asset finance solutions</a> and tailored <a href='/funding-solutions/working-capital'>working capital facilities</a>, helps businesses make more informed decisions from the outset.</p><h2>What Is a Commercial Loan?</h2><p>A commercial loan is funding provided to a business for operational, expansion or investment purposes. Unlike personal borrowing, commercial loans are assessed on the financial strength and trading performance of the business.</p><h2>Types of Commercial Loans Available to SMEs</h2><h3>Term Loans</h3><p>A fixed amount borrowed and repaid over an agreed period with interest. Suitable for defined projects such as expansion or major investment.</p><h3>Secured Loans</h3><p>Backed by property or other business assets. Businesses acquiring premises may consider structured <a href='/funding-solutions/commercial-mortgages'>commercial mortgage funding</a>.</p><h3>Unsecured Loans</h3><p>No specific asset security required, though personal guarantees are common.</p><h2>Final Thoughts</h2><p>Commercial loans remain a core funding tool for UK SMEs. If you are ready to review your options, <a href='/chat-about-funding'>outline your funding requirements here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a commercial loan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A commercial loan is funding provided to a business for operational, expansion or investment purposes, assessed on the financial strength and trading performance of the business."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What types of commercial loans are available to SMEs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Types include term loans, secured loans, unsecured loans, and specialist lending. The right structure depends on both the business objective and lender appetite."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are business loan applications declined?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Applications are often declined due to insufficient trading history, irregular cash flow, high existing borrowing, or sector restrictions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I use a commercial finance broker?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Working with a broker provides access to multiple lenders, negotiation leverage, risk positioning, and structure optimisation."
+          }
+        }
+      ]
+    },
+    "content": "<p>Securing funding is rarely about simply borrowing money. For most SMEs, it is about timing, structure and ensuring that capital supports growth rather than restricting it.</p><p>Understanding the wider landscape of commercial finance, including <a href='/funding-solutions/asset-finance'>structured asset finance solutions</a> and tailored <a href='/funding-solutions/working-capital'>working capital facilities</a>, helps businesses make more informed decisions from the outset.</p><h2>What Is a Commercial Loan?</h2><p>A commercial loan is funding provided to a business for operational, expansion or investment purposes. Unlike personal borrowing, commercial loans are assessed on the financial strength and trading performance of the business.</p><h2>Types of Commercial Loans Available to SMEs</h2><h3>Term Loans</h3><p>A fixed amount borrowed and repaid over an agreed period with interest. Suitable for defined projects such as expansion or major investment.</p><h3>Secured Loans</h3><p>Backed by property or other business assets. Businesses acquiring premises may consider structured <a href='/funding-solutions/commercial-mortgages'>commercial mortgage funding</a>.</p><h3>Unsecured Loans</h3><p>No specific asset security required, though personal guarantees are common. Typically smaller and priced higher due to increased lender risk.</p><h2>How Lenders Assess SME Loan Applications</h2><p>Lenders assess profitability and sustainability, cash flow consistency, existing liabilities, director track record, sector risk profile, and asset backing where applicable. Where liquidity is the core issue, alternatives such as <a href='/funding-solutions/invoice-finance'>invoice finance facilities</a> may provide a more appropriate solution.</p><h2>Frequently Asked Questions</h2><dl><dt>What is a commercial loan?</dt><dd>A commercial loan is funding provided to a business for operational, expansion or investment purposes, assessed on the financial strength and trading performance of the business.</dd><dt>What types of commercial loans are available to SMEs?</dt><dd>Types include term loans, secured loans, unsecured loans, and specialist lending.</dd><dt>Why are business loan applications declined?</dt><dd>Applications are often declined due to insufficient trading history, irregular cash flow, high existing borrowing, or sector restrictions.</dd><dt>Should I use a commercial finance broker?</dt><dd>Working with a broker provides access to multiple lenders, negotiation leverage, risk positioning, and structure optimisation.</dd></dl><h2>Final Thoughts</h2><p>If you are ready to review your options, <a href='/chat-about-funding'>outline your funding requirements here</a>.</p>"
   },
   {
     "id": 2,
@@ -57,16 +160,50 @@
     "title": "Commercial Finance Explained: What Every Business Owner Needs to Know",
     "keywords": "commercial finance terminology, business funding explained, LTV, DSCR meaning, commercial finance glossary",
     "slug": "commercial-finance-explained",
-    "excerpt": "A plain-English guide to commercial finance terminology. Understand the key concepts — from LTV and DSCR to facility types — before approaching a lender or broker.",
+    "excerpt": "A plain-English guide to commercial finance terminology. Understand the key concepts from LTV and DSCR to facility types before approaching a lender or broker.",
     "date": "2026-02-12",
     "author": "Andrew Farrimond",
     "authorEmail": "andrew@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1454165833767-027508658d61?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>Commercial finance is a broad term that covers a huge range of business funding products. Understanding these terms is the first step toward securing the capital you need.</p><h2>Key Terms to Understand</h2><h3>LTV (Loan to Value)</h3><p>The ratio of a loan to the value of the asset purchased. Higher LTVs generally mean higher risk for the lender.</p><h3>Term</h3><p>The length of time you have to repay the loan. <a href='/funding-solutions/commercial-mortgages'>Commercial mortgages</a> can extend up to 25 years.</p><h3>Equity</h3><p>The value of your ownership in the business or asset.</p><h3>Personal Guarantee (PG)</h3><p>Many lenders require a Personal Guarantee from the company directors, especially for unsecured loans.</p><h2>Why is Commercial Finance Important?</h2><p>Access to capital is the lifeblood of any business. At Boxx Commercial Finance, we pride ourselves on making <a href='/'>commercial funding</a> simple and transparent.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does LTV mean in commercial finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "LTV stands for Loan to Value. It is the ratio of a loan to the value of the asset purchased. Higher LTVs generally mean higher risk for the lender, which can result in higher interest rates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a personal guarantee in business lending?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A Personal Guarantee is a commitment from company directors that they will personally repay the loan if the business fails to do so."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is equity in the context of business finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Equity refers to the value of your ownership in the business or asset. Releasing equity means borrowing against the value of an asset you already own to generate cash for other purposes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is commercial finance important for SMEs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Access to capital is the lifeblood of any business. It allows businesses to seize opportunities, navigate challenges, and invest in growth."
+          }
+        }
+      ]
+    },
+    "content": "<p>Commercial finance is a broad term that covers a huge range of business funding products. Understanding the terminology is the first step toward securing the capital you need.</p><h2>Key Terms to Understand</h2><h3>LTV (Loan to Value)</h3><p>The ratio of a loan to the value of the asset purchased. Higher LTVs generally mean higher risk for the lender, which can result in higher interest rates.</p><h3>Term</h3><p>The length of time you have to repay the loan. Long-term loans like <a href='/funding-solutions/commercial-mortgages'>commercial mortgages</a> can extend up to 25 years.</p><h3>Equity</h3><p>The value of your ownership in the business or asset. Releasing equity means borrowing against the value of an asset you already own.</p><h3>Personal Guarantee (PG)</h3><p>Many lenders require a Personal Guarantee from the company directors, especially for unsecured loans.</p><h2>Why is Commercial Finance Important?</h2><p>Access to capital allows you to seize opportunities, navigate challenges, and invest in growth. At <a href='/'>Boxx Commercial Finance</a>, we pride ourselves on making commercial funding simple and transparent.</p><h2>Frequently Asked Questions</h2><dl><dt>What does LTV mean in commercial finance?</dt><dd>LTV stands for Loan to Value. It is the ratio of a loan to the value of the asset purchased.</dd><dt>What is a personal guarantee in business lending?</dt><dd>A Personal Guarantee is a commitment from company directors that they will personally repay the loan if the business fails to do so.</dd><dt>What is equity in the context of business finance?</dt><dd>Equity refers to the value of your ownership in the business or asset.</dd><dt>Why is commercial finance important for SMEs?</dt><dd>Access to capital is the lifeblood of any business. It allows businesses to seize opportunities, navigate challenges, and invest in growth.</dd></dl>"
   },
   {
     "id": 3,
@@ -74,16 +211,50 @@
     "title": "How to Secure Commercial Funding with Bad Credit",
     "keywords": "business loans bad credit, commercial finance bad credit UK, adverse credit business funding, business loans with CCJs",
     "slug": "secure-commercial-funding-bad-credit",
-    "excerpt": "A poor credit history doesn’t have to end your funding ambitions. Discover the specialist lenders, secured facilities and alternative options available to UK businesses.",
+    "excerpt": "A poor credit history does not have to end your funding ambitions. Discover the specialist lenders, secured facilities and alternative options available to UK businesses.",
     "date": "2026-02-12",
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>A poor credit history does not automatically prevent a business from securing funding. It does, however, change how the application needs to be structured.</p><h2>Funding Options Available with Credit Challenges</h2><h3>Asset-Backed Funding</h3><p><a href='/funding-solutions/asset-finance'>Structured asset finance solutions</a> allow machinery, vehicles or equipment to provide security.</p><h3>Bridging Finance</h3><p><a href='/funding-solutions/bridging-finance'>Specialist bridging finance</a> can sometimes be arranged even where traditional lenders decline.</p><h3>Invoice Finance</h3><p><a href='/funding-solutions/invoice-finance'>Invoice finance facilities</a> allow businesses to release capital tied up in unpaid invoices.</p><h2>Final Thoughts</h2><p>If you would like to assess what funding options may be available, <a href='/chat-about-funding'>submit your funding requirements here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I get a business loan with bad credit in the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. A poor credit history changes how the application needs to be structured, but does not automatically prevent access to funding. Security position, current trading performance and lender matching matter more than historic events alone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What types of funding are available with credit issues?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Asset-backed funding, property-backed lending, bridging finance, invoice finance, and specialist working capital facilities may all be accessible depending on circumstances."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What do lenders focus on when credit is weak?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lenders focus on current trading strength, cash flow stability, asset security, director explanation of historic issues, and evidence of improved financial management."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I disclose past credit issues?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Transparency matters. Attempting to hide historic issues usually causes more harm than early disclosure with context."
+          }
+        }
+      ]
+    },
+    "content": "<p>A poor credit history does not automatically prevent a business from securing funding. It does, however, change how the application needs to be structured.</p><h2>Funding Options Available with Credit Challenges</h2><h3>Asset-Backed Funding</h3><p><a href='/funding-solutions/asset-finance'>Structured asset finance solutions</a> allow machinery, vehicles or equipment to provide security, significantly improving approval prospects compared to unsecured borrowing.</p><h3>Property-Backed Lending</h3><p>Where property is available as security, structured <a href='/funding-solutions/commercial-mortgages'>commercial mortgage funding</a> may be achievable depending on equity position and trading performance.</p><h3>Bridging Finance</h3><p><a href='/funding-solutions/bridging-finance'>Specialist bridging finance</a> can sometimes be arranged even where traditional lenders decline. Exit strategy strength becomes the primary assessment factor.</p><h3>Invoice Finance</h3><p><a href='/funding-solutions/invoice-finance'>Invoice finance facilities</a> allow businesses to release capital tied up in unpaid invoices without increasing long-term debt exposure.</p><h2>Frequently Asked Questions</h2><dl><dt>Can I get a business loan with bad credit in the UK?</dt><dd>Yes. A poor credit history changes how the application needs to be structured, but does not automatically prevent access to funding.</dd><dt>What types of funding are available with credit issues?</dt><dd>Asset-backed funding, property-backed lending, bridging finance, invoice finance, and specialist working capital facilities may all be accessible.</dd><dt>What do lenders focus on when credit is weak?</dt><dd>Lenders focus on current trading strength, cash flow stability, asset security, and evidence of improved financial management.</dd><dt>Should I disclose past credit issues?</dt><dd>Yes. Transparency matters. Attempting to hide historic issues usually causes more harm than early disclosure with context.</dd></dl><h2>Final Thoughts</h2><p>If you would like to assess what funding options may be available, <a href='/chat-about-funding'>submit your funding requirements here</a>.</p>"
   },
   {
     "id": 4,
@@ -91,16 +262,50 @@
     "title": "Top 5 Benefits of Invoice Finance for Cash Flow",
     "keywords": "invoice finance benefits, cash flow solutions, invoice factoring UK, invoice discounting",
     "slug": "benefits-invoice-finance-cash-flow",
-    "excerpt": "Waiting 60–90 days for customer payment? Invoice finance can release up to 90% of outstanding invoice value immediately — improving cash flow without adding debt.",
+    "excerpt": "Waiting 60 to 90 days for customer payment? Invoice finance can release up to 90% of outstanding invoice value immediately, improving cash flow without adding debt.",
     "date": "2026-02-12",
     "author": "Andrew Farrimond",
     "authorEmail": "andrew@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>Cash flow is often the difference between steady growth and constant pressure. Invoice finance provides a practical way to release capital tied up in unpaid invoices.</p><h2>1. Immediate Improvement in Cash Flow</h2><p>Structured <a href='/funding-solutions/invoice-finance'>invoice finance facilities</a> convert receivables into usable working capital.</p><h2>2. Funding That Grows with Your Business</h2><p>Unlike traditional loans, invoice finance scales with turnover.</p><h2>3. Reduced Reliance on Overdrafts</h2><p>Invoice finance reduces reliance on bank overdrafts by providing structured liquidity linked to real trading activity.</p><h2>4. Improved Supplier Relationships</h2><p>Predictable cash flow allows businesses to pay suppliers on time.</p><h2>5. No Requirement for Additional Asset Security</h2><p>Invoice finance is secured against the receivables themselves.</p><h2>Final Thoughts</h2><p>If you would like to review whether invoice funding is suitable for your business, <a href='/chat-about-funding'>outline your funding requirements here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is invoice finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Invoice finance is a funding solution that releases capital tied up in unpaid invoices, allowing businesses to access funds shortly after raising an invoice rather than waiting for customer payment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is invoice finance suitable for every business?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Invoice finance is most effective where the business trades on credit terms with other businesses and invoices are raised regularly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does invoice finance affect customer relationships?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Modern facilities can be structured confidentially in certain circumstances, depending on lender and turnover profile."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does invoice finance scale with business growth?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Unlike fixed-term loans, invoice finance scales with turnover. As sales increase, available funding increases."
+          }
+        }
+      ]
+    },
+    "content": "<p>Cash flow is often the difference between steady growth and constant pressure. Invoice finance provides a practical way to release capital tied up in unpaid invoices.</p><h2>1. Immediate Improvement in Cash Flow</h2><p>Structured <a href='/funding-solutions/invoice-finance'>invoice finance facilities</a> convert receivables into usable working capital. Instead of waiting 30, 60 or 90 days for payment, a large percentage of the invoice value can be advanced shortly after issue.</p><h2>2. Funding That Grows with Your Business</h2><p>Unlike traditional loans, invoice finance scales with turnover. As sales increase, available funding increases.</p><h2>3. Reduced Reliance on Overdrafts</h2><p>Invoice finance reduces reliance on bank overdrafts by providing structured liquidity linked to real trading activity.</p><h2>4. Improved Supplier Relationships</h2><p>Predictable cash flow allows businesses to pay suppliers on time or negotiate early settlement discounts.</p><h2>5. No Requirement for Additional Asset Security</h2><p>Invoice finance is secured against the receivables themselves. Where businesses prefer to preserve property security for future transactions such as securing a <a href='/funding-solutions/commercial-mortgages'>commercial mortgage</a>, invoice funding provides liquidity without affecting long-term asset strategy.</p><h2>Frequently Asked Questions</h2><dl><dt>What is invoice finance?</dt><dd>Invoice finance is a funding solution that releases capital tied up in unpaid invoices, allowing businesses to access funds shortly after raising an invoice.</dd><dt>Is invoice finance suitable for every business?</dt><dd>Invoice finance is most effective where the business trades on credit terms with other businesses and invoices are raised regularly.</dd><dt>Does invoice finance affect customer relationships?</dt><dd>Modern facilities can be structured confidentially in certain circumstances.</dd><dt>How does invoice finance scale with business growth?</dt><dd>Unlike fixed-term loans, invoice finance scales with turnover. As sales increase, available funding increases.</dd></dl><h2>Final Thoughts</h2><p>If you would like to review whether invoice funding is suitable for your business, <a href='/chat-about-funding'>outline your funding requirements here</a>.</p>"
   },
   {
     "id": 5,
@@ -113,11 +318,45 @@
     "author": "Andrew Farrimond",
     "authorEmail": "andrew@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>Choosing whether to purchase commercial property or continue renting is a significant decision for any business.</p><h2>The Case for Buying Commercial Property</h2><p>Purchasing business premises through structured <a href='/funding-solutions/commercial-mortgages'>commercial mortgage funding</a> allows a business to build equity while securing long term occupancy.</p><h2>The Case for Renting</h2><p>Renting commercial premises offers flexibility and lower upfront commitment.</p><h2>Final Thoughts</h2><p>If you are considering acquiring premises, <a href='/chat-about-funding'>submit your funding requirements here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is it better to buy or rent commercial property?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on business stage, cash flow, and long-term plans. Buying builds equity and provides stability. Renting offers flexibility and lower upfront commitment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much deposit is needed for a commercial mortgage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Typically 20% to 40% depending on property type, business strength, and lender appetite."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can commercial property be used as security for future funding?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Owned commercial property can provide security for future transactions including expansion, refinancing, or development projects."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should a business consider buying rather than renting?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When the business is well established, long-term occupancy is likely, cash flow is predictable, and deposit capital is available."
+          }
+        }
+      ]
+    },
+    "content": "<p>Choosing whether to purchase commercial property or continue renting is a significant decision for any business. The choice affects cash flow, balance sheet strength, long-term flexibility and growth strategy.</p><h2>The Case for Renting</h2><p>Renting commercial premises offers flexibility and lower upfront commitment. Benefits include minimal capital outlay, greater mobility, reduced responsibility for maintenance, and simpler exit if trading conditions change. However, rent is an ongoing cost that does not build equity.</p><h2>The Case for Buying Commercial Property</h2><p>Purchasing business premises through structured <a href='/funding-solutions/commercial-mortgages'>commercial mortgage funding</a> allows a business to build equity while securing long-term occupancy.</p><h2>Property as Security for Future Funding</h2><p>Owned commercial property can provide security for future transactions. For example, property equity may support development projects structured through <a href='/funding-solutions/development-finance'>development finance</a>.</p><h2>Frequently Asked Questions</h2><dl><dt>Is it better to buy or rent commercial property?</dt><dd>It depends on business stage, cash flow, and long-term plans. Buying builds equity and provides stability. Renting offers flexibility and lower upfront commitment.</dd><dt>How much deposit is needed for a commercial mortgage?</dt><dd>Typically 20% to 40% depending on property type, business strength, and lender appetite.</dd><dt>Can commercial property be used as security for future funding?</dt><dd>Yes. Owned commercial property can provide security for future transactions.</dd><dt>When should a business consider buying rather than renting?</dt><dd>When the business is well established, long-term occupancy is likely, cash flow is predictable, and deposit capital is available.</dd></dl><h2>Final Thoughts</h2><p>If you are considering acquiring premises, <a href='/chat-about-funding'>submit your funding requirements here</a>.</p>"
   },
   {
     "id": 6,
@@ -130,11 +369,45 @@
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>Every growing business eventually reaches a point where current cash flow is insufficient to fund major expansion. At this stage, directors must choose between borrowing money (Debt) or bringing in investors in exchange for shares (Equity).</p><h2>Debt Financing: Borrowing to Grow</h2><p>Debt financing involves taking a loan that must be repaid over time with interest. Common forms include term loans, <a href='/funding-solutions/asset-finance'>asset finance</a> and <a href='/funding-solutions/working-capital'>working capital facilities</a>.</p><h2>Equity Financing: Sharing the Opportunity</h2><p>Equity financing involves selling a portion of the business to investors.</p><h2>Final Thoughts</h2><p>If you are exploring growth capital, <a href='/chat-about-funding'>outline your requirements here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between debt and equity financing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Debt financing involves borrowing money that must be repaid with interest, allowing you to retain ownership. Equity financing involves selling shares in the business to investors in exchange for capital."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which is better for a growing UK business, debt or equity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on business stage, risk appetite, and objectives. Established businesses with stable cash flow often suit debt. Early-stage high-growth businesses may suit equity."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is mezzanine finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mezzanine finance is a hybrid product that combines elements of debt and equity, sometimes providing flexible repayment structures while allowing directors to maintain ownership."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does taking equity mean losing control of my business?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, in part. Equity investors typically require a say in major decisions and an exit strategy. Directors who value autonomy often prefer structured debt."
+          }
+        }
+      ]
+    },
+    "content": "<p>Every growing business eventually reaches a point where current cash flow is insufficient to fund major expansion. At this stage, directors must choose between borrowing money (Debt) or bringing in investors in exchange for shares (Equity).</p><h2>Debt Financing: Borrowing to Grow</h2><p>Debt financing involves taking a loan that must be repaid over time with interest. Common forms include term loans, <a href='/funding-solutions/asset-finance'>asset finance</a> and <a href='/funding-solutions/working-capital'>working capital facilities</a>. Advantages include maintaining control, fixed cost, and tax deductibility. Disadvantages include repayment pressure and security requirements.</p><h2>Equity Financing: Sharing the Opportunity</h2><p>Equity financing involves selling a portion of the business to investors. Advantages include no repayment obligation and shared risk. Disadvantages include loss of control, dilution, and exit pressure from investors.</p><h2>The Middle Ground: Structured Finance</h2><p>Structured <a href='/funding-solutions/structured-finance'>debt solutions</a> can sometimes provide the benefits of equity while allowing directors to maintain ownership.</p><h2>Frequently Asked Questions</h2><dl><dt>What is the difference between debt and equity financing?</dt><dd>Debt financing involves borrowing money that must be repaid with interest, allowing you to retain ownership. Equity financing involves selling shares in exchange for capital.</dd><dt>Which is better for a growing UK business, debt or equity?</dt><dd>It depends on business stage, risk appetite, and objectives. Established businesses with stable cash flow often suit debt.</dd><dt>What is mezzanine finance?</dt><dd>Mezzanine finance is a hybrid product combining elements of debt and equity.</dd><dt>Does taking equity mean losing control of my business?</dt><dd>Yes, in part. Equity investors typically require a say in major decisions and an exit strategy.</dd></dl><h2>Final Thoughts</h2><p>If you are exploring growth capital, <a href='/chat-about-funding'>outline your requirements here</a>.</p>"
   },
   {
     "id": 7,
@@ -147,11 +420,45 @@
     "author": "Andrew Farrimond",
     "authorEmail": "andrew@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>Acquiring essential equipment, machinery or vehicles can place a significant strain on business cash flow if paid for upfront. <a href='/funding-solutions/asset-finance'>Asset finance</a> allows businesses to spread the cost.</p><h2>Hire Purchase (HP): The Path to Ownership</h2><p>You pay a deposit and then a series of monthly instalments. Once the final payment is made, you own the asset outright.</p><h2>Finance Leasing: Use Without the Burden of Ownership</h2><p>Leasing allows you to use equipment for a fixed period in exchange for regular payments.</p><h2>Final Thoughts</h2><p>If you are planning an equipment purchase, <a href='/chat-about-funding'>share your requirements here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between hire purchase and leasing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "With hire purchase you own the asset at the end of the term. With leasing you use the asset but do not own it, with the option to upgrade, return, or continue at the end."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What assets can be financed through asset finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Manufacturing machinery, commercial vehicles, construction equipment, office technology, and medical equipment are all commonly financed through asset finance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is hire purchase or leasing better for tax purposes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "HP and leasing are treated differently for tax purposes. You should consult your accountant to determine which provides the best relief for your current profit position."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can asset finance be used to release equity from existing assets?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Structured asset finance can be used to release equity from assets you already own through sale and leaseback arrangements."
+          }
+        }
+      ]
+    },
+    "content": "<p>Acquiring essential equipment, machinery or vehicles can place a significant strain on business cash flow if paid for upfront. <a href='/funding-solutions/asset-finance'>Asset finance</a> allows businesses to spread the cost and align payments with the revenue the equipment generates.</p><h2>Hire Purchase (HP): The Path to Ownership</h2><p>You pay a deposit and then a series of monthly instalments. Once the final payment is made, you own the asset outright. The asset appears on your balance sheet from day one and you can typically claim capital allowances on the full value.</p><h2>Finance Leasing: Use Without the Burden of Ownership</h2><p>Leasing allows you to use equipment for a fixed period in exchange for regular payments. At the end of the term, you can usually choose to upgrade, return the equipment, or continue the lease at a nominal cost. Ideal for assets that become obsolete quickly such as IT or high-tech machinery.</p><h2>Which One Should You Choose?</h2><p>If you want to keep the asset for 10 years and ownership is important, Hire Purchase is often the better route. If you want to upgrade every 3 years, leasing is more logical. By using asset-specific funding, you preserve your bank facilities for other needs such as securing a <a href='/funding-solutions/commercial-mortgages'>commercial mortgage</a>.</p><h2>Frequently Asked Questions</h2><dl><dt>What is the difference between hire purchase and leasing?</dt><dd>With hire purchase you own the asset at the end of the term. With leasing you use the asset but do not own it.</dd><dt>What assets can be financed through asset finance?</dt><dd>Manufacturing machinery, commercial vehicles, construction equipment, office technology, and medical equipment.</dd><dt>Is hire purchase or leasing better for tax purposes?</dt><dd>HP and leasing are treated differently for tax purposes. Consult your accountant to determine which provides the best relief.</dd><dt>Can asset finance be used to release equity from existing assets?</dt><dd>Yes. Through sale and leaseback arrangements.</dd></dl><h2>Final Thoughts</h2><p>If you are planning an equipment purchase, <a href='/chat-about-funding'>share your requirements here</a>.</p>"
   },
   {
     "id": 8,
@@ -164,11 +471,45 @@
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>Development finance is a specialist form of funding designed specifically for property construction, conversions or major refurbishments. Securing high-leverage <a href='/funding-solutions/development-finance'>development funding</a> requires more than just a good site.</p><h2>How Development Finance is Structured</h2><p>A typical facility provides a percentage of the purchase price of the land, plus 100% of the build costs released in stages. The loan is repaid at the end, typically through sale or refinancing onto a <a href='/funding-solutions/commercial-mortgages'>term commercial mortgage</a>.</p><h2>Final Thoughts</h2><p>If you have a property project, <a href='/chat-about-funding'>start by sharing your appraisal here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is development finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Development finance is a specialist short-term funding facility designed for property construction, conversions or major refurbishments, where the loan is drawn down in stages as the project progresses."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is GDV in development finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GDV stands for Gross Development Value. It is the estimated total value of the project once completed and is a key metric lenders use to assess loan size."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does LTGDV mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "LTGDV is Loan to Gross Development Value. It represents the total loan amount as a percentage of the final value. Most lenders cap this at 60 to 70%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a monitor surveyor in development finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A monitor surveyor is appointed by the lender to visit the site periodically, verify progress, and authorise the release of build funds as each stage is completed."
+          }
+        }
+      ]
+    },
+    "content": "<p>Development finance is a specialist form of funding designed specifically for property construction, conversions or major refurbishments. Securing high-leverage <a href='/funding-solutions/development-finance'>development funding</a> requires more than just a good site. Lenders assess the developer's track record, the project's viability, the exit strategy, and the professional team involved.</p><h2>How Development Finance is Structured</h2><p>A typical facility provides a percentage of the purchase price of the land or property, plus 100% of the build costs released in stages following inspections. Interest is usually rolled up into the loan, meaning there are no monthly payments during the build phase. The loan is repaid at the end, typically through the sale of the units or by refinancing onto a <a href='/funding-solutions/commercial-mortgages'>term commercial mortgage</a>.</p><h2>Key Metrics Lenders Use</h2><p>Lenders focus on GDV (Gross Development Value), LTGDV (Loan to Gross Development Value, usually capped at 60 to 70%), and LTC (Loan to Cost, usually capped at 80 to 90%).</p><h2>Managing the Drawdown Process</h2><p>Once the loan is live, a Monitor Surveyor will visit the site periodically to verify progress. Build funds are only released for work already completed. In some cases, a <a href='/funding-solutions/bridging-finance'>bridging loan</a> can be used to secure the site while development finance is arranged.</p><h2>Frequently Asked Questions</h2><dl><dt>What is development finance?</dt><dd>Development finance is a specialist short-term funding facility for property construction, conversions or major refurbishments, where the loan is drawn down in stages.</dd><dt>What is GDV in development finance?</dt><dd>GDV stands for Gross Development Value. It is the estimated total value of the project once completed.</dd><dt>What does LTGDV mean?</dt><dd>LTGDV is Loan to Gross Development Value. Most lenders cap this at 60 to 70%.</dd><dt>What is a monitor surveyor in development finance?</dt><dd>A monitor surveyor visits the site periodically, verifies progress, and authorises the release of build funds as each stage is completed.</dd></dl><h2>Final Thoughts</h2><p>If you have a property project, <a href='/chat-about-funding'>start by sharing your appraisal here</a>.</p>"
   },
   {
     "id": 9,
@@ -181,11 +522,45 @@
     "author": "Andrew Farrimond",
     "authorEmail": "andrew@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1512403754473-27835f7b9981?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>In the world of commercial finance, speed is often as important as cost. <a href='/funding-solutions/bridging-finance'>Bridging finance</a> bridges a gap until longer-term funding can be arranged.</p><h2>When Should a Business Use Bridging?</h2><ul><li>Property Auctions: where completion is usually required within 28 days</li><li>Securing Land: buying a site before full planning permission is in place</li><li>Refurbishment: funding a property that is currently unmortgageable</li></ul><h2>The Importance of an Exit Strategy</h2><p>Common exits include sale of the property or refinancing onto a <a href='/funding-solutions/commercial-mortgages'>commercial mortgage</a>.</p><h2>Final Thoughts</h2><p>If you have an urgent requirement, <a href='/chat-about-funding'>request a bridging assessment here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is bridging finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bridging finance is short-term lending, typically 3 to 18 months, designed to bridge a gap until longer-term funding can be arranged or an asset is sold."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should a business use bridging finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bridging is used for property auctions, securing land before planning permission, refurbishing unmortgageable properties, chain breaks, and urgent working capital requirements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is an exit strategy in bridging finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An exit strategy is how you intend to repay the bridging loan. Common exits include sale of the property or refinancing onto a commercial mortgage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How quickly can a bridging loan be arranged?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A bridging loan can often be arranged in 7 to 14 days."
+          }
+        }
+      ]
+    },
+    "content": "<p>In the world of commercial finance, speed is often as important as cost. <a href='/funding-solutions/bridging-finance'>Bridging finance</a> is designed to bridge a gap until longer-term funding can be arranged or an asset is sold. It is fast, flexible, and focused on the value of the security and the exit strategy.</p><h2>When Should a Business Use Bridging?</h2><p>Bridging is not a long-term funding solution. It is a tactical tool used for property auctions where completion is usually required within 28 days, securing land before full planning permission is in place, funding properties that are currently unmortgageable, chain breaks, and urgent working capital requirements.</p><h2>The Importance of an Exit Strategy</h2><p>The most important part of the application is the exit strategy. Common exits include sale of the property, refinancing onto a <a href='/funding-solutions/commercial-mortgages'>commercial mortgage</a>, refinancing via <a href='/funding-solutions/development-finance'>development finance</a> once planning is granted, or repayment from business cash flow. Lenders will not approve a bridging loan if they cannot see a clear and realistic way out.</p><h2>Speed and Assessment</h2><p>A bridging loan can often be arranged in 7 to 14 days. Unlike traditional term loans, lenders are less focused on your historic trading figures and more focused on the value of the property or asset being used as security.</p><h2>Frequently Asked Questions</h2><dl><dt>What is bridging finance?</dt><dd>Bridging finance is short-term lending, typically 3 to 18 months, designed to bridge a gap until longer-term funding can be arranged or an asset is sold.</dd><dt>When should a business use bridging finance?</dt><dd>Bridging is used for property auctions, securing land before planning permission, refurbishing unmortgageable properties, chain breaks, and urgent working capital requirements.</dd><dt>What is an exit strategy in bridging finance?</dt><dd>An exit strategy is how you intend to repay the bridging loan. Common exits include sale of the property or refinancing onto a commercial mortgage.</dd><dt>How quickly can a bridging loan be arranged?</dt><dd>A bridging loan can often be arranged in 7 to 14 days.</dd></dl><h2>Final Thoughts</h2><p>If you have an urgent requirement, <a href='/chat-about-funding'>request a bridging assessment here</a>.</p>"
   },
   {
     "id": 10,
@@ -193,16 +568,50 @@
     "title": "Structured Finance: Solving Complex Funding Challenges",
     "keywords": "structured finance UK, complex business funding, MBO finance, acquisition funding",
     "slug": "structured-finance-complex-challenges",
-    "excerpt": "Standard products don’t always fit. Structured finance combines multiple facilities to provide a bespoke solution for acquisitions, buyouts, and major growth.",
+    "excerpt": "Standard products do not always fit. Structured finance combines multiple facilities to provide a bespoke solution for acquisitions, buyouts, and major growth.",
     "date": "2026-02-12",
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>For large-scale business operations, a single loan is rarely enough. <a href='/funding-solutions/structured-finance'>Structured finance</a> provides a bespoke combination of different funding facilities.</p><h2>When is Structured Finance Used?</h2><ul><li>Mergers and Acquisitions</li><li>Management Buyouts (MBOs)</li><li>Complex Refinancing</li><li>Major Expansion</li></ul><h2>Final Thoughts</h2><p>If you have a complex funding requirement, <a href='/chat-about-funding'>start a confidential conversation with us here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is structured finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Structured finance is not a single product but a bespoke combination of different funding facilities tailored to a specific business outcome, often combining senior debt, asset-based lending, invoice finance, and cash flow loans."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When is structured finance used?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Structured finance is commonly used for mergers and acquisitions, management buyouts, complex refinancing, and major expansion projects where the capital requirement exceeds traditional lending limits."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a management buyout (MBO)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A management buyout is a transaction in which a management team purchases the business from its current owners, often using a combination of debt and equity structured across multiple lenders."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does structured finance differ from a standard business loan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A structured facility blends multiple funding sources to achieve a total amount that a single lender would be unable to provide alone."
+          }
+        }
+      ]
+    },
+    "content": "<p>For large-scale business operations, a single loan is rarely enough. <a href='/funding-solutions/structured-finance'>Structured finance</a> is not a single product, but a bespoke combination of different funding facilities tailored to a specific business outcome.</p><h2>What Makes Finance Structured?</h2><p>A structured facility might combine senior debt, asset-based lending, invoice finance, and cash flow loans. By blending these together, a total funding amount can be achieved that a single lender would be unable to provide on their own.</p><h2>When is Structured Finance Used?</h2><p>The most common scenarios include mergers and acquisitions, management buyouts (MBOs), complex refinancing, and major expansion projects. For high-growth SMEs, this often involves a <a href='/funding-solutions/working-capital'>working capital assessment</a> to ensure the new facility supports daily operations as well as the initial investment.</p><h2>Frequently Asked Questions</h2><dl><dt>What is structured finance?</dt><dd>Structured finance is a bespoke combination of different funding facilities tailored to a specific business outcome.</dd><dt>When is structured finance used?</dt><dd>It is commonly used for mergers and acquisitions, management buyouts, complex refinancing, and major expansion projects.</dd><dt>What is a management buyout (MBO)?</dt><dd>An MBO is a transaction in which a management team purchases the business from its current owners, often using a combination of debt and equity.</dd><dt>How does structured finance differ from a standard business loan?</dt><dd>A structured facility blends multiple funding sources to achieve a total amount that a single lender would be unable to provide alone.</dd></dl><h2>Final Thoughts</h2><p>If you have a complex funding requirement, <a href='/chat-about-funding'>start a confidential conversation with us here</a>.</p>"
   },
   {
     "id": 11,
@@ -215,11 +624,45 @@
     "author": "Andrew Farrimond",
     "authorEmail": "andrew@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb052b06?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>Optimising your <a href='/funding-solutions/working-capital'>working capital</a> is about balancing your current assets against your current liabilities. When this balance is managed correctly, your business has the liquidity it needs to seize opportunities without stress.</p><h2>Funding the Gap</h2><p>If your growth is outpacing your available cash, you can bridge the gap through invoice finance, trade finance, or revolving credit facilities.</p><h2>Final Thoughts</h2><p>If you want to review your current liquidity, <a href='/chat-about-funding'>request a working capital assessment here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is working capital?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Working capital is the difference between your current assets and your current liabilities. It measures your ability to meet short-term obligations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the working capital cycle?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The working capital cycle is the time it takes to convert your net current assets and liabilities into cash. It is measured through inventory days, receivable days, and payable days."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can a business improve its working capital?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Businesses can improve working capital by reducing debtor days, extending supplier payment terms, managing stock levels, and using structured working capital finance facilities."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What funding options are available to bridge a working capital gap?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Invoice finance, trade finance, and revolving credit facilities are all commonly used to bridge working capital gaps."
+          }
+        }
+      ]
+    },
+    "content": "<p>Success is often measured by profit, but survival is determined by working capital. Even a highly profitable business can fail if its cash is tied up in stock, unpaid invoices, or long-term assets when bills come due.</p><p>Optimising your <a href='/funding-solutions/working-capital'>working capital</a> is about balancing your current assets against your current liabilities. When this balance is managed correctly, your business has the liquidity it needs to seize opportunities without stress.</p><h2>The Working Capital Cycle</h2><p>The cycle is the time it takes to convert your net current assets and liabilities into cash. The shorter this cycle, the more efficient your business is. It is measured through inventory days (how long stock sits on the shelf), receivable days (how long customers take to pay), and payable days (how long you take to pay your suppliers).</p><h2>Funding the Gap</h2><p>If your growth is outpacing your available cash, you can bridge the gap through invoice finance (releasing cash from your sales ledger immediately), trade finance (funding the purchase of goods from suppliers), or revolving credit facilities (flexible borrowing that you can draw down and repay as needed).</p><h2>Frequently Asked Questions</h2><dl><dt>What is working capital?</dt><dd>Working capital is the difference between your current assets and current liabilities. It measures your ability to meet short-term obligations.</dd><dt>What is the working capital cycle?</dt><dd>The working capital cycle is the time it takes to convert your net current assets and liabilities into cash.</dd><dt>How can a business improve its working capital?</dt><dd>By reducing debtor days, extending supplier payment terms, managing stock levels, and using structured working capital finance facilities.</dd><dt>What funding options are available to bridge a working capital gap?</dt><dd>Invoice finance, trade finance, and revolving credit facilities are all commonly used.</dd></dl><h2>Final Thoughts</h2><p>If you want to review your current liquidity, <a href='/chat-about-funding'>request a working capital assessment here</a>.</p>"
   },
   {
     "id": 12,
@@ -232,11 +675,45 @@
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p><a href='/funding-solutions/trade-finance'>Trade finance</a> is the bridge between a buyer and a seller, particularly when they are trading across borders.</p><h2>How Trade Finance Works</h2><ul><li>Letters of Credit (LCs)</li><li>Supply Chain Finance</li><li>Purchase Order (PO) Finance</li></ul><h2>Final Thoughts</h2><p>If you have a large order to fulfill, <a href='/chat-about-funding'>outline your trade requirements here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is trade finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Trade finance is a suite of financial instruments that mitigate the risks of international trade, including currency fluctuations, political instability, and non-payment, while providing the capital needed to fulfill orders."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a letter of credit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A letter of credit is a guarantee from a bank that payment will be made to a seller once specific conditions, such as shipping the goods, are met. It provides security for both buyer and seller."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is purchase order finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Purchase order finance funds the cost of goods based on a confirmed order from a reputable customer, allowing businesses to fulfill large contracts without needing millions of pounds in reserves."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who benefits most from trade finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "UK importers, exporters, and businesses dealing with complex supply chains or large contract orders from major retailers or international buyers benefit most from trade finance."
+          }
+        }
+      ]
+    },
+    "content": "<p>Trade finance is the bridge between a buyer and a seller, particularly when they are trading across borders. It provides a suite of financial instruments that mitigate the risks of international trade while providing the capital needed to fulfill orders.</p><p>Whether you are a UK manufacturer importing components or a wholesaler exporting finished goods, <a href='/funding-solutions/trade-finance'>trade finance</a> allows you to manage your supply chain without straining your daily cash flow.</p><h2>How Trade Finance Works</h2><p>Standard trade facilities include letters of credit (a guarantee from a bank that payment will be made once specific conditions such as shipping are met), supply chain finance (allowing you to pay suppliers early while you wait for customer payment), and purchase order finance (funding the cost of goods based on a confirmed order).</p><h2>Benefits for Growing Businesses</h2><p>Trade finance allows SMEs to fulfill large contracts for major retailers without needing millions of pounds in the bank. It shifts the focus from your balance sheet to the creditworthiness of your customers and the viability of the transaction itself.</p><h2>Frequently Asked Questions</h2><dl><dt>What is trade finance?</dt><dd>Trade finance is a suite of financial instruments that mitigate the risks of international trade while providing the capital needed to fulfill orders.</dd><dt>What is a letter of credit?</dt><dd>A letter of credit is a guarantee from a bank that payment will be made to a seller once specific conditions such as shipping the goods are met.</dd><dt>What is purchase order finance?</dt><dd>Purchase order finance funds the cost of goods based on a confirmed order from a reputable customer.</dd><dt>Who benefits most from trade finance?</dt><dd>UK importers, exporters, and businesses dealing with complex supply chains or large contract orders.</dd></dl><h2>Final Thoughts</h2><p>If you have a large order to fulfill, <a href='/chat-about-funding'>outline your trade requirements here</a>.</p>"
   },
   {
     "id": 13,
@@ -244,16 +721,50 @@
     "title": "The SME Guide to Tax and VAT Funding",
     "keywords": "tax and VAT funding, VAT loans, corporation tax finance, business tax spreading",
     "slug": "sme-guide-tax-vat-funding",
-    "excerpt": "Don’t let tax deadlines drain your growth capital. Learn how structured tax loans spread the cost of VAT, Corporation Tax, and Self-Assessment over 3–12 months.",
+    "excerpt": "Do not let tax deadlines drain your growth capital. Learn how structured tax loans spread the cost of VAT, Corporation Tax, and Self-Assessment over 3 to 12 months.",
     "date": "2026-02-12",
     "author": "Andrew Farrimond",
     "authorEmail": "andrew@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1554224155-16974a4ea2c5?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p><a href='/funding-solutions/tax-vat-funding'>Tax and VAT funding</a> allows you to spread these costs into manageable monthly repayments, typically over 3 to 12 months.</p><h2>Why Use Tax Funding?</h2><ul><li>Preserve Growth Capital</li><li>Avoid Penalties</li><li>Budget with Certainty</li></ul><p>Stop letting the quarterly VAT deadline dictate your business decisions. <a href='/chat-about-funding'>Secure your tax facility here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is tax and VAT funding?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tax and VAT funding allows businesses to spread the cost of tax bills, typically over 3 to 12 months, ensuring HMRC is paid on time while preserving cash flow for business operations and growth."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What tax bills can be funded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "VAT, Corporation Tax, Self-Assessment, P11D liabilities, and Professional Indemnity Insurance premiums can all typically be funded through specialist tax finance facilities."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How quickly can tax funding be arranged?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Modern tax lenders use Open Banking to assess serviceability in minutes. Funding can often be arranged very quickly once the application is submitted."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does using tax funding indicate financial difficulty?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Tax funding is a choice to maintain liquidity for growth, not a sign of insolvency. The most important aspect is presenting the funding need as a strategic decision."
+          }
+        }
+      ]
+    },
+    "content": "<p>For many UK businesses, the quarterly VAT bill or annual Corporation Tax payment represents the single largest cash outflow of the year. <a href='/funding-solutions/tax-vat-funding'>Tax and VAT funding</a> allows you to spread these costs into manageable monthly repayments, typically over 3 to 12 months, ensuring HMRC is paid on time while your cash remains in the business.</p><h2>Why Use Tax Funding?</h2><p>Tax funding preserves growth capital, avoids penalties by ensuring compliance with deadlines, and transforms a large irregular expense into a predictable monthly cost.</p><h2>What Can Be Funded?</h2><p>VAT, Corporation Tax, Self-Assessment and P11D liabilities, and Professional Indemnity Insurance premiums can all typically be funded through specialist tax finance facilities.</p><h2>The Underwriting Process</h2><p>Modern tax lenders use Open Banking to assess serviceability in minutes. The key is presenting the funding need as a strategic choice to maintain liquidity for growth, not a requirement due to financial difficulty. This distinction is key to securing the lowest possible interest rates.</p><h2>Frequently Asked Questions</h2><dl><dt>What is tax and VAT funding?</dt><dd>Tax and VAT funding allows businesses to spread the cost of tax bills over 3 to 12 months, ensuring HMRC is paid on time while preserving cash flow.</dd><dt>What tax bills can be funded?</dt><dd>VAT, Corporation Tax, Self-Assessment, P11D liabilities, and Professional Indemnity Insurance premiums can all typically be funded.</dd><dt>How quickly can tax funding be arranged?</dt><dd>Modern tax lenders use Open Banking to assess serviceability in minutes.</dd><dt>Does using tax funding indicate financial difficulty?</dt><dd>No. Tax funding is a choice to maintain liquidity for growth, not a sign of insolvency.</dd></dl><p>Stop letting the quarterly VAT deadline dictate your business decisions. <a href='/chat-about-funding'>Secure your tax facility here</a>.</p>"
   },
   {
     "id": 14,
@@ -261,16 +772,50 @@
     "title": "Merchant Cash Advance: Flexible Funding for Retail and Hospitality",
     "keywords": "merchant cash advance UK, card terminal loans, retail finance, hospitality business loans",
     "slug": "merchant-cash-advance-retail-hospitality",
-    "excerpt": "Trading with a card terminal? A Merchant Cash Advance provides capital with repayments that fluctuate with your sales — perfect for seasonal businesses.",
+    "excerpt": "Trading with a card terminal? A Merchant Cash Advance provides capital with repayments that fluctuate with your sales, perfect for seasonal businesses.",
     "date": "2026-02-12",
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1556742049-ed1950e3251a?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>A Merchant Cash Advance (MCA) offers one of the most flexible ways to raise capital. Unlike a traditional loan with fixed monthly payments, an MCA is repaid as a small percentage of your daily card sales.</p><h2>Key Advantages</h2><ul><li>No Fixed Term: you repay at the speed of your sales</li><li>High Approval Rates</li><li>Unsecured</li><li>Speed: funding can often be in your account within 24 to 48 hours</li></ul><h2>Final Thoughts</h2><p>If you are a card-trading business, <a href='/chat-about-funding'>check your MCA eligibility here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a merchant cash advance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A merchant cash advance is a funding arrangement where you receive a lump sum based on your average monthly card turnover and repay it as a small percentage of your daily card transactions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is a merchant cash advance suitable for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MCAs are ideal for retail, hospitality, and e-commerce businesses that take card payments and experience seasonal fluctuations in revenue."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a merchant cash advance secured?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Merchant cash advances are typically unsecured and do not require property or asset security."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How quickly can a merchant cash advance be funded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Funding can often be in your account within 24 to 48 hours, making it one of the fastest forms of business finance available."
+          }
+        }
+      ]
+    },
+    "content": "<p>If your business takes payments through a card terminal or an online payment gateway, a Merchant Cash Advance (MCA) offers one of the most flexible ways to raise capital. Unlike a traditional loan with fixed monthly payments, an MCA is repaid as a small percentage of your daily card sales. This pay-as-you-earn model is ideal for retail, hospitality, and e-commerce businesses that experience seasonal highs and lows.</p><h2>How a Merchant Cash Advance Works</h2><p>You receive a lump sum based on your average monthly card turnover. The lender purchases a portion of your future card sales. A small percentage, typically 10 to 20%, is automatically deducted from each card transaction until the total is repaid.</p><h2>Key Advantages</h2><p>There is no fixed term as you repay at the speed of your sales. High approval rates because lenders focus on your card trading history. The advance is unsecured with no property or asset security typically required. Funding can often be in your account within 24 to 48 hours.</p><h2>Frequently Asked Questions</h2><dl><dt>What is a merchant cash advance?</dt><dd>A merchant cash advance is a funding arrangement where you receive a lump sum based on your average monthly card turnover and repay it as a small percentage of your daily card transactions.</dd><dt>Who is a merchant cash advance suitable for?</dt><dd>MCAs are ideal for retail, hospitality, and e-commerce businesses that take card payments and experience seasonal fluctuations.</dd><dt>Is a merchant cash advance secured?</dt><dd>No. Merchant cash advances are typically unsecured and do not require property or asset security.</dd><dt>How quickly can a merchant cash advance be funded?</dt><dd>Funding can often be in your account within 24 to 48 hours.</dd></dl><h2>Final Thoughts</h2><p>If you are a card-trading business, <a href='/chat-about-funding'>check your MCA eligibility here</a>.</p>"
   },
   {
     "id": 15,
@@ -283,11 +828,45 @@
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=2000",
-    "content": "<p>Securing commercial finance is rarely just about finding a lender. The way your application is structured often determines whether funding is approved quickly, delayed, or declined altogether.</p><h2>Step 1: Clearly Define the Purpose of Funding</h2><p>Before submitting any commercial finance application, define what the funding will be used for, why it is needed now, how it will improve the business, and how it will be repaid.</p><h2>Step 2: Prepare Accurate Financial Information</h2><p>Every commercial finance lender will require financial documentation including latest filed accounts, recent management accounts, business bank statements, and VAT returns.</p><h2>Final Thoughts</h2><p>If you are considering business funding, <a href='/chat-about-funding'>chat about your funding requirement here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does a commercial finance application take in the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Timeframes vary depending on the facility. Some working capital solutions can complete quickly, while property or secured loans may require several weeks due to valuation and legal processes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What documents are needed for a business finance application?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most lenders require recent accounts, bank statements and management information. Larger facilities may require additional documentation such as forecasts or asset schedules."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can new businesses apply for commercial finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, although start-ups may require stronger supporting documentation or additional security depending on risk profile."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does applying affect my credit score?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Some applications involve credit searches. It is important to structure applications carefully to avoid unnecessary multiple searches."
+          }
+        }
+      ]
+    },
+    "content": "<p>Securing commercial finance is rarely just about finding a lender. The way your application is structured often determines whether funding is approved quickly, delayed, or declined altogether.</p><h2>Why Preparation Matters in Commercial Finance</h2><p>Lenders assess repayment sustainability, cash flow resilience, sector exposure, security coverage, and management capability. A well-prepared application demonstrates clarity and control. A poorly prepared one raises uncertainty, which increases cost or leads to decline.</p><h2>Step 1: Clearly Define the Purpose of Funding</h2><p>Define what the funding will be used for, why it is needed now, how it will improve the business, and how it will be repaid. If you are unsure which facility is appropriate, review the available <a href='/funding-solutions'>funding solutions here</a>.</p><h2>Step 2: Prepare Accurate Financial Information</h2><p>Every commercial finance lender will require latest filed accounts, recent management accounts, business bank statements, VAT returns, aged debtor and creditor lists, and cash flow forecasts.</p><h2>Step 3: Match the Facility to the Requirement</h2><p>Many businesses apply for the wrong type of funding. If your requirement relates to property transactions, it may be worth reviewing <a href='/funding-solutions/bridging-finance'>bridging finance options</a>. For asset purchases, <a href='/funding-solutions/asset-finance'>asset finance</a> may be more appropriate.</p><h2>Frequently Asked Questions</h2><dl><dt>How long does a commercial finance application take in the UK?</dt><dd>Timeframes vary. Some working capital solutions complete quickly, while property or secured loans may require several weeks.</dd><dt>What documents are needed for a business finance application?</dt><dd>Most lenders require recent accounts, bank statements and management information.</dd><dt>Can new businesses apply for commercial finance?</dt><dd>Yes, although start-ups may require stronger supporting documentation or additional security.</dd><dt>Does applying affect my credit score?</dt><dd>Some applications involve credit searches. Structure applications carefully to avoid unnecessary multiple searches.</dd></dl><h2>Final Thoughts</h2><p>If you are considering business funding, <a href='/chat-about-funding'>chat about your funding requirement here</a>.</p>"
   },
   {
     "id": 16,
@@ -295,110 +874,262 @@
     "title": "Why Most UK SMEs Get Funding Timing Wrong (And How to Fix It)",
     "keywords": "business funding timing, SME finance strategy, when to apply for a business loan",
     "slug": "why-uk-smes-get-funding-timing-wrong",
-    "excerpt": "The biggest mistake UK business owners make isn’t choosing the wrong lender—it’s waiting too long to apply. Learn why the strongest applications are made from a position of strength.",
+    "excerpt": "The biggest mistake UK business owners make is not choosing the wrong lender. It is waiting too long to apply. Learn why the strongest applications are made from a position of strength.",
     "date": "2026-02-23",
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&q=80&w=2000",
-    "content": "<p>One of the biggest mistakes UK business owners make isn’t choosing the wrong lender. It’s waiting too long to apply.</p><h2>The Funding Paradox</h2><p>The easier your business looks to fund, the less urgent it usually feels to apply. But the strongest funding applications are made when the business doesn’t desperately need the money.</p><h2>When Should You Actually Apply?</h2><p>Apply when you can still afford to say no. If you apply early, you can compare offers, negotiate rates, and walk away if it doesn’t suit.</p><h2>Final Thought</h2><p>If you’d like to understand what your business could access before you actually need it, <a href='/chat-about-funding'>chat with us here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "When is the best time to apply for business funding?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The best time to apply is when you can still afford to say no. Applying from a position of strength means you can compare offers, negotiate rates, and walk away if terms do not suit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do SMEs often apply for funding too late?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most SMEs only look at funding when they need it urgently. By that point, cash flow is already under pressure, which weakens the application and limits options."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is pre-approval in business finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pre-approval involves exploring funding options without committing, giving businesses a funding runway. You may not draw the facility immediately, but you know it is available."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does a strong SME funding application look like?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Strong applications show consistent monthly revenue, a sensible debt-to-income ratio, no recent missed payments, a clear explanation of use of funds, and a forward-looking plan."
+          }
+        }
+      ]
+    },
+    "content": "<p>One of the biggest mistakes UK business owners make is not choosing the wrong lender. It is waiting too long to apply. In most cases, the strongest funding applications are made when the business does not desperately need the money.</p><h2>The Funding Paradox</h2><p>The easier your business looks to fund, the less urgent it usually feels to apply. Lenders assess cash flow stability, revenue trends, debt levels, director conduct, and bank account behaviour. If you apply while turnover is stable and margins are healthy, you are seen as proactive rather than reactive. That changes everything in underwriting.</p><h2>Growth Funding vs Survival Funding</h2><p>Growth funding is used for hiring staff, purchasing equipment, expanding premises, or taking on new contracts. Lenders like growth stories. Survival funding is used for tax arrears, emergency cash flow, or covering losses. This is defensive borrowing and rates, terms and flexibility are often less favourable.</p><h2>When Should You Actually Apply?</h2><p>Apply when you can still afford to say no. If you apply early, you can compare offers, negotiate rates, and walk away if it does not suit. If you apply late, you take what you are given. That difference can cost thousands over the term of a facility.</p><h2>Frequently Asked Questions</h2><dl><dt>When is the best time to apply for business funding?</dt><dd>The best time to apply is when you can still afford to say no.</dd><dt>Why do SMEs often apply for funding too late?</dt><dd>Most SMEs only look at funding when they need it urgently. By that point, cash flow is already under pressure.</dd><dt>What is pre-approval in business finance?</dt><dd>Pre-approval involves exploring funding options without committing, giving businesses a funding runway.</dd><dt>What does a strong SME funding application look like?</dt><dd>Strong applications show consistent monthly revenue, a sensible debt-to-income ratio, no recent missed payments, and a clear explanation of use of funds.</dd></dl><h2>Final Thought</h2><p>If you would like to understand what your business could access before you actually need it, <a href='/chat-about-funding'>chat with us here</a>.</p>"
   },
   {
     "id": 17,
     "status": "published",
-    "title": "Why “Cheapest Rate” Is the Wrong Way to Choose Business Finance",
-    "slug": "cheapest-rate-business-finance-mistake",
-    "metaTitle": "Why the Cheapest Business Loan Isn’t Always the Best Option",
+    "title": "Why Cheapest Rate Is the Wrong Way to Choose Business Finance",
+    "metaTitle": "Why the Cheapest Business Loan Is Not Always the Best Option",
     "metaDescription": "Choosing business finance based purely on rate can cost more in the long run. Learn what really matters when structuring commercial funding.",
     "keywords": "cheapest business loan UK, interest rates vs structure, business finance costs",
+    "slug": "cheapest-rate-business-finance-mistake",
     "excerpt": "Choosing business finance based purely on rate can cost more in the long run. Learn what really matters when structuring commercial funding.",
     "date": "2026-02-24",
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=2000",
-    "content": "<p>One of the most common questions we hear is: “What’s your cheapest rate?” But in commercial finance, focusing solely on the headline rate can lead to poorly structured deals and restrictive lender terms.</p><h2>What Actually Determines the True Cost of Business Finance?</h2><p>A properly structured facility considers arrangement fees, exit fees, early repayment charges, security requirements, personal guarantees, and valuation costs.</p><h2>Final Thought</h2><p>The wrong funding structure can cost far more than a marginally higher rate. If you are considering business funding, <a href='/chat-about-funding'>talk to Boxx Commercial Finance today</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is the lowest interest rate always the best business loan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The lowest rate may come with restrictive terms, fees, or penalties that increase the overall cost and reduce flexibility. The best option is usually the facility structured correctly for your purpose and timeline."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What matters more than interest rate in commercial finance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Structure, flexibility, total cost of capital, repayment terms, security requirements, and lender suitability often matter more than headline interest rate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a broker get better terms than going direct?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Often yes. A broker can compare multiple lenders, negotiate on structure and terms, and match the right facility to your business plans rather than forcing a fit to one lender's criteria."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know if a finance facility is structured correctly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It should align with the purpose of the funding, the timeline you need it for, your cash flow profile, and your wider plans including the ability to refinance or repay early without excessive penalties."
+          }
+        }
+      ]
+    },
+    "content": "<p>One of the most common questions we hear is: what is your cheapest rate? But in commercial finance, focusing solely on the headline rate can lead to poorly structured deals, restrictive lender terms, cash flow strain, early repayment penalties, and missed growth opportunities.</p><h2>What Actually Determines the True Cost of Business Finance?</h2><p>When arranging funding, the interest rate is just one component. A properly structured facility considers arrangement fees, exit fees, early repayment charges, security requirements, personal guarantees, valuation costs, legal fees, covenants and reporting obligations, and flexibility of repayment. A 0.5% lower rate can easily be outweighed by restrictive terms or heavy exit penalties.</p><h2>When a Cheaper Loan Becomes More Expensive</h2><h3>Short-Term Need, Long-Term Product</h3><p>Taking a low-rate 5-year facility for a 9-month cash flow gap often results in early repayment penalties. A short-term <a href='/funding-solutions/working-capital'>working capital</a> solution may cost more monthly but less overall.</p><h3>Development or Bridging Finance</h3><p>With property or development projects, speed and flexibility often matter more than marginal rate differences. Delays caused by overly cautious underwriting can cost significantly more than a 0.25% rate saving.</p><h2>What Smart Borrowers Focus On Instead</h2><p>Experienced business owners prioritise structure (does the facility match the purpose?), flexibility (can it be repaid early?), speed and certainty, total cost of capital, and relationship with the lender.</p><h2>Frequently Asked Questions</h2><dl><dt>Is the lowest interest rate always the best business loan?</dt><dd>No. The lowest rate may come with restrictive terms, fees, or penalties that increase the overall cost and reduce flexibility.</dd><dt>What matters more than interest rate in commercial finance?</dt><dd>Structure, flexibility, total cost of capital, repayment terms, security requirements, and lender suitability often matter more than headline interest rate.</dd><dt>Can a broker get better terms than going direct?</dt><dd>Often yes. A broker can compare multiple lenders, negotiate on structure and terms, and match the right facility to your business plans.</dd><dt>How do I know if a finance facility is structured correctly?</dt><dd>It should align with the purpose of the funding, the timeline you need it for, your cash flow profile, and your wider plans.</dd></dl><h2>Final Thought</h2><p>The wrong funding structure can cost far more than a marginally higher rate. <a href='/chat-about-funding'>Talk to Boxx Commercial Finance today</a>.</p>"
   },
   {
     "id": 18,
     "status": "published",
-    "title": "Unsecured vs Secured Business Loans: What’s Right for Your Business?",
-    "slug": "unsecured-vs-secured-business-loans-uk",
-    "excerpt": "Understand the difference between unsecured and secured business loans in the UK. Learn which option suits your business, risk profile and growth plans.",
-    "metaTitle": "Unsecured vs Secured Business Loans UK | What’s Right for Your Business?",
+    "title": "Unsecured vs Secured Business Loans: What's Right for Your Business?",
+    "metaTitle": "Unsecured vs Secured Business Loans UK | What's Right for Your Business?",
     "metaDescription": "Understand the difference between unsecured and secured business loans in the UK. Learn which option suits your business, risk profile and growth plans.",
     "keywords": "unsecured vs secured business loans, secured business funding UK, personal guarantees business loans",
+    "slug": "unsecured-vs-secured-business-loans-uk",
+    "excerpt": "Understand the difference between unsecured and secured business loans in the UK. Learn which option suits your business, risk profile and growth plans.",
     "date": "2026-02-25",
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>When arranging business loans in the UK, one of the first questions is whether the facility should be secured or unsecured.</p><h2>What Is a Secured Business Loan?</h2><p>A secured business loan means the lender takes security over an asset such as commercial property, equipment, or debtor books. This is common in <a href='/funding-solutions/commercial-mortgages'>Commercial Mortgages</a>, <a href='/funding-solutions/bridging-finance'>Bridging Finance</a>, and larger structured <a href='/funding-solutions/business-loans'>business loans</a>.</p><h2>What Is an Unsecured Business Loan?</h2><p>An unsecured business loan doesn’t involve a property charge. These facilities are typically faster to arrange and involve less legal process.</p><h2>Final Thought</h2><p>If you’re weighing up secured vs unsecured business loans, <a href='/chat-about-funding'>speak to a specialist here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is a secured business loan always cheaper?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Often, yes, but not always. Security reduces lender risk, which can improve pricing. Overall cost still depends on fees, term length and structure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do unsecured business loans require personal guarantees?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In many cases, yes. Even without property security, directors may still provide personal guarantees or debentures."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can unsecured borrowing be refinanced into secured lending?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. As assets or trading strength improve, refinancing can reduce overall cost of capital."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much can I borrow unsecured?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on turnover, profitability and credit strength. Unsecured facilities are usually smaller than secured lending."
+          }
+        }
+      ]
+    },
+    "content": "<p>When arranging business loans in the UK, one of the first questions is whether the facility should be secured or unsecured. The better question is what you are actually trying to achieve and over what time frame. The answer usually determines the right structure far more than preference does.</p><h2>What Is a Secured Business Loan?</h2><p>A secured business loan means the lender takes security over an asset such as commercial property, equipment, or debtor books. Because there is security in place, the lender's risk reduces. This is common in <a href='/funding-solutions/commercial-mortgages'>Commercial Mortgages</a>, <a href='/funding-solutions/bridging-finance'>Bridging Finance</a>, and larger structured <a href='/funding-solutions/business-loans'>business loans</a>.</p><h2>What Is an Unsecured Business Loan?</h2><p>An unsecured business loan does not involve a property charge. Approval relies on trading performance, profit levels, cash flow, credit history, and bank conduct. These facilities are typically faster to arrange and involve less legal process.</p><h2>Where Directors Sometimes Get It Wrong</h2><p>Unsecured does not automatically mean low risk. Many unsecured facilities still require personal guarantees, debentures, or cross-director guarantees. The structure matters more than the headline label.</p><h2>Frequently Asked Questions</h2><dl><dt>Is a secured business loan always cheaper?</dt><dd>Often, yes, but not always. Security reduces lender risk, which can improve pricing.</dd><dt>Do unsecured business loans require personal guarantees?</dt><dd>In many cases, yes. Even without property security, directors may still provide personal guarantees or debentures.</dd><dt>Can unsecured borrowing be refinanced into secured lending?</dt><dd>Yes. As assets or trading strength improve, refinancing can reduce overall cost of capital.</dd><dt>How much can I borrow unsecured?</dt><dd>It depends on turnover, profitability and credit strength. Unsecured facilities are usually smaller than secured lending.</dd></dl><h2>Final Thought</h2><p>If you are weighing up secured vs unsecured business loans in the UK, <a href='/chat-about-funding'>speak to a specialist here</a>.</p>"
   },
   {
     "id": 42,
     "status": "published",
     "title": "How to Get a Business Loan in the UK",
-    "slug": "how-to-get-a-business-loan-uk",
-    "excerpt": "A practical guide explaining how to get a business loan in the UK, what lenders look for, common mistakes to avoid and how to structure funding correctly.",
     "metaTitle": "How to Get a Business Loan in the UK | A Practical Guide for SMEs",
     "metaDescription": "A practical guide explaining how to get a business loan in the UK, what lenders look for, common mistakes to avoid and how to structure funding correctly.",
     "keywords": "how to get a business loan UK, business loan requirements, commercial lending process UK",
+    "slug": "how-to-get-a-business-loan-uk",
+    "excerpt": "A practical guide explaining how to get a business loan in the UK, what lenders look for, common mistakes to avoid and how to structure funding correctly.",
     "date": "2026-02-26",
     "author": "Andrew Farrimond",
     "authorEmail": "andrew@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>Getting funding approved is less about ticking boxes and more about presenting a commercially sensible case.</p><h2>Step 1: Be Clear on the Purpose of the Funding</h2><p>Each purpose aligns with a different structure. Property purchases may fall under <a href='/funding-solutions/commercial-mortgages'>Commercial Mortgages</a>, short-term projects may require <a href='/funding-solutions/bridging-finance'>Bridging Finance</a>, and growth funding may sit within structured <a href='/funding-solutions/business-loans'>Business Loans</a>.</p><h2>Step 2: Avoid the One Lender Trap</h2><p>Working with a <a href='/'>commercial finance broker in the UK</a> allows you to compare lenders properly and improve structuring from the outset.</p><h2>Final Thought</h2><p>If you’re considering business loans in the UK, <a href='/chat-about-funding'>speak to a specialist here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does it take to get a business loan in the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on the type of facility. Unsecured loans can complete in days, while secured or property-backed lending may take several weeks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What credit score do I need for a business loan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There is no universal minimum. Lenders assess overall risk including trading performance, affordability and security position."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I get a business loan as a new company?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, but options may be more limited. Security, director strength and business plan quality become more important."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it better to go direct to a lender or use a broker?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Using a commercial finance broker allows comparison of multiple lenders and better structuring, which often improves approval chances and overall terms."
+          }
+        }
+      ]
+    },
+    "content": "<p>Getting funding approved is less about ticking boxes and more about presenting a commercially sensible case. Funding slows down because the wrong lender is approached, the facility is structured incorrectly, the purpose is not clearly explained, or supporting information is incomplete.</p><h2>Step 1: Be Clear on the Purpose of the Funding</h2><p>Define how much you need, what it will be used for, how long you need it, and how it will be repaid. Property purchases may fall under <a href='/funding-solutions/commercial-mortgages'>Commercial Mortgages</a>, short-term projects may require <a href='/funding-solutions/bridging-finance'>Bridging Finance</a>, and growth funding may sit within structured <a href='/funding-solutions/business-loans'>Business Loans</a>.</p><h2>Step 2: Avoid the One Lender Trap</h2><p>Working with a <a href='/'>commercial finance broker in the UK</a> allows you to compare lenders properly, reduce unnecessary credit searches, and improve structuring from the outset.</p><h2>Step 3: Structure for the Exit, Not Just the Entry</h2><p>Consider whether the facility can be refinanced later, whether there are early repayment penalties, whether it restricts future borrowing, and whether director exposure is proportionate. Funding should support growth, not restrict it.</p><h2>Frequently Asked Questions</h2><dl><dt>How long does it take to get a business loan in the UK?</dt><dd>It depends on the type of facility. Unsecured loans can complete in days, while secured or property-backed lending may take several weeks.</dd><dt>What credit score do I need for a business loan?</dt><dd>There is no universal minimum. Lenders assess overall risk including trading performance, affordability and security position.</dd><dt>Can I get a business loan as a new company?</dt><dd>Yes, but options may be more limited. Security, director strength and business plan quality become more important.</dd><dt>Is it better to go direct to a lender or use a broker?</dt><dd>Using a commercial finance broker allows comparison of multiple lenders and better structuring, which often improves approval chances and overall terms.</dd></dl><h2>Final Thought</h2><p>If you are considering business loans in the UK, <a href='/chat-about-funding'>speak to a specialist here</a>.</p>"
   },
   {
     "id": 43,
     "status": "published",
-    "title": "Commercial Mortgage Rates UK: What Really Affects the Rate You’re Offered?",
-    "slug": "commercial-mortgage-rates-uk",
-    "excerpt": "Understand what influences commercial mortgage rates in the UK, how lenders assess risk and how to structure business property finance to secure better terms.",
+    "title": "Commercial Mortgage Rates UK: What Really Affects the Rate You're Offered?",
     "metaTitle": "Commercial Mortgage Rates UK | What Affects Pricing in 2026?",
     "metaDescription": "Understand what influences commercial mortgage rates in the UK, how lenders assess risk and how to structure business property finance to secure better terms.",
     "keywords": "commercial mortgage rates UK, commercial property finance rates, business mortgage pricing",
+    "slug": "commercial-mortgage-rates-uk",
+    "excerpt": "Understand what influences commercial mortgage rates in the UK, how lenders assess risk and how to structure business property finance to secure better terms.",
     "date": "2026-03-01",
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
     "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3",
-    "content": "<p>If you’re researching commercial mortgage rates in the UK, you’ve probably noticed there isn’t a single rate. Commercial lending is priced individually based on risk across multiple variables.</p><h2>What Determines Commercial Mortgage Rates in the UK?</h2><h3>1. Loan-to-Value (LTV)</h3><p>The lower the LTV, the lower the lender’s risk. A property funded at 60% LTV will generally receive better pricing than one funded at 75%.</p><h3>2. Property Type</h3><p>Not all commercial properties are viewed equally. Standard offices and industrial units carry lower risk than specialist leisure or mixed-use properties.</p><h3>3. Business Strength</h3><p>If the property is owner-occupied, lenders assess trading history, profitability, cash flow consistency, and existing borrowing.</p><h2>Final Thought</h2><p>If you’re reviewing <a href='/funding-solutions/commercial-mortgages'>commercial mortgage</a> rates and want to ensure the structure is commercially sound, <a href='/chat-about-funding'>speak to a specialist here</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
-  },
-  {
-    "id": "commercial-mortgages-uk-guide",
-    "status": "published",
-    "title": "Commercial Mortgages UK: What Business Owners Should Know Before Applying",
-    "metaTitle": "Commercial Mortgages UK | Rates, Deposits & How to Structure Them Properly",
-    "metaDescription": "A practical guide to commercial mortgages in the UK. Learn about rates, deposits, lender requirements and how to structure business property finance correctly.",
-    "keywords": "commercial mortgages UK, property finance UK, business mortgages, commercial property loans",
-    "slug": "commercial-mortgages-uk-guide",
-    "excerpt": "A practical guide to commercial mortgages in the UK. Learn about rates, deposits, lender requirements and how to structure business property finance correctly.",
-    "date": "2026-02-28",
-    "author": "Andrew Farrimond",
-    "authorEmail": "andrew@boxxfinance.co.uk",
-    "content": "<p>If you are buying or refinancing business premises, a <a href='/funding-solutions/commercial-mortgages'>commercial mortgage</a> is usually the most appropriate long-term funding solution.</p><h2>What Is a Commercial Mortgage?</h2><p>A commercial mortgage is a loan secured against property used for business or investment purposes. For shorter-term property requirements, businesses sometimes use <a href='/funding-solutions/bridging-finance'>Bridging Finance</a> before refinancing onto a longer-term commercial mortgage.</p><h2>How Much Deposit Is Required?</h2><p>Deposits for commercial mortgages in the UK typically range between 20% to 40%.</p><h2>Final Thought</h2><p>If you are considering commercial mortgages in the UK, <a href='/chat-about-funding'>speak to a specialist today</a>.</p>",
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ]
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are average commercial mortgage rates in the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rates vary depending on risk profile, but typically sit above residential mortgage rates and below unsecured business lending."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much deposit do I need for a commercial mortgage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most lenders require between 20% and 40%, depending on property type and business strength."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I get a fixed-rate commercial mortgage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Many lenders offer fixed rate periods ranging from two to ten years."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do commercial mortgage rates change with the Bank of England base rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Variable and tracker products may move with base rate or swap rates, while fixed rates remain stable during the agreed term."
+          }
+        }
+      ]
+    },
+    "content": "<p>If you are researching commercial mortgage rates in the UK, you have probably noticed there is not a single rate. Commercial lending is priced individually based on risk across multiple variables. Understanding what actually drives pricing will put you in a stronger position before you apply.</p><h2>What Determines Commercial Mortgage Rates in the UK?</h2><h3>1. Loan-to-Value (LTV)</h3><p>The lower the LTV, the lower the lender's risk. A property funded at 60% LTV will generally receive better pricing than one funded at 75%.</p><h3>2. Property Type</h3><p>Standard office buildings and industrial units carry lower risk. Specialist leisure, care homes, pubs, and mixed-use properties carry higher risk and wider pricing.</p><h3>3. Business Strength (Owner-Occupied)</h3><p>If the property is owner-occupied, lenders assess trading history, profitability, cash flow consistency, and existing borrowing.</p><h3>4. Rental Coverage (Investment Property)</h3><p>For investment purchases, lenders usually require rental cover between 125% to 145% of interest payments.</p><h2>Can You Negotiate Commercial Mortgage Rates?</h2><p>In many cases, yes. Submitting a well-structured case via a <a href='/'>commercial finance broker in the UK</a> can materially improve pricing outcomes compared to approaching one lender directly. For short-term property transactions, some businesses initially use <a href='/funding-solutions/bridging-finance'>Bridging Finance</a> before refinancing onto a longer-term <a href='/funding-solutions/commercial-mortgages'>commercial mortgage</a>.</p><h2>Frequently Asked Questions</h2><dl><dt>What are average commercial mortgage rates in the UK?</dt><dd>Rates vary widely depending on risk profile, but typically sit above residential rates and below unsecured business lending.</dd><dt>How much deposit do I need for a commercial mortgage?</dt><dd>Most lenders require between 20% and 40%, depending on property type and business strength.</dd><dt>Can I get a fixed-rate commercial mortgage?</dt><dd>Yes. Many lenders offer fixed rate periods ranging from two to ten years.</dd><dt>Do commercial mortgage rates change with the Bank of England base rate?</dt><dd>Variable and tracker products may move with base rate or swap rates, while fixed rates remain stable during the agreed term.</dd></dl><h2>Final Thought</h2><p>If you are reviewing commercial mortgage rates and want to ensure the structure is commercially sound, <a href='/chat-about-funding'>speak to a specialist here</a>.</p>"
   },
   {
     "id": 1778888362747,
@@ -450,65 +1181,6 @@
         }
       ]
     },
-    "content": "<p>Running a small or medium-sized enterprise (SME) in the UK means always being on the lookout for opportunities to optimise and expand your business. Understanding the ins and outs of business loans in the UK can provide you with the financial leverage you need.</p><h2>Types of Business Loans Available in the UK</h2><h3>Term Loans</h3><p>These loans are straightforward arrangements where you receive a lump sum and repay it over a specified period. Term loans are ideal for businesses planning long-term investments.</p><h3>Invoice Financing</h3><p>Invoice financing provides immediate cash flow relief by allowing businesses to borrow against amounts due from customers.</p><h3>Asset Financing</h3><p>By using your company's assets as collateral, you can secure financing based on asset value.</p><h2>How Business Loans Can Benefit SMEs</h2><ul><li><strong>Cash Flow Management:</strong> Loans address cash flow issues effectively.</li><li><strong>Expansion Opportunities:</strong> With readily available funds, businesses can invest in growth.</li><li><strong>Tax Efficiency:</strong> Interest on business loans is generally tax-deductible.</li></ul><p>If you are ready to explore your options, <a href='/chat-about-funding'>speak to Boxx Commercial Finance today</a>.</p>"
-  },
-  {
-    "id": 1779271331858,
-    "status": "published",
-    "slug": "business-loans-for-small-businesses",
-    "url": "/insights/business-loans-for-small-businesses",
-    "title": "Business Loans For Small Businesses",
-    "excerpt": "Discover how business loans can empower small enterprises with our detailed guide. Explore how they work, eligibility criteria, interest rates, and why opting for Boxx Commercial Finance is a great decision for your business.",
-    "metaTitle": "Business Loans For Small Businesses | Boxx Commercial Finance",
-    "metaDescription": "Expert guide on business loans for small businesses for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
-    "keywords": "small business financing, SME funding options, business funding solutions",
-    "date": "2026-05-20",
-    "author": "Mark Higgins",
-    "authorEmail": "mark@boxxfinance.co.uk",
-    "image": "https://source.unsplash.com/1200x600/?business%20loans%20for%20small%20businesses,business,uk",
-    "schema": {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a business loan for small businesses?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A business loan for small businesses is a financial product designed to help small enterprises meet various needs such as expansion, inventory purchase, or cash flow management."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How can I qualify for a business loan?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Eligibility for a business loan often depends on factors such as your credit score, business history, revenue, and sometimes personal guarantees."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What interest rates can I expect?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Interest rates on business loans vary widely based on the lender and your business profile. Comparing rates is crucial to find a competitive option."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why choose Boxx Commercial Finance?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Boxx Commercial Finance offers personalised service and a wide range of funding solutions tailored to the needs of small businesses."
-          }
-        }
-      ]
-    },
-    "relatedLocationUrls": [
-      "https://boxxfinance.co.uk/locations/bridging-finance-london",
-      "https://boxxfinance.co.uk/locations/business-loans-manchester"
-    ],
-    "relatedBlogUrls": [],
-    "content": "<p>Securing financial stability and growth can be challenging for small businesses. With limited resources and ever-changing market conditions, accessing necessary funds can make a significant difference. This is where <a href='https://boxxfinance.co.uk/funding-solutions/business-loans'>business loans</a> for small businesses come into play, offering an essential financial lifeline to meet both short-term needs and long-term ambitions.</p>\n<h2>Understanding Business Loans for Small Businesses</h2>\n<p>At its core, a business loan for small enterprises is a sum of money lent by a financial institution, which is to be repaid with interest over an agreed period. These loans can be utilised for various purposes such as expanding operations, purchasing new inventory, managing cash flow, or even recovering from unexpected expenses. The availability of tailored business loans allows small businesses to embark on projects otherwise beyond their immediate financial reach.</p>\n<h3>How Do Business Loans Work?</h3>\n<p>The functionality of business loans is relatively straightforward. After identifying a need for funds, a business owner approaches a lender, which can be a bank, an online lender, or a financial service provider like Boxx Commercial Finance. Each entity will have its criteria and terms for assessing the loan's viability, commonly considering factors like creditworthiness, business history, and future earning potential.</p>\n<p>Once the application is submitted, the lender evaluates the business based on its credit report, cash flow, business plan, and other relevant documents. If approved, the funds are disbursed, and the business can proceed with its intended projects. The repayment schedule typically includes fixed monthly payments over a specified term, alongside an agreed interest rate.</p>\n<h3>Eligibility Criteria for Business Loans</h3>\n<p>One of the leading concerns for business owners seeking loans is understanding the eligibility criteria. While these can vary across different lenders and types of loans, some common factors are typically assessed:</p>\n<ul>\n  <li><strong>Credit Score:</strong> A good credit score enhances approval chances and could secure more favourable rates.</li>\n  <li><strong>Business Age:</strong> Many lenders prefer a business to have been in operation for at least two years.</li>\n  <li><strong>Revenue:</strong> A steady revenue track is essential to demonstrate the ability to repay the loan.</li>\n  <li><strong>Business Plan:</strong> Clear outlining of how the loan will be used and the anticipated outcomes.</li>\n</ul>\n<p>While the criteria might initially seem daunting, it's important to remember that multiple options are available. For detailed assistance, <a href='https://boxxfinance.co.uk/chat-about-funding'>chat with a funding advisor</a> at Boxx Commercial Finance to understand your unique circumstances better.</p>\n<h2>Interest Rates on Business Loans</h2>\n<p>Interest rates represent the cost of borrowing and are a crucial component of any loan agreement. Rates can fluctuate based on broader economic factors and individual business assessments. A comprehensive understanding of these rates can significantly impact the total repayment cost, highlighting why rate comparison is vital when exploring loan options.</p>\n<p>Lenders may offer fixed or variable rates. Fixed rates provide stability with consistent monthly payments over the loan term. In contrast, variable rates might offer initial savings but can be subject to market changes, potentially affecting monthly outlays.</p>\n<h2>Why Choose Boxx Commercial Finance?</h2>\n<p><a href='https://boxxfinance.co.uk/about-us'>Boxx Commercial Finance</a> differentiates itself by providing a bespoke approach to business lending. Understanding that no two businesses are identical, the team at Boxx offers tailored solutions addressing specific challenges and aspirations individual businesses face.</p>\n<p>With an expansive array of <a href='https://boxxfinance.co.uk/funding-solutions'>funding solutions</a>, including asset finance, invoice finance, and business growth funding, Boxx Commercial Finance is uniquely positioned to support small businesses across the UK. The company's commitment to excellent customer service ensures every client feels supported at every stage of the loan process, from inquiry to disbursement and repayment management.</p>\n<p>Furthermore, Boxx's knowledge of the local financial landscape enables it to provide insights and finance solutions that align with UK market conditions, helping SMEs stay competitive.</p>\n<h3>Opportunities for Small Business Growth</h3>\n<p>Small business loans open a realm of possibilities. Whether you’re looking to penetrate new markets, launch a new product line, or streamline operational efficiencies, having accessible funds allows for strategic planning and execution.</p>\n<p>The flexibility offered by business loans also empowers businesses to seize opportunities promptly. Market trends can shift rapidly; having pre-approved capital or access to a reliable lending partner like Boxx Commercial Finance can offer a competitive edge, enabling swift action when required.</p>\n<h2>FAQ: Business Loans for Small Businesses</h2>\n<dl>\n  <dt>What is a business loan for small businesses?</dt>\n  <dd>A business loan for small businesses is a financial product designed to help small enterprises meet various needs such as expansion, inventory purchase, or cash flow management.</dd>\n  <dt>How can I qualify for a business loan?</dt>\n  <dd>Eligibility for a business loan often depends on factors such as your credit score, business history, revenue, and sometimes personal guarantees.</dd>\n  <dt>What interest rates can I expect?</dt>\n  <dd>Interest rates on business loans vary widely based on the lender and your business profile. Comparing rates is crucial to find a competitive option.</dd>\n  <dt>Why choose Boxx Commercial Finance?</dt>\n  <dd>Boxx Commercial Finance offers personalised service and a wide range of funding solutions tailored to the needs of small businesses.</dd>\n</dl>"
+    "content": "<p>Running a small or medium-sized enterprise in the UK means always being on the lookout for opportunities to optimise and expand your business. Understanding the ins and outs of business loans in the UK can provide you with the financial leverage you need.</p><h2>Types of Business Loans Available in the UK</h2><h3>Term Loans</h3><p>These loans are straightforward arrangements where you receive a lump sum and repay it over a specified period. Term loans are ideal for businesses planning long-term investments.</p><h3>Invoice Financing</h3><p>Invoice financing provides immediate cash flow relief by allowing businesses to borrow against amounts due from customers.</p><h3>Asset Financing</h3><p>By using your company's assets as collateral, you can secure financing based on asset value.</p><h2>How Business Loans Can Benefit SMEs</h2><ul><li><strong>Cash Flow Management:</strong> Loans address cash flow issues effectively.</li><li><strong>Expansion Opportunities:</strong> With readily available funds, businesses can invest in growth.</li><li><strong>Tax Efficiency:</strong> Interest on business loans is generally tax-deductible.</li></ul><h2>Frequently Asked Questions</h2><dl><dt>What types of business loans are available in the UK?</dt><dd>In the UK, businesses can access various loans such as term loans, invoice financing, asset financing, and peer-to-peer lending.</dd><dt>How can I apply for a business loan in the UK?</dt><dd>To apply, gather required documents, research lenders, and submit applications either online or through financial advisors.</dd><dt>Are business loans available for all types of SMEs?</dt><dd>Most SMEs can access business loans, though eligibility criteria such as credit score and financial health may apply.</dd></dl><p>If you are ready to explore your options, <a href='/chat-about-funding'>speak to Boxx Commercial Finance today</a>.</p>"
   }
 ]
