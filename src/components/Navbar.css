@@ -9,14 +9,25 @@
     transition: all 0.3s ease;
 }
 
+/* Dark navy navbar for blog/location pages before scroll */
+.navbar.navbar-dark {
+    background-color: var(--color-primary);
+}
+
+.navbar.navbar-dark .navbar-link {
+    color: var(--color-white);
+}
+
+.navbar.navbar-dark .bar {
+    background-color: var(--color-white);
+}
+
 .navbar.scrolled {
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: var(--shadow-sm);
     padding: 1rem 0;
     backdrop-filter: blur(5px);
 }
-
-
 
 .navbar.scrolled .navbar-link {
     color: var(--color-text-dark);
@@ -43,8 +54,6 @@
     object-fit: contain;
     transition: all 0.3s ease;
 }
-
-
 
 .navbar.scrolled .navbar-logo a {
     color: var(--color-primary);
@@ -107,11 +116,14 @@
         box-shadow: none !important;
     }
 
+    .navbar.navbar-dark {
+        background-color: var(--color-primary) !important;
+    }
+
     .navbar-logo-img {
         height: 3rem !important;
     }
 
-    /* Ensure solid navbar on mobile behaves like scrolled/white */
     .navbar.scrolled,
     .navbar.navbar-solid {
         background-color: var(--color-white) !important;
