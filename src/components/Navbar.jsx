@@ -1,40 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-// import Logo from './Logo';
+import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const location = useLocation();
+
+    // Pages that should start with a dark navy navbar
+    const darkNavRoutes = ['/insights/', '/insights', '/locations/'];
+    const isDarkPage = darkNavRoutes.some(route => location.pathname.startsWith(route)) ||
+        /^\/insights\//.test(location.pathname) ||
+        /^\/locations\//.test(location.pathname);
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
+            setScrolled(window.scrollY > 50);
         };
-
         window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // On dark pages: start dark navy, turn white on scroll
+    // On other pages: existing behaviour
+    const navClass = [
+        'navbar',
+        scrolled ? 'scrolled' : '',
+        isDarkPage && !scrolled ? 'navbar-dark' : '',
+    ].filter(Boolean).join(' ');
+
+    const logoSrc = scrolled
+        ? '/logo_scroll.png?v=2'
+        : isDarkPage
+            ? '/logo.png?v=2'
+            : '/logo.png?v=2';
+
     return (
-        <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+        <nav className={navClass}>
             <div className="navbar-container container">
                 <div className="navbar-logo">
                     <Link to="/">
                         <img
-                            src={scrolled ? "/logo_scroll.png?v=2" : "/logo.png?v=2"}
+                            src={logoSrc}
                             alt="Boxx Commercial Finance"
                             className="navbar-logo-img"
                         />
                     </Link>
                 </div>
-
                 <div className={`navbar-menu ${mobileMenuOpen ? 'active' : ''}`}>
                     <a href="/#funding-solutions" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Funding Solutions</a>
                     <a href="/#about" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>About Us</a>
@@ -47,7 +59,6 @@ const Navbar = () => {
                         Call us now
                     </a>
                 </div>
-
                 <div className="navbar-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
                     <span className="bar"></span>
                     <span className="bar"></span>
