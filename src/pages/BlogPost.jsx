@@ -68,7 +68,7 @@ const BlogPost = () => {
                 />
                 <div className="polished-header">
                     <div className="polished-header__inner">
-                        <Link to="/insights" className="polished-back-link">← Back to Insights</Link>
+                        <Link to="/insights" className="polished-back-link">Back to Insights</Link>
                         <h1>Article <span className="text-highlight">Not Found</span></h1>
                     </div>
                 </div>
@@ -106,10 +106,9 @@ const BlogPost = () => {
                 type="article"
             />
 
-            {/* ── Hero: full-width navy, image overlaps bottom ── */}
             <div className="polished-header">
                 <div className="polished-header__inner">
-                    <Link to="/insights" className="polished-back-link">← Back to Insights</Link>
+                    <Link to="/insights" className="polished-back-link">Back to Insights</Link>
                     <div className="polished-hero-grid">
                         <div className="polished-hero-text">
                             <h1>
@@ -130,7 +129,7 @@ const BlogPost = () => {
                                 )}
                             </div>
                             <a href="/chat-about-funding" className="btn btn-primary polished-hero-btn">
-                                Let's have a chat
+                                Lets have a chat
                             </a>
                         </div>
                         <div className="polished-hero-image">
@@ -147,7 +146,6 @@ const BlogPost = () => {
                 </div>
             </div>
 
-            {/* ── Main content ── */}
             <div className="polished-body">
                 <div className="polished-body__inner">
                     <div className="polished-content-card">
@@ -157,7 +155,6 @@ const BlogPost = () => {
                         />
                     </div>
 
-                    {/* Author card */}
                     <div id="author" className="director-cards single-column" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
                         <div className="director-card">
                             <img src={authorData.image} alt={post.author} className="director-avatar-photo" />
@@ -167,7 +164,7 @@ const BlogPost = () => {
                                 <p className="director-bio">{authorData.bio}</p>
                                 <div className="director-social-links">
                                     <div className="contact-link-row">
-                                        <a href={`mailto:${authorData.email}`} className="director-email gold-link">
+                                        <a href={'mailto:' + authorData.email} className="director-email gold-link">
                                             {authorData.email}
                                         </a>
                                     </div>
@@ -197,7 +194,6 @@ const BlogPost = () => {
                         </div>
                     </div>
 
-                    {/* Related articles */}
                     <div style={{ marginBottom: '4rem' }}>
                         <RelatedArticles currentSlug={post.slug} />
                     </div>
