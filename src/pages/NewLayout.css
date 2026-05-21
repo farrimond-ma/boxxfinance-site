@@ -15,11 +15,11 @@
     text-decoration: underline;
 }
 
-/* Clean white header */
+/* Full-width navy header */
 .polished-header {
-    background: #ffffff;
-    padding: 7rem 0 2rem;
-    border-bottom: 1px solid #f0f0f0;
+    background: #0d1b3e;
+    padding: 7rem 0 0;
+    position: relative;
 }
 
 .polished-header__inner {
@@ -29,28 +29,46 @@
 }
 
 .polished-header h1 {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    color: #0d1b3e;
+    color: #ffffff;
     line-height: 1.2;
     margin: 0 0 0.75rem;
 }
 
+.polished-header .text-highlight {
+    color: #b8922a;
+}
+
 .polished-meta {
     font-size: 0.875rem;
-    color: #6b7280;
+    color: #9ca3af;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     flex-wrap: wrap;
+    margin-bottom: 1.5rem;
 }
 .polished-meta__dot {
-    color: #d1d5db;
+    color: #4b5563;
+}
+
+.polished-author-link {
+    color: #b8922a;
+    text-decoration: none;
+}
+.polished-author-link:hover {
+    text-decoration: underline;
+}
+
+.polished-hero-btn {
+    display: inline-block;
+    margin-bottom: 3rem;
 }
 
 .polished-location-subtitle {
     font-size: 1.1rem;
-    color: #4b5563;
+    color: #9ca3af;
     margin-top: 0.5rem;
     max-width: 640px;
     line-height: 1.6;
@@ -60,17 +78,20 @@
 .polished-hero-grid {
     display: grid;
     grid-template-columns: 1fr 500px;
-    gap: 3rem;
-    align-items: center;
-    margin-top: 1.5rem;
+    gap: 4rem;
+    align-items: end;
 }
 
+/* Image bleeds out of navy into white below */
 .polished-hero-image {
     width: 500px;
     height: 500px;
     overflow: hidden;
-    border-radius: 15px;
+    border-radius: 15px 15px 15px 15px;
+    position: relative;
+    bottom: -60px;
     flex-shrink: 0;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .polished-hero-image img {
@@ -85,38 +106,20 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-bottom: 3rem;
 }
 
-/* Body wrapper */
+/* Body — offset top to account for image bleed */
 .polished-body {
-    max-width: 780px;
-    margin: 0 auto;
-    padding-top: 2.5rem;
+    background: #ffffff;
+    padding-top: 80px;
     padding-bottom: 4rem;
 }
 
-/* Early CTA banner */
-.polished-cta-banner {
-    background: #f9f5e8;
-    border-left: 4px solid #b8922a;
-    border-radius: 8px;
-    padding: 1.25rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-}
-.polished-cta-banner p {
-    margin: 0;
-    font-size: 1rem;
-    color: #0d1b3e;
-    font-weight: 500;
-}
-.polished-cta-banner .btn {
-    white-space: nowrap;
-    flex-shrink: 0;
+.polished-body__inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 /* Content card */
@@ -138,20 +141,20 @@
         grid-template-columns: 1fr;
     }
 
-    .polished-hero-image,
-    .polished-hero-image img {
+    .polished-hero-image {
         width: 100%;
         height: 280px;
         border-radius: 12px;
+        bottom: -30px;
+    }
+
+    .polished-hero-image img {
+        width: 100%;
+        height: 280px;
     }
 
     .polished-body {
-        padding-top: 1.5rem;
-    }
-
-    .polished-cta-banner {
-        flex-direction: column;
-        align-items: flex-start;
+        padding-top: 50px;
     }
 
     .polished-content-card {
