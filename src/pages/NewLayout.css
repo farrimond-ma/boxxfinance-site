@@ -1,167 +1,194 @@
-/* ─────────────────────────────────────────
-   Polished-style layout
-   ───────────────────────────────────────── */
+import React, { useMemo } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import blogPosts from '../data/blogPosts.json';
+import SEO from '../components/SEO';
+import RelatedArticles from '../components/RelatedArticles';
+import './Blog.css';
+import './NewLayout.css';
+import '../components/About.css';
 
-.polished-back-link {
-    display: inline-block;
-    font-size: 0.875rem;
-    color: #b8922a;
-    text-decoration: none;
-    margin-bottom: 1.25rem;
-    font-weight: 500;
-}
-.polished-back-link:hover {
-    text-decoration: underline;
-}
+const BlogPost = () => {
+    const { slug } = useParams();
 
-.polished-header {
-    background: #0d1b3e;
-    padding: 6rem 0 0;
-    position: relative;
-}
+    const normalisedSlug = decodeURIComponent(String(slug || ''))
+        .trim()
+        .replace(/^\/+|\/+$/g, '')
+        .toLowerCase();
 
-.polished-header__inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
+    const publishedPosts = blogPosts.filter((post) => post && post.status === 'published');
 
-.polished-header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #ffffff;
-    line-height: 1.2;
-    margin: 0 0 0.75rem;
-}
+    const post = publishedPosts.find((p) => {
+        const postSlug = String(p.slug || '')
+            .trim()
+            .replace(/^\/+|\/+$/g, '')
+            .toLowerCase();
+        return postSlug === normalisedSlug;
+    });
 
-.polished-header .text-highlight {
-    color: #b8922a;
-}
+    const heroImages = [
+        '/header_bg.webp',
+        '/images/sidebar/sidebar_meeting.webp',
+        '/images/sidebar/sidebar_handshake.webp',
+        '/images/sidebar/sidebar_office.webp'
+    ];
 
-.polished-meta {
-    font-size: 0.875rem;
-    color: #9ca3af;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-}
+    const heroImage = useMemo(() => {
+        return heroImages[Math.floor(Math.random() * heroImages.length)];
+    }, []);
 
-.polished-meta__dot {
-    color: #4b5563;
-}
+    const formatDate = (dateStr) => {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    };
 
-.polished-author-link {
-    color: #b8922a;
-    text-decoration: none;
-}
-.polished-author-link:hover {
-    text-decoration: underline;
-}
+    const authors = {
+        'Mark Higgins': {
+            title: 'Managing Partner, Commercial Finance',
+            image: '/mark-higgins.webp',
+            bio: 'With extensive experience across commercial mortgages, development finance and structured lending, Mark leads client relationships and complex case structuring. He has helped hundreds of UK businesses secure the right funding at the right terms.',
+            email: 'mark@boxxfinance.co.uk',
+            linkedIn: 'https://www.linkedin.com/in/mark-higgins-05ab363b2/'
+        },
+        'Andrew Farrimond': {
+            title: 'Managing Partner, Commercial Finance',
+            image: '/andrew-farrimond.webp',
+            bio: 'Andrew specialises in invoice finance, asset finance and working capital solutions, with a strong track record in helping growth-stage businesses unlock the liquidity they need to scale. His whole-of-market approach ensures clients receive competitive, lender-agnostic advice.',
+            email: 'andrew@boxxfinance.co.uk',
+            linkedIn: 'https://www.linkedin.com/in/commercial-funding/'
+        }
+    };
 
-.polished-hero-btn {
-    display: inline-block;
-    width: auto;
-    padding: 0.75rem 2rem;
-    white-space: nowrap;
-    margin-bottom: 0;
-}
-
-.polished-location-subtitle {
-    font-size: 1.1rem;
-    color: #9ca3af;
-    margin-top: 0.5rem;
-    max-width: 640px;
-    line-height: 1.6;
-}
-
-/* Hero grid — text left, image right */
-.polished-hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 480px;
-    gap: 4rem;
-    align-items: center;
-}
-
-.polished-hero-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding-bottom: 4rem;
-}
-
-/* Image overlaps the navy/white boundary — bleeds 50% out */
-.polished-hero-image {
-    width: 480px;
-    height: 480px;
-    overflow: hidden;
-    border-radius: 15px;
-    position: relative;
-    top: 120px;
-    flex-shrink: 0;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    z-index: 2;
-}
-
-.polished-hero-image img {
-    width: 480px;
-    height: 480px;
-    object-fit: cover;
-    display: block;
-    border-radius: 15px;
-}
-
-/* Body — offset top to account for image overlap */
-.polished-body {
-    background: #ffffff;
-    padding-top: 140px;
-    padding-bottom: 4rem;
-    position: relative;
-    z-index: 1;
-}
-
-.polished-body__inner {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.polished-content-card {
-    background: #ffffff;
-    border: 1px solid #f0f0f0;
-    border-radius: 12px;
-    padding: 2rem 2.5rem;
-    margin-bottom: 2rem;
-}
-
-@media (max-width: 768px) {
-    .polished-header h1 {
-        font-size: 1.75rem;
+    if (!post) {
+        return (
+            <div className="blog-post-page">
+                <SEO
+                    title="Article Not Found | Boxx Commercial Finance"
+                    description="The requested article could not be found."
+                    keywords="boxx commercial finance, insights"
+                />
+                <div className="polished-header">
+                    <div className="polished-header__inner">
+                        <h1>Article <span className="text-highlight">Not Found</span></h1>
+                    </div>
+                </div>
+                <div className="container" style={{ paddingBottom: '4rem' }}>
+                    <div className="polished-content-card">
+                        <p><strong>Requested slug:</strong> {normalisedSlug}</p>
+                        <p><strong>Published posts found:</strong> {publishedPosts.length}</p>
+                        <h2>Available slugs</h2>
+                        <ul>
+                            {publishedPosts.map((p) => (
+                                <li key={p.id || p.slug}>{p.slug}</li>
+                            ))}
+                        </ul>
+                        <p style={{ marginTop: '1.5rem' }}>
+                            <Link to="/insights" className="read-more">Back to Insights</Link>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
-    .polished-hero-grid {
-        grid-template-columns: 1fr;
-    }
+    const authorData = authors[post.author] || authors['Mark Higgins'];
+    const linkedInUrl = authorData.linkedIn || null;
 
-    .polished-hero-image {
-        width: 100%;
-        height: 260px;
-        border-radius: 12px;
-        top: 30px;
-    }
+    return (
+        <div className="blog-post-page polished-page">
+            <SEO
+                title={post.metaTitle || post.title}
+                description={post.metaDescription || post.excerpt}
+                keywords={post.keywords}
+                schema={post.schema}
+                type="article"
+            />
 
-    .polished-hero-image img {
-        width: 100%;
-        height: 260px;
-    }
+            <div className="polished-header">
+                <div className="polished-header__inner">
+                    <div className="polished-hero-grid">
+                        <div className="polished-hero-text">
+                            <h1>
+                                {post.title.split(' ').slice(0, -2).join(' ')}{' '}
+                                <span className="text-highlight">
+                                    {post.title.split(' ').slice(-2).join(' ')}
+                                </span>
+                            </h1>
+                            <div className="polished-meta">
+                                <span>{formatDate(post.date)}</span>
+                                {post.author && (
+                                    <>
+                                        <span className="polished-meta__dot">·</span>
+                                        <a href="#author" className="polished-author-link">{post.author}</a>
+                                    </>
+                                )}
+                            </div>
+                            <p className="polished-hero-subtitle">
+                                Speak to us today about your requirements.
+                            </p>
+                            <a href="/chat-about-funding" className="btn btn-primary polished-hero-btn">
+                                Lets have a chat
+                            </a>
+                        </div>
+                        <div className="polished-hero-image">
+                            <img
+                                src={post.image || heroImage}
+                                alt={post.title}
+                                onError={(e) => {
+                                    e.currentTarget.src = '/hero-desktop.webp';
+                                    e.currentTarget.onerror = null;
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    .polished-body {
-        padding-top: 50px;
-    }
+            <div className="polished-body">
+                <div className="polished-body__inner">
+                    <div className="polished-content-card">
+                        <div
+                            className="blog-post-content"
+                            dangerouslySetInnerHTML={{ __html: post.content || '<p>No article content found.</p>' }}
+                        />
+                    </div>
 
-    .polished-content-card {
-        padding: 1.25rem;
-    }
-}
+                    <div id="author" className="director-cards single-column" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+                        <div className="director-card">
+                            <img src={authorData.image} alt={post.author} className="director-avatar-photo" />
+                            <div className="director-info">
+                                <h4>{post.author}</h4>
+                                <p className="director-title">{authorData.title}</p>
+                                <p className="director-bio">{authorData.bio}</p>
+                                <div className="director-social-links">
+                                    <div className="contact-link-row">
+                                        <a href={'mailto:' + authorData.email} className="director-email gold-link">
+                                            {authorData.email}
+                                        </a>
+                                    </div>
+                                    <div className="contact-link-row">
+                                        <a href="tel:03300434281" className="director-phone gold-link">
+                                            0330 043 4281
+                                        </a>
+                                    </div>
+                                    {linkedInUrl && (
+                                        <div className="contact-link-row">
+                                            <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" className="director-linkedin-btn">
+                                                Connect on LinkedIn
+                                            </a>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style={{ marginBottom: '4rem' }}>
+                        <RelatedArticles currentSlug={post.slug} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default BlogPost;
