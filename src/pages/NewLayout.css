@@ -56,10 +56,10 @@
     line-height: 1.6;
 }
 
-/* Hero grid — image left, text right */
+/* Hero grid — text left, image right */
 .polished-hero-grid {
     display: grid;
-    grid-template-columns: 500px 1fr;
+    grid-template-columns: 1fr 500px;
     gap: 3rem;
     align-items: center;
     margin-top: 1.5rem;
