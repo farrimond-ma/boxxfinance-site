@@ -1,177 +1,165 @@
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: transparent;
-    padding: 1.5rem 0;
-    transition: all 0.3s ease;
-}
+/* ─────────────────────────────────────────
+   Polished-style layout
+   ───────────────────────────────────────── */
 
-/* Dark navy navbar for blog/location pages before scroll */
-.navbar.navbar-dark {
-    background-color: var(--color-primary);
-}
-
-.navbar.navbar-dark .navbar-link {
-    color: var(--color-white);
-}
-
-.navbar.navbar-dark .bar {
-    background-color: var(--color-white);
-}
-
-.navbar.scrolled {
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: var(--shadow-sm);
-    padding: 1rem 0;
-    backdrop-filter: blur(5px);
-}
-
-.navbar.scrolled .navbar-link {
-    color: var(--color-text-dark);
-}
-
-.navbar.scrolled .navbar-logo a {
-    color: var(--color-primary);
-}
-
-.navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar-logo a {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-logo-img {
-    height: 4.9rem;
-    width: auto;
-    object-fit: contain;
-    transition: all 0.3s ease;
-}
-
-.navbar.scrolled .navbar-logo a {
-    color: var(--color-primary);
-}
-
-.navbar-logo span {
-    color: var(--color-secondary);
-}
-
-.navbar-menu {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.navbar-link {
+.polished-back-link {
+    display: inline-block;
+    font-size: 0.875rem;
+    color: #b8922a;
+    text-decoration: none;
+    margin-bottom: 1.25rem;
     font-weight: 500;
-    color: var(--color-white);
+}
+.polished-back-link:hover {
+    text-decoration: underline;
+}
+
+.polished-header {
+    background: #010816;
+    padding: 6rem 0 0;
     position: relative;
+    overflow: visible;
 }
 
-.navbar-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--color-secondary);
-    transition: width 0.3s ease;
+.polished-header__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
-.navbar-link:hover::after {
-    width: 100%;
+.polished-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
 }
 
-.navbar-toggle {
-    display: none;
+.polished-header .text-highlight {
+    color: #b8922a;
+}
+
+.polished-meta {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.polished-meta__dot {
+    color: #4b5563;
+}
+
+.polished-author-link {
+    color: #b8922a;
+    text-decoration: none;
+}
+.polished-author-link:hover {
+    text-decoration: underline;
+}
+
+.polished-hero-btn {
+    display: inline-block;
+    width: auto;
+    padding: 0.75rem 2rem;
+    white-space: nowrap;
+}
+
+.polished-location-subtitle {
+    font-size: 1.1rem;
+    color: #9ca3af;
+    margin-top: 0.5rem;
+    max-width: 640px;
+    line-height: 1.6;
+}
+
+.polished-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 4rem;
+    align-items: flex-start;
+}
+
+.polished-hero-text {
+    display: flex;
     flex-direction: column;
-    cursor: pointer;
-    gap: 5px;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 0 4rem;
 }
 
-.bar {
-    width: 25px;
-    height: 3px;
-    background-color: var(--color-white);
-    transition: 0.3s;
+.polished-hero-image {
+    width: 480px;
+    height: 420px;
+    overflow: hidden;
+    border-radius: 15px;
+    position: relative;
+    top: 0;
+    margin-bottom: -210px;
+    flex-shrink: 0;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    z-index: 2;
 }
 
-.navbar.scrolled .bar {
-    background-color: var(--color-primary);
+.polished-hero-image img {
+    width: 480px;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+    border-radius: 15px;
 }
 
-/* Mobile Responsiveness */
+.polished-body {
+    background: #ffffff;
+    padding-top: 240px;
+    padding-bottom: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.polished-body__inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.polished-content-card {
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+}
+
 @media (max-width: 768px) {
-    .navbar {
-        background-color: transparent !important;
-        padding: 1rem 0;
-        box-shadow: none !important;
+    .polished-header h1 {
+        font-size: 1.75rem;
     }
 
-    .navbar.navbar-dark {
-        background-color: var(--color-primary) !important;
+    .polished-hero-grid {
+        grid-template-columns: 1fr;
     }
 
-    .navbar-logo-img {
-        height: 3rem !important;
-    }
-
-    .navbar.scrolled,
-    .navbar.navbar-solid {
-        background-color: var(--color-white) !important;
-        box-shadow: var(--shadow-sm) !important;
-    }
-
-    .navbar.scrolled .navbar-link,
-    .navbar.navbar-solid .navbar-link {
-        color: var(--color-primary);
-    }
-
-    .navbar.scrolled .bar,
-    .navbar.navbar-solid .bar {
-        background-color: var(--color-primary);
-    }
-
-    .navbar-logo a {
-        color: var(--color-white);
-    }
-
-    .navbar-link {
-        color: var(--color-primary);
-    }
-
-    .bar {
-        background-color: var(--color-white);
-    }
-
-    .navbar-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
+    .polished-hero-image {
         width: 100%;
-        background-color: var(--color-white);
-        flex-direction: column;
-        padding: 2rem 0;
-        gap: 1.5rem;
-        transform: translateY(-150%);
-        transition: transform 0.3s ease;
-        box-shadow: var(--shadow-md);
-        z-index: -1;
+        height: 260px;
+        border-radius: 12px;
+        margin-bottom: -130px;
     }
 
-    .navbar-menu.active {
-        transform: translateY(0);
+    .polished-hero-image img {
+        width: 100%;
+        height: 260px;
     }
 
-    .navbar-toggle {
-        display: flex;
+    .polished-body {
+        padding-top: 150px;
+    }
+
+    .polished-content-card {
+        padding: 1.25rem;
     }
 }
