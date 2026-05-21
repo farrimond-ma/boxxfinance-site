@@ -1,0 +1,125 @@
+/* ─────────────────────────────────────────
+   Polished-style layout
+   Add to Blog.css or a new PolishedLayout.css
+   ───────────────────────────────────────── */
+
+/* Back link */
+.polished-back-link {
+    display: inline-block;
+    font-size: 0.875rem;
+    color: #b8922a;
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+}
+.polished-back-link:hover {
+    text-decoration: underline;
+}
+
+/* Clean white header — replaces dark navy hero */
+.polished-header {
+    background: #ffffff;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+.polished-header__inner {
+    max-width: 780px;
+}
+.polished-header h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #0d1b3e;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+}
+.polished-meta {
+    font-size: 0.875rem;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+.polished-meta__dot {
+    color: #d1d5db;
+}
+.polished-location-subtitle {
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin-top: 0.5rem;
+    max-width: 640px;
+    line-height: 1.6;
+}
+
+/* Full-width hero image */
+.polished-hero-image {
+    width: 100%;
+    max-height: 480px;
+    overflow: hidden;
+}
+.polished-hero-image img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Body wrapper */
+.polished-body {
+    max-width: 780px;
+    padding-top: 2.5rem;
+    padding-bottom: 4rem;
+}
+
+/* Early CTA banner */
+.polished-cta-banner {
+    background: #f9f5e8;
+    border-left: 4px solid #b8922a;
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+.polished-cta-banner p {
+    margin: 0;
+    font-size: 1rem;
+    color: #0d1b3e;
+    font-weight: 500;
+}
+.polished-cta-banner .btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Content card */
+.polished-content-card {
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .polished-header h1 {
+        font-size: 1.75rem;
+    }
+    .polished-hero-image img {
+        height: 240px;
+    }
+    .polished-body {
+        padding-top: 1.5rem;
+    }
+    .polished-cta-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .polished-content-card {
+        padding: 1.25rem 1.25rem;
+    }
+}
