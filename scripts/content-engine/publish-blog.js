@@ -22,18 +22,38 @@ const BLOG_FILE = 'src/data/blogPosts.json';
 // X=23 faqRequired, Y=24 linkedInRequired, Z=25 author
 // AA=26 jsonStatus, AB=27 publishedAt, AC=28 notes
 
+// ─── Pillar images ───────────────────────────────────────────────────────────
+const pillarImages = {
+  'bridging-finance': ['/images/blog/bridging-finance-1.webp', '/images/blog/bridging-finance-2.webp'],
+  'development-finance': ['/images/blog/development-finance-1.webp', '/images/blog/development-finance-2.webp'],
+  'commercial-mortgage': ['/images/blog/commercial-mortgage-1.webp', '/images/blog/commercial-mortgage-2.webp'],
+  'invoice-finance': ['/images/blog/invoice-finance-1.webp', '/images/blog/invoice-finance-2.webp'],
+  'asset-finance': ['/images/blog/asset-finance-1.webp', '/images/blog/asset-finance-2.webp'],
+  'working-capital': ['/images/blog/working-capital-1.webp', '/images/blog/working-capital-2.webp'],
+  'trade-finance': ['/images/blog/trade-finance-1.webp', '/images/blog/trade-finance-2.webp'],
+  'property-finance': ['/images/blog/property-finance-1.webp', '/images/blog/property-finance-2.webp'],
+  'business-loans': ['/images/blog/business-loans-1.webp', '/images/blog/business-loans-2.webp'],
+  'cashflow-finance': ['/images/blog/cashflow-finance-1.webp', '/images/blog/cashflow-finance-2.webp'],
+  'mezzanine-finance': ['/images/blog/mezzanine-finance-1.webp', '/images/blog/mezzanine-finance-2.webp'],
+  'structured-finance': ['/images/blog/structured-finance-1.webp', '/images/blog/structured-finance-2.webp'],
+};
+
+function getPillarImage(service) {
+  const key = service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+  const images = pillarImages[key] || pillarImages['bridging-finance'];
+  return images[Math.floor(Math.random() * images.length)];
+}
+
 // ─── Google Sheets Auth ──────────────────────────────────────────────────────
 async function getSheetsClient() {
   let auth;
   if (process.env.GOOGLE_CREDENTIALS) {
     let credentials;
     try {
-      // Try base64 decode first (GitHub Actions)
       credentials = JSON.parse(
         Buffer.from(process.env.GOOGLE_CREDENTIALS, 'base64').toString('utf8')
       );
     } catch {
-      // Fall back to raw JSON (local .env)
       credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
     }
     auth = new google.auth.GoogleAuth({
@@ -280,12 +300,10 @@ async function main() {
   const relatedBlogs = await getPublishedBlogs(sheets, row.service);
   console.log(`Found ${relatedBlogs.length} related published blogs for ${row.service}`);
 
-  // Fetch blogPosts.json early so we can check for duplicates before generating
   console.log('Fetching current blogPosts.json from GitHub...');
   const { sha, posts } = await getBlogPostsFile();
   console.log(`Current file has ${posts.length} posts, SHA: ${sha}`);
 
-  // Skip if slug already exists — prevents duplicate posts after sheet rebuilds
   const slug = row.slug;
   const existingPost = posts.find(p => p.slug === slug);
   if (existingPost) {
@@ -322,7 +340,7 @@ async function main() {
     date: row.publishDate,
     author: row.author || 'Mark Higgins',
     authorEmail: authorEmails[row.author] || 'mark@boxxfinance.co.uk',
-    image: `https://source.unsplash.com/1200x600/?${encodeURIComponent(row.keyword)},business,uk`,
+    image: getPillarImage(row.service),
     schema: article.faqSchema || null,
     relatedLocationUrls: locationLinks.map(l => l.startsWith('http') ? l : `https://boxxfinance.co.uk${l}`),
     relatedBlogUrls: relatedBlogs.map(b => b.url),
