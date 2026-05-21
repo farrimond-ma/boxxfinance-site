@@ -7,12 +7,6 @@ import './Blog.css';
 import './NewLayout.css';
 import '../components/About.css';
 
-const LinkedInIcon = () => (
-    <svg className="linkedin-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-        <path d="M19 0H5C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5V5c0-2.761-2.238-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z" />
-    </svg>
-);
-
 const BlogPost = () => {
     const { slug } = useParams();
 
@@ -102,6 +96,8 @@ const BlogPost = () => {
     const wordCount = (post.content || '').replace(/<[^>]+>/g, '').split(/\s+/).length;
     const readMins = Math.max(1, Math.round(wordCount / 200));
 
+    const linkedInUrl = authorData.linkedIn || null;
+
     return (
         <div className="blog-post-page polished-page">
             <SEO
@@ -179,16 +175,9 @@ const BlogPost = () => {
                                             0330 043 4281
                                         </a>
                                     </div>
-                                    {authorData.linkedIn && (
+                                    {linkedInUrl && (
                                         <div className="contact-link-row">
-                                            
-                                                href={authorData.linkedIn}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="director-linkedin-btn"
-                                                title="Connect on LinkedIn"
-                                            >
-                                                <LinkedInIcon />
+                                            <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" className="director-linkedin-btn">
                                                 Connect on LinkedIn
                                             </a>
                                         </div>
