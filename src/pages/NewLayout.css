@@ -1,6 +1,5 @@
 /* ─────────────────────────────────────────
    Polished-style layout
-   Add to Blog.css or a new PolishedLayout.css
    ───────────────────────────────────────── */
 
 /* Back link */
@@ -16,15 +15,19 @@
     text-decoration: underline;
 }
 
-/* Clean white header — replaces dark navy hero */
+/* Clean white header */
 .polished-header {
     background: #ffffff;
     padding: 7rem 0 2rem;
     border-bottom: 1px solid #f0f0f0;
 }
+
 .polished-header__inner {
-    max-width: 780px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
+
 .polished-header h1 {
     font-size: 2.25rem;
     font-weight: 700;
@@ -32,6 +35,7 @@
     line-height: 1.2;
     margin: 0 0 0.75rem;
 }
+
 .polished-meta {
     font-size: 0.875rem;
     color: #6b7280;
@@ -43,6 +47,7 @@
 .polished-meta__dot {
     color: #d1d5db;
 }
+
 .polished-location-subtitle {
     font-size: 1.1rem;
     color: #4b5563;
@@ -51,22 +56,41 @@
     line-height: 1.6;
 }
 
-/* Full-width hero image */
-.polished-hero-image {
-    width: 100%;
-    max-height: 480px;
-    overflow: hidden;
+/* Hero grid — image left, text right */
+.polished-hero-grid {
+    display: grid;
+    grid-template-columns: 500px 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-top: 1.5rem;
 }
+
+.polished-hero-image {
+    width: 500px;
+    height: 500px;
+    overflow: hidden;
+    border-radius: 15px;
+    flex-shrink: 0;
+}
+
 .polished-hero-image img {
-    width: 100%;
-    height: 480px;
+    width: 500px;
+    height: 500px;
     object-fit: cover;
     display: block;
+    border-radius: 15px;
+}
+
+.polished-hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* Body wrapper */
 .polished-body {
     max-width: 780px;
+    margin: 0 auto;
     padding-top: 2.5rem;
     padding-bottom: 4rem;
 }
@@ -105,21 +129,32 @@
 }
 
 /* Mobile */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .polished-header h1 {
         font-size: 1.75rem;
     }
-    .polished-hero-image img {
-        height: 240px;
+
+    .polished-hero-grid {
+        grid-template-columns: 1fr;
     }
+
+    .polished-hero-image,
+    .polished-hero-image img {
+        width: 100%;
+        height: 280px;
+        border-radius: 12px;
+    }
+
     .polished-body {
         padding-top: 1.5rem;
     }
+
     .polished-cta-banner {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .polished-content-card {
-        padding: 1.25rem 1.25rem;
+        padding: 1.25rem;
     }
 }
