@@ -106,36 +106,40 @@ const BlogPost = () => {
                 type="article"
             />
 
-            {/* ── Clean white header ── */}
+            {/* ── Hero: title left, image right ── */}
             <div className="polished-header">
-                <div className="polished-header__inner container">
+                <div className="polished-header__inner">
                     <Link to="/insights" className="polished-back-link">← Back to Insights</Link>
-                    <h1>
-                        {post.title.split(' ').slice(0, -2).join(' ')}{' '}
-                        <span className="text-highlight">
-                            {post.title.split(' ').slice(-2).join(' ')}
-                        </span>
-                    </h1>
-                    <div className="polished-meta">
-                        <span>{formatDate(post.date)}</span>
-                        <span className="polished-meta__dot">·</span>
-                        <span>{readMins} min read</span>
-                        {post.author && (
-                            <>
-                                <span className="polished-meta__dot">·</span>
-                                <span>{post.author}</span>
-                            </>
-                        )}
+                    <div className="polished-hero-grid">
+                        <div className="polished-hero-text">
+                            <h1>
+                                {post.title.split(' ').slice(0, -2).join(' ')}{' '}
+                                <span className="text-highlight">
+                                    {post.title.split(' ').slice(-2).join(' ')}
+                                </span>
+                            </h1>
+                            <div className="polished-meta">
+                                <span>{formatDate(post.date)}</span>
+                                {post.author && (
+                                    <>
+                                        <span className="polished-meta__dot">·</span>
+                                        <a href="#author" className="polished-author-link">{post.author}</a>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                        <div className="polished-hero-image">
+                            <img
+                                src={post.image || heroImage}
+                                alt={post.title}
+                                onError={(e) => {
+                                    e.currentTarget.src = '/hero-desktop.webp';
+                                    e.currentTarget.onerror = null;
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            {/* ── Full-width hero image ── */}
-            <div className="polished-hero-image">
-                <img
-                    src={post.image || heroImage}
-                    alt={post.title}
-                />
             </div>
 
             {/* ── Main content ── */}
@@ -157,7 +161,7 @@ const BlogPost = () => {
                 </div>
 
                 {/* Author card */}
-                <div className="director-cards single-column" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+                <div id="author" className="director-cards single-column" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
                     <div className="director-card">
                         <img src={authorData.image} alt={post.author} className="director-avatar-photo" />
                         <div className="director-info">
