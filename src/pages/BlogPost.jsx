@@ -7,6 +7,12 @@ import './Blog.css';
 import './NewLayout.css';
 import '../components/About.css';
 
+const LinkedInIcon = () => (
+    <svg className="linkedin-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+        <path d="M19 0H5C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5V5c0-2.761-2.238-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z" />
+    </svg>
+);
+
 const BlogPost = () => {
     const { slug } = useParams();
 
@@ -26,10 +32,10 @@ const BlogPost = () => {
     });
 
     const heroImages = [
-        '/header_bg.png',
-        '/images/sidebar/sidebar_meeting.jpg',
-        '/images/sidebar/sidebar_handshake.jpg',
-        '/images/sidebar/sidebar_office.jpg'
+        '/header_bg.webp',
+        '/images/sidebar/sidebar_meeting.webp',
+        '/images/sidebar/sidebar_handshake.webp',
+        '/images/sidebar/sidebar_office.webp'
     ];
 
     const heroImage = useMemo(() => {
@@ -44,14 +50,14 @@ const BlogPost = () => {
     const authors = {
         'Mark Higgins': {
             title: 'Managing Partner, Commercial Finance',
-            image: '/mark-higgins.png',
+            image: '/mark-higgins.webp',
             bio: 'With extensive experience across commercial mortgages, development finance and structured lending, Mark leads client relationships and complex case structuring. He has helped hundreds of UK businesses secure the right funding at the right terms.',
             email: 'mark@boxxfinance.co.uk',
             linkedIn: 'https://www.linkedin.com/in/mark-higgins-05ab363b2/'
         },
         'Andrew Farrimond': {
             title: 'Managing Partner, Commercial Finance',
-            image: '/andrew-farrimond.png',
+            image: '/andrew-farrimond.webp',
             bio: 'Andrew specialises in invoice finance, asset finance and working capital solutions, with a strong track record in helping growth-stage businesses unlock the liquidity they need to scale. His whole-of-market approach ensures clients receive competitive, lender-agnostic advice.',
             email: 'andrew@boxxfinance.co.uk',
             linkedIn: 'https://www.linkedin.com/in/commercial-funding/'
@@ -169,7 +175,7 @@ const BlogPost = () => {
                                         </a>
                                     </div>
                                     <div className="contact-link-row">
-                                        <a href="tel:03300431612" className="director-phone gold-link">
+                                        <a href="tel:03300434281" className="director-phone gold-link">
                                             0330 043 4281
                                         </a>
                                     </div>
@@ -182,11 +188,9 @@ const BlogPost = () => {
                                                 className="director-linkedin-btn"
                                                 title="Connect on LinkedIn"
                                             >
-                                                <svg className="linkedin-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                                                </svg>
+                                                <LinkedInIcon />
                                                 Connect on LinkedIn
-                                        </a>
+                                            </a>
                                         </div>
                                     )}
                                 </div>
