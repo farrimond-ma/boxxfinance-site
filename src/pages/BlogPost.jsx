@@ -129,7 +129,15 @@ const BlogPost = () => {
                             </Link>
                         </div>
                         <div className="bp-hero-image-col">
-                            <img src={heroImage} alt={post.title} className="bp-hero-img" />
+                            <img
+                                src={heroImage}
+                                alt={post.title}
+                                className="bp-hero-img"
+                                onError={(e) => {
+                                    e.currentTarget.src = '/images/header_bg.webp';
+                                    e.currentTarget.onerror = null;
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
