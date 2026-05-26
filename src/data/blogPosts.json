@@ -1337,7 +1337,6 @@
     "date": "2026-05-22",
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
-    "image": "/images/blog/invoice-finance-2.webp",
     "schema": {
       "@type": "FAQPage",
       "mainEntity": [
@@ -1387,7 +1386,6 @@
     "date": "2026-05-23",
     "author": "Mark Higgins",
     "authorEmail": "mark@boxxfinance.co.uk",
-    "image": "/images/blog/asset-finance-2.webp",
     "schema": {
       "@context": "https://schema.org",
       "@type": "FAQPage",

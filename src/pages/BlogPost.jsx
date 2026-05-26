@@ -1,7 +1,6 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import blogPosts from '../data/blogPosts.json';
-import Sidebar from '../components/Sidebar';
 import SEO from '../components/SEO';
 import RelatedArticles from '../components/RelatedArticles';
 import './Blog.css';
@@ -22,20 +21,8 @@ const BlogPost = () => {
             .trim()
             .replace(/^\/+|\/+$/g, '')
             .toLowerCase();
-
         return postSlug === normalisedSlug;
     });
-
-    const sidebarImages = [
-        '/images/header_bg.webp',
-        '/images/sidebar/sidebar_meeting.jpg',
-        '/images/sidebar/sidebar_handshake.jpg',
-        '/images/sidebar/sidebar_office.jpg'
-    ];
-
-    const sidebarImage = useMemo(() => {
-        return sidebarImages[Math.floor(Math.random() * sidebarImages.length)];
-    }, []);
 
     const formatDate = (dateStr) => {
         const d = new Date(dateStr);
@@ -67,26 +54,22 @@ const BlogPost = () => {
                     description="The requested article could not be found."
                     keywords="boxx commercial finance, insights"
                 />
-
                 <div className="blog-hero" style={{ padding: '10rem 0 6rem' }}>
                     <div className="container">
                         <h1>Article <span className="text-highlight">Not Found</span></h1>
                         <p>The requested article slug did not match any published post.</p>
                     </div>
                 </div>
-
                 <div className="container" style={{ paddingBottom: '4rem' }}>
-                    <div className="blog-main-card">
+                    <div className="blog-main-card" style={{ padding: '2rem' }}>
                         <p><strong>Requested slug:</strong> {normalisedSlug}</p>
                         <p><strong>Published posts found:</strong> {publishedPosts.length}</p>
-
                         <h2>Available slugs</h2>
                         <ul>
                             {publishedPosts.map((p) => (
                                 <li key={p.id || p.slug}>{p.slug}</li>
                             ))}
                         </ul>
-
                         <p style={{ marginTop: '1.5rem' }}>
                             <Link to="/insights" className="read-more">Back to Insights</Link>
                         </p>
@@ -99,8 +82,8 @@ const BlogPost = () => {
     const authorData = authors[post.author] || authors['Mark Higgins'];
     const heroImage = post.heroImage || post.image || '/images/header_bg.webp';
     const titleWords = post.title.split(' ');
-    const titleMain = titleWords.slice(0, -2).join(' ');
-    const titleGold = titleWords.slice(-2).join(' ');
+    const titleMain = titleWords.length > 2 ? titleWords.slice(0, -2).join(' ') : '';
+    const titleGold = titleWords.length > 2 ? titleWords.slice(-2).join(' ') : post.title;
 
     return (
         <div className="blog-post-page">
@@ -112,19 +95,20 @@ const BlogPost = () => {
                 type="article"
             />
 
+            {/* ── Hero ── */}
             <section className="bp-hero">
                 <div className="container">
                     <div className="bp-hero-grid">
                         <div className="bp-hero-text">
                             <h1>
-                                {titleMain}{' '}
+                                {titleMain && <>{titleMain}{' '}</>}
                                 <span className="bp-gold">{titleGold}</span>
                             </h1>
                             <div className="bp-meta">
                                 {formatDate(post.date)} &middot; {post.author}
                             </div>
                             <p className="bp-subtitle">Speak to us today about your requirements.</p>
-                            <Link to="/chat-about-funding" className="btn btn-secondary bp-cta">
+                            <Link to="/chat-about-funding" className="btn btn-primary bp-cta">
                                 Lets have a chat
                             </Link>
                         </div>
@@ -143,8 +127,10 @@ const BlogPost = () => {
                 </div>
             </section>
 
-            <div className="container blog-layout bp-layout">
-                <div className="blog-main">
+            {/* ── Body ── */}
+            <div className="bp-body">
+                <div className="container bp-body-inner">
+
                     <div className="blog-main-card">
                         <div
                             className="blog-post-content"
@@ -190,13 +176,7 @@ const BlogPost = () => {
                     <div style={{ marginBottom: '4rem' }}>
                         <RelatedArticles currentSlug={post.slug} />
                     </div>
-                </div>
 
-                <div className="blog-sidebar">
-                    <div className="sidebar-overlap-image">
-                        <img src={sidebarImage} alt="Commercial finance funding specialists — Boxx Commercial Finance" />
-                    </div>
-                    <Sidebar />
                 </div>
             </div>
         </div>

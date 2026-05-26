@@ -4,7 +4,7 @@
     padding-top: 9rem;
     position: relative;
     overflow: visible;
-    z-index: 1;
+    z-index: 2; /* must be above bp-body so bleeding image paints on top */
 }
 
 .bp-hero-grid {
@@ -65,9 +65,17 @@
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
 }
 
-.bp-layout {
-    padding-top: 250px !important;
-    margin-top: 0 !important;
+/* Body section that follows the hero — no !important battles needed */
+.bp-body {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    padding-top: 250px; /* clears the 210px bleeding image + breathing room */
+    padding-bottom: 5rem;
+}
+
+.bp-body-inner {
+    max-width: 860px;
 }
 
 @media (max-width: 960px) {
@@ -76,7 +84,6 @@
     }
 
     .bp-hero-image-col {
-        margin-bottom: 0;
         display: none;
     }
 
@@ -84,9 +91,8 @@
         font-size: 2.2rem;
     }
 
-    .bp-layout {
-        padding-top: 2rem !important;
-        margin-top: -2.5rem !important;
+    .bp-body {
+        padding-top: 2.5rem;
     }
 }
 
