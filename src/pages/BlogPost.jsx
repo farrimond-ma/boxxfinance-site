@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import blogPosts from '../data/blogPosts.json';
+import Sidebar from '../components/Sidebar';
 import SEO from '../components/SEO';
 import RelatedArticles from '../components/RelatedArticles';
 import './Blog.css';
-import './NewLayout.css';
 import '../components/About.css';
 
 const BlogPost = () => {
@@ -22,18 +22,19 @@ const BlogPost = () => {
             .trim()
             .replace(/^\/+|\/+$/g, '')
             .toLowerCase();
+
         return postSlug === normalisedSlug;
     });
 
-    const heroImages = [
-        '/header_bg.webp',
-        '/images/sidebar/sidebar_meeting.webp',
-        '/images/sidebar/sidebar_handshake.webp',
-        '/images/sidebar/sidebar_office.webp'
+    const sidebarImages = [
+        '/images/header_bg.webp',
+        '/images/sidebar/sidebar_meeting.jpg',
+        '/images/sidebar/sidebar_handshake.jpg',
+        '/images/sidebar/sidebar_office.jpg'
     ];
 
-    const heroImage = useMemo(() => {
-        return heroImages[Math.floor(Math.random() * heroImages.length)];
+    const sidebarImage = useMemo(() => {
+        return sidebarImages[Math.floor(Math.random() * sidebarImages.length)];
     }, []);
 
     const formatDate = (dateStr) => {
@@ -44,14 +45,14 @@ const BlogPost = () => {
     const authors = {
         'Mark Higgins': {
             title: 'Managing Partner, Commercial Finance',
-            image: '/mark-higgins.webp',
+            image: '/images/mark-higgins.webp',
             bio: 'With extensive experience across commercial mortgages, development finance and structured lending, Mark leads client relationships and complex case structuring. He has helped hundreds of UK businesses secure the right funding at the right terms.',
             email: 'mark@boxxfinance.co.uk',
             linkedIn: 'https://www.linkedin.com/in/mark-higgins-05ab363b2/'
         },
         'Andrew Farrimond': {
             title: 'Managing Partner, Commercial Finance',
-            image: '/andrew-farrimond.webp',
+            image: '/images/andrew-farrimond.webp',
             bio: 'Andrew specialises in invoice finance, asset finance and working capital solutions, with a strong track record in helping growth-stage businesses unlock the liquidity they need to scale. His whole-of-market approach ensures clients receive competitive, lender-agnostic advice.',
             email: 'andrew@boxxfinance.co.uk',
             linkedIn: 'https://www.linkedin.com/in/commercial-funding/'
@@ -66,22 +67,26 @@ const BlogPost = () => {
                     description="The requested article could not be found."
                     keywords="boxx commercial finance, insights"
                 />
-                <div className="polished-header">
-                    <div className="polished-header__inner">
-                        <Link to="/insights" className="polished-back-link">Back to Insights</Link>
+
+                <div className="blog-hero" style={{ padding: '10rem 0 6rem' }}>
+                    <div className="container">
                         <h1>Article <span className="text-highlight">Not Found</span></h1>
+                        <p>The requested article slug did not match any published post.</p>
                     </div>
                 </div>
+
                 <div className="container" style={{ paddingBottom: '4rem' }}>
-                    <div className="polished-content-card">
+                    <div className="blog-main-card">
                         <p><strong>Requested slug:</strong> {normalisedSlug}</p>
                         <p><strong>Published posts found:</strong> {publishedPosts.length}</p>
+
                         <h2>Available slugs</h2>
                         <ul>
                             {publishedPosts.map((p) => (
                                 <li key={p.id || p.slug}>{p.slug}</li>
                             ))}
                         </ul>
+
                         <p style={{ marginTop: '1.5rem' }}>
                             <Link to="/insights" className="read-more">Back to Insights</Link>
                         </p>
@@ -92,14 +97,13 @@ const BlogPost = () => {
     }
 
     const authorData = authors[post.author] || authors['Mark Higgins'];
-
-    const wordCount = (post.content || '').replace(/<[^>]+>/g, '').split(/\s+/).length;
-    const readMins = Math.max(1, Math.round(wordCount / 200));
-
-    const linkedInUrl = authorData.linkedIn || null;
+    const heroImage = post.heroImage || post.image || '/images/header_bg.webp';
+    const titleWords = post.title.split(' ');
+    const titleMain = titleWords.slice(0, -2).join(' ');
+    const titleGold = titleWords.slice(-2).join(' ');
 
     return (
-        <div className="blog-post-page polished-page">
+        <div className="blog-post-page">
             <SEO
                 title={post.metaTitle || post.title}
                 description={post.metaDescription || post.excerpt}
@@ -108,56 +112,39 @@ const BlogPost = () => {
                 type="article"
             />
 
-            <div className="polished-header">
-                <div className="polished-header__inner">
-                    <Link to="/insights" className="polished-back-link">Back to Insights</Link>
-                    <div className="polished-hero-grid">
-                        <div className="polished-hero-text">
+            <section className="bp-hero">
+                <div className="container">
+                    <div className="bp-hero-grid">
+                        <div className="bp-hero-text">
                             <h1>
-                                {post.title.split(' ').slice(0, -2).join(' ')}{' '}
-                                <span className="text-highlight">
-                                    {post.title.split(' ').slice(-2).join(' ')}
-                                </span>
+                                {titleMain}{' '}
+                                <span className="bp-gold">{titleGold}</span>
                             </h1>
-                            <div className="polished-meta">
-                                <span>{formatDate(post.date)}</span>
-                                <span className="polished-meta__dot">·</span>
-                                <span>{readMins} min read</span>
-                                {post.author && (
-                                    <>
-                                        <span className="polished-meta__dot">·</span>
-                                        <a href="#author" className="polished-author-link">{post.author}</a>
-                                    </>
-                                )}
+                            <div className="bp-meta">
+                                {formatDate(post.date)} &middot; {post.author}
                             </div>
-                            <a href="/chat-about-funding" className="btn btn-primary polished-hero-btn">
+                            <p className="bp-subtitle">Speak to us today about your requirements.</p>
+                            <Link to="/chat-about-funding" className="btn btn-secondary bp-cta">
                                 Lets have a chat
-                            </a>
+                            </Link>
                         </div>
-                        <div className="polished-hero-image">
-                            <img
-                                src={post.image || heroImage}
-                                alt={post.title}
-                                onError={(e) => {
-                                    e.currentTarget.src = '/hero-desktop.webp';
-                                    e.currentTarget.onerror = null;
-                                }}
-                            />
+                        <div className="bp-hero-image-col">
+                            <img src={heroImage} alt={post.title} className="bp-hero-img" />
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div className="polished-body">
-                <div className="polished-body__inner">
-                    <div className="polished-content-card">
+            <div className="container blog-layout bp-layout">
+                <div className="blog-main">
+                    <div className="blog-main-card">
                         <div
                             className="blog-post-content"
                             dangerouslySetInnerHTML={{ __html: post.content || '<p>No article content found.</p>' }}
                         />
                     </div>
 
-                    <div id="author" className="director-cards single-column" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+                    <div className="director-cards single-column" style={{ marginTop: '0', marginBottom: '3rem' }}>
                         <div className="director-card">
                             <img src={authorData.image} alt={post.author} className="director-avatar-photo" />
                             <div className="director-info">
@@ -166,18 +153,23 @@ const BlogPost = () => {
                                 <p className="director-bio">{authorData.bio}</p>
                                 <div className="director-social-links">
                                     <div className="contact-link-row">
-                                        <a href={'mailto:' + authorData.email} className="director-email gold-link">
+                                        <a href={`mailto:${authorData.email}`} className="director-email gold-link">
                                             {authorData.email}
                                         </a>
                                     </div>
                                     <div className="contact-link-row">
-                                        <a href="tel:03300434281" className="director-phone gold-link">
-                                            0330 043 4281
+                                        <a href="tel:03300431612" className="director-phone gold-link">
+                                            0330 043 1612
                                         </a>
                                     </div>
-                                    {linkedInUrl && (
+                                    {authorData.linkedIn && (
                                         <div className="contact-link-row">
-                                            <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" className="director-linkedin-btn">
+                                            <a
+                                                href={authorData.linkedIn}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="director-linkedin-btn"
+                                            >
                                                 Connect on LinkedIn
                                             </a>
                                         </div>
@@ -190,6 +182,13 @@ const BlogPost = () => {
                     <div style={{ marginBottom: '4rem' }}>
                         <RelatedArticles currentSlug={post.slug} />
                     </div>
+                </div>
+
+                <div className="blog-sidebar">
+                    <div className="sidebar-overlap-image">
+                        <img src={sidebarImage} alt="Commercial finance funding specialists — Boxx Commercial Finance" />
+                    </div>
+                    <Sidebar />
                 </div>
             </div>
         </div>
