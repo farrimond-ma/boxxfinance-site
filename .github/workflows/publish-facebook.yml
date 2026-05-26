@@ -1,0 +1,46 @@
+name: Publish Facebook Post
+
+on:
+  # Run 30 minutes after the LinkedIn workflow fires (gives it time to complete)
+  schedule:
+    - cron: '30 8 * * 1-5'   # 8:30 AM UTC = 9:30 AM BST, Mon–Fri
+
+  # Manual trigger for testing
+  workflow_dispatch:
+
+jobs:
+  publish-facebook:
+    name: Generate and post to Facebook
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run Facebook publisher
+        working-directory: scripts/content-engine
+        env:
+          ANTHROPIC_API_KEY:           ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_CREDENTIALS:          ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:              ${{ secrets.SPREADSHEET_ID }}
+          FACEBOOK_PAGE_ID:            ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_ACCESS_TOKEN:  ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+        run: node publish-facebook.js
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## Facebook Publisher" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View Queue](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY
