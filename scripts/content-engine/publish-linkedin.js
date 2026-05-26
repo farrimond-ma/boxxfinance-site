@@ -80,20 +80,21 @@ Write a LinkedIn post that:
 - Is 150-200 words
 - Shares a genuine insight or observation about ${row.keyword}
 - Feels personal and professional, not salesy
-- Ends with a subtle call to action
-- Uses 3-4 relevant emojis sparingly
-- Includes 3-5 relevant hashtags at the end
+- Ends with a subtle call to action followed by 3-5 relevant hashtags on the last line
+- Uses 3-4 relevant emojis sparingly within the post body
 
-Then on a new line write "FIRST_COMMENT:" followed by:
-- A single sentence inviting readers to read the full article
-- The blog URL: ${row.url}
+IMPORTANT: The hashtags MUST appear at the end of the POST section, not in the FIRST_COMMENT.
+
+Then write "FIRST_COMMENT:" followed by ONE sentence only:
+- Invite readers to read the full article and include the blog URL: ${row.url}
+- Do NOT include any hashtags in the first comment
 
 Format exactly like this:
 POST:
-[the post text]
+[the post text ending with hashtags on the last line]
 
 FIRST_COMMENT:
-[the comment text with URL]`;
+[one sentence with the URL — no hashtags]`;
 
   const response = await anthropic.messages.create({
     model: 'claude-haiku-4-5-20251001',
