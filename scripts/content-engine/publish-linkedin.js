@@ -190,7 +190,53 @@ async function postToLinkedIn(row, postText, firstComment) {
     }
   }
 
+  // Reshare to company page (non-fatal — warns if it fails)
+  await reshareToCompanyPage(postId, accessToken);
+
   return postId;
+}
+
+// ─── Reshare to company page ──────────────────────────────────────────────────
+
+async function reshareToCompanyPage(postId, fallbackToken) {
+  const orgId = process.env.LINKEDIN_ORG_ID;
+  if (!orgId) {
+    console.log('  ℹ  Skipping company page reshare: LINKEDIN_ORG_ID not set');
+    return;
+  }
+
+  // Use a dedicated org token if provided, otherwise fall back to the
+  // author's personal token (works when the author is a page admin)
+  const orgToken = process.env.LINKEDIN_ORG_ACCESS_TOKEN || fallbackToken;
+  const orgUrn = `urn:li:organization:${orgId}`;
+
+  const res = await fetch('https://api.linkedin.com/v2/ugcPosts', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${orgToken}`,
+      'Content-Type': 'application/json',
+      'X-Restli-Protocol-Version': '2.0.0',
+    },
+    body: JSON.stringify({
+      author: orgUrn,
+      lifecycleState: 'PUBLISHED',
+      specificContent: {
+        'com.linkedin.ugc.ShareContent': {
+          shareCommentary: { text: '' },
+          shareMediaCategory: 'NONE',
+        },
+      },
+      visibility: { 'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC' },
+      resharedShare: postId,
+    }),
+  });
+
+  if (!res.ok) {
+    console.warn(`  ⚠  Company page reshare failed: ${await res.text()}`);
+  } else {
+    const data = await res.json();
+    console.log(`  Company page reshare: ${data.id}`);
+  }
 }
 
 // ─── Update sheet row ─────────────────────────────────────────────────────────

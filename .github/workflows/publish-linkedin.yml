@@ -45,6 +45,8 @@ jobs:
           LINKEDIN_ACCESS_TOKEN_ANDREW: ${{ secrets.LINKEDIN_ACCESS_TOKEN_ANDREW }}
           LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
           LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+          LINKEDIN_ORG_ID: ${{ secrets.LINKEDIN_ORG_ID }}
+          LINKEDIN_ORG_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ORG_ACCESS_TOKEN }}
         run: node publish-linkedin.js
 
       - name: Post summary
