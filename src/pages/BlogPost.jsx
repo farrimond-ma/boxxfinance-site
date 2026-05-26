@@ -80,7 +80,7 @@ const BlogPost = () => {
     }
 
     const authorData = authors[post.author] || authors['Mark Higgins'];
-    const heroImage = post.heroImage || post.image || '/images/header_bg.webp';
+    const heroImage = post.heroImage || post.image || null;
     const titleWords = post.title.split(' ');
     const titleMain = titleWords.length > 2 ? titleWords.slice(0, -2).join(' ') : '';
     const titleGold = titleWords.length > 2 ? titleWords.slice(-2).join(' ') : post.title;
@@ -112,23 +112,25 @@ const BlogPost = () => {
                                 Lets have a chat
                             </Link>
                         </div>
-                        <div className="bp-hero-image-col">
-                            <img
-                                src={heroImage}
-                                alt={post.title}
-                                className="bp-hero-img"
-                                onError={(e) => {
-                                    e.currentTarget.src = '/images/header_bg.webp';
-                                    e.currentTarget.onerror = null;
-                                }}
-                            />
-                        </div>
+                        {heroImage && (
+                            <div className="bp-hero-image-col">
+                                <img
+                                    src={heroImage}
+                                    alt={post.title}
+                                    className="bp-hero-img"
+                                    onError={(e) => {
+                                        e.currentTarget.src = '/images/header_bg.webp';
+                                        e.currentTarget.onerror = null;
+                                    }}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
 
             {/* ── Body ── */}
-            <div className="bp-body">
+            <div className={`bp-body${heroImage ? ' bp-body--has-image' : ''}`}>
                 <div className="container bp-body-inner">
 
                     <div className="blog-main-card">

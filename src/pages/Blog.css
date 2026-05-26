@@ -1,7 +1,8 @@
 /* ── Blog Post Hero (bp-* layout) ── */
 .bp-hero {
     background: #010816;
-    padding-top: 9rem;
+    padding-top: 11rem;
+    padding-bottom: 3rem;
     position: relative;
     overflow: visible;
     z-index: 2; /* must be above bp-body so bleeding image paints on top */
@@ -70,8 +71,12 @@
     position: relative;
     z-index: 1;
     background: #fff;
-    padding-top: 250px; /* clears the 210px bleeding image + breathing room */
+    padding-top: 4rem;
     padding-bottom: 5rem;
+}
+
+.bp-body--has-image {
+    padding-top: 250px; /* clears the 210px bleeding image + breathing room */
 }
 
 .bp-body-inner {
