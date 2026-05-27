@@ -1,0 +1,73 @@
+name: SEO Audit
+
+on:
+  # Run after every blog publish
+  workflow_run:
+    workflows: ["Publish Blog"]
+    types:
+      - completed
+
+  # Weekly full audit — Monday 7:00 AM UTC (8:00 AM BST)
+  schedule:
+    - cron: '0 7 * * 1'
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      crawl_live:
+        description: 'Crawl live pages (true/false)'
+        required: false
+        default: 'true'
+
+jobs:
+  seo-audit:
+    name: Run SEO audit
+    runs-on: ubuntu-latest
+    # Run whether or not the triggering workflow succeeded — we want to catch issues either way
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run SEO audit
+        working-directory: scripts/content-engine
+        env:
+          GITHUB_OWNER:      ${{ github.repository_owner }}
+          GITHUB_REPO:       ${{ github.event.repository.name }}
+          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
+          SEO_CRAWL_LIVE:    ${{ github.event.inputs.crawl_live || 'true' }}
+        run: node seo-audit.js
+
+      - name: Open GitHub Issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = `SEO Audit: issues found — ${new Date().toISOString().split('T')[0]}`;
+            const body = `The automated SEO audit found errors. Check the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for the full report.\n\nFix errors flagged 🔴 first, then warnings 🟡.`;
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'seo-audit',
+            });
+            if (existing.data.length === 0) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                labels: ['seo-audit'],
+              });
+            }

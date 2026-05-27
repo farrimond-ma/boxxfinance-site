@@ -93,6 +93,8 @@ const BlogPost = () => {
                 keywords={post.keywords}
                 schema={post.schema}
                 type="article"
+                canonical={`/insights/${post.slug}`}
+                image={post.heroImage || post.image || null}
             />
 
             {/* ── Hero ── */}

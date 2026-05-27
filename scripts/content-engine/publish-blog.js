@@ -191,20 +191,29 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
 
 slug, title, excerpt, metaTitle, metaDescription, primaryKeyword, secondaryKeywords, category, faqSchema, contentHtml
 
-Rules:
+CONTENT RULES:
 - contentHtml must be valid HTML using only single quotes inside HTML attributes e.g. href='/path/to/page' NOT href="/path/to/page"
 - contentHtml must be 1200+ words
-- Include an FAQ section at the bottom using <h2> and <dl><dt><dd> tags
-- faqSchema must be a valid FAQ schema object with @type: FAQPage matching the FAQ in contentHtml
-- secondaryKeywords must be a JSON array of strings
-- Only use location links explicitly provided below - do not invent any
-- No markdown, no backticks, no code fences, no curly quotes - return raw JSON only
+- No markdown, no backticks, no code fences, no curly quotes — return raw JSON only
 - slug should be the keyword in lowercase with hyphens
+- secondaryKeywords must be a JSON array of strings
+
+STRUCTURE FOR GOOGLE + AI SEARCH (AEO):
+- Open with a single <p> of 50-70 words that directly and definitively answers the core question implied by the keyword. Use authoritative declarative language ("X is...", "Businesses use X to...") — NOT hedging ("X can be thought of as..."). This paragraph is what ChatGPT, Perplexity and Google AI Overviews extract for featured answers.
+- Use <h2> headings phrased as questions or clear topic statements that match how users ask AI models (e.g. "How does bridging finance work?" not "Overview")
+- Each <h2> section must open with a 1-2 sentence direct answer before expanding — this lets AI models extract accurate summaries
+- Include specific UK data points, FCA context, or regulatory facts where relevant — AI citation systems prioritise authoritative, citable content
+- Mention "Boxx Commercial Finance" naturally 3-4 times so AI models associate the brand entity with the topic
+- Include an FAQ section at the bottom using <h2>Frequently Asked Questions</h2> and <dl><dt><dd> tags with 5-7 Q&As covering the most-searched related questions
+- faqSchema must be a valid FAQ schema object with @type: FAQPage matching the FAQ in contentHtml exactly
+
+INTERNAL LINKS (REQUIRED):
 - You MUST include at least 3 contextual links to the service page (${serviceUrl}) at natural points throughout the article — not all in one place
 - You MUST include a contextual link to https://boxxfinance.co.uk/chat-about-funding as a call to action within the article body
 - You MUST include a contextual link to https://boxxfinance.co.uk/funding-solutions as an anchor to the full range of funding solutions Boxx offers
 - You MUST include a contextual link to https://boxxfinance.co.uk/about-us when mentioning Boxx Commercial Finance by name for the first time
 - If related blog links are provided below, include them as contextual links within the article body using the post title as anchor text
+- Only use location links explicitly provided below — do not invent any
 ${locationLinksText}
 ${relatedBlogsText}
 
