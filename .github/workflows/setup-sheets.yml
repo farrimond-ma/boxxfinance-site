@@ -1,0 +1,42 @@
+name: Setup Google Sheets
+
+on:
+  # Manual trigger only — run once to set up / update sheet structure
+  workflow_dispatch:
+
+jobs:
+  setup:
+    name: Configure sheet headers and validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run sheet setup
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+        run: node setup-sheets.js
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## Sheet Setup" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Changes applied:**" >> $GITHUB_STEP_SUMMARY
+          echo "- LinkedIn_Queue headers extended to column R" >> $GITHUB_STEP_SUMMARY
+          echo "- Reddit_Drafts tab created with 7-column headers" >> $GITHUB_STEP_SUMMARY
+          echo "- Status dropdowns added to fbStatus, igStatus, Reddit Status" >> $GITHUB_STEP_SUMMARY
+          echo "📊 [Open Spreadsheet](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY

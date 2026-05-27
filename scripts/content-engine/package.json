@@ -11,7 +11,8 @@
     "publish-facebook": "node publish-facebook.js",
     "publish-instagram": "node publish-instagram.js",
     "reddit-monitor": "node reddit-monitor.js",
-    "seo-audit": "node seo-audit.js"
+    "seo-audit": "node seo-audit.js",
+    "setup-sheets": "node setup-sheets.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.3",
