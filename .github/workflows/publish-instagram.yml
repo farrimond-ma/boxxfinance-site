@@ -1,0 +1,46 @@
+name: Publish Instagram Post
+
+on:
+  # 9:00 AM UTC = 10:00 AM BST — after Facebook (8:30 AM)
+  schedule:
+    - cron: '0 9 * * 1-5'
+
+  # Manual trigger for testing
+  workflow_dispatch:
+
+jobs:
+  publish-instagram:
+    name: Generate and post to Instagram
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run Instagram publisher
+        working-directory: scripts/content-engine
+        env:
+          ANTHROPIC_API_KEY:          ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_CREDENTIALS:         ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:             ${{ secrets.SPREADSHEET_ID }}
+          INSTAGRAM_USER_ID:          ${{ secrets.INSTAGRAM_USER_ID }}
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+        run: node publish-instagram.js
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## Instagram Publisher" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View Queue](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY

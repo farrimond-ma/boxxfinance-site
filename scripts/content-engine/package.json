@@ -9,6 +9,7 @@
     "update-links": "node update-internal-links.js",
     "publish-linkedin": "node publish-linkedin.js",
     "publish-facebook": "node publish-facebook.js",
+    "publish-instagram": "node publish-instagram.js",
     "reddit-monitor": "node reddit-monitor.js",
     "seo-audit": "node seo-audit.js"
   },

@@ -317,7 +317,7 @@ async function generateHeroImage(slug, keyword, service) {
   const imgResponse = await openai.images.generate({
     model:   'dall-e-3',
     prompt,
-    size:    '1792x1024',
+    size:    '1024x1024',
     quality: 'standard',
     n:       1,
   });
