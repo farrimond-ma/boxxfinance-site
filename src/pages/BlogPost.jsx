@@ -7,6 +7,23 @@ import RelatedArticles from '../components/RelatedArticles';
 import './Blog.css';
 import '../components/About.css';
 
+const AUTHORS = {
+    'Mark Higgins': {
+        title: 'Managing Partner, Commercial Finance',
+        image: '/images/mark-higgins.webp',
+        bio: 'With extensive experience across commercial mortgages, development finance and structured lending, Mark leads client relationships and complex case structuring. He has helped hundreds of UK businesses secure the right funding at the right terms.',
+        email: 'mark@boxxfinance.co.uk',
+        linkedIn: 'https://www.linkedin.com/in/mark-higgins-05ab363b2/',
+    },
+    'Andrew Farrimond': {
+        title: 'Managing Partner, Commercial Finance',
+        image: '/images/andrew-farrimond.webp',
+        bio: 'Andrew specialises in invoice finance, asset finance and working capital solutions, with a strong track record in helping growth-stage businesses unlock the liquidity they need to scale. His whole-of-market approach ensures clients receive competitive, lender-agnostic advice.',
+        email: 'andrew@boxxfinance.co.uk',
+        linkedIn: 'https://www.linkedin.com/in/commercial-funding/',
+    },
+};
+
 const FALLBACK_IMAGES = [
     '/header_bg.png',
     '/images/sidebar/sidebar_meeting.jpg',
@@ -62,6 +79,8 @@ const BlogPost = () => {
         );
     }
 
+    const authorData = AUTHORS[post.author] || AUTHORS['Mark Higgins'];
+
     // Sidebar image: use DALL-E hero if available, otherwise a random fallback
     const heroImage = post.heroImage || post.image || null;
     const sidebarImage = heroImage || fallbackImage;
@@ -114,6 +133,42 @@ const BlogPost = () => {
                             dangerouslySetInnerHTML={{ __html: post.content || '<p>No article content found.</p>' }}
                         />
                     </div>
+                    {/* Author bio card */}
+                    <div className="director-cards single-column" style={{ marginTop: '0', marginBottom: '1.5rem' }}>
+                        <div className="director-card">
+                            <img src={authorData.image} alt={post.author} className="director-avatar-photo" />
+                            <div className="director-info">
+                                <h4>{post.author}</h4>
+                                <p className="director-title">{authorData.title}</p>
+                                <p className="director-bio">{authorData.bio}</p>
+                                <div className="director-social-links">
+                                    <div className="contact-link-row">
+                                        <a href={`mailto:${authorData.email}`} className="director-email gold-link">
+                                            {authorData.email}
+                                        </a>
+                                    </div>
+                                    <div className="contact-link-row">
+                                        <a href="tel:03300431612" className="director-phone gold-link">
+                                            0330 043 1612
+                                        </a>
+                                    </div>
+                                    {authorData.linkedIn && (
+                                        <div className="contact-link-row">
+                                            <a
+                                                href={authorData.linkedIn}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="director-linkedin-btn"
+                                            >
+                                                Connect on LinkedIn
+                                            </a>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <RelatedArticles currentSlug={post.slug} />
                 </div>
 
