@@ -127,7 +127,13 @@
 
 .service-content {
     padding: 1.5rem;
-    /* Reduced inner padding */
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.service-content p {
+    margin-bottom: 1.5rem;
 }
 
 .service-content h3 {
