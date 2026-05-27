@@ -34,7 +34,7 @@ const About = () => {
             <div className="container">
                 <div className="director-cards">
                     <div className="director-card">
-                        <img src="/mark-higgins.webp" alt="Mark Higgins, Managing Partner at Boxx Commercial Finance" className="director-avatar-photo" />
+                        <img src="/images/mark-higgins.webp" alt="Mark Higgins, Managing Partner at Boxx Commercial Finance" className="director-avatar-photo" />
                         <div className="director-info">
                             <h4>Mark Higgins</h4>
                             <p className="director-title">Managing Partner, Commercial Finance</p>
@@ -58,7 +58,7 @@ const About = () => {
                         </div>
                     </div>
                     <div className="director-card">
-                        <img src="/andrew-farrimond.webp" alt="Andrew Farrimond, Managing Partner at Boxx Commercial Finance" className="director-avatar-photo" />
+                        <img src="/images/andrew-farrimond.webp" alt="Andrew Farrimond, Managing Partner at Boxx Commercial Finance" className="director-avatar-photo" />
                         <div className="director-info">
                             <h4>Andrew Farrimond</h4>
                             <p className="director-title">Managing Partner, Commercial Finance</p>
