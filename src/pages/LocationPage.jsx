@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import locationPages from '../data/locationPages.json';
 import SEO from '../components/SEO';
+import Sidebar from '../components/Sidebar';
+import './Blog.css';
+
+const FALLBACK_IMAGES = [
+    '/header_bg.png',
+    '/images/sidebar/sidebar_meeting.jpg',
+    '/images/sidebar/sidebar_handshake.jpg',
+    '/images/sidebar/sidebar_office.jpg',
+];
 
 const LocationPage = () => {
     const { slug } = useParams();
+
+    const [sidebarImage] = useState(
+        () => FALLBACK_IMAGES[Math.floor(Math.random() * FALLBACK_IMAGES.length)]
+    );
 
     const normalisedSlug = decodeURIComponent(String(slug || ''))
         .trim()
@@ -27,29 +40,18 @@ const LocationPage = () => {
         return (
             <div className="blog-post-page">
                 <SEO
-                    title="Page Not Found | Boxx Commercial Finance"
+                    title="Page Not Found"
                     description="The requested location page could not be found."
-                    keywords="boxx commercial finance, locations"
                 />
-                <div className="polished-header">
-                    <div className="polished-header__inner container">
-                        <Link to="/" className="polished-back-link">← Back to Home</Link>
+                <div className="service-hero">
+                    <div className="container">
                         <h1>Page <span className="text-highlight">Not Found</span></h1>
+                        <p>The location page you requested could not be found.</p>
                     </div>
                 </div>
-                <div className="container" style={{ paddingBottom: '4rem' }}>
-                    <div className="polished-content-card">
-                        <p><strong>Requested slug:</strong> {normalisedSlug}</p>
-                        <p><strong>Published location pages found:</strong> {publishedPages.length}</p>
-                        <h2>Available location slugs</h2>
-                        <ul>
-                            {publishedPages.map((p) => (
-                                <li key={p.id || p.slug}>{p.slug}</li>
-                            ))}
-                        </ul>
-                        <p style={{ marginTop: '1.5rem' }}>
-                            <Link to="/" className="read-more">Back to Home</Link>
-                        </p>
+                <div className="container" style={{ paddingTop: '3rem', paddingBottom: '4rem' }}>
+                    <div className="blog-main-card" style={{ padding: '2rem' }}>
+                        <p><Link to="/" className="read-more">← Back to Home</Link></p>
                     </div>
                 </div>
             </div>
@@ -58,103 +60,91 @@ const LocationPage = () => {
 
     const sameServicePages = publishedPages
         .filter((p) => p.slug !== page.slug && p.service === page.service)
-        .slice(0, 3);
+        .slice(0, 4);
 
     const pageSchema = page.faqSchema ? [page.faqSchema] : undefined;
-
-    // City image via Unsplash — uses location name as search term, no API key needed
-    const cityImageUrl = `https://source.unsplash.com/1200x500/?${encodeURIComponent(page.location + ',city,uk')}`;
 
     const serviceLabel = page.service
         ? page.service.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
         : 'Finance';
 
+    // Last two words get the gold highlight
+    const titleWords = (page.title || '').split(' ');
+    const titleMain = titleWords.length > 2 ? titleWords.slice(0, -2).join(' ') : '';
+    const titleGold = titleWords.length > 2 ? titleWords.slice(-2).join(' ') : page.title;
+
     return (
-        <div className="blog-post-page polished-page location-page" data-page-type="location-page">
+        <div className="blog-post-page">
             <SEO
                 title={page.metaTitle || page.title}
                 description={page.metaDescription || page.title}
-                keywords={[
-                    page.title,
-                    page.location,
-                    page.service,
-                    'commercial finance',
-                    'business finance'
-                ]}
+                keywords={[page.title, page.location, page.service, 'commercial finance', 'business finance']}
                 schema={pageSchema}
                 type="article"
             />
 
-            {/* ── Clean white header ── */}
-            <div className="polished-header">
-                <div className="polished-header__inner container">
-                    <Link to="/locations" className="polished-back-link">← All locations</Link>
-                    <h1>{page.title}</h1>
-                    {page.metaDescription && (
-                        <p className="polished-location-subtitle">{page.metaDescription}</p>
+            {/* ── Hero — matches service / blog post style ── */}
+            <div className="service-hero">
+                <div className="container">
+                    <h1>
+                        {titleMain && <>{titleMain} </>}
+                        <span className="text-highlight">{titleGold}</span>
+                    </h1>
+                    {page.metaDescription && <p>{page.metaDescription}</p>}
+                    <Link to="/chat-about-funding" className="btn btn-primary blog-hero-cta">
+                        Speak to us today
+                    </Link>
+                </div>
+            </div>
+
+            {/* ── Body — two-column layout ── */}
+            <div className="container blog-layout">
+
+                {/* Left column: article content + related locations */}
+                <div className="blog-main">
+                    <div className="blog-main-card">
+                        <div
+                            className="blog-post-content location-post-content"
+                            dangerouslySetInnerHTML={{ __html: page.content || '<p>No page content found.</p>' }}
+                        />
+                    </div>
+
+                    {sameServicePages.length > 0 && (
+                        <div className="blog-main-card" style={{ marginTop: '1.5rem' }}>
+                            <div style={{ padding: '2rem' }}>
+                                <h2 style={{ marginTop: 0 }}>
+                                    More {serviceLabel} guides
+                                </h2>
+                                <div className="related-locations-grid">
+                                    {sameServicePages.map((relatedPage) => (
+                                        <Link
+                                            key={relatedPage.slug}
+                                            to={`/locations/${relatedPage.slug}`}
+                                            className="related-location-link"
+                                        >
+                                            {relatedPage.title}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     )}
                 </div>
-            </div>
 
-            {/* ── Full-width city image ── */}
-            <div className="polished-hero-image">
-                <img
-                    src={cityImageUrl}
-                    alt={`${serviceLabel} in ${page.location}`}
-                    onError={(e) => {
-                        // Fallback to a generic UK business image if Unsplash fails
-                        e.currentTarget.src = '/header_bg.png';
-                        e.currentTarget.onerror = null;
-                    }}
-                />
-            </div>
-
-            {/* ── Main content ── */}
-            <div className="polished-body container">
-
-                {/* Early CTA */}
-                <div className="polished-cta-banner">
-                    <p>Looking for {serviceLabel.toLowerCase()} in {page.location}?</p>
-                    <a href="/chat-about-funding" className="btn btn-primary">
-                        Chat about your requirements
-                    </a>
-                </div>
-
-                <div className="polished-content-card">
-                    <div
-                        className="blog-post-content location-post-content"
-                        dangerouslySetInnerHTML={{ __html: page.content || '<p>No page content found.</p>' }}
-                    />
-                </div>
-
-                {/* Bottom CTA */}
-                <div className="polished-content-card" style={{ marginTop: '2rem' }}>
-                    <h2>Speak to Boxx Commercial Finance</h2>
-                    <p>If you want to explore funding options for your business, speak to our team today.</p>
-                    <p style={{ marginTop: '1rem' }}>
-                        <a href="/chat-about-funding" className="btn btn-primary">
-                            Start your enquiry
-                        </a>
-                    </p>
-                </div>
-
-                {/* Related locations */}
-                {sameServicePages.length > 0 && (
-                    <div className="polished-content-card" style={{ marginTop: '2rem', marginBottom: '4rem' }}>
-                        <h2>Related locations</h2>
-                        <div className="related-locations-grid">
-                            {sameServicePages.map((relatedPage) => (
-                                <Link
-                                    key={relatedPage.slug}
-                                    to={`/locations/${relatedPage.slug}`}
-                                    className="related-location-link"
-                                >
-                                    {relatedPage.title}
-                                </Link>
-                            ))}
-                        </div>
+                {/* Right column: image + sidebar widget */}
+                <div className="blog-sidebar">
+                    <div className="sidebar-overlap-image">
+                        <img
+                            src={sidebarImage}
+                            alt={`${serviceLabel} in ${page.location}`}
+                            onError={(e) => {
+                                e.currentTarget.src = '/header_bg.png';
+                                e.currentTarget.onerror = null;
+                            }}
+                        />
                     </div>
-                )}
+                    <Sidebar />
+                </div>
 
             </div>
         </div>
