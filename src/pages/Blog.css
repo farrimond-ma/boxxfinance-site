@@ -101,6 +101,26 @@
     }
 }
 
+/* ── YouTube video embed in blog post content ── */
+.video-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 2rem 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.video-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 /* ── Blog Index ── */
 .blog-hero {
     background: var(--color-primary);

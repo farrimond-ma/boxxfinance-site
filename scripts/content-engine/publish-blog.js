@@ -240,6 +240,124 @@ Content brief: ${row.contentBrief || 'Write a comprehensive UK SME-focused advis
   return article;
 }
 
+// ─── YouTube: find a relevant educational video ───────────────────────────────
+async function findYouTubeVideo(keyword) {
+  const apiKey = process.env.YOUTUBE_API_KEY;
+  if (!apiKey) {
+    console.log('  No YOUTUBE_API_KEY set — skipping video embed');
+    return null;
+  }
+
+  const EXCLUDED_TERMS = ['boxx', 'rival', 'competitor']; // extend as needed
+
+  const query = encodeURIComponent(`${keyword} UK explained`);
+  const url = [
+    'https://www.googleapis.com/youtube/v3/search',
+    `?part=snippet&q=${query}&type=video`,
+    '&relevanceLanguage=en&regionCode=GB',
+    '&videoDuration=medium&videoEmbeddable=true',
+    '&maxResults=8',
+    `&key=${apiKey}`,
+  ].join('');
+
+  const res = await fetch(url);
+  if (!res.ok) {
+    console.warn(`  YouTube API error: ${res.status}`);
+    return null;
+  }
+
+  const data = await res.json();
+  if (!data.items || data.items.length === 0) return null;
+
+  const video = data.items.find((item) => {
+    const channel = (item.snippet.channelTitle || '').toLowerCase();
+    return !EXCLUDED_TERMS.some((t) => channel.includes(t));
+  });
+
+  return video ? video.id.videoId : null;
+}
+
+function injectYouTubeEmbed(html, videoId) {
+  if (!videoId) return html;
+
+  const embed = [
+    `<div class='video-embed'>`,
+    `<iframe src='https://www.youtube.com/embed/${videoId}'`,
+    ` width='100%' height='100%'`,
+    ` frameborder='0' allowfullscreen loading='lazy'`,
+    ` title='Related video'></iframe>`,
+    `</div>`,
+  ].join('');
+
+  // Inject after the second </h2> closing tag (middle of article)
+  const matches = [...html.matchAll(/<\/h2>/gi)];
+  if (matches.length >= 2) {
+    const pos = matches[1].index + matches[1][0].length;
+    return html.slice(0, pos) + '\n' + embed + '\n' + html.slice(pos);
+  }
+  return html;
+}
+
+// ─── DALL-E: generate and upload a hero image ─────────────────────────────────
+async function generateHeroImage(slug, keyword, service) {
+  if (!process.env.OPENAI_API_KEY) return null;
+
+  console.log(`  Generating hero image for: ${keyword}`);
+
+  const serviceLabel = service.replace(/-/g, ' ');
+  const prompt = [
+    `Professional infographic-style illustration for a UK business finance article about "${keyword}".`,
+    `Service category: ${serviceLabel}.`,
+    `Style: flat design, corporate navy (#031b49) and gold (#b8922a) colour palette, white background.`,
+    `Include: relevant financial metaphors such as buildings, documents, charts, briefcases, or handshakes.`,
+    `Absolutely no text, no letters, no numbers, no words anywhere in the image.`,
+    `Clean, high-quality, suitable for a professional financial services website.`,
+  ].join(' ');
+
+  const imgResponse = await openai.images.generate({
+    model:   'dall-e-3',
+    prompt,
+    size:    '1792x1024',
+    quality: 'standard',
+    n:       1,
+  });
+
+  const imageUrl = imgResponse.data[0].url;
+  const imgRes   = await fetch(imageUrl);
+  if (!imgRes.ok) throw new Error(`Failed to download DALL-E image: ${imgRes.status}`);
+
+  const buffer = Buffer.from(await imgRes.arrayBuffer());
+  console.log(`  Hero image downloaded (${Math.round(buffer.length / 1024)} KB)`);
+  return buffer;
+}
+
+async function uploadHeroImage(slug, imageBuffer) {
+  const imagePath = `public/images/blog/${slug}.png`;
+  let existingSha;
+
+  try {
+    const { data } = await octokit.repos.getContent({
+      owner: GITHUB_OWNER, repo: GITHUB_REPO, path: imagePath,
+    });
+    existingSha = data.sha;
+  } catch {
+    // File doesn't exist yet — that's expected
+  }
+
+  await octokit.repos.createOrUpdateFileContents({
+    owner:   GITHUB_OWNER,
+    repo:    GITHUB_REPO,
+    path:    imagePath,
+    message: `Add hero image: ${slug}`,
+    content: imageBuffer.toString('base64'),
+    branch:  'main',
+    ...(existingSha && { sha: existingSha }),
+  });
+
+  console.log(`  Hero image uploaded: ${imagePath}`);
+  return `/images/blog/${slug}.png`;
+}
+
 // ─── Get current blogPosts.json from GitHub ───────────────────────────────────
 async function getBlogPostsFile() {
   const { data } = await octokit.repos.getContent({
@@ -329,6 +447,33 @@ async function main() {
   const publishedAt = new Date().toISOString();
   const fullUrl = `https://boxxfinance.co.uk${url}`;
 
+  // ── YouTube embed ─────────────────────────────────────────────────────────
+  console.log('Searching YouTube for a relevant embed...');
+  let contentHtml = article.contentHtml;
+  try {
+    const videoId = await findYouTubeVideo(row.keyword);
+    if (videoId) {
+      contentHtml = injectYouTubeEmbed(contentHtml, videoId);
+      console.log(`  Embedded video: https://youtu.be/${videoId}`);
+    } else {
+      console.log('  No suitable video found — skipping embed');
+    }
+  } catch (err) {
+    console.warn(`  YouTube embed failed (non-fatal): ${err.message}`);
+  }
+
+  // ── DALL-E hero image ─────────────────────────────────────────────────────
+  console.log('Generating hero image via DALL-E 3...');
+  let heroImagePath = null;
+  try {
+    const imageBuffer = await generateHeroImage(finalSlug, row.keyword, row.service);
+    if (imageBuffer) {
+      heroImagePath = await uploadHeroImage(finalSlug, imageBuffer);
+    }
+  } catch (err) {
+    console.warn(`  Hero image generation failed (non-fatal): ${err.message}`);
+  }
+
   const authorEmails = {
     'Mark Higgins': 'mark@boxxfinance.co.uk',
     'Andrew Farrimond': 'andrew@boxxfinance.co.uk',
@@ -349,11 +494,11 @@ async function main() {
     date: row.publishDate,
     author: row.author || 'Mark Higgins',
     authorEmail: authorEmails[row.author] || 'mark@boxxfinance.co.uk',
-    image: getPillarImage(row.service),
+    heroImage: heroImagePath || getPillarImage(row.service),
     schema: article.faqSchema || null,
     relatedLocationUrls: locationLinks.map(l => l.startsWith('http') ? l : `https://boxxfinance.co.uk${l}`),
     relatedBlogUrls: relatedBlogs.map(b => b.url),
-    content: article.contentHtml,
+    content: contentHtml,
   };
 
   posts.push(newPost);

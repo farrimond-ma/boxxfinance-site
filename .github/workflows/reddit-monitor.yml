@@ -1,0 +1,48 @@
+name: Reddit Monitor
+
+on:
+  # Every Monday and Thursday at 9:00 AM UTC (10:00 AM BST)
+  schedule:
+    - cron: '0 9 * * 1,4'
+
+  # Manual trigger for testing
+  workflow_dispatch:
+
+jobs:
+  reddit-monitor:
+    name: Find Reddit opportunities
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run Reddit monitor
+        working-directory: scripts/content-engine
+        env:
+          ANTHROPIC_API_KEY:     ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_CREDENTIALS:    ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:        ${{ secrets.SPREADSHEET_ID }}
+          REDDIT_CLIENT_ID:      ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET:  ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME:       ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD:       ${{ secrets.REDDIT_PASSWORD }}
+        run: node reddit-monitor.js
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## Reddit Monitor" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View Reddit Drafts](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY

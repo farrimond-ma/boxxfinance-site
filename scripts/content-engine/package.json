@@ -8,7 +8,9 @@
     "publish-location": "node publish-location.js",
     "update-links": "node update-internal-links.js",
     "publish-linkedin": "node publish-linkedin.js",
-    "publish-facebook": "node publish-facebook.js"
+    "publish-facebook": "node publish-facebook.js",
+    "reddit-monitor": "node reddit-monitor.js",
+    "seo-audit": "node seo-audit.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.3",
