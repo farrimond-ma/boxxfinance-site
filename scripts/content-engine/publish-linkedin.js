@@ -9,6 +9,29 @@ const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
 // F=5 slug, G=6 url, H=7 author, I=8 liStatus, J=9 liPostText
 // K=10 liFirstComment, L=11 notes
 
+// ─── Service → author mapping ─────────────────────────────────────────────────
+// Mark covers property/property-backed finance; Andrew covers cashflow/asset finance
+const SERVICE_AUTHORS = {
+  'bridging-finance':    'Mark Higgins',
+  'development-finance': 'Mark Higgins',
+  'commercial-mortgage': 'Mark Higgins',
+  'commercial-mortgages':'Mark Higgins',
+  'property-finance':    'Mark Higgins',
+  'structured-finance':  'Mark Higgins',
+  'mezzanine-finance':   'Mark Higgins',
+  'invoice-finance':     'Andrew Farrimond',
+  'asset-finance':       'Andrew Farrimond',
+  'working-capital':     'Andrew Farrimond',
+  'trade-finance':       'Andrew Farrimond',
+  'cashflow-finance':    'Andrew Farrimond',
+  'business-loans':      'Andrew Farrimond',
+};
+
+function resolveAuthor(sheetAuthor, service) {
+  const key = (service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+  return SERVICE_AUTHORS[key] || sheetAuthor || 'Mark Higgins';
+}
+
 // ─── Clients ──────────────────────────────────────────────────────────────────
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -57,7 +80,7 @@ async function getPendingRow(sheets) {
         title: row[4] || '',
         slug: row[5] || '',
         url: row[6] || '',
-        author: row[7] || 'Mark Higgins',
+        author: resolveAuthor(row[7], row[2]),
         liStatus,
       };
     }
@@ -78,10 +101,10 @@ Blog URL: ${row.url}
 Write a LinkedIn post that:
 - Opens with a strong hook (no "I" as the first word)
 - Is 150-200 words
-- Shares a genuine insight or observation about ${row.keyword}
-- Feels personal and professional, not salesy
+- Shares a genuine insight or practical observation about ${row.keyword} from the perspective of someone who brokers these deals every day
+- Feels like something a senior finance professional would actually write — direct, confident, no fluff
+- No emojis. These are experienced commercial finance brokers writing for business owners and property developers, not a social media account.
 - Ends with a subtle call to action followed by 3-5 relevant hashtags on the last line
-- Uses 3-4 relevant emojis sparingly within the post body
 
 IMPORTANT: The hashtags MUST appear at the end of the POST section, not in the FIRST_COMMENT.
 
