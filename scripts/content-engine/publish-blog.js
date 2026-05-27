@@ -387,6 +387,42 @@ async function pushBlogPostsFile(posts, sha, slug) {
   console.log(`Successfully pushed ${BLOG_FILE} to GitHub`);
 }
 
+// ─── Auto-queue social posts in LinkedIn_Queue ────────────────────────────────
+async function addToLinkedInQueue(sheets, row, articleTitle, finalSlug, fullUrl) {
+  const today = new Date().toISOString().split('T')[0];
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: SPREADSHEET_ID,
+    range: 'LinkedIn_Queue!A:R',
+    valueInputOption: 'RAW',
+    insertDataOption: 'INSERT_ROWS',
+    requestBody: {
+      values: [[
+        Date.now(),                      // A  id
+        today,                           // B  publishDate
+        row.service,                     // C  service
+        row.keyword,                     // D  keyword
+        row.title || articleTitle,       // E  title
+        finalSlug,                       // F  slug
+        fullUrl,                         // G  url
+        row.author || 'Mark Higgins',    // H  author
+        'pending',                       // I  liStatus
+        '',                              // J  liPostText
+        '',                              // K  liFirstComment
+        '',                              // L  notes
+        'pending',                       // M  fbStatus
+        '',                              // N  fbPostText
+        '',                              // O  fbPostId
+        'pending',                       // P  igStatus
+        '',                              // Q  igPostText
+        '',                              // R  igPostId
+      ]],
+    },
+  });
+
+  console.log(`LinkedIn_Queue row added — liStatus, fbStatus, igStatus = pending`);
+}
+
 // ─── Update the Google Sheet row ──────────────────────────────────────────────
 async function updateSheetRow(sheets, rowIndex, slug, liveUrl, publishedAt) {
   await sheets.spreadsheets.values.batchUpdate({
@@ -504,6 +540,15 @@ async function main() {
   posts.push(newPost);
   await pushBlogPostsFile(posts, sha, finalSlug);
   await updateSheetRow(sheets, row.rowIndex, finalSlug, fullUrl, publishedAt);
+
+  // Auto-queue social posts if linkedInRequired = yes
+  const needsSocial = (row.linkedInRequired || '').toLowerCase().trim() === 'yes';
+  if (needsSocial) {
+    console.log('linkedInRequired = yes — adding to LinkedIn_Queue...');
+    await addToLinkedInQueue(sheets, row, article.title, finalSlug, fullUrl);
+  } else {
+    console.log('linkedInRequired = no — skipping LinkedIn_Queue entry');
+  }
 
   console.log('=== Done! ===');
   console.log(`Published: ${fullUrl}`);

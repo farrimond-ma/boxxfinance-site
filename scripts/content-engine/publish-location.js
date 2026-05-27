@@ -47,49 +47,92 @@ async function getSheetsClient() {
   return google.sheets({ version: 'v4', auth });
 }
 
+// ─── Find which service was published as a blog today ────────────────────────
+async function getTodaysBlogService(sheets) {
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: 'ContentEngine!A2:F',
+  });
+  const today = new Date().toISOString().split('T')[0];
+
+  for (const row of res.data.values || []) {
+    const type        = (row[1] || '').toLowerCase().trim();
+    const status      = (row[2] || '').toLowerCase().trim();
+    const publishDate = (row[3] || '').trim();
+    const service     = (row[5] || '').toLowerCase().trim();
+
+    if (type === 'blog' && status === 'published' && publishDate === today && service) {
+      return service;
+    }
+  }
+  return null;
+}
+
+function buildLocationRow(i, row) {
+  return {
+    rowIndex:     i + 2,
+    id:           row[0] || '',
+    publishDate:  row[3] || '',
+    publishSlot:  (row[4] || '').toUpperCase().trim(),
+    service:      row[5] || '',
+    city:         row[6] || '',
+    keyword:      row[7] || '',
+    topic:        row[8] || '',
+    title:        row[9] || '',
+    slug:         row[10] || '',
+    url:          row[11] || '',
+    metaTitle:    row[12] || '',
+    metaDescription: row[13] || '',
+    category:     row[14] || '',
+    contentBrief: row[15] || '',
+  };
+}
+
 // ─── Get one scheduled location row ──────────────────────────────────────────
+// Prefers rows matching today's published blog service so all content stays
+// on-topic for the day.
 async function getScheduledRow(sheets, slot) {
+  const today            = new Date().toISOString().split('T')[0];
+  const todayService     = await getTodaysBlogService(sheets);
+  if (todayService) {
+    console.log(`Today's blog service: "${todayService}" — preferring matching location pages`);
+  }
+
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID,
     range: 'ContentEngine!A2:AC',
   });
-
   const rows = res.data.values || [];
-  const today = new Date().toISOString().split('T')[0];
+
+  const eligible = [];
 
   for (let i = 0; i < rows.length; i++) {
-    const row = rows[i];
-    const type = (row[1] || '').toLowerCase().trim();
-    const status = (row[2] || '').toLowerCase().trim();
+    const row         = rows[i];
+    const type        = (row[1] || '').toLowerCase().trim();
+    const status      = (row[2] || '').toLowerCase().trim();
     const publishDate = (row[3] || '').trim();
     const publishSlot = (row[4] || '').toUpperCase().trim();
 
-    if (
-      type === 'location' &&
-      status === 'scheduled' &&
-      publishDate <= today &&
-      publishSlot === slot
-    ) {
-      return {
-        rowIndex: i + 2,
-        id: row[0] || '',
-        publishDate,
-        publishSlot,
-        service: row[5] || '',
-        city: row[6] || '',
-        keyword: row[7] || '',
-        topic: row[8] || '',
-        title: row[9] || '',
-        slug: row[10] || '',
-        url: row[11] || '',
-        metaTitle: row[12] || '',
-        metaDescription: row[13] || '',
-        category: row[14] || '',
-        contentBrief: row[15] || '',
-      };
+    if (type === 'location' && status === 'scheduled' && publishDate <= today && publishSlot === slot) {
+      eligible.push(buildLocationRow(i, row));
     }
   }
-  return null;
+
+  if (eligible.length === 0) return null;
+
+  // Prefer a row whose service matches today's blog
+  if (todayService) {
+    const preferred = eligible.find(
+      (r) => r.service.toLowerCase() === todayService
+    );
+    if (preferred) {
+      console.log(`  Matched location page: ${preferred.service} in ${preferred.city}`);
+      return preferred;
+    }
+    console.log(`  No location rows found for "${todayService}" — falling back to first scheduled`);
+  }
+
+  return eligible[0];
 }
 
 // ─── Get published blogs for internal linking ─────────────────────────────────
