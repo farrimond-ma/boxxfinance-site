@@ -44,7 +44,7 @@ const About = () => {
                                     <a href="mailto:mark@boxxfinance.co.uk" className="director-email gold-link">mark@boxxfinance.co.uk</a>
                                 </div>
                                 <div className="contact-link-row">
-                                    <a href="tel:03300434281" className="director-phone gold-link">0330 043 4281</a>
+                                    <a href="tel:03300431612" className="director-phone gold-link">0330 043 1612</a>
                                 </div>
                                 <div className="contact-link-row">
                                     <a href="https://www.linkedin.com/in/mark-higgins-05ab363b2/" target="_blank" rel="noopener noreferrer" className="director-linkedin-btn" title="Connect on LinkedIn">
@@ -68,7 +68,7 @@ const About = () => {
                                     <a href="mailto:andrew@boxxfinance.co.uk" className="director-email gold-link">andrew@boxxfinance.co.uk</a>
                                 </div>
                                 <div className="contact-link-row">
-                                    <a href="tel:03300434281" className="director-phone gold-link">0330 043 4281</a>
+                                    <a href="tel:03300431612" className="director-phone gold-link">0330 043 1612</a>
                                 </div>
                                 <div className="contact-link-row">
                                     <a href="https://www.linkedin.com/in/commercial-funding/" target="_blank" rel="noopener noreferrer" className="director-linkedin-btn" title="Connect on LinkedIn">

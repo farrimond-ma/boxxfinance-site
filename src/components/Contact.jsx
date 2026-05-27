@@ -82,7 +82,7 @@ const Contact = () => {
                             <span className="icon">📞</span>
                             <div>
                                 <h4>Phone</h4>
-                                <p>0330 043 4281</p>
+                                <p>0330 043 1612</p>
                             </div>
                         </div>
 
