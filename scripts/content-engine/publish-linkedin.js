@@ -350,6 +350,14 @@ async function main() {
   console.log('║   Boxx Finance — LinkedIn Publisher      ║');
   console.log('╚══════════════════════════════════════════╝\n');
 
+  // LinkedIn posts weekdays only (Mon–Fri). Skip gracefully on weekends
+  // unless FORCE_RUN=true is set (useful for manual testing).
+  const dayOfWeek = new Date().getUTCDay(); // 0=Sun, 6=Sat
+  if ((dayOfWeek === 0 || dayOfWeek === 6) && process.env.FORCE_RUN !== 'true') {
+    console.log('  Today is a weekend — LinkedIn publishing is weekdays only. Done.\n');
+    return;
+  }
+
   const sheets = await getSheetsClient();
 
   console.log('Finding pending LinkedIn row...');
