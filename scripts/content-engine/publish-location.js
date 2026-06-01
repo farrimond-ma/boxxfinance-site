@@ -110,58 +110,109 @@ async function getPublishedBlogs(sheets, service) {
   const blogs = [];
 
   for (const row of rows) {
-    const type = (row[1] || '').toLowerCase().trim();
-    const status = (row[2] || '').toLowerCase().trim();
-    const rowService = (row[5] || '').toLowerCase().trim();
-    const url = row[11] || '';
+    const type    = (row[1]  || '').toLowerCase().trim();
+    const status  = (row[2]  || '').toLowerCase().trim();
+    const rowSvc  = (row[5]  || '').toLowerCase().trim();
+    const title   = row[9]   || '';
+    const url     = row[11]  || '';
 
-    if (type === 'blog' && status === 'published' && rowService === service.toLowerCase() && url) {
-      blogs.push(url);
+    if (type === 'blog' && status === 'published' && rowSvc === service.toLowerCase() && url) {
+      blogs.push({
+        url: url.startsWith('http') ? url : `https://boxxfinance.co.uk${url}`,
+        title,
+      });
     }
   }
 
-  return blogs.slice(0, 3);
+  return blogs.slice(0, 4);
 }
 
 // ─── Generate location page with OpenAI ──────────────────────────────────────
-async function generateLocationPage(row, relatedBlogUrls) {
+async function generateLocationPage(row, relatedBlogs) {
   console.log(`Generating location page for: ${row.service} in ${row.city}`);
 
-  const blogLinksText = relatedBlogUrls.length > 0
-    ? `\nRelated blog links to include as contextual links within the content:\n${relatedBlogUrls.map(u => `https://boxxfinance.co.uk${u}`).join('\n')}`
-    : '\nNo related blog posts published yet - do not include blog links.';
+  const serviceSlug = row.service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+  const serviceUrl  = `https://boxxfinance.co.uk/funding-solutions/${serviceSlug}`;
+
+  const blogLinksText = relatedBlogs.length > 0
+    ? `\nRelated blog posts — link naturally using the exact post title as anchor text:\n${relatedBlogs.map(b => `${b.url} — "${b.title}"`).join('\n')}`
+    : '';
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
-    max_tokens: 4000,
+    max_tokens: 6000,
     messages: [
       {
         role: 'system',
-        content: `You are a UK commercial finance content writer for Boxx Commercial Finance. You write location landing pages for UK SMEs. Write in a clear, practical, advisory tone. Never use em dashes. Never use markdown formatting, backticks, or code fences. Return only a raw JSON object with no wrapper, no explanation, no markdown.`,
+        content: `You are an experienced UK commercial finance broker at Boxx Commercial Finance writing a location-specific landing page. Write as a trusted local expert who genuinely understands the business finance landscape in this city. Natural, human, advisory tone — as if speaking directly to a local business owner. Never use em dashes. Never use generic AI phrases ("in today's landscape", "navigating the challenges", etc.). No markdown, no backticks, no code fences. Return only a raw JSON object with no wrapper, no explanation.`,
       },
       {
         role: 'user',
-        content: `Write a location landing page for the following service and city. Return it as a single JSON object with exactly these keys:
+        content: `Write a location landing page for ${row.service} in ${row.city}. Return as a single JSON object with exactly these keys:
 
 slug, title, metaTitle, metaDescription, faqSchema, content
 
-Rules:
-- content must be valid HTML using only single quotes inside HTML attributes e.g. href='/path/to/page' NOT href="/path/to/page"
-- content must be 800-1200 words
-- Include practical local business context relevant to this city
-- Include an FAQ section at the bottom using <h2> and <dl><dt><dd> tags
-- faqSchema must be a valid FAQ schema object with @type: FAQPage matching the FAQ in content
-- slug format: {service}-{city-lowercase-hyphenated} e.g. business-loans-leeds
-- title format: "{Service Name} {City}" e.g. "Business Loans Leeds"
-- metaTitle format: "{Service Name} {City} | Boxx Commercial Finance"
-- Only use blog links explicitly provided below - do not invent any
-- No markdown, no backticks, no code fences, no curly quotes - return raw JSON only
+OUTPUT FORMAT RULES:
+- content must be valid HTML using only single quotes inside HTML attributes e.g. href='/path/to/page'
+- Do NOT include an <h1> tag — the title is rendered separately on the page
+- No markdown, backticks, code fences, or curly quotes — raw JSON only
+- slug format: ${serviceSlug}-${row.city.toLowerCase().replace(/\s+/g, '-')} (e.g. business-loans-leeds)
+- title format: "${row.service} ${row.city}" (e.g. "Business Loans Leeds")
+- metaTitle format: "${row.service} ${row.city} | Boxx Commercial Finance"
+
+CONTENT STRUCTURE — follow this exact order:
+
+1. OPENING PARAGRAPH (2–3 sentences, 60–80 words)
+Start with clear intent matching: "Looking for ${row.service} in ${row.city}?" or similar. Directly answer why a ${row.city} business owner would come to this page. Mention Boxx Commercial Finance and link it to ${serviceUrl} using anchor text like "${row.service.toLowerCase()} for ${row.city} businesses".
+
+2. <h2>What We Can Fund in ${row.city}</h2>
+Specific types of businesses and deals common in ${row.city} — think about the actual economy of this city (manufacturing, retail, hospitality, property, logistics, professional services, etc.). What would a local business owner typically need ${row.service.toLowerCase()} for? Be specific and local — not generic. 3–4 short paragraphs or a practical list.
+
+3. <h2>${row.city} Business Finance: What You Need to Know</h2>
+THIS IS THE MOST IMPORTANT SECTION. Genuine local market insight:
+- The ${row.city} business and property landscape (growth sectors, key industries, economic context)
+- Common deal types and funding structures seen in this area
+- Lender appetite and how it applies to ${row.city} businesses
+- Any regional factors relevant to ${row.service.toLowerCase()} in this city
+This must feel written by someone who actually brokers deals in ${row.city} — not a generic paragraph with the city name swapped in. 2–3 substantive paragraphs.
+
+4. <h2>Our ${row.service} Solutions for ${row.city} Businesses</h2>
+What Boxx actually offers — amounts, terms, lender types, timescales. Link ${serviceUrl} at least once more using keyword-rich anchor text (e.g. "specialist ${row.service.toLowerCase()} solutions"). Practical and specific — no waffle. 1–2 paragraphs.
+
+5. <h2>A Recent ${row.city} Success Story</h2>
+An anonymised but realistic case study. "Recently, we helped a ${row.city}-based [specific type of business]..." — include a realistic funding amount, the challenge they faced, what product was arranged, and the outcome. This is highly persuasive for local visitors. 1 solid paragraph.
+
+6. <h2>How the Process Works</h2>
+Four clear steps: initial enquiry → lender matching → offer received → completion. Brief and reassuring — show it's straightforward. Use a numbered list or 4 short sentences.
+
+7. <h2>Frequently Asked Questions</h2>
+4–6 Q&As using <dl><dt><dd> tags. Questions should be exactly what a ${row.city} business owner would type into Google or ask an AI model, e.g.:
+- "Can I get ${row.service.toLowerCase()} in ${row.city}?"
+- "How quickly can ${row.service.toLowerCase()} be arranged in ${row.city}?"
+- "What are the requirements for ${row.service.toLowerCase()} in ${row.city}?"
+- "Does Boxx Commercial Finance work with businesses in ${row.city}?"
+Keep answers direct and specific to ${row.city} where possible.
+
+8. CLOSING CTA PARAGRAPH
+Short and direct — 2–3 sentences. Encourage the reader to get in touch. Link to https://boxxfinance.co.uk/chat-about-funding using anchor text like "speak to a ${row.service.toLowerCase()} specialist" or "discuss your funding needs with our team". End with a brief confidence statement.
+
+WORD COUNT: Minimum 1000 words in the content field.
+
+TONE AND QUALITY:
+- Every section must feel genuinely written for ${row.city} — not a template with city name swapped
+- Short paragraphs throughout
+- Include natural keyword variations: "${row.service.toLowerCase()} ${row.city}", "${row.service.toLowerCase()} broker ${row.city}", "business finance ${row.city}", "SME funding ${row.city}"
+- Mention "Boxx Commercial Finance" 2–3 times
+- Link https://boxxfinance.co.uk/about-us as "Boxx Commercial Finance" the first time the brand name appears
+
+INTERNAL LINKS — mandatory, keyword-rich anchor text only:
+- ${serviceUrl}: at least 2 links, anchor text like "${row.service.toLowerCase()} for ${row.city} businesses" or "specialist ${row.service.toLowerCase()} solutions"
+- https://boxxfinance.co.uk/about-us: link brand name "Boxx Commercial Finance" first time it appears
+- https://boxxfinance.co.uk/chat-about-funding: in closing CTA
+- NEVER invent URLs — only use URLs explicitly provided
 ${blogLinksText}
 
-Service: ${row.service}
-City: ${row.city}
-Category: ${row.category}
-Content brief: ${row.contentBrief || 'Write a comprehensive UK SME-focused location landing page'}`,
+faqSchema: valid @type: FAQPage object, exactly matching the FAQ section in content`,
       },
     ],
   });
@@ -267,10 +318,10 @@ async function main() {
       continue;
     }
 
-    const relatedBlogUrls = await getPublishedBlogs(sheets, row.service);
-    console.log(`  Found ${relatedBlogUrls.length} published blogs for ${row.service}`);
+    const relatedBlogs = await getPublishedBlogs(sheets, row.service);
+    console.log(`  Found ${relatedBlogs.length} published blogs for ${row.service}`);
 
-    const page = await generateLocationPage(row, relatedBlogUrls);
+    const page = await generateLocationPage(row, relatedBlogs);
     console.log(`  Generated: ${page.title}`);
 
     const slug = row.slug || page.slug;
