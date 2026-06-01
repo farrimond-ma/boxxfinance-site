@@ -132,6 +132,21 @@ const BlogPost = () => {
                             className="blog-post-content"
                             dangerouslySetInnerHTML={{ __html: post.content || '<p>No article content found.</p>' }}
                         />
+                        {post.videoId && (
+                            <div style={{ padding: '0 2rem 2rem' }}>
+                                <div className="video-embed">
+                                    <iframe
+                                        src={`https://www.youtube.com/embed/${post.videoId}`}
+                                        width="100%"
+                                        height="100%"
+                                        frameBorder="0"
+                                        allowFullScreen
+                                        loading="lazy"
+                                        title="Related video"
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
                     {/* Author bio card */}
                     <div className="director-cards single-column" style={{ marginTop: '0', marginBottom: '1.5rem' }}>

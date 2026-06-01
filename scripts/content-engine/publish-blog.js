@@ -207,13 +207,13 @@ STRUCTURE FOR GOOGLE + AI SEARCH (AEO):
 - Include an FAQ section at the bottom using <h2>Frequently Asked Questions</h2> and <dl><dt><dd> tags with 5-7 Q&As covering the most-searched related questions
 - faqSchema must be a valid FAQ schema object with @type: FAQPage matching the FAQ in contentHtml exactly
 
-INTERNAL LINKS (REQUIRED):
-- You MUST include at least 3 contextual links to the service page (${serviceUrl}) at natural points throughout the article — not all in one place
-- You MUST include a contextual link to https://boxxfinance.co.uk/chat-about-funding as a call to action within the article body
-- You MUST include a contextual link to https://boxxfinance.co.uk/funding-solutions as an anchor to the full range of funding solutions Boxx offers
-- You MUST include a contextual link to https://boxxfinance.co.uk/about-us when mentioning Boxx Commercial Finance by name for the first time
-- If related blog links are provided below, include them as contextual links within the article body using the post title as anchor text
-- Only use location links explicitly provided below — do not invent any
+INTERNAL LINKS — anchor text rules are MANDATORY. Never use generic anchor text:
+- Service page (${serviceUrl}): include at least 3 contextual links using keyword-rich anchor text such as "${row.keyword} for UK businesses", "${row.keyword} solutions", or "specialist ${row.keyword} advice" — NEVER use "our service page", "click here", "this page", or "find out more"
+- Chat page https://boxxfinance.co.uk/chat-about-funding: include as a mid-article CTA using anchor text like "speak to a commercial finance specialist", "get expert ${row.keyword} advice", or "discuss your funding needs with our team" — NEVER "our contact page", "get in touch", "contact us", or "click here"
+- Funding solutions https://boxxfinance.co.uk/funding-solutions: include once using anchor text like "full range of UK business funding solutions" or "business funding options for UK SMEs" — NEVER "our funding solutions page" or "our services"
+- About us https://boxxfinance.co.uk/about-us: link the brand name itself — use "Boxx Commercial Finance" as the exact anchor text the first time the brand name appears in the article — NEVER "our about us page", "learn more about us", or "about our team"
+- Related blog posts: embed naturally in a sentence using the exact post title as the anchor text (e.g. "As we explored in <a href='...'>How to Use Invoice Finance to Improve Cash Flow</a>, ...")
+- Location links: use "[service] in [city]" as anchor text (e.g. "asset finance in Manchester", "bridging loans in Birmingham") — NEVER "here", "this page", or the raw URL — only use the URLs explicitly provided below, never invent location URLs
 ${locationLinksText}
 ${relatedBlogsText}
 
@@ -275,27 +275,6 @@ async function findYouTubeVideo(keyword) {
   });
 
   return video ? video.id.videoId : null;
-}
-
-function injectYouTubeEmbed(html, videoId) {
-  if (!videoId) return html;
-
-  const embed = [
-    `<div class='video-embed'>`,
-    `<iframe src='https://www.youtube.com/embed/${videoId}'`,
-    ` width='100%' height='100%'`,
-    ` frameborder='0' allowfullscreen loading='lazy'`,
-    ` title='Related video'></iframe>`,
-    `</div>`,
-  ].join('');
-
-  // Inject after the second </h2> closing tag (middle of article)
-  const matches = [...html.matchAll(/<\/h2>/gi)];
-  if (matches.length >= 2) {
-    const pos = matches[1].index + matches[1][0].length;
-    return html.slice(0, pos) + '\n' + embed + '\n' + html.slice(pos);
-  }
-  return html;
 }
 
 // ─── DALL-E: generate and upload a hero image ─────────────────────────────────
@@ -478,24 +457,32 @@ async function main() {
   const article = await generateArticle(row, locationLinks, relatedBlogs);
   console.log(`Article generated: ${article.title}`);
 
+  // Ensure question-style titles end with ?
+  const rawTitle = row.title || article.title;
+  const questionRe = /^(what|how|why|when|where|who|which|can|should|do|does|is|are|will|would|could)\s/i;
+  const finalTitle = questionRe.test(rawTitle) && !rawTitle.trim().endsWith('?')
+    ? rawTitle.trim() + '?'
+    : rawTitle;
+  if (finalTitle !== rawTitle) console.log(`  Title updated: "${rawTitle}" → "${finalTitle}"`);
+
   const finalSlug = slug || article.slug;
   const url = `/insights/${finalSlug}`;
   const publishedAt = new Date().toISOString();
   const fullUrl = `https://boxxfinance.co.uk${url}`;
 
-  // ── YouTube embed ─────────────────────────────────────────────────────────
+  // ── YouTube embed — stored as videoId field, rendered by React (avoids WAF) ──
   console.log('Searching YouTube for a relevant embed...');
-  let contentHtml = article.contentHtml;
+  const contentHtml = article.contentHtml;
+  let videoId = null;
   try {
-    const videoId = await findYouTubeVideo(row.keyword);
+    videoId = await findYouTubeVideo(row.keyword);
     if (videoId) {
-      contentHtml = injectYouTubeEmbed(contentHtml, videoId);
-      console.log(`  Embedded video: https://youtu.be/${videoId}`);
+      console.log(`  Found video: https://youtu.be/${videoId} — storing as videoId (React renders the iframe)`);
     } else {
       console.log('  No suitable video found — skipping embed');
     }
   } catch (err) {
-    console.warn(`  YouTube embed failed (non-fatal): ${err.message}`);
+    console.warn(`  YouTube search failed (non-fatal): ${err.message}`);
   }
 
   // ── DALL-E hero image ─────────────────────────────────────────────────────
@@ -520,7 +507,7 @@ async function main() {
     status: 'published',
     slug: finalSlug,
     url: url,
-    title: row.title || article.title,
+    title: finalTitle,
     excerpt: article.excerpt,
     metaTitle: row.metaTitle || article.metaTitle,
     metaDescription: row.metaDescription || article.metaDescription,
@@ -531,6 +518,7 @@ async function main() {
     author: row.author || 'Mark Higgins',
     authorEmail: authorEmails[row.author] || 'mark@boxxfinance.co.uk',
     heroImage: heroImagePath || getPillarImage(row.service),
+    videoId: videoId || null,
     schema: article.faqSchema || null,
     relatedLocationUrls: locationLinks.map(l => l.startsWith('http') ? l : `https://boxxfinance.co.uk${l}`),
     relatedBlogUrls: relatedBlogs.map(b => b.url),
