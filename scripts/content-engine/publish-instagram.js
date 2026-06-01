@@ -40,7 +40,23 @@ let blogPosts = [];
 try {
   blogPosts = require('../../src/data/blogPosts.json');
 } catch {
-  console.warn('  Could not load blogPosts.json — will derive image from service');
+  console.warn('  Could not load blogPosts.json — will use topic-based fallback');
+}
+
+function getArticleContent(slug) {
+  const post = blogPosts.find((p) => p.slug === slug);
+  if (!post) return null;
+  const text = (post.content || '')
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return { title: post.title, text: text.substring(0, 3000) };
 }
 
 function getImageUrl(slug, service) {
@@ -107,24 +123,34 @@ async function getPendingRow(sheets) {
 
 // ─── Generate Instagram caption via Claude ────────────────────────────────────
 async function generateInstagramCaption(row) {
-  const prompt = `You are writing an Instagram post for Boxx Commercial Finance's business page.
+  const article = getArticleContent(row.slug);
 
-Topic: "${row.title}"
-Keyword: ${row.keyword}
-Service area: ${row.service}
-Blog URL: ${row.url}
+  let prompt;
+
+  if (article) {
+    console.log(`  Read article content (${article.text.length} chars) — generating caption from real insights`);
+    prompt = `You are writing an Instagram post for Boxx Commercial Finance's business page.
+
+This caption must draw one clear, specific insight from the article below — not write independently about the same topic.
+
+ARTICLE TITLE: ${article.title}
+ARTICLE URL: ${row.url}
+
+ARTICLE CONTENT:
+${article.text}
+
+---
 
 Write an Instagram caption that:
-- Opens with a strong single-line hook (bold statement or question, max 15 words) — this is what shows above the "more" fold
-- Has 3–4 short punchy lines (one idea each, easy to read on mobile)
-- Mentions one specific benefit or insight about ${row.keyword} for UK business owners
+- Opens with a strong single-line hook (max 15 words) drawn from a specific point in the article — this shows above the "more" fold
+- Has 3–4 short punchy lines, each one a real takeaway from the article
 - Feels authentic and human — no corporate speak
 - Uses 4–5 emojis naturally placed
 - Ends with a clear call to action: "Link in bio 👆" or similar
 - Then a blank line separator
-- Then 20–25 relevant hashtags covering: the specific service, UK business, SME finance, and location-neutral terms
+- Then 20–25 relevant hashtags on one line
 
-Format exactly like this:
+Format exactly:
 CAPTION:
 [hook line]
 
@@ -134,6 +160,36 @@ CAPTION:
 
 HASHTAGS:
 #hashtag1 #hashtag2 ... (all on one line)`;
+  } else {
+    console.log(`  Article not found for "${row.slug}" — using topic-based fallback`);
+    prompt = `You are writing an Instagram post for Boxx Commercial Finance's business page.
+
+Topic: "${row.title}"
+Keyword: ${row.keyword}
+Service area: ${row.service}
+Blog URL: ${row.url}
+
+Write an Instagram caption that:
+- Opens with a strong single-line hook (bold statement or question, max 15 words) — shows above the "more" fold
+- Has 3–4 short punchy lines (one idea each, easy to read on mobile)
+- Mentions one specific benefit or insight about ${row.keyword} for UK business owners
+- Feels authentic and human — no corporate speak
+- Uses 4–5 emojis naturally placed
+- Ends with a clear call to action: "Link in bio 👆" or similar
+- Then a blank line separator
+- Then 20–25 relevant hashtags on one line
+
+Format exactly:
+CAPTION:
+[hook line]
+
+[body lines]
+
+[call to action]
+
+HASHTAGS:
+#hashtag1 #hashtag2 ... (all on one line)`;
+  }
 
   const response = await anthropic.messages.create({
     model:      'claude-haiku-4-5-20251001',
@@ -143,8 +199,8 @@ HASHTAGS:
 
   const text = response.content[0].type === 'text' ? response.content[0].text : '';
 
-  const captionMatch  = text.match(/CAPTION:\n([\s\S]*?)(?=HASHTAGS:|$)/);
-  const hashtagMatch  = text.match(/HASHTAGS:\n([\s\S]*?)$/);
+  const captionMatch = text.match(/CAPTION:\n([\s\S]*?)(?=HASHTAGS:|$)/);
+  const hashtagMatch = text.match(/HASHTAGS:\n([\s\S]*?)$/);
 
   const captionBody = captionMatch ? captionMatch[1].trim() : text.trim();
   const hashtags    = hashtagMatch ? hashtagMatch[1].trim() : '';
@@ -224,6 +280,14 @@ async function main() {
   console.log('\n╔══════════════════════════════════════════╗');
   console.log('║   Boxx Finance — Instagram Publisher     ║');
   console.log('╚══════════════════════════════════════════╝\n');
+
+  // Instagram posts weekdays only (Mon–Fri). Skip gracefully on weekends
+  // unless FORCE_RUN=true is set.
+  const dayOfWeek = new Date().getUTCDay(); // 0=Sun, 6=Sat
+  if ((dayOfWeek === 0 || dayOfWeek === 6) && process.env.FORCE_RUN !== 'true') {
+    console.log('  Today is a weekend — Instagram publishing is weekdays only. Done.\n');
+    return;
+  }
 
   const sheets = await getSheetsClient();
 

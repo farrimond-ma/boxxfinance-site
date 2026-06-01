@@ -34,12 +34,12 @@ const PILLAR_IMAGES = {
 // ─── Clients ──────────────────────────────────────────────────────────────────
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-// ─── Blog post lookup (for heroImage) ────────────────────────────────────────
+// ─── Blog post lookup ─────────────────────────────────────────────────────────
 let blogPosts = [];
 try {
   blogPosts = require('../../src/data/blogPosts.json');
 } catch {
-  console.warn('  Could not load blogPosts.json — will derive image from service');
+  console.warn('  Could not load blogPosts.json — will use topic-based fallback');
 }
 
 function getImageUrl(slug, service) {
@@ -55,6 +55,23 @@ function getImageUrl(slug, service) {
 
   // 3. Branded fallback — always exists
   return `${SITE_URL}/header_bg.png`;
+}
+
+// Extract plain text from a blog post's HTML content for use in prompts
+function getArticleContent(slug) {
+  const post = blogPosts.find((p) => p.slug === slug);
+  if (!post) return null;
+  const text = (post.content || '')
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return { title: post.title, text: text.substring(0, 3000) };
 }
 
 // ─── Google Sheets ────────────────────────────────────────────────────────────
@@ -107,7 +124,43 @@ async function getPendingRow(sheets) {
 
 // ─── Generate Facebook post via Claude ───────────────────────────────────────
 async function generateFacebookPost(row) {
-  const prompt = `You are writing a Facebook post for Boxx Commercial Finance's business page.
+  const article = getArticleContent(row.slug);
+
+  let prompt;
+
+  if (article) {
+    console.log(`  Read article content (${article.text.length} chars) — generating post from real insights`);
+    prompt = `You are writing a Facebook post for Boxx Commercial Finance's business page.
+
+This post must draw specific points from the article below — not write independently about the same topic. Pick one clear, practical insight that will resonate with a UK business owner.
+
+ARTICLE TITLE: ${article.title}
+ARTICLE URL: ${row.url}
+
+ARTICLE CONTENT:
+${article.text}
+
+---
+
+Write a Facebook post that:
+- Opens with a question or bold statement drawn from a real point in the article
+- Is 80–120 words — punchy and easy to skim on mobile
+- Makes one practical insight from the article feel useful to a UK business owner
+- Feels warm and human — not corporate or salesy
+- Includes 2–3 relevant emojis woven naturally into the text
+- Ends with a call to action to read the full article
+
+Then include the URL on its own line, followed by 3 relevant hashtags on the final line.
+
+Format exactly:
+POST:
+[the post text]
+
+${row.url}
+#hashtag1 #hashtag2 #hashtag3`;
+  } else {
+    console.log(`  Article not found for "${row.slug}" — using topic-based fallback`);
+    prompt = `You are writing a Facebook post for Boxx Commercial Finance's business page.
 
 Topic: "${row.title}"
 Keyword: ${row.keyword}
@@ -119,18 +172,18 @@ Write a Facebook post that:
 - Is 80–120 words — punchy and easy to skim on mobile
 - Explains the topic in plain English, avoiding financial jargon
 - Feels warm, helpful, and approachable — not corporate or salesy
-- Mentions the real benefit to UK business owners in one clear sentence
-- Includes 2–3 relevant emojis woven naturally into the text (not stacked at the start)
+- Includes 2–3 relevant emojis woven naturally into the text
 - Ends with a clear call to action to read the full article
 
 Then include the URL on its own line, followed by 3 relevant hashtags on the final line.
 
-Format exactly like this:
+Format exactly:
 POST:
 [the post text]
 
 ${row.url}
 #hashtag1 #hashtag2 #hashtag3`;
+  }
 
   const response = await anthropic.messages.create({
     model: 'claude-haiku-4-5-20251001',
@@ -190,6 +243,14 @@ async function main() {
   console.log('\n╔══════════════════════════════════════════╗');
   console.log('║   Boxx Finance — Facebook Publisher      ║');
   console.log('╚══════════════════════════════════════════╝\n');
+
+  // Facebook posts weekdays only (Mon–Fri). Skip gracefully on weekends
+  // unless FORCE_RUN=true is set.
+  const dayOfWeek = new Date().getUTCDay(); // 0=Sun, 6=Sat
+  if ((dayOfWeek === 0 || dayOfWeek === 6) && process.env.FORCE_RUN !== 'true') {
+    console.log('  Today is a weekend — Facebook publishing is weekdays only. Done.\n');
+    return;
+  }
 
   const sheets = await getSheetsClient();
 
