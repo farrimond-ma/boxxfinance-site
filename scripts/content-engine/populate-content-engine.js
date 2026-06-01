@@ -907,20 +907,25 @@ async function main() {
   console.log(`Location pages to schedule: ${locationQueue.length}`);
 
   // ── Assign dates ────────────────────────────────────────────────────────────
-  // Both blog and location rows can share a date — each script picks up its own type.
-  // Blogs: 1 per day for the first N days (one per calendar day)
-  // Locations: 1 per day for the first M days (starting from same date as blogs)
+  // Both blog and location rows share dates — each publish script picks up its
+  // own row type independently (blog workflow takes blogs, location workflow
+  // takes locations).
+  //
+  // Blog cadence  : 1 every BLOG_INTERVAL days  → ~2 posts/week, spread over 13 months
+  // Location cadence: 1 per day                 → fills all 365 days (360 pages)
+
+  const BLOG_INTERVAL = 4; // one blog published every 4 days (~2/week)
 
   const newRows = [];
 
-  // Blog rows: assign one per consecutive day
+  // Blog rows: evenly spaced at BLOG_INTERVAL days apart
   const blogStartDate = cursor;
   for (let i = 0; i < blogQueue.length; i++) {
-    const date = addDays(blogStartDate, i);
+    const date = addDays(blogStartDate, i * BLOG_INTERVAL);
     newRows.push({ date, row: buildBlogRow(nextId++, date, blogQueue[i]) });
   }
 
-  // Location rows: assign one per consecutive day from the same start date
+  // Location rows: 1 per day from the same start date
   const locStartDate = cursor;
   for (let i = 0; i < locationQueue.length; i++) {
     const date = addDays(locStartDate, i);
