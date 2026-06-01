@@ -1,0 +1,39 @@
+name: Populate Content Engine
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (log what would be added without writing to sheet)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+jobs:
+  populate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+
+      - name: Populate ContentEngine sheet
+        env:
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: node populate-content-engine.js
+        working-directory: scripts/content-engine
+        timeout-minutes: 5
