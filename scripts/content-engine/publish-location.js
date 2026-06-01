@@ -47,27 +47,6 @@ async function getSheetsClient() {
   return google.sheets({ version: 'v4', auth });
 }
 
-// ─── Find which service was published as a blog today ────────────────────────
-async function getTodaysBlogService(sheets) {
-  const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: SPREADSHEET_ID,
-    range: 'ContentEngine!A2:F',
-  });
-  const today = new Date().toISOString().split('T')[0];
-
-  for (const row of res.data.values || []) {
-    const type        = (row[1] || '').toLowerCase().trim();
-    const status      = (row[2] || '').toLowerCase().trim();
-    const publishDate = (row[3] || '').trim();
-    const service     = (row[5] || '').toLowerCase().trim();
-
-    if (type === 'blog' && status === 'published' && publishDate === today && service) {
-      return service;
-    }
-  }
-  return null;
-}
-
 function buildLocationRow(i, row) {
   return {
     rowIndex:     i + 2,
@@ -88,15 +67,9 @@ function buildLocationRow(i, row) {
   };
 }
 
-// ─── Get one scheduled location row ──────────────────────────────────────────
-// Prefers rows matching today's published blog service so all content stays
-// on-topic for the day.
-async function getScheduledRow(sheets, slot) {
-  const today            = new Date().toISOString().split('T')[0];
-  const todayService     = await getTodaysBlogService(sheets);
-  if (todayService) {
-    console.log(`Today's blog service: "${todayService}" — preferring matching location pages`);
-  }
+// ─── Get ALL scheduled location rows due today or earlier ────────────────────
+async function getScheduledRows(sheets) {
+  const today = new Date().toISOString().split('T')[0];
 
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID,
@@ -111,28 +84,19 @@ async function getScheduledRow(sheets, slot) {
     const type        = (row[1] || '').toLowerCase().trim();
     const status      = (row[2] || '').toLowerCase().trim();
     const publishDate = (row[3] || '').trim();
-    const publishSlot = (row[4] || '').toUpperCase().trim();
 
-    if (type === 'location' && status === 'scheduled' && publishDate <= today && publishSlot === slot) {
+    if (type === 'location' && status === 'scheduled' && publishDate <= today) {
       eligible.push(buildLocationRow(i, row));
     }
   }
 
-  if (eligible.length === 0) return null;
+  // Sort oldest-first so we always catch up in order
+  eligible.sort((a, b) => {
+    if (a.publishDate !== b.publishDate) return a.publishDate.localeCompare(b.publishDate);
+    return a.publishSlot.localeCompare(b.publishSlot);
+  });
 
-  // Prefer a row whose service matches today's blog
-  if (todayService) {
-    const preferred = eligible.find(
-      (r) => r.service.toLowerCase() === todayService
-    );
-    if (preferred) {
-      console.log(`  Matched location page: ${preferred.service} in ${preferred.city}`);
-      return preferred;
-    }
-    console.log(`  No location rows found for "${todayService}" — falling back to first scheduled`);
-  }
-
-  return eligible[0];
+  return eligible;
 }
 
 // ─── Get published blogs for internal linking ─────────────────────────────────
@@ -238,7 +202,7 @@ async function getLocationPagesFile() {
 async function pushLocationPagesFile(pages, sha, slug) {
   const content = Buffer.from(JSON.stringify(pages, null, 2)).toString('base64');
 
-  await octokit.repos.createOrUpdateFileContents({
+  const { data } = await octokit.repos.createOrUpdateFileContents({
     owner: GITHUB_OWNER,
     repo: GITHUB_REPO,
     path: LOCATION_FILE,
@@ -248,7 +212,9 @@ async function pushLocationPagesFile(pages, sha, slug) {
     branch: 'main',
   });
 
-  console.log(`Successfully pushed ${LOCATION_FILE} to GitHub`);
+  console.log(`  Pushed ${LOCATION_FILE} to GitHub`);
+  // Return the new SHA so the next push in the loop doesn't conflict
+  return { sha: data.content.sha };
 }
 
 // ─── Update the Google Sheet row ──────────────────────────────────────────────
@@ -272,57 +238,72 @@ async function updateSheetRow(sheets, rowIndex, slug, liveUrl, publishedAt) {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
-  const slot = (process.argv[2] || 'AM').toUpperCase();
-
-  console.log(`=== Boxx Content Engine: Location Publisher (${slot} slot) ===`);
+  console.log(`=== Boxx Content Engine: Location Publisher ===`);
   console.log(`Running at: ${new Date().toISOString()}`);
 
   const sheets = await getSheetsClient();
   console.log('Connected to Google Sheets');
 
-  const row = await getScheduledRow(sheets, slot);
-  if (!row) {
-    console.log(`No scheduled location rows found for today (${slot} slot). Exiting.`);
+  const dueRows = await getScheduledRows(sheets);
+  if (dueRows.length === 0) {
+    console.log('No scheduled location rows due today or earlier. Exiting.');
     return;
   }
-  console.log(`Found scheduled row ${row.rowIndex}: ${row.service} in ${row.city}`);
+  console.log(`Found ${dueRows.length} location page(s) to publish`);
 
-  const relatedBlogUrls = await getPublishedBlogs(sheets, row.service);
-  console.log(`Found ${relatedBlogUrls.length} published blogs for ${row.service}`);
+  // Fetch the location pages file once — we'll keep adding to it
+  let { sha, pages } = await getLocationPagesFile();
+  console.log(`Current locationPages.json has ${pages.length} pages`);
 
-  const page = await generateLocationPage(row, relatedBlogUrls);
-  console.log(`Location page generated: ${page.title}`);
+  let published = 0;
 
-  const slug = row.slug || page.slug;
-  const url = `/locations/${slug}`;
-  const publishedAt = new Date().toISOString();
-  const fullUrl = `https://boxxfinance.co.uk${url}`;
+  for (const row of dueRows) {
+    console.log(`\n── Processing: ${row.service} in ${row.city} (${row.publishDate} ${row.publishSlot}) ──`);
 
-  const newPage = {
-    id: Date.now(),
-    status: 'published',
-    slug,
-    title: row.title || page.title,
-    metaTitle: row.metaTitle || page.metaTitle,
-    metaDescription: row.metaDescription || page.metaDescription,
-    location: row.city,
-    service: row.service,
-    publishDate: row.publishDate,
-    publishedAt,
-    faqSchema: page.faqSchema || null,
-    content: page.content,
-  };
+    // Skip if slug already exists
+    if (pages.find(p => p.slug === row.slug)) {
+      console.log(`  Slug "${row.slug}" already exists — marking as published and skipping generation`);
+      await updateSheetRow(sheets, row.rowIndex, row.slug, `https://boxxfinance.co.uk/locations/${row.slug}`, new Date().toISOString());
+      continue;
+    }
 
-  console.log('Fetching current locationPages.json from GitHub...');
-  const { sha, pages } = await getLocationPagesFile();
-  console.log(`Current file has ${pages.length} pages, SHA: ${sha}`);
+    const relatedBlogUrls = await getPublishedBlogs(sheets, row.service);
+    console.log(`  Found ${relatedBlogUrls.length} published blogs for ${row.service}`);
 
-  pages.push(newPage);
-  await pushLocationPagesFile(pages, sha, slug);
-  await updateSheetRow(sheets, row.rowIndex, slug, fullUrl, publishedAt);
+    const page = await generateLocationPage(row, relatedBlogUrls);
+    console.log(`  Generated: ${page.title}`);
 
-  console.log('=== Done! ===');
-  console.log(`Published: ${fullUrl}`);
+    const slug = row.slug || page.slug;
+    const url = `/locations/${slug}`;
+    const publishedAt = new Date().toISOString();
+    const fullUrl = `https://boxxfinance.co.uk${url}`;
+
+    const newPage = {
+      id: Date.now() + published,  // ensure unique ids when publishing multiple
+      status: 'published',
+      slug,
+      title: row.title || page.title,
+      metaTitle: row.metaTitle || page.metaTitle,
+      metaDescription: row.metaDescription || page.metaDescription,
+      location: row.city,
+      service: row.service,
+      publishDate: row.publishDate,
+      publishedAt,
+      faqSchema: page.faqSchema || null,
+      content: page.content,
+    };
+
+    pages.push(newPage);
+
+    // Push updated file and get new SHA for the next iteration
+    ({ sha } = await pushLocationPagesFile(pages, sha, slug));
+    await updateSheetRow(sheets, row.rowIndex, slug, fullUrl, publishedAt);
+
+    console.log(`  Published: ${fullUrl}`);
+    published++;
+  }
+
+  console.log(`\n=== Done! Published ${published} location page(s) ===`);
 }
 
 main().catch((err) => {
