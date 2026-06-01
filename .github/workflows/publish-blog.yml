@@ -2,8 +2,8 @@ name: Publish Blog
 
 on:
   schedule:
-    # 6:30 AM UTC = 7:30 AM UK time (BST). Runs Monday to Friday.
-    - cron: '30 6 * * 1-5'
+    # 6:30 AM UTC = 7:30 AM UK time (BST). Runs every day.
+    - cron: '30 6 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 permissions:

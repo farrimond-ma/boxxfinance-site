@@ -2,10 +2,10 @@ name: Publish Location
 
 on:
   schedule:
-    # 7:30 AM UTC = 8:30 AM UK time (BST). AM slot. Runs Monday to Friday.
-    - cron: '30 7 * * 1-5'
-    # 12:30 PM UTC = 1:30 PM UK time (BST). PM slot. Runs Monday to Friday.
-    - cron: '30 12 * * 1-5'
+    # 7:30 AM UTC = 8:30 AM UK time (BST). AM slot. Runs every day.
+    - cron: '30 7 * * *'
+    # 12:30 PM UTC = 1:30 PM UK time (BST). PM slot. Runs every day.
+    - cron: '30 12 * * *'
   workflow_dispatch:
     inputs:
       slot:
