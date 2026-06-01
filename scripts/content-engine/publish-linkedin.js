@@ -1,4 +1,6 @@
 require('dotenv').config();
+const fs   = require('fs');
+const path = require('path');
 const { google } = require('googleapis');
 const Anthropic = require('@anthropic-ai/sdk');
 
@@ -88,40 +90,106 @@ async function getPendingRow(sheets) {
   return null;
 }
 
+// ─── Read article content from checked-out blogPosts.json ────────────────────
+
+function getArticleContent(slug) {
+  try {
+    const filePath = path.resolve(__dirname, '../../src/data/blogPosts.json');
+    const posts    = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const post     = posts.find(p => p.slug === slug);
+    if (!post) return null;
+
+    // Strip HTML tags to give Claude clean prose to work from
+    const text = (post.content || '')
+      .replace(/<script[\s\S]*?<\/script>/gi, '')
+      .replace(/<style[\s\S]*?<\/style>/gi, '')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    return { title: post.title, text: text.substring(0, 4000) };
+  } catch (err) {
+    console.warn(`  Could not read article content for "${slug}": ${err.message}`);
+    return null;
+  }
+}
+
 // ─── Generate LinkedIn post via Claude ───────────────────────────────────────
 
 async function generateLinkedInPost(row) {
-  const prompt = `You are writing a LinkedIn post for ${row.author} at Boxx Commercial Finance.
+  const article = getArticleContent(row.slug);
+
+  let prompt;
+
+  if (article) {
+    console.log(`  Read article content (${article.text.length} chars) — generating post from real insights`);
+    prompt = `You are writing a LinkedIn post for ${row.author} at Boxx Commercial Finance.
+
+This post must be a genuine distillation of the published article below — not an independently written piece about the same topic. Pull specific insights, observations or practical points directly from the article. A reader who has read the article should recognise what you're referencing.
+
+ARTICLE TITLE: ${article.title}
+ARTICLE URL: ${row.url}
+AUTHOR: ${row.author}, ${row.service} specialist at Boxx Commercial Finance
+
+ARTICLE CONTENT:
+${article.text}
+
+---
+
+Write a LinkedIn post that:
+- Opens with a strong hook drawn from a specific insight, fact or observation in the article — not a generic statement about the topic (no "I" as the first word)
+- Is 150–200 words
+- Shares 2–3 concrete points that come directly from the article — written as if ${row.author} is passing on something genuinely useful from experience
+- Reads like a senior commercial finance professional, not a content marketer — direct, confident, no fluff, no hype
+- No emojis
+- Ends with a subtle, natural call to action followed by 3–5 relevant hashtags on the last line
+
+IMPORTANT: Hashtags must appear at the end of the POST section only, not in the FIRST_COMMENT.
+
+Then write "FIRST_COMMENT:" followed by ONE sentence:
+- Invite the reader to read the full article and include this URL: ${row.url}
+- No hashtags in the first comment
+
+Format exactly:
+POST:
+[post text, ending with hashtags on final line]
+
+FIRST_COMMENT:
+[one sentence with URL — no hashtags]`;
+  } else {
+    console.log(`  Article content not found for "${row.slug}" — using topic-based fallback`);
+    prompt = `You are writing a LinkedIn post for ${row.author} at Boxx Commercial Finance.
 
 Topic: "${row.title}"
-Keyword: ${row.keyword}
-Pillar: ${row.service}
+Service: ${row.service}
 Blog URL: ${row.url}
 
 Write a LinkedIn post that:
 - Opens with a strong hook (no "I" as the first word)
-- Is 150-200 words
+- Is 150–200 words
 - Shares a genuine insight or practical observation about ${row.keyword} from the perspective of someone who brokers these deals every day
-- Feels like something a senior finance professional would actually write — direct, confident, no fluff
-- No emojis. These are experienced commercial finance brokers writing for business owners and property developers, not a social media account.
-- Ends with a subtle call to action followed by 3-5 relevant hashtags on the last line
+- Direct, confident, no fluff. No emojis.
+- Ends with a subtle call to action followed by 3–5 relevant hashtags on the last line
 
-IMPORTANT: The hashtags MUST appear at the end of the POST section, not in the FIRST_COMMENT.
+IMPORTANT: Hashtags at the end of POST only, not in FIRST_COMMENT.
 
-Then write "FIRST_COMMENT:" followed by ONE sentence only:
-- Invite readers to read the full article and include the blog URL: ${row.url}
-- Do NOT include any hashtags in the first comment
+Then write "FIRST_COMMENT:" — one sentence inviting readers to read the full article at ${row.url}. No hashtags.
 
-Format exactly like this:
+Format exactly:
 POST:
-[the post text ending with hashtags on the last line]
+[post text, ending with hashtags]
 
 FIRST_COMMENT:
-[one sentence with the URL — no hashtags]`;
+[one sentence with URL]`;
+  }
 
   const response = await anthropic.messages.create({
     model: 'claude-haiku-4-5-20251001',
-    max_tokens: 600,
+    max_tokens: 700,
     messages: [{ role: 'user', content: prompt }],
   });
 
