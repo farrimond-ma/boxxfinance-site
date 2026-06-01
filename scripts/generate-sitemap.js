@@ -73,6 +73,20 @@ const getBlogSlugs = () => {
     }
 };
 
+// Extract Location Page Slugs
+const getLocationSlugs = () => {
+    try {
+        const content = readFile('../src/data/locationPages.json');
+        const pages = JSON.parse(content);
+        return pages
+            .filter(p => p.status === 'published' && p.slug)
+            .map(p => p.slug);
+    } catch (error) {
+        console.warn('Could not read locationPages.json:', error.message);
+        return [];
+    }
+};
+
 // Extract SME Funding Archives
 const getSmeFundingArchiveSlugs = () => {
     try {
@@ -90,10 +104,12 @@ const generateSitemap = () => {
 
     const services = getServiceSlugs();
     const blogs = getBlogSlugs();
+    const locations = getLocationSlugs();
     const smeArchives = getSmeFundingArchiveSlugs();
 
     console.log(`Found ${services.length} services`);
     console.log(`Found ${blogs.length} blog posts`);
+    console.log(`Found ${locations.length} location pages`);
     console.log(`Found ${smeArchives.length} SME Funding Archives`);
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -126,6 +142,16 @@ const generateSitemap = () => {
     <loc>${BASE_URL}/insights/${slug}</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+`;
+    });
+
+    // Add Location Pages
+    locations.forEach(slug => {
+        xml += `  <url>
+    <loc>${BASE_URL}/locations/${slug}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 `;
     });
