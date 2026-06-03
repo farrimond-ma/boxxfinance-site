@@ -300,41 +300,48 @@ async function findYouTubeVideo(keyword) {
   return video ? video.id.videoId : null;
 }
 
-// ─── DALL-E: generate and upload a hero image ─────────────────────────────────
-async function generateHeroImage(slug, keyword, service) {
-  if (!process.env.OPENAI_API_KEY) return null;
+// ─── Pexels: fetch a relevant hero image ─────────────────────────────────────
+async function fetchPexelsImage(keyword, service) {
+  const apiKey = process.env.PEXELS_API_KEY;
+  if (!apiKey) {
+    console.log('  No PEXELS_API_KEY set — skipping hero image');
+    return null;
+  }
 
-  console.log(`  Generating hero image for: ${keyword}`);
+  console.log(`  Searching Pexels for: ${keyword}`);
 
-  const serviceLabel = service.replace(/-/g, ' ');
-  const prompt = [
-    `Professional infographic-style illustration for a UK business finance article about "${keyword}".`,
-    `Service category: ${serviceLabel}.`,
-    `Style: flat design, corporate navy (#031b49) and gold (#b8922a) colour palette, white background.`,
-    `Include: relevant financial metaphors such as buildings, documents, charts, briefcases, or handshakes.`,
-    `Absolutely no text, no letters, no numbers, no words anywhere in the image.`,
-    `Clean, high-quality, suitable for a professional financial services website.`,
-  ].join(' ');
+  const trySearch = async (query) => {
+    const res = await fetch(
+      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=5&orientation=landscape&size=large`,
+      { headers: { Authorization: apiKey } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.photos && data.photos.length > 0 ? data.photos[0] : null;
+  };
 
-  const imgResponse = await openai.images.generate({
-    model:   'dall-e-3',
-    prompt,
-    size:    '1024x1024',
-    quality: 'standard',
-    n:       1,
-  });
+  // Try specific keyword first, fall back to service category
+  const serviceLabel = service.toLowerCase().replace(/&/g, 'and');
+  const photo = (await trySearch(`${keyword} UK business`))
+             || (await trySearch(`${serviceLabel} finance UK`))
+             || (await trySearch('UK business finance'));
 
-  const imageUrl = imgResponse.data[0].url;
-  const imgRes   = await fetch(imageUrl);
-  if (!imgRes.ok) throw new Error(`Failed to download DALL-E image: ${imgRes.status}`);
+  if (!photo) {
+    console.log('  No Pexels image found — will use pillar image fallback');
+    return null;
+  }
+
+  console.log(`  Pexels image found: ${photo.url}`);
+  const imgRes = await fetch(photo.src.large);
+  if (!imgRes.ok) throw new Error(`Failed to download Pexels image: ${imgRes.status}`);
 
   const buffer = Buffer.from(await imgRes.arrayBuffer());
-  console.log(`  Hero image downloaded (${Math.round(buffer.length / 1024)} KB)`);
+  console.log(`  Image downloaded (${Math.round(buffer.length / 1024)} KB)`);
   return buffer;
 }
 
 async function uploadHeroImage(slug, imageBuffer) {
-  const imagePath = `public/images/blog/${slug}.png`;
+  const imagePath = `public/images/blog/${slug}.jpg`;
   let existingSha;
 
   try {
@@ -357,7 +364,7 @@ async function uploadHeroImage(slug, imageBuffer) {
   });
 
   console.log(`  Hero image uploaded: ${imagePath}`);
-  return `/images/blog/${slug}.png`;
+  return `/images/blog/${slug}.jpg`;
 }
 
 // ─── Get current blogPosts.json from GitHub ───────────────────────────────────
@@ -508,16 +515,16 @@ async function main() {
     console.warn(`  YouTube search failed (non-fatal): ${err.message}`);
   }
 
-  // ── DALL-E hero image ─────────────────────────────────────────────────────
-  console.log('Generating hero image via DALL-E 3...');
+  // ── Pexels hero image ─────────────────────────────────────────────────────
+  console.log('Fetching hero image from Pexels...');
   let heroImagePath = null;
   try {
-    const imageBuffer = await generateHeroImage(finalSlug, row.keyword, row.service);
+    const imageBuffer = await fetchPexelsImage(row.keyword, row.service);
     if (imageBuffer) {
       heroImagePath = await uploadHeroImage(finalSlug, imageBuffer);
     }
   } catch (err) {
-    console.warn(`  Hero image generation failed (non-fatal): ${err.message}`);
+    console.warn(`  Hero image fetch failed (non-fatal): ${err.message}`);
   }
 
   const authorEmails = {
