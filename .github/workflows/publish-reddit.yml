@@ -1,0 +1,51 @@
+name: Publish Reddit Comment
+
+on:
+  # Triggers after the Reddit Monitor finds and drafts new opportunities
+  workflow_run:
+    workflows: ["Reddit Monitor"]
+    types:
+      - completed
+
+  # Manual trigger for testing
+  workflow_dispatch:
+
+jobs:
+  publish-reddit:
+    name: Post one Reddit reply
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Only run if the monitor succeeded (or if triggered manually)
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Post Reddit comment
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS:   ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:       ${{ secrets.SPREADSHEET_ID }}
+          REDDIT_CLIENT_ID:     ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME:      ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD:      ${{ secrets.REDDIT_PASSWORD }}
+        run: node publish-reddit.js
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## Reddit Publisher" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View Reddit Drafts](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY
