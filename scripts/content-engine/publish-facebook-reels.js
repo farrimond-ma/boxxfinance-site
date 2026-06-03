@@ -18,11 +18,14 @@ const TMP_DIR            = '/tmp/boxx-reels';
 // See https://api.elevenlabs.io/v1/voices for full list
 const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID || 'XB0fDUnXU5powFXDhCwa';
 
+// TikTok
+const TIKTOK_ACCESS_TOKEN = process.env.TIKTOK_ACCESS_TOKEN;
+
 // ─── Column mapping for LinkedIn_Queue (0-indexed) ────────────────────────────
 // A=0 id, B=1 publishDate, C=2 service, D=3 keyword, E=4 title
 // F=5 slug, G=6 url, H=7 author
 // I=8 liStatus ... P=15 igStatus ... S=18 pinterestStatus
-// V=21 reelStatus, W=22 reelId
+// V=21 reelStatus, W=22 reelId, X=23 tiktokStatus, Y=24 tiktokVideoId
 
 // ─── Pillar image fallbacks ───────────────────────────────────────────────────
 const PILLAR_IMAGES = {
@@ -61,7 +64,7 @@ async function getSheetsClient() {
 async function getPendingRow(sheets) {
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID,
-    range: 'LinkedIn_Queue!A2:W',
+    range: 'LinkedIn_Queue!A2:Y',
   });
   const rows  = res.data.values || [];
   const today = new Date().toISOString().split('T')[0];
@@ -87,12 +90,12 @@ async function getPendingRow(sheets) {
   return null;
 }
 
-async function updateRow(sheets, rowIndex, reelId, status) {
+async function updateRow(sheets, rowIndex, reelId, reelStatus, tiktokId, tiktokStatus) {
   await sheets.spreadsheets.values.update({
     spreadsheetId: SPREADSHEET_ID,
-    range:         `LinkedIn_Queue!V${rowIndex}:W${rowIndex}`,
+    range:         `LinkedIn_Queue!V${rowIndex}:Y${rowIndex}`,
     valueInputOption: 'RAW',
-    requestBody: { values: [[status, reelId || '']] },
+    requestBody: { values: [[reelStatus, reelId || '', tiktokStatus, tiktokId || '']] },
   });
 }
 
@@ -337,6 +340,90 @@ async function uploadReel(videoPath, title, description) {
   return result.id || video_id;
 }
 
+// ─── Upload video to TikTok ───────────────────────────────────────────────────
+async function publishToTikTok(videoPath, title) {
+  if (!TIKTOK_ACCESS_TOKEN) {
+    console.log('  No TIKTOK_ACCESS_TOKEN — skipping TikTok');
+    return null;
+  }
+
+  const videoBuffer = fs.readFileSync(videoPath);
+  const videoSize   = videoBuffer.length;
+
+  // Step 1: Initialise upload
+  const initRes = await fetch('https://open.tiktokapis.com/v2/post/publish/video/init/', {
+    method:  'POST',
+    headers: {
+      Authorization:  `Bearer ${TIKTOK_ACCESS_TOKEN}`,
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: JSON.stringify({
+      post_info: {
+        title:           title.slice(0, 150),
+        privacy_level:   'PUBLIC_TO_EVERYONE',
+        disable_duet:    false,
+        disable_comment: false,
+        disable_stitch:  false,
+      },
+      source_info: {
+        source:            'FILE_UPLOAD',
+        video_size:        videoSize,
+        chunk_size:        videoSize,
+        total_chunk_count: 1,
+      },
+    }),
+  });
+
+  if (!initRes.ok) throw new Error(`TikTok init failed: ${await initRes.text()}`);
+  const initData  = await initRes.json();
+  const publishId = initData.data?.publish_id;
+  const uploadUrl = initData.data?.upload_url;
+  if (!publishId || !uploadUrl) throw new Error(`TikTok init missing data: ${JSON.stringify(initData)}`);
+  console.log(`  TikTok upload initialised — publish_id: ${publishId}`);
+
+  // Step 2: Upload video (single chunk)
+  const uploadRes = await fetch(uploadUrl, {
+    method:  'PUT',
+    headers: {
+      'Content-Type':  'video/mp4',
+      'Content-Range': `bytes 0-${videoSize - 1}/${videoSize}`,
+      'Content-Length': String(videoSize),
+    },
+    body: videoBuffer,
+  });
+  if (!uploadRes.ok) throw new Error(`TikTok upload failed: ${await uploadRes.text()}`);
+  console.log('  TikTok video uploaded');
+
+  // Step 3: Poll for publish completion (up to 60 seconds)
+  for (let attempt = 0; attempt < 12; attempt++) {
+    await new Promise(r => setTimeout(r, 5000));
+    const statusRes = await fetch('https://open.tiktokapis.com/v2/post/publish/status/fetch/', {
+      method:  'POST',
+      headers: {
+        Authorization:  `Bearer ${TIKTOK_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify({ publish_id: publishId }),
+    });
+
+    if (!statusRes.ok) continue;
+    const statusData = await statusRes.json();
+    const status     = statusData.data?.status;
+    console.log(`  TikTok status: ${status}`);
+
+    if (status === 'PUBLISH_COMPLETE') {
+      const videoId = statusData.data?.publicaly_available_post_id?.[0] || publishId;
+      console.log(`  ✅ TikTok published — video ID: ${videoId}`);
+      return videoId;
+    }
+    if (status === 'FAILED') throw new Error(`TikTok publish failed: ${JSON.stringify(statusData)}`);
+  }
+
+  // Timed out — treat as posted since video was uploaded
+  console.log('  TikTok polling timed out — video likely published (check TikTok app)');
+  return publishId;
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   console.log('\n╔══════════════════════════════════════════╗');
@@ -405,12 +492,29 @@ async function main() {
     status = 'failed';
   }
 
+  // Post to TikTok (same video — no re-generation needed)
+  console.log('\nPosting to TikTok...');
+  let tiktokId     = '';
+  let tiktokStatus = 'skipped';
+
+  if (TIKTOK_ACCESS_TOKEN) {
+    try {
+      tiktokId     = await publishToTikTok(videoPath, row.title) || '';
+      tiktokStatus = 'posted';
+    } catch (err) {
+      console.error(`  ❌ TikTok failed: ${err.message}`);
+      tiktokStatus = 'failed';
+    }
+  } else {
+    console.log('  TIKTOK_ACCESS_TOKEN not set — skipping');
+  }
+
   // Clean up temp files
   try { fs.unlinkSync(imagePath); fs.unlinkSync(videoPath); } catch {}
 
   console.log('\nUpdating LinkedIn_Queue sheet...');
-  await updateRow(sheets, row.rowIndex, reelId, status);
-  console.log(`  Row ${row.rowIndex} updated — status: ${status}`);
+  await updateRow(sheets, row.rowIndex, reelId, status, tiktokId, tiktokStatus);
+  console.log(`  Row ${row.rowIndex} updated — reel: ${status}, tiktok: ${tiktokStatus}`);
 
   console.log('\n✅ Done.\n');
 }

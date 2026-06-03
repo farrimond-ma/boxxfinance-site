@@ -435,11 +435,13 @@ async function addToLinkedInQueue(sheets, row, articleTitle, finalSlug, fullUrl)
         '',                              // U  pinterestPinId
         'pending',                       // V  reelStatus
         '',                              // W  reelId
+        'pending',                       // X  tiktokStatus
+        '',                              // Y  tiktokVideoId
       ]],
     },
   });
 
-  console.log(`LinkedIn_Queue row added — liStatus, fbStatus, igStatus, pinterestStatus, reelStatus = pending`);
+  console.log(`LinkedIn_Queue row added — liStatus, fbStatus, igStatus, pinterestStatus, reelStatus, tiktokStatus = pending`);
 }
 
 // ─── Update the Google Sheet row ──────────────────────────────────────────────
