@@ -1,12 +1,12 @@
 name: Add Visibility-Gap Content
 
 on:
-  # Runs every Sunday at 08:00 UTC — after the Monday visibility checker results
-  # have had a week to settle. Reads AI_Visibility sheet, finds topics where
-  # Boxx mention rate is below 34%, and adds PM-slot blog rows to ContentEngine.
-  # Never overwrites existing rows — additive only.
-  schedule:
-    - cron: "0 8 * * 0"
+  # Triggers automatically after the AI Visibility Checker completes (Monday 7am UTC).
+  # Reads the fresh results immediately and adds PM-slot blog rows for any gaps found.
+  workflow_run:
+    workflows: ["AI Visibility Check"]
+    types:
+      - completed
 
   # Manual trigger from GitHub UI
   workflow_dispatch:
@@ -22,6 +22,8 @@ jobs:
     name: Schedule visibility-gap PM blogs
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    # Only run if triggered manually, or if the checker succeeded
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout repo
