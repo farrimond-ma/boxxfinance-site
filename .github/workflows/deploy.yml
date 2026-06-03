@@ -52,3 +52,9 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
           server-dir: boxxfinance.co.uk/public_html/
+
+      - name: Ping search engines with updated sitemap
+        run: |
+          curl -s "https://www.google.com/ping?sitemap=https://boxxfinance.co.uk/sitemap.xml" || true
+          curl -s "https://www.bing.com/webmaster/ping.aspx?siteMap=https://boxxfinance.co.uk/sitemap.xml" || true
+          echo "Search engine sitemap pings sent"

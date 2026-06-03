@@ -85,7 +85,15 @@ async function getBlogPostsFile() {
 }
 
 // ─── Push updated blogPosts.json to GitHub ────────────────────────────────────
-async function pushBlogPostsFile(posts, sha, message) {
+async function pushBlogPostsFile(posts, _sha, message) {
+  // Always fetch the latest SHA immediately before pushing to avoid
+  // conflicts when other workflows have pushed since we last read the file.
+  const { data: latest } = await octokit.repos.getContent({
+    owner: GITHUB_OWNER,
+    repo: GITHUB_REPO,
+    path: BLOG_FILE,
+  });
+  const freshSha = latest.sha;
   const content = Buffer.from(JSON.stringify(posts, null, 2)).toString('base64');
 
   await octokit.repos.createOrUpdateFileContents({
@@ -94,7 +102,7 @@ async function pushBlogPostsFile(posts, sha, message) {
     path: BLOG_FILE,
     message,
     content,
-    sha,
+    sha: freshSha,
     branch: 'main',
   });
 
