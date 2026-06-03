@@ -1,0 +1,51 @@
+name: Publish Blog PM
+
+on:
+  # 10:00 AM UTC = 11:00 AM BST (queuing typically adds ~2-3hrs → fires ~2pm BST)
+  # Publishes PM-slot blogs — visibility-gap content added by the weekly sync.
+  schedule:
+    - cron: '0 10 * * *'
+
+  workflow_dispatch:
+    inputs:
+      force_run:
+        description: 'Run on weekends too (true/false)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+
+      - name: Run PM blog publisher
+        env:
+          GH_TOKEN:         ${{ secrets.GH_PAT }}
+          OPENAI_API_KEY:   ${{ secrets.OPENAI_API_KEY }}
+          SPREADSHEET_ID:   ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          YOUTUBE_API_KEY:  ${{ secrets.YOUTUBE_API_KEY }}
+          PEXELS_API_KEY:   ${{ secrets.PEXELS_API_KEY }}
+          GITHUB_OWNER:     farrimond-ma
+          GITHUB_REPO:      boxxfinance-site
+          PUBLISH_SLOT:     PM
+          FORCE_RUN:        ${{ github.event.inputs.force_run || 'false' }}
+        run: node publish-blog.js
+        working-directory: scripts/content-engine

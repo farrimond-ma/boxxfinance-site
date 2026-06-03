@@ -1,9 +1,9 @@
 name: Publish Facebook Post
 
 on:
-  # Run 30 minutes after the LinkedIn workflow fires (gives it time to complete)
   schedule:
-    - cron: '30 8 * * 1-5'   # 8:30 AM UTC = 9:30 AM BST, Mon–Fri
+    - cron: '30 8  * * 1-5'   # AM run:  8:30 UTC  = ~9:30 BST (picks up AM blog post)
+    - cron: '30 14 * * 1-5'   # PM run: 14:30 UTC  = ~3:30 BST (picks up PM blog post)
 
   # Manual trigger for testing
   workflow_dispatch:

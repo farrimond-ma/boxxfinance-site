@@ -70,7 +70,12 @@ async function getSheetsClient() {
 }
 
 // ─── Get one scheduled blog row ──────────────────────────────────────────────
+// PUBLISH_SLOT controls which slot this run handles: 'AM' (regular content)
+// or 'PM' (visibility-gap content added by the weekly visibility sync).
+// Defaults to 'AM' so existing behaviour is unchanged when not set.
 async function getScheduledRow(sheets) {
+  const slot = (process.env.PUBLISH_SLOT || 'AM').toUpperCase();
+
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID,
     range: 'ContentEngine!A2:AC',
@@ -81,11 +86,12 @@ async function getScheduledRow(sheets) {
 
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i];
-    const type = (row[1] || '').toLowerCase().trim();
-    const status = (row[2] || '').toLowerCase().trim();
+    const type        = (row[1] || '').toLowerCase().trim();
+    const status      = (row[2] || '').toLowerCase().trim();
     const publishDate = (row[3] || '').trim();
+    const publishSlot = (row[4] || 'AM').toUpperCase().trim();
 
-    if (type === 'blog' && status === 'scheduled' && publishDate <= today) {
+    if (type === 'blog' && status === 'scheduled' && publishDate <= today && publishSlot === slot) {
       return {
         rowIndex: i + 2,
         id: row[0] || '',

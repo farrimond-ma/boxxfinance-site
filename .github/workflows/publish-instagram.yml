@@ -1,9 +1,9 @@
 name: Publish Instagram Post
 
 on:
-  # 9:00 AM UTC = 10:00 AM BST — after Facebook (8:30 AM)
   schedule:
-    - cron: '0 9 * * 1-5'
+    - cron: '0  9 * * 1-5'   # AM run:  9:00 UTC  = ~10:00 BST (picks up AM blog post)
+    - cron: '0 15 * * 1-5'   # PM run: 15:00 UTC  = ~4:00 BST  (picks up PM blog post)
 
   # Manual trigger for testing
   workflow_dispatch:

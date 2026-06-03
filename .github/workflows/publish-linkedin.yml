@@ -1,9 +1,9 @@
 name: Publish LinkedIn Post
 
 on:
-  # Trigger after publish-blog completes successfully
+  # Trigger after either blog publisher (AM or PM) completes successfully
   workflow_run:
-    workflows: ["Publish Blog"]
+    workflows: ["Publish Blog", "Publish Blog PM"]
     types:
       - completed
 
