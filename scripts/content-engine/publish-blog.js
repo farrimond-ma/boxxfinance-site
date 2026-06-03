@@ -113,27 +113,26 @@ async function getScheduledRow(sheets) {
 }
 
 // ─── Get published location pages for internal linking ───────────────────────
-async function getPublishedLocations(sheets, service) {
-  const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: SPREADSHEET_ID,
-    range: 'ContentEngine!A2:L',
-  });
+// Reads from locationPages.json in the checked-out repo — these pages are
+// guaranteed to be live because the file is only updated after a successful
+// deploy. This prevents linking to pages that are published in the sheet but
+// not yet deployed to the live site.
+async function getPublishedLocations(_sheets, service) {
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const filePath = path.resolve(__dirname, '../../src/data/locationPages.json');
+    const pages = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const serviceSlug = service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
 
-  const rows = res.data.values || [];
-  const locations = [];
-
-  for (const row of rows) {
-    const type = (row[1] || '').toLowerCase().trim();
-    const status = (row[2] || '').toLowerCase().trim();
-    const rowService = (row[5] || '').toLowerCase().trim();
-    const url = row[11] || '';
-
-    if (type === 'location' && status === 'published' && rowService === service.toLowerCase() && url) {
-      locations.push(url);
-    }
+    return pages
+      .filter(p => p.status === 'published' && p.service === serviceSlug)
+      .slice(0, 4)
+      .map(p => `/locations/${p.slug}`);
+  } catch (err) {
+    console.warn(`  Could not read locationPages.json: ${err.message}`);
+    return [];
   }
-
-  return locations.slice(0, 4);
 }
 
 // ─── Get published blogs for related article linking ─────────────────────────
