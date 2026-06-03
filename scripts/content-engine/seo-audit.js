@@ -208,12 +208,11 @@ async function auditRobots() {
 
 // ─── 6. SEO component audit (static checks against SEO.jsx) ──────────────────
 function auditSEOComponent() {
-  // These are known gaps in the current SEO.jsx — flagged for manual fix
-  return [
-    { type: 'WARN', field: 'og:url',   msg: 'SEO.jsx does not emit og:url — add <meta property="og:url" content={canonicalUrl} />' },
-    { type: 'WARN', field: 'og:image', msg: 'SEO.jsx does not emit og:image — social shares will have no image preview' },
-    { type: 'WARN', field: 'canonical', msg: 'SEO.jsx does not emit <link rel="canonical"> — duplicate content risk across query strings' },
-  ];
+  // SEO.jsx emits: <title>, <meta name="description">, <link rel="canonical">,
+  // og:type, og:title, og:description, og:url, og:image, og:site_name,
+  // twitter:card/creator/title/description/image, and schema.org JSON-LD.
+  // No known gaps — returning empty array.
+  return [];
 }
 
 // ─── Report formatting ────────────────────────────────────────────────────────

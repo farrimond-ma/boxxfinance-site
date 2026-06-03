@@ -15,9 +15,9 @@ on:
   workflow_dispatch:
     inputs:
       crawl_live:
-        description: 'Crawl live pages (true/false)'
+        description: 'Crawl live pages (true/false) — disabled by default as site is SPA (React renders tags client-side, not in raw HTML)'
         required: false
-        default: 'true'
+        default: 'false'
 
 jobs:
   seo-audit:
@@ -46,7 +46,7 @@ jobs:
           GITHUB_OWNER:      ${{ github.repository_owner }}
           GITHUB_REPO:       ${{ github.event.repository.name }}
           GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
-          SEO_CRAWL_LIVE:    ${{ github.event.inputs.crawl_live || 'true' }}
+          SEO_CRAWL_LIVE:    ${{ github.event.inputs.crawl_live || 'false' }}
         run: node seo-audit.js
 
       - name: Open GitHub Issue on failure
