@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Layout from './Layout';
 import Home from './pages/Home';
 import ServicePage from './pages/ServicePage';
@@ -10,6 +10,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import LegalDisclaimer from './pages/LegalDisclaimer';
 import TermsConditions from './pages/TermsConditions';
 import SmeFundingIndex from './pages/SmeFundingIndex';
+import NotFound from './pages/NotFound';
 import './App.css';
 import ScrollToTop from './components/ScrollToTop';
 import LocationPage from './pages/LocationPage';
@@ -32,7 +33,7 @@ function App() {
           <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
           <Route path="uk-sme-funding-index/:archiveSlug" element={<SmeFundingIndex />} />
           <Route path="locations/:slug" element={<LocationPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </>
