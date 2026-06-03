@@ -1,0 +1,48 @@
+name: Publish Facebook Reel
+
+on:
+  schedule:
+    - cron: '0  11 * * 1-5'   # AM run: 11:00 UTC = ~noon BST
+    - cron: '0  16 * * 1-5'   # PM run: 16:00 UTC = ~5pm BST
+
+  workflow_dispatch:
+
+jobs:
+  publish-reel:
+    name: Generate and post Facebook Reel
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install ffmpeg
+        run: sudo apt-get install -y ffmpeg
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Publish Facebook Reel
+        working-directory: scripts/content-engine
+        env:
+          ANTHROPIC_API_KEY:          ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_CREDENTIALS:         ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:             ${{ secrets.SPREADSHEET_ID }}
+          FACEBOOK_PAGE_ID:           ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+        run: node publish-facebook-reels.js
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## Facebook Reels Publisher" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View Queue](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY
