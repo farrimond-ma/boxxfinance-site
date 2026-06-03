@@ -226,7 +226,7 @@ function getAudioDuration(audioPath) {
 // ─── Build video with ffmpeg ──────────────────────────────────────────────────
 function buildVideo(imagePath, script, outputPath, audioPath = null) {
   const duration = audioPath ? getAudioDuration(audioPath) : 20;
-  // Escape text for ffmpeg drawtext (escape : \ ' special chars)
+
   const esc = (t) => t
     .replace(/\\/g, '\\\\')
     .replace(/'/g, "\\'")
@@ -239,49 +239,55 @@ function buildVideo(imagePath, script, outputPath, audioPath = null) {
   const insight2 = esc(script.insight2);
   const cta      = esc(script.cta);
 
-  // Font — DejaVu is reliably available on Ubuntu runners
   const boldFont    = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf';
   const regularFont = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';
 
-  // Filter chain:
-  // 1. Scale + crop to 1080x1920 portrait
-  // 2. Slow Ken Burns zoom (loops over 20s duration)
-  // 3. Dark overlay for text readability
-  // 4. Branding top
-  // 5. Hook text centre-upper
-  // 6. Two insight lines centre
-  // 7. CTA bottom
-  const filters = [
-    `scale=1080:1920:force_original_aspect_ratio=increase`,
-    `crop=1080:1920`,
+  // Logo — use logo_solid.png from the checked-out repo
+  const logoPath = path.resolve(__dirname, '../../public/logo_solid.png');
+  const hasLogo  = fs.existsSync(logoPath);
+  if (hasLogo) console.log('  Logo overlay: enabled');
+
+  // Video filter chain applied to [0:v] (background image)
+  const videoChain = [
+    `[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920`,
     `zoompan=z='if(lte(zoom,1.0),1.0,zoom+0.0008)':d=${duration * 30}:s=1080x1920:fps=30`,
-    // Dark gradient overlay
     `drawbox=x=0:y=0:w=iw:h=ih:color=black@0.55:t=fill`,
-    // Branding bar top
     `drawbox=x=0:y=0:w=iw:h=90:color=0x031b49@0.95:t=fill`,
-    `drawtext=fontfile=${boldFont}:text='BOXX COMMERCIAL FINANCE':fontcolor=0xb8922a:fontsize=32:x=(w-text_w)/2:y=28`,
-    // Hook — large, white, all caps
-    `drawtext=fontfile=${boldFont}:text='${hook}':fontcolor=white:fontsize=62:x=(w-text_w)/2:y=350:line_spacing=10:borderw=3:bordercolor=black@0.8`,
-    // Divider line
+    `drawtext=fontfile=${boldFont}:text='${hook}':fontcolor=white:fontsize=62:x=(w-text_w)/2:y=350:borderw=3:bordercolor=black@0.8`,
     `drawbox=x=120:y=570:w=840:h=3:color=0xb8922a@0.9:t=fill`,
-    // Insight 1
     `drawtext=fontfile=${boldFont}:text='${insight1}':fontcolor=white:fontsize=42:x=(w-text_w)/2:y=610:borderw=2:bordercolor=black@0.7`,
-    // Insight 2
     `drawtext=fontfile=${boldFont}:text='${insight2}':fontcolor=white:fontsize=42:x=(w-text_w)/2:y=690:borderw=2:bordercolor=black@0.7`,
-    // CTA bar bottom
     `drawbox=x=0:y=1780:w=iw:h=140:color=0x031b49@0.95:t=fill`,
     `drawtext=fontfile=${regularFont}:text='${cta}':fontcolor=0xb8922a:fontsize=36:x=(w-text_w)/2:y=1830`,
   ].join(',');
 
+  // Audio input index depends on whether logo is present
+  // inputs: 0=image, 1=logo (if any), then audio
+  const logoInputIdx  = 1;
+  const audioInputIdx = hasLogo ? 2 : 1;
+
+  let filterComplex;
+  if (hasLogo) {
+    // Scale logo to 65px height, overlay centred in the 90px navy bar
+    filterComplex = `${videoChain}[bg];[${logoInputIdx}:v]scale=-1:65[logo];[bg][logo]overlay=x=(W-w)/2:y=12[out]`;
+  } else {
+    filterComplex = `${videoChain}[out]`;
+  }
+
+  const logoInput  = hasLogo  ? `-loop 1 -i "${logoPath}"` : '';
   const audioInput = audioPath ? `-i "${audioPath}"` : '';
+  const audioMap   = audioPath ? `-map ${audioInputIdx}:a` : '';
   const audioCodec = audioPath ? `-c:a aac -shortest` : '-an';
 
   const cmd = [
     'ffmpeg -y',
     `-loop 1 -t ${duration} -i "${imagePath}"`,
+    logoInput,
     audioInput,
-    `-vf "${filters}"`,
-    `-c:v libx264 -preset fast -pix_fmt yuv420p -r 30 -t ${duration}`,
+    `-filter_complex "${filterComplex}"`,
+    `-map "[out]"`,
+    audioMap,
+    `-c:v libx264 -preset fast -pix_fmt yuv420p -r 30`,
     audioCodec,
     `-movflags +faststart`,
     `"${outputPath}"`,
