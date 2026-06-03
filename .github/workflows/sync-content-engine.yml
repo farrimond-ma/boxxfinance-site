@@ -1,11 +1,13 @@
 name: Sync ContentEngine to Sheets
 
 on:
-  # Run every Sunday at 06:00 UTC — rebuilds the schedule weekly
-  schedule:
-    - cron: "0 6 * * 0"
+  # DISABLED — superseded by populate-content-engine.js (quarterly schedule).
+  # The old weekly overwrite conflicted with the new system. Re-enable manually
+  # only if you want to test the legacy schedule rebuild.
+  # schedule:
+  #   - cron: "0 6 * * 0"
 
-  # Manual trigger from GitHub UI
+  # Manual trigger from GitHub UI (kept for reference/testing)
   workflow_dispatch:
     inputs:
       dry_run:
