@@ -430,11 +430,14 @@ async function addToLinkedInQueue(sheets, row, articleTitle, finalSlug, fullUrl)
         'pending',                       // P  igStatus
         '',                              // Q  igPostText
         '',                              // R  igPostId
+        'pending',                       // S  pinterestStatus
+        '',                              // T  pinterestDescription
+        '',                              // U  pinterestPinId
       ]],
     },
   });
 
-  console.log(`LinkedIn_Queue row added — liStatus, fbStatus, igStatus = pending`);
+  console.log(`LinkedIn_Queue row added — liStatus, fbStatus, igStatus, pinterestStatus = pending`);
 }
 
 // ─── Update the Google Sheet row ──────────────────────────────────────────────

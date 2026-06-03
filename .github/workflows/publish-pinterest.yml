@@ -1,0 +1,45 @@
+name: Publish Pinterest Pin
+
+on:
+  schedule:
+    - cron: '0  10 * * 1-5'   # AM run: 10:00 UTC = ~11:00 BST (after blog publishes)
+    - cron: '0  15 * * 1-5'   # PM run: 15:00 UTC = ~4:00 BST  (after PM blog publishes)
+
+  workflow_dispatch:
+
+jobs:
+  publish-pinterest:
+    name: Create Pinterest pin
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run Pinterest publisher
+        working-directory: scripts/content-engine
+        env:
+          ANTHROPIC_API_KEY:        ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_CREDENTIALS:       ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:           ${{ secrets.SPREADSHEET_ID }}
+          PINTEREST_ACCESS_TOKEN:   ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+          PINTEREST_BOARD_ID:       ${{ secrets.PINTEREST_BOARD_ID }}
+        run: node publish-pinterest.js
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## Pinterest Publisher" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View Queue](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY
