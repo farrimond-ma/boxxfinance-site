@@ -1,26 +1,27 @@
-name: Sync ContentEngine to Sheets
+name: Add Visibility-Gap Content
 
 on:
-  # DISABLED — superseded by populate-content-engine.js (quarterly schedule).
-  # The old weekly overwrite conflicted with the new system. Re-enable manually
-  # only if you want to test the legacy schedule rebuild.
-  # schedule:
-  #   - cron: "0 6 * * 0"
+  # Runs every Sunday at 08:00 UTC — after the Monday visibility checker results
+  # have had a week to settle. Reads AI_Visibility sheet, finds topics where
+  # Boxx mention rate is below 34%, and adds PM-slot blog rows to ContentEngine.
+  # Never overwrites existing rows — additive only.
+  schedule:
+    - cron: "0 8 * * 0"
 
-  # Manual trigger from GitHub UI (kept for reference/testing)
+  # Manual trigger from GitHub UI
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Dry run — print stats only, don't write to sheet"
+        description: "Dry run — print what would be added without writing"
         type: boolean
         required: false
         default: false
 
 jobs:
-  sync:
-    name: Rebuild and sync schedule
+  add-visibility-content:
+    name: Schedule visibility-gap PM blogs
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repo
@@ -35,25 +36,22 @@ jobs:
         working-directory: visibility-checker
         run: npm install
 
-      - name: Run sync
+      - name: Add visibility-gap PM blog rows
         working-directory: visibility-checker
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
         run: |
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
-            node src/sync-to-sheets.js --dry-run
+            node src/add-visibility-content.js --dry-run
           else
-            node src/sync-to-sheets.js
+            node src/add-visibility-content.js
           fi
 
       - name: Post summary
         if: always()
         run: |
-          echo "## ContentEngine Sync" >> $GITHUB_STEP_SUMMARY
+          echo "## Visibility Gap Content Scheduler" >> $GITHUB_STEP_SUMMARY
           echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
-          echo "**Schedule:** 1 blog + 2 locations/day (weeks 1-2), then 1 blog + 5 locations/day" >> $GITHUB_STEP_SUMMARY
-          echo "**Pillars:** 12 (Bridging Finance leading)" >> $GITHUB_STEP_SUMMARY
-          echo "**Cities:** Top 50 UK cities" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**What it does:** Reads AI_Visibility sheet, finds topics where Boxx mention rate < 34%, adds PM-slot blog rows to ContentEngine for those gaps." >> $GITHUB_STEP_SUMMARY
           echo "📊 [View ContentEngine](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY
