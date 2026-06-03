@@ -6,12 +6,17 @@ const { google } = require('googleapis');
 const Anthropic = require('@anthropic-ai/sdk');
 
 // ─── Config ───────────────────────────────────────────────────────────────────
-const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
-const FB_PAGE_ID     = process.env.FACEBOOK_PAGE_ID;
-const FB_TOKEN       = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
-const FB_API_VER     = 'v21.0';
-const SITE_URL       = 'https://boxxfinance.co.uk';
-const TMP_DIR        = '/tmp/boxx-reels';
+const SPREADSHEET_ID     = process.env.SPREADSHEET_ID;
+const FB_PAGE_ID         = process.env.FACEBOOK_PAGE_ID;
+const FB_TOKEN           = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
+const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
+const FB_API_VER         = 'v21.0';
+const SITE_URL           = 'https://boxxfinance.co.uk';
+const TMP_DIR            = '/tmp/boxx-reels';
+
+// ElevenLabs voice — "Charlotte" (British female, professional)
+// See https://api.elevenlabs.io/v1/voices for full list
+const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID || 'XB0fDUnXU5powFXDhCwa';
 
 // ─── Column mapping for LinkedIn_Queue (0-indexed) ────────────────────────────
 // A=0 id, B=1 publishDate, C=2 service, D=3 keyword, E=4 title
@@ -152,8 +157,72 @@ async function downloadImage(imageUrl, destPath) {
   console.log(`  Image downloaded: ${Math.round(buffer.length / 1024)} KB`);
 }
 
+// ─── Generate voiceover via ElevenLabs ───────────────────────────────────────
+async function generateVoiceover(script, outputPath) {
+  if (!ELEVENLABS_API_KEY) {
+    console.log('  No ELEVENLABS_API_KEY — skipping voiceover');
+    return null;
+  }
+
+  // Convert to natural speech (no ALL CAPS, add pauses with punctuation)
+  const spokenText = [
+    script.hook.charAt(0) + script.hook.slice(1).toLowerCase() + '.',
+    script.insight1 + '.',
+    script.insight2 + '.',
+    'Read more at Boxx Finance dot co dot uk.',
+  ].join('  ');
+
+  console.log(`  Voiceover text: ${spokenText.slice(0, 80)}...`);
+
+  const res = await fetch(
+    `https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`,
+    {
+      method:  'POST',
+      headers: {
+        'xi-api-key':   ELEVENLABS_API_KEY,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: spokenText,
+        model_id: 'eleven_turbo_v2',
+        voice_settings: {
+          stability:        0.5,
+          similarity_boost: 0.75,
+          style:            0.0,
+          use_speaker_boost: true,
+        },
+      }),
+    }
+  );
+
+  if (!res.ok) {
+    const err = await res.text();
+    console.warn(`  ElevenLabs error (non-fatal): ${res.status} ${err}`);
+    return null;
+  }
+
+  const buffer = Buffer.from(await res.arrayBuffer());
+  fs.writeFileSync(outputPath, buffer);
+  console.log(`  Voiceover generated: ${Math.round(buffer.length / 1024)} KB`);
+  return outputPath;
+}
+
+// ─── Get audio duration in seconds ───────────────────────────────────────────
+function getAudioDuration(audioPath) {
+  try {
+    const out = execSync(
+      `ffprobe -v error -show_entries format=duration -of csv=p=0 "${audioPath}"`,
+      { encoding: 'utf8' }
+    ).trim();
+    return Math.ceil(parseFloat(out)) + 1; // round up + 1s buffer
+  } catch {
+    return 20; // fallback
+  }
+}
+
 // ─── Build video with ffmpeg ──────────────────────────────────────────────────
-function buildVideo(imagePath, script, outputPath) {
+function buildVideo(imagePath, script, outputPath, audioPath = null) {
+  const duration = audioPath ? getAudioDuration(audioPath) : 20;
   // Escape text for ffmpeg drawtext (escape : \ ' special chars)
   const esc = (t) => t
     .replace(/\\/g, '\\\\')
@@ -182,7 +251,7 @@ function buildVideo(imagePath, script, outputPath) {
   const filters = [
     `scale=1080:1920:force_original_aspect_ratio=increase`,
     `crop=1080:1920`,
-    `zoompan=z='if(lte(zoom,1.0),1.0,zoom+0.0008)':d=600:s=1080x1920:fps=30`,
+    `zoompan=z='if(lte(zoom,1.0),1.0,zoom+0.0008)':d=${duration * 30}:s=1080x1920:fps=30`,
     // Dark gradient overlay
     `drawbox=x=0:y=0:w=iw:h=ih:color=black@0.55:t=fill`,
     // Branding bar top
@@ -201,14 +270,19 @@ function buildVideo(imagePath, script, outputPath) {
     `drawtext=fontfile=${regularFont}:text='${cta}':fontcolor=0xb8922a:fontsize=36:x=(w-text_w)/2:y=1830`,
   ].join(',');
 
+  const audioInput = audioPath ? `-i "${audioPath}"` : '';
+  const audioCodec = audioPath ? `-c:a aac -shortest` : '-an';
+
   const cmd = [
     'ffmpeg -y',
-    `-loop 1 -t 20 -i "${imagePath}"`,
+    `-loop 1 -t ${duration} -i "${imagePath}"`,
+    audioInput,
     `-vf "${filters}"`,
-    `-c:v libx264 -preset fast -pix_fmt yuv420p -r 30 -t 20`,
+    `-c:v libx264 -preset fast -pix_fmt yuv420p -r 30 -t ${duration}`,
+    audioCodec,
     `-movflags +faststart`,
     `"${outputPath}"`,
-  ].join(' ');
+  ].filter(Boolean).join(' ');
 
   console.log('  Running ffmpeg...');
   execSync(cmd, { stdio: 'pipe' });
@@ -305,9 +379,17 @@ async function main() {
   console.log(`  Insight 2: ${script.insight2}`);
   console.log(`  CTA      : ${script.cta}`);
 
-  // Build video
+  // Generate voiceover
+  const audioPath = path.join(TMP_DIR, `${row.slug}.mp3`);
+  console.log('\nGenerating voiceover via ElevenLabs...');
+  const voiceoverPath = await generateVoiceover(script, audioPath);
+
+  // Build video (duration matches speech if voiceover available)
   console.log('\nBuilding video with ffmpeg...');
-  buildVideo(imagePath, script, videoPath);
+  buildVideo(imagePath, script, videoPath, voiceoverPath);
+
+  // Clean up audio temp file
+  if (voiceoverPath) { try { fs.unlinkSync(voiceoverPath); } catch {} }
 
   // Upload and publish
   console.log('\nUploading reel to Facebook...');
