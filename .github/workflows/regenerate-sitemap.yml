@@ -1,0 +1,53 @@
+name: Regenerate Sitemap
+
+on:
+  # Fires whenever location pages or blog posts change — keeps sitemap always current
+  push:
+    paths:
+      - 'src/data/locationPages.json'
+      - 'src/data/blogPosts.json'
+
+  # Manual trigger
+  workflow_dispatch:
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout latest
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          # Always check out HEAD, not the triggering commit, to get latest data
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install root dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Regenerate sitemap
+        run: node scripts/generate-sitemap.js
+
+      - name: Commit updated sitemap if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/sitemap.xml
+          if git diff --staged --quiet; then
+            echo "Sitemap unchanged — nothing to commit"
+          else
+            LOCS=$(grep -c '/locations/' public/sitemap.xml || echo 0)
+            BLOGS=$(grep -c '/insights/' public/sitemap.xml || echo 0)
+            git commit -m "chore: regenerate sitemap (${LOCS} locations, ${BLOGS} blogs)"
+            git push origin main
+            echo "Sitemap committed and pushed"
+          fi
