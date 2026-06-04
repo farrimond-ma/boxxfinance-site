@@ -1547,6 +1547,81 @@ const LOCATION_SERVICES = [
   'Structured Finance',
 ];
 
+// ─── Services covered by the Keyword_Backlog ─────────────────────────────────
+// For these 6 services we read topics from the Keyword_Backlog tab.
+// The remaining 5 services use the hardcoded BLOG_TOPICS above.
+const BACKLOG_SERVICES = new Set([
+  'Business Loans', 'Asset Finance', 'Invoice Finance',
+  'Bridging Finance', 'Commercial Mortgages', 'Working Capital',
+]);
+
+// Map sheet service names → our SERVICE_META keys
+const SERVICE_NAME_MAP = {
+  'Business Loans':      'Business Loans',
+  'Asset Finance':       'Asset Finance',
+  'Invoice Finance':     'Invoice Finance',
+  'Bridging Finance':    'Bridging Finance',
+  'Commercial Mortgages':'Commercial Mortgage',
+  'Working Capital':     'Working Capital',
+};
+
+// ─── Load blog topics from Keyword_Backlog tab ────────────────────────────────
+async function loadKeywordBacklog(sheets) {
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: 'Keyword_Backlog!A2:H',
+  });
+  const rows = res.data.values || [];
+  console.log(`  Keyword_Backlog: ${rows.length} keywords loaded from sheet`);
+
+  // Sort: scheduled-year1 before backlog, priority 1 before 2 before 3
+  const PRIORITY_ORDER = { '1': 0, '2': 1, '3': 2 };
+  const STATUS_ORDER   = { 'scheduled-year1': 0, 'backlog': 1 };
+
+  return rows
+    .filter(r => r[1] && r[2]) // must have service and keyword
+    .map(r => ({
+      sheetService: r[1],
+      service:      SERVICE_NAME_MAP[r[1]] || r[1],
+      keyword:      (r[2] || '').toLowerCase().trim(),
+      cluster:      r[3] || '',
+      priority:     r[4] || '3',
+      status:       r[5] || 'backlog',
+    }))
+    .sort((a, b) => {
+      const sDiff = (STATUS_ORDER[a.status] ?? 9) - (STATUS_ORDER[b.status] ?? 9);
+      if (sDiff !== 0) return sDiff;
+      return (PRIORITY_ORDER[a.priority] ?? 9) - (PRIORITY_ORDER[b.priority] ?? 9);
+    })
+    .map(r => {
+      const titleWords = r.keyword.split(' ');
+      const title = titleWords.map((w, i) => i === 0 ? w.charAt(0).toUpperCase() + w.slice(1) : w).join(' ');
+      const slug  = r.keyword.replace(/[^a-z0-9\s]/gi, '').replace(/\s+/g, '-').replace(/-{2,}/g, '-');
+      return {
+        service: r.service,
+        keyword: r.keyword,
+        title,
+        slug,
+        brief: `Comprehensive UK guide on "${r.keyword}" for UK business owners seeking ${r.service.toLowerCase()} solutions. Cover what it is, how it works, eligibility, rates, and why Boxx Commercial Finance is the right broker. Target 1,200+ words with FAQ schema.`,
+      };
+    });
+}
+
+// ─── Load cities from UK_Places tab ──────────────────────────────────────────
+async function loadUKPlaces(sheets) {
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: 'UK_Places!A2:E',
+  });
+  const rows = res.data.values || [];
+  console.log(`  UK_Places: ${rows.length} cities loaded from sheet`);
+  // Columns: Rank, Place, Country/Area, Priority, SlugHint
+  return rows
+    .filter(r => r[1]) // must have a place name
+    .sort((a, b) => parseInt(a[0]) - parseInt(b[0])) // sort by rank
+    .map(r => r[1]); // return city names
+}
+
 // ─── Google Sheets auth ───────────────────────────────────────────────────────
 
 async function getSheetsClient() {
@@ -1696,15 +1771,31 @@ async function main() {
 
   console.log(`\nScheduling window: ${cursor} → ${cutoffDate} (${MAX_SCHEDULE_DAYS} days)`);
 
-  // ── Filter unscheduled topics ───────────────────────────────────────────────
-  const blogQueue = BLOG_TOPICS.filter(t => !existingSlugs.has(t.slug));
-  console.log(`Blog topics remaining: ${blogQueue.length} of ${BLOG_TOPICS.length}`);
+  // ── Load topics from Keyword_Backlog + remaining hardcoded topics ──────────
+  console.log('\nLoading blog topics from Keyword_Backlog tab...');
+  const backlogTopics = await loadKeywordBacklog(sheets);
+
+  // Combine: backlog topics (for 6 sheet services) + hardcoded (for 5 extended services)
+  const hardcodedExtended = BLOG_TOPICS.filter(t => !BACKLOG_SERVICES.has(t.service) && !BACKLOG_SERVICES.has(
+    // handle 'Commercial Mortgage' singular vs 'Commercial Mortgages' plural
+    t.service === 'Commercial Mortgage' ? 'Commercial Mortgages' : t.service
+  ));
+  const allTopics = [...backlogTopics, ...hardcodedExtended];
+
+  const blogQueue = allTopics.filter(t => !existingSlugs.has(t.slug));
+  console.log(`Blog topics: ${backlogTopics.length} from sheet + ${hardcodedExtended.length} hardcoded = ${allTopics.length} total, ${blogQueue.length} not yet scheduled`);
+
+  // ── Load cities from UK_Places tab ─────────────────────────────────────────
+  console.log('\nLoading cities from UK_Places tab...');
+  const sheetCities = await loadUKPlaces(sheets);
+  const citiesToUse = sheetCities.length > 0 ? sheetCities : ALL_CITIES;
+  console.log(`Cities: ${citiesToUse.length} loaded (${sheetCities.length > 0 ? 'from UK_Places tab' : 'hardcoded fallback'})`);
 
   const locationQueue = [];
   for (const service of LOCATION_SERVICES) {
     const meta = SERVICE_META[service];
     const serviceSlug = meta ? meta.slug : service.toLowerCase().replace(/\s+/g, '-');
-    for (const city of ALL_CITIES) {
+    for (const city of citiesToUse) {
       const citySlug = city.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '');
       const slug = `${serviceSlug}-${citySlug}`;
       if (!existingSlugs.has(slug)) {
