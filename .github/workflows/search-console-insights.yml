@@ -1,0 +1,53 @@
+name: Search Console Insights
+
+on:
+  # Runs every Monday at 7:30 UTC — after the AI visibility checker (7:00 UTC)
+  schedule:
+    - cron: '30 7 * * 1'
+
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (no API calls)'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  insights:
+    name: Pull Search Console data
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run Search Console insights
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node search-console-insights.js --dry-run
+          else
+            node search-console-insights.js
+          fi
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## Search Console Insights" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "Pulls keyword opportunities from Google Search Console and writes to the Search_Console tab." >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View Results](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY
