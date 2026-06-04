@@ -186,7 +186,7 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
-    max_tokens: 4000,
+    max_tokens: 6000, // increased from 4000 — 4000 was too tight for 1200-word article + JSON wrapping
     messages: [
       {
         role: 'system',
