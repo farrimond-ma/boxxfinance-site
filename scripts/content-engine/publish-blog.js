@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
 const OpenAI = require('openai');
 const Anthropic = require('@anthropic-ai/sdk');
+const sharp = require('sharp');
 const { google } = require('googleapis');
 
 // ─── Clients ────────────────────────────────────────────────────────────────
@@ -372,7 +373,12 @@ async function fetchPexelsImage(keyword, service) {
 }
 
 async function uploadHeroImage(slug, imageBuffer) {
-  const imagePath = `public/images/blog/${slug}.jpg`;
+  // Convert to WebP for better performance (typically 25-35% smaller than JPEG)
+  const webpBuffer = await sharp(imageBuffer)
+    .webp({ quality: 85 })
+    .toBuffer();
+
+  const imagePath = `public/images/blog/${slug}.webp`;
   let existingSha;
 
   try {
@@ -389,13 +395,13 @@ async function uploadHeroImage(slug, imageBuffer) {
     repo:    GITHUB_REPO,
     path:    imagePath,
     message: `Add hero image: ${slug}`,
-    content: imageBuffer.toString('base64'),
+    content: webpBuffer.toString('base64'),
     branch:  'main',
     ...(existingSha && { sha: existingSha }),
   });
 
-  console.log(`  Hero image uploaded: ${imagePath}`);
-  return `/images/blog/${slug}.jpg`;
+  console.log(`  Hero image uploaded: ${imagePath} (WebP, ${Math.round(webpBuffer.length / 1024)}KB)`);
+  return `/images/blog/${slug}.webp`;
 }
 
 // ─── Get current blogPosts.json from GitHub ───────────────────────────────────

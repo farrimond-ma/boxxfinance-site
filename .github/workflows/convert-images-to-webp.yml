@@ -1,0 +1,36 @@
+name: Convert Images to WebP
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — show what would be converted without doing it'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+      - name: Convert JPEG images to WebP
+        working-directory: scripts/content-engine
+        env:
+          GH_TOKEN:     ${{ secrets.GH_PAT }}
+          GITHUB_OWNER: farrimond-ma
+          GITHUB_REPO:  boxxfinance-site
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node convert-images-to-webp.js --dry-run
+          else
+            node convert-images-to-webp.js
+          fi

@@ -15,6 +15,7 @@ require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
 const OpenAI    = require('openai');
 const Anthropic = require('@anthropic-ai/sdk');
+const sharp     = require('sharp');
 const path      = require('path');
 const fs        = require('fs');
 
@@ -187,7 +188,8 @@ async function fetchPexelsImage(service) {
 }
 
 async function uploadImage(slug, buffer) {
-  const imagePath = `public/images/blog/${slug}.jpg`;
+  const webpBuffer = await sharp(buffer).webp({ quality: 85 }).toBuffer();
+  const imagePath  = `public/images/blog/${slug}.webp`;
   let existingSha;
   try {
     const { data } = await octokit.repos.getContent({ owner: GITHUB_OWNER, repo: GITHUB_REPO, path: imagePath });
@@ -196,11 +198,11 @@ async function uploadImage(slug, buffer) {
   await octokit.repos.createOrUpdateFileContents({
     owner: GITHUB_OWNER, repo: GITHUB_REPO, path: imagePath,
     message: `Update hero image: ${slug}`,
-    content: buffer.toString('base64'),
+    content: webpBuffer.toString('base64'),
     branch: 'main',
     ...(existingSha && { sha: existingSha }),
   });
-  return `/images/blog/${slug}.jpg`;
+  return `/images/blog/${slug}.webp`;
 }
 
 // ─── Humanizer ────────────────────────────────────────────────────────────────
