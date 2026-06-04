@@ -60,10 +60,11 @@ async function generateFacebookPost(post) {
 
 async function postToFacebook(imageUrl, postText, articleUrl) {
   if (!FB_PAGE_ID || !FB_TOKEN) throw new Error('FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN required');
-  // Use /feed endpoint with pages_manage_posts permission (not deprecated /photos)
+  // Use /feed endpoint with pages_manage_posts permission.
+  // Do NOT pass picture — Facebook scrapes og:image from the article URL automatically.
+  // Passing picture causes error #100 unless the app owns the domain in Meta Business.
   const body = { message: postText };
-  if (articleUrl) body.link = articleUrl;   // attaches link card with image preview
-  if (imageUrl)   body.picture = imageUrl;  // override the preview image
+  if (articleUrl) body.link = articleUrl; // Facebook scrapes og:image from this URL
   const res = await fetch('https://graph.facebook.com/' + FB_API_VER + '/' + FB_PAGE_ID + '/feed', {
     method:'POST', headers:{ Authorization:'Bearer ' + FB_TOKEN, 'Content-Type':'application/json' },
     body: JSON.stringify(body),
