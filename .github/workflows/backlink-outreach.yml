@@ -1,0 +1,56 @@
+name: Backlink Outreach Monitor
+
+on:
+  # Runs Monday at 8:00 UTC — after visibility checker (7:00) and insights (7:30)
+  # A full Monday morning SEO sweep: visibility gaps → search console → backlink opportunities
+  schedule:
+    - cron: '0 8 * * 1'
+
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — scan for articles without generating outreach'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  monitor:
+    name: Find and draft backlink opportunities
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run backlink monitor
+        working-directory: scripts/content-engine
+        env:
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node backlink-outreach.js --dry-run
+          else
+            node backlink-outreach.js
+          fi
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## Backlink Outreach Monitor" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "Monitors Bridging & Commercial, Property Reporter, Mortgage Solutions and more." >> $GITHUB_STEP_SUMMARY
+          echo "New opportunities saved to the Backlink_Prospects tab — review and send manually." >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View Prospects](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY
