@@ -249,16 +249,31 @@ function buildVideo(imagePath, script, outputPath, audioPath = null) {
   console.log(`  Video created: ${size} MB`);
 }
 
+// ─── Get Page Access Token (same fix as publish-facebook.js) ─────────────────
+async function getPageToken() {
+  const res = await fetch(
+    `https://graph.facebook.com/${FB_API_VER}/${FB_PAGE_ID}?fields=access_token&access_token=${FB_TOKEN}`
+  );
+  const data = await res.json();
+  if (data.access_token) { console.log('  Page token obtained'); return data.access_token; }
+  const acctRes = await fetch(`https://graph.facebook.com/${FB_API_VER}/me/accounts?access_token=${FB_TOKEN}`);
+  const acctData = await acctRes.json();
+  const page = (acctData.data || []).find(p => p.id === FB_PAGE_ID);
+  if (page?.access_token) return page.access_token;
+  return FB_TOKEN;
+}
+
 // ─── Upload reel to Facebook ──────────────────────────────────────────────────
 async function uploadReel(videoPath, title, description) {
   if (!FB_PAGE_ID || !FB_TOKEN) {
     throw new Error('FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN must be set');
   }
 
+  const pageToken = await getPageToken();
   const base = `https://graph.facebook.com/${FB_API_VER}/${FB_PAGE_ID}/video_reels`;
 
   // Step 1: Initialise upload
-  const startRes = await fetch(`${base}?upload_phase=start&access_token=${FB_TOKEN}`, {
+  const startRes = await fetch(`${base}?upload_phase=start&access_token=${pageToken}`, {
     method: 'POST',
   });
   if (!startRes.ok) throw new Error(`Reel start failed: ${await startRes.text()}`);
@@ -270,11 +285,11 @@ async function uploadReel(videoPath, title, description) {
   const uploadRes = await fetch(upload_url, {
     method:  'POST',
     headers: {
-      Authorization:            `OAuth ${FB_TOKEN}`,
-      'Content-Type':           'application/octet-stream',
-      'Content-Length':         String(videoBuffer.length),
-      'offset':                 '0',
-      'file_size':              String(videoBuffer.length),
+      Authorization:    `OAuth ${pageToken}`,
+      'Content-Type':   'application/octet-stream',
+      'Content-Length': String(videoBuffer.length),
+      'offset':         '0',
+      'file_size':      String(videoBuffer.length),
     },
     body: videoBuffer,
   });
@@ -287,7 +302,7 @@ async function uploadReel(videoPath, title, description) {
     `&video_id=${video_id}` +
     `&title=${encodeURIComponent(title.slice(0, 100))}` +
     `&description=${encodeURIComponent(description.slice(0, 200))}` +
-    `&access_token=${FB_TOKEN}`,
+    `&access_token=${pageToken}`,
     { method: 'POST' }
   );
   if (!publishRes.ok) throw new Error(`Reel publish failed: ${await publishRes.text()}`);
