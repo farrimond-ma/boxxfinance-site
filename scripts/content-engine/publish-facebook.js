@@ -96,11 +96,8 @@ async function postToFacebook(postText, articleUrl) {
     method:'POST', headers:{ Authorization:'Bearer ' + pageToken, 'Content-Type':'application/json' },
     body: JSON.stringify(body),
   });
-  const responseText = await res.text();
-  console.log('Facebook response status: ' + res.status);
-  console.log('Facebook response body: ' + responseText.substring(0, 300));
-  if (!res.ok) throw new Error('Facebook API: ' + responseText);
-  const data = JSON.parse(responseText);
+  if (!res.ok) throw new Error('Facebook API: ' + await res.text());
+  const data = await res.json();
   if (data.error) throw new Error('Facebook API error: ' + JSON.stringify(data.error));
   return data.id || '';
 }
@@ -110,15 +107,6 @@ async function main() {
   const dow = new Date().getUTCDay();
   if ((dow === 0 || dow === 6) && process.env.FORCE_RUN !== 'true') { console.log('Weekend - skipping.'); return; }
   const { posts } = await getBlogPostsFile();
-
-  // Debug: show what the lookback window covers and what candidates exist
-  const today = new Date().toISOString().split('T')[0];
-  const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - LOOKBACK_DAYS);
-  const cutoffDate = cutoff.toISOString().split('T')[0];
-  console.log('Today: ' + today + '  Lookback cutoff: ' + cutoffDate);
-  const candidates = posts.filter(p => p.status === 'published' && p.date >= cutoffDate && p.date <= today);
-  console.log('Posts in date window: ' + candidates.length);
-  candidates.forEach(p => console.log('  ' + p.date + ' fbPosted=' + p.fbPosted + ' slug=' + p.slug));
 
   const post = getUnpostedBlog(posts, 'fbPosted');
   if (!post) { console.log('No unposted blogs in the last 3 days.'); return; }
