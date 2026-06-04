@@ -18,9 +18,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install ffmpeg
-        uses: FedericoCarboni/setup-ffmpeg@v3
-        with:
-          ffmpeg-version: release
+        run: |
+          # libcaca0 noble-updates package has a broken mirror — install base noble version directly
+          wget -q http://archive.ubuntu.com/ubuntu/pool/main/libc/libcaca/libcaca0_0.99.beta20-4build2_amd64.deb
+          sudo dpkg -i libcaca0_0.99.beta20-4build2_amd64.deb
+          sudo apt-get install -y ffmpeg
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

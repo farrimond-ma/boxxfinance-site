@@ -17,7 +17,8 @@ const SITE_URL           = 'https://boxxfinance.co.uk';
 const TMP_DIR            = '/tmp/boxx-reels';
 const LOOKBACK_DAYS      = 3;
 
-const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID || 'XB0fDUnXU5powFXDhCwa';
+// "Rachel" is available on all ElevenLabs tiers. Override via ELEVENLABS_VOICE_ID secret.
+const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID || '21m00Tcm4TlvDq8ikWAM';
 const TIKTOK_ACCESS_TOKEN = process.env.TIKTOK_ACCESS_TOKEN;
 
 // ─── Clients ──────────────────────────────────────────────────────────────────
