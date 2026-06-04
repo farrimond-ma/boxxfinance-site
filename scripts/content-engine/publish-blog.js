@@ -559,26 +559,25 @@ async function main() {
     date: row.publishDate,
     author: row.author || 'Mark Higgins',
     authorEmail: authorEmails[row.author] || 'mark@boxxfinance.co.uk',
+    service: row.service || '',
     heroImage: heroImagePath || getPillarImage(row.service),
     videoId: videoId || null,
     schema: article.faqSchema || null,
     relatedLocationUrls: locationLinks.map(l => l.startsWith('http') ? l : `https://boxxfinance.co.uk${l}`),
     relatedBlogUrls: relatedBlogs.map(b => b.url),
     content: contentHtml,
+    // Social publishing flags — each platform flips its flag to true after posting
+    liPosted:        false,
+    fbPosted:        false,
+    igPosted:        false,
+    pinterestPosted: false,
+    reelPosted:      false,
   };
 
   posts.push(newPost);
   await pushBlogPostsFile(posts, sha, finalSlug);
   await updateSheetRow(sheets, row.rowIndex, finalSlug, fullUrl, publishedAt);
-
-  // Auto-queue social posts if linkedInRequired = yes
-  const needsSocial = (row.linkedInRequired || '').toLowerCase().trim() === 'yes';
-  if (needsSocial) {
-    console.log('linkedInRequired = yes — adding to LinkedIn_Queue...');
-    await addToLinkedInQueue(sheets, row, article.title, finalSlug, fullUrl);
-  } else {
-    console.log('linkedInRequired = no — skipping LinkedIn_Queue entry');
-  }
+  // Social publishers now read directly from blogPosts.json — no queue needed
 
   console.log('=== Done! ===');
   console.log(`Published: ${fullUrl}`);

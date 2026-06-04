@@ -1,296 +1,90 @@
-require('dotenv').config();
-const path = require('path');
-const { google } = require('googleapis');
-const Anthropic = require('@anthropic-ai/sdk');
+﻿require('dotenv').config();
+const GITHUB_OWNER = process.env.GITHUB_OWNER || 'farrimond-ma';
+const GITHUB_REPO  = process.env.GITHUB_REPO  || 'boxxfinance-site';
+const BLOG_FILE    = 'src/data/blogPosts.json';
+const SITE_URL     = 'https://boxxfinance.co.uk';
+const LOOKBACK_DAYS = 3;
+const octokit = new (require('@octokit/rest').Octokit)({ auth: process.env.GH_TOKEN || process.env.GITHUB_TOKEN });
 
-const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
+async function getBlogPostsFile() {
+  const { data } = await octokit.repos.getContent({ owner: GITHUB_OWNER, repo: GITHUB_REPO, path: BLOG_FILE });
+  return { sha: data.sha, posts: JSON.parse(Buffer.from(data.content, 'base64').toString('utf8')) };
+}
+async function pushBlogPostsFile(posts, message) {
+  const { data: latest } = await octokit.repos.getContent({ owner: GITHUB_OWNER, repo: GITHUB_REPO, path: BLOG_FILE });
+  await octokit.repos.createOrUpdateFileContents({
+    owner: GITHUB_OWNER, repo: GITHUB_REPO, path: BLOG_FILE,
+    message, sha: latest.sha, branch: 'main',
+    content: Buffer.from(JSON.stringify(posts, null, 2)).toString('base64'),
+  });
+}
+function getUnpostedBlog(posts, flag) {
+  const today = new Date().toISOString().split('T')[0];
+  const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - LOOKBACK_DAYS);
+  const cutoffDate = cutoff.toISOString().split('T')[0];
+  return posts.filter(p => p.status === 'published' && !p[flag] && p.date >= cutoffDate && p.date <= today)
+    .sort((a, b) => a.date.localeCompare(b.date))[0] || null;
+}
+function getArticleText(post, maxLen) {
+  if (!post.content) return '';
+  return post.content.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/<[^>]+>/g,' ')
+    .replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim().substring(0, maxLen || 2000);
+}
+function getImageUrl(post) {
+  if (post.heroImage) return post.heroImage.startsWith('http') ? post.heroImage : `${SITE_URL}${post.heroImage}`;
+  const serviceKey = (post.service || '').toLowerCase().replace(/\s+/g,'-');
+  const pillar = { 'bridging-finance':'/images/blog/bridging-finance-1.webp','development-finance':'/images/blog/development-finance-1.webp',
+    'commercial-mortgage':'/images/blog/commercial-mortgage-1.webp','commercial-mortgages':'/images/blog/commercial-mortgage-1.webp',
+    'invoice-finance':'/images/blog/invoice-finance-1.webp','asset-finance':'/images/blog/asset-finance-1.webp',
+    'working-capital':'/images/blog/working-capital-1.webp','trade-finance':'/images/blog/trade-finance-1.webp',
+    'business-loans':'/images/blog/business-loans-1.webp','cashflow-finance':'/images/blog/cashflow-finance-1.webp',
+    'mezzanine-finance':'/images/blog/mezzanine-finance-1.webp','structured-finance':'/images/blog/structured-finance-1.webp' };
+  return `${SITE_URL}${pillar[serviceKey] || '/header_bg.png'}`;
+}
+const Anthropic = require('@anthropic-ai/sdk');
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 const FB_PAGE_ID = process.env.FACEBOOK_PAGE_ID;
-const FB_PAGE_TOKEN = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
-const SITE_URL = 'https://boxxfinance.co.uk';
+const FB_TOKEN   = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
 const FB_API_VER = 'v21.0';
 
-// ─── Column mapping for LinkedIn_Queue (0-indexed) ────────────────────────────
-// A=0 id, B=1 publishDate, C=2 service, D=3 keyword, E=4 title
-// F=5 slug, G=6 url, H=7 author, I=8 liStatus, J=9 liPostText
-// K=10 liFirstComment, L=11 notes, M=12 fbStatus, N=13 fbPostText, O=14 fbPostId
-
-// ─── Service → pillar image map ───────────────────────────────────────────────
-// Paths under /images/blog/ — add these files to public/images/blog/ when ready
-const PILLAR_IMAGES = {
-  'bridging-finance':   '/images/blog/bridging-finance-1.webp',
-  'development-finance': '/images/blog/development-finance-1.webp',
-  'commercial-mortgage': '/images/blog/commercial-mortgage-1.webp',
-  'invoice-finance':    '/images/blog/invoice-finance-1.webp',
-  'asset-finance':      '/images/blog/asset-finance-1.webp',
-  'working-capital':    '/images/blog/working-capital-1.webp',
-  'trade-finance':      '/images/blog/trade-finance-1.webp',
-  'property-finance':   '/images/blog/property-finance-1.webp',
-  'business-loans':     '/images/blog/business-loans-1.webp',
-  'cashflow-finance':   '/images/blog/cashflow-finance-1.webp',
-  'mezzanine-finance':  '/images/blog/mezzanine-finance-1.webp',
-  'structured-finance': '/images/blog/structured-finance-1.webp',
-};
-
-// ─── Clients ──────────────────────────────────────────────────────────────────
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
-// ─── Blog post lookup ─────────────────────────────────────────────────────────
-let blogPosts = [];
-try {
-  blogPosts = require('../../src/data/blogPosts.json');
-} catch {
-  console.warn('  Could not load blogPosts.json — will use topic-based fallback');
+async function generateFacebookPost(post) {
+  const text = getArticleText(post, 2000);
+  const url  = post.url.startsWith('http') ? post.url : ${SITE_URL} + post.url;
+  const prompt = text
+    ? 'Write a Facebook post for Boxx Commercial Finance based on this article.\nTitle: ' + post.title + '\nURL: ' + url + '\nContent: ' + text + '\n\nPost requirements:\n- 80-120 words, punchy and mobile-friendly\n- Opens with question or bold statement from the article\n- 2-3 relevant emojis\n- Ends with CTA to read more\n- Include URL on own line then 3 hashtags\n\nFormat:\nPOST:\n[text]\n\n' + url + '\n#tag1 #tag2 #tag3'
+    : 'Write a Facebook post for Boxx Commercial Finance about "' + post.title + '".\n80-120 words, 2-3 emojis, CTA.\nURL: ' + url + '\n\nPOST:\n[text]\n\n' + url + '\n#tag1 #tag2 #tag3';
+  const r = await anthropic.messages.create({ model:'claude-haiku-4-5-20251001', max_tokens:500, messages:[{role:'user',content:prompt}] });
+  const t = r.content[0].type === 'text' ? r.content[0].text : '';
+  return (t.match(/POST:\n([\s\S]*)/) || ['',t])[1].trim();
 }
 
-function getImageUrl(slug, service) {
-  // 1. Post's own hero image (highest priority)
-  const post = blogPosts.find((p) => p.slug === slug);
-  const heroPath = post?.heroImage || post?.image || null;
-  if (heroPath) return `${SITE_URL}${heroPath}`;
-
-  // 2. Service-based pillar image
-  const serviceKey = (service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
-  const pillarPath = PILLAR_IMAGES[serviceKey] || null;
-  if (pillarPath) return `${SITE_URL}${pillarPath}`;
-
-  // 3. Branded fallback — always exists
-  return `${SITE_URL}/header_bg.png`;
-}
-
-// Extract plain text from a blog post's HTML content for use in prompts
-function getArticleContent(slug) {
-  const post = blogPosts.find((p) => p.slug === slug);
-  if (!post) return null;
-  const text = (post.content || '')
-    .replace(/<script[\s\S]*?<\/script>/gi, '')
-    .replace(/<style[\s\S]*?<\/style>/gi, '')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/\s+/g, ' ')
-    .trim();
-  return { title: post.title, text: text.substring(0, 3000) };
-}
-
-// ─── Google Sheets ────────────────────────────────────────────────────────────
-async function getSheetsClient() {
-  let credentials;
-  if (process.env.GOOGLE_CREDENTIALS) {
-    try {
-      credentials = JSON.parse(
-        Buffer.from(process.env.GOOGLE_CREDENTIALS, 'base64').toString('utf8')
-      );
-    } catch {
-      credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
-    }
-  }
-  const auth = credentials
-    ? new google.auth.GoogleAuth({ credentials, scopes: ['https://www.googleapis.com/auth/spreadsheets'] })
-    : new google.auth.GoogleAuth({ keyFile: 'google-credentials.json', scopes: ['https://www.googleapis.com/auth/spreadsheets'] });
-  return google.sheets({ version: 'v4', auth });
-}
-
-async function getPendingRow(sheets) {
-  const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: SPREADSHEET_ID,
-    range: 'LinkedIn_Queue!A2:O',
-  });
-  const rows = res.data.values || [];
-  const today = new Date().toISOString().split('T')[0];
-
-  for (let i = 0; i < rows.length; i++) {
-    const row = rows[i];
-    const publishDate = (row[1] || '').trim();
-    const fbStatus = (row[12] || '').toLowerCase().trim();
-
-    if (publishDate <= today && fbStatus === 'pending') {
-      return {
-        rowIndex: i + 2,
-        id:          row[0] || '',
-        publishDate,
-        service:     row[2] || '',
-        keyword:     row[3] || '',
-        title:       row[4] || '',
-        slug:        row[5] || '',
-        url:         row[6] || '',
-        author:      row[7] || 'Mark Higgins',
-      };
-    }
-  }
-  return null;
-}
-
-// ─── Generate Facebook post via Claude ───────────────────────────────────────
-async function generateFacebookPost(row) {
-  const article = getArticleContent(row.slug);
-
-  let prompt;
-
-  if (article) {
-    console.log(`  Read article content (${article.text.length} chars) — generating post from real insights`);
-    prompt = `You are writing a Facebook post for Boxx Commercial Finance's business page.
-
-This post must draw specific points from the article below — not write independently about the same topic. Pick one clear, practical insight that will resonate with a UK business owner.
-
-ARTICLE TITLE: ${article.title}
-ARTICLE URL: ${row.url}
-
-ARTICLE CONTENT:
-${article.text}
-
----
-
-Write a Facebook post that:
-- Opens with a question or bold statement drawn from a real point in the article
-- Is 80–120 words — punchy and easy to skim on mobile
-- Makes one practical insight from the article feel useful to a UK business owner
-- Feels warm and human — not corporate or salesy
-- Includes 2–3 relevant emojis woven naturally into the text
-- Ends with a call to action to read the full article
-
-Then include the URL on its own line, followed by 3 relevant hashtags on the final line.
-
-Format exactly:
-POST:
-[the post text]
-
-${row.url}
-#hashtag1 #hashtag2 #hashtag3`;
-  } else {
-    console.log(`  Article not found for "${row.slug}" — using topic-based fallback`);
-    prompt = `You are writing a Facebook post for Boxx Commercial Finance's business page.
-
-Topic: "${row.title}"
-Keyword: ${row.keyword}
-Service area: ${row.service}
-Blog URL: ${row.url}
-
-Write a Facebook post that:
-- Opens with a question or bold statement that immediately grabs attention
-- Is 80–120 words — punchy and easy to skim on mobile
-- Explains the topic in plain English, avoiding financial jargon
-- Feels warm, helpful, and approachable — not corporate or salesy
-- Includes 2–3 relevant emojis woven naturally into the text
-- Ends with a clear call to action to read the full article
-
-Then include the URL on its own line, followed by 3 relevant hashtags on the final line.
-
-Format exactly:
-POST:
-[the post text]
-
-${row.url}
-#hashtag1 #hashtag2 #hashtag3`;
-  }
-
-  const response = await anthropic.messages.create({
-    model: 'claude-haiku-4-5-20251001',
-    max_tokens: 500,
-    messages: [{ role: 'user', content: prompt }],
-  });
-
-  const text = response.content[0].type === 'text' ? response.content[0].text : '';
-  const postMatch = text.match(/POST:\n([\s\S]*?)$/);
-  return postMatch ? postMatch[1].trim() : text.trim();
-}
-
-// ─── Post photo to Facebook page ──────────────────────────────────────────────
 async function postToFacebook(imageUrl, postText) {
-  if (!FB_PAGE_ID || !FB_PAGE_TOKEN) {
-    throw new Error('FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN must be set');
-  }
-
-  const endpoint = `https://graph.facebook.com/${FB_API_VER}/${FB_PAGE_ID}/photos`;
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${FB_PAGE_TOKEN}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      url:       imageUrl,
-      message:   postText,
-      published: true,
-    }),
+  if (!FB_PAGE_ID || !FB_TOKEN) throw new Error('FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN required');
+  const res = await fetch('https://graph.facebook.com/' + FB_API_VER + '/' + FB_PAGE_ID + '/photos', {
+    method:'POST', headers:{ Authorization:'Bearer ' + FB_TOKEN, 'Content-Type':'application/json' },
+    body: JSON.stringify({ url: imageUrl, message: postText, published: true }),
   });
-
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Facebook API error: ${err}`);
-  }
-
+  if (!res.ok) throw new Error('Facebook API: ' + await res.text());
   const data = await res.json();
-  // Response shape: { id: "photo_id", post_id: "page_post_id" }
   return data.post_id || data.id || '';
 }
 
-// ─── Update sheet row ─────────────────────────────────────────────────────────
-async function updateRow(sheets, rowIndex, postText, postId, status) {
-  await sheets.spreadsheets.values.update({
-    spreadsheetId: SPREADSHEET_ID,
-    range: `LinkedIn_Queue!M${rowIndex}:O${rowIndex}`,
-    valueInputOption: 'RAW',
-    requestBody: {
-      values: [[status, postText, postId || '']],
-    },
-  });
-}
-
-// ─── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
-  console.log('\n╔══════════════════════════════════════════╗');
-  console.log('║   Boxx Finance — Facebook Publisher      ║');
-  console.log('╚══════════════════════════════════════════╝\n');
-
-  // Facebook posts weekdays only (Mon–Fri). Skip gracefully on weekends
-  // unless FORCE_RUN=true is set.
-  const dayOfWeek = new Date().getUTCDay(); // 0=Sun, 6=Sat
-  if ((dayOfWeek === 0 || dayOfWeek === 6) && process.env.FORCE_RUN !== 'true') {
-    console.log('  Today is a weekend — Facebook publishing is weekdays only. Done.\n');
-    return;
-  }
-
-  const sheets = await getSheetsClient();
-
-  console.log('Finding pending Facebook row...');
-  const row = await getPendingRow(sheets);
-
-  if (!row) {
-    console.log('  No pending Facebook posts for today. Done.\n');
-    return;
-  }
-
-  console.log(`  Found: "${row.title}" (${row.publishDate})`);
-
-  const imageUrl = getImageUrl(row.slug, row.service);
-  console.log(`  Image: ${imageUrl}`);
-
-  console.log('\nGenerating Facebook post via Claude...');
-  const postText = await generateFacebookPost(row);
-  console.log(`  Post: ${postText.slice(0, 100)}...`);
-
-  console.log('\nPosting to Facebook page...');
-  let postId = '';
-  let status = 'posted';
-
+  console.log('[Facebook Publisher]');
+  const dow = new Date().getUTCDay();
+  if ((dow === 0 || dow === 6) && process.env.FORCE_RUN !== 'true') { console.log('Weekend - skipping.'); return; }
+  const { posts } = await getBlogPostsFile();
+  const post = getUnpostedBlog(posts, 'fbPosted');
+  if (!post) { console.log('No unposted blogs in the last 3 days.'); return; }
+  console.log('Found: "' + post.title + '" (' + post.date + ')');
+  const postText = await generateFacebookPost(post);
+  const imageUrl = getImageUrl(post);
   try {
-    postId = await postToFacebook(imageUrl, postText);
-    console.log(`  ✅ Posted successfully — ID: ${postId}`);
-  } catch (err) {
-    console.error(`  ❌ Failed: ${err.message}`);
-    status = 'failed';
-  }
-
-  console.log('\nUpdating LinkedIn_Queue sheet...');
-  await updateRow(sheets, row.rowIndex, postText, postId, status);
-  console.log(`  Row ${row.rowIndex} updated — status: ${status}`);
-
-  console.log('\n✅ Done.\n');
+    const id = await postToFacebook(imageUrl, postText);
+    post.fbPosted = true;
+    console.log('Facebook posted: ' + id);
+  } catch (err) { console.error('Facebook failed: ' + err.message); }
+  await pushBlogPostsFile(posts, 'social: facebook posted for ' + post.slug);
+  console.log('Done.');
 }
-
-main().catch((err) => {
-  console.error('\n❌ Fatal error:', err.message);
-  process.exit(1);
-});
+main().catch(err => { console.error('Fatal:', err.message); process.exit(1); });
