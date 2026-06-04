@@ -21,8 +21,9 @@ require('dotenv').config();
 const { google } = require('googleapis');
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
-const SITE_URL       = 'https://boxxfinance.co.uk/'; // must match SC property exactly
-const SHEET_TAB      = 'Search_Console';
+const SITE_URL       = 'https://boxxfinance.co.uk/';
+const RAW_TAB        = 'SC_Raw';         // populated by Search Analytics for Sheets add-on
+const OUTPUT_TAB     = 'Search_Console'; // written by this script after analysis
 const LOOKBACK_DAYS  = 28;
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
@@ -34,10 +35,7 @@ async function getAuth() {
   catch { credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS); }
   return new google.auth.GoogleAuth({
     credentials,
-    scopes: [
-      'https://www.googleapis.com/auth/webmasters.readonly',
-      'https://www.googleapis.com/auth/spreadsheets',
-    ],
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
 }
 
@@ -52,24 +50,33 @@ function getDateRange() {
   };
 }
 
-// ─── Search Console query ─────────────────────────────────────────────────────
+// ─── Read raw data from SC_Raw tab (populated by Search Analytics add-on) ────
+// Columns: A=Query, B=Page, C=Clicks, D=Impressions, E=CTR, F=Position
 
-async function querySearchConsole(auth, dimensions, rowLimit = 1000) {
-  const sc = google.searchconsole({ version: 'v1', auth });
-  const { startDate, endDate } = getDateRange();
-
-  const res = await sc.searchanalytics.query({
-    siteUrl: SITE_URL,
-    requestBody: {
-      startDate,
-      endDate,
-      dimensions,
-      rowLimit,
-      dataState: 'final',
-    },
+async function readRawData(sheets) {
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: `${RAW_TAB}!A2:F`,
   });
+  const rows = res.data.values || [];
 
-  return res.data.rows || [];
+  const queryRows = [];
+  const pageRows  = [];
+
+  for (const row of rows) {
+    if (!row[0] || !row[1]) continue;
+    const query       = (row[0] || '').trim();
+    const page        = (row[1] || '').trim();
+    const clicks      = parseInt(row[2])  || 0;
+    const impressions = parseInt(row[3])  || 0;
+    const ctr         = parseFloat((row[4] || '0').replace('%','')) / 100;
+    const position    = parseFloat(row[5]) || 0;
+
+    queryRows.push({ keys: [query], clicks, impressions, ctr, position });
+    pageRows.push({  keys: [page],  clicks, impressions, ctr, position });
+  }
+
+  return { queryRows, pageRows };
 }
 
 // ─── Analysis ─────────────────────────────────────────────────────────────────
@@ -216,25 +223,27 @@ async function main() {
   console.log(`Date range: ${startDate} to ${endDate}\n`);
 
   if (isDryRun) {
-    console.log('Dry run — skipping API calls.');
+    console.log('Dry run — skipping sheet read.');
     return;
   }
 
-  // Query by keyword and by page
-  console.log('Fetching keyword data from Search Console...');
+  // Read from SC_Raw tab (populated by Search Analytics for Sheets add-on)
+  console.log(`Reading raw data from ${RAW_TAB} tab...`);
   let queryRows, pageRows;
   try {
-    queryRows = await querySearchConsole(auth, ['query']);
-    pageRows  = await querySearchConsole(auth, ['page']);
-    console.log(`  ${queryRows.length} keywords, ${pageRows.length} pages returned`);
+    const raw = await readRawData(sheets);
+    queryRows = raw.queryRows;
+    pageRows  = raw.pageRows;
+    console.log(`  ${queryRows.length} keyword rows read`);
   } catch (err) {
-    if (err.message.includes('403') || err.message.includes('permission')) {
-      console.error('\n❌ Permission denied. Add the service account email to Search Console:');
-      console.error('   Search Console → Settings → Users and permissions → Add user');
-      console.error('   Service account email is in your GOOGLE_CREDENTIALS JSON (client_email field)');
-      process.exit(1);
-    }
-    throw err;
+    console.error(`\n❌ Could not read ${RAW_TAB} tab: ${err.message}`);
+    console.error(`   Make sure the Search Analytics for Sheets add-on has run and the tab is named "${RAW_TAB}"`);
+    process.exit(1);
+  }
+
+  if (queryRows.length === 0) {
+    console.log(`  ${RAW_TAB} tab is empty — has the add-on run yet?`);
+    return;
   }
 
   // Analyse
