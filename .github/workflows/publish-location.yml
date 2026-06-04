@@ -2,9 +2,9 @@ name: Publish Location
 
 on:
   schedule:
-    # 8:00 AM UTC = 9:00 AM UK time (BST). Runs every day.
-    # Publishes ALL location pages due today or earlier in one run.
-    - cron: '0 8 * * *'
+    # 8:00 AM UTC = 9:00 AM UK time (BST). Weekdays only.
+    # Weekends: blog posts only. Location pages + social = Mon-Fri.
+    - cron: '0 8 * * 1-5'
   workflow_dispatch:
 
 permissions:
