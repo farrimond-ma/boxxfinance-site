@@ -68,8 +68,12 @@ async function postToFacebook(imageUrl, postText, articleUrl) {
     method:'POST', headers:{ Authorization:'Bearer ' + FB_TOKEN, 'Content-Type':'application/json' },
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw new Error('Facebook API: ' + await res.text());
-  const data = await res.json();
+  const responseText = await res.text();
+  console.log('Facebook response status: ' + res.status);
+  console.log('Facebook response body: ' + responseText.substring(0, 500));
+  if (!res.ok) throw new Error('Facebook API: ' + responseText);
+  const data = JSON.parse(responseText);
+  if (data.error) throw new Error('Facebook API error: ' + JSON.stringify(data.error));
   return data.id || '';
 }
 
