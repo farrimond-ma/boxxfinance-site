@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /dashboard
 
 Sitemap: https://boxxfinance.co.uk/sitemap.xml
