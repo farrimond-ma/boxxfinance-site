@@ -113,6 +113,7 @@ export default function ContentDashboard() {
       <SEO
         title="Content Engine Dashboard | Boxx Commercial Finance"
         description="Live status dashboard for the Boxx content publishing system."
+        noIndex={true}
       />
 
       {/* Header */}

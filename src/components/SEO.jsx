@@ -13,6 +13,7 @@ const SEO = ({
     schema,
     image,
     canonical,
+    noIndex = false,
 }) => {
     const fullTitle = `${title} | Boxx Commercial Finance`;
     const canonicalUrl = canonical
@@ -27,6 +28,7 @@ const SEO = ({
             {/* Standard metadata */}
             <title>{fullTitle}</title>
             <meta name='description' content={description} />
+            {noIndex && <meta name='robots' content='noindex, nofollow' />}
             {keywords && <meta name='keywords' content={keywords} />}
             <link rel='canonical' href={canonicalUrl} />
 

@@ -34,9 +34,10 @@ function App() {
           <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
           <Route path="uk-sme-funding-index/:archiveSlug" element={<SmeFundingIndex />} />
           <Route path="locations/:slug" element={<LocationPage />} />
-          <Route path="dashboard" element={<ContentDashboard />} />
           <Route path="*" element={<NotFound />} />
         </Route>
+        {/* Dashboard sits outside Layout — no navbar, no footer */}
+        <Route path="/dashboard" element={<ContentDashboard />} />
       </Routes>
     </>
   );
