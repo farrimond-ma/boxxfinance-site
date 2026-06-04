@@ -58,15 +58,19 @@ async function generateFacebookPost(post) {
   return (t.match(/POST:\n([\s\S]*)/) || ['',t])[1].trim();
 }
 
-async function postToFacebook(imageUrl, postText) {
+async function postToFacebook(imageUrl, postText, articleUrl) {
   if (!FB_PAGE_ID || !FB_TOKEN) throw new Error('FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN required');
-  const res = await fetch('https://graph.facebook.com/' + FB_API_VER + '/' + FB_PAGE_ID + '/photos', {
+  // Use /feed endpoint with pages_manage_posts permission (not deprecated /photos)
+  const body = { message: postText };
+  if (articleUrl) body.link = articleUrl;   // attaches link card with image preview
+  if (imageUrl)   body.picture = imageUrl;  // override the preview image
+  const res = await fetch('https://graph.facebook.com/' + FB_API_VER + '/' + FB_PAGE_ID + '/feed', {
     method:'POST', headers:{ Authorization:'Bearer ' + FB_TOKEN, 'Content-Type':'application/json' },
-    body: JSON.stringify({ url: imageUrl, message: postText, published: true }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) throw new Error('Facebook API: ' + await res.text());
   const data = await res.json();
-  return data.post_id || data.id || '';
+  return data.id || '';
 }
 
 async function main() {
@@ -87,10 +91,11 @@ async function main() {
   const post = getUnpostedBlog(posts, 'fbPosted');
   if (!post) { console.log('No unposted blogs in the last 3 days.'); return; }
   console.log('Found: "' + post.title + '" (' + post.date + ')');
-  const postText = await generateFacebookPost(post);
-  const imageUrl = getImageUrl(post);
+  const postText  = await generateFacebookPost(post);
+  const imageUrl  = getImageUrl(post);
+  const articleUrl = post.url.startsWith('http') ? post.url : SITE_URL + post.url;
   try {
-    const id = await postToFacebook(imageUrl, postText);
+    const id = await postToFacebook(imageUrl, postText, articleUrl);
     post.fbPosted = true;
     console.log('Facebook posted: ' + id);
   } catch (err) { console.error('Facebook failed: ' + err.message); }
