@@ -58,20 +58,47 @@ async function generateFacebookPost(post) {
   return (t.match(/POST:\n([\s\S]*)/) || ['',t])[1].trim();
 }
 
-async function postToFacebook(imageUrl, postText, articleUrl) {
+// Exchange system user token for Page Access Token.
+// System user tokens are User tokens — posting to a Page requires a Page token.
+async function getPageToken() {
+  const res = await fetch(
+    'https://graph.facebook.com/' + FB_API_VER + '/' + FB_PAGE_ID +
+    '?fields=access_token&access_token=' + FB_TOKEN
+  );
+  const data = await res.json();
+  if (data.access_token) {
+    console.log('  Page Access Token obtained via /page?fields=access_token');
+    return data.access_token;
+  }
+  // Fallback: try /me/accounts
+  const acctRes = await fetch(
+    'https://graph.facebook.com/' + FB_API_VER + '/me/accounts?access_token=' + FB_TOKEN
+  );
+  const acctData = await acctRes.json();
+  const page = (acctData.data || []).find(p => p.id === FB_PAGE_ID);
+  if (page?.access_token) {
+    console.log('  Page Access Token obtained via /me/accounts');
+    return page.access_token;
+  }
+  console.log('  Could not get Page Access Token — using stored token as fallback');
+  return FB_TOKEN;
+}
+
+async function postToFacebook(postText, articleUrl) {
   if (!FB_PAGE_ID || !FB_TOKEN) throw new Error('FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN required');
-  // Use /feed endpoint with pages_manage_posts permission.
-  // Do NOT pass picture — Facebook scrapes og:image from the article URL automatically.
-  // Passing picture causes error #100 unless the app owns the domain in Meta Business.
+
+  const pageToken = await getPageToken();
+
   const body = { message: postText };
-  if (articleUrl) body.link = articleUrl; // Facebook scrapes og:image from this URL
+  if (articleUrl) body.link = articleUrl;
+
   const res = await fetch('https://graph.facebook.com/' + FB_API_VER + '/' + FB_PAGE_ID + '/feed', {
-    method:'POST', headers:{ Authorization:'Bearer ' + FB_TOKEN, 'Content-Type':'application/json' },
+    method:'POST', headers:{ Authorization:'Bearer ' + pageToken, 'Content-Type':'application/json' },
     body: JSON.stringify(body),
   });
   const responseText = await res.text();
   console.log('Facebook response status: ' + res.status);
-  console.log('Facebook response body: ' + responseText.substring(0, 500));
+  console.log('Facebook response body: ' + responseText.substring(0, 300));
   if (!res.ok) throw new Error('Facebook API: ' + responseText);
   const data = JSON.parse(responseText);
   if (data.error) throw new Error('Facebook API error: ' + JSON.stringify(data.error));
@@ -96,11 +123,10 @@ async function main() {
   const post = getUnpostedBlog(posts, 'fbPosted');
   if (!post) { console.log('No unposted blogs in the last 3 days.'); return; }
   console.log('Found: "' + post.title + '" (' + post.date + ')');
-  const postText  = await generateFacebookPost(post);
-  const imageUrl  = getImageUrl(post);
+  const postText   = await generateFacebookPost(post);
   const articleUrl = post.url.startsWith('http') ? post.url : SITE_URL + post.url;
   try {
-    const id = await postToFacebook(imageUrl, postText, articleUrl);
+    const id = await postToFacebook(postText, articleUrl);
     post.fbPosted = true;
     console.log('Facebook posted: ' + id);
   } catch (err) { console.error('Facebook failed: ' + err.message); }
