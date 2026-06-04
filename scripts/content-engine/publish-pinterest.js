@@ -60,7 +60,7 @@ async function generatePinDescription(post) {
 async function createPin(post, description, imageUrl, boardId) {
   if (!PINTEREST_TOKEN) throw new Error('PINTEREST_ACCESS_TOKEN required');
   if (!boardId) throw new Error('PINTEREST_BOARD_ID required');
-  const url = post.url.startsWith('http') ? post.url : ${SITE_URL} + post.url;
+  const url = post.url.startsWith('http') ? post.url : SITE_URL + post.url;
   const res = await fetch('https://api.pinterest.com/v5/pins', {
     method:'POST', headers:{ Authorization:'Bearer ' + PINTEREST_TOKEN, 'Content-Type':'application/json' },
     body: JSON.stringify({ board_id:boardId, title:post.title.slice(0,100), description, link:url, media_source:{ source_type:'image_url', url:imageUrl } }),

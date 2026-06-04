@@ -49,7 +49,7 @@ const FB_API_VER = 'v21.0';
 
 async function generateCaption(post) {
   const text = getArticleText(post, 2000);
-  const url  = post.url.startsWith('http') ? post.url : ${SITE_URL} + post.url;
+  const url  = post.url.startsWith('http') ? post.url : SITE_URL + post.url;
   const prompt = 'Write an Instagram caption for Boxx Commercial Finance.\nTitle: ' + post.title + (text ? '\nContent: ' + text : '') + '\n\nCaption requirements:\n- Hook line (max 15 words) that shows above "more"\n- 3-4 punchy lines from the article\n- 4-5 natural emojis\n- CTA: "Link in bio" or similar\n- Blank line then 20-25 hashtags on one line\n\nFormat:\nCAPTION:\n[hook]\n\n[body]\n\n[cta]\n\nHASHTAGS:\n#tag1 #tag2 ...';
   const r = await anthropic.messages.create({ model:'claude-haiku-4-5-20251001', max_tokens:600, messages:[{role:'user',content:prompt}] });
   const t = r.content[0].type === 'text' ? r.content[0].text : '';
