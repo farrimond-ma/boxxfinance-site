@@ -2,150 +2,100 @@ require('dotenv').config();
 const { execSync } = require('child_process');
 const fs   = require('fs');
 const path = require('path');
-const { google } = require('googleapis');
+const { Octokit } = require('@octokit/rest');
 const Anthropic = require('@anthropic-ai/sdk');
 
 // ─── Config ───────────────────────────────────────────────────────────────────
-const SPREADSHEET_ID     = process.env.SPREADSHEET_ID;
+const GITHUB_OWNER       = process.env.GITHUB_OWNER || 'farrimond-ma';
+const GITHUB_REPO        = process.env.GITHUB_REPO  || 'boxxfinance-site';
+const BLOG_FILE          = 'src/data/blogPosts.json';
 const FB_PAGE_ID         = process.env.FACEBOOK_PAGE_ID;
 const FB_TOKEN           = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
 const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
 const FB_API_VER         = 'v21.0';
 const SITE_URL           = 'https://boxxfinance.co.uk';
 const TMP_DIR            = '/tmp/boxx-reels';
+const LOOKBACK_DAYS      = 3;
 
-// ElevenLabs voice — "Charlotte" (British female, professional)
-// See https://api.elevenlabs.io/v1/voices for full list
 const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID || 'XB0fDUnXU5powFXDhCwa';
-
-// TikTok
 const TIKTOK_ACCESS_TOKEN = process.env.TIKTOK_ACCESS_TOKEN;
 
-// ─── Column mapping for LinkedIn_Queue (0-indexed) ────────────────────────────
-// A=0 id, B=1 publishDate, C=2 service, D=3 keyword, E=4 title
-// F=5 slug, G=6 url, H=7 author
-// I=8 liStatus ... P=15 igStatus ... S=18 pinterestStatus
-// V=21 reelStatus, W=22 reelId, X=23 tiktokStatus, Y=24 tiktokVideoId
-
-// ─── Pillar image fallbacks ───────────────────────────────────────────────────
-const PILLAR_IMAGES = {
-  'bridging-finance':    '/images/blog/bridging-finance-1.webp',
-  'development-finance': '/images/blog/development-finance-1.webp',
-  'commercial-mortgages':'/images/blog/commercial-mortgage-1.webp',
-  'invoice-finance':     '/images/blog/invoice-finance-1.webp',
-  'asset-finance':       '/images/blog/asset-finance-1.webp',
-  'working-capital':     '/images/blog/working-capital-1.webp',
-  'trade-finance':       '/images/blog/trade-finance-1.webp',
-  'cashflow-finance':    '/images/blog/cashflow-finance-1.webp',
-  'business-loans':      '/images/blog/business-loans-1.webp',
-  'mezzanine-finance':   '/images/blog/mezzanine-finance-1.webp',
-  'structured-finance':  '/images/blog/structured-finance-1.webp',
-};
-
 // ─── Clients ──────────────────────────────────────────────────────────────────
+const octokit   = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_TOKEN });
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-let blogPosts = [];
-try { blogPosts = require('../../src/data/blogPosts.json'); } catch {}
-
-// ─── Google Sheets ────────────────────────────────────────────────────────────
-async function getSheetsClient() {
-  let credentials;
-  if (process.env.GOOGLE_CREDENTIALS) {
-    try { credentials = JSON.parse(Buffer.from(process.env.GOOGLE_CREDENTIALS, 'base64').toString('utf8')); }
-    catch { credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS); }
-  }
-  const auth = credentials
-    ? new google.auth.GoogleAuth({ credentials, scopes: ['https://www.googleapis.com/auth/spreadsheets'] })
-    : new google.auth.GoogleAuth({ keyFile: 'google-credentials.json', scopes: ['https://www.googleapis.com/auth/spreadsheets'] });
-  return google.sheets({ version: 'v4', auth });
+// ─── GitHub helpers ───────────────────────────────────────────────────────────
+async function getBlogPostsFile() {
+  const { data } = await octokit.repos.getContent({ owner: GITHUB_OWNER, repo: GITHUB_REPO, path: BLOG_FILE });
+  return { sha: data.sha, posts: JSON.parse(Buffer.from(data.content, 'base64').toString('utf8')) };
 }
 
-async function getPendingRow(sheets) {
-  const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: SPREADSHEET_ID,
-    range: 'LinkedIn_Queue!A2:Y',
+async function pushBlogPostsFile(posts, message) {
+  const { data: latest } = await octokit.repos.getContent({ owner: GITHUB_OWNER, repo: GITHUB_REPO, path: BLOG_FILE });
+  await octokit.repos.createOrUpdateFileContents({
+    owner: GITHUB_OWNER, repo: GITHUB_REPO, path: BLOG_FILE,
+    message, sha: latest.sha, branch: 'main',
+    content: Buffer.from(JSON.stringify(posts, null, 2)).toString('base64'),
   });
-  const rows  = res.data.values || [];
+}
+
+function getUnpostedBlog(posts) {
   const today = new Date().toISOString().split('T')[0];
-
-  for (let i = 0; i < rows.length; i++) {
-    const row        = rows[i];
-    const pubDate    = (row[1] || '').trim();
-    const reelStatus = (row[21] || '').toLowerCase().trim();
-
-    if (pubDate <= today && reelStatus === 'pending') {
-      return {
-        rowIndex: i + 2,
-        publishDate: pubDate,
-        service: row[2] || '',
-        keyword: row[3] || '',
-        title:   row[4] || '',
-        slug:    row[5] || '',
-        url:     row[6] || '',
-        author:  row[7] || '',
-      };
-    }
-  }
-  return null;
+  const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - LOOKBACK_DAYS);
+  const cutoffDate = cutoff.toISOString().split('T')[0];
+  return posts
+    .filter(p => p.status === 'published' && !p.reelPosted && p.date >= cutoffDate && p.date <= today)
+    .sort((a, b) => a.date.localeCompare(b.date))[0] || null;
 }
 
-async function updateRow(sheets, rowIndex, reelId, reelStatus, tiktokId, tiktokStatus) {
-  await sheets.spreadsheets.values.update({
-    spreadsheetId: SPREADSHEET_ID,
-    range:         `LinkedIn_Queue!V${rowIndex}:Y${rowIndex}`,
-    valueInputOption: 'RAW',
-    requestBody: { values: [[reelStatus, reelId || '', tiktokStatus, tiktokId || '']] },
-  });
-}
+// ─── Image URL helper ─────────────────────────────────────────────────────────
+const PILLAR_IMAGES = {
+  'bridging-finance':'/images/blog/bridging-finance-1.webp','development-finance':'/images/blog/development-finance-1.webp',
+  'commercial-mortgages':'/images/blog/commercial-mortgage-1.webp','invoice-finance':'/images/blog/invoice-finance-1.webp',
+  'asset-finance':'/images/blog/asset-finance-1.webp','working-capital':'/images/blog/working-capital-1.webp',
+  'trade-finance':'/images/blog/trade-finance-1.webp','cashflow-finance':'/images/blog/cashflow-finance-1.webp',
+  'business-loans':'/images/blog/business-loans-1.webp','mezzanine-finance':'/images/blog/mezzanine-finance-1.webp',
+  'structured-finance':'/images/blog/structured-finance-1.webp',
+};
 
-// ─── Get image URL for the blog post ─────────────────────────────────────────
-function getImageUrl(slug, service) {
-  const post = blogPosts.find(p => p.slug === slug);
-  if (post?.heroImage) return `${SITE_URL}${post.heroImage}`;
-  if (post) return `${SITE_URL}/images/blog/${slug}.jpg`;
-  const key = (service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+function getImageUrl(post) {
+  if (post?.heroImage) return post.heroImage.startsWith('http') ? post.heroImage : `${SITE_URL}${post.heroImage}`;
+  if (post?.slug) return `${SITE_URL}/images/blog/${post.slug}.jpg`;
+  const key = (post?.service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
   return `${SITE_URL}${PILLAR_IMAGES[key] || '/header_bg.png'}`;
 }
 
-// ─── Generate reel script via Claude ─────────────────────────────────────────
-function getArticleContent(slug) {
-  const post = blogPosts.find(p => p.slug === slug);
-  if (!post) return null;
-  const text = (post.content || '')
-    .replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-  return text.substring(0, 2000);
+// ─── Article content helper ───────────────────────────────────────────────────
+function getArticleContent(post) {
+  if (!post?.content) return null;
+  return post.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 2000);
 }
 
-async function generateReelScript(row) {
-  const content = getArticleContent(row.slug);
-
+async function generateReelScript(post) {
+  const content = getArticleContent(post);
   const prompt = `You are writing text for a 20-second Facebook Reel for Boxx Commercial Finance.
 
-${content
-  ? `ARTICLE: "${row.title}"\n\nCONTENT:\n${content}`
-  : `TOPIC: "${row.title}" — service: ${row.service}`}
+${content ? `ARTICLE: "${post.title}"\n\nCONTENT:\n${content}` : `TOPIC: "${post.title}" — service: ${post.service}`}
 
-Write exactly 4 lines of text to display on screen. Requirements:
-- LINE 1 (HOOK): A bold statement or question. Max 8 words. All caps.
+Write exactly 4 lines of text to display on screen:
+- LINE 1 (HOOK): Bold statement or question. Max 8 words. All caps.
 - LINE 2 (INSIGHT 1): One practical fact from the article. Max 10 words.
 - LINE 3 (INSIGHT 2): One more insight or benefit. Max 10 words.
 - LINE 4 (CTA): Exactly: "Read more at boxxfinance.co.uk"
 
-Return ONLY the 4 lines, one per line, nothing else. No labels, no numbering.`;
+Return ONLY the 4 lines, one per line, nothing else.`;
 
   const response = await anthropic.messages.create({
-    model:      'claude-haiku-4-5-20251001',
-    max_tokens: 150,
-    messages:   [{ role: 'user', content: prompt }],
+    model: 'claude-haiku-4-5-20251001', max_tokens: 150,
+    messages: [{ role: 'user', content: prompt }],
   });
 
   const text  = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
   const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
 
   return {
-    hook:     lines[0] || row.title.toUpperCase().substring(0, 40),
-    insight1: lines[1] || `Expert ${row.service} advice for UK businesses`,
+    hook:     lines[0] || post.title.toUpperCase().substring(0, 40),
+    insight1: lines[1] || `Expert ${post.service || ''} advice for UK businesses`,
     insight2: lines[2] || 'Fast, flexible funding solutions',
     cta:      lines[3] || 'Read more at boxxfinance.co.uk',
   };
@@ -443,84 +393,57 @@ async function main() {
     return;
   }
 
-  const sheets = await getSheetsClient();
+  const { posts } = await getBlogPostsFile();
+  const post = getUnpostedBlog(posts);
+  if (!post) { console.log('  No unposted blogs in the last 3 days. Done.\n'); return; }
 
-  console.log('Finding pending reel row...');
-  const row = await getPendingRow(sheets);
-  if (!row) {
-    console.log('  No pending reels today. Done.\n');
-    return;
-  }
+  console.log(`  Found: "${post.title}" (${post.date})`);
 
-  console.log(`  Found: "${row.title}" (${row.publishDate})`);
-
-  // Prepare temp dir
   if (!fs.existsSync(TMP_DIR)) fs.mkdirSync(TMP_DIR, { recursive: true });
-  const imagePath = path.join(TMP_DIR, `${row.slug}.jpg`);
-  const videoPath = path.join(TMP_DIR, `${row.slug}.mp4`);
+  const imagePath = path.join(TMP_DIR, `${post.slug}.jpg`);
+  const videoPath = path.join(TMP_DIR, `${post.slug}.mp4`);
 
-  // Download image
-  const imageUrl = getImageUrl(row.slug, row.service);
+  const imageUrl = getImageUrl(post);
   console.log(`\nDownloading image: ${imageUrl}`);
   await downloadImage(imageUrl, imagePath);
 
-  // Generate reel script
   console.log('\nGenerating reel script via Claude...');
-  const script = await generateReelScript(row);
-  console.log(`  Hook     : ${script.hook}`);
-  console.log(`  Insight 1: ${script.insight1}`);
-  console.log(`  Insight 2: ${script.insight2}`);
-  console.log(`  CTA      : ${script.cta}`);
+  const script = await generateReelScript(post);
+  console.log(`  Hook: ${script.hook}`);
 
-  // Generate voiceover
-  const audioPath = path.join(TMP_DIR, `${row.slug}.mp3`);
+  const audioPath = path.join(TMP_DIR, `${post.slug}.mp3`);
   console.log('\nGenerating voiceover via ElevenLabs...');
   const voiceoverPath = await generateVoiceover(script, audioPath);
 
-  // Build video (duration matches speech if voiceover available)
   console.log('\nBuilding video with ffmpeg...');
   buildVideo(imagePath, script, videoPath, voiceoverPath);
-
-  // Clean up audio temp file
   if (voiceoverPath) { try { fs.unlinkSync(voiceoverPath); } catch {} }
 
-  // Upload and publish
-  console.log('\nUploading reel to Facebook...');
-  let reelId = '';
-  let status = 'posted';
+  const postUrl = post.url.startsWith('http') ? post.url : `${SITE_URL}${post.url}`;
 
+  console.log('\nUploading reel to Facebook...');
   try {
-    const description = `${script.insight1} ${script.insight2} ${row.url}`;
-    reelId = await uploadReel(videoPath, row.title, description);
+    const description = `${script.insight1} ${script.insight2} ${postUrl}`;
+    const reelId = await uploadReel(videoPath, post.title, description);
+    post.reelPosted = true;
     console.log(`  ✅ Reel published — ID: ${reelId}`);
   } catch (err) {
-    console.error(`  ❌ Failed: ${err.message}`);
-    status = 'failed';
+    console.error(`  ❌ Reel failed: ${err.message}`);
   }
 
-  // Post to TikTok (same video — no re-generation needed)
   console.log('\nPosting to TikTok...');
-  let tiktokId     = '';
-  let tiktokStatus = 'skipped';
-
   if (TIKTOK_ACCESS_TOKEN) {
     try {
-      tiktokId     = await publishToTikTok(videoPath, row.title) || '';
-      tiktokStatus = 'posted';
-    } catch (err) {
-      console.error(`  ❌ TikTok failed: ${err.message}`);
-      tiktokStatus = 'failed';
-    }
+      await publishToTikTok(videoPath, post.title);
+      console.log('  ✅ TikTok posted');
+    } catch (err) { console.error(`  ❌ TikTok failed: ${err.message}`); }
   } else {
     console.log('  TIKTOK_ACCESS_TOKEN not set — skipping');
   }
 
-  // Clean up temp files
   try { fs.unlinkSync(imagePath); fs.unlinkSync(videoPath); } catch {}
 
-  console.log('\nUpdating LinkedIn_Queue sheet...');
-  await updateRow(sheets, row.rowIndex, reelId, status, tiktokId, tiktokStatus);
-  console.log(`  Row ${row.rowIndex} updated — reel: ${status}, tiktok: ${tiktokStatus}`);
+  await pushBlogPostsFile(posts, `social: reel posted for ${post.slug}`);
 
   console.log('\n✅ Done.\n');
 }

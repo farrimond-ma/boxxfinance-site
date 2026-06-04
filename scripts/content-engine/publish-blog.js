@@ -317,19 +317,43 @@ async function fetchPexelsImage(keyword, service) {
 
   const trySearch = async (query) => {
     const res = await fetch(
-      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=5&orientation=landscape&size=large`,
+      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=8&orientation=landscape&size=large`,
       { headers: { Authorization: apiKey } }
     );
     if (!res.ok) return null;
     const data = await res.json();
-    return data.photos && data.photos.length > 0 ? data.photos[0] : null;
+    if (!data.photos || data.photos.length === 0) return null;
+    // Filter out photos that likely show non-UK currency (avoid generic money shots)
+    const filtered = data.photos.filter(p => {
+      const desc = ((p.alt || '') + ' ' + (p.photographer || '')).toLowerCase();
+      return !desc.match(/\$|dollar|euro|€|usd|eur/i);
+    });
+    return filtered[0] || data.photos[0];
   };
 
-  // Try specific keyword first, fall back to service category
-  const serviceLabel = service.toLowerCase().replace(/&/g, 'and');
-  const photo = (await trySearch(`${keyword} UK business`))
-             || (await trySearch(`${serviceLabel} finance UK`))
-             || (await trySearch('UK business finance'));
+  // Service → curated image query mapping.
+  // Deliberately avoids generic "money/cash/coins" searches that return
+  // US dollars and euros. Uses professional UK business context instead.
+  const serviceKey = (service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+  const SERVICE_QUERIES = {
+    'bridging-finance':    'UK property development construction',
+    'development-finance': 'UK property construction architect',
+    'commercial-mortgages':'UK commercial property building office',
+    'commercial-mortgage': 'UK commercial property building office',
+    'invoice-finance':     'UK business paperwork accounts desk',
+    'asset-finance':       'UK industrial machinery factory equipment',
+    'working-capital':     'UK business team meeting growth',
+    'trade-finance':       'UK port shipping logistics supply chain',
+    'cashflow-finance':    'UK business professional office meeting',
+    'mezzanine-finance':   'UK city financial district skyline',
+    'structured-finance':  'UK city London financial district',
+    'business-loans':      'UK small business entrepreneur office',
+  };
+  const primaryQuery = SERVICE_QUERIES[serviceKey] || 'UK business professionals meeting office';
+
+  const photo = (await trySearch(primaryQuery))
+             || (await trySearch('UK business professionals office'))
+             || (await trySearch('British business meeting'));
 
   if (!photo) {
     console.log('  No Pexels image found — will use pillar image fallback');
