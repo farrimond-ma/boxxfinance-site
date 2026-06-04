@@ -84,13 +84,15 @@ async function getPageToken() {
   return FB_TOKEN;
 }
 
-async function postToFacebook(postText, articleUrl) {
+async function postToFacebook(postText, articleUrl, imageUrl) {
   if (!FB_PAGE_ID || !FB_TOKEN) throw new Error('FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN required');
 
   const pageToken = await getPageToken();
 
+  // Domain boxxfinance.co.uk verified in Meta Business Manager — picture param now allowed
   const body = { message: postText };
-  if (articleUrl) body.link = articleUrl;
+  if (articleUrl) body.link    = articleUrl;
+  if (imageUrl)   body.picture = imageUrl;
 
   const res = await fetch('https://graph.facebook.com/' + FB_API_VER + '/' + FB_PAGE_ID + '/feed', {
     method:'POST', headers:{ Authorization:'Bearer ' + pageToken, 'Content-Type':'application/json' },
@@ -113,8 +115,9 @@ async function main() {
   console.log('Found: "' + post.title + '" (' + post.date + ')');
   const postText   = await generateFacebookPost(post);
   const articleUrl = post.url.startsWith('http') ? post.url : SITE_URL + post.url;
+  const imageUrl   = getImageUrl(post);
   try {
-    const id = await postToFacebook(postText, articleUrl);
+    const id = await postToFacebook(postText, articleUrl, imageUrl);
     post.fbPosted = true;
     console.log('Facebook posted: ' + id);
   } catch (err) { console.error('Facebook failed: ' + err.message); }
