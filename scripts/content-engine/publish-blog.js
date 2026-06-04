@@ -1,11 +1,13 @@
 require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
 const OpenAI = require('openai');
+const Anthropic = require('@anthropic-ai/sdk');
 const { google } = require('googleapis');
 
 // ─── Clients ────────────────────────────────────────────────────────────────
-const octokit = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_PAT });
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const octokit   = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_PAT });
+const openai    = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
 const GITHUB_OWNER = process.env.GITHUB_OWNER;
@@ -487,6 +489,101 @@ async function updateSheetRow(sheets, rowIndex, slug, liveUrl, publishedAt) {
   console.log(`Updated sheet row ${rowIndex} to published`);
 }
 
+// ─── Humanizer: remove AI writing patterns via Claude ─────────────────────────
+// Applies the 30 patterns from github.com/blader/humanizer to make GPT-4o
+// output read as genuinely written rather than AI-generated.
+async function humanizeContent(html, keyword, author) {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.log('  No ANTHROPIC_API_KEY — skipping humanizer');
+    return html;
+  }
+
+  // Strip HTML to plain text for Claude, then we'll reinsert into original structure
+  const plainText = html
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .substring(0, 6000);
+
+  const prompt = `You are editing a UK commercial finance article written by ${author}.
+
+Rewrite the text below to remove AI writing patterns. Apply these changes:
+- Remove overused AI words: tapestry, landscape, pivotal, underscore, delve, comprehensive, robust, leverage, utilise, multifaceted, nuanced, in today's fast-paced
+- Remove em dashes (—) — replace with commas, full stops, or rewrite the sentence
+- Remove excessive hedging: "it's worth noting", "it is important to", "one might consider"
+- Remove sycophantic openers and sign-offs
+- Remove "not only...but also" constructions
+- Remove rule-of-three structures where they feel forced
+- Remove passive voice where possible — use active voice
+- Remove generic positive conclusions ("In conclusion, this is a valuable...")
+- Remove filler phrases: "in order to", "due to the fact that", "it should be noted"
+- Keep the meaning, facts, structure and HTML tags exactly as they are
+- Keep it authoritative and direct — this is written by a senior UK commercial finance broker
+- UK spelling throughout (organise not organize, favour not favor, etc.)
+- Do NOT add new content or change facts
+- Return ONLY the rewritten text, preserving all HTML tags
+
+TEXT TO REWRITE:
+${plainText}`;
+
+  try {
+    const response = await anthropic.messages.create({
+      model:      'claude-haiku-4-5-20251001',
+      max_tokens: 8000,
+      messages:   [{ role: 'user', content: prompt }],
+    });
+
+    const rewritten = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
+    if (!rewritten || rewritten.length < plainText.length * 0.5) {
+      console.warn('  Humanizer returned unexpectedly short output — using original');
+      return html;
+    }
+
+    // The humanizer works on the plain text but the actual contentHtml has proper HTML.
+    // Since we can't reliably reinsert the plain text back into HTML structure,
+    // we pass the full HTML and rely on Claude to preserve the tags.
+    const htmlPrompt = `You are editing HTML content for a UK commercial finance article written by ${author}.
+
+Rewrite ONLY the visible text within the HTML tags below. Do NOT change any HTML tags, attributes, href values, class names, or structure. Preserve all <a>, <h2>, <h3>, <p>, <ul>, <li>, <dl>, <dt>, <dd> tags exactly.
+
+Apply these changes to the visible text only:
+- Remove overused AI words: tapestry, landscape, pivotal, underscore, delve, comprehensive, robust, leverage, utilise, multifaceted, nuanced, "in today's fast-paced"
+- Remove em dashes (—) — rewrite the sentence instead
+- Remove excessive hedging phrases
+- Remove passive voice where possible
+- Remove filler phrases: "in order to", "due to the fact that", "it should be noted", "it is worth noting"
+- Remove forced rule-of-three structures
+- Keep all facts, links, and HTML structure identical
+- UK spelling throughout
+- Return ONLY the modified HTML, nothing else
+
+HTML TO REWRITE:
+${html.substring(0, 12000)}`;
+
+    const htmlResponse = await anthropic.messages.create({
+      model:      'claude-haiku-4-5-20251001',
+      max_tokens: 8000,
+      messages:   [{ role: 'user', content: htmlPrompt }],
+    });
+
+    const humanizedHtml = htmlResponse.content[0].type === 'text' ? htmlResponse.content[0].text.trim() : '';
+
+    if (!humanizedHtml || !humanizedHtml.includes('<')) {
+      console.warn('  Humanizer returned non-HTML — using original');
+      return html;
+    }
+
+    console.log('  ✅ Content humanized');
+    return humanizedHtml;
+
+  } catch (err) {
+    console.warn(`  Humanizer failed (non-fatal): ${err.message}`);
+    return html;
+  }
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   console.log('=== Boxx Content Engine: Blog Publisher ===');
@@ -522,6 +619,14 @@ async function main() {
 
   const article = await generateArticle(row, locationLinks, relatedBlogs);
   console.log(`Article generated: ${article.title}`);
+
+  // ── Humanize: strip AI writing patterns via Claude ────────────────────────
+  console.log('Humanizing content...');
+  article.contentHtml = await humanizeContent(
+    article.contentHtml,
+    row.keyword,
+    row.author || 'Mark Higgins'
+  );
 
   // Ensure question-style titles end with ?
   const rawTitle = row.title || article.title;
