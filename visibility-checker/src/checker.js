@@ -45,9 +45,10 @@ const COMPETITORS = [
 
 // Rate limit: ms to wait between calls per service
 const RATE_LIMITS = {
-  chatgpt: 1200,
-  claude: 800,
+  chatgpt:   1200,
+  claude:     800,
   perplexity: 1000,
+  gemini:    1000,
 };
 
 // ─── Prompts ──────────────────────────────────────────────────────────────────
@@ -219,6 +220,29 @@ async function queryClaude(anthropic, prompt) {
   return response.content[0].type === "text" ? response.content[0].text : "";
 }
 
+async function queryGemini(prompt) {
+  if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY not set");
+  const systemPrompt = "You are a helpful assistant. Answer questions about UK property finance clearly and concisely. Name specific lenders and companies where relevant.";
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: systemPrompt }] },
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        generationConfig: { maxOutputTokens: 600, temperature: 0.3 },
+      }),
+    }
+  );
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`Gemini API error ${response.status}: ${err}`);
+  }
+  const data = await response.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+}
+
 // ─── Analysis ─────────────────────────────────────────────────────────────────
 
 function analyseResponse(responseText) {
@@ -258,7 +282,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function runChecker(options = {}) {
   const {
     priorityFilter = null, // "high" | "medium" | "low" | null (all)
-    services = ["chatgpt", "perplexity", "claude"],
+    services = ["chatgpt", "perplexity", "claude", "gemini"],
     dryRun = false,
   } = options;
 
@@ -314,6 +338,10 @@ async function runChecker(options = {}) {
             case "claude":
               responseText = await queryClaude(anthropic, prompt.text);
               await sleep(RATE_LIMITS.claude);
+              break;
+            case "gemini":
+              responseText = await queryGemini(prompt.text);
+              await sleep(RATE_LIMITS.gemini);
               break;
           }
         } catch (e) {

@@ -11,9 +11,9 @@ on:
         required: false
         default: "all"
       services:
-        description: "Comma-separated services (chatgpt,perplexity,claude)"
+        description: "Comma-separated services (chatgpt,perplexity,claude,gemini)"
         required: false
-        default: "chatgpt,perplexity,claude"
+        default: "chatgpt,perplexity,claude,gemini"
       dry_run:
         description: "Dry run (no API calls)"
         type: boolean
@@ -58,11 +58,12 @@ jobs:
       - name: Run AI visibility checker
         working-directory: visibility-checker
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_KEY:    ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          GEMINI_API_KEY:    ${{ secrets.GEMINI_API_KEY }}
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          SPREADSHEET_ID:    ${{ secrets.SPREADSHEET_ID }}
         run: node src/checker.js ${{ steps.flags.outputs.flags }}
 
       - name: Upload CSV results
