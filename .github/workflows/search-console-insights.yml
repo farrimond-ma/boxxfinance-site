@@ -44,6 +44,22 @@ jobs:
             node search-console-insights.js
           fi
 
+      - name: Act on Search Console data
+        working-directory: scripts/content-engine
+        env:
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+          GH_TOKEN:           ${{ secrets.GH_PAT }}
+          GITHUB_OWNER:       farrimond-ma
+          GITHUB_REPO:        boxxfinance-site
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node search-console-actions.js --dry-run
+          else
+            node search-console-actions.js
+          fi
+
       - name: Post summary
         if: always()
         run: |
