@@ -40,11 +40,11 @@ const GROUPS = [
 // ─── Status helpers ───────────────────────────────────────────────────────────
 function StatusBadge({ status }) {
   const map = {
-    success:     { bg: '#d1fae5', color: '#065f46', label: '✅ Success' },
-    failure:     { bg: '#fee2e2', color: '#991b1b', label: '❌ Failed'  },
-    in_progress: { bg: '#fef3c7', color: '#92400e', label: '🔄 Running' },
-    pending:     { bg: '#f3f4f6', color: '#374151', label: '⏳ Queued'  },
-    none:        { bg: '#f3f4f6', color: '#6b7280', label: '— Never run' },
+    success:     { bg: '#d1fae5', color: '#065f46', label: '✅ Completed' },
+    failure:     { bg: '#fee2e2', color: '#991b1b', label: '❌ Failed'    },
+    in_progress: { bg: '#fef3c7', color: '#92400e', label: '🔄 Running'  },
+    pending:     { bg: '#fef3c7', color: '#92400e', label: '⏳ Queued'   },
+    none:        { bg: '#e0f2fe', color: '#0369a1', label: '🗓 Scheduled' },
     cancelled:   { bg: '#f3f4f6', color: '#6b7280', label: '⊘ Cancelled' },
   };
   const s = map[status] || map.none;
