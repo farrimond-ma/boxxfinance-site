@@ -1,4 +1,4 @@
-name: Publish Blog
+﻿name: Publish Blog
 
 on:
   schedule:
@@ -39,5 +39,6 @@ jobs:
           PEXELS_API_KEY:    ${{ secrets.PEXELS_API_KEY }}
           GITHUB_OWNER:      farrimond-ma
           GITHUB_REPO:       boxxfinance-site
+          SERVICE_FILTER:             Bridging Finance
         run: node publish-blog.js
         working-directory: scripts/content-engine

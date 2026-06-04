@@ -18,12 +18,16 @@ async function pushBlogPostsFile(posts, message) {
     content: Buffer.from(JSON.stringify(posts, null, 2)).toString('base64'),
   });
 }
+const SERVICE_FILTER = process.env.SERVICE_FILTER || '';
 function getUnpostedBlog(posts, flag) {
   const today = new Date().toISOString().split('T')[0];
   const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - LOOKBACK_DAYS);
   const cutoffDate = cutoff.toISOString().split('T')[0];
-  return posts.filter(p => p.status === 'published' && !p[flag] && p.date >= cutoffDate && p.date <= today)
-    .sort((a, b) => a.date.localeCompare(b.date))[0] || null;
+  return posts.filter(p =>
+    p.status === 'published' && !p[flag] &&
+    p.date >= cutoffDate && p.date <= today &&
+    (!SERVICE_FILTER || p.service === SERVICE_FILTER)
+  ).sort((a, b) => a.date.localeCompare(b.date))[0] || null;
 }
 function getArticleText(post, maxLen) {
   if (!post.content) return '';

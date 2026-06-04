@@ -1,0 +1,35 @@
+name: Pivot to Bridging Finance
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — show what would change without writing'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  pivot:
+    name: Pause non-bridging content and schedule bridging finance
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+      - name: Run pivot script
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node pivot-to-bridging.js --dry-run
+          else
+            node pivot-to-bridging.js
+          fi

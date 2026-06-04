@@ -1,4 +1,4 @@
-name: Publish Facebook Reel
+﻿name: Publish Facebook Reel
 
 on:
   schedule:
@@ -19,7 +19,7 @@ jobs:
 
       - name: Install ffmpeg
         run: |
-          # libcaca0 noble-updates package has a broken mirror — install base noble version directly
+          # libcaca0 noble-updates package has a broken mirror â€” install base noble version directly
           wget -q http://archive.ubuntu.com/ubuntu/pool/main/libc/libcaca/libcaca0_0.99.beta20-4build2_amd64.deb
           sudo dpkg -i libcaca0_0.99.beta20-4build2_amd64.deb
           sudo apt-get install -y ffmpeg
@@ -40,6 +40,7 @@ jobs:
           GH_TOKEN:                   ${{ secrets.GH_PAT }}
           GITHUB_OWNER:               farrimond-ma
           GITHUB_REPO:                boxxfinance-site
+          SERVICE_FILTER:             Bridging Finance
           FACEBOOK_PAGE_ID:           ${{ secrets.FACEBOOK_PAGE_ID }}
           FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
           ELEVENLABS_API_KEY:         ${{ secrets.ELEVENLABS_API_KEY }}
@@ -52,4 +53,4 @@ jobs:
           echo "## Facebook Reels Publisher" >> $GITHUB_STEP_SUMMARY
           echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
           echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "📊 [View Queue](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY
+          echo "ðŸ“Š [View Queue](https://docs.google.com/spreadsheets/d/${{ secrets.SPREADSHEET_ID }})" >> $GITHUB_STEP_SUMMARY
