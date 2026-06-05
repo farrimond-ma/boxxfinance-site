@@ -1,0 +1,33 @@
+name: Add High-Intent Bridging Keywords
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — show keywords without adding them'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  add-keywords:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+      - name: Add keywords to Keyword_Backlog
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node add-bridging-keywords.js --dry-run
+          else
+            node add-bridging-keywords.js
+          fi
