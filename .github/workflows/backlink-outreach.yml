@@ -1,10 +1,10 @@
 name: Backlink Outreach Monitor
 
 on:
-  # Runs Monday at 8:00 UTC — after visibility checker (7:00) and insights (7:30)
-  # A full Monday morning SEO sweep: visibility gaps → search console → backlink opportunities
+  # Runs Friday at 9:00 UTC = 10:00 BST
+  # End-of-week sweep: drafts are ready to review over the weekend and send Monday morning
   schedule:
-    - cron: '0 8 * * 1'
+    - cron: '0 9 * * 5'
 
   workflow_dispatch:
     inputs:
