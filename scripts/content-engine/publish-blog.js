@@ -251,7 +251,14 @@ ${relatedBlogsText}
 Keyword: ${row.keyword}
 Service: ${row.service}
 Category: ${row.category}
-Content brief: ${row.contentBrief || 'Write a comprehensive UK SME-focused advisory article'}`,
+Content brief: ${row.contentBrief || 'Write a comprehensive UK SME-focused advisory article'}
+
+${row.service === 'Bridging Finance' ? `BRIDGING FINANCE TERMINOLOGY (mandatory for all bridging articles):
+- Use both "bridging loans" and "bridging finance" naturally throughout — do not rely on just one term. Alternate between them as a real broker would in conversation.
+- Include "developer finance" where the scenario involves property development, refurbishment, conversion or planning gain. Many bridging clients are developers — address them directly.
+- Target TWO audiences in every article: (1) residential property buyers, investors and homeowners (the larger market) and (2) property developers and commercial investors. Both use bridging. The residential scenario might be a chain break or auction purchase; the developer scenario might be a refurbishment or development exit. Include at least one example from each where the topic allows.
+- UK English throughout: "bridging loan" not "bridge loan", "property" not "real estate", "solicitor" not "attorney".
+- Phrases to use naturally: "short-term property finance", "fast property finance", "specialist property finance" — these widen search reach without keyword stuffing.` : ''}`,
       },
     ],
   });

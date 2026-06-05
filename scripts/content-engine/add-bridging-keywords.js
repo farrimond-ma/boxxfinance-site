@@ -109,6 +109,47 @@ const NEW_KEYWORDS = [
   'bridging loan for probate property uk',
   'bridging loan to release equity quickly uk',
   'short term loan against property uk',
+
+  // Developer finance — residential development
+  'developer finance for residential development uk',
+  'bridging loans for property developers uk',
+  'developer finance for new build uk',
+  'property developer finance options uk',
+  'finance for small property developer uk',
+  'developer bridging loan uk',
+  'residential developer finance rates uk',
+  'bridging finance for first time developer uk',
+  'developer finance for conversion projects uk',
+  'finance for buy to let developer uk',
+
+  // Developer finance — commercial / mixed use
+  'developer finance for commercial property uk',
+  'bridging finance commercial development uk',
+  'finance for commercial to residential conversion uk',
+  'developer finance mixed use development uk',
+  'bridging loan for office conversion uk',
+  'developer finance for industrial conversion uk',
+
+  // Refurbishment / light development
+  'bridging loans for property refurbishment uk',
+  'finance for property refurbishment uk',
+  'bridging loan to refurbish and sell uk',
+  'bridging finance for light refurbishment',
+  'bridging loan for heavy refurbishment uk',
+  'refurbishment bridge loan uk',
+  'short term finance for property renovation uk',
+
+  // "Bridging loans" variant (user specifically requested this term)
+  'bridging loans uk guide',
+  'bridging loans explained uk',
+  'bridging loans for property purchase uk',
+  'bridging loans rates and fees uk',
+  'bridging loans vs mortgages uk',
+  'bridging loans for investors uk',
+  'how do bridging loans work uk',
+  'bridging loans for commercial property uk',
+  'bridging loans for residential property uk',
+  'bridging loans for developers uk',
 ];
 
 async function getSheetsClient() {
