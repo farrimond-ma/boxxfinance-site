@@ -30,6 +30,7 @@ const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 // RSS feeds of UK bridging finance and property trade press
 
 const PUBLICATIONS = [
+  // ── Bridging / short-term finance specialist ─────────────────────────────────
   {
     name:    'Bridging & Commercial',
     rss:     'https://www.bridgingandcommercial.co.uk/feed/',
@@ -38,25 +39,34 @@ const PUBLICATIONS = [
     notes:   'Primary trade press for bridging finance. Regularly publishes lender/broker case studies.',
   },
   {
-    name:    'Property Reporter',
-    rss:     'https://propertyreporter.co.uk/feed/',
-    contact: 'news@propertyreporter.co.uk',
-    da:      38,
-    notes:   'Property investment news. Covers bridging for investors.',
+    name:    'Development Finance Today',
+    rss:     'https://developmentfinancetoday.co.uk/feed/',
+    contact: 'editor@developmentfinancetoday.co.uk',
+    da:      30,
+    notes:   'Development and bridging finance specialist. Case studies welcome.',
   },
+  {
+    name:    'Specialist Finance Introducer',
+    rss:     'https://www.specialistfinanceintroducer.com/feed/',
+    contact: 'editor@specialistfinanceintroducer.com',
+    da:      35,
+    notes:   'Covers specialist/bridging finance for brokers and introducers.',
+  },
+
+  // ── Mortgage / finance trade press ───────────────────────────────────────────
   {
     name:    'Mortgage Solutions',
     rss:     'https://www.mortgagesolutions.co.uk/feed/',
     contact: 'editorial@mortgagesolutions.co.uk',
     da:      52,
-    notes:   'Mortgage trade press. Regularly covers specialist finance.',
+    notes:   'Major mortgage trade press. Regularly covers specialist finance.',
   },
   {
-    name:    'Property Investor Today',
-    rss:     'https://www.propertyinvestortoday.co.uk/feed/',
-    contact: 'info@propertyinvestortoday.co.uk',
-    da:      35,
-    notes:   'Property investor audience — ideal for bridging case studies.',
+    name:    'Mortgage Introducer',
+    rss:     'https://www.mortgageintroducer.com/feed/',
+    contact: 'editor@mortgageintroducer.com',
+    da:      42,
+    notes:   'Mortgage broker trade press. Expert comment and case studies.',
   },
   {
     name:    'Mortgage Finance Gazette',
@@ -66,11 +76,129 @@ const PUBLICATIONS = [
     notes:   'Finance trade press. Expert comment opportunities.',
   },
   {
-    name:    'Development Finance Today',
-    rss:     'https://developmentfinancetoday.co.uk/feed/',
-    contact: 'editor@developmentfinancetoday.co.uk',
-    da:      30,
-    notes:   'Development and bridging finance specialist.',
+    name:    'The Intermediary',
+    rss:     'https://theintermediary.co.uk/feed/',
+    contact: 'editor@theintermediary.co.uk',
+    da:      38,
+    notes:   'Broker-focused finance trade press. Bridging regularly featured.',
+  },
+  {
+    name:    'Financial Reporter',
+    rss:     'https://www.financialreporter.co.uk/feed/',
+    contact: 'news@financialreporter.co.uk',
+    da:      45,
+    notes:   'Financial services news. Active comment section for experts.',
+  },
+
+  // ── Property investment media ─────────────────────────────────────────────────
+  {
+    name:    'Property Reporter',
+    rss:     'https://propertyreporter.co.uk/feed/',
+    contact: 'news@propertyreporter.co.uk',
+    da:      38,
+    notes:   'Property investment news. Covers bridging for investors.',
+  },
+  {
+    name:    'Property Investor Today',
+    rss:     'https://www.propertyinvestortoday.co.uk/feed/',
+    contact: 'info@propertyinvestortoday.co.uk',
+    da:      35,
+    notes:   'Property investor audience — ideal for bridging case studies.',
+  },
+  {
+    name:    'Property Wire',
+    rss:     'https://www.propertywire.com/feed/',
+    contact: 'news@propertywire.com',
+    da:      48,
+    notes:   'International property news. UK bridging content well-received.',
+  },
+  {
+    name:    'Property Industry Eye',
+    rss:     'https://propertyindustryeye.com/feed/',
+    contact: 'editor@propertyindustryeye.com',
+    da:      52,
+    notes:   'High-DA property industry news. Active readership of estate agents and investors.',
+  },
+  {
+    name:    'Estate Agent Today',
+    rss:     'https://www.estateagenttoday.co.uk/feed/',
+    contact: 'editor@estateagenttoday.co.uk',
+    da:      50,
+    notes:   'Estate agent news. Chain break and auction bridging stories perform well here.',
+  },
+  {
+    name:    'The Negotiator',
+    rss:     'https://www.thenegotiator.co.uk/feed/',
+    contact: 'editor@thenegotiator.co.uk',
+    da:      42,
+    notes:   'Estate agent / property professional audience. Finance features welcome.',
+  },
+  {
+    name:    'Landlord Today',
+    rss:     'https://www.landlordtoday.co.uk/feed/',
+    contact: 'news@landlordtoday.co.uk',
+    da:      45,
+    notes:   'Landlord-focused. BTL refurb bridging, HMO finance, auction purchase stories.',
+  },
+  {
+    name:    'Today\'s Conveyancer',
+    rss:     'https://www.todaysconveyancer.co.uk/feed/',
+    contact: 'editor@todaysconveyancer.co.uk',
+    da:      40,
+    notes:   'Legal/conveyancing press. Bridging and speed of completion articles.',
+  },
+  {
+    name:    'Property Week',
+    rss:     'https://www.propertyweek.com/rss',
+    contact: 'editorial@propertyweek.com',
+    da:      62,
+    notes:   'Highest DA property publication in UK. Commercial property / development finance.',
+  },
+
+  // ── SME / business finance ────────────────────────────────────────────────────
+  {
+    name:    'Business Money',
+    rss:     'https://businessmoney.com/feed/',
+    contact: 'editor@businessmoney.com',
+    da:      35,
+    notes:   'SME finance news. Business bridging loans and working capital stories.',
+  },
+  {
+    name:    'Peer2Peer Finance News',
+    rss:     'https://www.p2pfinancenews.co.uk/feed/',
+    contact: 'editor@p2pfinancenews.co.uk',
+    da:      38,
+    notes:   'Alternative finance news. Bridging lender updates and broker comment.',
+  },
+
+  // ── Development / planning ────────────────────────────────────────────────────
+  {
+    name:    'The Planner',
+    rss:     'https://www.theplanner.co.uk/feed',
+    contact: 'editorial@theplanner.co.uk',
+    da:      45,
+    notes:   'Planning and development press. Development finance, planning gain bridging.',
+  },
+  {
+    name:    'Place North West',
+    rss:     'https://www.placenorthwest.co.uk/feed/',
+    contact: 'editorial@placenorthwest.co.uk',
+    da:      42,
+    notes:   'North West property development. Strong regional development finance angle.',
+  },
+  {
+    name:    'Insider Media (North West)',
+    rss:     'https://www.insidermedia.com/news/north-west/rss',
+    contact: 'north-west@insidermedia.com',
+    da:      55,
+    notes:   'Regional business/property news. Deal coverage, broker comment opportunities.',
+  },
+  {
+    name:    'Place Yorkshire',
+    rss:     'https://www.placeyorkshire.co.uk/feed/',
+    contact: 'editorial@placeyorkshire.co.uk',
+    da:      38,
+    notes:   'Yorkshire property development. Regional bridging finance stories.',
   },
 ];
 
