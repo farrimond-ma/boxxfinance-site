@@ -118,9 +118,9 @@ async function downloadImage(imageUrl, destPath) {
 }
 
 // ─── Generate voiceover ───────────────────────────────────────────────────────
-// Primary: OpenAI TTS — no IP restrictions, ~£0.002/reel, uses existing key.
-// Fallback: ElevenLabs — only used if ELEVENLABS_API_KEY is set AND OpenAI fails.
-// Voice: OpenAI "nova" (warm female) or override with OPENAI_TTS_VOICE secret.
+// Primary: ElevenLabs — higher quality, paid account removes IP restrictions.
+// Fallback: OpenAI TTS — uses existing OPENAI_API_KEY, ~£0.002/reel.
+// Voice: Rachel (21m00Tcm4TlvDq8ikWAM) or override with ELEVENLABS_VOICE_ID secret.
 async function generateVoiceover(script, outputPath) {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
@@ -134,38 +134,10 @@ async function generateVoiceover(script, outputPath) {
 
   console.log(`  Voiceover text: ${spokenText.slice(0, 80)}...`);
 
-  // ── Primary: OpenAI TTS ──────────────────────────────────────────────────────
-  if (OPENAI_API_KEY) {
-    try {
-      const voice = process.env.OPENAI_TTS_VOICE || 'nova'; // nova = warm female
-      console.log(`  Using OpenAI TTS (voice: ${voice})`);
-      const res = await fetch('https://api.openai.com/v1/audio/speech', {
-        method:  'POST',
-        headers: {
-          Authorization:  `Bearer ${OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'tts-1',
-          voice,
-          input: spokenText,
-          response_format: 'mp3',
-        }),
-      });
-      if (!res.ok) throw new Error(`OpenAI TTS ${res.status}: ${await res.text()}`);
-      const buffer = Buffer.from(await res.arrayBuffer());
-      fs.writeFileSync(outputPath, buffer);
-      console.log(`  Voiceover generated: ${Math.round(buffer.length / 1024)} KB`);
-      return outputPath;
-    } catch (err) {
-      console.warn(`  OpenAI TTS failed (${err.message}) — trying ElevenLabs fallback`);
-    }
-  }
-
-  // ── Fallback: ElevenLabs ─────────────────────────────────────────────────────
+  // ── Primary: ElevenLabs ───────────────────────────────────────────────────────
   if (ELEVENLABS_API_KEY) {
     try {
-      console.log('  Using ElevenLabs TTS (fallback)');
+      console.log(`  Using ElevenLabs TTS (voice: ${ELEVENLABS_VOICE_ID})`);
       const res = await fetch(
         `https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`,
         {
@@ -184,7 +156,27 @@ async function generateVoiceover(script, outputPath) {
       console.log(`  Voiceover generated: ${Math.round(buffer.length / 1024)} KB`);
       return outputPath;
     } catch (err) {
-      console.warn(`  ElevenLabs failed (${err.message}) — video will be silent`);
+      console.warn(`  ElevenLabs failed (${err.message}) — trying OpenAI TTS fallback`);
+    }
+  }
+
+  // ── Fallback: OpenAI TTS ─────────────────────────────────────────────────────
+  if (OPENAI_API_KEY) {
+    try {
+      const voice = process.env.OPENAI_TTS_VOICE || 'nova'; // nova = warm female
+      console.log(`  Using OpenAI TTS fallback (voice: ${voice})`);
+      const res = await fetch('https://api.openai.com/v1/audio/speech', {
+        method:  'POST',
+        headers: { Authorization: `Bearer ${OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: 'tts-1', voice, input: spokenText, response_format: 'mp3' }),
+      });
+      if (!res.ok) throw new Error(`OpenAI TTS ${res.status}: ${await res.text()}`);
+      const buffer = Buffer.from(await res.arrayBuffer());
+      fs.writeFileSync(outputPath, buffer);
+      console.log(`  Voiceover generated: ${Math.round(buffer.length / 1024)} KB`);
+      return outputPath;
+    } catch (err) {
+      console.warn(`  OpenAI TTS failed (${err.message}) — video will be silent`);
     }
   }
 
