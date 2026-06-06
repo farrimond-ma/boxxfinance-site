@@ -81,8 +81,6 @@ async function postToInstagram(imageUrl, caption) {
 
 async function main() {
   console.log('[Instagram Publisher]');
-  const dow = new Date().getUTCDay();
-  if ((dow === 0 || dow === 6) && process.env.FORCE_RUN !== 'true') { console.log('Weekend - skipping.'); return; }
   const { posts } = await getBlogPostsFile();
   const post = getUnpostedBlog(posts, 'igPosted');
   if (!post) { console.log('No unposted blogs in the last 3 days.'); return; }

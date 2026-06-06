@@ -6,6 +6,12 @@ on:
     - cron: '0  16 * * *'   # PM run: 16:00 UTC = ~5pm BST
 
   workflow_dispatch:
+    inputs:
+      test_mode:
+        description: 'Test mode — disable service filter to post any recent article (for testing only)'
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   publish-reel:
@@ -40,7 +46,7 @@ jobs:
           GH_TOKEN:                   ${{ secrets.GH_PAT }}
           GITHUB_OWNER:               farrimond-ma
           GITHUB_REPO:                boxxfinance-site
-          SERVICE_FILTER:             Bridging Finance
+          SERVICE_FILTER:             ${{ github.event.inputs.test_mode == 'true' && '' || 'Bridging Finance' }}
           FACEBOOK_PAGE_ID:           ${{ secrets.FACEBOOK_PAGE_ID }}
           FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
           ELEVENLABS_API_KEY:         ${{ secrets.ELEVENLABS_API_KEY }}

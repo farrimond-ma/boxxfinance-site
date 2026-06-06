@@ -40,12 +40,18 @@ async function pushBlogPostsFile(posts, message) {
   });
 }
 
+const SERVICE_FILTER = process.env.SERVICE_FILTER || '';
+
 function getUnpostedBlog(posts) {
   const today = new Date().toISOString().split('T')[0];
   const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - LOOKBACK_DAYS);
   const cutoffDate = cutoff.toISOString().split('T')[0];
   return posts
-    .filter(p => p.status === 'published' && !p.reelPosted && p.date >= cutoffDate && p.date <= today)
+    .filter(p =>
+      p.status === 'published' && !p.reelPosted &&
+      p.date >= cutoffDate && p.date <= today &&
+      (!SERVICE_FILTER || p.service === SERVICE_FILTER)
+    )
     .sort((a, b) => a.date.localeCompare(b.date))[0] || null;
 }
 
@@ -401,13 +407,6 @@ async function main() {
   console.log('\n╔══════════════════════════════════════════╗');
   console.log('║   Boxx Finance — Facebook Reels          ║');
   console.log('╚══════════════════════════════════════════╝\n');
-
-  // Weekdays only
-  const dow = new Date().getUTCDay();
-  if ((dow === 0 || dow === 6) && process.env.FORCE_RUN !== 'true') {
-    console.log('  Weekend — skipping. Done.\n');
-    return;
-  }
 
   const { posts } = await getBlogPostsFile();
   const post = getUnpostedBlog(posts);

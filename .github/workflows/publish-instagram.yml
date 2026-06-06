@@ -5,8 +5,13 @@ on:
     - cron: '0  9 * * *'   # AM run:  9:00 UTC  = ~10:00 BST (picks up AM blog post)
     - cron: '0 15 * * *'   # PM run: 15:00 UTC  = ~4:00 BST  (picks up PM blog post)
 
-  # Manual trigger for testing
   workflow_dispatch:
+    inputs:
+      test_mode:
+        description: 'Test mode — disable service filter to post any recent article (for testing only)'
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   publish-instagram:
@@ -34,7 +39,7 @@ jobs:
           GH_TOKEN:                   ${{ secrets.GH_PAT }}
           GITHUB_OWNER:               farrimond-ma
           GITHUB_REPO:                boxxfinance-site
-          SERVICE_FILTER:             Bridging Finance
+          SERVICE_FILTER:             ${{ github.event.inputs.test_mode == 'true' && '' || 'Bridging Finance' }}
           INSTAGRAM_USER_ID:          ${{ secrets.INSTAGRAM_USER_ID }}
           FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
         run: node publish-instagram.js
