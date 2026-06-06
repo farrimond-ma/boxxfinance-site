@@ -68,14 +68,22 @@ function buildLocationRow(i, row) {
 }
 
 // ─── Get ALL scheduled location rows due today or earlier ────────────────────
+// SERVICE_FILTER (optional env var): if set, only publish rows for that service.
+// e.g. SERVICE_FILTER=Bridging Finance restricts to bridging finance locations
+// during the strategic pivot period.
 async function getScheduledRows(sheets) {
-  const today = new Date().toISOString().split('T')[0];
+  const today         = new Date().toISOString().split('T')[0];
+  const serviceFilter = (process.env.SERVICE_FILTER || '').trim().toLowerCase();
 
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID,
     range: 'ContentEngine!A2:AC',
   });
   const rows = res.data.values || [];
+
+  if (serviceFilter) {
+    console.log(`  SERVICE_FILTER active: only publishing "${process.env.SERVICE_FILTER}" location pages`);
+  }
 
   const eligible = [];
 
@@ -84,6 +92,10 @@ async function getScheduledRows(sheets) {
     const type        = (row[1] || '').toLowerCase().trim();
     const status      = (row[2] || '').toLowerCase().trim();
     const publishDate = (row[3] || '').trim();
+    const service     = (row[5] || '').trim();
+
+    // Skip rows that don't match the service filter
+    if (serviceFilter && service.toLowerCase() !== serviceFilter) continue;
 
     if (type === 'location' && status === 'scheduled' && publishDate <= today) {
       eligible.push(buildLocationRow(i, row));

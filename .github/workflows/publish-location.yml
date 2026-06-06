@@ -37,6 +37,7 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           GITHUB_OWNER: farrimond-ma
           GITHUB_REPO: boxxfinance-site
+          SERVICE_FILTER: Bridging Finance
         run: node publish-location.js
         working-directory: scripts/content-engine
         timeout-minutes: 30
