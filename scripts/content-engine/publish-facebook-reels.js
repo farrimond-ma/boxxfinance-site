@@ -318,6 +318,114 @@ async function uploadReel(videoPath, title, description) {
   return result.id || video_id;
 }
 
+// ─── Upload video to GitHub Release (public URL for Instagram API) ───────────
+// Instagram's Reels API requires a publicly accessible video URL to download
+// from. We use a GitHub pre-release as free public video hosting.
+async function uploadToGitHubRelease(videoPath, slug) {
+  const TAG = 'social-reels';
+
+  // Get or create the rolling "social-reels" pre-release
+  let releaseId;
+  try {
+    const { data } = await octokit.repos.getReleaseByTag({
+      owner: GITHUB_OWNER, repo: GITHUB_REPO, tag: TAG,
+    });
+    releaseId = data.id;
+    console.log(`  Using existing "${TAG}" release`);
+  } catch {
+    const { data } = await octokit.repos.createRelease({
+      owner: GITHUB_OWNER, repo: GITHUB_REPO,
+      tag_name: TAG, name: 'Social Media Reels',
+      body: 'Auto-generated reel videos used as temporary public hosting for Instagram API.',
+      prerelease: true,
+    });
+    releaseId = data.id;
+    console.log(`  Created "${TAG}" release`);
+  }
+
+  // Delete stale asset with same slug if it exists
+  const { data: assets } = await octokit.repos.listReleaseAssets({
+    owner: GITHUB_OWNER, repo: GITHUB_REPO, release_id: releaseId,
+  });
+  const existing = assets.find(a => a.name === `${slug}.mp4`);
+  if (existing) {
+    await octokit.repos.deleteReleaseAsset({
+      owner: GITHUB_OWNER, repo: GITHUB_REPO, asset_id: existing.id,
+    });
+  }
+
+  // Upload via GitHub Uploads API (direct fetch, avoids octokit binary issues)
+  const videoBuffer = fs.readFileSync(videoPath);
+  const uploadRes = await fetch(
+    `https://uploads.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases/${releaseId}/assets?name=${encodeURIComponent(slug)}.mp4`,
+    {
+      method:  'POST',
+      headers: {
+        Authorization:    `token ${process.env.GH_TOKEN}`,
+        'Content-Type':   'video/mp4',
+        'Content-Length': String(videoBuffer.length),
+      },
+      body: videoBuffer,
+    }
+  );
+  if (!uploadRes.ok) throw new Error(`GitHub upload failed: ${await uploadRes.text()}`);
+  const asset = await uploadRes.json();
+  console.log(`  Public URL: ${asset.browser_download_url}`);
+  return asset.browser_download_url;
+}
+
+// ─── Post Reel to Instagram ───────────────────────────────────────────────────
+// Uses the same video file uploaded to GitHub releases as the source URL.
+// The Page Access Token (getPageToken) works for Instagram Business API calls.
+async function postInstagramReel(videoUrl, caption) {
+  const igUserId = process.env.INSTAGRAM_USER_ID;
+  if (!igUserId) {
+    console.log('  INSTAGRAM_USER_ID not set — skipping');
+    return null;
+  }
+
+  const pageToken = await getPageToken();
+  const base = `https://graph.facebook.com/${FB_API_VER}/${igUserId}`;
+
+  // Step 1: Create media container
+  const cr = await fetch(`${base}/media`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      media_type:    'REELS',
+      video_url:     videoUrl,
+      caption,
+      share_to_feed: true,
+      access_token:  pageToken,
+    }),
+  });
+  const container = await cr.json();
+  if (!container.id) throw new Error(`IG container failed: ${JSON.stringify(container)}`);
+  console.log(`  Container: ${container.id} — waiting for Instagram to process...`);
+
+  // Step 2: Poll until FINISHED (up to 2 minutes)
+  for (let i = 0; i < 24; i++) {
+    await new Promise(r => setTimeout(r, 5000));
+    const sr = await fetch(
+      `https://graph.facebook.com/${FB_API_VER}/${container.id}?fields=status_code&access_token=${pageToken}`
+    );
+    const { status_code } = await sr.json();
+    if (i % 3 === 0) console.log(`  Processing: ${status_code} (${(i + 1) * 5}s)`);
+    if (status_code === 'FINISHED') break;
+    if (status_code === 'ERROR') throw new Error('Instagram video processing failed');
+  }
+
+  // Step 3: Publish
+  const pr = await fetch(`${base}/media_publish`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ creation_id: container.id, access_token: pageToken }),
+  });
+  const result = await pr.json();
+  if (!result.id) throw new Error(`IG publish failed: ${JSON.stringify(result)}`);
+  return result.id;
+}
+
 // ─── Upload video to TikTok ───────────────────────────────────────────────────
 async function publishToTikTok(videoPath, title) {
   if (!TIKTOK_ACCESS_TOKEN) {
@@ -441,9 +549,36 @@ async function main() {
     const description = `${script.insight1} ${script.insight2} ${postUrl}`;
     const reelId = await uploadReel(videoPath, post.title, description);
     post.reelPosted = true;
-    console.log(`  ✅ Reel published — ID: ${reelId}`);
+    console.log(`  ✅ Facebook Reel published — ID: ${reelId}`);
   } catch (err) {
-    console.error(`  ❌ Reel failed: ${err.message}`);
+    console.error(`  ❌ Facebook Reel failed: ${err.message}`);
+  }
+
+  // Upload to GitHub releases so Instagram has a public URL to pull from
+  let publicVideoUrl = null;
+  if (process.env.INSTAGRAM_USER_ID) {
+    console.log('\nUploading video to GitHub (public URL for Instagram)...');
+    try {
+      publicVideoUrl = await uploadToGitHubRelease(videoPath, post.slug);
+    } catch (err) {
+      console.error(`  ❌ GitHub upload failed: ${err.message}`);
+    }
+  }
+
+  console.log('\nPosting Reel to Instagram...');
+  if (publicVideoUrl && process.env.INSTAGRAM_USER_ID) {
+    try {
+      const igCaption = `${script.hook}\n\n${script.insight1}\n${script.insight2}\n\n${postUrl}\n\n#bridgingfinance #bridgingloans #propertyfinance #commercialfinance #developmentfinance #propertyinvestment #ukrealestate #propertyinvestor #bridgingloan #shorttermloan`;
+      const igId = await postInstagramReel(publicVideoUrl, igCaption);
+      if (igId) {
+        post.igPosted = true;
+        console.log(`  ✅ Instagram Reel posted — ID: ${igId}`);
+      }
+    } catch (err) {
+      console.error(`  ❌ Instagram Reel failed: ${err.message}`);
+    }
+  } else if (!process.env.INSTAGRAM_USER_ID) {
+    console.log('  INSTAGRAM_USER_ID not set — skipping Instagram');
   }
 
   console.log('\nPosting to TikTok...');

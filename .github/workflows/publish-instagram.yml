@@ -1,9 +1,12 @@
 ﻿name: Publish Instagram Post
 
 on:
-  schedule:
-    - cron: '0  9 * * *'   # AM run:  9:00 UTC  = ~10:00 BST (picks up AM blog post)
-    - cron: '0 15 * * *'   # PM run: 15:00 UTC  = ~4:00 BST  (picks up PM blog post)
+  # Instagram image posting replaced by publish-facebook-reels.yml which posts
+  # video Reels to both Facebook and Instagram — far better engagement than images.
+  # Schedule disabled. This workflow is kept as a manual fallback only.
+  # schedule:
+  #   - cron: '0  9 * * *'   # AM run:  9:00 UTC  = ~10:00 BST
+  #   - cron: '0 15 * * *'   # PM run: 15:00 UTC  = ~4:00 BST
 
   workflow_dispatch:
     inputs:
