@@ -76,8 +76,13 @@ async function getSheetsClient() {
 // PUBLISH_SLOT controls which slot this run handles: 'AM' (regular content)
 // or 'PM' (visibility-gap content added by the weekly visibility sync).
 // Defaults to 'AM' so existing behaviour is unchanged when not set.
+//
+// SERVICE_FILTER (optional): if set, only publish rows for that service.
+// e.g. SERVICE_FILTER=Bridging Finance restricts to bridging finance content
+// during the strategic pivot period.
 async function getScheduledRow(sheets) {
-  const slot = (process.env.PUBLISH_SLOT || 'AM').toUpperCase();
+  const slot          = (process.env.PUBLISH_SLOT || 'AM').toUpperCase();
+  const serviceFilter = (process.env.SERVICE_FILTER || '').trim().toLowerCase();
 
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID,
@@ -87,12 +92,20 @@ async function getScheduledRow(sheets) {
   const rows = res.data.values || [];
   const today = new Date().toISOString().split('T')[0];
 
+  if (serviceFilter) {
+    console.log(`  SERVICE_FILTER active: only publishing "${process.env.SERVICE_FILTER}" content`);
+  }
+
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i];
     const type        = (row[1] || '').toLowerCase().trim();
     const status      = (row[2] || '').toLowerCase().trim();
     const publishDate = (row[3] || '').trim();
     const publishSlot = (row[4] || 'AM').toUpperCase().trim();
+    const service     = (row[5] || '').trim();
+
+    // Skip rows that don't match the service filter
+    if (serviceFilter && service.toLowerCase() !== serviceFilter) continue;
 
     if (type === 'blog' && status === 'scheduled' && publishDate <= today && publishSlot === slot) {
       return {
