@@ -2,8 +2,8 @@
 
 on:
   schedule:
-    - cron: '0  10 * * 1-5'   # AM run: 10:00 UTC = ~11:00 BST (after blog publishes)
-    - cron: '0  15 * * 1-5'   # PM run: 15:00 UTC = ~4:00 BST  (after PM blog publishes)
+    - cron: '0  10 * * *'   # AM run: 10:00 UTC = ~11:00 BST (after blog publishes)
+    - cron: '0  15 * * *'   # PM run: 15:00 UTC = ~4:00 BST  (after PM blog publishes)
 
   workflow_dispatch:
 

@@ -9,7 +9,7 @@ on:
 
   # Also run on a schedule as a safety net (8:00 AM UTC = 9:00 AM BST)
   schedule:
-    - cron: '0 8 * * 1-5'
+    - cron: '0 8 * * *'
 
   # Manual trigger
   workflow_dispatch:
