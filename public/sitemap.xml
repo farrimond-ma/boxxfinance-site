@@ -286,6 +286,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://boxxfinance.co.uk/insights/best-commercial-mortgage-lenders</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/insights/working-capital-loans-uk</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://boxxfinance.co.uk/locations/business-loans-london</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -522,6 +532,31 @@
   </url>
   <url>
     <loc>https://boxxfinance.co.uk/locations/asset-finance-bournemouth</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/commercial-mortgages-cheltenham</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/commercial-mortgages-northampton</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/commercial-mortgages-wakefield</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/commercial-mortgages-blackburn</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/commercial-mortgages-hull</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
