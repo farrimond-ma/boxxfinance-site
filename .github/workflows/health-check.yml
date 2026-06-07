@@ -1,0 +1,55 @@
+name: Content Engine Health Check
+
+on:
+  # Runs late in the day (22:00 UTC = ~23:00 BST), after every other daily job
+  # (blog AM/PM, location, Facebook, Reels, Pinterest, LinkedIn, sitemap, etc.)
+  # has had its chance to run. Cross-checks each one's actual output — not just
+  # whether it exited 0 — and opens a GitHub issue if anything needs attention.
+  schedule:
+    - cron: '0 22 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    name: Verify all daily content-engine scripts did their job
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    permissions:
+      contents: read
+      issues: write
+      actions: read
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run health check
+        working-directory: scripts/content-engine
+        env:
+          GH_TOKEN:           ${{ secrets.GH_PAT }}
+          GITHUB_OWNER:       farrimond-ma
+          GITHUB_REPO:        boxxfinance-site
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          # Keep in sync with the SERVICE_FILTER used by the publish-* workflows.
+          # Set to '' (empty) once the strategic pivot ends and filtering is removed.
+          HC_SERVICE_FILTER:  'Bridging Finance'
+        run: node health-check.js
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## Content Engine Health Check" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "🩺 [View open health alerts](https://github.com/${{ github.repository }}/issues?q=is%3Aissue+is%3Aopen+%22Content+Engine+Health+Alert%22)" >> $GITHUB_STEP_SUMMARY

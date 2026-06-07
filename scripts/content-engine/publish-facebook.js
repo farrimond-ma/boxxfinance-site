@@ -110,8 +110,6 @@ async function postToFacebook(postText, articleUrl, imageUrl) {
 
 async function main() {
   console.log('[Facebook Publisher]');
-  const dow = new Date().getUTCDay();
-  if ((dow === 0 || dow === 6) && process.env.FORCE_RUN !== 'true') { console.log('Weekend - skipping.'); return; }
   const { posts } = await getBlogPostsFile();
 
   const post = getUnpostedBlog(posts, 'fbPosted');

@@ -44,10 +44,35 @@ jobs:
           git add public/sitemap.xml
           if git diff --staged --quiet; then
             echo "Sitemap unchanged — nothing to commit"
-          else
+            exit 0
+          fi
+
+          LOCS=$(grep -c '/locations/' public/sitemap.xml || echo 0)
+          BLOGS=$(grep -c '/insights/' public/sitemap.xml || echo 0)
+          git commit -m "chore: regenerate sitemap (${LOCS} locations, ${BLOGS} blogs)"
+
+          # Multiple publishers can push data files within seconds of each other,
+          # which fires several of these runs concurrently. Whoever pushes last wins
+          # a non-fast-forward race, so retry with rebase + regeneration instead of
+          # failing the run on a benign collision.
+          for attempt in 1 2 3 4 5; do
+            if git push origin main; then
+              echo "Sitemap committed and pushed (attempt ${attempt})"
+              exit 0
+            fi
+            echo "Push rejected (attempt ${attempt}) — rebasing onto latest main and regenerating..."
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; git reset --hard origin/main; }
+            node scripts/generate-sitemap.js
+            git add public/sitemap.xml
+            if git diff --staged --quiet; then
+              echo "Sitemap matches latest main after rebase — nothing left to push"
+              exit 0
+            fi
             LOCS=$(grep -c '/locations/' public/sitemap.xml || echo 0)
             BLOGS=$(grep -c '/insights/' public/sitemap.xml || echo 0)
-            git commit -m "chore: regenerate sitemap (${LOCS} locations, ${BLOGS} blogs)"
-            git push origin main
-            echo "Sitemap committed and pushed"
-          fi
+            git commit -m "chore: regenerate sitemap (${LOCS} locations, ${BLOGS} blogs)" --amend
+            sleep $((RANDOM % 5 + 1))
+          done
+          echo "::error::Failed to push sitemap after 5 attempts"
+          exit 1
