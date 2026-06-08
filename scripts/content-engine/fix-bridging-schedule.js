@@ -118,6 +118,63 @@ async function main() {
   }
 
   await dedupe(sheets, isDryRun);
+  await pullForwardFirstRow(sheets, today, isDryRun);
+}
+
+// ── 4. Pull the very next AM-slot Bridging Finance blog row to today ─────────
+// publish-blog.js only matches rows where publishDate <= today. After the
+// repair the earliest queued row lands tomorrow — meaning today's run would
+// still find nothing. Bring the single earliest scheduled AM blog row forward
+// to today so it's immediately publishable (the user asked to run it NOW).
+async function pullForwardFirstRow(sheets, today, isDryRun) {
+  console.log('\n── Step 4: Pulling the next Bridging Finance AM blog post forward to today ──');
+
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: 'ContentEngine!A2:AC',
+  });
+  const rows = res.data.values || [];
+
+  const candidates = [];
+  rows.forEach((row, i) => {
+    const type    = (row[1] || '').toLowerCase().trim();
+    const status  = (row[2] || '').toLowerCase().trim();
+    const service = (row[5] || '').trim();
+    const slot    = (row[4] || 'AM').toUpperCase().trim();
+    const d       = (row[3] || '').trim();
+    if (type === 'blog' && status === 'scheduled' && service === FOCUS_SERVICE && slot === 'AM') {
+      candidates.push({ rowIndex: i + 2, date: d, row });
+    }
+  });
+
+  if (!candidates.length) {
+    console.log('  No scheduled Bridging Finance AM blog rows found at all — nothing to pull forward.');
+    return;
+  }
+
+  candidates.sort((a, b) => a.date.localeCompare(b.date));
+  const next = candidates[0];
+
+  if (next.date <= today) {
+    console.log(`  Earliest row (id=${next.row[0]}, slug=${next.row[10]}) is already due: ${next.date} <= ${today}. No change needed.`);
+    return;
+  }
+
+  console.log(`  Earliest row (id=${next.row[0]}, slug=${next.row[10]}, title="${next.row[9]}") is dated ${next.date}.`);
+  console.log(`  Pulling it forward to today (${today}) so the next publish-blog run picks it up immediately.`);
+
+  if (isDryRun) {
+    console.log('\n[DRY RUN] Would update row to today. No changes written.');
+    return;
+  }
+
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: SPREADSHEET_ID,
+    range: `ContentEngine!D${next.rowIndex}`,
+    valueInputOption: 'RAW',
+    requestBody: { values: [[today]] },
+  });
+  console.log(`\n✅ Row ${next.rowIndex} (id=${next.row[0]}, slug=${next.row[10]}) re-dated ${next.date} → ${today}. Ready to publish now.`);
 }
 
 // ── 3. Dedupe: the far-future batch we just compressed onto a daily cadence ──
