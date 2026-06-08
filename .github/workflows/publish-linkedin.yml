@@ -7,9 +7,9 @@ on:
     types:
       - completed
 
-  # Also run on a schedule as a safety net (8:00 AM UTC = 9:00 AM BST)
+  # Also run on a schedule as a safety net (8:16 AM UTC = 9:16 AM BST — staggered off :00, was colliding with Publish Location's old 8:00 slot)
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '16 8 * * *'
 
   # Manual trigger
   workflow_dispatch:

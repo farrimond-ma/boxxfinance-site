@@ -3,8 +3,8 @@ name: Regenerate Thin Posts
 on:
   # Twice daily — clears the 38-post backlog in under 3 weeks
   schedule:
-    - cron: '0  7 * * *'   # 7:00 UTC  = ~8am BST
-    - cron: '0 14 * * *'   # 14:00 UTC = ~3pm BST
+    - cron: '8 7 * * *'   # 7:08 UTC  = ~just after 8am BST (staggered off :00 to dodge scheduler queueing)
+    - cron: '8 14 * * *'   # 14:08 UTC = ~just after 3pm BST (staggered off :00)
 
   workflow_dispatch:
     inputs:

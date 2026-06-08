@@ -1,9 +1,9 @@
 name: Reddit Monitor
 
 on:
-  # Every Monday and Thursday at 9:00 AM UTC (10:00 AM BST)
+  # Every Monday and Thursday at 9:11 AM UTC (10:11 AM BST) — staggered off :00 to dodge scheduler queueing
   schedule:
-    - cron: '0 9 * * 1,4'
+    - cron: '11 9 * * 1,4'
 
   # Manual trigger for testing
   workflow_dispatch:

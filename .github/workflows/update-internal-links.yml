@@ -2,8 +2,8 @@ name: Update Internal Links
 
 on:
   schedule:
-    # 9:30 AM UTC = 10:30 AM UK time (BST). Runs after blog (7:30am) and location AM (8:30am). Monday to Friday.
-    - cron: '30 9 * * 1-5'
+    # 9:47 AM UTC = 10:47 AM UK time (BST). Runs after blog and location AM. Monday to Friday. (staggered off :30 to dodge scheduler queueing)
+    - cron: '47 9 * * 1-5'
   workflow_dispatch:
 
 permissions:

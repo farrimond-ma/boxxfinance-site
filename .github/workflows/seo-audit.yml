@@ -7,9 +7,9 @@ on:
     types:
       - completed
 
-  # Weekly full audit — Monday 7:00 AM UTC (8:00 AM BST)
+  # Weekly full audit — Monday 7:14 AM UTC (8:14 AM BST) — staggered off :00 to dodge scheduler queueing
   schedule:
-    - cron: '0 7 * * 1'
+    - cron: '14 7 * * 1'
 
   # Manual trigger
   workflow_dispatch:

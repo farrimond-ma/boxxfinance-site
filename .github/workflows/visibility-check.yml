@@ -2,7 +2,7 @@ name: AI Visibility Check
 
 on:
   schedule:
-    - cron: "0 7 * * 1"
+    - cron: "21 7 * * 1"   # 7:21 UTC Mondays (staggered off :00 to dodge scheduler queueing)
 
   workflow_dispatch:
     inputs:

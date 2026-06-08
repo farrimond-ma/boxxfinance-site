@@ -1,10 +1,10 @@
 ﻿name: Publish Blog PM
 
 on:
-  # 10:00 AM UTC = 11:00 AM BST (queuing typically adds ~2-3hrs â†’ fires ~2pm BST)
+  # 10:07 AM UTC = 11:07 AM BST (staggered off :00 to dodge scheduler queueing; queuing typically adds ~2-3hrs â†’ fires ~1-2pm BST)
   # Publishes PM-slot blogs â€” visibility-gap content added by the weekly sync.
   schedule:
-    - cron: '0 10 * * *'
+    - cron: '7 10 * * *'
 
   workflow_dispatch:
     inputs:

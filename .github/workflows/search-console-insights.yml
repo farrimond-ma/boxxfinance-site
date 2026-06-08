@@ -1,9 +1,9 @@
 name: Search Console Insights
 
 on:
-  # Runs every Monday at 7:30 UTC — after the AI visibility checker (7:00 UTC)
+  # Runs every Monday at 7:43 UTC — after the AI visibility checker (7:21 UTC) — staggered off :30 to dodge scheduler queueing
   schedule:
-    - cron: '30 7 * * 1'
+    - cron: '43 7 * * 1'
 
   workflow_dispatch:
     inputs:

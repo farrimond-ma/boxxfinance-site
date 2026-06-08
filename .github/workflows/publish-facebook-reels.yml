@@ -2,8 +2,8 @@
 
 on:
   schedule:
-    - cron: '0  11 * * *'   # AM run: 11:00 UTC = ~noon BST
-    - cron: '0  16 * * *'   # PM run: 16:00 UTC = ~5pm BST
+    - cron: '9 11 * * *'   # AM run: 11:09 UTC = ~just after noon BST (staggered off :00 to dodge scheduler queueing)
+    - cron: '21 16 * * *'   # PM run: 16:21 UTC = ~just after 5pm BST (staggered off :00)
 
   workflow_dispatch:
     inputs:
