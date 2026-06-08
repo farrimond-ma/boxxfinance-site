@@ -1,0 +1,35 @@
+name: Fix Bridging Finance Schedule
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — show what would change without writing'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  fix:
+    name: Repair mis-dated Bridging Finance schedule
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+      - name: Run fix script
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node fix-bridging-schedule.js --dry-run
+          else
+            node fix-bridging-schedule.js
+          fi
