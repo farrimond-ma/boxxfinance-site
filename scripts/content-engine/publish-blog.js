@@ -583,6 +583,7 @@ Apply these changes to the visible text only:
 - Remove forced rule-of-three structures
 - Keep all facts, links, and HTML structure identical
 - UK spelling throughout
+- Do NOT wrap the output in markdown code fences or backticks (no \`\`\`html, no \`\`\`) — return raw HTML only
 - Return ONLY the modified HTML, nothing else
 
 HTML TO REWRITE:
@@ -594,7 +595,11 @@ ${html.substring(0, 12000)}`;
       messages:   [{ role: 'user', content: htmlPrompt }],
     });
 
-    const humanizedHtml = htmlResponse.content[0].type === 'text' ? htmlResponse.content[0].text.trim() : '';
+    let humanizedHtml = htmlResponse.content[0].type === 'text' ? htmlResponse.content[0].text.trim() : '';
+    // Defensive cleanup: strip markdown code fences the model sometimes adds
+    // despite being told not to (this is what produced the literal "```html"
+    // visible at the top of published articles like bridging-loan-calculator-uk).
+    humanizedHtml = humanizedHtml.replace(/^```(?:html)?\s*/i, '').replace(/```\s*$/i, '').trim();
 
     if (!humanizedHtml || !humanizedHtml.includes('<')) {
       console.warn('  Humanizer returned non-HTML — using original');

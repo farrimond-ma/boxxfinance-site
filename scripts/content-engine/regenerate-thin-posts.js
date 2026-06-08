@@ -213,6 +213,7 @@ async function humanize(html, author) {
 - Remove em dashes (—), overused words (tapestry, leverage, pivotal, underscore, nuanced, robust), hedging phrases (it's worth noting, in order to), passive voice where possible, generic conclusions.
 - Preserve ALL HTML tags, links, and factual content exactly.
 - UK spelling throughout.
+- Do NOT wrap the output in markdown code fences or backticks (no \`\`\`html, no \`\`\`) — return raw HTML only.
 - Return ONLY the modified HTML.
 
 HTML:
@@ -222,7 +223,11 @@ ${html.substring(0, 12000)}`;
     model: 'claude-haiku-4-5-20251001', max_tokens: 8000,
     messages: [{ role: 'user', content: prompt }],
   });
-  const result = r.content[0].type === 'text' ? r.content[0].text.trim() : '';
+  let result = r.content[0].type === 'text' ? r.content[0].text.trim() : '';
+  // Defensive cleanup: strip markdown code fences the model sometimes adds
+  // despite being told not to (this is what left literal "```html" visible
+  // at the top of several published articles).
+  result = result.replace(/^```(?:html)?\s*/i, '').replace(/```\s*$/i, '').trim();
   return (result && result.includes('<')) ? result : html;
 }
 
