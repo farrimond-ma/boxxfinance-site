@@ -89,35 +89,103 @@ async function main() {
 
   console.log(`── Bridging Finance blog rows mis-scheduled in the far future: ${toFix.length} ──`);
   if (!toFix.length) {
-    console.log('  Nothing to fix.');
+    console.log('  Nothing to re-date.');
+  } else {
+    // Preserve original relative order (and the Mark/Andrew alternation baked
+    // in at creation time) by sorting on the (wrong) date they were given —
+    // they were created in increasing-date order, so this recovers sequence.
+    toFix.sort((a, b) => a.currentDate.localeCompare(b.currentDate));
+
+    const cursor = addDays(today, 1); // start tomorrow
+    console.log(`  Re-dating ${toFix.length} rows starting ${cursor} (tomorrow), 1/day:\n`);
+
+    const updates = [];
+    toFix.forEach((item, idx) => {
+      const newDate = addDays(cursor, idx);
+      console.log(`    row ${item.rowIndex}: ${item.currentDate} → ${newDate}   id=${item.row[0]}  author=${item.row[25] || ''}  slug=${item.row[10] || ''}`);
+      updates.push({ range: `ContentEngine!D${item.rowIndex}`, values: [[newDate]] });
+    });
+
+    if (isDryRun) {
+      console.log('\n[DRY RUN] No re-date changes written. Re-run without --dry-run to apply.');
+    } else {
+      await sheets.spreadsheets.values.batchUpdate({
+        spreadsheetId: SPREADSHEET_ID,
+        requestBody: { valueInputOption: 'RAW', data: updates },
+      });
+      console.log(`\n✅ Re-dated ${updates.length} Bridging Finance blog rows. First one now lands ${cursor}.`);
+    }
+  }
+
+  await dedupe(sheets, isDryRun);
+}
+
+// ── 3. Dedupe: the far-future batch we just compressed onto a daily cadence ──
+// turned out to contain rows that were already populated into the queue
+// multiple times by earlier rotation runs (and at least one whose article is
+// already published). Re-read fresh and pause the redundant copies so we
+// don't generate duplicate articles / slug collisions.
+async function dedupe(sheets, isDryRun) {
+  console.log('\n── Step 3: Checking for duplicate Bridging Finance slugs in the schedule ──');
+
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: 'ContentEngine!A2:AC',
+  });
+  const rows = res.data.values || [];
+
+  // Build a set of slugs that are already live (published) anywhere, any service.
+  const publishedSlugs = new Set();
+  rows.forEach(row => {
+    const status = (row[2] || '').toLowerCase().trim();
+    const slug   = (row[10] || '').trim();
+    if (status === 'published' && slug) publishedSlugs.add(slug);
+  });
+
+  // Group scheduled Bridging Finance blog rows by slug.
+  const bySlug = new Map();
+  rows.forEach((row, i) => {
+    const type    = (row[1] || '').toLowerCase().trim();
+    const status  = (row[2] || '').toLowerCase().trim();
+    const service = (row[5] || '').trim();
+    const slug    = (row[10] || '').trim();
+    if (type === 'blog' && status === 'scheduled' && service === FOCUS_SERVICE && slug) {
+      if (!bySlug.has(slug)) bySlug.set(slug, []);
+      bySlug.get(slug).push({ rowIndex: i + 2, date: (row[3] || '').trim(), row });
+    }
+  });
+
+  const pauseUpdates = [];
+  for (const [slug, entries] of bySlug.entries()) {
+    const alreadyPublished = publishedSlugs.has(slug);
+    if (entries.length === 1 && !alreadyPublished) continue;
+
+    entries.sort((a, b) => a.date.localeCompare(b.date));
+    // If the article is already published, pause every scheduled copy.
+    // Otherwise keep the earliest-dated copy and pause the rest.
+    const toPause = alreadyPublished ? entries : entries.slice(1);
+    toPause.forEach(e => {
+      console.log(`  pausing duplicate: row ${e.rowIndex} id=${e.row[0]} slug=${slug} date=${e.date}` +
+        (alreadyPublished ? '  [article already published — pausing all copies]' : '  [keeping earliest copy instead]'));
+      pauseUpdates.push({ range: `ContentEngine!C${e.rowIndex}`, values: [['paused']] });
+    });
+  }
+
+  if (!pauseUpdates.length) {
+    console.log('  No duplicates found.');
     return;
   }
 
-  // Preserve original relative order (and the Mark/Andrew alternation baked
-  // in at creation time) by sorting on the (wrong) date they were given —
-  // they were created in increasing-date order, so this recovers sequence.
-  toFix.sort((a, b) => a.currentDate.localeCompare(b.currentDate));
-
-  const cursor = addDays(today, 1); // start tomorrow
-  console.log(`  Re-dating ${toFix.length} rows starting ${cursor} (tomorrow), 1/day:\n`);
-
-  const updates = [];
-  toFix.forEach((item, idx) => {
-    const newDate = addDays(cursor, idx);
-    console.log(`    row ${item.rowIndex}: ${item.currentDate} → ${newDate}   id=${item.row[0]}  author=${item.row[25] || ''}  slug=${item.row[10] || ''}`);
-    updates.push({ range: `ContentEngine!D${item.rowIndex}`, values: [[newDate]] });
-  });
-
   if (isDryRun) {
-    console.log('\n[DRY RUN] No changes written. Re-run without --dry-run to apply.');
+    console.log(`\n[DRY RUN] Would pause ${pauseUpdates.length} duplicate rows. No changes written.`);
     return;
   }
 
   await sheets.spreadsheets.values.batchUpdate({
     spreadsheetId: SPREADSHEET_ID,
-    requestBody: { valueInputOption: 'RAW', data: updates },
+    requestBody: { valueInputOption: 'RAW', data: pauseUpdates },
   });
-  console.log(`\n✅ Re-dated ${updates.length} Bridging Finance blog rows. First one now lands ${cursor}.`);
+  console.log(`\n✅ Paused ${pauseUpdates.length} duplicate/redundant scheduled Bridging Finance rows.`);
 }
 
 main().catch(err => { console.error('❌ Fatal error:', err); process.exit(1); });
