@@ -26,6 +26,8 @@ jobs:
     # Run whether or not the triggering workflow succeeded — we want to catch issues either way
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     timeout-minutes: 15
+    permissions:
+      issues: write
 
     steps:
       - name: Checkout repo

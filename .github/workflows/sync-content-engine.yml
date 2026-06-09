@@ -36,7 +36,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: visibility-checker
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Add visibility-gap PM blog rows
         working-directory: visibility-checker

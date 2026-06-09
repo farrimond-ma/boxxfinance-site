@@ -1,8 +1,8 @@
 /**
  * Boxx Finance — Google Search Console Insights
  *
- * Pulls keyword and page performance data from Google Search Console,
- * identifies three types of opportunity, and writes them to a
+ * Calls the Search Console API directly to pull keyword and page performance
+ * data, identifies three types of opportunity, and writes them to a
  * 'Search_Console' tab in the Google Sheet.
  *
  * Opportunity types:
@@ -15,15 +15,15 @@
  * SETUP: The service account email in GOOGLE_CREDENTIALS must be added
  * as a user in Google Search Console:
  *   Search Console → Settings → Users and permissions → Add user
+ *   (use the client_email value from the service account JSON)
  */
 
 require('dotenv').config();
 const { google } = require('googleapis');
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
-const SITE_URL       = 'https://boxxfinance.co.uk/';
-const RAW_TAB        = 'SC_Raw';         // populated by Search Analytics for Sheets add-on
-const OUTPUT_TAB     = 'Search_Console'; // written by this script after analysis
+const SITE_URL       = 'sc-domain:boxxfinance.co.uk'; // domain property format
+const OUTPUT_TAB     = 'Search_Console';
 const LOOKBACK_DAYS  = 28;
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
@@ -35,7 +35,10 @@ async function getAuth() {
   catch { credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS); }
   return new google.auth.GoogleAuth({
     credentials,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    scopes: [
+      'https://www.googleapis.com/auth/spreadsheets',
+      'https://www.googleapis.com/auth/webmasters.readonly',
+    ],
   });
 }
 
@@ -50,30 +53,65 @@ function getDateRange() {
   };
 }
 
-// ─── Read raw data from SC_Raw tab (populated by Search Analytics add-on) ────
-// Columns: A=Query, B=Page, C=Clicks, D=Impressions, E=CTR, F=Position
+// ─── Fetch from Search Console API ───────────────────────────────────────────
 
-async function readRawData(sheets) {
-  const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: SPREADSHEET_ID,
-    range: `${RAW_TAB}!A2:F`,
-  });
-  const rows = res.data.values || [];
+async function fetchSearchConsoleData(auth, dateRange) {
+  const wm = google.webmasters({ version: 'v3', auth });
 
-  const queryRows = [];
-  const pageRows  = [];
+  console.log('  Querying Search Console API for keyword data...');
+  let queryRows = [];
+  try {
+    const queryRes = await wm.searchanalytics.query({
+      siteUrl: SITE_URL,
+      requestBody: {
+        startDate:  dateRange.startDate,
+        endDate:    dateRange.endDate,
+        dimensions: ['query'],
+        rowLimit:   5000,
+      },
+    });
+    queryRows = (queryRes.data.rows || []).map(r => ({
+      keys:        r.keys,
+      clicks:      r.clicks      || 0,
+      impressions: r.impressions || 0,
+      ctr:         r.ctr         || 0,
+      position:    r.position    || 0,
+    }));
+    console.log(`  ${queryRows.length} keyword rows fetched`);
+  } catch (err) {
+    if (err.code === 403) {
+      console.error('\n❌ Search Console API permission denied (403).');
+      console.error('   To fix: add the service account email to Search Console as a user.');
+      console.error('   Search Console → Settings → Users and permissions → Add user');
+      console.error('   Service account email is in the client_email field of GOOGLE_CREDENTIALS.\n');
+      throw err;
+    }
+    throw err;
+  }
 
-  for (const row of rows) {
-    if (!row[0] || !row[1]) continue;
-    const query       = (row[0] || '').trim();
-    const page        = (row[1] || '').trim();
-    const clicks      = parseInt(row[2])  || 0;
-    const impressions = parseInt(row[3])  || 0;
-    const ctr         = parseFloat((row[4] || '0').replace('%','')) / 100;
-    const position    = parseFloat(row[5]) || 0;
-
-    queryRows.push({ keys: [query], clicks, impressions, ctr, position });
-    pageRows.push({  keys: [page],  clicks, impressions, ctr, position });
+  console.log('  Querying Search Console API for page data...');
+  let pageRows = [];
+  try {
+    const pageRes = await wm.searchanalytics.query({
+      siteUrl: SITE_URL,
+      requestBody: {
+        startDate:  dateRange.startDate,
+        endDate:    dateRange.endDate,
+        dimensions: ['page'],
+        rowLimit:   1000,
+      },
+    });
+    pageRows = (pageRes.data.rows || []).map(r => ({
+      keys:        r.keys,
+      clicks:      r.clicks      || 0,
+      impressions: r.impressions || 0,
+      ctr:         r.ctr         || 0,
+      position:    r.position    || 0,
+    }));
+    console.log(`  ${pageRows.length} page rows fetched`);
+  } catch (err) {
+    console.warn(`  Warning: could not fetch page data: ${err.message}`);
+    pageRows = [];
   }
 
   return { queryRows, pageRows };
@@ -156,25 +194,24 @@ function findTopPages(rows) {
 
 // ─── Write to Google Sheet ────────────────────────────────────────────────────
 
-async function writeToSheet(auth, allOpportunities, topPages, dateRange) {
-  const sheets = google.sheets({ version: 'v4', auth });
+async function writeToSheet(sheets, allOpportunities, topPages, dateRange) {
   const runDate = new Date().toISOString().split('T')[0];
 
   // Ensure tab exists
   const meta = await sheets.spreadsheets.get({ spreadsheetId: SPREADSHEET_ID });
-  const tabExists = meta.data.sheets?.some(s => s.properties?.title === SHEET_TAB);
+  const tabExists = meta.data.sheets?.some(s => s.properties?.title === OUTPUT_TAB);
   if (!tabExists) {
     await sheets.spreadsheets.batchUpdate({
       spreadsheetId: SPREADSHEET_ID,
-      requestBody: { requests: [{ addSheet: { properties: { title: SHEET_TAB } } }] },
+      requestBody: { requests: [{ addSheet: { properties: { title: OUTPUT_TAB } } }] },
     });
-    console.log(`  Created tab: ${SHEET_TAB}`);
+    console.log(`  Created tab: ${OUTPUT_TAB}`);
   }
 
   // Clear existing content
   await sheets.spreadsheets.values.clear({
     spreadsheetId: SPREADSHEET_ID,
-    range: `${SHEET_TAB}!A:H`,
+    range: `${OUTPUT_TAB}!A:H`,
   });
 
   const rows = [
@@ -199,12 +236,12 @@ async function writeToSheet(auth, allOpportunities, topPages, dateRange) {
 
   await sheets.spreadsheets.values.update({
     spreadsheetId: SPREADSHEET_ID,
-    range: `${SHEET_TAB}!A1`,
+    range: `${OUTPUT_TAB}!A1`,
     valueInputOption: 'RAW',
     requestBody: { values: rows },
   });
 
-  console.log(`  Written ${allOpportunities.length} opportunities + ${topPages.length} top pages to ${SHEET_TAB} tab`);
+  console.log(`  Written ${allOpportunities.length} opportunities + ${topPages.length} top pages to ${OUTPUT_TAB} tab`);
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -219,35 +256,27 @@ async function main() {
   if (isDryRun) console.log('⚠  DRY RUN — no API calls\n');
 
   const auth = await getAuth();
-  const { startDate, endDate } = getDateRange();
-  console.log(`Date range: ${startDate} to ${endDate}\n`);
+  const dateRange = getDateRange();
+  console.log(`Date range: ${dateRange.startDate} to ${dateRange.endDate}\n`);
 
   if (isDryRun) {
-    console.log('Dry run — skipping sheet read.');
+    console.log('Dry run — skipping API calls.');
     return;
   }
 
-  // Read from SC_Raw tab (populated by Search Analytics for Sheets add-on)
-  console.log(`Reading raw data from ${RAW_TAB} tab...`);
-  let queryRows, pageRows;
-  try {
-    const raw = await readRawData(sheets);
-    queryRows = raw.queryRows;
-    pageRows  = raw.pageRows;
-    console.log(`  ${queryRows.length} keyword rows read`);
-  } catch (err) {
-    console.error(`\n❌ Could not read ${RAW_TAB} tab: ${err.message}`);
-    console.error(`   Make sure the Search Analytics for Sheets add-on has run and the tab is named "${RAW_TAB}"`);
-    process.exit(1);
-  }
+  // Fetch from Search Console API
+  console.log('Fetching data from Search Console API...');
+  const { queryRows, pageRows } = await fetchSearchConsoleData(auth, dateRange);
 
   if (queryRows.length === 0) {
-    console.log(`  ${RAW_TAB} tab is empty — has the add-on run yet?`);
+    console.log('  No keyword data returned from Search Console.');
+    console.log('  This usually means the site has no impressions yet, or the service account');
+    console.log('  has not been added to Search Console as a user.');
     return;
   }
 
   // Analyse
-  console.log('Analysing opportunities...');
+  console.log('\nAnalysing opportunities...');
   const page2     = findPage2Keywords(queryRows);
   const lowCtr    = findLowCTR(queryRows);
   const gaps      = findContentGaps(queryRows, pageRows);
@@ -265,11 +294,13 @@ async function main() {
   console.log(`  Total opportunities: ${allOpportunities.length}`);
   console.log(`  Top pages:           ${topPages.length}`);
 
+  // Create sheets client and write
+  const sheets = google.sheets({ version: 'v4', auth });
   console.log('\nWriting to Google Sheet...');
-  await writeToSheet(auth, allOpportunities, topPages, { startDate, endDate });
+  await writeToSheet(sheets, allOpportunities, topPages, dateRange);
 
   console.log('\n✅ Done. View results at:');
-  console.log(`   https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}#gid=Search_Console\n`);
+  console.log(`   https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}\n`);
 }
 
 main().catch(err => {

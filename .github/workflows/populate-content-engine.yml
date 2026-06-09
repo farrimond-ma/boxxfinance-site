@@ -1,15 +1,7 @@
 name: Populate Content Engine
 
 on:
-  # Runs automatically each quarter to schedule the next 90 days of content.
-  # Adjust dates here if you want a different cadence.
-  schedule:
-    - cron: '0 9 1 1 *'   # 1 January  — schedules Jan–Mar
-    - cron: '0 9 1 4 *'   # 1 April    — schedules Apr–Jun
-    - cron: '0 9 1 7 *'   # 1 July     — schedules Jul–Sep
-    - cron: '0 9 1 10 *'  # 1 October  — schedules Oct–Dec
-
-  # Manual trigger for testing or ad-hoc top-ups
+  # Manual trigger only — quarterly schedule removed (content is seeded via seed-content-engine.yml instead)
   workflow_dispatch:
     inputs:
       dry_run:
