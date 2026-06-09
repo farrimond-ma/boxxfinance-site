@@ -94,8 +94,8 @@ const FundingSolutions = () => {
     return (
         <div className="funding-solutions-page">
             <SEO
-                title="UK Commercial Finance &amp; Business Funding Solutions | Boxx Commercial Finance"
-                description="Explore the full range of commercial finance solutions Boxx Commercial Finance arranges for UK businesses — bridging finance, development finance, commercial mortgages, asset finance, invoice finance, and more."
+                title="UK Commercial Finance &amp; Business Funding Solutions"
+                description="UK commercial finance broker — no lender ties. We arrange bridging finance, development finance, commercial mortgages, asset finance, invoice finance and more."
                 keywords="commercial finance UK, business funding solutions, bridging finance, development finance, commercial mortgages, asset finance, invoice finance, working capital"
                 schema={[schema, faqSchema]}
             />
