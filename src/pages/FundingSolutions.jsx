@@ -112,7 +112,7 @@ const FundingSolutions = () => {
                         suits our book. Below you will find a plain-English overview of each funding type
                         we arrange, who it is for, and how to find out more.
                     </p>
-                    <Link to="/chat-about-funding" className="btn btn-secondary fs-hero-cta">
+                    <Link to="/chat-about-funding" className="btn btn-primary fs-hero-cta">
                         Discuss your funding requirements
                     </Link>
                 </div>
