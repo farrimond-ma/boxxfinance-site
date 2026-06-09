@@ -313,7 +313,10 @@ async function main() {
     require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, report + '\n');
   }
 
-  const problems = results.filter(r => r.status === 'fail' || r.status === 'warn');
+  const failures = results.filter(r => r.status === 'fail');
+  const warnings = results.filter(r => r.status === 'warn');
+  const problems = [...failures, ...warnings];
+
   if (problems.length > 0) {
     console.log(`\n${problems.length} item(s) need attention — opening/updating alert issue...`);
     await postAlertIssue(report, problems.length);
@@ -322,6 +325,14 @@ async function main() {
   }
 
   console.log('\nDone.');
+
+  // Exit with code 1 if there are any hard failures — this turns the GitHub Actions
+  // workflow red, which triggers GitHub's built-in email notifications to watchers.
+  // Warnings alone keep the run green (informational, not actionable right now).
+  if (failures.length > 0) {
+    console.error(`\n❌ ${failures.length} failure(s) detected — exiting with code 1 to trigger GitHub notification email.`);
+    process.exit(1);
+  }
 }
 
 main().catch(err => { console.error('Fatal:', err.message); process.exit(1); });

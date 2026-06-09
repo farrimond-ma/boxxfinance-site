@@ -53,4 +53,8 @@ jobs:
         run: |
           echo "## Content Engine Health Check" >> $GITHUB_STEP_SUMMARY
           echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "If this run is **red**, at least one publisher silently failed today." >> $GITHUB_STEP_SUMMARY
+          echo "Click the link below to see exactly what failed and what to fix." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
           echo "🩺 [View open health alerts](https://github.com/${{ github.repository }}/issues?q=is%3Aissue+is%3Aopen+%22Content+Engine+Health+Alert%22)" >> $GITHUB_STEP_SUMMARY
