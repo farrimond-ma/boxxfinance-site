@@ -104,12 +104,13 @@ const FundingSolutions = () => {
             <div className="fs-hero">
                 <div className="container">
                     <h1>
-                        Funding <span className="text-highlight">Solutions</span>
+                        Commercial <span className="text-highlight">Funding Solutions</span>
                     </h1>
                     <p>
-                        12 specialist commercial funding products, structured around your business objectives.
-                        From bridging finance and development loans to invoice facilities and commercial mortgages
-                        — we find and arrange the right solution, not the easiest one.
+                        We are a whole-of-market commercial finance broker, not a lender. That means our
+                        only job is to find the structure that serves your business — not the product that
+                        suits our book. Below you will find a plain-English overview of each funding type
+                        we arrange, who it is for, and how to find out more.
                     </p>
                     <Link to="/chat-about-funding" className="btn btn-secondary fs-hero-cta">
                         Discuss your funding requirements
@@ -117,21 +118,12 @@ const FundingSolutions = () => {
                 </div>
             </div>
 
-            {/* Intro strip */}
-            <div className="fs-intro">
-                <div className="container">
-                    <p>
-                        We are a whole-of-market commercial finance broker, not a lender. That means our
-                        only job is to find the structure that serves your business — not the product that
-                        suits our book. Below you will find a plain-English overview of each funding type
-                        we arrange, who it is for, and how to find out more.
-                    </p>
-                </div>
-            </div>
-
             {/* Service grid */}
             <section className="section fs-grid-section">
                 <div className="container">
+                    <div className="section-header">
+                        <h2>Our Funding <span className="text-highlight">Solutions</span></h2>
+                    </div>
                     <div className="fs-grid">
                         {servicesArray.map(service => (
                             <div key={service.slug} className="fs-card">
