@@ -118,12 +118,21 @@ async function main() {
   const postText   = await generateFacebookPost(post);
   const articleUrl = post.url.startsWith('http') ? post.url : SITE_URL + post.url;
   const imageUrl   = getImageUrl(post);
+  let fbSuccess = false;
   try {
     const id = await postToFacebook(postText, articleUrl, imageUrl);
     post.fbPosted = true;
+    fbSuccess = true;
     console.log('Facebook posted: ' + id);
-  } catch (err) { console.error('Facebook failed: ' + err.message); }
-  await pushBlogPostsFile(posts, 'social: facebook posted for ' + post.slug);
+  } catch (err) {
+    console.error('Facebook failed: ' + err.message);
+    console.error('Post NOT marked as fbPosted — will retry next run.');
+  }
+  if (fbSuccess) {
+    await pushBlogPostsFile(posts, 'social: facebook posted for ' + post.slug);
+  } else {
+    console.log('Skipping git commit — nothing was successfully posted.');
+  }
   console.log('Done.');
 }
 main().catch(err => { console.error('Fatal:', err.message); process.exit(1); });

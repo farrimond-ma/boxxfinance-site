@@ -2,8 +2,8 @@
 
 on:
   schedule:
-    - cron: '38 8 * * *'   # AM run:  8:38 UTC  = ~9:38 BST (picks up AM blog post; staggered off :30 to dodge scheduler queueing)
-    - cron: '42 14 * * *'   # PM run: 14:42 UTC  = ~3:42 BST (picks up PM blog post; staggered off :30)
+    - cron: '30 11 * * *'  # AM run: 11:30 UTC = ~12:30 BST (blog publishes at 7:37 UTC but typically delayed 3-4hrs; this fires after it lands)
+    - cron: '42 14 * * *'  # PM run: 14:42 UTC = ~3:42 BST (picks up PM blog post)
 
   # Manual trigger for testing
   workflow_dispatch:
