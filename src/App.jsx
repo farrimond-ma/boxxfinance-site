@@ -15,6 +15,7 @@ import ContentDashboard from './pages/ContentDashboard';
 import './App.css';
 import ScrollToTop from './components/ScrollToTop';
 import LocationPage from './pages/LocationPage';
+import FundingSolutions from './pages/FundingSolutions';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="funding-solutions" element={<FundingSolutions />} />
           <Route path="funding-solutions/:slug" element={<ServicePage />} />
           <Route path="insights" element={<Blog />} />
           <Route path="insights/:slug" element={<BlogPost />} />

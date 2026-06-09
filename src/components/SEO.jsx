@@ -47,12 +47,12 @@ const SEO = ({
             <meta name="twitter:description" content={description} />
             <meta name="twitter:image"       content={ogImage} />
 
-            {/* Schema.org */}
-            {schema && (
-                <script type="application/ld+json">
-                    {typeof schema === 'string' ? schema : JSON.stringify(schema)}
+            {/* Schema.org — accepts a single object/string or an array of schemas */}
+            {schema && (Array.isArray(schema) ? schema : [schema]).map((s, i) => (
+                <script key={i} type="application/ld+json">
+                    {typeof s === 'string' ? s : JSON.stringify(s)}
                 </script>
-            )}
+            ))}
         </Helmet>
     );
 };

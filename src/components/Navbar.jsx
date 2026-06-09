@@ -8,10 +8,11 @@ const Navbar = () => {
     const location = useLocation();
 
     // Pages that should start with a dark navy navbar
-    const darkNavRoutes = ['/insights/', '/insights', '/locations/'];
+    const darkNavRoutes = ['/insights/', '/insights', '/locations/', '/funding-solutions'];
     const isDarkPage = darkNavRoutes.some(route => location.pathname.startsWith(route)) ||
         /^\/insights\//.test(location.pathname) ||
-        /^\/locations\//.test(location.pathname);
+        /^\/locations\//.test(location.pathname) ||
+        /^\/funding-solutions/.test(location.pathname);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -48,7 +49,7 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className={`navbar-menu ${mobileMenuOpen ? 'active' : ''}`}>
-                    <a href="/#funding-solutions" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Funding Solutions</a>
+                    <Link to="/funding-solutions" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Funding Solutions</Link>
                     <a href="/#about" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>About Us</a>
                     <Link to="/insights" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Insights</Link>
                     <a href="/#case-studies" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Case Studies</a>

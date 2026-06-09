@@ -17,7 +17,7 @@ const Footer = () => {
                     <div className="footer-links">
                         <h4>Quick Links</h4>
                         <ul>
-                            <li><a href="/#funding-solutions">Funding Solutions</a></li>
+                            <li><Link to="/funding-solutions">Funding Solutions</Link></li>
                             <li><a href="/#about">About Us</a></li>
                             <li><Link to="/insights">Insights</Link></li>
                             <li><Link to="/uk-sme-funding-index">UK SME Funding Index</Link></li>

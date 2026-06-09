@@ -1,0 +1,190 @@
+/* ── Funding Solutions Hub Page ────────────────────────────────────────────── */
+
+/* Hero */
+.fs-hero {
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 10rem 0 7rem;
+    text-align: center;
+}
+
+.fs-hero .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.fs-hero h1 {
+    font-size: 2.6rem;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    color: var(--color-white);
+}
+
+@media (min-width: 768px) {
+    .fs-hero h1 { font-size: 3.2rem; }
+}
+
+.fs-hero p {
+    font-size: 1.15rem;
+    opacity: 0.9;
+    max-width: 680px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    color: var(--color-white);
+}
+
+.fs-hero-cta {
+    margin-top: 0.5rem;
+}
+
+/* Intro strip */
+.fs-intro {
+    background: var(--color-bg-light);
+    padding: 2rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.fs-intro p {
+    font-size: 1rem;
+    color: #555;
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.75;
+}
+
+/* Grid section */
+.fs-grid-section {
+    background: #fff;
+}
+
+.fs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* Service cards */
+.fs-card {
+    background: var(--color-white);
+    padding: 2.25rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.fs-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-secondary);
+}
+
+.fs-card-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.fs-card-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.fs-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.6rem;
+}
+
+.fs-card-desc {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 1.25rem;
+}
+
+.fs-card-link {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+    margin-top: auto;
+}
+
+.fs-card-link:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+/* FAQ section */
+.fs-faq-section {
+    background: var(--color-bg-light);
+}
+
+.fs-faq-inner {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.fs-faq-inner h2 {
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.fs-faq {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.fs-faq-item dt {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.fs-faq-item dd {
+    margin: 0;
+    font-size: 0.975rem;
+    color: #444;
+    line-height: 1.75;
+}
+
+/* CTA section */
+.fs-cta-section {
+    background: var(--color-primary);
+    padding: 5rem 0;
+    text-align: center;
+    color: var(--color-white);
+}
+
+.fs-cta-inner {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.fs-cta-section h2 {
+    font-size: 1.9rem;
+    color: var(--color-white);
+    margin-bottom: 1rem;
+}
+
+.fs-cta-section p {
+    font-size: 1.05rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    color: var(--color-white);
+}
