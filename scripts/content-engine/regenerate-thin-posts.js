@@ -109,6 +109,8 @@ async function pushBlogPostsFile(posts, message) {
 async function generateArticle(post, service, meta) {
   const keyword   = post.keywords?.split(',')[0]?.trim() || post.title.toLowerCase();
   const serviceUrl = `${SITE_URL}${meta.url}`;
+  const serviceCtaSlug = meta.slug || service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+  const chatUrl = `${SITE_URL}/chat-about-funding/${serviceCtaSlug}`;
 
   const systemPrompt = `You are an experienced UK commercial finance broker writing a blog article for Boxx Commercial Finance. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases. Return only a raw JSON object with no wrapper, no explanation, no markdown.`;
 
@@ -142,8 +144,8 @@ ARTICLE STRUCTURE:
 WORD COUNT: Minimum 1200 words.
 
 CALLS TO ACTION:
-- Mid-article: include a paragraph encouraging the reader to get advice, linking to https://boxxfinance.co.uk/chat-about-funding — use anchor text like "speak to a commercial finance specialist" or "get expert advice on ${keyword}" — NEVER "click here" or "contact us"
-- Closing: end the article (before the FAQ) with a short enquiry prompt, linking to https://boxxfinance.co.uk/chat-about-funding
+- Mid-article: include a paragraph encouraging the reader to get advice, linking to ${chatUrl} — use anchor text like "speak to a commercial finance specialist" or "get expert advice on ${keyword}" — NEVER "click here" or "contact us"
+- Closing: end the article (before the FAQ) with a short enquiry prompt, linking to ${chatUrl}
 
 INTERNAL LINKS — follow 2026 SEO/AEO best practices. Anchor text must be descriptive 2-5 words, never generic ("here", "this page", "click here", "read more", "find out more"):
 - Service page (${serviceUrl}): include at least 3 contextual links using keyword-rich anchor text that names the product and its benefit, e.g. "${keyword} solutions", "${keyword} for UK businesses", "specialist ${keyword} advice" — vary the phrasing

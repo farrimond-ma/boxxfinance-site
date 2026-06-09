@@ -190,6 +190,9 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
     ? `https://boxxfinance.co.uk${row.internalLinkService}`
     : `https://boxxfinance.co.uk/funding-solutions/${row.service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`;
 
+  const serviceCtaSlug = row.service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+  const chatUrl = `https://boxxfinance.co.uk/chat-about-funding/${serviceCtaSlug}`;
+
   const locationLinksText = locationLinks.length > 0
     ? `\nInternal location links to include as contextual links within the article body:\n${locationLinks.map(l => `https://boxxfinance.co.uk${l}`).join('\n')}`
     : '';
@@ -248,8 +251,8 @@ AI SEARCH (AEO) — additional rules for Google AI Overviews and Perplexity:
 - faqSchema must be a valid FAQ schema object with @type: FAQPage matching the FAQ in contentHtml exactly
 
 CALLS TO ACTION (both required):
-- Mid-article CTA: within the body text, include a paragraph encouraging the reader to get advice, linking to https://boxxfinance.co.uk/chat-about-funding using anchor text like "speak to a commercial finance specialist" or "get expert ${row.keyword} advice" — NEVER "click here" or "contact us"
-- Closing CTA: end the article (before the FAQ) with a short paragraph encouraging an enquiry, linking to https://boxxfinance.co.uk/chat-about-funding
+- Mid-article CTA: within the body text, include a paragraph encouraging the reader to get advice, linking to ${chatUrl} using anchor text like "speak to a commercial finance specialist" or "get expert ${row.keyword} advice" — NEVER "click here" or "contact us"
+- Closing CTA: end the article (before the FAQ) with a short paragraph encouraging an enquiry, linking to ${chatUrl}
 
 INTERNAL LINKS — anchor text rules are MANDATORY. Follow 2026 SEO/AEO best practices: descriptive 2-5 word anchors, never generic single words. Never use "here", "this page", "click here", "read more", "learn more", "find out more", "our services", or "our page".
 - Service page (${serviceUrl}): include at least 3 contextual links. Use keyword-rich 2-5 word anchor text that names the product and its benefit or audience, e.g. "${row.keyword} for UK businesses", "${row.keyword} options", "specialist ${row.keyword} advice", "UK ${row.keyword} solutions" — vary the phrasing across the 3+ links so they are not identical

@@ -145,6 +145,7 @@ async function generateLocationPage(row, relatedBlogs) {
 
   const serviceSlug = row.service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
   const serviceUrl  = `https://boxxfinance.co.uk/funding-solutions/${serviceSlug}`;
+  const chatUrl     = `https://boxxfinance.co.uk/chat-about-funding/${serviceSlug}`;
 
   const blogLinksText = relatedBlogs.length > 0
     ? `\nRelated blog posts — link naturally using the exact post title as anchor text:\n${relatedBlogs.map(b => `${b.url} — "${b.title}"`).join('\n')}`
@@ -206,7 +207,7 @@ Four clear steps: initial enquiry → lender matching → offer received → com
 Keep answers direct and specific to ${row.city} where possible.
 
 8. CLOSING CTA PARAGRAPH
-Short and direct — 2–3 sentences. Encourage the reader to get in touch. Link to https://boxxfinance.co.uk/chat-about-funding using anchor text like "speak to a ${row.service.toLowerCase()} specialist" or "discuss your funding needs with our team". End with a brief confidence statement.
+Short and direct — 2–3 sentences. Encourage the reader to get in touch. Link to ${chatUrl} using anchor text like "speak to a ${row.service.toLowerCase()} specialist" or "discuss your funding needs with our team". End with a brief confidence statement.
 
 WORD COUNT: Minimum 1000 words in the content field.
 
@@ -215,12 +216,12 @@ TONE AND QUALITY:
 - Short paragraphs throughout
 - Include natural keyword variations: "${row.service.toLowerCase()} ${row.city}", "${row.service.toLowerCase()} broker ${row.city}", "business finance ${row.city}", "SME funding ${row.city}"
 - Mention "Boxx Commercial Finance" 2–3 times
-- Link https://boxxfinance.co.uk/about-us as "Boxx Commercial Finance" the first time the brand name appears
+- Link https://boxxfinance.co.uk/#about as "Boxx Commercial Finance" the first time the brand name appears
 
 INTERNAL LINKS — mandatory, keyword-rich anchor text only:
 - ${serviceUrl}: at least 2 links, anchor text like "${row.service.toLowerCase()} for ${row.city} businesses" or "specialist ${row.service.toLowerCase()} solutions"
-- https://boxxfinance.co.uk/about-us: link brand name "Boxx Commercial Finance" first time it appears
-- https://boxxfinance.co.uk/chat-about-funding: in closing CTA
+- https://boxxfinance.co.uk/#about: link brand name "Boxx Commercial Finance" first time it appears — do NOT use /about-us (that page does not exist)
+- ${chatUrl}: in closing CTA
 - NEVER invent URLs — only use URLs explicitly provided
 ${blogLinksText}
 
