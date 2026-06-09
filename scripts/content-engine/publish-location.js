@@ -308,12 +308,16 @@ async function main() {
   const sheets = await getSheetsClient();
   console.log('Connected to Google Sheets');
 
-  const dueRows = await getScheduledRows(sheets);
-  if (dueRows.length === 0) {
+  const allDueRows = await getScheduledRows(sheets);
+  if (allDueRows.length === 0) {
     console.log('No scheduled location rows due today or earlier. Exiting.');
     return;
   }
-  console.log(`Found ${dueRows.length} location page(s) to publish`);
+
+  // Cap at 5 per run — prevents publishing a backlog all at once if dates go stale
+  const MAX_PER_RUN = 5;
+  const dueRows = allDueRows.slice(0, MAX_PER_RUN);
+  console.log(`Found ${allDueRows.length} eligible location page(s); processing ${dueRows.length} this run (cap: ${MAX_PER_RUN})`);
 
   // Fetch the location pages file once — we'll keep adding to it
   let { sha, pages } = await getLocationPagesFile();
