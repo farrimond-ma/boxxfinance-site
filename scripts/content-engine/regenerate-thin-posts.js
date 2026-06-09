@@ -142,11 +142,14 @@ ARTICLE STRUCTURE:
 WORD COUNT: Minimum 1200 words.
 
 CALLS TO ACTION:
-- Mid-article: link to https://boxxfinance.co.uk/chat-about-funding
-- Closing: link to https://boxxfinance.co.uk/chat-about-funding
+- Mid-article: include a paragraph encouraging the reader to get advice, linking to https://boxxfinance.co.uk/chat-about-funding — use anchor text like "speak to a commercial finance specialist" or "get expert advice on ${keyword}" — NEVER "click here" or "contact us"
+- Closing: end the article (before the FAQ) with a short enquiry prompt, linking to https://boxxfinance.co.uk/chat-about-funding
 
-INTERNAL LINKS — include at least 3 links to: ${serviceUrl}
-Use keyword-rich anchor text. Never "click here" or "find out more".
+INTERNAL LINKS — follow 2026 SEO/AEO best practices. Anchor text must be descriptive 2-5 words, never generic ("here", "this page", "click here", "read more", "find out more"):
+- Service page (${serviceUrl}): include at least 3 contextual links using keyword-rich anchor text that names the product and its benefit, e.g. "${keyword} solutions", "${keyword} for UK businesses", "specialist ${keyword} advice" — vary the phrasing
+- Funding hub https://boxxfinance.co.uk/funding-solutions: include once using anchor text like "UK commercial funding solutions" or "business funding options" — NEVER the long phrase "full range of UK business funding solutions"
+- About us section https://boxxfinance.co.uk/#about: use "Boxx Commercial Finance" as anchor text on the first natural mention of the brand — do NOT link to /about-us (that page does not exist)
+- Never invent URLs — only link to pages explicitly provided in this prompt
 
 faqSchema must be a valid FAQ schema object matching the FAQ in contentHtml exactly.
 

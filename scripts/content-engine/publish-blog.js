@@ -251,11 +251,11 @@ CALLS TO ACTION (both required):
 - Mid-article CTA: within the body text, include a paragraph encouraging the reader to get advice, linking to https://boxxfinance.co.uk/chat-about-funding using anchor text like "speak to a commercial finance specialist" or "get expert ${row.keyword} advice" — NEVER "click here" or "contact us"
 - Closing CTA: end the article (before the FAQ) with a short paragraph encouraging an enquiry, linking to https://boxxfinance.co.uk/chat-about-funding
 
-INTERNAL LINKS — anchor text rules are MANDATORY. Never use generic anchor text:
-- Service page (${serviceUrl}): include at least 3 contextual links using keyword-rich anchor text such as "${row.keyword} for UK businesses", "${row.keyword} solutions", or "specialist ${row.keyword} advice" — NEVER "our service page", "click here", "this page", or "find out more"
-- Funding solutions https://boxxfinance.co.uk/funding-solutions: include once using anchor text like "full range of UK business funding solutions" or "business funding options for UK SMEs" — NEVER "our funding solutions page" or "our services"
-- About us https://boxxfinance.co.uk/about-us: link the brand name itself — use "Boxx Commercial Finance" as the exact anchor text the first time the brand name appears — NEVER "our about us page", "learn more about us", or "about our team"
-- Related blog posts: embed naturally in a sentence using the exact post title as anchor text (e.g. "As we covered in <a href='...'>How to Use Invoice Finance to Improve Cash Flow</a>, ...")
+INTERNAL LINKS — anchor text rules are MANDATORY. Follow 2026 SEO/AEO best practices: descriptive 2-5 word anchors, never generic single words. Never use "here", "this page", "click here", "read more", "learn more", "find out more", "our services", or "our page".
+- Service page (${serviceUrl}): include at least 3 contextual links. Use keyword-rich 2-5 word anchor text that names the product and its benefit or audience, e.g. "${row.keyword} for UK businesses", "${row.keyword} options", "specialist ${row.keyword} advice", "UK ${row.keyword} solutions" — vary the phrasing across the 3+ links so they are not identical
+- Funding solutions hub https://boxxfinance.co.uk/funding-solutions: include once near the end of the article using descriptive anchor text like "UK commercial funding solutions", "business funding options", or "commercial finance solutions for UK SMEs" (2-6 words, specific) — NEVER the full sentence "full range of UK business funding solutions"
+- About us section https://boxxfinance.co.uk/#about: link the brand name — use "Boxx Commercial Finance" as anchor text the first time the brand name appears naturally in the text — do NOT link to /about-us (that page does not exist)
+- Related blog posts: embed naturally in a sentence using keyword-rich anchor text describing what the post covers, NOT the raw post title. E.g. if linking to a post about bridging loan rates, write "current UK bridging loan rates" as the anchor — NEVER "Read Article" or just the page URL
 - Location links: use "[service] in [city]" as anchor text (e.g. "asset finance in Manchester", "bridging loans in Birmingham") — NEVER "here", "this page", or the raw URL — only use the URLs explicitly provided below, never invent location URLs
 - Only use links explicitly provided — do not invent any URLs
 ${locationLinksText}
