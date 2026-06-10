@@ -206,7 +206,7 @@ Four clear steps: initial enquiry → lender matching → offer received → com
 - "Does Boxx Commercial Finance work with businesses in ${row.city}?"
 Keep answers direct and specific to ${row.city} where possible.
 
-8. CLOSING CTA PARAGRAPH
+8. Closing CTA paragraph — this is a plain <p> with NO heading. Do NOT output "<h2>Closing CTA</h2>" or any heading for this section; the paragraph follows the FAQ directly.
 Short and direct — 2–3 sentences. Encourage the reader to get in touch. Link to ${chatUrl} using anchor text like "speak to a ${row.service.toLowerCase()} specialist" or "discuss your funding needs with our team". End with a brief confidence statement.
 
 WORD COUNT: Minimum 1000 words in the content field.
