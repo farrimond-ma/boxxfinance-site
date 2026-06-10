@@ -38,7 +38,7 @@ const LocationPage = () => {
 
     if (!page) {
         return (
-            <div className="blog-post-page">
+            <div className="blog-post-page" data-page-type="location-not-found">
                 <SEO
                     title="Page Not Found"
                     description="The requested location page could not be found."
@@ -74,7 +74,7 @@ const LocationPage = () => {
     const titleGold = titleWords.length > 2 ? titleWords.slice(-2).join(' ') : page.title;
 
     return (
-        <div className="blog-post-page">
+        <div className="blog-post-page" data-page-type="location-page">
             <SEO
                 title={page.metaTitle || page.title}
                 description={page.metaDescription || page.title}
