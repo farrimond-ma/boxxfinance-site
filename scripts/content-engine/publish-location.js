@@ -171,7 +171,7 @@ OUTPUT FORMAT RULES:
 - No markdown, backticks, code fences, or curly quotes — raw JSON only
 - slug format: ${serviceSlug}-${row.city.toLowerCase().replace(/\s+/g, '-')} (e.g. business-loans-leeds)
 - title format: "${row.service} ${row.city}" (e.g. "Business Loans Leeds")
-- metaTitle format: "${row.service} ${row.city} | Boxx Commercial Finance"
+- metaTitle format: "${row.service} in ${row.city}" — do NOT append "| Boxx Commercial Finance" or any brand suffix (the site template adds the brand automatically)
 
 CONTENT STRUCTURE — follow this exact order:
 
@@ -351,7 +351,10 @@ async function main() {
       status: 'published',
       slug,
       title: row.title || page.title,
-      metaTitle: row.metaTitle || page.metaTitle,
+      // Strip any brand suffix — SEO.jsx appends the brand, so a baked-in
+      // suffix renders a doubled "| Boxx ... | Boxx ..." title tag
+      metaTitle: (row.metaTitle || page.metaTitle || '')
+        .replace(/(\s*\|\s*Boxx Commercial Finance)+\s*$/i, '').trim(),
       metaDescription: row.metaDescription || page.metaDescription,
       location: row.city,
       service: row.service,

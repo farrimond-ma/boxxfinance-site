@@ -219,6 +219,7 @@ OUTPUT RULES:
 - contentHtml must be valid HTML using only single quotes inside HTML attributes e.g. href='/path/to/page' NOT href="/path/to/page"
 - No markdown, no backticks, no code fences, no curly quotes — return raw JSON only
 - slug should be the keyword in lowercase with hyphens
+- metaTitle must be 20-60 characters and must NOT include "| Boxx Commercial Finance" or any brand suffix — the site template appends the brand automatically
 - secondaryKeywords must be a JSON array of strings
 - Do NOT include an <h1> tag in contentHtml — the title is rendered separately on the page
 
@@ -714,7 +715,10 @@ async function main() {
     url: url,
     title: finalTitle,
     excerpt: article.excerpt,
-    metaTitle: row.metaTitle || article.metaTitle,
+    // Strip any brand suffix the model adds anyway — SEO.jsx appends the brand,
+    // so a baked-in suffix renders a doubled "| Boxx ... | Boxx ..." title tag
+    metaTitle: (row.metaTitle || article.metaTitle || '')
+      .replace(/(\s*\|\s*Boxx Commercial Finance)+\s*$/i, '').trim(),
     metaDescription: row.metaDescription || article.metaDescription,
     keywords: Array.isArray(article.secondaryKeywords)
       ? article.secondaryKeywords.join(', ')

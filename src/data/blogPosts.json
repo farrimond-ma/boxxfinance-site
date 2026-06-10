@@ -3,7 +3,7 @@
     "id": "ultimate-guide-commercial-finance-uk",
     "status": "published",
     "title": "The Ultimate Guide to Commercial Finance in the UK (2026 Edition)",
-    "metaTitle": "Ultimate Guide to Commercial Finance UK (2026) – Boost Your Business",
+    "metaTitle": "Ultimate Guide to Commercial Finance UK (2026)",
     "metaDescription": "Explore the intricacies of commercial finance in the UK with our comprehensive guide. Learn practical tips, avoid common errors, and discover how to secure optimal business funding.",
     "keywords": "business finance, UK business loans, business growth funding, commercial loan applications, UK financial advice",
     "slug": "ultimate-guide-commercial-finance-uk",
@@ -77,7 +77,7 @@
     "id": "commercial-mortgages-uk-guide",
     "status": "published",
     "title": "Commercial Mortgages UK: What Business Owners Should Know Before Applying",
-    "metaTitle": "Commercial Mortgages UK: Essential Insights for Business Owners",
+    "metaTitle": "Commercial Mortgages UK: Essential Insights",
     "metaDescription": "Explore key insights into commercial mortgages in the UK. Learn how they work, common scenarios, and tips for the best outcomes in your application process.",
     "keywords": "business property loans, UK commercial finance, mortgage application tips",
     "slug": "commercial-mortgages-uk-guide",
@@ -199,7 +199,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": true,
-    "reelPosted": true
+    "reelPosted": true,
+    "metaTitle": "The Ultimate Guide to Commercial Loans for SMEs"
   },
   {
     "id": 2,
@@ -264,7 +265,7 @@
     "reelPosted": true,
     "service": "Business Loans",
     "category": "Business Loans",
-    "metaTitle": "Commercial Finance Explained: Key Insights for Business Owners",
+    "metaTitle": "Commercial Finance Explained: Key Insights",
     "heroImage": "/images/blog/commercial-finance-explained.webp"
   },
   {
@@ -551,7 +552,7 @@
     "reelPosted": true,
     "service": "Business Loans",
     "category": "Business Loans",
-    "metaTitle": "Debt vs. Equity Financing: Essential Insights for Business Growth",
+    "metaTitle": "Debt vs Equity Financing: Which Is Right for You?",
     "heroImage": "/images/blog/raising-capital-debt-vs-equity.webp"
   },
   {
@@ -614,7 +615,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": true,
-    "reelPosted": true
+    "reelPosted": true,
+    "metaTitle": "Asset Finance: Leasing vs Hire Purchase Explained"
   },
   {
     "id": 8,
@@ -676,7 +678,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": true,
-    "reelPosted": true
+    "reelPosted": true,
+    "metaTitle": "How to Secure Development Finance for Property Projects"
   },
   {
     "id": 9,
@@ -738,7 +741,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": true,
-    "reelPosted": true
+    "reelPosted": true,
+    "metaTitle": "The Role of Bridging Finance in Business Growth"
   },
   {
     "id": 10,
@@ -811,7 +815,7 @@
     "reelPosted": true,
     "service": "Structured Finance",
     "category": "Structured Finance",
-    "metaTitle": "Structured Finance: Solving Complex Funding Challenges in the UK",
+    "metaTitle": "Structured Finance: Solving Complex Funding",
     "heroImage": "/images/blog/structured-finance-complex-challenges.webp"
   },
   {
@@ -874,7 +878,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": true,
-    "reelPosted": true
+    "reelPosted": true,
+    "metaTitle": "Working Capital: Optimise Your Business Cash Flow"
   },
   {
     "id": 12,
@@ -936,7 +941,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": true,
-    "reelPosted": true
+    "reelPosted": true,
+    "metaTitle": "Trade Finance: Supporting UK Supply Chains"
   },
   {
     "id": 13,
@@ -1064,7 +1070,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": true,
-    "reelPosted": true
+    "reelPosted": true,
+    "metaTitle": "Merchant Cash Advance for Retail & Hospitality"
   },
   {
     "id": 15,
@@ -1129,7 +1136,7 @@
     "reelPosted": true,
     "service": "Business Loans",
     "category": "Business Loans",
-    "metaTitle": "Commercial Finance Application Guide UK | Boxx Commercial Finance",
+    "metaTitle": "Commercial Finance Application Guide UK",
     "heroImage": "/images/blog/commercial-finance-application-uk.webp"
   },
   {
@@ -1192,7 +1199,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": true,
-    "reelPosted": true
+    "reelPosted": true,
+    "metaTitle": "Why UK SMEs Get Funding Timing Wrong (How to Fix It)"
   },
   {
     "id": 17,
@@ -1335,7 +1343,7 @@
     "id": 42,
     "status": "published",
     "title": "How to Get a Business Loan in the UK",
-    "metaTitle": "How to Get a Business Loan in the UK | A Practical Guide for SMEs",
+    "metaTitle": "How to Get a Business Loan in the UK",
     "metaDescription": "A practical guide explaining how to get a business loan in the UK, what lenders look for, common mistakes to avoid and how to structure funding correctly.",
     "keywords": "how to get a business loan UK, business loan requirements, commercial lending process UK",
     "slug": "how-to-get-a-business-loan-uk",
@@ -1532,7 +1540,7 @@
     "url": "/insights/property-development-finance-uk",
     "title": "Property Development Finance Uk",
     "excerpt": "Discover what property development finance is, how it works, eligibility criteria, rates, and why Boxx Commercial Finance stands out.",
-    "metaTitle": "Property Development Finance Uk | Boxx Commercial Finance",
+    "metaTitle": "Property Development Finance Uk",
     "metaDescription": "Expert guide on property development finance uk for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "development finance options, funding solutions, commercial property finance",
     "date": "2026-05-21",
@@ -1589,7 +1597,7 @@
     "url": "/insights/what-is-invoice-finance",
     "title": "What Is Invoice Finance?",
     "excerpt": "Invoice finance is a strategic tool that allows businesses to access cash tied up in unpaid invoices. Learn how it works, eligibility criteria, and how Boxx Commercial Finance can help your business thrive.",
-    "metaTitle": "What Is Invoice Finance? | Boxx Commercial Finance",
+    "metaTitle": "What Is Invoice Finance?",
     "metaDescription": "Expert guide on what is invoice finance for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "business funding, invoice finance rates, SME cash flow",
     "date": "2026-05-22",
@@ -1645,7 +1653,7 @@
     "url": "/insights/what-is-asset-finance",
     "title": "What Is Asset Finance?",
     "excerpt": "Discover the ins and outs of asset finance, an invaluable tool for UK SMEs. Learn how it works, eligibility criteria, and why Boxx Commercial Finance is the right choice for your business.",
-    "metaTitle": "What Is Asset Finance? | Boxx Commercial Finance",
+    "metaTitle": "What Is Asset Finance?",
     "metaDescription": "Expert guide on what is asset finance for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "asset finance eligibility, asset finance rates, Boxx Commercial Finance",
     "date": "2026-05-23",
@@ -1719,7 +1727,7 @@
     "url": "/insights/what-is-bridging-finance",
     "title": "What Is Bridging Finance",
     "excerpt": "Explore what bridging finance is, how it works, and why it might be essential for your business. Learn about types, rates, eligibility criteria, and the benefits with Boxx Commercial Finance.",
-    "metaTitle": "What Is Bridging Finance | Boxx Commercial Finance",
+    "metaTitle": "What Is Bridging Finance",
     "metaDescription": "Expert guide on what is bridging finance for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "primaryKeyword": "what is bridging finance",
     "keywords": [
@@ -1841,7 +1849,7 @@
     "url": "/insights/what-is-working-capital-finance",
     "title": "What Is Working Capital Finance?",
     "excerpt": "Explore the essentials of working capital finance for UK SMEs, including how it works, eligibility criteria, rates, and the benefits of choosing Boxx Commercial Finance.",
-    "metaTitle": "What Is Working Capital Finance? | Boxx Commercial Finance",
+    "metaTitle": "What Is Working Capital Finance?",
     "metaDescription": "Expert guide on what is working capital finance for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "SME finance, working capital loans, business funding solutions",
     "date": "2026-05-25",
@@ -1914,7 +1922,7 @@
     "url": "/insights/what-is-trade-finance",
     "title": "What Is Trade Finance?",
     "excerpt": "Trade finance is a financial solution designed to facilitate international and domestic trade by mitigating payment risks and providing the necessary working capital. Businesses use trade finance to ensure smooth transactions and secure financial support for their trade activities, enabling them to manage both import and export efficiently.",
-    "metaTitle": "What Is Trade Finance? | Boxx Commercial Finance",
+    "metaTitle": "What Is Trade Finance?",
     "metaDescription": "Expert guide on what is trade finance for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "trade finance solutions, trade finance rates, trade finance eligibility, trade risk mitigation",
     "date": "2026-05-26",
@@ -1996,7 +2004,7 @@
     "url": "/insights/what-is-asset-refinance",
     "title": "What Is Asset Refinance?",
     "excerpt": "Asset refinance is a financial solution that allows businesses to unlock capital tied up in assets, such as machinery, vehicles, or equipment, by using them as collateral for a loan. This option helps improve cash flow and finance growth opportunities without selling essential business assets.",
-    "metaTitle": "What Is Asset Refinance? | Boxx Commercial Finance",
+    "metaTitle": "What Is Asset Refinance?",
     "metaDescription": "Expert guide on what is asset refinance for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "asset refinancing, business asset loans, capital release, UK asset finance",
     "date": "2026-05-27",
@@ -2069,7 +2077,7 @@
     "url": "/insights/what-is-a-merchant-cash-advance",
     "title": "What Is A Merchant Cash Advance?",
     "excerpt": "A merchant cash advance is a funding solution that allows businesses to obtain upfront capital in exchange for a percentage of future card sales. It's ideal for businesses with fluctuating revenue that need a flexible repayment plan.",
-    "metaTitle": "What Is A Merchant Cash Advance | Boxx Commercial Finance",
+    "metaTitle": "What Is A Merchant Cash Advance",
     "metaDescription": "Expert guide on what is a merchant cash advance for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "merchant cash advance benefits, merchant cash advance UK, business cash advances",
     "date": "2026-05-28",
@@ -2135,7 +2143,7 @@
     "url": "/insights/what-is-structured-finance",
     "title": "What Is Structured Finance?",
     "excerpt": "Structured finance is a specialised financing process designed to facilitate complex financial deals, often involving multiple funding sources and layers of debt. UK businesses use structured finance to manage risk, optimise capital, and support growth plans that standard loans cannot accommodate.",
-    "metaTitle": "What Is Structured Finance | Boxx Commercial Finance",
+    "metaTitle": "What Is Structured Finance",
     "metaDescription": "Expert guide on what is structured finance for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "structured finance solutions, UK business funding, financial management strategies, complex financial deals",
     "date": "2026-05-29",
@@ -2201,7 +2209,7 @@
     "url": "/insights/vat-funding-uk",
     "title": "Vat Funding Uk",
     "excerpt": "VAT funding in the UK provides businesses with a financial lifeline to manage their cash flow when handling VAT obligations. Boxx Commercial Finance offers tailored solutions to help navigate this process efficiently.",
-    "metaTitle": "Vat Funding Uk | Boxx Commercial Finance",
+    "metaTitle": "VAT Funding UK: Spread the Cost of Your VAT Bill",
     "metaDescription": "Expert guide on vat funding uk for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "tax funding, UK VAT finance, cash flow management, Boxx Commercial Finance",
     "date": "2026-05-30",
@@ -2267,7 +2275,7 @@
     "url": "/insights/bridging-loan-rates-uk",
     "title": "Bridging Loan Rates Uk",
     "excerpt": "Bridging loan rates in the UK are essentially the interest you pay for short-term finance, typically used when you need rapid funding for property transactions or to cover a cash flow gap. These loans offer flexible terms, making them a suitable solution for businesses facing tight deadlines.",
-    "metaTitle": "Bridging Loan Rates Uk | Boxx Commercial Finance",
+    "metaTitle": "Bridging Loan Rates Uk",
     "metaDescription": "Expert guide on bridging loan rates uk for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "UK bridging loans, commercial financing, bridging finance solutions",
     "date": "2026-05-31",
@@ -2343,7 +2351,7 @@
     "url": "/insights/business-loans-for-startups",
     "title": "Business Loans For Startups",
     "excerpt": "Business loans for startups provide crucial capital to launch and grow new ventures. They offer flexible terms tailored to new businesses, helping entrepreneurs overcome financial barriers. Startups use these loans to manage early cash flow, invest in growth, and support day-to-day operations, making them essential for business success.",
-    "metaTitle": "Business Loans For Startups | Boxx Commercial Finance",
+    "metaTitle": "Business Loans For Startups",
     "metaDescription": "Expert guide on business loans for startups for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "startup funding, business loan options for new businesses, startup finance solutions, entrepreneur loans UK",
     "date": "2026-06-01",
@@ -2412,7 +2420,7 @@
     "url": "/insights/development-finance-lenders-uk",
     "title": "Development Finance Lenders Uk",
     "excerpt": "Development finance lenders in the UK play a crucial role in funding building projects, providing bespoke solutions tailored to each project’s requirements. These lenders cater to a variety of developments, from single residential units to multi-unit blocks. By understanding how development finance works, SMEs can effectively plan their projects and manage costs.",
-    "metaTitle": "Development Finance Lenders Uk | Boxx Commercial Finance",
+    "metaTitle": "Development Finance Lenders Uk",
     "metaDescription": "Expert guide on development finance lenders uk for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "property development finance UK, building finance options, project funding",
     "date": "2026-06-02",
@@ -2481,7 +2489,7 @@
     "url": "/insights/invoice-finance-for-small-businesses",
     "title": "Invoice Finance For Small Businesses",
     "excerpt": "Invoice finance is a way for small businesses to unlock cash tied up in unpaid invoices. It helps maintain a healthy cash flow by advancing funds against outstanding invoices, making it an essential tool for managing finances effectively.",
-    "metaTitle": "Invoice Finance For Small Businesses | Boxx Commercial Finance",
+    "metaTitle": "Invoice Finance For Small Businesses",
     "metaDescription": "Expert guide on invoice finance for small businesses for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "small business funding, cash flow management, UK SME finance, invoice financing solutions, Boxx Commercial Finance",
     "date": "2026-06-03",
@@ -2550,7 +2558,7 @@
     "url": "/insights/asset-finance-for-small-businesses",
     "title": "Asset Finance For Small Businesses",
     "excerpt": "Asset finance provides small businesses with a practical way to acquire necessary equipment and vehicles without straining cash flow. By spreading the cost over time, businesses can manage their budgets more effectively. Boxx Commercial Finance offers various solutions tailored to the unique needs of UK SMEs seeking to optimise operational efficiency.",
-    "metaTitle": "Asset Finance For Small Businesses | Boxx Commercial Finance",
+    "metaTitle": "Asset Finance For Small Businesses",
     "metaDescription": "Expert guide on asset finance for small businesses for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "UK asset finance, small business funding, business equipment finance",
     "date": "2026-06-04",
@@ -2619,7 +2627,7 @@
     "url": "/insights/best-commercial-mortgage-lenders",
     "title": "Best Commercial Mortgage Lenders",
     "excerpt": "Commercial mortgage lenders provide financing solutions tailored for businesses looking to purchase or refinance commercial properties. Understanding how they operate can empower UK SME owners to make informed decisions and secure advantageous mortgage terms.",
-    "metaTitle": "Best Commercial Mortgage Lenders | Boxx Commercial Finance",
+    "metaTitle": "Best Commercial Mortgage Lenders",
     "metaDescription": "Expert guide on best commercial mortgage lenders for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "commercial mortgage lenders UK, commercial property finance, business mortgage solutions",
     "date": "2026-06-05",
@@ -2688,7 +2696,7 @@
     "url": "/insights/working-capital-loans-uk",
     "title": "Working Capital Loans Uk",
     "excerpt": "Working capital loans in the UK serve as a financial lifeline, helping businesses manage their day-to-day operational expenses. They cover gaps in cash flow and are typically used for purchasing inventory, payroll, or covering a dip in revenues.",
-    "metaTitle": "Working Capital Loans Uk | Boxx Commercial Finance",
+    "metaTitle": "Working Capital Loans Uk",
     "metaDescription": "Expert guide on working capital loans uk for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "UK business loans, cash flow management, operational finance, business funding solutions",
     "date": "2026-06-06",
@@ -2757,7 +2765,7 @@
     "url": "/insights/bridging-loan-calculator-uk",
     "title": "Bridging Loan Calculator Uk",
     "excerpt": "Bridging loan calculators in the UK provide an essential first step for property buyers and developers to estimate the costs and potential returns of short-term property finance. Whether purchasing at auction or managing a development exit, these tools are crucial for informed decisions.",
-    "metaTitle": "Bridging Loan Calculator Uk | Boxx Commercial Finance",
+    "metaTitle": "Bridging Loan Calculator Uk",
     "metaDescription": "Expert guide on bridging loan calculator uk for UK businesses. Fast, flexible funding from Boxx Commercial Finance.",
     "keywords": "bridging finance, developer finance, short-term property finance, fast property finance, specialist property finance",
     "date": "2026-06-08",
@@ -2827,7 +2835,7 @@
     "url": "/insights/closed-vs-open-bridging-loan",
     "title": "Closed vs Open Bridging Loans: Key Differences",
     "excerpt": "Understanding the differences between closed and open bridging loans can help you secure the right short-term finance for your property needs. Each type has distinct features catering to specific circumstances. Knowing which is suitable for your situation can save time and money.",
-    "metaTitle": "Closed vs Open Bridging Loans: Key Differences | Boxx Commercial Finance",
+    "metaTitle": "Closed vs Open Bridging Loans: Key Differences",
     "metaDescription": "Closed vs Open Bridging Loans: Key Differences. Expert advice from Boxx Commercial Finance, a whole-of-market UK bridging finance broker.",
     "keywords": "bridging loans, bridging finance, developer finance, short-term property finance, property developers",
     "date": "2026-06-09",
@@ -2898,7 +2906,7 @@
     "url": "/insights/bridging-loan-rates-uk-2026",
     "title": "UK Bridging Loan Rates in 2025/2026",
     "excerpt": "Bridging loan rates UK 2025 2026 are crucial for SMEs seeking short-term property finance. Whether you're a residential property buyer or a developer, understanding these rates helps you capitalise on fast property opportunities.",
-    "metaTitle": "UK Bridging Loan Rates in 2025/2026 | Boxx Commercial Finance",
+    "metaTitle": "UK Bridging Loan Rates in 2025/2026",
     "metaDescription": "UK Bridging Loan Rates in 2025/2026. Expert advice from Boxx Commercial Finance, a whole-of-market UK bridging finance broker.",
     "keywords": "short-term property finance, specialist property finance, developer finance",
     "date": "2026-06-09",
@@ -2977,7 +2985,7 @@
     "url": "/insights/regulated-bridging-loan-uk",
     "title": "Regulated Bridging Loans: What You Need to Know",
     "excerpt": "A regulated bridging loan in the UK is a short-term financial solution that can rapidly provide funds for property-related transactions. It's particularly useful when time is of the essence, such as buying property at auction or dealing with a chain break.",
-    "metaTitle": "Regulated Bridging Loans: What You Need to Know | Boxx Commercial Finance",
+    "metaTitle": "Regulated Bridging Loans: What You Need to Know",
     "metaDescription": "Regulated Bridging Loans: What You Need to Know. Expert advice from Boxx Commercial Finance, a whole-of-market UK bridging finance broker.",
     "keywords": "bridging loans, bridging finance, developer finance, short-term property finance",
     "date": "2026-06-10",
@@ -3048,7 +3056,7 @@
     "url": "/insights/bridging-loan-costs-breakdown",
     "title": "Bridging Loan Costs: A Full Breakdown",
     "excerpt": "Bridging loan costs can be complex, but understanding the breakdown is crucial for UK SMEs considering this short-term financing solution. Whether you are a property developer or a homeowner navigating a chain break, knowing what you're committing to can prevent unpleasant surprises.",
-    "metaTitle": "Bridging Loan Costs: A Full Breakdown | Boxx Commercial Finance",
+    "metaTitle": "Bridging Loan Costs: A Full Breakdown",
     "metaDescription": "Bridging Loan Costs: A Full Breakdown. Expert advice from Boxx Commercial Finance, a whole-of-market UK bridging finance broker.",
     "keywords": "short-term property finance, fast property finance, specialist property finance, developer finance, bridging loans, bridging finance",
     "date": "2026-06-10",
