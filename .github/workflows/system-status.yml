@@ -1,0 +1,81 @@
+name: System Status Generator
+
+on:
+  # Refresh the status file whenever any publisher finishes, so the
+  # dashboard reflects each action within a couple of minutes.
+  workflow_run:
+    workflows:
+      - "Publish Blog"
+      - "Publish Blog PM"
+      - "Publish Location"
+      - "Publish Facebook Post"
+      - "Publish Facebook Reel"
+      - "Publish LinkedIn Post"
+      - "Publish Instagram Post"
+      - "Publish Pinterest Pin"
+      - "Regenerate Sitemap"
+      - "Update Internal Links"
+      - "Content Engine Health Check"
+    types:
+      - completed
+
+  # Backstop refreshes through the day (UTC) in case a trigger is missed
+  schedule:
+    - cron: '15 13 * * *'   # after AM blog + morning socials
+    - cron: '15 16 * * *'   # after PM blog + afternoon socials
+    - cron: '30 23 * * *'   # after nightly health check
+
+  workflow_dispatch:
+
+jobs:
+  generate-status:
+    name: Generate and upload system-status.json
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Generate status file
+        working-directory: scripts/content-engine
+        env:
+          GH_TOKEN:                   ${{ secrets.GH_PAT }}
+          GITHUB_OWNER:               farrimond-ma
+          GITHUB_REPO:                boxxfinance-site
+          FACEBOOK_PAGE_ID:           ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID:          ${{ secrets.INSTAGRAM_USER_ID }}
+        run: node generate-status.js
+
+      # Upload ONLY the JSON file via curl — deliberately not the FTP-Deploy
+      # sync action, whose mirror/diff behaviour against the same server dir
+      # could delete site files. One file, no sync state, no risk.
+      - name: Upload status file via FTP
+        env:
+          FTP_HOSTNAME: ${{ secrets.FTP_HOSTNAME }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          curl --silent --show-error --fail \
+            -T scripts/content-engine/status-out/system-status.json \
+            --user "${FTP_USERNAME}:${FTP_PASSWORD}" \
+            "ftp://${FTP_HOSTNAME}/boxxfinance.co.uk/public_html/system-status.json"
+          echo "Uploaded system-status.json"
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## System Status Generator" >> $GITHUB_STEP_SUMMARY
+          echo "Regenerated the daily activity log and uploaded it to the site." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📊 [View dashboard](https://boxxfinance.co.uk/dashboard)" >> $GITHUB_STEP_SUMMARY

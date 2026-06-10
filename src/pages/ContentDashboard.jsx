@@ -37,6 +37,43 @@ const GROUPS = [
   { id: 'infra',  label: '⚙️ Infrastructure',        color: '#6b4226' },
 ];
 
+// ─── Daily activity log (from system-status.json, generated server-side) ──────
+function ActivityBadge({ status }) {
+  const map = {
+    'success':       { bg: '#d1fae5', color: '#065f46', label: '✅ Done' },
+    'failed':        { bg: '#fee2e2', color: '#991b1b', label: '❌ Failed' },
+    'running':       { bg: '#fef3c7', color: '#92400e', label: '🔄 Running' },
+    'pending':       { bg: '#e0f2fe', color: '#0369a1', label: '⏳ Due later' },
+    'not-due':       { bg: '#f3f4f6', color: '#6b7280', label: '— Not today' },
+    'ran-no-output': { bg: '#fef9c3', color: '#854d0e', label: '⚪ Ran, nothing to post' },
+  };
+  const s = map[status] || map.pending;
+  return (
+    <span style={{
+      background: s.bg, color: s.color,
+      padding: '2px 10px', borderRadius: '999px',
+      fontSize: '0.78rem', fontWeight: 600, whiteSpace: 'nowrap',
+    }}>
+      {s.label}
+    </span>
+  );
+}
+
+function londonTime(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleTimeString('en-GB', {
+    timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit',
+  });
+}
+
+function londonDateTime(iso) {
+  if (!iso) return 'never';
+  return new Date(iso).toLocaleString('en-GB', {
+    timeZone: 'Europe/London', day: 'numeric', month: 'short',
+    hour: '2-digit', minute: '2-digit',
+  });
+}
+
 // ─── Status helpers ───────────────────────────────────────────────────────────
 function StatusBadge({ status }) {
   const map = {
@@ -76,6 +113,19 @@ export default function ContentDashboard() {
   const [runs, setRuns]       = useState({});
   const [loading, setLoading] = useState(true);
   const [lastFetch, setLastFetch] = useState(null);
+  const [activity, setActivity] = useState(null);
+  const [activityError, setActivityError] = useState(false);
+
+  async function fetchActivity() {
+    try {
+      const res = await fetch(`/system-status.json?t=${Date.now()}`);
+      if (!res.ok) throw new Error(String(res.status));
+      setActivity(await res.json());
+      setActivityError(false);
+    } catch {
+      setActivityError(true);
+    }
+  }
 
   const publishedBlogs    = blogPostsData.filter(p => p.status === 'published').length;
   const publishedLocations = locationPagesData.filter(p => p.status === 'published').length;
@@ -102,7 +152,7 @@ export default function ContentDashboard() {
     setLoading(false);
   }
 
-  useEffect(() => { fetchRuns(); }, []);
+  useEffect(() => { fetchRuns(); fetchActivity(); }, []);
 
   const failedCount  = WORKFLOWS.filter(w => runs[w.id]?.conclusion === 'failure').length;
   const successCount = WORKFLOWS.filter(w => runs[w.id]?.conclusion === 'success').length;
@@ -150,10 +200,109 @@ export default function ContentDashboard() {
           ))}
         </div>
 
+        {/* ── Today's Activity Log ── */}
+        <div style={{ marginBottom: '2.5rem' }}>
+          <h2 style={{
+            fontSize: '1.1rem', fontWeight: 700, color: '#031b49',
+            borderBottom: '2px solid #031b49', paddingBottom: '0.5rem', marginBottom: '0.25rem',
+          }}>
+            📋 Today's Activity{activity ? ` — ${new Date(activity.date + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}` : ''}
+          </h2>
+          {activity && (
+            <p style={{ fontSize: '0.78rem', color: '#9ca3af', margin: '0 0 0.75rem' }}>
+              Every action the system takes daily, with verified completion times.
+              Status checked {londonDateTime(activity.generatedAt)} (auto-refreshes after each publisher runs).
+            </p>
+          )}
+
+          {activityError && (
+            <div style={{ background: '#fffbeb', border: '1px solid #fbbf24', borderRadius: 8, padding: '1rem 1.25rem' }}>
+              <strong style={{ color: '#92400e' }}>Status file not available yet.</strong>
+              <p style={{ margin: '0.4rem 0 0', fontSize: '0.85rem', color: '#78350f' }}>
+                Run the <a href={`https://github.com/${REPO}/actions/workflows/system-status.yml`} target="_blank" rel="noopener noreferrer">System Status Generator</a> workflow
+                once to create it — it then refreshes automatically after every publisher run.
+              </p>
+            </div>
+          )}
+
+          {activity && (
+            <>
+              <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ background: '#f8fafc' }}>
+                      {['Action', 'Status', 'Completed', 'Verification'].map(h => (
+                        <th key={h} style={{
+                          padding: '0.65rem 1rem', textAlign: 'left',
+                          fontSize: '0.75rem', fontWeight: 600, color: '#6b7280',
+                          borderBottom: '1px solid #e5e7eb', textTransform: 'uppercase', letterSpacing: '0.05em',
+                        }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {activity.daily.map((a, idx) => (
+                      <tr key={a.id} style={{ borderBottom: idx === activity.daily.length - 1 ? 'none' : '1px solid #f3f4f6' }}>
+                        <td style={{ padding: '0.7rem 1rem', fontWeight: 500, fontSize: '0.88rem', color: '#1f2937', whiteSpace: 'nowrap' }}>
+                          {a.label}
+                        </td>
+                        <td style={{ padding: '0.7rem 1rem' }}>
+                          <ActivityBadge status={a.status} />
+                        </td>
+                        <td style={{ padding: '0.7rem 1rem', fontSize: '0.85rem', fontWeight: 600, color: a.status === 'success' ? '#065f46' : '#9ca3af', whiteSpace: 'nowrap' }}>
+                          {a.status === 'success' ? londonTime(a.completedAt) : '—'}
+                        </td>
+                        <td style={{ padding: '0.7rem 1rem', fontSize: '0.8rem', color: '#6b7280' }}>
+                          {a.evidence}
+                          {a.items && a.items.length > 0 && (
+                            <ul style={{ margin: '0.35rem 0 0', paddingLeft: '1.1rem' }}>
+                              {a.items.map((item, i) => (
+                                <li key={i} style={{ marginBottom: 2 }}>
+                                  <span style={{ color: '#031b49', fontWeight: 600 }}>{londonTime(item.time)}</span>
+                                  {' — '}
+                                  {item.url
+                                    ? <a href={item.url} target="_blank" rel="noopener noreferrer" style={{ color: '#b8922a' }}>{item.detail}</a>
+                                    : item.detail}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Weekly actions */}
+              <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#2d6a4f', margin: '1.5rem 0 0.5rem' }}>
+                Weekly actions — last completed
+              </h3>
+              <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <tbody>
+                    {activity.weekly.map((w, idx) => (
+                      <tr key={w.id} style={{ borderBottom: idx === activity.weekly.length - 1 ? 'none' : '1px solid #f3f4f6' }}>
+                        <td style={{ padding: '0.6rem 1rem', fontWeight: 500, fontSize: '0.85rem', color: '#1f2937' }}>{w.label}</td>
+                        <td style={{ padding: '0.6rem 1rem', fontSize: '0.8rem', color: '#9ca3af', whiteSpace: 'nowrap' }}>{w.cadence}</td>
+                        <td style={{ padding: '0.6rem 1rem', fontSize: '0.82rem', fontWeight: 600, color: w.lastSuccess ? '#065f46' : '#991b1b', whiteSpace: 'nowrap' }}>
+                          {w.link
+                            ? <a href={w.link} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>{londonDateTime(w.lastSuccess)}</a>
+                            : londonDateTime(w.lastSuccess)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
+        </div>
+
         {/* Refresh button */}
         <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'flex-end' }}>
           <button
-            onClick={fetchRuns}
+            onClick={() => { fetchRuns(); fetchActivity(); }}
             disabled={loading}
             style={{
               background: '#031b49', color: '#fff', border: 'none',
