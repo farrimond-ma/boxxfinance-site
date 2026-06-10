@@ -155,6 +155,32 @@
     padding-right: 1rem;
 }
 
+/* Article byline — author + date, visible for E-E-A-T and Discover freshness */
+.article-byline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem 0;
+    font-size: 0.9rem;
+    color: #666;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.article-byline-author {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.article-byline-sep {
+    color: #ccc;
+}
+
+.article-byline-date {
+    color: #888;
+}
+
 .blog-post-content {
     font-size: 1.1rem;
     line-height: 1.8;

@@ -83,6 +83,37 @@ const BlogPost = () => {
 
     // Sidebar image: use DALL-E hero if available, otherwise a random fallback
     const heroImage = post.heroImage || post.image || null;
+
+    // Article schema — required for Google Discover eligibility (image, freshness, authorship)
+    const SITE_URL = 'https://boxxfinance.co.uk';
+    const articleSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: post.metaTitle || post.title,
+        description: post.metaDescription || post.excerpt || '',
+        image: heroImage
+            ? (heroImage.startsWith('http') ? heroImage : `${SITE_URL}${heroImage}`)
+            : `${SITE_URL}/header_bg.png`,
+        datePublished: post.date || '',
+        dateModified: post.date || '',
+        author: {
+            '@type': 'Person',
+            name: post.author || 'Mark Higgins',
+            url: `${SITE_URL}/`,
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: 'Boxx Commercial Finance',
+            logo: {
+                '@type': 'ImageObject',
+                url: `${SITE_URL}/logo.png`,
+            },
+        },
+        mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `${SITE_URL}/insights/${post.slug}`,
+        },
+    };
     const sidebarImage = heroImage || fallbackImage;
 
     // Title treatment: last two words get the gold highlight
@@ -102,7 +133,7 @@ const BlogPost = () => {
                 title={post.metaTitle || post.title}
                 description={post.metaDescription || post.excerpt}
                 keywords={post.keywords}
-                schema={post.schema}
+                schema={post.schema ? [articleSchema, post.schema] : articleSchema}
                 type="article"
                 canonical={`/insights/${post.slug}`}
                 image={heroImage}
@@ -128,6 +159,16 @@ const BlogPost = () => {
                 {/* Left column: article content */}
                 <div className="blog-main">
                     <div className="blog-main-card">
+                        {/* Article byline — visible date and author for E-E-A-T and Discover freshness signals */}
+                        {post.date && (
+                            <div className="article-byline">
+                                <span className="article-byline-author">By {post.author || 'Mark Higgins'}</span>
+                                <span className="article-byline-sep">·</span>
+                                <time className="article-byline-date" dateTime={post.date}>
+                                    {new Date(post.date + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+                                </time>
+                            </div>
+                        )}
                         <div
                             className="blog-post-content"
                             dangerouslySetInnerHTML={{ __html: post.content || '<p>No article content found.</p>' }}

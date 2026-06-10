@@ -387,7 +387,7 @@ async function fetchPexelsImage(keyword, service) {
   }
 
   console.log(`  Pexels image found: ${photo.url}`);
-  const imgRes = await fetch(photo.src.large);
+  const imgRes = await fetch(photo.src.large2x || photo.src.large);
   if (!imgRes.ok) throw new Error(`Failed to download Pexels image: ${imgRes.status}`);
 
   const buffer = Buffer.from(await imgRes.arrayBuffer());
