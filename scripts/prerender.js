@@ -172,8 +172,12 @@ async function renderRoute(browser, route, options = {}) {
       throw new Error(`Prerender failed for ${route}: location page container not found.`);
     }
 
-    if (expectedTitle && !html.includes(expectedTitle)) {
-      throw new Error(`Prerender failed for ${route}: expected title "${expectedTitle}" was not found in HTML.`);
+    if (expectedTitle) {
+      // React HTML-encodes special chars (& → &amp;, etc.) so check both raw and encoded forms
+      const encodedTitle = expectedTitle.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      if (!html.includes(expectedTitle) && !html.includes(encodedTitle)) {
+        throw new Error(`Prerender failed for ${route}: expected title "${expectedTitle}" was not found in HTML.`);
+      }
     }
   }
 
