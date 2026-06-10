@@ -146,6 +146,15 @@ const BlogPost = () => {
                         {titleMain && <>{titleMain} </>}
                         <span className="text-highlight">{titleGold}</span>
                     </h1>
+                    {post.date && (
+                        <div className="article-byline">
+                            <span className="article-byline-author">By {post.author || 'Mark Higgins'}</span>
+                            <span className="article-byline-sep">·</span>
+                            <time className="article-byline-date" dateTime={post.date}>
+                                {new Date(post.date + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+                            </time>
+                        </div>
+                    )}
                     <p>{heroDescription}</p>
                     <Link to="/chat-about-funding" className="btn btn-primary blog-hero-cta">
                         Speak to us today
@@ -159,16 +168,6 @@ const BlogPost = () => {
                 {/* Left column: article content */}
                 <div className="blog-main">
                     <div className="blog-main-card">
-                        {/* Article byline — visible date and author for E-E-A-T and Discover freshness signals */}
-                        {post.date && (
-                            <div className="article-byline">
-                                <span className="article-byline-author">By {post.author || 'Mark Higgins'}</span>
-                                <span className="article-byline-sep">·</span>
-                                <time className="article-byline-date" dateTime={post.date}>
-                                    {new Date(post.date + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-                                </time>
-                            </div>
-                        )}
                         <div
                             className="blog-post-content"
                             dangerouslySetInnerHTML={{ __html: post.content || '<p>No article content found.</p>' }}

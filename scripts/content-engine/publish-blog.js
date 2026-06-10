@@ -231,7 +231,7 @@ TONE AND STYLE:
 - No generic AI phrases, no corporate waffle
 
 ARTICLE STRUCTURE (adapt headings to fit the specific topic, but follow this pattern):
-- Open with a single <p> of 50-70 words that directly and definitively answers the core question. Use declarative language ("X is...", "Businesses use X when...") — NOT hedging. This is what Google AI Overviews and ChatGPT extract as a featured answer.
+- Open with a single <p> of 50-70 words that directly and definitively answers the core question. Use declarative language ("X is...", "Businesses use X when...") — NOT hedging. This is what Google AI Overviews and ChatGPT extract as a featured answer. Within this opening paragraph, link the product name to the service page (${serviceUrl}) using keyword-rich anchor text (e.g. "${row.keyword}") — this counts toward the 3+ service-page links required below.
 - <h2> What this means in practice</h2>
 - <h2> How it works</h2>
 - <h2> Typical scenarios</h2>  ← include a realistic named-business example here
