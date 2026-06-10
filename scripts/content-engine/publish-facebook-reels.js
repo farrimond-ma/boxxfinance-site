@@ -17,8 +17,9 @@ const SITE_URL           = 'https://boxxfinance.co.uk';
 const TMP_DIR            = '/tmp/boxx-reels';
 const LOOKBACK_DAYS      = 3;
 
-// "Rachel" is available on all ElevenLabs tiers. Override via ELEVENLABS_VOICE_ID secret.
-const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID || '21m00Tcm4TlvDq8ikWAM';
+// "George" is a British male voice available on all ElevenLabs tiers. Override via ELEVENLABS_VOICE_ID secret.
+// When Mark's cloned Scottish voice is ready in HeyGen/ElevenLabs, set ELEVENLABS_VOICE_ID to his voice ID.
+const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID || 'JBFqnCBsd6RMkjVDRZzb';
 const TIKTOK_ACCESS_TOKEN = process.env.TIKTOK_ACCESS_TOKEN;
 
 // ─── Clients ──────────────────────────────────────────────────────────────────
@@ -120,7 +121,7 @@ async function downloadImage(imageUrl, destPath) {
 // ─── Generate voiceover ───────────────────────────────────────────────────────
 // Primary: ElevenLabs — higher quality, paid account removes IP restrictions.
 // Fallback: OpenAI TTS — uses existing OPENAI_API_KEY, ~£0.002/reel.
-// Voice: Rachel (21m00Tcm4TlvDq8ikWAM) or override with ELEVENLABS_VOICE_ID secret.
+// Voice: George (British male) or override with ELEVENLABS_VOICE_ID secret.
 async function generateVoiceover(script, outputPath) {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
@@ -163,7 +164,7 @@ async function generateVoiceover(script, outputPath) {
   // ── Fallback: OpenAI TTS ─────────────────────────────────────────────────────
   if (OPENAI_API_KEY) {
     try {
-      const voice = process.env.OPENAI_TTS_VOICE || 'nova'; // nova = warm female
+      const voice = process.env.OPENAI_TTS_VOICE || 'onyx'; // onyx = deep male
       console.log(`  Using OpenAI TTS fallback (voice: ${voice})`);
       const res = await fetch('https://api.openai.com/v1/audio/speech', {
         method:  'POST',
@@ -197,6 +198,29 @@ function getAudioDuration(audioPath) {
   }
 }
 
+// ─── Word-wrap helper for FFmpeg drawtext ────────────────────────────────────
+// FFmpeg drawtext supports \n line breaks but has no auto-wrap.
+// This inserts \n at word boundaries to keep lines within the canvas width.
+// 1080px canvas with DejaVuSans-Bold:
+//   fontsize 54 ≈ 30px/char → safe limit: 22 chars per line
+//   fontsize 40 ≈ 22px/char → safe limit: 32 chars per line
+function wrapLine(text, maxChars) {
+  const words = text.split(' ');
+  const lines = [];
+  let current = '';
+  for (const word of words) {
+    const candidate = current ? `${current} ${word}` : word;
+    if (candidate.length <= maxChars) {
+      current = candidate;
+    } else {
+      if (current) lines.push(current);
+      current = word;
+    }
+  }
+  if (current) lines.push(current);
+  return lines.join('\n');
+}
+
 // ─── Build video with ffmpeg ──────────────────────────────────────────────────
 function buildVideo(imagePath, script, outputPath, audioPath = null) {
   const duration = audioPath ? getAudioDuration(audioPath) : 20;
@@ -208,9 +232,10 @@ function buildVideo(imagePath, script, outputPath, audioPath = null) {
     .replace(/\[/g, '\\[')
     .replace(/\]/g, '\\]');
 
-  const hook     = esc(script.hook);
-  const insight1 = esc(script.insight1);
-  const insight2 = esc(script.insight2);
+  // Wrap text to fit 1080px canvas before escaping special chars
+  const hook     = esc(wrapLine(script.hook,     22)); // fontsize 54 bold ≈ 22 chars/line
+  const insight1 = esc(wrapLine(script.insight1, 32)); // fontsize 40 bold ≈ 32 chars/line
+  const insight2 = esc(wrapLine(script.insight2, 32));
   const cta      = esc(script.cta);
 
   const boldFont    = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf';
@@ -221,16 +246,23 @@ function buildVideo(imagePath, script, outputPath, audioPath = null) {
   const hasLogo  = fs.existsSync(logoPath);
   if (hasLogo) console.log('  Logo overlay: enabled');
 
-  // Video filter chain applied to [0:v] (background image)
+  // Layout (1080×1920, 9:16 vertical Reel):
+  //   y=0–90    Navy bar (logo)
+  //   y=300–480 HOOK text (fontsize 54, up to 2 lines × ~90px + line_spacing)
+  //   y=530     Gold separator bar
+  //   y=570–700 INSIGHT 1 (fontsize 40, up to 2 lines × ~60px + line_spacing)
+  //   y=760–890 INSIGHT 2 (fontsize 40, up to 2 lines)
+  //   y=1780    Navy bar (CTA)
+  //   y=1830    CTA text
   const videoChain = [
     `[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920`,
     `zoompan=z='if(lte(zoom,1.0),1.0,zoom+0.0008)':d=${duration * 30}:s=1080x1920:fps=30`,
     `drawbox=x=0:y=0:w=iw:h=ih:color=black@0.55:t=fill`,
     `drawbox=x=0:y=0:w=iw:h=90:color=0x031b49@0.95:t=fill`,
-    `drawtext=fontfile=${boldFont}:text='${hook}':fontcolor=white:fontsize=62:x=(w-text_w)/2:y=350:borderw=3:bordercolor=black@0.8`,
-    `drawbox=x=120:y=570:w=840:h=3:color=0xb8922a@0.9:t=fill`,
-    `drawtext=fontfile=${boldFont}:text='${insight1}':fontcolor=white:fontsize=42:x=(w-text_w)/2:y=610:borderw=2:bordercolor=black@0.7`,
-    `drawtext=fontfile=${boldFont}:text='${insight2}':fontcolor=white:fontsize=42:x=(w-text_w)/2:y=690:borderw=2:bordercolor=black@0.7`,
+    `drawtext=fontfile=${boldFont}:text='${hook}':fontcolor=white:fontsize=54:x=(w-text_w)/2:y=300:borderw=3:bordercolor=black@0.8:line_spacing=12`,
+    `drawbox=x=100:y=530:w=880:h=3:color=0xb8922a@0.9:t=fill`,
+    `drawtext=fontfile=${boldFont}:text='${insight1}':fontcolor=white:fontsize=40:x=(w-text_w)/2:y=570:borderw=2:bordercolor=black@0.7:line_spacing=10`,
+    `drawtext=fontfile=${boldFont}:text='${insight2}':fontcolor=white:fontsize=40:x=(w-text_w)/2:y=760:borderw=2:bordercolor=black@0.7:line_spacing=10`,
     `drawbox=x=0:y=1780:w=iw:h=140:color=0x031b49@0.95:t=fill`,
     `drawtext=fontfile=${regularFont}:text='${cta}':fontcolor=0xb8922a:fontsize=36:x=(w-text_w)/2:y=1830`,
   ].join(',');
