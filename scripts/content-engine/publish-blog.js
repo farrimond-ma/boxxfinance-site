@@ -15,6 +15,22 @@ const GITHUB_OWNER = process.env.GITHUB_OWNER;
 const GITHUB_REPO = process.env.GITHUB_REPO;
 const BLOG_FILE = 'src/data/blogPosts.json';
 
+// seo-audit.js WARNs below 1200 words. We demand a buffer above that from
+// generation so the humanizer pass (which may trim up to 10%) still lands
+// the final article over the audit target.
+const TARGET_WORDS = 1200;
+const GENERATION_MIN_WORDS = 1250;
+
+// Word count matching seo-audit.js exactly (strip tags, collapse whitespace)
+function wordCount(html) {
+  return (html || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(' ')
+    .filter((w) => w.length > 0).length;
+}
+
 // ─── Column mapping (0-indexed) ──────────────────────────────────────────────
 // A=0 id, B=1 type, C=2 status, D=3 publishDate, E=4 publishSlot
 // F=5 service, G=6 city, H=7 keyword, I=8 topic, J=9 title
@@ -203,7 +219,7 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
-    max_tokens: 6000, // increased from 4000 — 4000 was too tight for 1200-word article + JSON wrapping
+    max_tokens: 8000, // headroom for 1400-word article + HTML + faqSchema + JSON wrapping
     messages: [
       {
         role: 'system',
@@ -244,7 +260,11 @@ ARTICLE STRUCTURE (adapt headings to fit the specific topic, but follow this pat
 
 Each <h2> section must open with 1-2 sentences that directly answer the section question before expanding — this lets AI models extract accurate summaries.
 
-WORD COUNT: Minimum 1200 words across the full article.
+WORD COUNT — this is a hard requirement, not a guideline:
+- The full article must be at least 1200 words of visible text — aim for 1300-1500
+- Every <h2> section except Summary and the FAQ must be at least 150 words
+- Each FAQ answer must be 40-70 words
+- Articles under 1200 words fail the site's SEO audit and are rejected, so expand thin sections with practical detail, realistic UK figures and broker insight before returning
 
 AI SEARCH (AEO) — additional rules for Google AI Overviews and Perplexity:
 - Include specific UK data points, FCA context, or regulatory facts where relevant
@@ -292,7 +312,63 @@ ${row.service === 'Bridging Finance' ? `BRIDGING FINANCE TERMINOLOGY (mandatory 
     throw new Error('Failed to parse OpenAI response as JSON');
   }
 
+  // GPT-4o reliably under-delivers on "minimum 1200 words" in a single shot
+  // (every post to date came back at 330-960 words), so verify and expand.
+  let words = wordCount(article.contentHtml);
+  console.log(`  Draft word count: ${words}`);
+  for (let attempt = 1; attempt <= 2 && words < GENERATION_MIN_WORDS; attempt++) {
+    console.log(`  Below ${GENERATION_MIN_WORDS}-word minimum — expansion pass ${attempt}...`);
+    article.contentHtml = await expandArticleHtml(article.contentHtml, row.keyword, words);
+    words = wordCount(article.contentHtml);
+    console.log(`  Word count after expansion: ${words}`);
+  }
+  if (words < GENERATION_MIN_WORDS) {
+    console.warn(`  Still ${words} words after expansion passes — publishing anyway, seo-audit will flag if under ${TARGET_WORDS}`);
+  }
+
   return article;
+}
+
+// ─── Expand an article that came back under the word-count minimum ───────────
+async function expandArticleHtml(html, keyword, currentWords) {
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o',
+    max_tokens: 8000,
+    messages: [
+      {
+        role: 'system',
+        content: `You are an experienced UK commercial finance broker writing for Boxx Commercial Finance. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases. Never use markdown, backticks, or code fences.`,
+      },
+      {
+        role: 'user',
+        content: `The article below is ${currentWords} words. The minimum is 1200 words. Expand it to at least 1400 words by deepening the existing sections: add practical detail, realistic UK figures, concrete steps, and broker insight on "${keyword}".
+
+RULES:
+- Keep every existing HTML tag, link, href and attribute exactly as it is — do not remove or rewrite any <a> link
+- Do not add new <h2> sections and do not change any heading text
+- Do not change the Frequently Asked Questions section at all
+- Do not add an <h1> tag
+- Use only single quotes inside HTML attributes
+- Short paragraphs — no paragraph longer than 4 sentences
+- Return ONLY the full expanded HTML — no JSON, no markdown, no commentary
+
+ARTICLE HTML:
+${html}`,
+      },
+    ],
+  });
+
+  let expanded = (response.choices[0].message.content || '').trim();
+  expanded = expanded.replace(/^```(?:html)?\s*/i, '').replace(/```\s*$/i, '').trim();
+  if (!expanded || !expanded.includes('<')) {
+    console.warn('  Expansion returned non-HTML — keeping current version');
+    return html;
+  }
+  if (wordCount(expanded) <= currentWords) {
+    console.warn('  Expansion did not grow the article — keeping current version');
+    return html;
+  }
+  return expanded;
 }
 
 // ─── YouTube: find a relevant educational video ───────────────────────────────
@@ -528,74 +604,40 @@ async function humanizeContent(html, keyword, author) {
     return html;
   }
 
-  // Strip HTML to plain text for Claude, then we'll reinsert into original structure
-  const plainText = html
-    .replace(/<script[\s\S]*?<\/script>/gi, '')
-    .replace(/<style[\s\S]*?<\/style>/gi, '')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .substring(0, 6000);
+  // Never truncate the article going into the rewrite — a substring cap here
+  // used to silently drop the tail of anything over 12,000 chars. A 1200+
+  // word article is ~10-14k chars of HTML, so skip rather than clip.
+  if (html.length > 24000) {
+    console.warn(`  Article HTML is ${html.length} chars — too long to humanize safely, skipping`);
+    return html;
+  }
 
-  const prompt = `You are editing a UK commercial finance article written by ${author}.
+  const originalWords = wordCount(html);
 
-Rewrite the text below to remove AI writing patterns. Apply these changes:
-- Remove overused AI words: tapestry, landscape, pivotal, underscore, delve, comprehensive, robust, leverage, utilise, multifaceted, nuanced, in today's fast-paced
-- Remove em dashes (—) — replace with commas, full stops, or rewrite the sentence
-- Remove excessive hedging: "it's worth noting", "it is important to", "one might consider"
-- Remove sycophantic openers and sign-offs
-- Remove "not only...but also" constructions
-- Remove rule-of-three structures where they feel forced
-- Remove passive voice where possible — use active voice
-- Remove generic positive conclusions ("In conclusion, this is a valuable...")
-- Remove filler phrases: "in order to", "due to the fact that", "it should be noted"
-- Keep the meaning, facts, structure and HTML tags exactly as they are
-- Keep it authoritative and direct — this is written by a senior UK commercial finance broker
-- UK spelling throughout (organise not organize, favour not favor, etc.)
-- Do NOT add new content or change facts
-- Return ONLY the rewritten text, preserving all HTML tags
-
-TEXT TO REWRITE:
-${plainText}`;
-
-  try {
-    const response = await anthropic.messages.create({
-      model:      'claude-haiku-4-5-20251001',
-      max_tokens: 8000,
-      messages:   [{ role: 'user', content: prompt }],
-    });
-
-    const rewritten = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
-    if (!rewritten || rewritten.length < plainText.length * 0.5) {
-      console.warn('  Humanizer returned unexpectedly short output — using original');
-      return html;
-    }
-
-    // The humanizer works on the plain text but the actual contentHtml has proper HTML.
-    // Since we can't reliably reinsert the plain text back into HTML structure,
-    // we pass the full HTML and rely on Claude to preserve the tags.
-    const htmlPrompt = `You are editing HTML content for a UK commercial finance article written by ${author}.
+  const htmlPrompt = `You are editing HTML content for a UK commercial finance article written by ${author}.
 
 Rewrite ONLY the visible text within the HTML tags below. Do NOT change any HTML tags, attributes, href values, class names, or structure. Preserve all <a>, <h2>, <h3>, <p>, <ul>, <li>, <dl>, <dt>, <dd> tags exactly.
 
 Apply these changes to the visible text only:
-- Remove overused AI words: tapestry, landscape, pivotal, underscore, delve, comprehensive, robust, leverage, utilise, multifaceted, nuanced, "in today's fast-paced"
+- Replace overused AI words: tapestry, landscape, pivotal, underscore, delve, comprehensive, robust, leverage, utilise, multifaceted, nuanced, "in today's fast-paced"
 - Remove em dashes (—) — rewrite the sentence instead
-- Remove excessive hedging phrases
-- Remove passive voice where possible
-- Remove filler phrases: "in order to", "due to the fact that", "it should be noted", "it is worth noting"
-- Remove forced rule-of-three structures
+- Rewrite excessive hedging phrases as direct statements
+- Rewrite passive voice as active voice where possible
+- Replace filler phrases with direct wording: "in order to", "due to the fact that", "it should be noted", "it is worth noting"
+- Rewrite forced rule-of-three structures
 - Keep all facts, links, and HTML structure identical
+- Do NOT shorten the article: rewrite weak phrasing in place rather than deleting sentences — the output must stay within 10% of the input's word count
 - UK spelling throughout
 - Do NOT wrap the output in markdown code fences or backticks (no \`\`\`html, no \`\`\`) — return raw HTML only
 - Return ONLY the modified HTML, nothing else
 
 HTML TO REWRITE:
-${html.substring(0, 12000)}`;
+${html}`;
 
+  try {
     const htmlResponse = await anthropic.messages.create({
       model:      'claude-haiku-4-5-20251001',
-      max_tokens: 8000,
+      max_tokens: 12000,
       messages:   [{ role: 'user', content: htmlPrompt }],
     });
 
@@ -610,7 +652,15 @@ ${html.substring(0, 12000)}`;
       return html;
     }
 
-    console.log('  ✅ Content humanized');
+    // The humanizer trims filler, but with no floor it was compressing
+    // articles by ~150 words on average. Allow light trimming only.
+    const humanizedWords = wordCount(humanizedHtml);
+    if (humanizedWords < originalWords * 0.9) {
+      console.warn(`  Humanizer shrank the article ${originalWords} → ${humanizedWords} words — using original`);
+      return html;
+    }
+
+    console.log(`  ✅ Content humanized (${originalWords} → ${humanizedWords} words)`);
     return humanizedHtml;
 
   } catch (err) {
@@ -662,6 +712,16 @@ async function main() {
     row.keyword,
     row.author || 'Mark Higgins'
   );
+
+  // Final word-count gate: if humanizing left the article under the audit
+  // target, run one more expansion pass on the final HTML before publishing.
+  let finalWords = wordCount(article.contentHtml);
+  if (finalWords < TARGET_WORDS) {
+    console.log(`Final article is ${finalWords} words — running post-humanize expansion...`);
+    article.contentHtml = await expandArticleHtml(article.contentHtml, row.keyword, finalWords);
+    finalWords = wordCount(article.contentHtml);
+  }
+  console.log(`Final word count: ${finalWords}${finalWords < TARGET_WORDS ? ` (still below ${TARGET_WORDS} — seo-audit will WARN)` : ' ✅'}`);
 
   // Ensure question-style titles end with ?
   const rawTitle = row.title || article.title;

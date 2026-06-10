@@ -141,7 +141,11 @@ ARTICLE STRUCTURE:
 - <h2>Summary</h2>
 - <h2>Frequently Asked Questions</h2> (4-6 Q&As using <dl><dt><dd> tags)
 
-WORD COUNT: Minimum 1200 words.
+WORD COUNT — this is a hard requirement, not a guideline:
+- The full article must be at least 1200 words of visible text — aim for 1300-1500
+- Every <h2> section except Summary and the FAQ must be at least 150 words
+- Each FAQ answer must be 40-70 words
+- Articles under 1200 words fail the site's SEO audit and are rejected, so expand thin sections with practical detail, realistic UK figures and broker insight before returning
 
 CALLS TO ACTION:
 - Mid-article: include a paragraph encouraging the reader to get advice, linking to ${chatUrl} — use anchor text like "speak to a commercial finance specialist" or "get expert advice on ${keyword}" — NEVER "click here" or "contact us"
@@ -161,7 +165,7 @@ Service: ${service}
 Category: ${service}`;
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-4o', max_tokens: 6000,
+    model: 'gpt-4o', max_tokens: 8000,
     messages: [
       { role: 'system', content: systemPrompt },
       { role: 'user',   content: userPrompt   },
@@ -170,7 +174,54 @@ Category: ${service}`;
 
   let content = response.choices[0].message.content;
   content = content.replace(/```json/g,'').replace(/```/g,'').replace(/“/g,'"').replace(/”/g,'"').trim();
-  return JSON.parse(content);
+  const article = JSON.parse(content);
+
+  // GPT-4o under-delivers on "minimum 1200 words" in a single shot — verify
+  // and expand, otherwise this script regenerates thin posts into posts that
+  // are still thin and re-selects them forever.
+  let words = wordCount(article.contentHtml);
+  for (let attempt = 1; attempt <= 2 && words < MIN_WORDS + 50; attempt++) {
+    console.log(`  Draft is ${words} words — expansion pass ${attempt}...`);
+    article.contentHtml = await expandArticleHtml(article.contentHtml, keyword, words);
+    words = wordCount(article.contentHtml);
+  }
+
+  return article;
+}
+
+// ─── Expand an article that came back under the word-count minimum ───────────
+async function expandArticleHtml(html, keyword, currentWords) {
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o',
+    max_tokens: 8000,
+    messages: [
+      {
+        role: 'system',
+        content: `You are an experienced UK commercial finance broker writing for Boxx Commercial Finance. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases. Never use markdown, backticks, or code fences.`,
+      },
+      {
+        role: 'user',
+        content: `The article below is ${currentWords} words. The minimum is 1200 words. Expand it to at least 1400 words by deepening the existing sections: add practical detail, realistic UK figures, concrete steps, and broker insight on "${keyword}".
+
+RULES:
+- Keep every existing HTML tag, link, href and attribute exactly as it is — do not remove or rewrite any <a> link
+- Do not add new <h2> sections and do not change any heading text
+- Do not change the Frequently Asked Questions section at all
+- Do not add an <h1> tag
+- Use only single quotes inside HTML attributes
+- Short paragraphs — no paragraph longer than 4 sentences
+- Return ONLY the full expanded HTML — no JSON, no markdown, no commentary
+
+ARTICLE HTML:
+${html}`,
+      },
+    ],
+  });
+
+  let expanded = (response.choices[0].message.content || '').trim();
+  expanded = expanded.replace(/^```(?:html)?\s*/i, '').replace(/```\s*$/i, '').trim();
+  if (!expanded || !expanded.includes('<')) return html;
+  return wordCount(expanded) > currentWords ? expanded : html;
 }
 
 // ─── Pexels image ─────────────────────────────────────────────────────────────
@@ -214,18 +265,30 @@ async function uploadImage(slug, buffer) {
 
 async function humanize(html, author) {
   if (!process.env.ANTHROPIC_API_KEY) return html;
+
+  // Never truncate the article going into the rewrite — a substring cap here
+  // silently dropped the tail of anything over 12,000 chars, and a 1200+ word
+  // article is ~10-14k chars of HTML. Skip rather than clip.
+  if (html.length > 24000) {
+    console.warn(`  Article HTML is ${html.length} chars — too long to humanize safely, skipping`);
+    return html;
+  }
+
+  const originalWords = wordCount(html);
+
   const prompt = `Edit this HTML article for ${author} at Boxx Commercial Finance. Remove AI writing patterns:
-- Remove em dashes (—), overused words (tapestry, leverage, pivotal, underscore, nuanced, robust), hedging phrases (it's worth noting, in order to), passive voice where possible, generic conclusions.
+- Remove em dashes (—). Replace overused words (tapestry, leverage, pivotal, underscore, nuanced, robust), rewrite hedging phrases (it's worth noting, in order to) as direct statements, rewrite passive voice as active where possible, rewrite generic conclusions.
 - Preserve ALL HTML tags, links, and factual content exactly.
+- Do NOT shorten the article: rewrite weak phrasing in place rather than deleting sentences — the output must stay within 10% of the input's word count.
 - UK spelling throughout.
 - Do NOT wrap the output in markdown code fences or backticks (no \`\`\`html, no \`\`\`) — return raw HTML only.
 - Return ONLY the modified HTML.
 
 HTML:
-${html.substring(0, 12000)}`;
+${html}`;
 
   const r = await anthropic.messages.create({
-    model: 'claude-haiku-4-5-20251001', max_tokens: 8000,
+    model: 'claude-haiku-4-5-20251001', max_tokens: 12000,
     messages: [{ role: 'user', content: prompt }],
   });
   let result = r.content[0].type === 'text' ? r.content[0].text.trim() : '';
@@ -233,7 +296,15 @@ ${html.substring(0, 12000)}`;
   // despite being told not to (this is what left literal "```html" visible
   // at the top of several published articles).
   result = result.replace(/^```(?:html)?\s*/i, '').replace(/```\s*$/i, '').trim();
-  return (result && result.includes('<')) ? result : html;
+  if (!result || !result.includes('<')) return html;
+
+  // Allow light trimming only — with no floor the humanizer was compressing
+  // articles by ~150 words on average.
+  if (wordCount(result) < originalWords * 0.9) {
+    console.warn(`  Humanizer shrank the article ${originalWords} → ${wordCount(result)} words — using original`);
+    return html;
+  }
+  return result;
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
