@@ -559,6 +559,75 @@ async function publishToTikTok(videoPath, title) {
   return publishId;
 }
 
+// ─── Upload video to YouTube as a Short ───────────────────────────────────────
+// Vertical video under 3 minutes is automatically treated as a Short.
+// Auth: OAuth refresh token (API keys can't upload). One-time setup:
+//   node get-youtube-token.js  → YOUTUBE_CLIENT_ID / SECRET / REFRESH_TOKEN secrets
+async function publishToYouTube(videoPath, title, description) {
+  const clientId     = process.env.YOUTUBE_CLIENT_ID;
+  const clientSecret = process.env.YOUTUBE_CLIENT_SECRET;
+  const refreshToken = process.env.YOUTUBE_REFRESH_TOKEN;
+  if (!clientId || !clientSecret || !refreshToken) {
+    console.log('  YouTube OAuth secrets not set (YOUTUBE_CLIENT_ID/SECRET/REFRESH_TOKEN) — skipping');
+    return null;
+  }
+
+  // Exchange refresh token for access token
+  const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: clientId, client_secret: clientSecret,
+      refresh_token: refreshToken, grant_type: 'refresh_token',
+    }),
+  });
+  if (!tokenRes.ok) throw new Error(`YouTube token refresh failed: ${await tokenRes.text()}`);
+  const { access_token } = await tokenRes.json();
+
+  // YouTube titles: max 100 chars, no < or >
+  const ytTitle = (title.replace(/[<>]/g, '') + ' #Shorts').slice(0, 100);
+  const videoBuffer = fs.readFileSync(videoPath);
+
+  // Resumable upload: init → PUT bytes
+  const initRes = await fetch(
+    'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status',
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+        'Content-Type': 'application/json',
+        'X-Upload-Content-Type': 'video/mp4',
+        'X-Upload-Content-Length': String(videoBuffer.length),
+      },
+      body: JSON.stringify({
+        snippet: {
+          title: ytTitle,
+          description,
+          categoryId: '27', // Education
+          tags: ['bridging finance', 'bridging loans', 'commercial finance', 'UK property', 'business funding'],
+        },
+        status: { privacyStatus: 'public', selfDeclaredMadeForKids: false },
+      }),
+    }
+  );
+  if (!initRes.ok) throw new Error(`YouTube upload init failed: ${await initRes.text()}`);
+  const uploadUrl = initRes.headers.get('location');
+  if (!uploadUrl) throw new Error('YouTube upload init returned no upload URL');
+
+  const uploadRes = await fetch(uploadUrl, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'video/mp4', 'Content-Length': String(videoBuffer.length) },
+    body: videoBuffer,
+  });
+  if (!uploadRes.ok) throw new Error(`YouTube upload failed: ${await uploadRes.text()}`);
+  const data = await uploadRes.json();
+  console.log(`  ✅ YouTube Short uploaded — https://youtube.com/shorts/${data.id}`);
+  if (data.status?.privacyStatus && data.status.privacyStatus !== 'public') {
+    console.warn(`  Note: video privacy is "${data.status.privacyStatus}" — unverified Google Cloud projects lock API uploads to private until the project passes YouTube's API audit.`);
+  }
+  return data.id;
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   console.log('\n╔══════════════════════════════════════════╗');
@@ -594,10 +663,12 @@ async function main() {
   const postUrl = post.url.startsWith('http') ? post.url : `${SITE_URL}${post.url}`;
 
   console.log('\nUploading reel to Facebook...');
+  let fbSuccess = false;
   try {
     const description = `${script.insight1} ${script.insight2} ${postUrl}`;
     const reelId = await uploadReel(videoPath, post.title, description);
     post.reelPosted = true;
+    fbSuccess = true;
     console.log(`  ✅ Facebook Reel published — ID: ${reelId}`);
   } catch (err) {
     console.error(`  ❌ Facebook Reel failed: ${err.message}`);
@@ -640,9 +711,21 @@ async function main() {
     console.log('  TIKTOK_ACCESS_TOKEN not set — skipping');
   }
 
+  console.log('\nPosting to YouTube Shorts...');
+  try {
+    const ytDescription = `${script.insight1}\n${script.insight2}\n\nRead the full article: ${postUrl}\n\n#bridgingfinance #bridgingloans #ukproperty #commercialfinance`;
+    await publishToYouTube(videoPath, post.title, ytDescription);
+  } catch (err) { console.error(`  ❌ YouTube failed: ${err.message}`); }
+
   try { fs.unlinkSync(imagePath); fs.unlinkSync(videoPath); } catch {}
 
-  await pushBlogPostsFile(posts, `social: reel posted for ${post.slug}`);
+  // Only commit when the Reel actually posted — committing on failure would
+  // write a misleading "reel posted" message with no flag change
+  if (fbSuccess) {
+    await pushBlogPostsFile(posts, `social: reel posted for ${post.slug}`);
+  } else {
+    console.log('Skipping git commit — Facebook Reel did not post; will retry next run.');
+  }
 
   console.log('\n✅ Done.\n');
 }
