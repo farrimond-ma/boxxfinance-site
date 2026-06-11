@@ -216,6 +216,14 @@ TONE AND QUALITY:
 - Short paragraphs throughout
 - Include natural keyword variations: "${row.service.toLowerCase()} ${row.city}", "${row.service.toLowerCase()} broker ${row.city}", "business finance ${row.city}", "SME funding ${row.city}"
 - Mention "Boxx Commercial Finance" 2–3 times
+${row.service === 'Bridging Finance' ? `
+BRIDGING TERMINOLOGY (mandatory for bridging pages):
+- Use both "bridging loans" and "bridging finance" in roughly equal measure throughout — homeowners search "bridging loans ${row.city}" more than "bridging finance ${row.city}", so the page must rank for both. Alternate naturally as a real broker would in conversation.
+- At least one <h2> must contain the phrase "Bridging Loans in ${row.city}"
+- At least one FAQ question must use "bridging loan" phrasing (e.g. "Can I get a bridging loan in ${row.city}?")
+- metaDescription must include the phrase "bridging loans"
+- Address BOTH audiences: homeowners and residential buyers (chain breaks, auction purchases) AND property developers and investors (refurbishment, development exits). Both use bridging — include local scenarios for each.
+- UK English: "bridging loan" not "bridge loan", "property" not "real estate", "solicitor" not "attorney"` : ''}
 - Link https://boxxfinance.co.uk/#about as "Boxx Commercial Finance" the first time the brand name appears
 
 INTERNAL LINKS — mandatory, keyword-rich anchor text only:
