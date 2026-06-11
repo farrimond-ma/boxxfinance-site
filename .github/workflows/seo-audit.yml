@@ -1,9 +1,13 @@
 name: SEO Audit
 
 on:
-  # Run after every blog publish
+  # Run after the site DEPLOY completes — not after the blog publisher.
+  # Auditing straight after the publisher raced the ~8-minute deploy
+  # (prerender + FTP) and crawled half-uploaded pages, causing
+  # intermittent failures. The job-level guard below limits this to
+  # deploys of new content.
   workflow_run:
-    workflows: ["Publish Blog"]
+    workflows: ["Deploy Site"]
     types:
       - completed
 
@@ -23,8 +27,9 @@ jobs:
   seo-audit:
     name: Run SEO audit
     runs-on: ubuntu-latest
-    # Run whether or not the triggering workflow succeeded — we want to catch issues either way
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    # Chained runs: only after a SUCCESSFUL deploy of new content (blog or
+    # location publish commits) — not after every social-flag commit deploy
+    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && (contains(github.event.workflow_run.head_commit.message, 'Publish blog:') || contains(github.event.workflow_run.head_commit.message, 'Publish location:'))) }}
     timeout-minutes: 15
     permissions:
       issues: write
