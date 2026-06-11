@@ -225,18 +225,18 @@ function wrapLine(text, maxChars) {
 function buildVideo(imagePath, script, outputPath, audioPath = null) {
   const duration = audioPath ? getAudioDuration(audioPath) : 20;
 
-  const esc = (t) => t
-    .replace(/\\/g, '\\\\')
-    .replace(/'/g, "\\'")
-    .replace(/:/g, '\\:')
-    .replace(/\[/g, '\\[')
-    .replace(/\]/g, '\\]');
-
-  // Wrap text to fit 1080px canvas before escaping special chars
-  const hook     = esc(wrapLine(script.hook,     22)); // fontsize 54 bold ≈ 22 chars/line
-  const insight1 = esc(wrapLine(script.insight1, 32)); // fontsize 40 bold ≈ 32 chars/line
-  const insight2 = esc(wrapLine(script.insight2, 32));
-  const cta      = esc(script.cta);
+  // drawtext reads multi-line text from textfile= — newlines render as line
+  // breaks and nothing needs shell/filtergraph escaping. Inlining wrapped text
+  // in -filter_complex broke ffmpeg (raw newlines end the filter string).
+  const textFile = (name, text) => {
+    const p = path.join(TMP_DIR, name);
+    fs.writeFileSync(p, text, 'utf8');
+    return p;
+  };
+  const hookFile     = textFile('hook.txt',     wrapLine(script.hook,     22)); // fontsize 54 bold ≈ 22 chars/line
+  const insight1File = textFile('insight1.txt', wrapLine(script.insight1, 32)); // fontsize 40 bold ≈ 32 chars/line
+  const insight2File = textFile('insight2.txt', wrapLine(script.insight2, 32));
+  const ctaFile      = textFile('cta.txt',      script.cta);
 
   const boldFont    = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf';
   const regularFont = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';
@@ -259,12 +259,12 @@ function buildVideo(imagePath, script, outputPath, audioPath = null) {
     `zoompan=z='if(lte(zoom,1.0),1.0,zoom+0.0008)':d=${duration * 30}:s=1080x1920:fps=30`,
     `drawbox=x=0:y=0:w=iw:h=ih:color=black@0.55:t=fill`,
     `drawbox=x=0:y=0:w=iw:h=90:color=0x031b49@0.95:t=fill`,
-    `drawtext=fontfile=${boldFont}:text='${hook}':fontcolor=white:fontsize=54:x=(w-text_w)/2:y=300:borderw=3:bordercolor=black@0.8:line_spacing=12`,
+    `drawtext=fontfile=${boldFont}:textfile=${hookFile}:fontcolor=white:fontsize=54:x=(w-text_w)/2:y=300:borderw=3:bordercolor=black@0.8:line_spacing=12`,
     `drawbox=x=100:y=530:w=880:h=3:color=0xb8922a@0.9:t=fill`,
-    `drawtext=fontfile=${boldFont}:text='${insight1}':fontcolor=white:fontsize=40:x=(w-text_w)/2:y=570:borderw=2:bordercolor=black@0.7:line_spacing=10`,
-    `drawtext=fontfile=${boldFont}:text='${insight2}':fontcolor=white:fontsize=40:x=(w-text_w)/2:y=760:borderw=2:bordercolor=black@0.7:line_spacing=10`,
+    `drawtext=fontfile=${boldFont}:textfile=${insight1File}:fontcolor=white:fontsize=40:x=(w-text_w)/2:y=570:borderw=2:bordercolor=black@0.7:line_spacing=10`,
+    `drawtext=fontfile=${boldFont}:textfile=${insight2File}:fontcolor=white:fontsize=40:x=(w-text_w)/2:y=760:borderw=2:bordercolor=black@0.7:line_spacing=10`,
     `drawbox=x=0:y=1780:w=iw:h=140:color=0x031b49@0.95:t=fill`,
-    `drawtext=fontfile=${regularFont}:text='${cta}':fontcolor=0xb8922a:fontsize=36:x=(w-text_w)/2:y=1830`,
+    `drawtext=fontfile=${regularFont}:textfile=${ctaFile}:fontcolor=0xb8922a:fontsize=36:x=(w-text_w)/2:y=1830`,
   ].join(',');
 
   // Audio input index depends on whether logo is present
@@ -300,7 +300,13 @@ function buildVideo(imagePath, script, outputPath, audioPath = null) {
   ].filter(Boolean).join(' ');
 
   console.log('  Running ffmpeg...');
-  execSync(cmd, { stdio: 'pipe' });
+  try {
+    execSync(cmd, { stdio: 'pipe' });
+  } finally {
+    for (const f of [hookFile, insight1File, insight2File, ctaFile]) {
+      try { fs.unlinkSync(f); } catch {}
+    }
+  }
   const size = Math.round(fs.statSync(outputPath).size / (1024 * 1024) * 10) / 10;
   console.log(`  Video created: ${size} MB`);
 }
@@ -724,7 +730,8 @@ async function main() {
   if (fbSuccess) {
     await pushBlogPostsFile(posts, `social: reel posted for ${post.slug}`);
   } else {
-    console.log('Skipping git commit — Facebook Reel did not post; will retry next run.');
+    console.error('Skipping git commit — Facebook Reel did not post; will retry next run.');
+    process.exit(1); // make the failure visible on the dashboard and in email alerts
   }
 
   console.log('\n✅ Done.\n');

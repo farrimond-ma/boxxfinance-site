@@ -1,9 +1,18 @@
 ﻿name: Publish Facebook Post
 
 on:
+  # Trigger after either blog publisher completes — same pattern as LinkedIn.
+  # GitHub cron schedules drift 2-3 hours on this repo; chaining to the blog
+  # publishers means the FB post goes out minutes after the article does.
+  workflow_run:
+    workflows: ["Publish Blog", "Publish Blog PM"]
+    types:
+      - completed
+
+  # Catch-up runs in case a chained trigger is missed or a post failed earlier
   schedule:
-    - cron: '30 11 * * *'  # AM run: 11:30 UTC = ~12:30 BST (blog publishes at 7:37 UTC but typically delayed 3-4hrs; this fires after it lands)
-    - cron: '42 14 * * *'  # PM run: 14:42 UTC = ~3:42 BST (picks up PM blog post)
+    - cron: '30 11 * * *'  # ~12:30 BST catch-up
+    - cron: '42 14 * * *'  # ~3:42 BST catch-up
 
   # Manual trigger for testing
   workflow_dispatch:
@@ -12,6 +21,8 @@ jobs:
   publish-facebook:
     name: Generate and post to Facebook
     runs-on: ubuntu-latest
+    # Only chain off successful blog publishes; always allow cron/manual
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name != 'workflow_run' }}
     timeout-minutes: 10
 
     steps:

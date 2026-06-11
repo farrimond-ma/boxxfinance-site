@@ -130,7 +130,8 @@ async function main() {
   if (fbSuccess) {
     await pushBlogPostsFile(posts, 'social: facebook posted for ' + post.slug);
   } else {
-    console.log('Skipping git commit — nothing was successfully posted.');
+    console.error('Skipping git commit — nothing was successfully posted.');
+    process.exit(1); // a failed attempt should show red, not green
   }
   console.log('Done.');
 }
