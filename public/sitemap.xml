@@ -741,6 +741,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-finance-islington</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-finance-hackney</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-finance-bethnal-green</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://boxxfinance.co.uk/uk-sme-funding-index/march-2026</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
