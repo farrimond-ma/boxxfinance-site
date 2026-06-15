@@ -771,6 +771,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-finance-guildford</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-finance-woking</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://boxxfinance.co.uk/uk-sme-funding-index/march-2026</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
