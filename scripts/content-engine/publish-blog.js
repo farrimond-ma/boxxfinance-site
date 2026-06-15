@@ -342,7 +342,97 @@ ${row.service === 'Bridging Finance' ? `BRIDGING FINANCE TERMINOLOGY (mandatory 
     console.warn(`  Still ${words} words after expansion passes — publishing anyway, seo-audit will flag if under ${TARGET_WORDS}`);
   }
 
+  // ── Link & anchor validation loop (up to 2 targeted fix passes)
+  let linkIssues = auditContentHtml(article.contentHtml);
+  for (let attempt = 1; attempt <= 2 && linkIssues.length > 0; attempt++) {
+    console.log(`  Link audit: ${linkIssues.length} issue(s) found — fix pass ${attempt}...`);
+    linkIssues.forEach(i => console.log(`    ⚠ ${i}`));
+    article.contentHtml = await fixContentIssues(article.contentHtml, linkIssues, {
+      serviceUrl, chatUrl, keyword: row.keyword, locationLinksText, relatedBlogsText,
+    });
+    linkIssues = auditContentHtml(article.contentHtml);
+    console.log(`  After fix pass ${attempt}: ${linkIssues.length} issue(s) remaining`);
+  }
+  if (linkIssues.length > 0) {
+    console.warn(`  Content still has ${linkIssues.length} issue(s) after fix passes — seo-audit will flag:`);
+    linkIssues.forEach(i => console.warn(`    ⚠ ${i}`));
+  } else {
+    console.log(`  Link audit: clean`);
+  }
+
   return article;
+}
+
+// ─── Inline content audit — same rules as seo-audit.js ──────────────────────
+function auditContentHtml(html) {
+  const issues = [];
+
+  const FORBIDDEN_ANCHORS = [
+    'speak to a commercial finance specialist',
+    'speak to a specialist',
+    'click here', 'read more', 'learn more', 'find out more',
+    'contact us', 'get in touch', 'our services', 'our page',
+    'this page', 'this article',
+  ];
+  for (const bad of FORBIDDEN_ANCHORS) {
+    if (new RegExp(`>${bad}<`, 'i').test(html))
+      issues.push(`Forbidden anchor text "${bad}" — replace with a keyword-rich alternative`);
+  }
+
+  if (/>[Gg]et expert [^<]{5,60} advice</.test(html))
+    issues.push('Generic "get expert X advice" anchor found — use a keyword-rich product anchor instead');
+
+  if (/href=['"]https?:\/\/boxxfinance\.co\.uk\/#about['"]/i.test(html))
+    issues.push('Link to /#about found — remove this link entirely (brand-name anchor adds no SEO value)');
+
+  const firstParaMatch = html.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+  if (firstParaMatch && !/href=/i.test(firstParaMatch[1]))
+    issues.push('Opening paragraph contains no link — add a link to the service page using keyword-rich anchor text');
+
+  return issues;
+}
+
+// ─── Ask the model to fix specific link/anchor issues in the HTML ─────────────
+async function fixContentIssues(html, issues, { serviceUrl, chatUrl, keyword, locationLinksText, relatedBlogsText }) {
+  const issueList = issues.map((msg, i) => `${i + 1}. ${msg}`).join('\n');
+
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o',
+    max_tokens: 8000,
+    messages: [
+      {
+        role: 'system',
+        content: `You are a UK SEO content editor. Fix only the specific issues listed. Do not change any other text, links, or structure.`,
+      },
+      {
+        role: 'user',
+        content: `Fix ONLY these issues in the article HTML. Change nothing else.
+
+ISSUES TO FIX:
+${issueList}
+
+RULES:
+- Fix only what is listed — leave every other word, link, and tag exactly as it is
+- Do not invent URLs — use only the URLs listed below
+- CTA links go to: ${chatUrl} — use keyword-rich anchors like "compare ${keyword} rates", "arrange ${keyword} today", "get a ${keyword} quote", or "find a ${keyword} broker"
+- Use single quotes inside HTML attributes
+- Return ONLY the corrected HTML — no JSON, no markdown, no commentary
+
+AVAILABLE URLS:
+Service page: ${serviceUrl}
+CTA page: ${chatUrl}
+${locationLinksText}
+${relatedBlogsText}
+
+ARTICLE HTML:
+${html}`,
+      },
+    ],
+  });
+
+  let fixed = (response.choices[0].message.content || '').trim()
+    .replace(/^```(?:html)?\s*/i, '').replace(/```\s*$/i, '').trim();
+  return (fixed && fixed.includes('<')) ? fixed : html;
 }
 
 // ─── Expand an article that came back under the word-count minimum ───────────
