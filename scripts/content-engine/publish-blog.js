@@ -162,9 +162,10 @@ async function getPublishedLocations(_sheets, service) {
     const filePath = path.resolve(__dirname, '../../src/data/locationPages.json');
     const pages = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     const serviceSlug = service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+    const toSlug = s => (s || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
 
     return pages
-      .filter(p => p.status === 'published' && p.service === serviceSlug)
+      .filter(p => p.status === 'published' && toSlug(p.service) === serviceSlug)
       .slice(0, 4)
       .map(p => `/locations/${p.slug}`);
   } catch (err) {
