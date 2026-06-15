@@ -148,7 +148,7 @@ async function generateLocationPage(row, relatedBlogs) {
   const chatUrl     = `https://boxxfinance.co.uk/chat-about-funding/${serviceSlug}`;
 
   const blogLinksText = relatedBlogs.length > 0
-    ? `\nRelated blog posts — link naturally using the exact post title as anchor text:\n${relatedBlogs.map(b => `${b.url} — "${b.title}"`).join('\n')}`
+    ? `\nRelated blog posts to link naturally in the body — the title is for reference only, write a 3-5 word keyword-rich anchor (never use the raw title as anchor text):\n${relatedBlogs.map(b => `${b.url} — title: "${b.title}"`).join('\n')}`
     : '';
 
   const response = await openai.chat.completions.create({
@@ -207,7 +207,7 @@ Four clear steps: initial enquiry → lender matching → offer received → com
 Keep answers direct and specific to ${row.city} where possible.
 
 8. Closing CTA paragraph — this is a plain <p> with NO heading. Do NOT output "<h2>Closing CTA</h2>" or any heading for this section; the paragraph follows the FAQ directly.
-Short and direct — 2–3 sentences. Encourage the reader to get in touch. Link to ${chatUrl} using anchor text like "speak to a ${row.service.toLowerCase()} specialist" or "discuss your funding needs with our team". End with a brief confidence statement.
+Short and direct — 2–3 sentences. Encourage the reader to act now. Link to ${chatUrl} using a keyword-rich anchor — for example: "compare ${row.service.toLowerCase()} deals", "arrange ${row.service.toLowerCase()} today", "get a ${row.service.toLowerCase()} quote", or "find a ${row.service.toLowerCase()} broker in ${row.city}". NEVER use "speak to a specialist", "get in touch", "click here", or any other generic call-to-action phrase as the anchor text. End with a brief confidence statement.
 
 WORD COUNT: Minimum 1000 words in the content field.
 
@@ -215,7 +215,8 @@ TONE AND QUALITY:
 - Every section must feel genuinely written for ${row.city} — not a template with city name swapped
 - Short paragraphs throughout
 - Include natural keyword variations: "${row.service.toLowerCase()} ${row.city}", "${row.service.toLowerCase()} broker ${row.city}", "business finance ${row.city}", "SME funding ${row.city}"
-- Mention "Boxx Commercial Finance" 2–3 times
+- Mention "Boxx Commercial Finance" 2–3 times — as plain text, NOT as a hyperlink
+- Do NOT add a link to https://boxxfinance.co.uk/#about or https://boxxfinance.co.uk/about-us
 ${row.service === 'Bridging Finance' ? `
 BRIDGING TERMINOLOGY (mandatory for bridging pages):
 - Use both "bridging loans" and "bridging finance" in roughly equal measure throughout — homeowners search "bridging loans ${row.city}" more than "bridging finance ${row.city}", so the page must rank for both. Alternate naturally as a real broker would in conversation.
@@ -224,13 +225,12 @@ BRIDGING TERMINOLOGY (mandatory for bridging pages):
 - metaDescription must include the phrase "bridging loans"
 - Address BOTH audiences: homeowners and residential buyers (chain breaks, auction purchases) AND property developers and investors (refurbishment, development exits). Both use bridging — include local scenarios for each.
 - UK English: "bridging loan" not "bridge loan", "property" not "real estate", "solicitor" not "attorney"` : ''}
-- Link https://boxxfinance.co.uk/#about as "Boxx Commercial Finance" the first time the brand name appears
 
 INTERNAL LINKS — mandatory, keyword-rich anchor text only:
 - ${serviceUrl}: at least 2 links, anchor text like "${row.service.toLowerCase()} for ${row.city} businesses" or "specialist ${row.service.toLowerCase()} solutions"
-- https://boxxfinance.co.uk/#about: link brand name "Boxx Commercial Finance" first time it appears — do NOT use /about-us (that page does not exist)
-- ${chatUrl}: in closing CTA
+- ${chatUrl}: in closing CTA — keyword-rich anchor only (see CTA rules above)
 - NEVER invent URLs — only use URLs explicitly provided
+- NEVER link brand names ("Boxx Commercial Finance", "Boxx") — use keyword anchors only
 ${blogLinksText}
 
 faqSchema: valid @type: FAQPage object, exactly matching the FAQ section in content`,
