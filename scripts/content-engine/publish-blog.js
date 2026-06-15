@@ -164,10 +164,25 @@ async function getPublishedLocations(_sheets, service) {
     const serviceSlug = service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
     const toSlug = s => (s || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
 
+    const serviceLabel = (service || '').trim();
+    // Build keyword-rich anchor text for each location link.
+    // Bridging finance alternates "bridging loans" / "bridging finance" to target both terms.
+    const isBridging = serviceSlug === 'bridging-finance';
+    let altIdx = 0;
     return pages
       .filter(p => p.status === 'published' && toSlug(p.service) === serviceSlug)
       .slice(0, 4)
-      .map(p => `/locations/${p.slug}`);
+      .map(p => {
+        let anchor;
+        if (isBridging) {
+          anchor = altIdx++ % 2 === 0
+            ? `bridging loans in ${p.location}`
+            : `bridging finance in ${p.location}`;
+        } else {
+          anchor = `${serviceLabel.toLowerCase()} in ${p.location}`;
+        }
+        return { url: `/locations/${p.slug}`, anchor };
+      });
   } catch (err) {
     console.warn(`  Could not read locationPages.json: ${err.message}`);
     return [];
@@ -211,11 +226,11 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
   const chatUrl = `https://boxxfinance.co.uk/chat-about-funding/${serviceCtaSlug}`;
 
   const locationLinksText = locationLinks.length > 0
-    ? `\nInternal location links to include as contextual links within the article body:\n${locationLinks.map(l => `https://boxxfinance.co.uk${l}`).join('\n')}`
+    ? `\nInternal location links (embed each naturally in the article body using the anchor text shown — do not alter the anchor or the URL):\n${locationLinks.map(l => `  URL: https://boxxfinance.co.uk${l.url}  Anchor text: "${l.anchor}"`).join('\n')}`
     : '';
 
   const relatedBlogsText = relatedBlogs.length > 0
-    ? `\nRelated blog posts to link to naturally within the article body (use the title as anchor text):\n${relatedBlogs.map(b => `${b.url} — "${b.title}"`).join('\n')}`
+    ? `\nRelated blog posts to embed as contextual links in the article body. The title is for reference only — write a 3-5 word keyword-rich anchor text that describes what the article covers (NOT the raw title, NOT "read more", NOT "this article"):\n${relatedBlogs.map(b => `  URL: ${b.url}  Topic: "${b.title}"`).join('\n')}`
     : '';
 
   const response = await openai.chat.completions.create({
@@ -273,15 +288,15 @@ AI SEARCH (AEO) — additional rules for Google AI Overviews and Perplexity:
 - faqSchema must be a valid FAQ schema object with @type: FAQPage matching the FAQ in contentHtml exactly
 
 CALLS TO ACTION (both required):
-- Mid-article CTA: within the body text, include a paragraph encouraging the reader to get advice, linking to ${chatUrl} using anchor text like "speak to a commercial finance specialist" or "get expert ${row.keyword} advice" — NEVER "click here" or "contact us"
-- Closing CTA: end the article (before the FAQ) with a short paragraph encouraging an enquiry, linking to ${chatUrl}
+- Mid-article CTA: include one paragraph encouraging the reader to get advice, linking to ${chatUrl}. Use a keyword-rich anchor that names the product, e.g. "compare ${row.keyword} deals", "arrange ${row.keyword} today", "get a ${row.keyword} quote", or "find a ${row.keyword} broker" — NEVER generic phrases like "click here", "contact us", "speak to a specialist", or "get in touch"
+- Closing CTA: end the article (before the FAQ) with a short paragraph linking to ${chatUrl} using a keyword-rich anchor as above — vary it from the mid-article CTA
 
-INTERNAL LINKS — anchor text rules are MANDATORY. Follow 2026 SEO/AEO best practices: descriptive 2-5 word anchors, never generic single words. Never use "here", "this page", "click here", "read more", "learn more", "find out more", "our services", or "our page".
-- Service page (${serviceUrl}): include at least 3 contextual links. Use keyword-rich 2-5 word anchor text that names the product and its benefit or audience, e.g. "${row.keyword} for UK businesses", "${row.keyword} options", "specialist ${row.keyword} advice", "UK ${row.keyword} solutions" — vary the phrasing across the 3+ links so they are not identical
-- Funding solutions hub https://boxxfinance.co.uk/funding-solutions: include once near the end of the article using descriptive anchor text like "UK commercial funding solutions", "business funding options", or "commercial finance solutions for UK SMEs" (2-6 words, specific) — NEVER the full sentence "full range of UK business funding solutions"
-- About us section https://boxxfinance.co.uk/#about: link the brand name — use "Boxx Commercial Finance" as anchor text the first time the brand name appears naturally in the text — do NOT link to /about-us (that page does not exist)
-- Related blog posts: embed naturally in a sentence using keyword-rich anchor text describing what the post covers, NOT the raw post title. E.g. if linking to a post about bridging loan rates, write "current UK bridging loan rates" as the anchor — NEVER "Read Article" or just the page URL
-- Location links: use "[service] in [city]" as anchor text (e.g. "asset finance in Manchester", "bridging loans in Birmingham") — NEVER "here", "this page", or the raw URL — only use the URLs explicitly provided below, never invent location URLs
+INTERNAL LINKS — anchor text rules are MANDATORY. Follow 2026 SEO/AEO best practices: descriptive 2-5 word anchors, never generic single words. Never use "here", "this page", "click here", "read more", "learn more", "find out more", "our services", "our page", "speak to a specialist", or "get in touch".
+- Service page (${serviceUrl}): include at least 3 contextual links. Use keyword-rich 2-5 word anchor text that names the product and its benefit or audience, e.g. "${row.keyword} for UK businesses", "${row.keyword} options", "UK ${row.keyword} solutions", "${row.keyword} rates UK" — vary the phrasing across the 3+ links so they are not identical
+- Funding solutions hub https://boxxfinance.co.uk/funding-solutions: include once near the end of the article using descriptive anchor text like "UK commercial funding solutions" or "business funding options" (2-5 words, specific)
+- Related blog posts: embed naturally in a sentence using keyword-rich anchor text describing what the post covers, NOT the raw post title and NOT generic phrases. E.g. for a post about bridging loan rates write "current UK bridging loan rates" — NEVER "Read Article", "this article", or just the page URL
+- Location links: use the exact anchor text provided in the location links list below — do not alter it — only link to the URLs explicitly provided, never invent location URLs
+- Do NOT add a link to https://boxxfinance.co.uk/#about — that anchor adds no SEO value
 - Only use links explicitly provided — do not invent any URLs
 ${locationLinksText}
 ${relatedBlogsText}
@@ -791,7 +806,10 @@ async function main() {
     heroImage: heroImagePath || getPillarImage(row.service),
     videoId: videoId || null,
     schema: article.faqSchema || null,
-    relatedLocationUrls: locationLinks.map(l => l.startsWith('http') ? l : `https://boxxfinance.co.uk${l}`),
+    relatedLocationUrls: locationLinks.map(l => {
+      const path = typeof l === 'string' ? l : l.url;
+      return path.startsWith('http') ? path : `https://boxxfinance.co.uk${path}`;
+    }),
     relatedBlogUrls: relatedBlogs.map(b => b.url),
     content: contentHtml,
     // Social publishing flags — each platform flips its flag to true after posting
