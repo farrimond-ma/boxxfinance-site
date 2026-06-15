@@ -92,6 +92,57 @@ function auditPostData(posts) {
     if (!/<dl[\s>]/i.test(post.content || ''))
       pf.push(issue('WARN', 'aeo', 'No <dl> FAQ block found in content — FAQ schema requires a matching HTML section'));
 
+    // ── Internal links & anchor text
+    if (post.content) {
+      const html = post.content;
+
+      // Forbidden anchor text — any of these appearing is an ERROR so CI fails
+      // and forces a fix before the post stays on the live site.
+      const FORBIDDEN_ANCHORS = [
+        'speak to a commercial finance specialist',
+        'speak to a specialist',
+        'click here',
+        'read more',
+        'learn more',
+        'find out more',
+        'contact us',
+        'get in touch',
+        'our services',
+        'our page',
+        'this page',
+        'this article',
+      ];
+      for (const bad of FORBIDDEN_ANCHORS) {
+        if (new RegExp(`>${bad}<`, 'i').test(html))
+          pf.push(issue('ERROR', 'anchor_text', `Forbidden anchor text: "${bad}" — replace with keyword-rich alternative`));
+      }
+
+      // "get expert X advice" CTA pattern — also forbidden
+      if (/>[Gg]et expert [^<]{5,60} advice</.test(html))
+        pf.push(issue('ERROR', 'anchor_text', 'Generic "get expert X advice" CTA anchor — use product-specific keyword anchor'));
+
+      // Brand-name link to /#about — strips a link slot with zero keyword value
+      if (/href=['"]https?:\/\/boxxfinance\.co\.uk\/#about['"]/i.test(html))
+        pf.push(issue('WARN', 'anchor_text', 'Link to /#about with brand-name anchor — remove this link (adds no SEO value)'));
+
+      // Opening paragraph must contain a link (service page link rule)
+      const firstParaMatch = html.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+      if (firstParaMatch && !/href=/i.test(firstParaMatch[1]))
+        pf.push(issue('ERROR', 'internal_links', 'Opening paragraph has no link — must link to the service page with keyword-rich anchor text'));
+
+      // Count all internal links to boxxfinance.co.uk
+      const internalLinks = html.match(/href=['"][^'"]*boxxfinance\.co\.uk[^'"]*['"]/gi) || [];
+      // Also count relative hrefs (href='/...')
+      const relativeLinks = html.match(/href=['"]\/[^'"]+['"]/gi) || [];
+      const totalInternal = internalLinks.length + relativeLinks.length;
+      if (totalInternal < 3)
+        pf.push(issue('WARN', 'internal_links', `Only ${totalInternal} internal link(s) — aim for 5+ (service page ×3, hub ×1, related blog posts)`));
+
+      // No location page links and relatedLocationUrls is empty — sidebar will be blank
+      if ((!post.relatedLocationUrls || post.relatedLocationUrls.length === 0))
+        pf.push(issue('WARN', 'internal_links', 'No relatedLocationUrls — location sidebar will be empty'));
+    }
+
     // ── Hero image
     if (!post.heroImage && !post.image)
       pf.push(issue('INFO', 'heroImage', 'No hero image — social sharing will use fallback'));
