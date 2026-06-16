@@ -18,7 +18,7 @@ const SEO = ({
     const fullTitle = `${title} | Boxx Commercial Finance`;
     const canonicalUrl = canonical
         ? (canonical.startsWith('http') ? canonical : `${SITE_URL}${canonical}`)
-        : (typeof window !== 'undefined' ? window.location.href : SITE_URL);
+        : `${SITE_URL}${typeof window !== 'undefined' ? (window.location.pathname.replace(/\/$/, '') || '/') : '/'}`;
     const ogImage = image
         ? (image.startsWith('http') ? image : `${SITE_URL}${image}`)
         : DEFAULT_OG_IMAGE;

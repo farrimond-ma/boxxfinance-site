@@ -81,6 +81,7 @@ const LocationPage = () => {
                 keywords={[page.title, page.location, page.service, 'commercial finance', 'business finance']}
                 schema={pageSchema}
                 type="article"
+                canonical={`/locations/${page.slug}`}
             />
 
             {/* ── Hero — matches service / blog post style ── */}

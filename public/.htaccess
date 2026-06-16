@@ -51,6 +51,10 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.*)/$ /$1 [R=301,L]
 
+  # ── Serve pre-rendered HTML pages (e.g. /locations/slug → dist/locations/slug.html) ──
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.html -f
+  RewriteRule ^(.+[^/])$ $1.html [L]
+
   # ── SPA routing: serve index.html for all non-file, non-dir requests ────────
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} -f [OR]
