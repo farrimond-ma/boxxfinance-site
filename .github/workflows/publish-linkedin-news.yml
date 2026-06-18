@@ -1,0 +1,51 @@
+name: Publish LinkedIn News
+
+on:
+  # Tue, Thu, Sat at 11:00 AM UTC (12:00 BST) — different slot from original posts (8-9 AM)
+  schedule:
+    - cron: '0 11 * * 2,4,6'
+
+  # Manual trigger for testing
+  workflow_dispatch:
+
+jobs:
+  publish-linkedin-news:
+    name: Find and share industry news on LinkedIn
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Random delay (vary post timing ±30 min)
+        run: sleep $((RANDOM % 1800))
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run LinkedIn news publisher
+        working-directory: scripts/content-engine
+        env:
+          ANTHROPIC_API_KEY:             ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN:                      ${{ secrets.GH_PAT }}
+          GITHUB_OWNER:                  farrimond-ma
+          GITHUB_REPO:                   boxxfinance-site
+          LINKEDIN_ACCESS_TOKEN_MARK:    ${{ secrets.LINKEDIN_ACCESS_TOKEN_MARK }}
+          LINKEDIN_ACCESS_TOKEN_ANDREW:  ${{ secrets.LINKEDIN_ACCESS_TOKEN_ANDREW }}
+          LINKEDIN_ORG_ID:               ${{ secrets.LINKEDIN_ORG_ID }}
+          LINKEDIN_ORG_ACCESS_TOKEN:     ${{ secrets.LINKEDIN_ORG_ACCESS_TOKEN }}
+        run: node publish-linkedin-news.js
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## LinkedIn News Publisher" >> $GITHUB_STEP_SUMMARY
+          echo "**Run date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
