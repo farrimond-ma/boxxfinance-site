@@ -60,13 +60,56 @@ function getArticleText(post) {
     .replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim().substring(0, 4000);
 }
 
+// Six distinct post formats — cycled randomly to avoid algorithmic suppression
+const POST_FORMATS = [
+  {
+    name: 'insight',
+    emojis: false,
+    wordRange: '150-200',
+    instructions: `Strong hook from a specific insight in the article (no "I" as first word). Professional, authoritative tone. Ends with a CTA sentence then 3-5 hashtags on the last line.`,
+  },
+  {
+    name: 'punchy',
+    emojis: false,
+    wordRange: '60-90',
+    instructions: `Ultra-short and punchy. One bold opening statement, 2-3 sentences expanding on it, then one direct question to the reader. 3 hashtags on the last line. No CTA sentence — the question IS the CTA.`,
+  },
+  {
+    name: 'story',
+    emojis: false,
+    wordRange: '180-230',
+    instructions: `Opens with a real-feeling scenario or case ("A business owner came to us needing X..." — no real names). Describe the challenge, the approach, the outcome. Close with a one-sentence lesson and a CTA. 3-4 hashtags on the last line.`,
+  },
+  {
+    name: 'take',
+    emojis: true,
+    wordRange: '100-140',
+    instructions: `Bold contrarian opener — challenge a common assumption in commercial finance (e.g. "Most businesses think X. They're wrong."). 2-3 paragraphs of explanation. End with a question to drive comments. 3-4 hashtags on the last line.`,
+  },
+  {
+    name: 'list',
+    emojis: true,
+    wordRange: '150-200',
+    instructions: `Hook sentence, then 3-4 numbered points (each 1-2 sentences). Close with a CTA sentence and 3-4 hashtags on the last line.`,
+  },
+  {
+    name: 'stat',
+    emojis: false,
+    wordRange: '120-160',
+    instructions: `Open with a striking statistic or fact drawn from the article content. Explain what it means for UK business owners. One practical takeaway. CTA sentence then 3-4 hashtags on the last line.`,
+  },
+];
+
 async function generateLinkedInPost(post, author) {
   const text = getArticleText(post);
   const url  = post.url.startsWith('http') ? post.url : `${SITE_URL}${post.url}`;
-  // NOTE: the model must NOT write the URL — it hallucinates wrong domains
-  // (e.g. boxxcommercialfinance.com). It writes the teaser sentence only;
-  // we append the real URL in code below.
-  const base = `You are writing a LinkedIn post for ${author} at Boxx Commercial Finance.\n\nWrite a LinkedIn post:\n- Strong hook from a specific insight (no "I" as first word)\n- 150-200 words, no emojis\n- Reads like a senior commercial finance professional\n- Ends with CTA then 3-5 hashtags on last line\n\nHashtags in POST only. FIRST_COMMENT has no hashtags and NO URL or link — just one teaser sentence (we add the link separately).\n\nFormat:\nPOST:\n[text + hashtags]\n\nFIRST_COMMENT:\n[one teaser sentence, no URL, no hashtags]`;
+  const fmt  = POST_FORMATS[Math.floor(Math.random() * POST_FORMATS.length)];
+  const emojiLine = fmt.emojis
+    ? `- Use 2-3 relevant emojis naturally placed in the text (not at every line)`
+    : `- No emojis`;
+  // NOTE: the model must NOT write the URL — it hallucinates wrong domains.
+  // It writes the teaser sentence only; we append the real URL in code below.
+  const base = `You are writing a LinkedIn post for ${author} at Boxx Commercial Finance.\n\nPost format: ${fmt.name}\nWord count: ${fmt.wordRange} words\n${emojiLine}\n\nInstructions:\n${fmt.instructions}\n\nHashtags in POST only. FIRST_COMMENT has no hashtags and NO URL or link — just one teaser sentence (we add the link separately).\n\nFormat:\nPOST:\n[text + hashtags]\n\nFIRST_COMMENT:\n[one teaser sentence, no URL, no hashtags]`;
   const src  = text ? `Article: "${post.title}"\nContent: ${text}\n\n${base}` : `Topic: "${post.title}"\n\n${base}`;
 
   const r = await anthropic.messages.create({ model:'claude-haiku-4-5-20251001', max_tokens:700, messages:[{role:'user',content:src}] });
