@@ -228,6 +228,13 @@ async function postLinkShare(article, author, commentary) {
 async function main() {
   console.log('\n[LinkedIn News Publisher]\n');
 
+  // Skip ~40% of runs so posting days vary unpredictably (averages ~3-4x/week)
+  // Manual triggers (workflow_dispatch) always run
+  if (process.env.GITHUB_EVENT_NAME !== 'workflow_dispatch' && Math.random() < 0.4) {
+    console.log('Random skip today — no post. Exiting.');
+    return;
+  }
+
   console.log('Fetching RSS feeds...');
   const articles = await fetchAllArticles();
   console.log(`Total fetched: ${articles.length}\n`);

@@ -23,8 +23,8 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Random delay (vary post timing ±45 min to avoid mechanical patterns)
-        run: sleep $((RANDOM % 2700))
+      - name: Random delay (vary post timing ±90 min so actual posting hour shifts daily)
+        run: sleep $((RANDOM % 5400))
 
       - name: Checkout repo
         uses: actions/checkout@v4

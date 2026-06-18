@@ -1,9 +1,9 @@
 name: Publish LinkedIn News
 
 on:
-  # Tue, Thu, Sat at 11:00 AM UTC (12:00 BST) — different slot from original posts (8-9 AM)
+  # Runs daily — script randomly skips ~40% of days so posting averages 3-4x/week
   schedule:
-    - cron: '0 11 * * 2,4,6'
+    - cron: '0 10 * * *'
 
   # Manual trigger for testing
   workflow_dispatch:
@@ -15,8 +15,8 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Random delay (vary post timing ±30 min)
-        run: sleep $((RANDOM % 1800))
+      - name: Random delay (vary post timing ±90 min so actual posting hour shifts daily)
+        run: sleep $((RANDOM % 5400))
 
       - name: Checkout repo
         uses: actions/checkout@v4
