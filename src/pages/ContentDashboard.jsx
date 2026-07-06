@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SEO from '../components/SEO';
-import blogPostsData from '../data/blogPosts.json';
-import locationPagesData from '../data/locationPages.json';
+import blogPostsData from '../data/blogIndex.json';
+import locationPagesData from '../data/locationIndex.json';
 
 const REPO = 'farrimond-ma/boxxfinance-site';
 const GH   = `https://api.github.com/repos/${REPO}/actions/workflows`;

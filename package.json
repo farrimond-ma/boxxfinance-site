@@ -4,8 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "split": "node scripts/split-content.js",
+    "predev": "npm run split",
     "dev": "vite",
+    "prebuild": "npm run split",
     "build": "vite build && npm run prerender && npm run sitemap && npm run rss && npm run rss-linkedin",
+    "prebuild:ci": "npm run split",
     "build:ci": "vite build && npm run sitemap && npm run rss && npm run rss-linkedin",
     "prerender": "node scripts/prerender.js",
     "lint": "eslint .",
@@ -13,10 +17,10 @@
     "sitemap": "node scripts/generate-sitemap.js",
     "rss": "node scripts/generate-rss.js",
     "rss-linkedin": "node scripts/generate-linkedin-rss.js",
-    "deploy": "npx vite build && node scripts/deploy-ftp.js",
+    "deploy": "npm run split && npx vite build && node scripts/deploy-ftp.js",
     "deploy:full": "npm run build && node scripts/deploy-ftp.js",
     "deploy:ftp": "node scripts/deploy-ftp.js",
-    "watch:deploy": "vite build --watch --mode production"
+    "watch:deploy": "npm run split && vite build --watch --mode production"
   },
   "dependencies": {
     "pdf-parse": "^2.4.5",

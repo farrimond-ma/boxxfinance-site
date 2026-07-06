@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import locationPages from '../data/locationPages.json';
+import locationPages from '../data/locationIndex.json';
 import SEO from '../components/SEO';
 import Sidebar from '../components/Sidebar';
 import './Blog.css';
@@ -36,6 +36,20 @@ const LocationPage = () => {
         return pageSlug === normalisedSlug;
     });
 
+    // Page body + FAQ schema live in a per-slug file (kept out of the JS
+    // bundle) and are fetched on demand; the index has everything else.
+    const [fullPage, setFullPage] = useState(null);
+    useEffect(() => {
+        if (!page) return undefined;
+        let cancelled = false;
+        setFullPage(null);
+        fetch(`/content/locations/${encodeURIComponent(page.slug)}.json`)
+            .then((res) => (res.ok ? res.json() : null))
+            .then((data) => { if (!cancelled) setFullPage(data); })
+            .catch(() => {});
+        return () => { cancelled = true; };
+    }, [page && page.slug]);
+
     if (!page) {
         return (
             <div className="blog-post-page" data-page-type="location-not-found">
@@ -62,7 +76,7 @@ const LocationPage = () => {
         .filter((p) => p.slug !== page.slug && p.service === page.service)
         .slice(0, 4);
 
-    const pageSchema = page.faqSchema ? [page.faqSchema] : undefined;
+    const pageSchema = fullPage && fullPage.faqSchema ? [fullPage.faqSchema] : undefined;
 
     const serviceLabel = page.service
         ? page.service.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
@@ -104,10 +118,14 @@ const LocationPage = () => {
                 {/* Left column: article content + related locations */}
                 <div className="blog-main">
                     <div className="blog-main-card">
-                        <div
-                            className="blog-post-content location-post-content"
-                            dangerouslySetInnerHTML={{ __html: page.content || '<p>No page content found.</p>' }}
-                        />
+                        {fullPage ? (
+                            <div
+                                className="blog-post-content location-post-content"
+                                dangerouslySetInnerHTML={{ __html: fullPage.content || '<p>No page content found.</p>' }}
+                            />
+                        ) : (
+                            <div style={{ padding: '2rem', minHeight: '20rem' }} aria-busy="true" />
+                        )}
                     </div>
 
                     {sameServicePages.length > 0 && (

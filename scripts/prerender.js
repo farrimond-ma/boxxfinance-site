@@ -226,17 +226,21 @@ async function main() {
     process.env.CHROME_BIN ||
     undefined;
 
+  // --single-process/--no-zygote are needed for CI containers but are
+  // unsupported on Windows (Chrome crashes with "frame was detached")
   const browser = await puppeteer.launch({
     headless: true,
     executablePath,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu',
-      '--no-zygote',
-      '--single-process'
-    ]
+    args: process.platform === 'win32'
+      ? ['--disable-gpu']
+      : [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-gpu',
+          '--no-zygote',
+          '--single-process'
+        ]
   });
 
   const server = await startStaticServer();

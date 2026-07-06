@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import blogPosts from '../data/blogPosts.json';
+import blogPosts from '../data/blogIndex.json';
 import SEO from '../components/SEO';
 import './Blog.css';
 

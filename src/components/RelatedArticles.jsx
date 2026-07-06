@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import blogPosts from '../data/blogPosts.json';
-import locationPages from '../data/locationPages.json';
+import blogPosts from '../data/blogIndex.json';
+import locationPages from '../data/locationIndex.json';
 import './RelatedArticles.css';
 
 // Pull the slug off the end of a full boxxfinance.co.uk URL, e.g.

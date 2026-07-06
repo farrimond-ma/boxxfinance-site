@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import blogPosts from '../data/blogPosts.json';
+import blogPosts from '../data/blogIndex.json';
 import SEO from '../components/SEO';
 import Sidebar from '../components/Sidebar';
 import RelatedArticles from '../components/RelatedArticles';
@@ -53,6 +53,20 @@ const BlogPost = () => {
             .toLowerCase();
         return postSlug === normalisedSlug;
     });
+
+    // Article body + structured data live in a per-slug file (kept out of the
+    // JS bundle) and are fetched on demand; the index has everything else.
+    const [fullPost, setFullPost] = useState(null);
+    useEffect(() => {
+        if (!post) return undefined;
+        let cancelled = false;
+        setFullPost(null);
+        fetch(`/content/insights/${encodeURIComponent(post.slug)}.json`)
+            .then((res) => (res.ok ? res.json() : null))
+            .then((data) => { if (!cancelled) setFullPost(data); })
+            .catch(() => {});
+        return () => { cancelled = true; };
+    }, [post && post.slug]);
 
     if (!post) {
         return (
@@ -133,7 +147,7 @@ const BlogPost = () => {
                 title={post.metaTitle || post.title}
                 description={post.metaDescription || post.excerpt}
                 keywords={post.keywords}
-                schema={post.schema ? [articleSchema, post.schema] : articleSchema}
+                schema={fullPost && fullPost.schema ? [articleSchema, fullPost.schema] : articleSchema}
                 type="article"
                 canonical={`/insights/${post.slug}`}
                 image={heroImage}
@@ -168,10 +182,14 @@ const BlogPost = () => {
                 {/* Left column: article content */}
                 <div className="blog-main">
                     <div className="blog-main-card">
-                        <div
-                            className="blog-post-content"
-                            dangerouslySetInnerHTML={{ __html: post.content || '<p>No article content found.</p>' }}
-                        />
+                        {fullPost ? (
+                            <div
+                                className="blog-post-content"
+                                dangerouslySetInnerHTML={{ __html: fullPost.content || '<p>No article content found.</p>' }}
+                            />
+                        ) : (
+                            <div style={{ padding: '2rem', minHeight: '20rem' }} aria-busy="true" />
+                        )}
                         {post.videoId && (
                             <div style={{ padding: '0 2rem 2rem' }}>
                                 <div className="video-embed">
