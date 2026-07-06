@@ -45,18 +45,18 @@ const SmeFundingIndex = () => {
                 "@type": "Article",
                 "headline": "UK SME Funding Index | Business Loan & Asset Finance Rates",
                 "description": "Live UK SME funding data including business loan rates, asset finance trends and approval statistics — updated monthly.",
-                "image": "https://www.boxxfinance.co.uk/images/og/sme-index.jpg",
+                "image": "https://boxxfinance.co.uk/images/og/sme-index.jpg",
                 "author": {
                     "@type": "Person",
                     "name": "Mark Farrimond",
-                    "url": "https://www.boxxfinance.co.uk/about"
+                    "url": "https://boxxfinance.co.uk/about"
                 },
                 "publisher": {
                     "@type": "Organization",
                     "name": "Boxx Commercial Finance",
                     "logo": {
                         "@type": "ImageObject",
-                        "url": "https://www.boxxfinance.co.uk/logo.png"
+                        "url": "https://boxxfinance.co.uk/logo.png"
                     }
                 },
                 "datePublished": "2026-01-01",
@@ -114,13 +114,13 @@ const SmeFundingIndex = () => {
                         "@type": "ListItem",
                         "position": 1,
                         "name": "Home",
-                        "item": "https://www.boxxfinance.co.uk/"
+                        "item": "https://boxxfinance.co.uk/"
                     },
                     {
                         "@type": "ListItem",
                         "position": 2,
                         "name": "UK SME Funding Index",
-                        "item": "https://www.boxxfinance.co.uk/uk-sme-funding-index/"
+                        "item": "https://boxxfinance.co.uk/uk-sme-funding-index/"
                     }
                 ]
             }
@@ -133,7 +133,7 @@ const SmeFundingIndex = () => {
             <title>{isArchive ? `UK SME Funding Index - ${lastUpdated} Archive` : 'UK SME Funding Index | Business Loan & Asset Finance Rates'}</title>
             <meta name="description" content={`UK SME funding data for ${lastUpdated}: business loan rates, asset finance trends, approval statistics by Boxx Commercial Finance.`} />
             <meta name="keywords" content="SME funding index UK, business loan rates, asset finance trends, SME lending statistics, UK business finance data" />
-            <link rel="canonical" href={`https://www.boxxfinance.co.uk/uk-sme-funding-index${isArchive ? `/${currentData.slug}` : ''}`} />
+            <link rel="canonical" href={`https://boxxfinance.co.uk/uk-sme-funding-index${isArchive ? `/${currentData.slug}` : ''}`} />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
