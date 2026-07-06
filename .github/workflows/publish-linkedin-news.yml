@@ -12,7 +12,8 @@ jobs:
   publish-linkedin-news:
     name: Find and share industry news on LinkedIn
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # Must exceed the random delay step's 90-min maximum or most runs get cancelled
+    timeout-minutes: 105
 
     steps:
       - name: Random delay (vary post timing ±90 min so actual posting hour shifts daily)
