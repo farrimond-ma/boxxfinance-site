@@ -201,7 +201,11 @@ async function readLocationFile() {
     repo: GITHUB_REPO,
     path: LOCATION_FILE,
   });
-  const content = Buffer.from(data.content, 'base64').toString('utf8');
+  // Files >1MB: contents API returns empty content but still gives the sha — fetch via blob API
+  const raw = data.content && data.encoding !== 'none'
+    ? data.content
+    : (await octokit.git.getBlob({ owner: GITHUB_OWNER, repo: GITHUB_REPO, file_sha: data.sha })).data.content;
+  const content = Buffer.from(raw, 'base64').toString('utf8');
   return { sha: data.sha, pages: JSON.parse(content) };
 }
 

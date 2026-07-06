@@ -21,7 +21,11 @@ const octokit = new (require('@octokit/rest').Octokit)({ auth: process.env.GH_TO
 // ─── GitHub content helpers ──────────────────────────────────────────────────
 async function getJsonFile(path) {
   const { data } = await octokit.repos.getContent({ owner: GITHUB_OWNER, repo: GITHUB_REPO, path });
-  return JSON.parse(Buffer.from(data.content, 'base64').toString('utf8'));
+  // Files >1MB: contents API returns empty content but still gives the sha — fetch via blob API
+  const content = data.content && data.encoding !== 'none'
+    ? data.content
+    : (await octokit.git.getBlob({ owner: GITHUB_OWNER, repo: GITHUB_REPO, file_sha: data.sha })).data.content;
+  return JSON.parse(Buffer.from(content, 'base64').toString('utf8'));
 }
 
 async function getRunsToday(workflowFile) {

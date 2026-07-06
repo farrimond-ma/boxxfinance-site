@@ -28,7 +28,11 @@ function resolveAuthor(postAuthor, service) {
 
 async function getBlogPostsFile() {
   const { data } = await octokit.repos.getContent({ owner: GITHUB_OWNER, repo: GITHUB_REPO, path: BLOG_FILE });
-  return { sha: data.sha, posts: JSON.parse(Buffer.from(data.content, 'base64').toString('utf8')) };
+  // Files >1MB: contents API returns empty content but still gives the sha — fetch via blob API
+  const content = data.content && data.encoding !== 'none'
+    ? data.content
+    : (await octokit.git.getBlob({ owner: GITHUB_OWNER, repo: GITHUB_REPO, file_sha: data.sha })).data.content;
+  return { sha: data.sha, posts: JSON.parse(Buffer.from(content, 'base64').toString('utf8')) };
 }
 
 async function pushBlogPostsFile(posts, message) {
