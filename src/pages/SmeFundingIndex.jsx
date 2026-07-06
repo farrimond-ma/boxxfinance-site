@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import smeFundingData from '../data/smeFundingData.json';
 import './SmeFundingIndex.css';
@@ -130,15 +129,15 @@ const SmeFundingIndex = () => {
 
     return (
         <div className="sme-index-page">
-            <Helmet>
-                <title>{isArchive ? `UK SME Funding Index - ${lastUpdated} Archive` : 'UK SME Funding Index | Business Loan & Asset Finance Rates'}</title>
-                <meta name="description" content={`UK SME funding data for ${lastUpdated}: business loan rates, asset finance trends, approval statistics by Boxx Commercial Finance.`} />
-                <meta name="keywords" content="SME funding index UK, business loan rates, asset finance trends, SME lending statistics, UK business finance data" />
-                <link rel="canonical" href={`https://www.boxxfinance.co.uk/uk-sme-funding-index${isArchive ? `/${currentData.slug}` : ''}`} />
-                <script type="application/ld+json">
-                    {JSON.stringify(structuredData)}
-                </script>
-            </Helmet>
+            {/* React 19 hoists title/meta/link into <head> natively; JSON-LD renders in place */}
+            <title>{isArchive ? `UK SME Funding Index - ${lastUpdated} Archive` : 'UK SME Funding Index | Business Loan & Asset Finance Rates'}</title>
+            <meta name="description" content={`UK SME funding data for ${lastUpdated}: business loan rates, asset finance trends, approval statistics by Boxx Commercial Finance.`} />
+            <meta name="keywords" content="SME funding index UK, business loan rates, asset finance trends, SME lending statistics, UK business finance data" />
+            <link rel="canonical" href={`https://www.boxxfinance.co.uk/uk-sme-funding-index${isArchive ? `/${currentData.slug}` : ''}`} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+            />
 
             {/* Hero Section */}
             <header className="sme-index-hero">

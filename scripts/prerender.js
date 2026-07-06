@@ -148,6 +148,15 @@ async function renderRoute(browser, route, options = {}) {
     if (html.includes('Article Not Found')) {
       throw new Error(`Prerender failed for ${route}: rendered the Article Not Found page.`);
     }
+
+    // Guard against silent SEO regressions — every article must carry
+    // JSON-LD schema and OpenGraph tags in its static HTML.
+    if (!html.includes('application/ld+json')) {
+      throw new Error(`Prerender failed for ${route}: no JSON-LD schema in rendered HTML.`);
+    }
+    if (!html.includes('og:title')) {
+      throw new Error(`Prerender failed for ${route}: no OpenGraph tags in rendered HTML.`);
+    }
   }
 
   if (isInsightsRoute) {

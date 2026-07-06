@@ -7,16 +7,13 @@ import './pages/Blog.css'
 import './components/About.css'
 
 import ErrorBoundary from './components/ErrorBoundary';
-import { HelmetProvider } from 'react-helmet-async';
 
 window.__BOXX_BUILD = '20260527';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ErrorBoundary>
       <BrowserRouter>
-        <HelmetProvider>
-          <App />
-        </HelmetProvider>
+        <App />
       </BrowserRouter>
     </ErrorBoundary>
   </React.StrictMode>,

@@ -1,0 +1,72 @@
+name: Failure Watchdog
+
+# Files a GitHub issue whenever a content-engine workflow fails or is
+# cancelled — issues trigger email notifications, so failures surface
+# immediately instead of sitting as silent red runs in the Actions tab.
+# Repeat failures of the same workflow add comments to the open issue
+# rather than filing duplicates. Close the issue once fixed.
+
+on:
+  workflow_run:
+    workflows:
+      - "Publish Blog"
+      - "Publish Blog PM"
+      - "Publish Location"
+      - "Publish Facebook Post"
+      - "Publish Facebook Reel"
+      - "Publish LinkedIn Post"
+      - "Publish LinkedIn News"
+      - "Publish Instagram Post"
+      - "Publish Pinterest Pin"
+      - "Content Engine Health Check"
+      - "Deploy Site"
+      - "Regenerate Thin Posts"
+      - "AI Visibility Check"
+      - "Search Console Insights"
+    types:
+      - completed
+
+permissions:
+  issues: write
+
+jobs:
+  alert:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' || github.event.workflow_run.conclusion == 'cancelled' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: File or update watchdog issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const run = context.payload.workflow_run;
+            const { owner, repo } = context.repo;
+
+            // Ensure the label exists (no-op if it already does)
+            try {
+              await github.rest.issues.createLabel({
+                owner, repo, name: 'watchdog', color: 'd73a4a',
+                description: 'Auto-filed by the failure watchdog',
+              });
+            } catch (e) { /* already exists */ }
+
+            const title = `Watchdog: ${run.name} ${run.conclusion}`;
+            const line = `${run.conclusion.toUpperCase()}: [run ${run.run_number}](${run.html_url}) — started ${run.created_at} (${run.event})`;
+
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner, repo, state: 'open', labels: 'watchdog', per_page: 50,
+            });
+            const existing = issues.find(i => i.title === title);
+
+            if (existing) {
+              await github.rest.issues.createComment({
+                owner, repo, issue_number: existing.number, body: line,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner, repo, title, labels: ['watchdog'],
+                body: `**${run.name}** did not complete successfully.\n\n${line}\n\n` +
+                      `Repeat failures will be added as comments. Close this issue once the cause is fixed.`,
+              });
+            }
