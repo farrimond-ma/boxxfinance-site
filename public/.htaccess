@@ -31,6 +31,11 @@
   <FilesMatch "\.(json)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
+  # XML (sitemap, RSS) — regenerated on every publish; a proxy-cached stale
+  # sitemap misleads Google right after deploys, so always revalidate
+  <FilesMatch "\.(xml)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
   # Moderate cache for images and fonts
   <FilesMatch "\.(png|jpg|jpeg|gif|webp|svg|ico|woff|woff2|ttf)$">
     Header set Cache-Control "public, max-age=604800"
