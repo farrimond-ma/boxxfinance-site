@@ -1,4 +1,6 @@
-/* ── Resource page: shared layout for blog articles + location pages ───────── */
+/* ── Resource page: shared single-column layout for articles + locations ─────
+   Pattern follows the best-performing broker content sites: hero with image,
+   one centered readable column, in-content CTAs, one floating CTA. ────────── */
 
 .resource-page {
     background: #f7f7f9;
@@ -8,10 +10,16 @@
 .resource-hero {
     background: var(--color-primary);
     color: #fff;
-    padding: 10rem 0 3rem;
+    padding: 9rem 0 3.5rem;
+}
+.resource-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 3rem;
+    align-items: center;
 }
 .resource-hero h1 {
-    font-size: 2.4rem;
+    font-size: 2.3rem;
     line-height: 1.15;
     margin: 0 0 1rem;
     color: #fff;
@@ -20,17 +28,17 @@
     color: var(--color-secondary-light);
 }
 .resource-hero-lead {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.82);
-    max-width: 60ch;
+    max-width: 58ch;
     margin: 0 0 1.25rem;
 }
 .resource-hero-trust {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 1.25rem;
+    gap: 0.5rem 1.5rem;
     padding: 0;
     margin: 0 0 1.5rem;
 }
@@ -49,70 +57,38 @@
 .resource-hero-actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.25rem;
     flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+.resource-hero-phone {
+    color: var(--color-secondary-light);
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
 }
 .resource-hero-meta {
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem 1.75rem;
     flex-wrap: wrap;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.6);
 }
-.resource-hero-meta span:not(:last-child)::after {
-    content: "·";
-    margin-left: 1rem;
-}
-
-/* Three-column layout */
-.resource-layout {
-    display: grid;
-    grid-template-columns: 200px minmax(0, 1fr) 280px;
-    gap: 2rem;
-    align-items: start;
-    padding-top: 2.5rem;
-    padding-bottom: 3rem;
-}
-.resource-toc-col,
-.resource-sidebar-col {
-    position: sticky;
-    top: 90px;
-}
-
-/* Table of contents */
-.resource-toc-title {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #8a8a93;
-    margin: 0 0 0.75rem;
-}
-.resource-toc ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    border-left: 2px solid #e2e2e8;
-}
-.resource-toc li a {
+.resource-hero-media img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 14px;
     display: block;
-    padding: 0.35rem 0 0.35rem 0.9rem;
-    margin-left: -2px;
-    border-left: 2px solid transparent;
-    font-size: 0.9rem;
-    color: #55555f;
-    text-decoration: none;
-    line-height: 1.35;
-}
-.resource-toc li a:hover {
-    color: var(--color-primary);
-}
-.resource-toc li.is-active a {
-    color: var(--color-primary);
-    border-left-color: var(--color-secondary);
-    font-weight: 600;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
 }
 
-/* Main column */
+/* Single centered readable column */
+.resource-column {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 3.5rem;
+}
 .resource-main-card {
     background: #fff;
     border-radius: 14px;
@@ -124,6 +100,48 @@
 }
 .resource-video {
     margin-top: 1.5rem;
+}
+
+/* "On this page" jump-box at the top of the article */
+.resource-toc {
+    background: #f7f5ef;
+    border: 1px solid #e6ddc4;
+    border-radius: 10px;
+    padding: 1.1rem 1.4rem;
+    margin-bottom: 1.75rem;
+}
+.resource-toc-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #8a8378;
+    margin: 0 0 0.6rem;
+    font-weight: 700;
+}
+.resource-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem 1.5rem;
+}
+.resource-toc li a {
+    display: block;
+    padding: 0.22rem 0;
+    font-size: 0.93rem;
+    color: #55555f;
+    text-decoration: none;
+    line-height: 1.4;
+}
+.resource-toc li a::before {
+    content: "↓ ";
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+.resource-toc li a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
 }
 
 /* Author */
@@ -167,86 +185,14 @@
     font-size: 0.9rem;
 }
 
-/* Sidebar */
-.resource-sidebar > div {
-    background: #fff;
-    border-radius: 14px;
-    padding: 1.25rem 1.4rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-}
-.resource-sidebar-cta {
-    background: var(--color-primary) !important;
-    color: #fff;
-}
-.resource-sidebar-cta h3 {
-    color: #fff;
-    margin: 0 0 0.75rem;
-}
-.resource-sidebar-ticks {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1rem;
-}
-.resource-sidebar-ticks li {
-    padding: 0.25rem 0 0.25rem 1.4rem;
-    position: relative;
-    font-size: 0.92rem;
-    color: rgba(255, 255, 255, 0.9);
-}
-.resource-sidebar-ticks li::before {
-    content: "✔";
-    position: absolute;
-    left: 0;
-    color: var(--color-secondary-light);
-}
-.resource-sidebar-cta .btn {
-    width: 100%;
-    text-align: center;
-}
-.resource-sidebar-phone {
-    display: block;
-    text-align: center;
-    margin-top: 0.75rem;
-    color: var(--color-secondary-light);
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-.resource-sidebar-links h3 {
-    color: var(--color-primary);
-    margin: 0 0 0.75rem;
-    font-size: 1.05rem;
-}
-.resource-sidebar-links ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.resource-sidebar-links li {
-    border-bottom: 1px solid #eee;
-}
-.resource-sidebar-links li:last-child {
-    border-bottom: none;
-}
-.resource-sidebar-links a {
-    display: block;
-    padding: 0.55rem 0;
-    color: #44444d;
-    text-decoration: none;
-    font-size: 0.95rem;
-}
-.resource-sidebar-links a:hover {
-    color: var(--color-secondary);
-}
-
 /* Funding cards */
 .resource-funding-cards {
-    margin-top: 1.5rem;
+    margin-top: 1.75rem;
 }
 .resource-funding-cards h2 {
     color: var(--color-primary);
     margin: 0 0 1rem;
+    font-size: 1.5rem;
 }
 .funding-cards-grid {
     display: grid;
@@ -277,6 +223,35 @@
     color: #6b6b73;
 }
 
+/* Popular locations */
+.resource-locations {
+    margin-top: 1.75rem;
+}
+.resource-locations h2 {
+    color: var(--color-primary);
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+}
+.resource-locations-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+.resource-location-pill {
+    background: #fff;
+    border: 1px solid #ece9df;
+    border-radius: 999px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.92rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: border-color 0.15s;
+}
+.resource-location-pill:hover {
+    border-color: var(--color-secondary);
+}
+
 /* FAQ accordion */
 .resource-faqs {
     margin-top: 1.75rem;
@@ -284,6 +259,7 @@
 .resource-faqs h2 {
     color: var(--color-primary);
     margin: 0 0 1rem;
+    font-size: 1.5rem;
 }
 .faq-item {
     background: #fff;
@@ -356,7 +332,7 @@
     text-decoration: none;
 }
 
-/* Floating CTA */
+/* Floating CTA — the ONLY floating element on the page */
 .resource-float-cta {
     position: fixed;
     right: 20px;
@@ -377,27 +353,14 @@
     background: var(--color-secondary-light);
 }
 
-/* ── Responsive: collapse to single column, sidebar becomes inline sections ── */
+/* ── Responsive ── */
 @media (max-width: 992px) {
-    .resource-layout {
+    .resource-hero-grid {
         grid-template-columns: 1fr;
+        gap: 2rem;
     }
-    .resource-toc-col {
-        position: static;
-        top: auto;
-    }
-    /* ToC becomes a collapsible-feel block at the top of content on tablet */
-    .resource-sidebar-col {
-        position: static;
-        top: auto;
-    }
-    .resource-sidebar {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-    .resource-sidebar > div {
-        margin-bottom: 0;
+    .resource-hero-media {
+        max-width: 480px;
     }
 }
 
@@ -406,21 +369,21 @@
         padding: 8rem 0 2.5rem;
     }
     .resource-hero h1 {
-        font-size: 1.85rem;
+        font-size: 1.8rem;
+    }
+    .resource-hero-media {
+        display: none; /* keep the mobile hero tight — content first */
     }
     .resource-main-card {
         padding: 1.5rem 1.25rem;
     }
+    .resource-toc ul {
+        grid-template-columns: 1fr;
+    }
     .funding-cards-grid {
         grid-template-columns: 1fr;
     }
-    .resource-sidebar {
-        grid-template-columns: 1fr;
-    }
-    .resource-toc {
-        display: none; /* jump-links add little on a narrow phone; content leads */
-    }
     .resource-float-cta span {
-        display: none; /* icon-only on small screens */
+        display: none;
     }
 }

@@ -113,8 +113,8 @@ const BlogPost = () => {
             <ResourcePage
                 title={post.title}
                 heroDescription={heroDescription}
+                heroImage={heroImage}
                 service={post.service}
-                date={post.date}
                 dateLabel={dateLabel}
                 readingMinutes={fullPost ? readingMinutes(fullPost.content) : null}
                 author={{ name: post.author || 'Mark Higgins', ...authorData }}

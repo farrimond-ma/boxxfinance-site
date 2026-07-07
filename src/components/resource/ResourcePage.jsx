@@ -3,22 +3,23 @@ import { Link } from 'react-router-dom';
 import ArticleBody, { CanWeHelp, EndCta } from '../ArticleCtas';
 import TableOfContents from './TableOfContents';
 import FaqAccordion from './FaqAccordion';
-import ResourceSidebar from './ResourceSidebar';
 import FundingCards from './FundingCards';
+import PopularLocations from './PopularLocations';
 import './ResourcePage.css';
 
 const CONTENT_ID = 'resource-article-body';
 
 // The single presentation layer for every generated page — blog articles and
-// location pages both render through here (ChatGPT's ResourcePage idea). The
-// data differs; the skeleton, CTAs, internal linking, schema hooks and trust
-// blocks stay identical, so every content type feels cohesive and future
-// layout changes land everywhere at once.
+// location pages both render through here. Layout follows the pattern of the
+// best-performing broker content sites (single centered readable column,
+// hero with image + trust signals, jump-box ToC at the top of the article,
+// in-content CTAs, full-width trust/linking sections below, one floating
+// CTA). No sidebar — sidebars measurably underperform in-content CTAs.
 const ResourcePage = ({
     title,
     heroDescription,
+    heroImage,          // per-article generated image, or brand fallback
     service,
-    date,
     dateLabel,          // pre-formatted "Updated July 2026"
     readingMinutes,
     author,             // { name, title, image, bio, email, linkedIn } | null
@@ -26,6 +27,7 @@ const ResourcePage = ({
     faqSchema,          // { mainEntity: [...] } | null
     videoId,            // optional YouTube id (blog only)
     relatedSlug,        // slug passed to RelatedArticles
+    currentLocationSlug, // suppresses self-link in PopularLocations
     RelatedArticles,    // component injected by the caller
 }) => {
     const loading = !contentHtml;
@@ -37,102 +39,109 @@ const ResourcePage = ({
 
     return (
         <div className="resource-page">
-            {/* ── Hero ── */}
+            {/* ── Hero: text + image (ABC Finance pattern) ── */}
             <div className="resource-hero">
-                <div className="container">
-                    <h1>
-                        {titleMain && <>{titleMain} </>}
-                        <span className="text-highlight">{titleGold}</span>
-                    </h1>
-                    {heroDescription && <p className="resource-hero-lead">{heroDescription}</p>}
+                <div className="container resource-hero-grid">
+                    <div className="resource-hero-text">
+                        <h1>
+                            {titleMain && <>{titleMain} </>}
+                            <span className="text-highlight">{titleGold}</span>
+                        </h1>
+                        {heroDescription && <p className="resource-hero-lead">{heroDescription}</p>}
 
-                    <ul className="resource-hero-trust" aria-label="Why choose Boxx">
-                        <li>Independent broker</li>
-                        <li>Whole of market</li>
-                        <li>Fast decisions</li>
-                    </ul>
+                        <ul className="resource-hero-trust" aria-label="Why choose Boxx">
+                            <li>Independent broker</li>
+                            <li>Whole of market</li>
+                            <li>Fast decisions</li>
+                        </ul>
 
-                    <div className="resource-hero-actions">
-                        <Link to="/chat-about-funding" className="btn btn-primary">Start your enquiry</Link>
+                        <div className="resource-hero-actions">
+                            <Link to="/chat-about-funding" className="btn btn-primary">Start your enquiry</Link>
+                            <a href="tel:03300431612" className="resource-hero-phone">or call 0330 043 1612</a>
+                        </div>
+
                         <div className="resource-hero-meta">
                             {author?.name && <span>By {author.name}</span>}
                             {dateLabel && <span>{dateLabel}</span>}
                             {readingMinutes ? <span>{readingMinutes} min read</span> : null}
                         </div>
                     </div>
+
+                    {heroImage && (
+                        <div className="resource-hero-media">
+                            <img
+                                src={heroImage}
+                                alt={title}
+                                onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
 
-            {/* ── Body: ToC · content · sidebar ── */}
-            <div className="container resource-layout">
-                <div className="resource-toc-col">
+            {/* ── Single centered column ── */}
+            <div className="resource-column">
+                <div className="resource-main-card">
                     <TableOfContents containerId={CONTENT_ID} ready={!loading} />
-                </div>
 
-                <div className="resource-main">
-                    <div className="resource-main-card">
-                        {loading ? (
-                            <div className="resource-skeleton" aria-busy="true" />
-                        ) : (
-                            <div id={CONTENT_ID} className="blog-post-content">
-                                <ArticleBody html={contentHtml} service={service} />
+                    {loading ? (
+                        <div className="resource-skeleton" aria-busy="true" />
+                    ) : (
+                        <div id={CONTENT_ID} className="blog-post-content">
+                            <ArticleBody html={contentHtml} service={service} />
+                        </div>
+                    )}
+
+                    {videoId && (
+                        <div className="resource-video">
+                            <div className="video-embed">
+                                <iframe
+                                    src={`https://www.youtube.com/embed/${videoId}`}
+                                    width="100%"
+                                    height="100%"
+                                    frameBorder="0"
+                                    allowFullScreen
+                                    loading="lazy"
+                                    title="Related video"
+                                />
                             </div>
-                        )}
-
-                        {videoId && (
-                            <div className="resource-video">
-                                <div className="video-embed">
-                                    <iframe
-                                        src={`https://www.youtube.com/embed/${videoId}`}
-                                        width="100%"
-                                        height="100%"
-                                        frameBorder="0"
-                                        allowFullScreen
-                                        loading="lazy"
-                                        title="Related video"
-                                    />
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    {!loading && (
-                        <>
-                            <CanWeHelp service={service} />
-                            <FundingCards currentService={service} />
-                            <FaqAccordion faqSchema={faqSchema} />
-                            <EndCta />
-
-                            {author && (
-                                <div className="resource-author">
-                                    <img src={author.image} alt={author.name} className="resource-author-photo" />
-                                    <div className="resource-author-info">
-                                        <h3>{author.name}</h3>
-                                        {author.title && <p className="resource-author-title">{author.title}</p>}
-                                        {author.bio && <p className="resource-author-bio">{author.bio}</p>}
-                                        <div className="resource-author-links">
-                                            {author.email && (
-                                                <a href={`mailto:${author.email}`} className="gold-link">{author.email}</a>
-                                            )}
-                                            <a href="tel:03300431612" className="gold-link">0330 043 1612</a>
-                                            {author.linkedIn && (
-                                                <a href={author.linkedIn} target="_blank" rel="noopener noreferrer" className="gold-link">
-                                                    Connect on LinkedIn
-                                                </a>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {RelatedArticles && relatedSlug && <RelatedArticles currentSlug={relatedSlug} />}
-                        </>
+                        </div>
                     )}
                 </div>
 
-                <div className="resource-sidebar-col">
-                    <ResourceSidebar />
-                </div>
+                {!loading && (
+                    <>
+                        <CanWeHelp service={service} />
+                        <FaqAccordion faqSchema={faqSchema} />
+                        <FundingCards currentService={service} />
+                        <PopularLocations currentSlug={currentLocationSlug} />
+
+                        {author && (
+                            <div className="resource-author">
+                                <img src={author.image} alt={author.name} className="resource-author-photo" />
+                                <div className="resource-author-info">
+                                    <h3>{author.name}</h3>
+                                    {author.title && <p className="resource-author-title">{author.title}</p>}
+                                    {author.bio && <p className="resource-author-bio">{author.bio}</p>}
+                                    <div className="resource-author-links">
+                                        {author.email && (
+                                            <a href={`mailto:${author.email}`} className="gold-link">{author.email}</a>
+                                        )}
+                                        <a href="tel:03300431612" className="gold-link">0330 043 1612</a>
+                                        {author.linkedIn && (
+                                            <a href={author.linkedIn} target="_blank" rel="noopener noreferrer" className="gold-link">
+                                                Connect on LinkedIn
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {RelatedArticles && relatedSlug && <RelatedArticles currentSlug={relatedSlug} />}
+                        <EndCta />
+                    </>
+                )}
             </div>
 
             {/* ── Final CTA band ── */}

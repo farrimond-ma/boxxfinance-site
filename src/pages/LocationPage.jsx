@@ -81,8 +81,10 @@ const LocationPage = () => {
             <ResourcePage
                 title={page.title}
                 heroDescription={heroDescription}
+                heroImage="/images/sidebar/sidebar_meeting.jpg"
                 service={page.service}
                 dateLabel={null}
+                currentLocationSlug={page.slug}
                 readingMinutes={fullPage ? readingMinutes(fullPage.content) : null}
                 author={AUTHOR}
                 contentHtml={fullPage ? (fullPage.content || '<p>No page content found.</p>') : null}
