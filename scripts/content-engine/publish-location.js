@@ -48,7 +48,7 @@ async function getSheetsClient() {
 }
 
 function buildLocationRow(i, row) {
-  return {
+  return retargetBridgingRow({
     rowIndex:     i + 2,
     id:           row[0] || '',
     publishDate:  row[3] || '',
@@ -64,7 +64,28 @@ function buildLocationRow(i, row) {
     metaDescription: row[13] || '',
     category:     row[14] || '',
     contentBrief: row[15] || '',
-  };
+  });
+}
+
+// The sheet's queued bridging rows were populated with "bridging finance"
+// slugs/titles, but the pages target the higher-volume consumer term
+// "bridging loans" (migration 2026-07-06). Normalise rows at publish time so
+// the sheet doesn't need a manual rewrite. The service field is deliberately
+// left as "Bridging Finance" — it's the internal identity used by
+// SERVICE_FILTER and related-content grouping.
+function retargetBridgingRow(row) {
+  if ((row.service || '').trim().toLowerCase() !== 'bridging finance') return row;
+  const swap = (s) => (s || '')
+    .replace(/Bridging Finance/g, 'Bridging Loans')
+    .replace(/bridging finance/g, 'bridging loans');
+  row.slug = (row.slug || '').replace(/^bridging-finance-/, 'bridging-loans-');
+  row.title = swap(row.title);
+  row.metaTitle = swap(row.metaTitle);
+  row.metaDescription = swap(row.metaDescription);
+  row.keyword = swap(row.keyword);
+  row.topic = swap(row.topic);
+  row.contentBrief = swap(row.contentBrief);
+  return row;
 }
 
 // ─── Get ALL scheduled location rows due today or earlier ────────────────────

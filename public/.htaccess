@@ -59,6 +59,9 @@ Options -Indexes -MultiViews
   # Old /advice/* posts moved to /insights/*
   RewriteRule ^advice/(.+)$ /insights/$1 [R=301,L]
 
+  # Location pages retargeted to the higher-volume "bridging loans" term (2026-07)
+  RewriteRule ^locations/bridging-finance-(.+)$ /locations/bridging-loans-$1 [R=301,L]
+
   # Old application form
   RewriteRule ^start-application/.*$ /chat-about-funding [R=301,L]
 
