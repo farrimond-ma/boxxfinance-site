@@ -604,3 +604,120 @@
         font-size: 1.65rem;
     }
 }
+
+/* ── Article CTAs (injected by ArticleCtas.jsx at render time) ─────────────── */
+.article-cta {
+    margin: 2rem 0;
+    padding: 1.75rem 2rem;
+    border-radius: 12px;
+    background: #f7f5ef;
+    border: 1px solid #e6ddc4;
+}
+.article-cta h3 {
+    margin: 0 0 0.6rem;
+    color: var(--color-primary);
+    font-size: 1.35rem;
+}
+.article-cta p {
+    margin: 0 0 1rem;
+    color: var(--color-text-dark);
+    line-height: 1.6;
+}
+.article-cta p:last-child {
+    margin-bottom: 0;
+}
+.article-cta-link {
+    font-weight: 700;
+    color: #b8860b;
+    text-decoration: none;
+}
+.article-cta-link:hover {
+    text-decoration: underline;
+}
+
+/* Soft CTA — lighter, left gold accent bar */
+.article-cta-soft {
+    background: #faf8f2;
+    border-left: 4px solid var(--color-secondary);
+}
+
+/* Mid CTA — stronger, dark background to break up the page */
+.article-cta-mid {
+    background: var(--color-primary);
+    border: none;
+}
+.article-cta-mid h3 {
+    color: #fff;
+}
+.article-cta-mid p {
+    color: rgba(255, 255, 255, 0.85);
+}
+.article-cta-ticks {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.4rem;
+}
+.article-cta-ticks li {
+    color: rgba(255, 255, 255, 0.92);
+    padding: 0.3rem 0 0.3rem 1.8rem;
+    position: relative;
+}
+.article-cta-ticks li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: var(--color-secondary-light);
+    font-weight: 700;
+}
+
+/* End CTA */
+.article-cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.article-cta-or {
+    color: var(--color-text-dark);
+}
+.article-cta-or a {
+    color: #b8860b;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* Can we help? */
+.can-we-help {
+    background: #fff;
+    border: 2px solid #e6ddc4;
+}
+.can-we-help-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem 1.5rem;
+}
+.can-we-help-grid li {
+    padding: 0.35rem 0 0.35rem 1.6rem;
+    position: relative;
+    color: var(--color-text-dark);
+}
+.can-we-help-grid li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+
+@media (max-width: 600px) {
+    .article-cta {
+        padding: 1.4rem 1.25rem;
+    }
+    .can-we-help-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -2,22 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import locationPages from '../data/locationIndex.json';
 import SEO from '../components/SEO';
-import Sidebar from '../components/Sidebar';
-import './Blog.css';
+import RelatedArticles from '../components/RelatedArticles';
+import ResourcePage from '../components/resource/ResourcePage';
 
-const FALLBACK_IMAGES = [
-    '/header_bg.png',
-    '/images/sidebar/sidebar_meeting.jpg',
-    '/images/sidebar/sidebar_handshake.jpg',
-    '/images/sidebar/sidebar_office.jpg',
-];
+const AUTHOR = {
+    name: 'Mark Higgins',
+    title: 'Managing Partner, Commercial Finance',
+    image: '/images/mark-higgins.webp',
+    bio: 'Mark leads client relationships and complex case structuring across commercial mortgages, bridging and development finance, helping UK businesses secure the right funding at the right terms.',
+    email: 'mark@boxxfinance.co.uk',
+    linkedIn: 'https://www.linkedin.com/in/mark-higgins-05ab363b2/',
+};
+
+const readingMinutes = (html) => {
+    const words = (html || '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+    return Math.max(2, Math.round(words / 200));
+};
 
 const LocationPage = () => {
     const { slug } = useParams();
-
-    const [sidebarImage] = useState(
-        () => FALLBACK_IMAGES[Math.floor(Math.random() * FALLBACK_IMAGES.length)]
-    );
 
     const normalisedSlug = decodeURIComponent(String(slug || ''))
         .trim()
@@ -26,18 +29,11 @@ const LocationPage = () => {
         .toLowerCase();
 
     const publishedPages = locationPages.filter((page) => page && page.status === 'published');
-
     const page = publishedPages.find((p) => {
-        const pageSlug = String(p.slug || '')
-            .trim()
-            .replace(/^\/+|\/+$/g, '')
-            .replace(/\.html$/i, '')
-            .toLowerCase();
+        const pageSlug = String(p.slug || '').trim().replace(/^\/+|\/+$/g, '').replace(/\.html$/i, '').toLowerCase();
         return pageSlug === normalisedSlug;
     });
 
-    // Page body + FAQ schema live in a per-slug file (kept out of the JS
-    // bundle) and are fetched on demand; the index has everything else.
     const [fullPage, setFullPage] = useState(null);
     useEffect(() => {
         if (!page) return undefined;
@@ -53,10 +49,7 @@ const LocationPage = () => {
     if (!page) {
         return (
             <div className="blog-post-page" data-page-type="location-not-found">
-                <SEO
-                    title="Page Not Found"
-                    description="The requested location page could not be found."
-                />
+                <SEO title="Page Not Found" description="The requested location page could not be found." />
                 <div className="service-hero">
                     <div className="container">
                         <h1>Page <span className="text-highlight">Not Found</span></h1>
@@ -72,23 +65,11 @@ const LocationPage = () => {
         );
     }
 
-    const sameServicePages = publishedPages
-        .filter((p) => p.slug !== page.slug && p.service === page.service)
-        .slice(0, 4);
-
     const pageSchema = fullPage && fullPage.faqSchema ? [fullPage.faqSchema] : undefined;
-
-    const serviceLabel = page.service
-        ? page.service.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
-        : 'Finance';
-
-    // Last two words get the gold highlight
-    const titleWords = (page.title || '').split(' ');
-    const titleMain = titleWords.length > 2 ? titleWords.slice(0, -2).join(' ') : '';
-    const titleGold = titleWords.length > 2 ? titleWords.slice(-2).join(' ') : page.title;
+    const heroDescription = page.metaDescription || page.title;
 
     return (
-        <div className="blog-post-page" data-page-type="location-page">
+        <div data-page-type="location-page">
             <SEO
                 title={page.metaTitle || page.title}
                 description={page.metaDescription || page.title}
@@ -97,75 +78,21 @@ const LocationPage = () => {
                 type="article"
                 canonical={`/locations/${page.slug}`}
             />
-
-            {/* ── Hero — matches service / blog post style ── */}
-            <div className="service-hero">
-                <div className="container">
-                    <h1>
-                        {titleMain && <>{titleMain} </>}
-                        <span className="text-highlight">{titleGold}</span>
-                    </h1>
-                    {page.metaDescription && <p>{page.metaDescription}</p>}
-                    <Link to="/chat-about-funding" className="btn btn-primary blog-hero-cta">
-                        Speak to us today
-                    </Link>
-                </div>
-            </div>
-
-            {/* ── Body — two-column layout ── */}
-            <div className="container blog-layout">
-
-                {/* Left column: article content + related locations */}
-                <div className="blog-main">
-                    <div className="blog-main-card">
-                        {fullPage ? (
-                            <div
-                                className="blog-post-content location-post-content"
-                                dangerouslySetInnerHTML={{ __html: fullPage.content || '<p>No page content found.</p>' }}
-                            />
-                        ) : (
-                            <div style={{ padding: '2rem', minHeight: '20rem' }} aria-busy="true" />
-                        )}
-                    </div>
-
-                    {sameServicePages.length > 0 && (
-                        <div className="blog-main-card" style={{ marginTop: '1.5rem' }}>
-                            <div style={{ padding: '2rem' }}>
-                                <h2 style={{ marginTop: 0 }}>
-                                    More {serviceLabel} guides
-                                </h2>
-                                <div className="related-locations-grid">
-                                    {sameServicePages.map((relatedPage) => (
-                                        <Link
-                                            key={relatedPage.slug}
-                                            to={`/locations/${relatedPage.slug}`}
-                                            className="related-location-link"
-                                        >
-                                            {relatedPage.title}
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* Right column: image + sidebar widget */}
-                <div className="blog-sidebar">
-                    <div className="sidebar-overlap-image">
-                        <img
-                            src={sidebarImage}
-                            alt={`${serviceLabel} in ${page.location}`}
-                            onError={(e) => {
-                                e.currentTarget.src = '/header_bg.png';
-                                e.currentTarget.onerror = null;
-                            }}
-                        />
-                    </div>
-                    <Sidebar />
-                </div>
-
-            </div>
+            <ResourcePage
+                title={page.title}
+                heroDescription={heroDescription}
+                service={page.service}
+                dateLabel={null}
+                readingMinutes={fullPage ? readingMinutes(fullPage.content) : null}
+                author={AUTHOR}
+                contentHtml={fullPage ? (fullPage.content || '<p>No page content found.</p>') : null}
+                faqSchema={fullPage ? fullPage.faqSchema : null}
+                relatedSlug={page.slug}
+                RelatedArticles={RelatedArticles}
+            />
+            <Link to="/chat-about-funding" className="resource-float-cta" aria-label="Need funding? Talk to us">
+                <span>Need funding?</span> Talk to us
+            </Link>
         </div>
     );
 };
