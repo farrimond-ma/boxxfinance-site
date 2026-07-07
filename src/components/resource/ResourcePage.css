@@ -4,11 +4,11 @@
     background: #f7f7f9;
 }
 
-/* Hero */
+/* Hero — top padding clears the fixed navbar (site convention: 10rem, 8rem mobile) */
 .resource-hero {
     background: var(--color-primary);
     color: #fff;
-    padding: 3rem 0 2.5rem;
+    padding: 10rem 0 3rem;
 }
 .resource-hero h1 {
     font-size: 2.4rem;
@@ -402,6 +402,9 @@
 }
 
 @media (max-width: 640px) {
+    .resource-hero {
+        padding: 8rem 0 2.5rem;
+    }
     .resource-hero h1 {
         font-size: 1.85rem;
     }
