@@ -34,7 +34,7 @@
 .resource-hero h1 {
     font-size: 2.3rem;
     line-height: 1.15;
-    margin: 0 0 1rem;
+    margin: 0 0 1.5rem;
     color: #fff;
 }
 @media (min-width: 993px) {
@@ -51,7 +51,7 @@
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.82);
     max-width: 58ch;
-    margin: 0 0 1.25rem;
+    margin: 0 0 2rem;
 }
 .resource-hero-trust {
     list-style: none;
@@ -78,7 +78,7 @@
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
-    margin-bottom: 1.75rem;
+    margin-bottom: 2rem;
 }
 .resource-btn-phone {
     display: inline-flex;
@@ -258,15 +258,19 @@
 }
 .resource-guides-grid a {
     display: block;
-    padding: 0.8rem 0;
+    padding: 0.8rem 0 0.8rem 1.6rem;
+    position: relative;
     color: var(--color-primary);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.98rem;
     line-height: 1.4;
 }
+/* Hanging indent — wrapped lines align with the text, not under the arrow */
 .resource-guides-grid a::before {
-    content: "→ ";
+    content: "→";
+    position: absolute;
+    left: 0;
     color: var(--color-secondary);
 }
 .resource-guides-grid a:hover {

@@ -614,12 +614,16 @@
     border: 1px solid #e6ddc4;
 }
 .article-cta h3 {
-    margin: 0 0 0.6rem;
+    margin: 0 0 1rem;
     color: var(--color-primary);
     font-size: 1.35rem;
 }
+/* CTA buttons must not inherit the article's underlined-link styling */
+.article-cta a.btn {
+    text-decoration: none;
+}
 .article-cta p {
-    margin: 0 0 1rem;
+    margin: 0 0 1.4rem;
     color: var(--color-text-dark);
     line-height: 1.6;
 }
@@ -652,15 +656,19 @@
 .article-cta-mid p {
     color: rgba(255, 255, 255, 0.85);
 }
-.article-cta-ticks {
+/* Scoped under .blog-post-content too — the article's disc list-style
+   otherwise wins on specificity and doubles the markers (disc + tick) */
+.article-cta-ticks,
+.blog-post-content .article-cta-ticks {
     list-style: none;
     padding: 0;
-    margin: 0 0 1.4rem;
+    margin: 0 0 1.75rem;
 }
 .article-cta-ticks li {
     color: rgba(255, 255, 255, 0.92);
-    padding: 0.3rem 0 0.3rem 1.8rem;
+    padding: 0.45rem 0 0.45rem 1.8rem;
     position: relative;
+    list-style: none;
 }
 .article-cta-ticks li::before {
     content: "✔";
