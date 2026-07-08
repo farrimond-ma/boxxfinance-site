@@ -14,6 +14,25 @@
     color: #fff;
     padding: 9rem 0 3.5rem;
 }
+/* Full-height background image blended out of the navy. The gradient sits
+   ON TOP of the image (listed first) — solid navy on the left for text
+   contrast, fading to reveal the photo on the right. Per-page image comes
+   in via the --hero-image custom property set inline. */
+@media (min-width: 769px) {
+    .resource-hero.has-hero-image {
+        background-image:
+            linear-gradient(100deg,
+                var(--color-primary) 0%,
+                var(--color-primary) 38%,
+                rgba(1, 8, 22, 0.75) 55%,
+                rgba(1, 8, 22, 0.25) 78%,
+                rgba(1, 8, 22, 0.1) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: center right;
+        background-repeat: no-repeat;
+    }
+}
 @media (min-width: 993px) {
     .resource-hero {
         min-height: 100vh;
@@ -26,10 +45,11 @@
     }
 }
 .resource-hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 380px;
-    gap: 3rem;
-    align-items: center;
+    display: block;
+}
+/* Constrain the text so the blended image has room to show on the right */
+.resource-hero-text {
+    max-width: 620px;
 }
 .resource-hero h1 {
     font-size: 2.3rem;
@@ -85,15 +105,6 @@
     align-items: center;
     gap: 0.55rem;
 }
-.resource-hero-media img {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: 14px;
-    display: block;
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
-}
-
 /* Single centered readable rail — generous width, no card chrome */
 .resource-column {
     max-width: 960px;
@@ -419,16 +430,8 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 992px) {
-    .resource-hero-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    .resource-hero-media {
-        max-width: 480px;
-    }
-}
-
+/* Below 769px the hero is solid navy (no background image) so the text
+   stays fully legible without an overlay fighting the photo */
 @media (max-width: 640px) {
     .resource-hero {
         padding: 8rem 0 2.5rem;
@@ -436,8 +439,8 @@
     .resource-hero h1 {
         font-size: 1.8rem;
     }
-    .resource-hero-media {
-        display: none; /* keep the mobile hero tight — content first */
+    .resource-hero-text {
+        max-width: none;
     }
     .resource-column {
         padding: 2rem 1.25rem 2.5rem;

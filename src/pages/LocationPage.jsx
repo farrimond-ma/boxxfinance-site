@@ -75,7 +75,7 @@ const LocationPage = () => {
             <ResourcePage
                 title={page.title}
                 heroDescription={heroDescription}
-                heroImage="/images/sidebar/sidebar_meeting.jpg"
+                heroImage="/images/sidebar/sidebar_meeting.webp"
                 service={page.service}
                 currentLocationSlug={page.slug}
                 author={AUTHOR}

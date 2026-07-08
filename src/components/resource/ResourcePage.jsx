@@ -37,8 +37,11 @@ const ResourcePage = ({
 
     return (
         <div className="resource-page">
-            {/* ── Hero: text + image (ABC Finance pattern) ── */}
-            <div className="resource-hero">
+            {/* ── Hero: navy blending into a full-height background image ── */}
+            <div
+                className={`resource-hero${heroImage ? ' has-hero-image' : ''}`}
+                style={heroImage ? { '--hero-image': `url("${heroImage}")` } : undefined}
+            >
                 <div className="container resource-hero-grid">
                     <div className="resource-hero-text">
                         <h1>
@@ -63,16 +66,6 @@ const ResourcePage = ({
                             <li>Fast decisions</li>
                         </ul>
                     </div>
-
-                    {heroImage && (
-                        <div className="resource-hero-media">
-                            <img
-                                src={heroImage}
-                                alt={title}
-                                onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }}
-                            />
-                        </div>
-                    )}
                 </div>
             </div>
 
