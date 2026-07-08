@@ -2,8 +2,10 @@
    Pattern follows the best-performing broker content sites: hero with image,
    one centered readable column, in-content CTAs, one floating CTA. ────────── */
 
+/* White edge-to-edge like the reference sites — a grey page with a floating
+   white card reads as a narrow boxed window on wide monitors */
 .resource-page {
-    background: #f7f7f9;
+    background: #fff;
 }
 
 /* Hero — top padding clears the fixed navbar (site convention: 10rem, 8rem mobile) */
@@ -83,17 +85,19 @@
     box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
 }
 
-/* Single centered readable column */
+/* Single centered readable rail — generous width, no card chrome */
 .resource-column {
-    max-width: 780px;
+    max-width: 960px;
     margin: 0 auto;
-    padding: 2.5rem 1.25rem 3.5rem;
+    padding: 2.75rem 2rem 3.5rem;
 }
 .resource-main-card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 2.25rem 2.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    background: transparent;
+}
+/* The global .blog-post-content padding belongs to the legal pages' card
+   layout — on the resource rail the text aligns flush with the column */
+.resource-main-card .blog-post-content {
+    padding: 0;
 }
 .resource-skeleton {
     min-height: 22rem;
@@ -150,10 +154,10 @@
     gap: 1.25rem;
     align-items: flex-start;
     background: #fff;
+    border: 1px solid #ece9df;
     border-radius: 14px;
     padding: 1.75rem 2rem;
-    margin-top: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    margin-top: 1.75rem;
 }
 .resource-author-photo {
     width: 76px;
@@ -221,6 +225,43 @@
 .funding-card-blurb {
     font-size: 0.88rem;
     color: #6b6b73;
+}
+
+/* More guides — comprehensive same-service guide listing */
+.resource-guides {
+    margin-top: 1.75rem;
+}
+.resource-guides h2 {
+    color: var(--color-primary);
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+}
+.resource-guides-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 2.5rem;
+}
+.resource-guides-grid li {
+    border-bottom: 1px solid #ece9df;
+}
+.resource-guides-grid a {
+    display: block;
+    padding: 0.8rem 0;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.98rem;
+    line-height: 1.4;
+}
+.resource-guides-grid a::before {
+    content: "→ ";
+    color: var(--color-secondary);
+}
+.resource-guides-grid a:hover {
+    color: #b8860b;
 }
 
 /* Popular locations */
@@ -374,13 +415,16 @@
     .resource-hero-media {
         display: none; /* keep the mobile hero tight — content first */
     }
-    .resource-main-card {
-        padding: 1.5rem 1.25rem;
+    .resource-column {
+        padding: 2rem 1.25rem 2.5rem;
     }
     .resource-toc ul {
         grid-template-columns: 1fr;
     }
     .funding-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .resource-guides-grid {
         grid-template-columns: 1fr;
     }
     .resource-float-cta span {

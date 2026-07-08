@@ -5,6 +5,7 @@ import TableOfContents from './TableOfContents';
 import FaqAccordion from './FaqAccordion';
 import FundingCards from './FundingCards';
 import PopularLocations from './PopularLocations';
+import GuidesList from './GuidesList';
 import './ResourcePage.css';
 
 const CONTENT_ID = 'resource-article-body';
@@ -26,9 +27,8 @@ const ResourcePage = ({
     contentHtml,        // article body HTML (may be null while loading)
     faqSchema,          // { mainEntity: [...] } | null
     videoId,            // optional YouTube id (blog only)
-    relatedSlug,        // slug passed to RelatedArticles
+    relatedSlug,        // current guide's slug — suppresses self-link in GuidesList
     currentLocationSlug, // suppresses self-link in PopularLocations
-    RelatedArticles,    // component injected by the caller
 }) => {
     const loading = !contentHtml;
 
@@ -114,6 +114,7 @@ const ResourcePage = ({
                         <CanWeHelp service={service} />
                         <FaqAccordion faqSchema={faqSchema} />
                         <FundingCards currentService={service} />
+                        <GuidesList service={service} currentSlug={relatedSlug} />
                         <PopularLocations currentSlug={currentLocationSlug} />
 
                         {author && (
@@ -138,7 +139,6 @@ const ResourcePage = ({
                             </div>
                         )}
 
-                        {RelatedArticles && relatedSlug && <RelatedArticles currentSlug={relatedSlug} />}
                         <EndCta />
                     </>
                 )}

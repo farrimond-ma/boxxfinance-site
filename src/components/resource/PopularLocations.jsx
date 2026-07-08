@@ -31,7 +31,7 @@ const PopularLocations = ({ currentSlug }) => {
             <div className="resource-locations-grid">
                 {locations.map((p) => (
                     <Link key={p.slug} to={`/locations/${p.slug}`} className="resource-location-pill">
-                        {p.title}
+                        {(p.title || '').split('|')[0].trim()}
                     </Link>
                 ))}
             </div>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import blogPosts from '../data/blogIndex.json';
 import SEO from '../components/SEO';
-import RelatedArticles from '../components/RelatedArticles';
 import ResourcePage from '../components/resource/ResourcePage';
 
 const AUTHORS = {
@@ -122,7 +121,6 @@ const BlogPost = () => {
                 faqSchema={fullPost && fullPost.schema && fullPost.schema['@type'] === 'FAQPage' ? fullPost.schema : null}
                 videoId={post.videoId}
                 relatedSlug={post.slug}
-                RelatedArticles={RelatedArticles}
             />
             <Link to="/chat-about-funding" className="resource-float-cta" aria-label="Need funding? Talk to us">
                 <span>Need funding?</span> Talk to us
