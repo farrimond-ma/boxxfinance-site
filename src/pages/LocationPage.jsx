@@ -13,6 +13,16 @@ const AUTHOR = {
     linkedIn: 'https://www.linkedin.com/in/mark-higgins-05ab363b2/',
 };
 
+// Rotate location heroes across the curated bridging-property pool (fetched
+// by scripts/fetch-bridging-heroes.js) so the 95 pages don't all share one
+// image. Deterministic per slug. If the pool isn't present yet the background
+// simply falls back to solid navy — no broken image.
+const HERO_POOL = Array.from({ length: 8 }, (_, i) => `/images/hero/bridging-${i + 1}.webp`);
+const pickHero = (slug) => {
+    const sum = [...String(slug)].reduce((a, c) => a + c.charCodeAt(0), 0);
+    return HERO_POOL[sum % HERO_POOL.length];
+};
+
 const LocationPage = () => {
     const { slug } = useParams();
 
@@ -75,7 +85,7 @@ const LocationPage = () => {
             <ResourcePage
                 title={page.title}
                 heroDescription={heroDescription}
-                heroImage="/images/sidebar/sidebar_meeting.webp"
+                heroImage={pickHero(page.slug)}
                 service={page.service}
                 currentLocationSlug={page.slug}
                 author={AUTHOR}

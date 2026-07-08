@@ -1,0 +1,44 @@
+name: Fetch Hero Images
+
+# Manual: fetches a curated pool of UK-property hero images from Pexels for
+# bridging pages and commits them as webp. Run from the Actions tab, choosing
+# the branch you want them committed to.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Fetch hero images from Pexels
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: node scripts/fetch-bridging-heroes.js
+
+      - name: Commit images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/images/hero/
+          if git diff --staged --quiet; then
+            echo "No image changes to commit"
+          else
+            git commit -m "chore: fetch bridging property hero images from Pexels"
+            git push
+          fi
