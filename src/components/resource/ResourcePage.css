@@ -205,7 +205,7 @@
 .resource-funding-cards h2 {
     color: var(--color-primary);
     margin: 0 0 1rem;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
 }
 .funding-cards-grid {
     display: grid;
@@ -243,7 +243,7 @@
 .resource-guides h2 {
     color: var(--color-primary);
     margin: 0 0 1rem;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
 }
 .resource-guides-grid {
     list-style: none;
@@ -284,7 +284,7 @@
 .resource-locations h2 {
     color: var(--color-primary);
     margin: 0 0 1rem;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
 }
 .resource-locations-grid {
     display: flex;
@@ -313,7 +313,7 @@
 .resource-faqs h2 {
     color: var(--color-primary);
     margin: 0 0 1rem;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
 }
 .faq-item {
     background: #fff;
@@ -353,21 +353,23 @@
     line-height: 1.6;
 }
 
-/* Final CTA band */
+/* Final CTA band — light grey so it separates from the navy footer below */
 .resource-final-cta {
-    background: var(--color-primary);
-    color: #fff;
-    padding: 3rem 0;
+    background: #e8eaee;
+    color: var(--color-primary);
+    padding: 3.5rem 0;
     text-align: center;
+    border-top: 1px solid #dcdfe4;
 }
 .resource-final-cta h2 {
-    color: #fff;
+    color: var(--color-primary);
     margin: 0 0 0.75rem;
+    font-size: 1.9rem;
 }
 .resource-final-cta p {
     max-width: 55ch;
-    margin: 0 auto 1.5rem;
-    color: rgba(255, 255, 255, 0.82);
+    margin: 0 auto 1.75rem;
+    color: #4a4a52;
     line-height: 1.6;
 }
 .resource-final-cta-actions {
@@ -377,11 +379,20 @@
     gap: 1.25rem;
     flex-wrap: wrap;
 }
-.resource-final-cta-actions span {
-    color: rgba(255, 255, 255, 0.82);
+/* Gold washes out on light grey — use the navy button so the CTA stays
+   prominent; keep it high-contrast rather than brand-consistent here */
+.resource-final-cta-actions .btn-primary {
+    background: var(--color-primary);
+    color: #fff;
 }
-.resource-final-cta-actions a {
-    color: var(--color-secondary-light);
+.resource-final-cta-actions .btn-primary:hover {
+    background: #12203c;
+}
+.resource-final-cta-actions span {
+    color: #4a4a52;
+}
+.resource-final-cta-actions a:not(.btn) {
+    color: #b8860b;
     font-weight: 700;
     text-decoration: none;
 }
