@@ -21,9 +21,7 @@ const ResourcePage = ({
     heroDescription,
     heroImage,          // per-article generated image, or brand fallback
     service,
-    dateLabel,          // pre-formatted "Updated July 2026"
-    readingMinutes,
-    author,             // { name, title, image, bio, email, linkedIn } | null
+    author,             // { name, title, image, bio, email, linkedIn } | null — author card only
     contentHtml,        // article body HTML (may be null while loading)
     faqSchema,          // { mainEntity: [...] } | null
     videoId,            // optional YouTube id (blog only)
@@ -49,22 +47,21 @@ const ResourcePage = ({
                         </h1>
                         {heroDescription && <p className="resource-hero-lead">{heroDescription}</p>}
 
+                        <div className="resource-hero-actions">
+                            <Link to="/chat-about-funding" className="btn btn-primary">Get a free quote</Link>
+                            <a href="tel:03300431612" className="btn btn-outline resource-btn-phone">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                Talk to an expert
+                            </a>
+                        </div>
+
                         <ul className="resource-hero-trust" aria-label="Why choose Boxx">
                             <li>Independent broker</li>
                             <li>Whole of market</li>
                             <li>Fast decisions</li>
                         </ul>
-
-                        <div className="resource-hero-actions">
-                            <Link to="/chat-about-funding" className="btn btn-primary">Start your enquiry</Link>
-                            <a href="tel:03300431612" className="resource-hero-phone">or call 0330 043 1612</a>
-                        </div>
-
-                        <div className="resource-hero-meta">
-                            {author?.name && <span>By {author.name}</span>}
-                            {dateLabel && <span>{dateLabel}</span>}
-                            {readingMinutes ? <span>{readingMinutes} min read</span> : null}
-                        </div>
                     </div>
 
                     {heroImage && (

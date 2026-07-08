@@ -23,11 +23,6 @@ const AUTHORS = {
 
 const SITE_URL = 'https://boxxfinance.co.uk';
 
-const readingMinutes = (html) => {
-    const words = (html || '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
-    return Math.max(2, Math.round(words / 200));
-};
-
 const BlogPost = () => {
     const { slug } = useParams();
 
@@ -90,10 +85,6 @@ const BlogPost = () => {
         mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/insights/${post.slug}` },
     };
 
-    const dateLabel = post.date
-        ? `Updated ${new Date(post.date + 'T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}`
-        : null;
-
     const heroDescription =
         post.metaDescription || post.excerpt ||
         'Practical insight from the commercial finance specialists at Boxx Commercial Finance.';
@@ -114,8 +105,6 @@ const BlogPost = () => {
                 heroDescription={heroDescription}
                 heroImage={heroImage}
                 service={post.service}
-                dateLabel={dateLabel}
-                readingMinutes={fullPost ? readingMinutes(fullPost.content) : null}
                 author={{ name: post.author || 'Mark Higgins', ...authorData }}
                 contentHtml={fullPost ? (fullPost.content || '<p>No article content found.</p>') : null}
                 faqSchema={fullPost && fullPost.schema && fullPost.schema['@type'] === 'FAQPage' ? fullPost.schema : null}

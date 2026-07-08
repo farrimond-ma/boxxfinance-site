@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import locationPages from '../data/locationIndex.json';
 import SEO from '../components/SEO';
-import RelatedArticles from '../components/RelatedArticles';
 import ResourcePage from '../components/resource/ResourcePage';
 
 const AUTHOR = {
@@ -12,11 +11,6 @@ const AUTHOR = {
     bio: 'Mark leads client relationships and complex case structuring across commercial mortgages, bridging and development finance, helping UK businesses secure the right funding at the right terms.',
     email: 'mark@boxxfinance.co.uk',
     linkedIn: 'https://www.linkedin.com/in/mark-higgins-05ab363b2/',
-};
-
-const readingMinutes = (html) => {
-    const words = (html || '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
-    return Math.max(2, Math.round(words / 200));
 };
 
 const LocationPage = () => {
@@ -83,14 +77,10 @@ const LocationPage = () => {
                 heroDescription={heroDescription}
                 heroImage="/images/sidebar/sidebar_meeting.jpg"
                 service={page.service}
-                dateLabel={null}
                 currentLocationSlug={page.slug}
-                readingMinutes={fullPage ? readingMinutes(fullPage.content) : null}
                 author={AUTHOR}
                 contentHtml={fullPage ? (fullPage.content || '<p>No page content found.</p>') : null}
                 faqSchema={fullPage ? fullPage.faqSchema : null}
-                relatedSlug={page.slug}
-                RelatedArticles={RelatedArticles}
             />
             <Link to="/chat-about-funding" className="resource-float-cta" aria-label="Need funding? Talk to us">
                 <span>Need funding?</span> Talk to us
