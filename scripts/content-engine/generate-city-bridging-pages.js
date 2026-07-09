@@ -6,10 +6,11 @@
 // commit via the GitHub API (GH_PAT) so a deploy triggers automatically.
 require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
-const OpenAI = require('openai');
+const Anthropic = require('@anthropic-ai/sdk');
 
 const octokit = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_PAT });
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const MODEL = 'claude-haiku-4-5-20251001';
 
 const GITHUB_OWNER = process.env.GITHUB_OWNER || 'farrimond-ma';
 const GITHUB_REPO = process.env.GITHUB_REPO || 'boxxfinance-site';
@@ -50,14 +51,11 @@ async function generate(city, relatedBlogs) {
     ? `\nRelated blog posts to link naturally in the body — the title is for reference only, write a 3-5 word keyword-rich anchor (never use the raw title as anchor text):\n${relatedBlogs.map((b) => `${b.url} — title: "${b.title}"`).join('\n')}`
     : '';
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
+  const response = await anthropic.messages.create({
+    model: MODEL,
     max_tokens: 6000,
+    system: `You are an experienced UK commercial finance broker at Boxx Commercial Finance writing a location-specific landing page. Write as a trusted local expert who genuinely understands the business finance landscape in this city. Natural, human, advisory tone — as if speaking directly to a local business owner. Never use em dashes. Never use generic AI phrases ("in today's landscape", "navigating the challenges", etc.). No markdown, no backticks, no code fences. Return only a raw JSON object with no wrapper, no explanation.`,
     messages: [
-      {
-        role: 'system',
-        content: `You are an experienced UK commercial finance broker at Boxx Commercial Finance writing a location-specific landing page. Write as a trusted local expert who genuinely understands the business finance landscape in this city. Natural, human, advisory tone — as if speaking directly to a local business owner. Never use em dashes. Never use generic AI phrases ("in today's landscape", "navigating the challenges", etc.). No markdown, no backticks, no code fences. Return only a raw JSON object with no wrapper, no explanation.`,
-      },
       {
         role: 'user',
         content: `Write a location landing page for ${SERVICE} in ${city}. Return as a single JSON object with exactly these keys:
@@ -137,7 +135,9 @@ faqSchema: valid @type: FAQPage object, exactly matching the FAQ section in cont
     ],
   });
 
-  let raw = response.choices[0].message.content
+  const rawText = response.content && response.content[0] && response.content[0].type === 'text'
+    ? response.content[0].text : '';
+  const raw = rawText
     .replace(/```json/g, '').replace(/```/g, '')
     .replace(/“/g, '"').replace(/”/g, '"')
     .trim();
