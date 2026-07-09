@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import locationPages from '../data/locationIndex.json';
 import SEO from '../components/SEO';
 import ResourcePage from '../components/resource/ResourcePage';
+import { pickHero } from '../components/resource/heroPool';
 
 const AUTHOR = {
     name: 'Mark Higgins',
@@ -17,16 +18,6 @@ const AUTHOR = {
 // by scripts/fetch-bridging-heroes.js) so the 95 pages don't all share one
 // image. Deterministic per slug. If the pool isn't present yet the background
 // simply falls back to solid navy — no broken image.
-// Only the wide establishing shots (house rows, streets, developments,
-// refurbishments) blend well behind the navy gradient. The two tight
-// close-ups (keys #2, for-sale sign #8) are excluded — cropped to the right
-// of the hero they show only texture, not obvious property.
-const HERO_POOL = [1, 3, 4, 5, 6, 7].map((i) => `/images/hero/bridging-${i}.webp`);
-const pickHero = (slug) => {
-    const sum = [...String(slug)].reduce((a, c) => a + c.charCodeAt(0), 0);
-    return HERO_POOL[sum % HERO_POOL.length];
-};
-
 const LocationPage = () => {
     const { slug } = useParams();
 

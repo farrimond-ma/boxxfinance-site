@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import blogPosts from '../data/blogIndex.json';
 import SEO from '../components/SEO';
 import ResourcePage from '../components/resource/ResourcePage';
+import { pickHero } from '../components/resource/heroPool';
 
 const AUTHORS = {
     'Mark Higgins': {
@@ -70,7 +71,11 @@ const BlogPost = () => {
     }
 
     const authorData = AUTHORS[post.author] || AUTHORS['Mark Higgins'];
-    const heroImage = post.heroImage || post.image || null;
+    // Bridging posts use the curated property pool so none can show an
+    // off-theme (e.g. office) image baked in at publish time. Other services
+    // keep their own hero.
+    const isBridging = (post.service || '').toLowerCase().includes('bridging');
+    const heroImage = isBridging ? pickHero(post.slug) : (post.heroImage || post.image || null);
 
     const articleSchema = {
         '@context': 'https://schema.org',
