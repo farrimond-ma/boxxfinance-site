@@ -6,6 +6,14 @@ name: Fetch Hero Images
 
 on:
   workflow_dispatch:
+  # Fallback: the workflow_dispatch button wasn't appearing in the UI, so this
+  # also runs the fetch whenever this file changes on the redesign branch.
+  # Scoped to this file only, so the image commit it makes can't re-trigger it.
+  push:
+    branches:
+      - redesign/resource-page
+    paths:
+      - '.github/workflows/fetch-hero-images.yml'
 
 permissions:
   contents: write
