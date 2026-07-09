@@ -531,6 +531,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://boxxfinance.co.uk/insights/refinancing-a-bridging-loan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://boxxfinance.co.uk/locations/business-loans-london</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -1322,6 +1327,101 @@
   </url>
   <url>
     <loc>https://boxxfinance.co.uk/locations/bridging-loans-loughborough</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-manchester</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-leeds</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-liverpool</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-sheffield</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-newcastle</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-coventry</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-bradford</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-cardiff</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-belfast</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-glasgow</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-edinburgh</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-stoke-on-trent</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-wolverhampton</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-southampton</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-portsmouth</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-hull</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-swansea</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-sunderland</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/locations/bridging-loans-york</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
