@@ -5,7 +5,10 @@
 //
 // Used by both location pages and bridging blog posts so no bridging page ever
 // shows an off-theme (e.g. office) image. Deterministic per slug.
-const HERO_POOL = [1, 3, 4, 5, 6, 7].map((i) => `/images/hero/bridging-${i}.webp`);
+// 1,3-7 = Pexels property shots; 9-11 = user-supplied refurbishment/extension
+// photos. (2 and 8 are close-ups, excluded — they show only texture cropped
+// behind the hero gradient.)
+const HERO_POOL = [1, 3, 4, 5, 6, 7, 9, 10, 11].map((i) => `/images/hero/bridging-${i}.webp`);
 
 export const pickHero = (slug) => {
     const sum = [...String(slug)].reduce((a, c) => a + c.charCodeAt(0), 0);
