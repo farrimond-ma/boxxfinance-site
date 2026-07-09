@@ -1,0 +1,40 @@
+name: Generate City Bridging Pages
+
+# One-off: generates Bridging Loans location pages for the major UK regional
+# cities missing from the London-weighted bridging queue. Runs on push to the
+# script (workflow_dispatch buttons weren't appearing in the UI). The script
+# pushes the pages via the GitHub API (GH_PAT), which triggers the deploy.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/content-engine/generate-city-bridging-pages.js'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Generate city bridging pages
+        working-directory: scripts/content-engine
+        env:
+          GH_TOKEN:       ${{ secrets.GH_PAT }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_OWNER:   farrimond-ma
+          GITHUB_REPO:    boxxfinance-site
+        run: node generate-city-bridging-pages.js
