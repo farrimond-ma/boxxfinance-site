@@ -1,0 +1,460 @@
+/* ── Resource page: shared single-column layout for articles + locations ─────
+   Pattern follows the best-performing broker content sites: hero with image,
+   one centered readable column, in-content CTAs, one floating CTA. ────────── */
+
+/* White edge-to-edge like the reference sites — a grey page with a floating
+   white card reads as a narrow boxed window on wide monitors */
+.resource-page {
+    background: #fff;
+}
+
+/* Hero — top padding clears the fixed navbar; fills the viewport on desktop */
+.resource-hero {
+    background: var(--color-primary);
+    color: #fff;
+    padding: 9rem 0 3.5rem;
+}
+/* Full-height background image blended out of the navy. The gradient sits
+   ON TOP of the image (listed first) — solid navy on the left for text
+   contrast, fading to reveal the photo on the right. Per-page image comes
+   in via the --hero-image custom property set inline. */
+@media (min-width: 769px) {
+    .resource-hero.has-hero-image {
+        background-image:
+            linear-gradient(100deg,
+                var(--color-primary) 0%,
+                var(--color-primary) 38%,
+                rgba(1, 8, 22, 0.75) 55%,
+                rgba(1, 8, 22, 0.25) 78%,
+                rgba(1, 8, 22, 0.1) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: center right;
+        background-repeat: no-repeat;
+    }
+}
+@media (min-width: 993px) {
+    .resource-hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 7rem 0 4rem;
+    }
+    .resource-hero .container {
+        width: 100%;
+    }
+}
+.resource-hero-grid {
+    display: block;
+}
+/* Constrain the text so the blended image has room to show on the right */
+.resource-hero-text {
+    max-width: 620px;
+}
+.resource-hero h1 {
+    font-size: 2.3rem;
+    line-height: 1.15;
+    margin: 0 0 1.5rem;
+    color: #fff;
+}
+@media (min-width: 993px) {
+    .resource-hero h1 {
+        font-size: 3.4rem;
+        line-height: 1.1;
+    }
+}
+.resource-hero .text-highlight {
+    color: var(--color-secondary-light);
+}
+.resource-hero-lead {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 58ch;
+    margin: 0 0 2rem;
+}
+.resource-hero-trust {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    padding: 0;
+    margin: 0;
+}
+.resource-hero-trust li {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.9);
+    padding-left: 1.4rem;
+    position: relative;
+}
+.resource-hero-trust li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: var(--color-secondary);
+}
+.resource-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+.resource-btn-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+/* Single centered readable rail — generous width, no card chrome */
+.resource-column {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.75rem 2rem 3.5rem;
+}
+.resource-main-card {
+    background: transparent;
+}
+/* The global .blog-post-content padding belongs to the legal pages' card
+   layout — on the resource rail the text aligns flush with the column */
+.resource-main-card .blog-post-content {
+    padding: 0;
+}
+.resource-skeleton {
+    min-height: 22rem;
+}
+.resource-video {
+    margin-top: 1.5rem;
+}
+
+/* "On this page" jump-box at the top of the article */
+.resource-toc {
+    background: #f7f5ef;
+    border: 1px solid #e6ddc4;
+    border-radius: 10px;
+    padding: 1.1rem 1.4rem;
+    margin-bottom: 1.75rem;
+}
+.resource-toc-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #8a8378;
+    margin: 0 0 0.6rem;
+    font-weight: 700;
+}
+.resource-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem 1.5rem;
+}
+.resource-toc li a {
+    display: block;
+    padding: 0.22rem 0;
+    font-size: 0.93rem;
+    color: #55555f;
+    text-decoration: none;
+    line-height: 1.4;
+}
+.resource-toc li a::before {
+    content: "↓ ";
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+.resource-toc li a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+/* Author */
+.resource-author {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    background: #fff;
+    border: 1px solid #ece9df;
+    border-radius: 14px;
+    padding: 1.75rem 2rem;
+    margin-top: 1.75rem;
+}
+.resource-author-photo {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.resource-author-info h3 {
+    margin: 0 0 0.15rem;
+    color: var(--color-primary);
+}
+.resource-author-title {
+    color: var(--color-secondary);
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+}
+.resource-author-bio {
+    color: #55555f;
+    line-height: 1.6;
+    margin: 0 0 0.75rem;
+    font-size: 0.95rem;
+}
+.resource-author-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.25rem;
+    font-size: 0.9rem;
+}
+
+/* Funding cards */
+.resource-funding-cards {
+    margin-top: 1.75rem;
+}
+.resource-funding-cards h2 {
+    color: var(--color-primary);
+    margin: 0 0 1rem;
+    font-size: 1.75rem;
+}
+.funding-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+.funding-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: #fff;
+    border: 1px solid #ece9df;
+    border-radius: 12px;
+    padding: 1.1rem 1.25rem;
+    text-decoration: none;
+    transition: border-color 0.15s, transform 0.15s;
+}
+.funding-card:hover {
+    border-color: var(--color-secondary);
+    transform: translateY(-2px);
+}
+.funding-card-title {
+    font-weight: 700;
+    color: var(--color-primary);
+}
+.funding-card-blurb {
+    font-size: 0.88rem;
+    color: #6b6b73;
+}
+
+/* More guides — comprehensive same-service guide listing */
+.resource-guides {
+    margin-top: 1.75rem;
+}
+.resource-guides h2 {
+    color: var(--color-primary);
+    margin: 0 0 1rem;
+    font-size: 1.75rem;
+}
+.resource-guides-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 2.5rem;
+}
+.resource-guides-grid li {
+    border-bottom: 1px solid #ece9df;
+}
+.resource-guides-grid a {
+    display: block;
+    padding: 0.8rem 0 0.8rem 1.6rem;
+    position: relative;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.98rem;
+    line-height: 1.4;
+}
+/* Hanging indent — wrapped lines align with the text, not under the arrow */
+.resource-guides-grid a::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-secondary);
+}
+.resource-guides-grid a:hover {
+    color: #b8860b;
+}
+
+/* Popular locations */
+.resource-locations {
+    margin-top: 1.75rem;
+}
+.resource-locations h2 {
+    color: var(--color-primary);
+    margin: 0 0 1rem;
+    font-size: 1.75rem;
+}
+.resource-locations-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+.resource-location-pill {
+    background: #fff;
+    border: 1px solid #ece9df;
+    border-radius: 999px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.92rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: border-color 0.15s;
+}
+.resource-location-pill:hover {
+    border-color: var(--color-secondary);
+}
+
+/* FAQ accordion */
+.resource-faqs {
+    margin-top: 1.75rem;
+}
+.resource-faqs h2 {
+    color: var(--color-primary);
+    margin: 0 0 1rem;
+    font-size: 1.75rem;
+}
+.faq-item {
+    background: #fff;
+    border: 1px solid #ece9df;
+    border-radius: 10px;
+    margin-bottom: 0.6rem;
+    overflow: hidden;
+}
+.faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    font-family: inherit;
+}
+.faq-icon {
+    color: var(--color-secondary);
+    font-size: 1.4rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+.faq-answer {
+    padding: 0 1.25rem 1.1rem;
+}
+.faq-answer p {
+    margin: 0;
+    color: #55555f;
+    line-height: 1.6;
+}
+
+/* Final CTA band — light grey so it separates from the navy footer below */
+.resource-final-cta {
+    background: #e8eaee;
+    color: var(--color-primary);
+    padding: 3.5rem 0;
+    text-align: center;
+    border-top: 1px solid #dcdfe4;
+}
+.resource-final-cta h2 {
+    color: var(--color-primary);
+    margin: 0 0 0.75rem;
+    font-size: 1.9rem;
+}
+.resource-final-cta p {
+    max-width: 55ch;
+    margin: 0 auto 1.75rem;
+    color: #4a4a52;
+    line-height: 1.6;
+}
+.resource-final-cta-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+/* Gold washes out on light grey — use the navy button so the CTA stays
+   prominent; keep it high-contrast rather than brand-consistent here */
+.resource-final-cta-actions .btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+}
+.resource-final-cta-actions .btn-primary:hover {
+    background: #12203c;
+}
+.resource-final-cta-actions span {
+    color: #4a4a52;
+}
+.resource-final-cta-actions a:not(.btn) {
+    color: #b8860b;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* Floating CTA — the ONLY floating element on the page */
+.resource-float-cta {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    font-weight: 700;
+    padding: 0.75rem 1.15rem;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+.resource-float-cta:hover {
+    background: var(--color-secondary-light);
+}
+
+/* ── Responsive ── */
+/* Below 769px the hero is solid navy (no background image) so the text
+   stays fully legible without an overlay fighting the photo */
+@media (max-width: 640px) {
+    .resource-hero {
+        padding: 8rem 0 2.5rem;
+    }
+    .resource-hero h1 {
+        font-size: 1.8rem;
+    }
+    .resource-hero-text {
+        max-width: none;
+    }
+    .resource-column {
+        padding: 2rem 1.25rem 2.5rem;
+    }
+    .resource-toc ul {
+        grid-template-columns: 1fr;
+    }
+    .funding-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .resource-guides-grid {
+        grid-template-columns: 1fr;
+    }
+    .resource-float-cta span {
+        display: none;
+    }
+}

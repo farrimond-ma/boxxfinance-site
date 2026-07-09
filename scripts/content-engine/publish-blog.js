@@ -545,7 +545,7 @@ async function fetchPexelsImage(keyword, service) {
   // US dollars and euros. Uses professional UK business context instead.
   const serviceKey = (service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
   const SERVICE_QUERIES = {
-    'bridging-finance':    'UK property development construction',
+    'bridging-finance':    'UK residential property house exterior',
     'development-finance': 'UK property construction architect',
     'commercial-mortgages':'UK commercial property building office',
     'commercial-mortgage': 'UK commercial property building office',

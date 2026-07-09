@@ -1,43 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-    const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const location = useLocation();
 
-    // Pages that should start with a dark navy navbar
-    const darkNavRoutes = ['/insights/', '/insights', '/locations/', '/funding-solutions'];
-    const isDarkPage = darkNavRoutes.some(route => location.pathname.startsWith(route)) ||
-        /^\/insights\//.test(location.pathname) ||
-        /^\/locations\//.test(location.pathname) ||
-        /^\/funding-solutions/.test(location.pathname);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    // On dark pages: start dark navy, turn white on scroll
-    // On other pages: existing behaviour
-    const navClass = [
-        'navbar',
-        scrolled ? 'scrolled' : '',
-        isDarkPage && !scrolled ? 'navbar-dark' : '',
-    ].filter(Boolean).join(' ');
-
-    const logoSrc = scrolled
-        ? '/logo_scroll.png?v=2'
-        : isDarkPage
-            ? '/logo.png?v=2'
-            : '/logo.png?v=2';
+    // Permanently white with the gold logo (the old "scrolled" style) —
+    // matches the reference broker sites; no scroll-state switching.
+    const logoSrc = '/logo_scroll.png?v=2';
 
     return (
-        <nav className={navClass}>
+        <nav className="navbar scrolled">
             <div className="navbar-container container">
                 <div className="navbar-logo">
                     <Link to="/">
