@@ -7,9 +7,12 @@ import './ResourcePage.css';
 // drift. Navy panel blending into a full-height background image, dual CTAs,
 // trust ticks.
 export const ResourceHero = ({ title, description, heroImage, primaryCtaTo = '/chat-about-funding' }) => {
-    const words = (title || '').split(' ');
-    const titleMain = words.length > 2 ? words.slice(0, -2).join(' ') : '';
-    const titleGold = words.length > 2 ? words.slice(-2).join(' ') : title;
+    // Title is white by default; if it contains a colon (mainly blog titles
+    // like "Raising Capital for Growth: Debt vs. Equity"), the part after the
+    // colon is gold.
+    const colonIdx = (title || '').indexOf(':');
+    const titleWhite = colonIdx !== -1 ? title.slice(0, colonIdx + 1) : title;
+    const titleGold = colonIdx !== -1 ? title.slice(colonIdx + 1).trim() : '';
 
     return (
         <div
@@ -19,8 +22,8 @@ export const ResourceHero = ({ title, description, heroImage, primaryCtaTo = '/c
             <div className="container resource-hero-grid">
                 <div className="resource-hero-text">
                     <h1>
-                        {titleMain && <>{titleMain} </>}
-                        <span className="text-highlight">{titleGold}</span>
+                        {titleWhite}
+                        {titleGold && <> <span className="text-highlight">{titleGold}</span></>}
                     </h1>
                     {description && <p className="resource-hero-lead">{description}</p>}
 

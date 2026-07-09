@@ -22,10 +22,11 @@ const ServicePage = () => {
         );
     }
 
-    // Bridging service gets a property hero from the pool; others use their own
-    // service photo. The blended hero falls back to solid navy if it 404s.
+    // Bridging service gets a property hero from the pool; others use a
+    // service-specific Pexels image (fetched to /images/hero/service-<slug>.webp).
+    // The blended hero falls back to solid navy if the file is missing.
     const isBridging = slug === 'bridging-finance' || (service.title || '').toLowerCase().includes('bridging');
-    const heroImage = isBridging ? pickHero(slug) : (service.image || null);
+    const heroImage = isBridging ? pickHero(slug) : `/images/hero/service-${slug}.webp`;
 
     return (
         <div className="resource-page">
