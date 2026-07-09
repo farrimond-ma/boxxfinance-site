@@ -17,7 +17,11 @@ const AUTHOR = {
 // by scripts/fetch-bridging-heroes.js) so the 95 pages don't all share one
 // image. Deterministic per slug. If the pool isn't present yet the background
 // simply falls back to solid navy — no broken image.
-const HERO_POOL = Array.from({ length: 8 }, (_, i) => `/images/hero/bridging-${i + 1}.webp`);
+// Only the wide establishing shots (house rows, streets, developments,
+// refurbishments) blend well behind the navy gradient. The two tight
+// close-ups (keys #2, for-sale sign #8) are excluded — cropped to the right
+// of the hero they show only texture, not obvious property.
+const HERO_POOL = [1, 3, 4, 5, 6, 7].map((i) => `/images/hero/bridging-${i}.webp`);
 const pickHero = (slug) => {
     const sum = [...String(slug)].reduce((a, c) => a + c.charCodeAt(0), 0);
     return HERO_POOL[sum % HERO_POOL.length];
@@ -70,7 +74,10 @@ const LocationPage = () => {
     }
 
     const pageSchema = fullPage && fullPage.faqSchema ? [fullPage.faqSchema] : undefined;
-    const heroDescription = page.metaDescription || page.title;
+    // Some location titles carry a "| Commercial Finance Broker" meta suffix;
+    // strip it so the big hero H1 reads cleanly (full title still used for SEO).
+    const displayTitle = (page.title || '').split('|')[0].trim();
+    const heroDescription = page.metaDescription || displayTitle;
 
     return (
         <div data-page-type="location-page">
@@ -83,7 +90,7 @@ const LocationPage = () => {
                 canonical={`/locations/${page.slug}`}
             />
             <ResourcePage
-                title={page.title}
+                title={displayTitle}
                 heroDescription={heroDescription}
                 heroImage={pickHero(page.slug)}
                 service={page.service}
