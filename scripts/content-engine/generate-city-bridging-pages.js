@@ -163,7 +163,7 @@ faqSchema: valid @type: FAQPage object, exactly matching the FAQ section in cont
 
 async function main() {
   console.log(`[City Bridging Pages] generating ${CITIES.length} pages`);
-  const { pages } = await readJsonViaApi(LOCATION_FILE);
+  const { json: pages } = await readJsonViaApi(LOCATION_FILE);
   const { json: posts } = await readJsonViaApi(BLOG_FILE);
   const relatedBlogs = bridgingBlogLinks(posts);
 
