@@ -6,14 +6,6 @@ name: Fetch Hero Images
 
 on:
   workflow_dispatch:
-  # Fallback (dispatch button not appearing in UI): run when a fetch script
-  # changes on the service-pages branch. Scoped so image commits don't re-trigger.
-  push:
-    branches:
-      - redesign/service-pages
-    paths:
-      - 'scripts/fetch-service-heroes.js'
-      - 'scripts/fetch-bridging-heroes.js'
 
 permissions:
   contents: write
