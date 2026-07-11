@@ -1,0 +1,44 @@
+name: Fix Bridging Audience Framing
+
+# One-off: regenerates every published bridging-loans-* location page that
+# was written with business/SME framing instead of the correct audience
+# (homeowners, landlords, property developers, investors). Pushes progress
+# every 10 pages so a 100+ page run doesn't lose work if interrupted.
+
+on:
+  workflow_dispatch:
+  # Fallback (dispatch button not appearing in UI): fire on push to this file.
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/fix-bridging-audience.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Fix bridging page audience framing
+        working-directory: scripts/content-engine
+        env:
+          GH_TOKEN:          ${{ secrets.GH_PAT }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_OWNER:      farrimond-ma
+          GITHUB_REPO:       boxxfinance-site
+        run: node fix-bridging-audience.js
