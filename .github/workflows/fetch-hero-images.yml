@@ -26,10 +26,15 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Fetch hero images from Pexels
+      - name: Fetch bridging property hero images
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
         run: node scripts/fetch-bridging-heroes.js
+
+      - name: Fetch service hero images
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: node scripts/fetch-service-heroes.js
 
       - name: Commit images
         run: |

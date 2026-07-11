@@ -1,26 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './ServicePage.css';
 
 import { serviceContent } from '../data/services';
-import Sidebar from '../components/Sidebar';
 import SEO from '../components/SEO';
+import ResourceHero, { FinalCtaBand, FloatingCta } from '../components/resource/ResourceHero';
+import FundingCards from '../components/resource/FundingCards';
+import { pickHero } from '../components/resource/heroPool';
+import '../components/resource/ResourcePage.css';
 
 const ServicePage = () => {
     const { slug } = useParams();
-    const [imageError, setImageError] = useState(false);
     const service = serviceContent[slug];
-
-    const sidebarImages = [
-        '/header_bg.png',
-        '/images/sidebar/sidebar_meeting.jpg',
-        '/images/sidebar/sidebar_handshake.jpg',
-        '/images/sidebar/sidebar_office.jpg'
-    ];
-
-    // Select a random image based on the slug to keep it consistent for that page per session
-    // Or just a truly random one. Let's do truly random on each mount.
-    const [sidebarImage] = useState(() => sidebarImages[Math.floor(Math.random() * sidebarImages.length)]);
 
     if (!service) {
         return (
@@ -31,20 +22,14 @@ const ServicePage = () => {
         );
     }
 
-    const formatTitle = (title) => {
-        const words = title.split(' ');
-        if (words.length < 2) return title;
-        const firstWord = words[0];
-        const rest = words.slice(1).join(' ');
-        return (
-            <>
-                {firstWord} <span className="text-highlight">{rest}</span>
-            </>
-        );
-    };
+    // Bridging service gets a property hero from the pool; others use a
+    // service-specific Pexels image (fetched to /images/hero/service-<slug>.webp).
+    // The blended hero falls back to solid navy if the file is missing.
+    const isBridging = slug === 'bridging-finance' || (service.title || '').toLowerCase().includes('bridging');
+    const heroImage = isBridging ? pickHero(slug) : `/images/hero/service-${slug}.webp`;
 
     return (
-        <div className="service-page">
+        <div className="resource-page">
             <SEO
                 title={service.metaTitle || service.title}
                 description={service.metaDescription || service.description}
@@ -52,49 +37,26 @@ const ServicePage = () => {
                 schema={service.schema}
                 type="service"
             />
-            <div className="service-hero">
-                <div className="container">
-                    <h1>{formatTitle(service.title)}</h1>
-                    <p>{service.description}</p>
-                </div>
-            </div>
 
-            <div className="container service-layout">
-                {/* Main Content Area */}
-                <div className="service-main">
-                    {!imageError && service.image && (
-                        <div className="service-header-image">
-                            <img
-                                src={service.image}
-                                alt={service.title}
-                                onError={() => setImageError(true)}
-                            />
-                        </div>
-                    )}
+            <ResourceHero
+                title={service.title}
+                description={service.description}
+                heroImage={heroImage}
+                primaryCtaTo={`/chat-about-funding/${slug}`}
+            />
 
-                    <div className="service-content">
+            <div className="resource-column">
+                <div className="resource-main-card">
+                    <div className="blog-post-content">
                         {service.content}
-
-                        <div className="service-cta-box" style={{ marginTop: '3rem', padding: '2rem', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
-                            <h3>{service.ctaOverride?.title || `Ready to secure your ${service.title}?`}</h3>
-                            <p style={{ marginBottom: '1.5rem' }}>
-                                {service.ctaOverride?.text || "Start your application today and our specialists will review your requirements within 24 hours."}
-                            </p>
-                            <Link to={`/chat-about-funding/${slug}`} className="btn btn-primary">
-                                {service.ctaOverride?.buttonText || "Speak to us"}
-                            </Link>
-                        </div>
                     </div>
                 </div>
 
-                {/* Sidebar Area */}
-                <div className="service-sidebar">
-                    <div className="sidebar-overlap-image">
-                        <img src={sidebarImage} alt="Commercial finance funding specialists — Boxx Commercial Finance" />
-                    </div>
-                    <Sidebar />
-                </div>
+                <FundingCards currentService={slug} />
             </div>
+
+            <FinalCtaBand />
+            <FloatingCta />
         </div>
     );
 };
