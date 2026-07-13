@@ -5,14 +5,6 @@ on:
   schedule:
     - cron: '43 7 * * 1'
 
-  # TEMPORARY: verify the fix after enabling the Search Console API in Google
-  # Cloud (2026-07-13) — remove after one successful run.
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/search-console-insights.yml'
-
   workflow_dispatch:
     inputs:
       dry_run:
