@@ -23,6 +23,7 @@ on:
       - "Regenerate Thin Posts"
       - "AI Visibility Check"
       - "Search Console Insights"
+      - "Reddit Monitor"
     types:
       - completed
 

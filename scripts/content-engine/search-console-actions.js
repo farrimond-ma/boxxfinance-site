@@ -76,7 +76,7 @@ const PILLAR_TO_SERVICE = {
 };
 
 const SERVICE_URLS = {
-  'Bridging Finance':    '/funding-solutions/bridging-finance',
+  'Bridging Finance':    '/funding-solutions/bridging-loans',
   'Development Finance': '/funding-solutions/development-finance',
   'Commercial Mortgages':'/funding-solutions/commercial-mortgages',
   'Invoice Finance':     '/funding-solutions/invoice-finance',

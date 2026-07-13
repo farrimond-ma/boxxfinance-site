@@ -42,7 +42,7 @@ const SERVICE_META = {
   'Bridging Finance': {
     slug: 'bridging-finance',
     author: 'Mark Higgins',
-    serviceUrl: '/funding-solutions/bridging-finance',
+    serviceUrl: '/funding-solutions/bridging-loans',
     category: 'Bridging Finance',
   },
   'Commercial Mortgage': {

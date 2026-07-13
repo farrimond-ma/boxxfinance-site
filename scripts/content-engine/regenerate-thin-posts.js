@@ -46,7 +46,7 @@ const SLUG_SERVICE_MAP = [
 ];
 
 const SERVICE_META = {
-  'Bridging Finance':    { slug:'bridging-finance',    author:'Mark Higgins',    url:'/funding-solutions/bridging-finance'    },
+  'Bridging Finance':    { slug:'bridging-finance',    author:'Mark Higgins',    url:'/funding-solutions/bridging-loans'    },
   'Development Finance': { slug:'development-finance', author:'Mark Higgins',    url:'/funding-solutions/development-finance' },
   'Commercial Mortgage': { slug:'commercial-mortgages',author:'Mark Higgins',    url:'/funding-solutions/commercial-mortgages'},
   'Invoice Finance':     { slug:'invoice-finance',     author:'Andrew Farrimond',url:'/funding-solutions/invoice-finance'     },
@@ -397,4 +397,16 @@ async function main() {
   console.log(`\n✅ Done. ${remaining - 1} thin posts remaining.\n`);
 }
 
-main().catch(err => { console.error('\n❌ Fatal error:', err.message); process.exit(1); });
+main().catch(err => {
+  console.error('\n❌ Fatal error:', err.message);
+  console.error(err.stack || '');
+  // Every run has failed silently from the operator's view — the raw log
+  // requires repo auth to read. Write the real reason where it's visible
+  // without auth: the Actions run summary page.
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    const fs = require('fs');
+    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+      `\n## ❌ Regenerate Thin Posts failed\n\n\`\`\`\n${err.message}\n${(err.stack || '').split('\n').slice(1, 6).join('\n')}\n\`\`\`\n`);
+  }
+  process.exit(1);
+});

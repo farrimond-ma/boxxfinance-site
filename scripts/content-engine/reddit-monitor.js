@@ -23,8 +23,8 @@ const SUBREDDITS = [
 
 // Service keywords + which Boxx page is most relevant
 const KEYWORD_MAP = [
-  { keyword: 'bridging finance',       url: `${SITE_URL}/funding-solutions/bridging-finance`,    author: 'Mark Higgins' },
-  { keyword: 'bridging loan',          url: `${SITE_URL}/funding-solutions/bridging-finance`,    author: 'Mark Higgins' },
+  { keyword: 'bridging finance',       url: `${SITE_URL}/funding-solutions/bridging-loans`,    author: 'Mark Higgins' },
+  { keyword: 'bridging loan',          url: `${SITE_URL}/funding-solutions/bridging-loans`,    author: 'Mark Higgins' },
   { keyword: 'commercial mortgage',    url: `${SITE_URL}/funding-solutions/commercial-mortgages`, author: 'Mark Higgins' },
   { keyword: 'development finance',    url: `${SITE_URL}/funding-solutions/development-finance`, author: 'Mark Higgins' },
   { keyword: 'invoice finance',        url: `${SITE_URL}/funding-solutions/invoice-finance`,     author: 'Andrew Farrimond' },
