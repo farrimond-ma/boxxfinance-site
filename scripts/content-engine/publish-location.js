@@ -321,11 +321,19 @@ ${blogLinksText}
 faqSchema: valid @type: FAQPage object, exactly matching the FAQ section in content`;
 }
 
+// "Bridging Finance" is the internal service identity (used for SERVICE_FILTER
+// and matching against stored data); the public-facing funding-solutions/
+// chat-about-funding slug is "bridging-loans" (2026-07 rename).
+function toPublicServiceSlug(service) {
+  const raw = (service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+  return raw === 'bridging-finance' ? 'bridging-loans' : raw;
+}
+
 // ─── Generate location page with OpenAI ──────────────────────────────────────
 async function generateLocationPage(row, relatedBlogs) {
   console.log(`Generating location page for: ${row.service} in ${row.city}`);
 
-  const serviceSlug = row.service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+  const serviceSlug = toPublicServiceSlug(row.service);
   const serviceUrl  = `https://boxxfinance.co.uk/funding-solutions/${serviceSlug}`;
   const chatUrl     = `https://boxxfinance.co.uk/chat-about-funding/${serviceSlug}`;
 

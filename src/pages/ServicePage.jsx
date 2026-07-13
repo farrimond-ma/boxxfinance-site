@@ -25,8 +25,10 @@ const ServicePage = () => {
     // Bridging service gets a property hero from the pool; others use a
     // service-specific Pexels image (fetched to /images/hero/service-<slug>.webp).
     // The blended hero falls back to solid navy if the file is missing.
-    const isBridging = slug === 'bridging-finance' || (service.title || '').toLowerCase().includes('bridging');
+    const isBridging = slug === 'bridging-loans' || (service.title || '').toLowerCase().includes('bridging');
     const heroImage = isBridging ? pickHero(slug) : `/images/hero/service-${slug}.webp`;
+    // Every CTA on the page goes to this service's own enquiry form.
+    const ctaTo = `/chat-about-funding/${slug}`;
 
     return (
         <div className="resource-page">
@@ -42,7 +44,7 @@ const ServicePage = () => {
                 title={service.title}
                 description={service.description}
                 heroImage={heroImage}
-                primaryCtaTo={`/chat-about-funding/${slug}`}
+                primaryCtaTo={ctaTo}
             />
 
             <div className="resource-column">
@@ -55,8 +57,8 @@ const ServicePage = () => {
                 <FundingCards currentService={slug} />
             </div>
 
-            <FinalCtaBand />
-            <FloatingCta />
+            <FinalCtaBand ctaTo={ctaTo} />
+            <FloatingCta ctaTo={ctaTo} />
         </div>
     );
 };

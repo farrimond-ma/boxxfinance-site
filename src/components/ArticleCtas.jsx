@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { serviceCtaTo } from './resource/serviceSlug';
 
 // Conversion blocks injected into article pages at RENDER time (not baked into
 // generated content) so every article — existing and future — gets identical,
@@ -11,7 +12,7 @@ const PHONE_HREF = 'tel:03300431612';
 const isBridging = (service) => (service || '').toLowerCase().includes('bridging');
 
 // ── 1. Soft CTA — after the introduction ─────────────────────────────────────
-export const SoftCta = () => (
+export const SoftCta = ({ service }) => (
     <aside className="article-cta article-cta-soft">
         <h3>Need to move quickly?</h3>
         <p>
@@ -19,7 +20,7 @@ export const SoftCta = () => (
             opportunity and missing out. Our commercial finance specialists can assess
             your situation and identify lenders who understand it.
         </p>
-        <Link to="/chat-about-funding" className="article-cta-link">
+        <Link to={serviceCtaTo(service)} className="article-cta-link">
             Talk to an expert today &rarr;
         </Link>
     </aside>
@@ -38,14 +39,14 @@ export const MidCta = ({ service }) => (
             <li>Terms structured around your exit strategy</li>
             <li>Decisions in days, not weeks</li>
         </ul>
-        <Link to="/chat-about-funding" className="btn btn-primary">
+        <Link to={serviceCtaTo(service)} className="btn btn-primary">
             Start your enquiry
         </Link>
     </aside>
 );
 
 // ── 3. End CTA — after the article ───────────────────────────────────────────
-export const EndCta = () => (
+export const EndCta = ({ service }) => (
     <aside className="article-cta article-cta-end">
         <h3>Discuss your project</h3>
         <p>
@@ -55,7 +56,7 @@ export const EndCta = () => (
             funding that fits your timescales and objectives.
         </p>
         <div className="article-cta-actions">
-            <Link to="/chat-about-funding" className="btn btn-primary">
+            <Link to={serviceCtaTo(service)} className="btn btn-primary">
                 Start your enquiry
             </Link>
             <span className="article-cta-or">
@@ -95,7 +96,7 @@ export const CanWeHelp = ({ service }) => (
         </ul>
         <p>
             If your circumstances are different, we can still help.{' '}
-            <Link to="/chat-about-funding" className="article-cta-link">
+            <Link to={serviceCtaTo(service)} className="article-cta-link">
                 Speak to a specialist &rarr;
             </Link>{' '}
             or explore our <Link to="/funding-solutions" className="article-cta-link">funding solutions</Link>.
@@ -122,7 +123,7 @@ const ArticleBody = ({ html, service }) => {
     return (
         <>
             <div dangerouslySetInnerHTML={{ __html: sections[0] }} />
-            <SoftCta />
+            <SoftCta service={service} />
             <div dangerouslySetInnerHTML={{ __html: sections.slice(1, midIndex).join('') }} />
             <MidCta service={service} />
             <div dangerouslySetInnerHTML={{ __html: sections.slice(midIndex).join('') }} />

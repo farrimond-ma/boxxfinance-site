@@ -67,6 +67,10 @@ Options -Indexes -MultiViews
   # Location pages retargeted to the higher-volume "bridging loans" term (2026-07)
   RewriteRule ^locations/bridging-finance-(.+)$ /locations/bridging-loans-$1 [R=301,L]
 
+  # Bridging service page + enquiry form renamed to "bridging loans" (2026-07)
+  RewriteRule ^funding-solutions/bridging-finance$ /funding-solutions/bridging-loans [R=301,L]
+  RewriteRule ^chat-about-funding/bridging-finance$ /chat-about-funding/bridging-loans [R=301,L]
+
   # Old application form
   RewriteRule ^start-application/.*$ /chat-about-funding [R=301,L]
 
