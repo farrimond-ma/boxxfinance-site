@@ -1,6 +1,7 @@
 import React from 'react';
 import ArticleBody, { CanWeHelp, EndCta } from '../ArticleCtas';
-import { ResourceHero, FinalCtaBand } from './ResourceHero';
+import { ResourceHero, FinalCtaBand, FloatingCta } from './ResourceHero';
+import { serviceCtaTo } from './serviceSlug';
 import TableOfContents from './TableOfContents';
 import FaqAccordion from './FaqAccordion';
 import FundingCards from './FundingCards';
@@ -29,10 +30,13 @@ const ResourcePage = ({
     currentLocationSlug, // suppresses self-link in PopularLocations
 }) => {
     const loading = !contentHtml;
+    // Every CTA on the page routes to this service's own enquiry form (not
+    // the generic form) so the visitor's context carries through.
+    const ctaTo = serviceCtaTo(service);
 
     return (
         <div className="resource-page">
-            <ResourceHero title={title} description={heroDescription} heroImage={heroImage} />
+            <ResourceHero title={title} description={heroDescription} heroImage={heroImage} primaryCtaTo={ctaTo} />
 
             {/* ── Single centered column ── */}
             <div className="resource-column">
@@ -94,12 +98,13 @@ const ResourcePage = ({
                             </div>
                         )}
 
-                        <EndCta />
+                        <EndCta service={service} />
                     </>
                 )}
             </div>
 
-            <FinalCtaBand />
+            <FinalCtaBand ctaTo={ctaTo} />
+            <FloatingCta ctaTo={ctaTo} />
         </div>
     );
 };

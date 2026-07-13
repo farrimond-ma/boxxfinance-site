@@ -49,7 +49,7 @@ export const ResourceHero = ({ title, description, heroImage, primaryCtaTo = '/c
 };
 
 // Grey final-CTA band that separates from the navy footer below.
-export const FinalCtaBand = () => (
+export const FinalCtaBand = ({ ctaTo = '/chat-about-funding' }) => (
     <div className="resource-final-cta">
         <div className="container">
             <h2>Ready to discuss your funding?</h2>
@@ -58,7 +58,7 @@ export const FinalCtaBand = () => (
                 we'll help you find the right lender for your timescales and objectives.
             </p>
             <div className="resource-final-cta-actions">
-                <Link to="/chat-about-funding" className="btn btn-primary">Start your enquiry</Link>
+                <Link to={ctaTo} className="btn btn-primary">Start your enquiry</Link>
                 <span>or call <a href="tel:03300431612">0330 043 1612</a></span>
             </div>
         </div>
@@ -66,8 +66,8 @@ export const FinalCtaBand = () => (
 );
 
 // Floating "Need funding?" pill — the single floating element on a page.
-export const FloatingCta = () => (
-    <Link to="/chat-about-funding" className="resource-float-cta" aria-label="Need funding? Talk to us">
+export const FloatingCta = ({ ctaTo = '/chat-about-funding' }) => (
+    <Link to={ctaTo} className="resource-float-cta" aria-label="Need funding? Talk to us">
         <span>Need funding?</span> Talk to us
     </Link>
 );

@@ -116,9 +116,6 @@ const BlogPost = () => {
                 videoId={post.videoId}
                 relatedSlug={post.slug}
             />
-            <Link to="/chat-about-funding" className="resource-float-cta" aria-label="Need funding? Talk to us">
-                <span>Need funding?</span> Talk to us
-            </Link>
         </>
     );
 };

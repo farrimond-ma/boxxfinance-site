@@ -595,16 +595,16 @@ export const serviceContent = {
             buttonText: "Review Working Capital Options"
         }
     },
-    'bridging-finance': {
-        title: 'Bridging Finance',
-        metaTitle: 'Bridging Finance UK | Fast Short-Term Property Funding',
-        metaDescription: 'Fast, short-term property funding for auction purchases, refurbishments or chain breaks. Speed and certainty when timing is critical.',
-        metaKeywords: 'bridging finance UK, short term property loans, auction finance, refurbishment loans, bridging loans UK',
-        description: 'Fast, short-term property funding for auction purchases, refurbishments or chain breaks. Speed and certainty when timing is critical — bridging finance structured for UK businesses.',
+    'bridging-loans': {
+        title: 'Bridging Loans',
+        metaTitle: 'Bridging Loans UK | Fast Short-Term Property Funding',
+        metaDescription: 'Fast, short-term bridging loans for homeowners, landlords and property investors — auction purchases, refurbishments and chain breaks. Speed and certainty when timing is critical.',
+        metaKeywords: 'bridging loans UK, bridging finance UK, short term property loans, auction finance, refurbishment loans',
+        description: 'Fast, short-term property funding for auction purchases, refurbishments or chain breaks. Speed and certainty when timing is critical — bridging loans structured for homeowners, landlords and property investors.',
         schema: {
             "@context": "https://schema.org",
             "@type": "Service",
-            "name": "Bridging Finance",
+            "name": "Bridging Loans",
             "provider": {
                 "@type": "Organization",
                 "name": "Boxx Commercial Finance"
@@ -612,7 +612,7 @@ export const serviceContent = {
             "description": "Fast, short-term property funding for auction purchases, refurbishments or chain breaks.",
             "areaServed": "GB"
         },
-        image: '/images/services/bridging-finance.jpg',
+        image: '/images/services/bridging-loans.jpg',
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
@@ -624,12 +624,12 @@ export const serviceContent = {
                 <p>But speed alone is not enough. The structure of the facility determines whether the transaction strengthens your position or creates unnecessary risk.</p>
                 <p>At Boxx Commercial Finance, we structure bridging finance around your exit strategy, not simply the loan term.</p>
 
-                <h3>What Is Bridging Finance?</h3>
+                <h3>What Is a Bridging Loan?</h3>
                 <p>Bridging finance is a short-term secured loan used to “bridge” the gap between an immediate funding requirement and a planned repayment event.</p>
                 <p>Common repayment events include: Sale of a property, refinancing onto a commercial mortgage, completion of refurbishment, planning uplift, or a development exit.</p>
                 <p>Unlike traditional property finance, bridging loans prioritise speed and flexibility. However, that flexibility must be aligned with a clear and realistic exit plan.</p>
 
-                <h3>When Is Bridging Finance Used?</h3>
+                <h3>When Is a Bridging Loan Used?</h3>
                 <p>Bridging finance is commonly used across the UK for:</p>
                 <ul>
                     <li><strong>Auction Purchases:</strong> Require completion within 28 days. Bridging finance allows investors to secure property quickly before arranging long-term funding.</li>
@@ -643,7 +643,7 @@ export const serviceContent = {
                 <p>A poorly structured bridging facility can increase cost unnecessarily, restrict refinancing options, or erode profit margin. We focus on structuring finance that aligns with your exit timeline and cash flow, reducing risk at every stage.</p>
                 <p><strong>Rate matters. Exit strategy matters more.</strong></p>
 
-                <h3>Types of Bridging Finance We Arrange</h3>
+                <h3>Types of Bridging Loans We Arrange</h3>
                 <ul>
                     <li><strong>Regulated Bridging:</strong> For residential properties where the borrower (or family) will occupy the asset.</li>
                     <li><strong>Unregulated Bridging:</strong> For investment property, commercial property or business transactions.</li>
@@ -651,7 +651,7 @@ export const serviceContent = {
                     <li><strong>Development Exit:</strong> Designed to refinance completed developments while awaiting sale.</li>
                 </ul>
 
-                <h3>Bridging Finance vs Commercial Mortgages</h3>
+                <h3>Bridging Loans vs Commercial Mortgages</h3>
                 <p>Bridging finance is not a long-term solution. If your objective is property ownership or income generation, a structured <a href="/funding-solutions/commercial-mortgages">Commercial Mortgage</a> may provide lower long-term cost and stability.</p>
 
                 <h3>Frequently Asked Questions</h3>
@@ -663,8 +663,8 @@ export const serviceContent = {
         ),
         ctaOverride: {
             title: "Structure Your Property Transaction Properly",
-            text: "Before committing to a time-sensitive property purchase or refinance, ensure your funding structure supports your exit plan. Discuss your bridging finance requirements with our team and we will outline the most appropriate structure for your transaction.",
-            buttonText: "Discuss My Bridging Finance Requirement"
+            text: "Before committing to a time-sensitive property purchase or refinance, ensure your funding structure supports your exit plan. Discuss your bridging loan requirements with our team and we will outline the most appropriate structure for your transaction.",
+            buttonText: "Discuss My Bridging Loan"
         }
     },
     'development-finance': {

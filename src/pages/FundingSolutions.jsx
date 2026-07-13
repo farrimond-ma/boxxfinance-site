@@ -6,7 +6,7 @@ import './FundingSolutions.css';
 
 // Ordered for display: property/asset products first, then cashflow/working capital
 const DISPLAY_ORDER = [
-    'bridging-finance',
+    'bridging-loans',
     'development-finance',
     'commercial-mortgages',
     'asset-finance',

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 // internal-linking + conversion signal on every article. The current page's
 // own service is filtered out so we never link a page to itself.
 const ALL = [
-    { slug: 'bridging-finance', title: 'Bridging Loans', blurb: 'Fast short-term property funding' },
+    { slug: 'bridging-loans', title: 'Bridging Loans', blurb: 'Fast short-term property funding' },
     { slug: 'commercial-mortgages', title: 'Commercial Mortgages', blurb: 'Long-term property finance' },
     { slug: 'business-loans', title: 'Business Loans', blurb: 'Flexible funding for growth' },
     { slug: 'development-finance', title: 'Development Finance', blurb: 'Fund your build or conversion' },
@@ -15,8 +15,14 @@ const ALL = [
 
 // Normalise to a comparable stem: lowercase, alphanumeric only, drop a
 // trailing plural 's' so "Commercial Mortgage" matches the "commercial-mortgages"
-// card and a page never links to its own service.
-const stem = (s) => (s || '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z]+/g, '').replace(/s$/, '');
+// card and a page never links to its own service. "Bridging Finance" is the
+// internal service identity (used by SERVICE_FILTER etc — unchanged) while the
+// public-facing slug/title is "bridging-loans"; both must collapse to the same
+// stem or a bridging page would show a "Bridging Loans" card linking to itself.
+const stem = (s) => {
+    const norm = (s || '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z]+/g, '').replace(/s$/, '');
+    return norm.startsWith('bridging') ? 'bridging' : norm;
+};
 
 const FundingCards = ({ currentService }) => {
     const key = stem(currentService);

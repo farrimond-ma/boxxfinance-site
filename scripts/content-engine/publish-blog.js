@@ -214,15 +214,23 @@ async function getPublishedBlogs(sheets, service) {
   return blogs.slice(0, 3);
 }
 
+// "Bridging Finance" is the internal service identity (used for SERVICE_FILTER
+// and matching against stored data); the public-facing funding-solutions/
+// chat-about-funding slug is "bridging-loans" (2026-07 rename).
+function toPublicServiceSlug(service) {
+  const raw = (service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+  return raw === 'bridging-finance' ? 'bridging-loans' : raw;
+}
+
 // ─── Generate article with OpenAI ────────────────────────────────────────────
 async function generateArticle(row, locationLinks, relatedBlogs) {
   console.log(`Generating article for: ${row.keyword || row.title}`);
 
   const serviceUrl = row.internalLinkService
     ? `https://boxxfinance.co.uk${row.internalLinkService}`
-    : `https://boxxfinance.co.uk/funding-solutions/${row.service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`;
+    : `https://boxxfinance.co.uk/funding-solutions/${toPublicServiceSlug(row.service)}`;
 
-  const serviceCtaSlug = row.service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+  const serviceCtaSlug = toPublicServiceSlug(row.service);
   const chatUrl = `https://boxxfinance.co.uk/chat-about-funding/${serviceCtaSlug}`;
 
   const locationLinksText = locationLinks.length > 0
