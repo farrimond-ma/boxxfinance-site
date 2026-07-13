@@ -111,7 +111,14 @@ async function pushBlogPostsFile(posts, message) {
 // ─── GPT-4o article generation ───────────────────────────────────────────────
 
 async function generateArticle(post, service, meta) {
-  const keyword   = post.keywords?.split(',')[0]?.trim() || post.title.toLowerCase();
+  // keywords is a comma-separated string on most posts but an ARRAY on some
+  // early ones (e.g. what-is-bridging-finance) — calling .split on an array
+  // threw a TypeError that crashed every run once that post reached the head
+  // of the thin-post queue (100% failure since ~Jul 3).
+  const firstKeyword = Array.isArray(post.keywords)
+    ? post.keywords[0]
+    : (post.keywords || '').split(',')[0];
+  const keyword = (firstKeyword || '').trim() || post.title.toLowerCase();
   const serviceUrl = `${SITE_URL}${meta.url}`;
   const serviceCtaSlug = meta.slug || service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
   const chatUrl = `${SITE_URL}/chat-about-funding/${serviceCtaSlug}`;
