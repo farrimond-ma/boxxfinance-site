@@ -620,45 +620,45 @@ export const serviceContent = {
         ),
         content: (
             <>
-                <p>Bridging finance provides short-term property funding when speed, certainty and structure matter most. Whether you are securing an auction purchase, refinancing ahead of sale, funding refurbishment, or resolving a chain break, bridging finance is designed to move quickly.</p>
+                <p>A bridging loan provides short-term property funding when speed, certainty and structure matter most. Whether you are securing an auction purchase, refinancing ahead of sale, funding refurbishment, or resolving a chain break, bridging finance is designed to move quickly.</p>
                 <p>But speed alone is not enough. The structure of the facility determines whether the transaction strengthens your position or creates unnecessary risk.</p>
-                <p>At Boxx Commercial Finance, we structure bridging finance around your exit strategy, not simply the loan term.</p>
+                <p>At Boxx Commercial Finance, we structure every bridging loan around your exit strategy, not simply the loan term.</p>
 
                 <h3>What Is a Bridging Loan?</h3>
-                <p>Bridging finance is a short-term secured loan used to “bridge” the gap between an immediate funding requirement and a planned repayment event.</p>
+                <p>A bridging loan is a short-term secured loan used to “bridge” the gap between an immediate funding requirement and a planned repayment event.</p>
                 <p>Common repayment events include: Sale of a property, refinancing onto a commercial mortgage, completion of refurbishment, planning uplift, or a development exit.</p>
                 <p>Unlike traditional property finance, bridging loans prioritise speed and flexibility. However, that flexibility must be aligned with a clear and realistic exit plan.</p>
 
                 <h3>When Is a Bridging Loan Used?</h3>
-                <p>Bridging finance is commonly used across the UK for:</p>
+                <p>Bridging loans are commonly used across the UK for:</p>
                 <ul>
-                    <li><strong>Auction Purchases:</strong> Require completion within 28 days. Bridging finance allows investors to secure property quickly before arranging long-term funding.</li>
-                    <li><strong>Chain Breaks:</strong> If a sale is delayed but a purchase must proceed, bridging prevents transactions collapsing.</li>
+                    <li><strong>Auction Purchases:</strong> Require completion within 28 days. A bridging loan allows investors to secure property quickly before arranging long-term funding.</li>
+                    <li><strong>Chain Breaks:</strong> If a sale is delayed but a purchase must proceed, a bridging loan prevents the transaction collapsing.</li>
                     <li><strong>Refurbishment Projects:</strong> Capital to improve property value prior to sale or refinance.</li>
                     <li><strong>Planning Gain:</strong> Securing land or property ahead of planning approval or redevelopment.</li>
                     <li><strong>Short-Term Refinancing:</strong> Providing structured breathing space when existing funding is unsuitable.</li>
                 </ul>
 
                 <h3>Why Structure Matters</h3>
-                <p>A poorly structured bridging facility can increase cost unnecessarily, restrict refinancing options, or erode profit margin. We focus on structuring finance that aligns with your exit timeline and cash flow, reducing risk at every stage.</p>
+                <p>A poorly structured bridging loan can increase cost unnecessarily, restrict refinancing options, or erode profit margin. We focus on structuring finance that aligns with your exit timeline and cash flow, reducing risk at every stage.</p>
                 <p><strong>Rate matters. Exit strategy matters more.</strong></p>
 
                 <h3>Types of Bridging Loans We Arrange</h3>
                 <ul>
-                    <li><strong>Regulated Bridging:</strong> For residential properties where the borrower (or family) will occupy the asset.</li>
-                    <li><strong>Unregulated Bridging:</strong> For investment property, commercial property or business transactions.</li>
+                    <li><strong>Regulated Bridging Loans:</strong> For residential properties where the borrower (or family) will occupy the asset.</li>
+                    <li><strong>Unregulated Bridging Loans:</strong> For investment property, commercial property or business transactions.</li>
                     <li><strong>Refurbishment Bridging:</strong> Funding that includes capital for light or heavy refurbishment works.</li>
                     <li><strong>Development Exit:</strong> Designed to refinance completed developments while awaiting sale.</li>
                 </ul>
 
                 <h3>Bridging Loans vs Commercial Mortgages</h3>
-                <p>Bridging finance is not a long-term solution. If your objective is property ownership or income generation, a structured <a href="/funding-solutions/commercial-mortgages">Commercial Mortgage</a> may provide lower long-term cost and stability.</p>
+                <p>A bridging loan is not a long-term solution. If your objective is property ownership or income generation, a structured <a href="/funding-solutions/commercial-mortgages">Commercial Mortgage</a> may provide lower long-term cost and stability.</p>
 
                 <h3>Frequently Asked Questions</h3>
-                <p><strong>How quickly can bridging finance be arranged?</strong><br />In some cases, funding can complete within 7–14 days, subject to valuation and legal process.</p>
+                <p><strong>How quickly can a bridging loan be arranged?</strong><br />In some cases, funding can complete within 7–14 days, subject to valuation and legal process.</p>
                 <p><strong>What is the typical term of a bridging loan?</strong><br />Most facilities range from 3 to 18 months.</p>
                 <p><strong>Can interest be rolled up?</strong><br />Yes. Interest can often be retained or rolled into the facility, reducing monthly payment pressure.</p>
-                <p><strong>What loan-to-value is available?</strong><br />Typically ranges from 60% to 75%, depending on asset type and exit strategy.</p>
+                <p><strong>What loan-to-value is available on a bridging loan?</strong><br />Typically ranges from 60% to 75%, depending on asset type and exit strategy.</p>
             </>
         ),
         ctaOverride: {
