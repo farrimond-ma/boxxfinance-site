@@ -47,6 +47,19 @@ const WINDOW_DAYS    = 90;
 const SC_LAG_DAYS    = 3;                  // Search Console data lags ~3 days
 const MAX_TRENDING_GAPS = 15;
 
+// Ranking milestones — concrete checkpoints measured from the July 2026 indexing
+// reset (before that, pages were not cleanly indexed so rankings did not count).
+// Average position is the leading indicator; it improves before clicks arrive.
+// `dir: below` means we want the metric UNDER the target (position);
+// `dir: above` means we want it OVER the target (clicks).
+const MILESTONES = [
+  { date: '2026-10-31', metric: 'position', target: 30,  dir: 'below', label: 'Long-tail & location pages climbing' },
+  { date: '2026-12-31', metric: 'position', target: 20,  dir: 'below', label: 'Reaching page 2, first steady clicks' },
+  { date: '2026-12-31', metric: 'clicks',   target: 150, dir: 'above', label: 'Clicks compounding (vs ~40 baseline)' },
+  { date: '2027-04-30', metric: 'position', target: 15,  dir: 'below', label: 'Head terms into striking distance' },
+  { date: '2027-09-30', metric: 'position', target: 10,  dir: 'below', label: 'Competitive terms onto page 1' },
+];
+
 // ─── Auth (matches search-console-insights.js) ───────────────────────────────
 
 async function getAuth() {
@@ -180,6 +193,39 @@ function buildVerdict(cur, pri) {
   return { health, lines, imprChange, clickChange, posDelta };
 }
 
+// ─── Milestone tracker ────────────────────────────────────────────────────────
+// Grades each checkpoint against the current numbers so there are concrete
+// targets to hold the strategy against, not just a vibe.
+
+function evaluateMilestones(cur, verdict) {
+  const today = isoDate(new Date());
+  return MILESTONES.map(m => {
+    const value = m.metric === 'position' ? cur.position
+      : m.metric === 'clicks' ? cur.clicks : cur.impressions;
+    const met = m.dir === 'below' ? value <= m.target : value >= m.target;
+
+    let status;
+    if (met) {
+      status = '✅ met';
+    } else if (today > m.date) {
+      status = '⚠ missed — needs attention';
+    } else {
+      // Upcoming: judge by trajectory. Position improving = negative posDelta.
+      const improving = m.metric === 'position'
+        ? verdict.posDelta < -0.2
+        : (m.metric === 'clicks' ? verdict.clickChange > 5 : verdict.imprChange > 5);
+      status = improving ? 'on track' : 'at risk — trend flat';
+    }
+
+    const target = m.metric === 'position' ? `avg position < ${m.target}`
+      : m.metric === 'clicks' ? `≥ ${m.target} clicks / 90d`
+      : `≥ ${m.target} impressions`;
+    const current = m.metric === 'position' ? cur.position.toFixed(1) : String(value);
+
+    return { date: m.date, label: m.label, target, current, status };
+  });
+}
+
 // ─── Trending (rising) content gaps ──────────────────────────────────────────
 // Queries whose impressions are rising fast but that rank below page 1 and have
 // no dedicated page — the best candidates for new content. Fed into the same
@@ -271,7 +317,7 @@ async function ensureTab(sheets, title) {
   }
 }
 
-async function writeReportTab(sheets, cur, pri, verdict, windows, geo, trending) {
+async function writeReportTab(sheets, cur, pri, verdict, windows, geo, trending, milestones) {
   await ensureTab(sheets, REPORT_TAB);
   await sheets.spreadsheets.values.clear({ spreadsheetId: SPREADSHEET_ID, range: `${REPORT_TAB}!A:F` });
 
@@ -300,6 +346,11 @@ async function writeReportTab(sheets, cur, pri, verdict, windows, geo, trending)
       : 'AI presence is below half of checks — Action 0 in the engine schedules authority articles to close these GEO gaps.']);
     rows.push([]);
   }
+
+  rows.push(['RANKING MILESTONES (targets measured from the July 2026 indexing reset)']);
+  rows.push(['TARGET DATE', 'GOAL', 'TARGET', 'CURRENT', 'STATUS']);
+  milestones.forEach(m => rows.push([m.date, m.label, m.target, m.current, m.status]));
+  rows.push([]);
 
   rows.push(['TRENDING QUERIES FEEDING THE CONTENT ENGINE (rising impressions, no dedicated page)']);
   rows.push(['QUERY', 'POSITION', 'IMPRESSIONS (90d)', 'PRIOR 90d', 'GROWTH', 'CLICKS']);
@@ -380,7 +431,7 @@ async function appendTrendingGaps(sheets, trending) {
 
 // ─── GitHub Actions run summary ──────────────────────────────────────────────
 
-function writeStepSummary(cur, pri, verdict, geo, trending, windows) {
+function writeStepSummary(cur, pri, verdict, geo, trending, windows, milestones) {
   if (!process.env.GITHUB_STEP_SUMMARY) return;
   const l = [];
   l.push('## 📊 90-Day Search Console Performance Report');
@@ -395,6 +446,11 @@ function writeStepSummary(cur, pri, verdict, geo, trending, windows) {
   l.push('');
   verdict.lines.forEach(line => l.push('- ' + line));
   if (geo) { l.push(''); l.push(`**GEO:** Boxx named in ${geo.boxxMentionRate}% of ${geo.checks} AI checks (avg ${geo.avgCompetitors} competitors).`); }
+  l.push('');
+  l.push('**Ranking milestones**');
+  l.push('| Target date | Goal | Target | Current | Status |');
+  l.push('|---|---|---|---|---|');
+  milestones.forEach(m => l.push(`| ${m.date} | ${m.label} | ${m.target} | ${m.current} | ${m.status} |`));
   l.push('');
   l.push(`**Trending queries feeding the content engine:** ${trending.length}`);
   trending.slice(0, 8).forEach(t => l.push(`- \`${t.query}\` — ${t.impressions} impr @ pos ${t.position} (${t.growth === Infinity ? 'new' : t.growth.toFixed(1) + '×'})`));
@@ -445,12 +501,16 @@ async function main() {
   const geo = await readAIVisibilitySummary(sheets);
   if (geo) console.log(`\n  GEO: Boxx in ${geo.boxxMentionRate}% of ${geo.checks} AI checks`);
 
+  const milestones = evaluateMilestones(cur, verdict);
+  console.log('\n  Milestones:');
+  milestones.forEach(m => console.log(`   • ${m.date} ${m.label} — ${m.target} (now ${m.current}): ${m.status}`));
+
   console.log('\nWriting to Google Sheet...');
-  await writeReportTab(sheets, cur, pri, verdict, windows, geo, trending);
+  await writeReportTab(sheets, cur, pri, verdict, windows, geo, trending, milestones);
   await appendHistory(sheets, cur, verdict);
   await appendTrendingGaps(sheets, trending);
 
-  writeStepSummary(cur, pri, verdict, geo, trending, windows);
+  writeStepSummary(cur, pri, verdict, geo, trending, windows, milestones);
 
   console.log('\n✅ Done. View report at:');
   console.log(`   https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}\n`);
