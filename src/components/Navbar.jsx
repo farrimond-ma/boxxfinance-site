@@ -7,10 +7,11 @@ const Navbar = () => {
 
     // Permanently white with the gold logo (the old "scrolled" style) —
     // matches the reference broker sites; no scroll-state switching.
-    // No ?v= cache-buster: SiteGround's proxy had poisoned the '?v=2' URL
-    // variant (returned 304-empty to every browser → blank logo). The plain
-    // URL serves a clean 200; the file is stable so no buster is needed.
-    const logoSrc = '/logo_scroll.png';
+    // WebP (21KB) with a PNG fallback: if the webp ever fails to load for
+    // ANY reason (404, a poisoned proxy-cache 304-empty like the ?v=2 one
+    // that blanked the logo, a decode error), onError swaps to the known-good
+    // PNG once. No ?v= cache-buster — the file is stable and the buster is
+    // what created the poisonable distinct cache key.
 
     return (
         <nav className="navbar scrolled">
@@ -18,9 +19,15 @@ const Navbar = () => {
                 <div className="navbar-logo">
                     <Link to="/">
                         <img
-                            src={logoSrc}
+                            src="/logo_scroll.webp"
                             alt="Boxx Commercial Finance"
                             className="navbar-logo-img"
+                            onError={(e) => {
+                                if (!e.currentTarget.dataset.fallback) {
+                                    e.currentTarget.dataset.fallback = '1';
+                                    e.currentTarget.src = '/logo_scroll.png';
+                                }
+                            }}
                         />
                     </Link>
                 </div>
