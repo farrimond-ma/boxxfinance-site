@@ -1,0 +1,52 @@
+name: Index Coverage
+
+# Weekly watchdog that verifies Google is actually INDEXING the site (not just
+# crawling it). Samples the sitemap + every key money page via the Search Console
+# URL Inspection API and fails — triggering the Failure Watchdog email — if key
+# pages are in an error state (redirect / canonical / noindex) or the sample-wide
+# error rate crosses the threshold. This is the check that was missing when the
+# site sat at position ~40 for months.
+
+on:
+  # Mondays 07:10 UTC — before the Search Console insights job (07:43)
+  schedule:
+    - cron: '10 7 * * 1'
+
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (no API calls)'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  coverage:
+    name: Check index coverage
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run index coverage watchdog
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node gsc-index-coverage.js --dry-run
+          else
+            node gsc-index-coverage.js
+          fi
