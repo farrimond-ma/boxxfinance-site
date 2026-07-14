@@ -24,7 +24,10 @@ const GuidesList = ({ service, currentSlug, max = 10 }) => {
     guides = guides.slice(0, max);
     if (guides.length === 0) return null;
 
-    const label = service ? `More ${service.toLowerCase()} guides` : 'More guides';
+    // "Bridging Finance" is the internal service identity; the public-facing
+    // term is "bridging loans" (2026-07 strategic focus), so display that.
+    const displayService = (service || '').replace(/bridging finance/i, 'bridging loans');
+    const label = displayService ? `More ${displayService.toLowerCase()} guides` : 'More guides';
 
     return (
         <section className="resource-guides" aria-label={label}>

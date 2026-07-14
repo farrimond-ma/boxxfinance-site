@@ -271,7 +271,7 @@ THIS IS THE MOST IMPORTANT SECTION. Genuine local market insight:
 - The ${city} property market (housing stock, price trends, regeneration areas, popular investment areas)
 - Common bridging deal types and structures seen in this area
 - Lender appetite for ${city} property and how loan-to-value works locally
-- Any regional factors relevant to bridging finance in this city
+- Any regional factors relevant to bridging loans in this city
 This must feel written by someone who actually arranges bridging loans in ${city} — not a generic paragraph with the city name swapped in. 2–3 substantive paragraphs.
 
 4. <h2>Our Bridging Loan Solutions for ${city} Borrowers</h2>
@@ -299,12 +299,12 @@ WORD COUNT: Minimum 1000 words in the content field.
 TONE AND QUALITY:
 - Every section must feel genuinely written for ${city} — not a template with city name swapped
 - Short paragraphs throughout
-- Include natural keyword variations: "bridging loans ${city}", "bridging loan broker ${city}", "bridging finance ${city}", "property finance ${city}"
+- Include natural keyword variations: "bridging loans ${city}", "bridging loan broker ${city}", "bridging loan lender ${city}", "property finance ${city}"
 - Mention "Boxx Commercial Finance" 2–3 times — as plain text, NOT as a hyperlink
 - Do NOT add a link to https://boxxfinance.co.uk/#about or https://boxxfinance.co.uk/about-us
 
 BRIDGING TERMINOLOGY (mandatory):
-- Use both "bridging loans" and "bridging finance" in roughly equal measure throughout — homeowners search "bridging loans ${city}" more than "bridging finance ${city}", so the page must rank for both. Alternate naturally as a real broker would in conversation.
+- "Bridging loans" is the ONLY primary term. Use "bridging loan" / "bridging loans" throughout. Do NOT use "bridging finance" — we are deliberately concentrating all ranking signal on "bridging loans". If a sentence would naturally reach for "bridging finance", rewrite it with "bridging loan(s)" or a neutral phrase like "short-term property finance".
 - At least one <h2> must contain the phrase "Bridging Loans in ${city}"
 - At least one FAQ question must use "bridging loan" phrasing
 - metaDescription must include the phrase "bridging loans"

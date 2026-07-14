@@ -166,21 +166,17 @@ async function getPublishedLocations(_sheets, service) {
 
     const serviceLabel = (service || '').trim();
     // Build keyword-rich anchor text for each location link.
-    // Bridging finance alternates "bridging loans" / "bridging finance" to target both terms.
+    // Bridging is anchored on "bridging loans" only — the strategic focus term
+    // (2026-07). Do NOT reintroduce "bridging finance" here; we are deliberately
+    // concentrating all bridging ranking signal on "bridging loans".
     const isBridging = serviceSlug === 'bridging-finance';
-    let altIdx = 0;
     return pages
       .filter(p => p.status === 'published' && toSlug(p.service) === serviceSlug)
       .slice(0, 4)
       .map(p => {
-        let anchor;
-        if (isBridging) {
-          anchor = altIdx++ % 2 === 0
-            ? `bridging loans in ${p.location}`
-            : `bridging finance in ${p.location}`;
-        } else {
-          anchor = `${serviceLabel.toLowerCase()} in ${p.location}`;
-        }
+        const anchor = isBridging
+          ? `bridging loans in ${p.location}`
+          : `${serviceLabel.toLowerCase()} in ${p.location}`;
         return { url: `/locations/${p.slug}`, anchor };
       });
   } catch (err) {
@@ -314,12 +310,13 @@ Service: ${row.service}
 Category: ${row.category}
 Content brief: ${row.contentBrief || 'Write a comprehensive UK SME-focused advisory article'}
 
-${row.service === 'Bridging Finance' ? `BRIDGING FINANCE TERMINOLOGY (mandatory for all bridging articles):
-- Use both "bridging loans" and "bridging finance" naturally throughout — do not rely on just one term. Alternate between them as a real broker would in conversation.
+${row.service === 'Bridging Finance' ? `BRIDGING LOANS TERMINOLOGY (mandatory for all bridging articles):
+- "Bridging loans" is the ONLY primary term. Use "bridging loan" / "bridging loans" throughout — in the title, H1, first paragraph, headings and body. This is a deliberate strategic focus: concentrate all ranking signal on "bridging loans".
+- Do NOT use "bridging finance". Avoid it entirely. If a sentence would naturally reach for "bridging finance", rewrite it with "bridging loan(s)" or a neutral phrase like "short-term property finance" instead.
 - Include "developer finance" where the scenario involves property development, refurbishment, conversion or planning gain. Many bridging clients are developers — address them directly.
-- Target TWO audiences in every article: (1) residential property buyers, investors and homeowners (the larger market) and (2) property developers and commercial investors. Both use bridging. The residential scenario might be a chain break or auction purchase; the developer scenario might be a refurbishment or development exit. Include at least one example from each where the topic allows.
+- Target TWO audiences in every article: (1) residential property buyers, investors, landlords and homeowners (the larger market) and (2) property developers and commercial investors. Both use bridging loans. The residential scenario might be a chain break or auction purchase; the developer scenario might be a refurbishment or development exit. Include at least one example from each where the topic allows.
 - UK English throughout: "bridging loan" not "bridge loan", "property" not "real estate", "solicitor" not "attorney".
-- Phrases to use naturally: "short-term property finance", "fast property finance", "specialist property finance" — these widen search reach without keyword stuffing.` : ''}`,
+- Phrases to use naturally alongside "bridging loans": "short-term property finance", "fast property finance", "specialist property finance" — these widen search reach without reintroducing "bridging finance".` : ''}`,
       },
     ],
   });

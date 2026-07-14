@@ -72,10 +72,16 @@ const BlogPost = () => {
 
     const authorData = AUTHORS[post.author] || AUTHORS['Mark Higgins'];
     // Bridging posts use the curated property pool so none can show an
-    // off-theme (e.g. office) image baked in at publish time. Other services
-    // keep their own hero.
+    // off-theme (e.g. office) image baked in at publish time — UNLESS the post
+    // has a bespoke image named after its own slug (e.g. a topical HMO shot for
+    // bridging-loans-for-hmo-conversion), in which case that always wins.
+    // Other services keep their own hero.
     const isBridging = (post.service || '').toLowerCase().includes('bridging');
-    const heroImage = isBridging ? pickHero(post.slug) : (post.heroImage || post.image || null);
+    const ownImage = post.heroImage || post.image || null;
+    const ownImageIsBespoke = ownImage && post.slug && ownImage.includes(post.slug);
+    const heroImage = ownImageIsBespoke
+        ? ownImage
+        : (isBridging ? pickHero(post.slug) : ownImage);
 
     const articleSchema = {
         '@context': 'https://schema.org',

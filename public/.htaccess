@@ -71,6 +71,9 @@ Options -Indexes -MultiViews
   RewriteRule ^funding-solutions/bridging-finance$ /funding-solutions/bridging-loans [R=301,L]
   RewriteRule ^chat-about-funding/bridging-finance$ /chat-about-funding/bridging-loans [R=301,L]
 
+  # Blog posts retitled to "bridging loans" (2026-07)
+  RewriteRule ^insights/bridging-finance-for-hmo-conversion$ /insights/bridging-loans-for-hmo-conversion [R=301,L]
+
   # Old application form
   RewriteRule ^start-application/.*$ /chat-about-funding [R=301,L]
 

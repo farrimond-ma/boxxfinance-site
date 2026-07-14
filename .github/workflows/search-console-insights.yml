@@ -44,6 +44,18 @@ jobs:
             node search-console-insights.js
           fi
 
+      - name: 90-day performance report + trending gaps
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node gsc-performance-report.js --dry-run
+          else
+            node gsc-performance-report.js
+          fi
+
       - name: Act on Search Console data
         working-directory: scripts/content-engine
         env:
