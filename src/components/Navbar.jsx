@@ -7,7 +7,10 @@ const Navbar = () => {
 
     // Permanently white with the gold logo (the old "scrolled" style) —
     // matches the reference broker sites; no scroll-state switching.
-    const logoSrc = '/logo_scroll.png?v=2';
+    // No ?v= cache-buster: SiteGround's proxy had poisoned the '?v=2' URL
+    // variant (returned 304-empty to every browser → blank logo). The plain
+    // URL serves a clean 200; the file is stable so no buster is needed.
+    const logoSrc = '/logo_scroll.png';
 
     return (
         <nav className="navbar scrolled">
