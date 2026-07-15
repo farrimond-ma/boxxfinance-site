@@ -8,7 +8,7 @@
     "predev": "npm run split",
     "dev": "vite",
     "prebuild": "npm run split",
-    "build": "vite build && npm run prerender && npm run sitemap && npm run rss && npm run rss-linkedin",
+    "build": "vite build && npm run sitemap && npm run prerender && npm run rss && npm run rss-linkedin",
     "prebuild:ci": "npm run split",
     "build:ci": "vite build && npm run sitemap && npm run rss && npm run rss-linkedin",
     "prerender": "node scripts/prerender.js",

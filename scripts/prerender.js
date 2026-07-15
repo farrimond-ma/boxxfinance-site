@@ -211,6 +211,70 @@ async function renderRoute(browser, route, options = {}) {
   console.log(`Prerendered: ${route} -> ${outputPath}`);
 }
 
+// ─── Route discovery ─────────────────────────────────────────────────────────
+// The sitemap is the single source of truth for what the site publishes, so it
+// is also the single source of truth for what gets prerendered.
+//
+// This used to be a hand-written list of four route shapes, and it silently
+// rotted: the 12 service pages, the funding-solutions hub, the SME index and the
+// legal pages were all added to the site and never prerendered, so any crawler
+// that does not execute JavaScript (most AI answer engines) saw an empty React
+// shell. Deriving from the sitemap means every new page type is covered
+// automatically, and the completeness check in main() fails the build if any
+// sitemap URL does not produce HTML.
+//
+// Requires `npm run sitemap` to have run first — see the build script order.
+function readSitemapRoutes() {
+  const candidates = [
+    path.join(distDir, 'sitemap.xml'),
+    path.resolve(__dirname, '../public/sitemap.xml'),
+  ];
+  const file = candidates.find((f) => fs.existsSync(f));
+  if (!file) {
+    throw new Error(
+      `sitemap.xml not found (looked in: ${candidates.join(', ')}). ` +
+      `Run "npm run sitemap" before "npm run prerender".`
+    );
+  }
+
+  const xml = fs.readFileSync(file, 'utf8');
+  const routes = [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)]
+    .map((m) => m[1].trim().replace(/^https?:\/\/[^/]+/, ''))
+    .map((r) => (r === '' ? '/' : r))
+    .filter((r) => r.startsWith('/'));
+
+  const unique = [...new Set(routes)];
+  if (unique.length === 0) {
+    throw new Error(`No <loc> entries found in ${file} — refusing to prerender nothing.`);
+  }
+  return unique;
+}
+
+// Per-route-shape assertions. Anything without a specific shape still renders,
+// it just has no extra content assertions beyond the render succeeding.
+function optionsForRoute(route, ctx) {
+  if (route === '/insights') {
+    return { isInsightsRoute: true, expectedMinimumCards: Math.min(2, ctx.publishedPostCount || 1) };
+  }
+  if (route.startsWith('/insights/')) {
+    return { isArticleRoute: true };
+  }
+  if (route.startsWith('/locations/')) {
+    const slug = route.slice('/locations/'.length);
+    return { isLocationRoute: true, expectedTitle: ctx.locationTitles.get(slug) || '' };
+  }
+  return {};
+}
+
+// Mirrors the output logic in renderRoute so main() can verify every route
+// actually produced a file on disk.
+function outputPathForRoute(route) {
+  if (route === '/') return path.join(distDir, 'index.html');
+  const clean = route.replace(/^\//, '');
+  if (route.startsWith('/locations/')) return path.join(distDir, `${clean}.html`);
+  return path.join(distDir, clean, 'index.html');
+}
+
 async function main() {
   if (!fs.existsSync(distDir)) {
     throw new Error(`dist folder not found at ${distDir}`);
@@ -229,6 +293,8 @@ async function main() {
 
   const locationPages = JSON.parse(fs.readFileSync(locationDataPath, 'utf8'));
   const publishedLocationPages = locationPages.filter((page) => page.status === 'published');
+
+  const routes = readSitemapRoutes();
 
   const executablePath =
     process.env.PUPPETEER_EXECUTABLE_PATH ||
@@ -254,39 +320,37 @@ async function main() {
 
   const server = await startStaticServer();
 
+  const ctx = {
+    publishedPostCount: publishedPosts.length,
+    locationTitles: new Map(
+      publishedLocationPages.filter((p) => p?.slug).map((p) => [p.slug, p.title])
+    ),
+  };
+
+  console.log(`Prerendering ${routes.length} routes discovered from the sitemap...\n`);
+
   try {
-    await renderRoute(browser, '/');
-    await renderRoute(browser, '/insights', {
-      isInsightsRoute: true,
-      expectedMinimumCards: Math.min(2, publishedPosts.length || 1)
-    });
-
-    // The SME Funding Index exists to be cited — by Google and by AI answer
-    // engines, which largely do not execute JavaScript. Without prerendering,
-    // crawlers get an empty React shell with no figures and no Dataset schema,
-    // which defeats the point of the page.
-    await renderRoute(browser, '/uk-sme-funding-index');
-
-    for (const post of publishedPosts) {
-      if (post?.slug) {
-        await renderRoute(browser, `/insights/${post.slug}`, {
-          isArticleRoute: true
-        });
-      }
-    }
-
-    for (const locationPage of publishedLocationPages) {
-      if (locationPage?.slug) {
-        await renderRoute(browser, `/locations/${locationPage.slug}`, {
-          isLocationRoute: true,
-          expectedTitle: locationPage.title
-        });
-      }
+    for (const route of routes) {
+      await renderRoute(browser, route, optionsForRoute(route, ctx));
     }
   } finally {
     await browser.close();
     server.close();
   }
+
+  // Completeness gate — this is what stops the route list rotting again.
+  // Every URL we tell Google about in the sitemap must exist as real HTML on
+  // disk. If a new page type is added and somehow doesn't render, the BUILD
+  // FAILS here rather than quietly shipping a JS-only page to crawlers.
+  const missing = routes.filter((r) => !fs.existsSync(outputPathForRoute(r)));
+  if (missing.length > 0) {
+    throw new Error(
+      `Prerender incomplete — ${missing.length} sitemap route(s) produced no HTML:\n  ` +
+      missing.join('\n  ')
+    );
+  }
+
+  console.log(`\n✅ All ${routes.length} sitemap routes prerendered — every URL in the sitemap is real HTML.`);
 }
 
 main().catch((err) => {
