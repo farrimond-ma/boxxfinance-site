@@ -72,13 +72,13 @@ const SERVICE_META = {
   'Cashflow Finance': {
     slug: 'cashflow-finance',
     author: 'Andrew Farrimond',
-    serviceUrl: '/funding-solutions/cashflow-finance',
+    serviceUrl: '/funding-solutions/working-capital',
     category: 'Cashflow Finance',
   },
   'Mezzanine Finance': {
     slug: 'mezzanine-finance',
     author: 'Mark Higgins',
-    serviceUrl: '/funding-solutions/mezzanine-finance',
+    serviceUrl: '/funding-solutions/structured-finance',
     category: 'Mezzanine Finance',
   },
   'Structured Finance': {

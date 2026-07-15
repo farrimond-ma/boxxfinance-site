@@ -43,9 +43,9 @@ const SERVICE_META = {
   'Asset Finance':       { slug: 'asset-finance',       author: 'Andrew Farrimond',url: '/funding-solutions/asset-finance'       },
   'Working Capital':     { slug: 'working-capital',     author: 'Andrew Farrimond',url: '/funding-solutions/working-capital'     },
   'Trade Finance':       { slug: 'trade-finance',       author: 'Andrew Farrimond',url: '/funding-solutions/trade-finance'       },
-  'Cashflow Finance':    { slug: 'cashflow-finance',    author: 'Andrew Farrimond',url: '/funding-solutions/cashflow-finance'    },
+  'Cashflow Finance':    { slug: 'cashflow-finance',    author: 'Andrew Farrimond',url: '/funding-solutions/working-capital'    },
   'Business Loans':      { slug: 'business-loans',      author: 'Andrew Farrimond',url: '/funding-solutions/business-loans'      },
-  'Mezzanine Finance':   { slug: 'mezzanine-finance',   author: 'Mark Higgins',    url: '/funding-solutions/mezzanine-finance'  },
+  'Mezzanine Finance':   { slug: 'mezzanine-finance',   author: 'Mark Higgins',    url: '/funding-solutions/structured-finance'  },
   'Structured Finance':  { slug: 'structured-finance',  author: 'Mark Higgins',    url: '/funding-solutions/structured-finance' },
 };
 

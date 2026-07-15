@@ -60,6 +60,34 @@ Options -Indexes -MultiViews
   RewriteCond %{HTTP_HOST} ^www\.boxxfinance\.co\.uk [NC]
   RewriteRule ^(.*)$ https://boxxfinance.co.uk/$1 [R=301,L]
 
+  # ── Retired pages → closest living page (SOFT 404 fixes, 2026-07-15) ───────
+  # This is a React SPA: any unknown URL still serves index.html with HTTP 200,
+  # React renders the NotFound component, and Google logs a SOFT 404 because it
+  # never receives a real 404 status. Explicit 301s are the only fix. Each rule
+  # below was confirmed against a GSC Soft 404 export.
+  #
+  # Retired posts — these slugs no longer exist in blogPosts.json. Matched on
+  # both /advice/ and /insights/ because Google has crawled both forms.
+  RewriteRule ^(?:advice|insights)/understanding-asset-finance-growth/?$ /funding-solutions/asset-finance [R=301,L]
+  RewriteRule ^(?:advice|insights)/role-commercial-finance-broker/?$ /funding-solutions [R=301,L]
+  RewriteRule ^(?:advice|insights)/commercial-finance-smes-right-funding-structure/?$ /funding-solutions [R=301,L]
+  RewriteRule ^(?:advice|insights)/understanding-loan-costs-mistakes-to-avoid/?$ /insights/bridging-loan-costs-breakdown [R=301,L]
+
+  # Bare /advice index — the /advice/(.+) rule below requires a suffix, so this fell through to a soft 404.
+  RewriteRule ^advice/?$ /insights [R=301,L]
+
+  # Old "-in-" location slug scheme (bridging-loans-in-london → bridging-loans-london).
+  # Safe: no current slug contains "-in-" (verified against locationPages.json).
+  RewriteRule ^locations/bridging-loans-in-(.+)$ /locations/bridging-loans-$1 [R=301,L]
+
+  # Service pages that were linked by the content engine but never built.
+  # The engine's maps now point at these real pages; this catches what Google already crawled.
+  RewriteRule ^funding-solutions/cashflow-finance/?$ /funding-solutions/working-capital [R=301,L]
+  RewriteRule ^funding-solutions/mezzanine-finance/?$ /funding-solutions/structured-finance [R=301,L]
+
+  # /about-us was never a route — About lives on the homepage. NE preserves the #.
+  RewriteRule ^about-us/?$ /#about [R=301,NE,L]
+
   # ── Legacy URL redirects ────────────────────────────────────────────────────
   # Old /advice/* posts moved to /insights/*
   RewriteRule ^advice/(.+)$ /insights/$1 [R=301,L]
@@ -82,6 +110,13 @@ Options -Indexes -MultiViews
   # rewrites) so this never loops with the internal .html rewrite below.
   RewriteCond %{THE_REQUEST} !\s/[^?\s]*index\.html
   RewriteCond %{THE_REQUEST} \s/([^?\s]+)\.html[\s?]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # ── /page.htm → /page ──────────────────────────────────────────────────────
+  # The .html rule above cannot match .htm (it requires the trailing "l"), so
+  # .htm URLs fell through to the SPA and logged as soft 404s. Distinct pattern,
+  # so this never double-fires with the .html rule.
+  RewriteCond %{THE_REQUEST} \s/([^?\s]+)\.htm[\s?]
   RewriteRule ^ /%1 [R=301,L]
 
   # ── Remove trailing slashes (root excluded by the pattern) ──────────────────

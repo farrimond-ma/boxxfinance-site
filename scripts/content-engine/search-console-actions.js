@@ -84,8 +84,8 @@ const SERVICE_URLS = {
   'Business Loans':      '/funding-solutions/business-loans',
   'Working Capital':     '/funding-solutions/working-capital',
   'Trade Finance':       '/funding-solutions/trade-finance',
-  'Cashflow Finance':    '/funding-solutions/cashflow-finance',
-  'Mezzanine Finance':   '/funding-solutions/mezzanine-finance',
+  'Cashflow Finance':    '/funding-solutions/working-capital',
+  'Mezzanine Finance':   '/funding-solutions/structured-finance',
   'Structured Finance':  '/funding-solutions/structured-finance',
 };
 
