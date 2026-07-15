@@ -261,6 +261,12 @@ async function main() {
       expectedMinimumCards: Math.min(2, publishedPosts.length || 1)
     });
 
+    // The SME Funding Index exists to be cited — by Google and by AI answer
+    // engines, which largely do not execute JavaScript. Without prerendering,
+    // crawlers get an empty React shell with no figures and no Dataset schema,
+    // which defeats the point of the page.
+    await renderRoute(browser, '/uk-sme-funding-index');
+
     for (const post of publishedPosts) {
       if (post?.slug) {
         await renderRoute(browser, `/insights/${post.slug}`, {

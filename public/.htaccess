@@ -67,10 +67,19 @@ Options -Indexes -MultiViews
   # the content is permanently gone with no equivalent replacement, so the URLs
   # are dropped from the index rather than consolidated onto the new page.
   #
-  # NOTE: this matches the ARCHIVE URLs only (/uk-sme-funding-index/<something>).
-  # The base /uk-sme-funding-index page has been rebuilt on real Bank of England
-  # data (see scripts/fetch-sme-index.js) and must continue to serve normally.
-  RewriteRule ^uk-sme-funding-index/.+$ - [G,L]
+  # Matches the ARCHIVE URLs only (/uk-sme-funding-index/<something>). The base
+  # /uk-sme-funding-index page has been rebuilt on real Bank of England data
+  # (see scripts/fetch-sme-index.js) and must continue to serve normally.
+  #
+  # Guarded on THE_REQUEST (the original request line) rather than the current
+  # URI. The base page is prerendered to uk-sme-funding-index/index.html, so the
+  # internal directory rewrite below turns /uk-sme-funding-index into
+  # uk-sme-funding-index/index.html and mod_rewrite re-runs this ruleset — a
+  # URI-based pattern would then match that rewritten path and 410 the real page.
+  # THE_REQUEST never changes during internal rewrites, so this only ever fires
+  # for a genuine external request to an archive URL.
+  RewriteCond %{THE_REQUEST} \s/uk-sme-funding-index/[^?\s]
+  RewriteRule ^ - [G,L]
 
   # ── Retired pages → closest living page (SOFT 404 fixes, 2026-07-15) ───────
   # This is a React SPA: any unknown URL still serves index.html with HTTP 200,
