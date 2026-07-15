@@ -5,6 +5,8 @@ on:
   # Publishes PM-slot blogs â€” visibility-gap content added by the weekly sync.
   schedule:
     - cron: '7 10 * * *'
+    # Second PM-slot run added 2026-07-15 to drain the backlog faster (doubles PM throughput to ~2/day)
+    - cron: '7 15 * * *'
 
   workflow_dispatch:
     inputs:

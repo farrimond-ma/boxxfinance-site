@@ -29,9 +29,14 @@ function getUnpostedBlog(posts, flag) {
   const cutoffDate = cutoff.toISOString().split('T')[0];
   return posts.filter(p =>
     p.status === 'published' && !p[flag] &&
-    p.date >= cutoffDate && p.date <= today &&
+    // Use the real publish timestamp, not the (possibly long-past) scheduled
+    // date — a backlogged post that finally goes live days late must still
+    // get its 3-day window from *today*, not from its stale scheduled date.
+    // Posts published before this field existed have no publishedAt and are
+    // deliberately excluded rather than flooding social all at once.
+    p.publishedAt && p.publishedAt.slice(0, 10) >= cutoffDate && p.publishedAt.slice(0, 10) <= today &&
     (!SERVICE_FILTER || p.service === SERVICE_FILTER)
-  ).sort((a, b) => a.date.localeCompare(b.date))[0] || null;
+  ).sort((a, b) => a.publishedAt.localeCompare(b.publishedAt))[0] || null;
 }
 function getArticleText(post, maxLen) {
   if (!post.content) return '';

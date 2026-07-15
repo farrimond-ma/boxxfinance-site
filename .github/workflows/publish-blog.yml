@@ -4,6 +4,8 @@ on:
   schedule:
     # 6:37 AM UTC = 7:37 AM UK time (BST). Runs every day. (staggered off :30 to dodge scheduler queueing)
     - cron: '37 6 * * *'
+    # Second AM-slot run added 2026-07-15 to drain the backlog faster (doubles AM throughput to ~2/day)
+    - cron: '37 12 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 permissions:

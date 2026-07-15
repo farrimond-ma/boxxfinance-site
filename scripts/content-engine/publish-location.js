@@ -446,8 +446,9 @@ async function main() {
     return;
   }
 
-  // Cap at 5 per run — prevents publishing a backlog all at once if dates go stale
-  const MAX_PER_RUN = 5;
+  // Cap at 10 per run (raised from 5 on 2026-07-15 to drain the backlog faster)
+  // — still prevents publishing the entire backlog in one run if dates go stale
+  const MAX_PER_RUN = 10;
   const dueRows = allDueRows.slice(0, MAX_PER_RUN);
   console.log(`Found ${allDueRows.length} eligible location page(s); processing ${dueRows.length} this run (cap: ${MAX_PER_RUN})`);
 

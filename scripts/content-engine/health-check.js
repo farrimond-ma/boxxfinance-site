@@ -118,19 +118,23 @@ function verifySocialFlag({ posts, today }, flagName, label) {
   const cutoff = new Date(); cutoff.setUTCDate(cutoff.getUTCDate() - LOOKBACK_DAYS);
   const cutoffDate = cutoff.toISOString().split('T')[0];
 
+  // Mirrors the publishers' own fix: eligibility uses the real publish
+  // timestamp, not the (possibly long-past) scheduled date. Posts published
+  // before this field existed have no publishedAt and are deliberately
+  // excluded, matching the publishers' own backlog-exclusion behavior.
   const eligible = posts.filter(p =>
     p.status === 'published' && !p[flagName] &&
-    p.date >= cutoffDate && p.date <= today &&
+    p.publishedAt && p.publishedAt.slice(0, 10) >= cutoffDate && p.publishedAt.slice(0, 10) <= today &&
     matchesFilter(p.service)
-  ).sort((a, b) => a.date.localeCompare(b.date));
+  ).sort((a, b) => a.publishedAt.localeCompare(b.publishedAt));
 
   if (eligible.length > 0) {
     const p = eligible[0];
-    return fail(`${eligible.length} eligible "${SERVICE_FILTER || 'any-service'}" post(s) are still waiting for ${label} — oldest: "${p.title}" (${p.date}, ${flagName} = false). The publisher ran but didn't post it — investigate.`);
+    return fail(`${eligible.length} eligible "${SERVICE_FILTER || 'any-service'}" post(s) are still waiting for ${label} — oldest: "${p.title}" (published ${p.publishedAt}, ${flagName} = false). The publisher ran but didn't post it — investigate.`);
   }
 
-  const recentlyPosted = posts.filter(p => p[flagName] && p.date >= cutoffDate)
-    .sort((a, b) => b.date.localeCompare(a.date));
+  const recentlyPosted = posts.filter(p => p[flagName] && p.publishedAt && p.publishedAt.slice(0, 10) >= cutoffDate)
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
   if (recentlyPosted.length > 0) {
     const p = recentlyPosted[0];
     return ok(`${label} is up to date — most recent post flagged ${flagName}: "${p.title}" (${p.date}).`);

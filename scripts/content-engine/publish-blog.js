@@ -899,6 +899,7 @@ async function main() {
       ? article.secondaryKeywords.join(', ')
       : (article.secondaryKeywords || row.keyword),
     date: row.publishDate,
+    publishedAt,
     author: row.author || 'Mark Higgins',
     authorEmail: authorEmails[row.author] || 'mark@boxxfinance.co.uk',
     service: row.service || '',
