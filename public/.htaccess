@@ -60,15 +60,17 @@ Options -Indexes -MultiViews
   RewriteCond %{HTTP_HOST} ^www\.boxxfinance\.co\.uk [NC]
   RewriteRule ^(.*)$ https://boxxfinance.co.uk/$1 [R=301,L]
 
-  # ── UK SME Funding Index — REMOVED 2026-07-15, returns 410 Gone ────────────
-  # Every figure on these 62 pages was generated with Math.random() while the
-  # page claimed to aggregate "over 50 UK lenders" and cited the Bank of England
-  # and UK Finance as sources. Fabricated financial data must not be published by
-  # a regulated broker, so the section is deleted outright.
-  # 410 (not 301) is deliberate: it tells Google the content is permanently gone
-  # with no replacement, so these URLs get dropped from the index rather than
-  # consolidated onto another page.
-  RewriteRule ^uk-sme-funding-index(/.*)?$ - [G,L]
+  # ── UK SME Funding Index archives — REMOVED 2026-07-15, return 410 Gone ────
+  # The 61 monthly "archive" pages had every figure generated with Math.random()
+  # while claiming to aggregate "over 50 UK lenders" and citing the Bank of
+  # England as a source. They are deleted outright — 410 (not 301) tells Google
+  # the content is permanently gone with no equivalent replacement, so the URLs
+  # are dropped from the index rather than consolidated onto the new page.
+  #
+  # NOTE: this matches the ARCHIVE URLs only (/uk-sme-funding-index/<something>).
+  # The base /uk-sme-funding-index page has been rebuilt on real Bank of England
+  # data (see scripts/fetch-sme-index.js) and must continue to serve normally.
+  RewriteRule ^uk-sme-funding-index/.+$ - [G,L]
 
   # ── Retired pages → closest living page (SOFT 404 fixes, 2026-07-15) ───────
   # This is a React SPA: any unknown URL still serves index.html with HTTP 200,

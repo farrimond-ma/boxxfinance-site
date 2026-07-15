@@ -20,6 +20,7 @@ const Footer = () => {
                             <li><Link to="/funding-solutions">Funding Solutions</Link></li>
                             <li><a href="/#about">About Us</a></li>
                             <li><Link to="/insights">Insights</Link></li>
+                            <li><Link to="/uk-sme-funding-index">UK SME Funding Index</Link></li>
                             <li><a href="/#case-studies">Case Studies</a></li>
                             <li><a href="/#contact">Contact</a></li>
                         </ul>

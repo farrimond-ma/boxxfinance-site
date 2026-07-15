@@ -24,6 +24,7 @@ on:
       - "AI Visibility Check"
       - "Search Console Insights"
       - "Index Coverage"
+      - "SME Index Refresh"
       - "Reddit Monitor"
     types:
       - completed

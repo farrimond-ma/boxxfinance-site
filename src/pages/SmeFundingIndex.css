@@ -1,0 +1,232 @@
+.sme-page {
+    background: #fff;
+}
+
+.sme-hero {
+    background: linear-gradient(100deg, #0a192f 0%, #0a192f 55%, #0f2747 100%);
+    color: #fff;
+    padding: 90px 0 60px;
+}
+
+.sme-hero h1 {
+    color: #fff;
+    margin: 0 0 1rem;
+}
+
+.sme-sub {
+    max-width: 780px;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0 0 1.25rem;
+}
+
+.sme-asof {
+    max-width: 780px;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    border-left: 3px solid var(--color-secondary, #c9a227);
+    padding-left: 14px;
+    margin: 0;
+}
+
+.sme-asof strong {
+    color: var(--color-secondary, #c9a227);
+}
+
+.sme-body {
+    max-width: 960px;
+    padding: 48px 20px 72px;
+}
+
+.sme-section {
+    margin-bottom: 56px;
+}
+
+.sme-section h2 {
+    font-size: 1.6rem;
+    margin: 0 0 1rem;
+    color: #0a192f;
+}
+
+.sme-section p {
+    line-height: 1.75;
+    color: #333;
+}
+
+/* ── Stat cards ─────────────────────────────────────────────── */
+.sme-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.sme-stat {
+    border: 1px solid #e4e8ee;
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: #fbfcfd;
+}
+
+.sme-stat.headline {
+    border-color: var(--color-secondary, #c9a227);
+    background: #fffdf5;
+}
+
+.sme-stat-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #667;
+    font-weight: 500;
+}
+
+.sme-stat-value {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #0a192f;
+    line-height: 1.1;
+}
+
+.sme-stat-src {
+    font-size: 0.75rem;
+    color: #8a93a0;
+    margin-top: 4px;
+}
+
+.sme-change {
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.sme-change.up { color: #b3261e; }
+.sme-change.down { color: #1c7a4a; }
+.sme-change.flat { color: #8a93a0; }
+
+/* ── Chart ──────────────────────────────────────────────────── */
+.sme-chart {
+    margin: 0;
+}
+
+.sme-chart svg {
+    border: 1px solid #e4e8ee;
+    border-radius: 12px;
+    background: #fbfcfd;
+}
+
+.sme-line {
+    stroke: var(--color-secondary, #c9a227);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.sme-dot {
+    fill: var(--color-secondary, #c9a227);
+}
+
+.sme-axis {
+    stroke: #dfe4ea;
+    stroke-width: 1;
+}
+
+.sme-tick {
+    font-size: 11px;
+    fill: #8a93a0;
+}
+
+.sme-chart figcaption {
+    font-size: 0.82rem;
+    color: #667;
+    margin-top: 10px;
+    line-height: 1.55;
+}
+
+/* ── Table ──────────────────────────────────────────────────── */
+.sme-table-wrap {
+    overflow-x: auto;
+}
+
+.sme-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    min-width: 560px;
+}
+
+.sme-table th,
+.sme-table td {
+    text-align: left;
+    padding: 14px 12px;
+    border-bottom: 1px solid #e9edf2;
+    vertical-align: top;
+}
+
+.sme-table th {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #667;
+    font-weight: 600;
+    border-bottom: 2px solid #dfe4ea;
+}
+
+.sme-table tr.is-headline td {
+    background: #fffdf5;
+    font-weight: 500;
+}
+
+.sme-table td.num {
+    white-space: nowrap;
+}
+
+.sme-table code {
+    font-size: 0.82rem;
+    background: #f1f4f8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #445;
+}
+
+.sme-note {
+    display: block;
+    font-size: 0.82rem;
+    color: #7a828e;
+    font-weight: 400;
+    margin-top: 4px;
+    line-height: 1.5;
+}
+
+/* ── Methodology ────────────────────────────────────────────── */
+.sme-methodology {
+    background: #f7f9fb;
+    border: 1px solid #e4e8ee;
+    border-radius: 12px;
+    padding: 28px;
+}
+
+.sme-methodology p {
+    font-size: 0.92rem;
+}
+
+.sme-series-list code {
+    font-size: 0.82rem;
+    background: #eef2f7;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.sme-licence,
+.sme-disclaimer {
+    font-size: 0.82rem !important;
+    color: #7a828e !important;
+}
+
+@media (max-width: 640px) {
+    .sme-hero { padding: 70px 0 44px; }
+    .sme-stat-value { font-size: 2rem; }
+}

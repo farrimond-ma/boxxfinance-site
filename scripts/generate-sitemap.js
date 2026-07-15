@@ -15,6 +15,7 @@ const staticRoutes = [
     '/',
     '/insights',
     '/chat-about-funding',
+    '/uk-sme-funding-index',
     '/privacy-policy',
     '/legal-disclaimer',
     '/terms-and-conditions',
@@ -86,9 +87,12 @@ const getLocationSlugs = () => {
     }
 };
 
-// The UK SME Funding Index (62 URLs) was removed in 2026-07: every figure was
-// generated with Math.random() while the page claimed Bank of England / UK
-// Finance provenance. Those URLs now return 410 Gone — see public/.htaccess.
+// The UK SME Funding Index's 61 monthly "archive" URLs were removed in 2026-07:
+// every figure was generated with Math.random() while the page claimed Bank of
+// England / UK Finance provenance. Those archive URLs now return 410 Gone (see
+// public/.htaccess). The single /uk-sme-funding-index page was rebuilt on real
+// Bank of England IADB data (scripts/fetch-sme-index.js) and is listed above as
+// a static route. Do not reintroduce per-month archive URLs.
 
 const generateSitemap = () => {
     console.log('Generating sitemap...');

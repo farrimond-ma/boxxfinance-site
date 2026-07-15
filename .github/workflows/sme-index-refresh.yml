@@ -1,0 +1,82 @@
+name: SME Index Refresh
+
+# Keeps the UK SME Funding Index current from the Bank of England IADB.
+#
+# The Bank publishes effective interest rates roughly a month in arrears, so
+# this runs weekly to pick the new month up promptly. It is cheap (5 HTTP calls,
+# no API key) and only commits when a value has actually changed.
+#
+# If the Bank returns no usable data, fetch-sme-index.js exits non-zero and
+# writes NOTHING — the last real data stays live rather than being replaced with
+# a placeholder. The failure then surfaces via the Failure Watchdog.
+
+on:
+  schedule:
+    - cron: '5 8 * * 1'   # Mondays 08:05 UTC
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    name: Refresh SME index from Bank of England
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch latest Bank of England data
+        run: node scripts/fetch-sme-index.js
+
+      - name: Commit if the data changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # retrievedAt changes every run, so ignore it when deciding whether
+          # anything meaningful actually moved.
+          if git diff --quiet -- src/data/smeFundingData.json; then
+            echo "No change from the Bank of England — nothing to commit."
+            exit 0
+          fi
+
+          CHANGED=$(git diff -U0 -- src/data/smeFundingData.json \
+            | grep -E '^[+-]' | grep -vE '^[+-]{3}' | grep -v 'retrievedAt' | wc -l)
+
+          if [ "$CHANGED" -eq 0 ]; then
+            echo "Only retrievedAt changed — no new observations. Skipping commit."
+            git checkout -- src/data/smeFundingData.json
+            exit 0
+          fi
+
+          AS_OF=$(node -e "console.log(JSON.parse(require('fs').readFileSync('src/data/smeFundingData.json','utf8')).dataAsOfLabel)")
+          RATE=$(node -e "const d=JSON.parse(require('fs').readFileSync('src/data/smeFundingData.json','utf8'));console.log(d.series.find(s=>s.headline).latest.value)")
+
+          git add src/data/smeFundingData.json
+          git commit -m "data: refresh UK SME Funding Index — ${RATE}% as of ${AS_OF} (Bank of England)"
+          git push
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## UK SME Funding Index refresh" >> $GITHUB_STEP_SUMMARY
+          if [ -f src/data/smeFundingData.json ]; then
+            node -e "
+              const d = JSON.parse(require('fs').readFileSync('src/data/smeFundingData.json','utf8'));
+              const h = d.series.find(s => s.headline);
+              console.log('**Headline:** ' + h.latest.value + '% (BoE ' + h.code + ') as of ' + d.dataAsOfLabel);
+              console.log('');
+              console.log('| Series | Code | Value | As of |');
+              console.log('|---|---|---|---|');
+              d.series.forEach(s => console.log('| ' + s.label + ' | \`' + s.code + '\` | ' + s.latest.value + '% | ' + s.latest.date + ' |'));
+            " >> $GITHUB_STEP_SUMMARY
+          fi
