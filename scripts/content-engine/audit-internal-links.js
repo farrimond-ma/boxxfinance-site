@@ -42,7 +42,6 @@ const VALID_PATHS = new Set([
     '/privacy-policy',
     '/legal-disclaimer',
     '/terms-and-conditions',
-    '/uk-sme-funding-index',
     '/dashboard',
 ]);
 // Add blog slugs

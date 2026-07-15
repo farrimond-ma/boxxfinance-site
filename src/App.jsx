@@ -9,7 +9,6 @@ import MultiStepForm from './pages/MultiStepForm';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import LegalDisclaimer from './pages/LegalDisclaimer';
 import TermsConditions from './pages/TermsConditions';
-import SmeFundingIndex from './pages/SmeFundingIndex';
 import NotFound from './pages/NotFound';
 import ContentDashboard from './pages/ContentDashboard';
 import './App.css';
@@ -33,8 +32,6 @@ function App() {
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="legal-disclaimer" element={<LegalDisclaimer />} />
           <Route path="terms-and-conditions" element={<TermsConditions />} />
-          <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
-          <Route path="uk-sme-funding-index/:archiveSlug" element={<SmeFundingIndex />} />
           <Route path="locations/:slug" element={<LocationPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>

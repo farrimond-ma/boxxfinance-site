@@ -15,7 +15,6 @@ const staticRoutes = [
     '/',
     '/insights',
     '/chat-about-funding',
-    '/uk-sme-funding-index',
     '/privacy-policy',
     '/legal-disclaimer',
     '/terms-and-conditions',
@@ -87,17 +86,9 @@ const getLocationSlugs = () => {
     }
 };
 
-// Extract SME Funding Archives
-const getSmeFundingArchiveSlugs = () => {
-    try {
-        const content = readFile('../src/data/smeFundingData.json');
-        const smeData = JSON.parse(content);
-        return smeData.map(item => item.slug).filter(slug => slug !== 'latest');
-    } catch (e) {
-        console.warn('Could not read smeFundingData.json', e);
-        return [];
-    }
-};
+// The UK SME Funding Index (62 URLs) was removed in 2026-07: every figure was
+// generated with Math.random() while the page claimed Bank of England / UK
+// Finance provenance. Those URLs now return 410 Gone — see public/.htaccess.
 
 const generateSitemap = () => {
     console.log('Generating sitemap...');
@@ -105,12 +96,10 @@ const generateSitemap = () => {
     const services = getServiceSlugs();
     const blogs = getBlogSlugs();
     const locations = getLocationSlugs();
-    const smeArchives = getSmeFundingArchiveSlugs();
 
     console.log(`Found ${services.length} services`);
     console.log(`Found ${blogs.length} blog posts`);
     console.log(`Found ${locations.length} location pages`);
-    console.log(`Found ${smeArchives.length} SME Funding Archives`);
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -152,16 +141,6 @@ const generateSitemap = () => {
     <loc>${BASE_URL}/locations/${slug}</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>
-`;
-    });
-
-    // Add SME Funding Archives
-    smeArchives.forEach(slug => {
-        xml += `  <url>
-    <loc>${BASE_URL}/uk-sme-funding-index/${slug}</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
   </url>
 `;
     });
