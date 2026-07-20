@@ -14,6 +14,7 @@
 require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
 const { createOpenAICompatClient } = require('./lib/anthropic-openai-shim');
+const { isBridgingService, pickBridgingHero } = require('./lib/bridging-hero');
 const Anthropic = require('@anthropic-ai/sdk');
 const sharp     = require('sharp');
 const path      = require('path');
@@ -364,17 +365,23 @@ async function main() {
   console.log('Humanizing content...');
   article.contentHtml = await humanize(article.contentHtml, meta.author);
 
-  // 3. Fresh Pexels image
-  console.log('Fetching Pexels image...');
+  // 3. Hero image — bridging renders from the curated pool, so assign a pool
+  //    image directly (no per-slug Pexels duplicate). Non-bridging re-fetches.
   let heroImage = post.heroImage;
-  try {
-    const imgBuffer = await fetchPexelsImage(service);
-    if (imgBuffer) {
-      heroImage = await uploadImage(post.slug, imgBuffer);
-      console.log(`  Image: ${heroImage}`);
+  if (isBridgingService(service)) {
+    heroImage = pickBridgingHero(post.slug);
+    console.log(`  Bridging post — using curated pool image ${heroImage} (no Pexels fetch)`);
+  } else {
+    console.log('Fetching Pexels image...');
+    try {
+      const imgBuffer = await fetchPexelsImage(service);
+      if (imgBuffer) {
+        heroImage = await uploadImage(post.slug, imgBuffer);
+        console.log(`  Image: ${heroImage}`);
+      }
+    } catch (err) {
+      console.warn(`  Image failed (non-fatal): ${err.message}`);
     }
-  } catch (err) {
-    console.warn(`  Image failed (non-fatal): ${err.message}`);
   }
 
   // 4. Update the post in-place

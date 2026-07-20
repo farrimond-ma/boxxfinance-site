@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
 const { createOpenAICompatClient } = require('./lib/anthropic-openai-shim');
+const { isBridgingService, pickBridgingHero } = require('./lib/bridging-hero');
 const Anthropic = require('@anthropic-ai/sdk');
 const sharp = require('sharp');
 const { google } = require('googleapis');
@@ -868,16 +869,25 @@ async function main() {
     console.warn(`  YouTube search failed (non-fatal): ${err.message}`);
   }
 
-  // ── Pexels hero image ─────────────────────────────────────────────────────
-  console.log('Fetching hero image from Pexels...');
+  // ── Hero image ────────────────────────────────────────────────────────────
+  // Bridging posts render from the curated pool (heroForPost/pickHero), so a
+  // per-slug Pexels fetch would only create a near-duplicate file that is never
+  // shown — the root cause of dozens of cards sharing the same stock photo.
+  // Assign a pool image directly; only non-bridging posts fetch their own.
   let heroImagePath = null;
-  try {
-    const imageBuffer = await fetchPexelsImage(row.keyword, row.service);
-    if (imageBuffer) {
-      heroImagePath = await uploadHeroImage(finalSlug, imageBuffer);
+  if (isBridgingService(row.service)) {
+    heroImagePath = pickBridgingHero(finalSlug);
+    console.log(`  Bridging post — using curated pool image ${heroImagePath} (no Pexels fetch)`);
+  } else {
+    console.log('Fetching hero image from Pexels...');
+    try {
+      const imageBuffer = await fetchPexelsImage(row.keyword, row.service);
+      if (imageBuffer) {
+        heroImagePath = await uploadHeroImage(finalSlug, imageBuffer);
+      }
+    } catch (err) {
+      console.warn(`  Hero image fetch failed (non-fatal): ${err.message}`);
     }
-  } catch (err) {
-    console.warn(`  Hero image fetch failed (non-fatal): ${err.message}`);
   }
 
   const authorEmails = {
