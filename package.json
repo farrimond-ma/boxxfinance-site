@@ -8,9 +8,9 @@
     "predev": "npm run split",
     "dev": "vite",
     "prebuild": "npm run split",
-    "build": "vite build && npm run sitemap && npm run prerender && npm run rss && npm run rss-linkedin",
+    "build": "vite build && npm run sitemap && npm run llms && npm run prerender && npm run rss && npm run rss-linkedin",
     "prebuild:ci": "npm run split",
-    "build:ci": "vite build && npm run sitemap && npm run rss && npm run rss-linkedin",
+    "build:ci": "vite build && npm run sitemap && npm run llms && npm run rss && npm run rss-linkedin",
     "prerender": "node scripts/prerender.js",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -20,7 +20,8 @@
     "deploy": "npm run split && npx vite build && node scripts/deploy-ftp.js",
     "deploy:full": "npm run build && node scripts/deploy-ftp.js",
     "deploy:ftp": "node scripts/deploy-ftp.js",
-    "watch:deploy": "npm run split && vite build --watch --mode production"
+    "watch:deploy": "npm run split && vite build --watch --mode production",
+    "llms": "node scripts/generate-llms-txt.js"
   },
   "dependencies": {
     "pdf-parse": "^2.4.5",

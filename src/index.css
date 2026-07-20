@@ -140,3 +140,44 @@ html {
 .text-highlight {
   color: var(--color-secondary);
 }
+
+/* ── Touch tap targets ───────────────────────────────────────────────────────
+   Measured on a 375px viewport, 38 of 67 visible tap targets were under the
+   48px minimum (nav links 26px, table-of-contents jump links 28px). That makes
+   them fiddly to hit on a phone, which costs enquiries — most visitors are on
+   mobile. It is also what drops the Lighthouse mobile SEO score to 92.
+
+   Scoped to touch-sized viewports so the desktop layout is untouched, and
+   deliberately limited to STANDALONE links (nav, jump links, pills, CTAs,
+   contact links). Inline links inside paragraph text are excluded on purpose —
+   forcing those to 48px would wreck prose line spacing. */
+@media (max-width: 900px) {
+
+  .navbar-link,
+  .resource-location-pill,
+  .article-cta-link,
+  .clickable-email,
+  .gold-link {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Jump links stack vertically, so their 48px finger zones overlap unless the
+     rows themselves are tall enough. Padding rather than margin keeps the whole
+     row tappable, not just the text. */
+  .resource-toc ul li a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding-block: 4px;
+  }
+
+  /* Footer link lists have the same stacked-rows problem. */
+  .footer-links li a,
+  .footer-col li a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
