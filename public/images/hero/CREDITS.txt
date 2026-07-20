@@ -8,3 +8,17 @@ bridging-5: Boys in Bristol Photography — https://www.pexels.com/photo/cars-pa
 bridging-6: Max Vakhtbovych — https://www.pexels.com/photo/yard-of-contemporary-house-with-trees-outside-fence-7031581/
 bridging-7: Francesco Ungaro — https://www.pexels.com/photo/building-during-refurbishment-15798783/
 bridging-8: Thirdman — https://www.pexels.com/photo/a-close-up-shot-of-a-sign-of-a-house-for-sale-8482511/
+bridging-12: AXP Photography — https://www.pexels.com/photo/colorful-victorian-terraces-in-london-30683472/
+bridging-13: Azizi Co — https://www.pexels.com/photo/exterior-of-a-building-in-a-city-26898875/
+bridging-14: Jan van der Wolf — https://www.pexels.com/photo/colorful-georgian-facade-in-london-29576897/
+bridging-15: Jan van der Wolf — https://www.pexels.com/photo/elegant-georgian-terrace-houses-in-london-29579462/
+bridging-16: Samuel Sweet — https://www.pexels.com/photo/old-houses-in-cirencester-8202752/
+bridging-17: Phil Ledwith — https://www.pexels.com/photo/charming-thatched-cottage-in-marston-magna-england-37147900/
+bridging-18: Pavel Danilyuk — https://www.pexels.com/photo/a-man-posting-a-for-sale-sign-near-a-house-7937748/
+bridging-19: Thirdman — https://www.pexels.com/photo/a-house-for-sale-8482510/
+bridging-20: Boys in Bristol Photography — https://www.pexels.com/photo/houses-in-calm-town-20943692/
+bridging-21: Max Vakhtbovych — https://www.pexels.com/photo/low-angle-shot-of-a-brick-house-7587470/
+bridging-22: Doğan Alpaslan  Demir — https://www.pexels.com/photo/a-close-up-of-a-modern-apartment-building-27459248/
+bridging-23: Engin Akyurt — https://www.pexels.com/photo/buildings-with-apartments-5674684/
+bridging-24: Mike van Schoonderwalt — https://www.pexels.com/photo/residential-building-under-construction-5511085/
+bridging-25: Jiri Ikonomidis — https://www.pexels.com/photo/colorful-scandinavian-houses-in-reykjavik-32618047/
