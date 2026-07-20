@@ -5,8 +5,8 @@ on:
   # dashboard reflects each action within a couple of minutes.
   workflow_run:
     workflows:
-      - "Publish Blog"
-      - "Publish Blog PM"
+      - "Publish Blog (1 of 2)"
+      - "Publish Blog (2 of 2)"
       - "Publish Location"
       - "Publish Facebook Post"
       - "Publish Facebook Reel"

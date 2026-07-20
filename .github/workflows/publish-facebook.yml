@@ -5,7 +5,7 @@ on:
   # GitHub cron schedules drift 2-3 hours on this repo; chaining to the blog
   # publishers means the FB post goes out minutes after the article does.
   workflow_run:
-    workflows: ["Publish Blog", "Publish Blog PM"]
+    workflows: ["Publish Blog (1 of 2)", "Publish Blog (2 of 2)"]
     types:
       - completed
 

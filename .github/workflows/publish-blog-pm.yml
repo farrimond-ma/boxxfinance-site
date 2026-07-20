@@ -1,4 +1,7 @@
-﻿name: Publish Blog PM
+﻿name: Publish Blog (2 of 2)
+# Second of two parallel blog publishers (see "Publish Blog (1 of 2)"). The naming
+# is NOT afternoon — this one handles the PM slot (search-console / visibility-gap
+# content added by the weekly sync). Same script, run with PUBLISH_SLOT=PM.
 
 on:
   # 10:07 AM UTC = 11:07 AM BST (staggered off :00 to dodge scheduler queueing; queuing typically adds ~2-3hrs â†’ fires ~1-2pm BST)
