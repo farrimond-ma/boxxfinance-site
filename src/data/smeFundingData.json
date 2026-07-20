@@ -9,7 +9,7 @@
   "definition": "The Bank of England defines SMEs for its effective interest rates return (Form ER) as private non-financial corporations with annual debit turnover of £25 million or less.",
   "dataAsOf": "2026-05-31",
   "dataAsOfLabel": "May 2026",
-  "retrievedAt": "2026-07-15T14:52:47.802Z",
+  "retrievedAt": "2026-07-20T11:08:11.929Z",
   "series": [
     {
       "key": "bankRate",
@@ -389,7 +389,7 @@
           "value": 3.75
         }
       ],
-      "sourceUrl": "https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01%2FJan%2F2019&Dateto=15%2FJul%2F2026&SeriesCodes=IUMABEDR&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N"
+      "sourceUrl": "https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01%2FJan%2F2019&Dateto=20%2FJul%2F2026&SeriesCodes=IUMABEDR&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N"
     },
     {
       "key": "smeNewLoanRate",
@@ -765,7 +765,7 @@
           "value": 6.18
         }
       ],
-      "sourceUrl": "https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01%2FJan%2F2019&Dateto=15%2FJul%2F2026&SeriesCodes=CFMZ6LD&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N"
+      "sourceUrl": "https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01%2FJan%2F2019&Dateto=20%2FJul%2F2026&SeriesCodes=CFMZ6LD&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N"
     },
     {
       "key": "smeNewLoanFloating",
@@ -1141,7 +1141,7 @@
           "value": 6.01
         }
       ],
-      "sourceUrl": "https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01%2FJan%2F2019&Dateto=15%2FJul%2F2026&SeriesCodes=CFMZJ3L&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N"
+      "sourceUrl": "https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01%2FJan%2F2019&Dateto=20%2FJul%2F2026&SeriesCodes=CFMZJ3L&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N"
     },
     {
       "key": "smeNewLoanBankRateLinked",
@@ -1517,7 +1517,7 @@
           "value": 6.05
         }
       ],
-      "sourceUrl": "https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01%2FJan%2F2019&Dateto=15%2FJul%2F2026&SeriesCodes=CFMZJ3M&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N"
+      "sourceUrl": "https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01%2FJan%2F2019&Dateto=20%2FJul%2F2026&SeriesCodes=CFMZJ3M&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N"
     },
     {
       "key": "smeNewLoanFixed",
@@ -1893,7 +1893,7 @@
           "value": 6.67
         }
       ],
-      "sourceUrl": "https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01%2FJan%2F2019&Dateto=15%2FJul%2F2026&SeriesCodes=CFMZJ3U&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N"
+      "sourceUrl": "https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01%2FJan%2F2019&Dateto=20%2FJul%2F2026&SeriesCodes=CFMZJ3U&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N"
     }
   ]
 }
