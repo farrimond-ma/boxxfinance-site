@@ -1,11 +1,12 @@
 require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
-const OpenAI = require('openai');
+const { createOpenAICompatClient } = require('./lib/anthropic-openai-shim');
 const { google } = require('googleapis');
 
 // ─── Clients ────────────────────────────────────────────────────────────────
 const octokit = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_PAT });
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// Migrated from OpenAI gpt-4o to Claude (2026-07-20) via a drop-in shim. Same call sites.
+const openai = createOpenAICompatClient({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
 const GITHUB_OWNER = process.env.GITHUB_OWNER;

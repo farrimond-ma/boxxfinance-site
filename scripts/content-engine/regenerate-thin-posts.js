@@ -13,7 +13,7 @@
 
 require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
-const OpenAI    = require('openai');
+const { createOpenAICompatClient } = require('./lib/anthropic-openai-shim');
 const Anthropic = require('@anthropic-ai/sdk');
 const sharp     = require('sharp');
 const path      = require('path');
@@ -26,7 +26,8 @@ const SITE_URL     = 'https://boxxfinance.co.uk';
 const MIN_WORDS    = 1200; // posts below this get regenerated
 
 const octokit   = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_TOKEN });
-const openai    = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// Migrated from OpenAI gpt-4o to Claude (2026-07-20) via a drop-in shim. Same call sites.
+const openai    = createOpenAICompatClient({ apiKey: process.env.ANTHROPIC_API_KEY });
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 // ─── Infer service from slug / title ─────────────────────────────────────────
