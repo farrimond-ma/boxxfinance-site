@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { serviceContent } from '../data/services';
 import SEO from '../components/SEO';
+import '../components/resource/ResourcePage.css'; // shared hero design language
 import './FundingSolutions.css';
 
 // Ordered for display: property/asset products first, then cashflow/working capital
@@ -100,21 +101,36 @@ const FundingSolutions = () => {
                 schema={[schema, faqSchema]}
             />
 
-            {/* Hero */}
-            <div className="fs-hero">
-                <div className="container">
-                    <h1>
-                        Commercial <span className="text-highlight">Funding Solutions</span>
-                    </h1>
-                    <p>
-                        We are a whole-of-market commercial finance broker, not a lender. That means our
-                        only job is to find the structure that serves your business — not the product that
-                        suits our book. Below you will find a plain-English overview of each funding type
-                        we arrange, who it is for, and how to find out more.
-                    </p>
-                    <Link to="/chat-about-funding" className="btn btn-primary fs-hero-cta">
-                        Discuss your funding requirements
-                    </Link>
+            {/* Same navy→property-image hero used across the site (ResourcePage.css). */}
+            <div
+                className="resource-hero has-hero-image"
+                style={{ '--hero-image': 'url("/images/hero/service-commercial-mortgages.webp")' }}
+            >
+                <div className="container resource-hero-grid">
+                    <div className="resource-hero-text">
+                        <h1>
+                            Commercial <span className="text-highlight">Funding Solutions</span>
+                        </h1>
+                        <p className="resource-hero-lead">
+                            We are a whole-of-market commercial finance broker, not a lender — our only job
+                            is to find the structure that serves your business, not the product that suits
+                            our book. Below, a plain-English overview of every funding type we arrange.
+                        </p>
+                        <div className="resource-hero-actions">
+                            <Link to="/chat-about-funding" className="btn btn-primary">Get a free quote</Link>
+                            <a href="tel:03300431612" className="btn btn-outline resource-btn-phone">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                Talk to an expert
+                            </a>
+                        </div>
+                        <ul className="resource-hero-trust" aria-label="Why choose Boxx">
+                            <li>Independent broker</li>
+                            <li>Whole of market</li>
+                            <li>Fast decisions</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
