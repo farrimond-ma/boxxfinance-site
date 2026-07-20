@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import blogPosts from '../data/blogIndex.json';
 import SEO from '../components/SEO';
+import { heroForPost } from '../components/resource/heroPool';
 import '../components/resource/ResourcePage.css'; // shared hero design language
 import './Blog.css';
 
@@ -29,7 +30,10 @@ const SERVICE_FALLBACK = {
     'Structured Finance': '/images/hero/service-structured-finance.webp',
 };
 const DEFAULT_IMG = '/images/hero/service-commercial-mortgages.webp';
-const cardImage = (p) => p.heroImage || SERVICE_FALLBACK[displayService(p.service)] || DEFAULT_IMG;
+// heroForPost routes bridging posts through the curated pool (variety), so cards
+// stop showing the content engine's duplicate per-slug stock photos and always
+// match the article they link to. Service image / default cover any gaps.
+const cardImage = (p) => heroForPost(p) || SERVICE_FALLBACK[displayService(p.service)] || DEFAULT_IMG;
 
 const Blog = () => {
     const publishedPosts = useMemo(

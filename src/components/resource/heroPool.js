@@ -15,4 +15,28 @@ export const pickHero = (slug) => {
     return HERO_POOL[sum % HERO_POOL.length];
 };
 
+// Slugs with a genuinely bespoke, hand-made topical hero that should override
+// the curated pool. Everything else bridging uses the pool: the content engine
+// saved the SAME 4 stock photos under dozens of per-slug filenames, so a
+// post's own /images/blog/<slug>.webp is NOT a reliable source of variety.
+const BESPOKE_HERO_SLUGS = new Set([
+    'bridging-loans-for-hmo-conversion',
+]);
+
+// The hero image for a post, used identically by the /insights cards and the
+// article hero so a card always matches the page it links to.
+//   - Bridging posts → the curated 9-image property pool (visual variety),
+//     unless the post is on the bespoke allowlist above.
+//   - Other services → the post's own image (caller supplies any fallback).
+export const heroForPost = (post) => {
+    if (!post) return null;
+    const own = post.heroImage || post.image || null;
+    const isBridging = /bridging/i.test(post.service || '');
+    if (isBridging) {
+        if (own && BESPOKE_HERO_SLUGS.has(post.slug)) return own;
+        return pickHero(post.slug);
+    }
+    return own;
+};
+
 export default HERO_POOL;

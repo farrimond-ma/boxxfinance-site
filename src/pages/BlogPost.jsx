@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import blogPosts from '../data/blogIndex.json';
 import SEO from '../components/SEO';
 import ResourcePage from '../components/resource/ResourcePage';
-import { pickHero } from '../components/resource/heroPool';
+import { heroForPost } from '../components/resource/heroPool';
 
 const AUTHORS = {
     'Mark Higgins': {
@@ -71,17 +71,11 @@ const BlogPost = () => {
     }
 
     const authorData = AUTHORS[post.author] || AUTHORS['Mark Higgins'];
-    // Bridging posts use the curated property pool so none can show an
-    // off-theme (e.g. office) image baked in at publish time — UNLESS the post
-    // has a bespoke image named after its own slug (e.g. a topical HMO shot for
-    // bridging-loans-for-hmo-conversion), in which case that always wins.
-    // Other services keep their own hero.
-    const isBridging = (post.service || '').toLowerCase().includes('bridging');
-    const ownImage = post.heroImage || post.image || null;
-    const ownImageIsBespoke = ownImage && post.slug && ownImage.includes(post.slug);
-    const heroImage = ownImageIsBespoke
-        ? ownImage
-        : (isBridging ? pickHero(post.slug) : ownImage);
+    // Shared with the /insights cards (heroForPost) so a card always matches the
+    // article it links to. Bridging posts use the curated property pool for
+    // variety — their per-slug /images/blog files are near-duplicate stock — with
+    // a small allowlist for genuinely bespoke shots (e.g. the HMO conversion).
+    const heroImage = heroForPost(post);
 
     const articleSchema = {
         '@context': 'https://schema.org',
