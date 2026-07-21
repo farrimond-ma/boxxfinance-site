@@ -29,6 +29,12 @@ const SERVICE_FALLBACK = {
     'Trade Finance': '/images/hero/service-trade-finance.webp',
     'Structured Finance': '/images/hero/service-structured-finance.webp',
 };
+// Defensive: the generator has occasionally leaked markdown links into the
+// excerpt ("[text](url)"), which renders as literal text on the card. Strip to
+// the anchor text so a bad excerpt can never look broken on the page.
+const cleanExcerpt = (s) =>
+    String(s || '').replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1').replace(/\s{2,}/g, ' ').trim();
+
 const DEFAULT_IMG = '/images/hero/service-commercial-mortgages.webp';
 // heroForPost routes bridging posts through the curated pool (variety), so cards
 // stop showing the content engine's duplicate per-slug stock photos and always

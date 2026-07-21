@@ -259,6 +259,7 @@ OUTPUT RULES:
 - No markdown, no backticks, no code fences, no curly quotes — return raw JSON only
 - slug should be the keyword in lowercase with hyphens
 - metaTitle must be 20-60 characters and must NOT include "| Boxx Commercial Finance" or any brand suffix — the site template appends the brand automatically
+- excerpt and metaDescription must be PLAIN TEXT ONLY — absolutely no markdown links "[text](url)", no HTML tags, no URLs. They are rendered as raw text on listing cards, in Google results and in social posts, so any markup shows literally to the reader. Links belong in contentHtml only.
 - secondaryKeywords must be a JSON array of strings
 - Do NOT include an <h1> tag in contentHtml — the title is rendered separately on the page
 
