@@ -389,6 +389,97 @@ async function saveToSheet(sheets, prospects) {
   });
 }
 
+// ─── Surface the best drafts as a GitHub issue ────────────────────────────────
+// The drafts were being written to a sheet tab nobody opened, so they were never
+// sent — the real bottleneck was surfacing, not generation. GitHub issues email
+// automatically (the same route the Failure Watchdog uses), so the top few land
+// in the inbox each Friday ready to personalise and send. Deliberately NOT
+// auto-sent: automated outreach is spam, damages relationships with the ~20 UK
+// journalists who matter, and counts as a link scheme under Google's policy.
+
+const MAX_SURFACED = 3;
+
+function buildIssueBody(top, totalFound) {
+  const lines = [];
+  lines.push(`**${top.length} outreach draft${top.length === 1 ? '' : 's'} ready to review** — highest-authority picks from ${totalFound} new trade article${totalFound === 1 ? '' : 's'} this week.`);
+  lines.push('');
+  lines.push('These are **drafts, not final copy**. Personalise each one before sending — a templated email to a trade editor is worse than no email. Send 2–3 per week at most.');
+  lines.push('');
+  top.forEach((p, i) => {
+    const pub = p.article.publication;
+    lines.push(`- [ ] Sent #${i + 1} — ${pub.name}`);
+  });
+  lines.push('');
+  lines.push('---');
+
+  top.forEach((p, i) => {
+    const pub = p.article.publication;
+    lines.push('');
+    lines.push(`### ${i + 1}. ${pub.name}${pub.da ? ` (DA ${pub.da})` : ''}`);
+    lines.push('');
+    lines.push(`**To:** \`${pub.contact}\``);
+    lines.push(`**Their article:** [${p.article.title}](${p.article.url})`);
+    lines.push(`**Suggested subject:** Expert comment on ${p.article.title.slice(0, 60)}`);
+    lines.push(`**From:** ${p.outreach.author}`);
+    if (pub.notes) lines.push(`**Context:** ${pub.notes}`);
+    lines.push('');
+    lines.push('<details><summary><b>Email draft — click to expand and copy</b></summary>');
+    lines.push('');
+    lines.push('```');
+    lines.push(p.outreach.outreachEmail || '(no draft generated)');
+    lines.push('```');
+    lines.push('');
+    lines.push('</details>');
+    lines.push('');
+    lines.push(`**Expert comment being offered:**`);
+    lines.push('');
+    lines.push('> ' + (p.outreach.expertComment || '(none)').replace(/\n+/g, '\n> '));
+    lines.push('');
+    lines.push('---');
+  });
+
+  lines.push('');
+  lines.push(`All prospects (including ones not surfaced here) are in the **${SHEET_TAB}** tab of the content sheet.`);
+  lines.push('');
+  lines.push('_Close this issue once you have sent or discarded these._');
+  return lines.join('\n');
+}
+
+async function fileOutreachIssue(prospects, totalFound) {
+  const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+  if (!token) {
+    console.log('  No GH_TOKEN — skipping issue (drafts are still in the sheet).');
+    return;
+  }
+  if (prospects.length === 0) return;
+
+  // Highest domain authority first — those links are worth the most.
+  const top = [...prospects]
+    .sort((a, b) => (b.article.publication.da || 0) - (a.article.publication.da || 0))
+    .slice(0, MAX_SURFACED);
+
+  const { Octokit } = require('@octokit/rest');
+  const octokit = new Octokit({ auth: token });
+  const owner = process.env.GITHUB_OWNER || 'farrimond-ma';
+  const repo = process.env.GITHUB_REPO || 'boxxfinance-site';
+  const today = new Date().toISOString().split('T')[0];
+
+  try {
+    await octokit.rest.issues.createLabel({
+      owner, repo, name: 'outreach', color: '0e8a16',
+      description: 'Backlink outreach drafts awaiting a human send',
+    });
+  } catch { /* label already exists */ }
+
+  const { data } = await octokit.rest.issues.create({
+    owner, repo,
+    title: `Outreach drafts — ${today} (${top.length} ready to send)`,
+    labels: ['outreach'],
+    body: buildIssueBody(top, totalFound),
+  });
+  console.log(`  📬 Filed issue #${data.number} with the top ${top.length} draft(s) — check your email.`);
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -480,6 +571,13 @@ async function main() {
     console.log(`\nSaving ${prospects.length} prospects to ${SHEET_TAB} tab...`);
     await saveToSheet(sheets, prospects);
     console.log('✅ Saved');
+
+    // Put the best few in front of a human — the sheet alone never got actioned.
+    try {
+      await fileOutreachIssue(prospects, allArticles.length);
+    } catch (err) {
+      console.warn(`  Could not file outreach issue (non-fatal): ${err.message}`);
+    }
   }
 
   console.log(`\n╔══════════════════════════════════════════════════╗`);

@@ -14,6 +14,12 @@ on:
         required: false
         default: false
 
+# The run files a GitHub issue with the best drafts — issues email automatically,
+# which is what actually gets them sent.
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   monitor:
     name: Find and draft backlink opportunities
@@ -39,6 +45,9 @@ jobs:
           ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+          GH_TOKEN:           ${{ secrets.GH_PAT || github.token }}
+          GITHUB_OWNER:       farrimond-ma
+          GITHUB_REPO:        boxxfinance-site
         run: |
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
             node backlink-outreach.js --dry-run
