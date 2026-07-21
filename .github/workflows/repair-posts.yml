@@ -1,0 +1,54 @@
+name: Repair Posts
+
+# Repairs published posts that fail the structural audit — missing FAQ block,
+# too few H2 sections, or too few internal links.
+#
+# Needed because the structured-outputs migration shipped ARTICLE_SCHEMA with no
+# field descriptions, so the model satisfied the schema and dropped what it did
+# not demand. Two posts published in that window lost their FAQ entirely.
+#
+# Manual-only. Repairing content is not something that should fire on a timer.
+
+on:
+  workflow_dispatch:
+    inputs:
+      slugs:
+        description: 'Comma-separated slugs to repair. Leave blank to repair every failing post.'
+        required: false
+        default: 'bridging-loan-maximum-term,bridging-finance-for-permitted-development'
+      dry_run:
+        description: 'Dry run — list what would be repaired without changing anything'
+        type: boolean
+        required: false
+        default: true
+
+jobs:
+  repair:
+    name: Repair failing posts
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm ci || npm install
+
+      - name: Repair posts
+        working-directory: scripts/content-engine
+        env:
+          # GH_PAT so the content commit triggers the deploy workflow —
+          # github.token-authored commits do not fire other workflows.
+          GH_TOKEN:          ${{ secrets.GH_PAT }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          node repair-posts.js \
+            ${{ inputs.dry_run && '--dry-run' || '' }} \
+            ${{ inputs.slugs && format('--slug={0}', inputs.slugs) || '' }}
