@@ -28,8 +28,15 @@ const MODEL_MAP = {
 };
 
 const DEFAULT_MODEL = 'claude-sonnet-5';
-// Claude models cap output tokens; keep headroom without exceeding limits.
-const MAX_OUTPUT_TOKENS = 16000;
+
+// Sonnet 5 supports 128k output. These callers ask for 6-12k, sized for gpt-4o.
+// Two things make that too tight here, and both truncate the JSON mid-object:
+//   1. Sonnet 5 uses a newer tokenizer that produces materially more tokens for
+//      the same text than gpt-4o did.
+//   2. max_tokens is a HARD cap on thinking + response combined.
+// So we raise the floor to give the JSON room to complete.
+const MIN_OUTPUT_TOKENS = 16000;
+const MAX_OUTPUT_TOKENS = 32000;
 
 function createOpenAICompatClient({ apiKey, defaultModel = DEFAULT_MODEL } = {}) {
   const anthropic = new Anthropic({ apiKey });
@@ -56,13 +63,33 @@ function createOpenAICompatClient({ apiKey, defaultModel = DEFAULT_MODEL } = {})
 
     const req = {
       model: MODEL_MAP[model] || defaultModel,
-      max_tokens: Math.min(max_tokens || 4096, MAX_OUTPUT_TOKENS),
+      max_tokens: Math.min(Math.max(max_tokens || 4096, MIN_OUTPUT_TOKENS), MAX_OUTPUT_TOKENS),
       messages: convo,
+      // CRITICAL: on Sonnet 5, OMITTING `thinking` runs ADAPTIVE thinking, and
+      // max_tokens caps thinking + response TOGETHER. These callers want a
+      // single complete JSON object, so adaptive thinking silently ate the
+      // budget and truncated the JSON mid-object — which surfaced as
+      // "Failed to parse OpenAI response as JSON" and failed every run.
+      // Disabling it matches the gpt-4o behaviour the call sites were built for.
+      thinking: { type: 'disabled' },
     };
     if (system) req.system = system;
-    if (typeof temperature === 'number') req.temperature = temperature;
+    // Sonnet 5 REJECTS non-default temperature/top_p/top_k with a 400, so this
+    // is only forwarded for models that still accept it.
+    if (typeof temperature === 'number' && !/^claude-sonnet-5|^claude-opus-4-[78]|^claude-fable/.test(req.model)) {
+      req.temperature = temperature;
+    }
 
     const resp = await anthropic.messages.create(req);
+
+    // A truncated response yields invalid JSON downstream, and the caller's
+    // JSON.parse error hides the real cause. Fail loudly and specifically.
+    if (resp.stop_reason === 'max_tokens') {
+      throw new Error(
+        `Claude hit max_tokens (${req.max_tokens}) before finishing — the response is truncated ` +
+        `and will not parse as JSON. Raise max_tokens or shorten the requested output.`
+      );
+    }
 
     const text = (resp.content || [])
       .filter((b) => b.type === 'text')
