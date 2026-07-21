@@ -33,26 +33,18 @@ const PUBLICATIONS = [
   // ── Bridging / short-term finance specialist ─────────────────────────────────
   {
     name:    'Bridging & Commercial',
-    rss:     'https://www.bridgingandcommercial.co.uk/feed/',
+    rss:     'https://www.bridgingandcommercial.co.uk/feed.xml',
     contact: 'editor@bridgingandcommercial.co.uk',
     da:      45,
     notes:   'Primary trade press for bridging finance. Regularly publishes lender/broker case studies.',
   },
   {
     name:    'Development Finance Today',
-    rss:     'https://developmentfinancetoday.co.uk/feed/',
+    rss:     'https://developmentfinancetoday.co.uk/rss',
     contact: 'editor@developmentfinancetoday.co.uk',
     da:      30,
     notes:   'Development and bridging finance specialist. Case studies welcome.',
   },
-  {
-    name:    'Specialist Finance Introducer',
-    rss:     'https://www.specialistfinanceintroducer.com/feed/',
-    contact: 'editor@specialistfinanceintroducer.com',
-    da:      35,
-    notes:   'Covers specialist/bridging finance for brokers and introducers.',
-  },
-
   // ── Mortgage / finance trade press ───────────────────────────────────────────
   {
     name:    'Mortgage Solutions',
@@ -62,42 +54,13 @@ const PUBLICATIONS = [
     notes:   'Major mortgage trade press. Regularly covers specialist finance.',
   },
   {
-    name:    'Mortgage Introducer',
-    rss:     'https://www.mortgageintroducer.com/feed/',
-    contact: 'editor@mortgageintroducer.com',
-    da:      42,
-    notes:   'Mortgage broker trade press. Expert comment and case studies.',
-  },
-  {
-    name:    'Mortgage Finance Gazette',
-    rss:     'https://www.mortgagefinancegazette.com/feed/',
-    contact: 'editorial@mortgagefinancegazette.com',
-    da:      40,
-    notes:   'Finance trade press. Expert comment opportunities.',
-  },
-  {
     name:    'The Intermediary',
     rss:     'https://theintermediary.co.uk/feed/',
     contact: 'editor@theintermediary.co.uk',
     da:      38,
     notes:   'Broker-focused finance trade press. Bridging regularly featured.',
   },
-  {
-    name:    'Financial Reporter',
-    rss:     'https://www.financialreporter.co.uk/feed/',
-    contact: 'news@financialreporter.co.uk',
-    da:      45,
-    notes:   'Financial services news. Active comment section for experts.',
-  },
-
   // ── Property investment media ─────────────────────────────────────────────────
-  {
-    name:    'Property Reporter',
-    rss:     'https://propertyreporter.co.uk/feed/',
-    contact: 'news@propertyreporter.co.uk',
-    da:      38,
-    notes:   'Property investment news. Covers bridging for investors.',
-  },
   {
     name:    'Property Investor Today',
     rss:     'https://www.propertyinvestortoday.co.uk/feed/',
@@ -121,7 +84,7 @@ const PUBLICATIONS = [
   },
   {
     name:    'Estate Agent Today',
-    rss:     'https://www.estateagenttoday.co.uk/feed/',
+    rss:     'https://www.estateagenttoday.co.uk/rss',
     contact: 'editor@estateagenttoday.co.uk',
     da:      50,
     notes:   'Estate agent news. Chain break and auction bridging stories perform well here.',
@@ -135,7 +98,7 @@ const PUBLICATIONS = [
   },
   {
     name:    'Landlord Today',
-    rss:     'https://www.landlordtoday.co.uk/feed/',
+    rss:     'https://www.landlordtoday.co.uk/rss',
     contact: 'news@landlordtoday.co.uk',
     da:      45,
     notes:   'Landlord-focused. BTL refurb bridging, HMO finance, auction purchase stories.',
@@ -149,20 +112,13 @@ const PUBLICATIONS = [
   },
   {
     name:    'Property Week',
-    rss:     'https://www.propertyweek.com/rss',
+    rss:     'https://www.propertyweek.com/news/rss',
     contact: 'editorial@propertyweek.com',
     da:      62,
     notes:   'Highest DA property publication in UK. Commercial property / development finance.',
   },
 
   // ── SME / business finance ────────────────────────────────────────────────────
-  {
-    name:    'Business Money',
-    rss:     'https://businessmoney.com/feed/',
-    contact: 'editor@businessmoney.com',
-    da:      35,
-    notes:   'SME finance news. Business bridging loans and working capital stories.',
-  },
   {
     name:    'Peer2Peer Finance News',
     rss:     'https://www.p2pfinancenews.co.uk/feed/',
@@ -173,13 +129,6 @@ const PUBLICATIONS = [
 
   // ── Development / planning ────────────────────────────────────────────────────
   {
-    name:    'The Planner',
-    rss:     'https://www.theplanner.co.uk/feed',
-    contact: 'editorial@theplanner.co.uk',
-    da:      45,
-    notes:   'Planning and development press. Development finance, planning gain bridging.',
-  },
-  {
     name:    'Place North West',
     rss:     'https://www.placenorthwest.co.uk/feed/',
     contact: 'editorial@placenorthwest.co.uk',
@@ -188,7 +137,7 @@ const PUBLICATIONS = [
   },
   {
     name:    'Insider Media (North West)',
-    rss:     'https://www.insidermedia.com/news/north-west/rss',
+    rss:     'https://www.insidermedia.com/news/rss',
     contact: 'north-west@insidermedia.com',
     da:      55,
     notes:   'Regional business/property news. Deal coverage, broker comment opportunities.',
@@ -262,20 +211,45 @@ async function getProcessedUrls(sheets) {
 
 // ─── Fetch and parse RSS feed ─────────────────────────────────────────────────
 
+// Per-feed health for this run. A publication can legitimately have no bridging
+// news in a given week — that is very different from its feed being GONE. We
+// track the RAW item count so the two can be told apart and rot surfaces loudly.
+const FEED_HEALTH = [];
+
+// Several of these publications reject non-browser user agents with a 403, so a
+// bot-style UA silently produced zero articles. This is read-only, weekly, and
+// respects each site's own RSS endpoint.
+const FEED_UA =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';
+
 async function fetchRSS(publication) {
   try {
     const res = await fetch(publication.rss, {
-      headers: { 'User-Agent': 'BoxxFinance-BacklinkMonitor/1.0' },
-      signal: AbortSignal.timeout(10000),
+      headers: {
+        'User-Agent': FEED_UA,
+        Accept: 'application/rss+xml, application/xml, text/xml, */*',
+      },
+      signal: AbortSignal.timeout(15000),
     });
     if (!res.ok) {
       console.warn(`  ${publication.name}: HTTP ${res.status}`);
+      FEED_HEALTH.push({ name: publication.name, ok: false, rawItems: 0, detail: `HTTP ${res.status}` });
       return [];
     }
     const xml = await res.text();
+    // Count raw entries before keyword filtering — this is the liveness signal.
+    const rawItems =
+      (xml.match(/<item[\s>]/gi) || []).length + (xml.match(/<entry[\s>]/gi) || []).length;
+    FEED_HEALTH.push({
+      name: publication.name,
+      ok: rawItems > 0,
+      rawItems,
+      detail: rawItems > 0 ? 'ok' : 'returned no feed items (endpoint moved or now serves HTML)',
+    });
     return parseRSSItems(xml, publication);
   } catch (err) {
     console.warn(`  ${publication.name}: ${err.message}`);
+    FEED_HEALTH.push({ name: publication.name, ok: false, rawItems: 0, detail: err.message });
     return [];
   }
 }
@@ -445,8 +419,37 @@ async function main() {
 
   console.log(`\nTotal new bridging finance articles: ${allArticles.length}`);
 
+  // ── Feed health ───────────────────────────────────────────────────────────
+  // Trade-press RSS endpoints move without notice. Previously a dead feed was
+  // just a console.warn, so the run stayed green while quietly losing sources —
+  // 13 of 23 feeds had rotted (including the primary bridging title) before
+  // anyone noticed. Now it reports, and fails the run if too many are gone so
+  // the Failure Watchdog emails.
+  const dead = FEED_HEALTH.filter((f) => !f.ok);
+  const deadRatio = FEED_HEALTH.length ? dead.length / FEED_HEALTH.length : 0;
+  const unhealthy = deadRatio > 0.3;
+
+  console.log(`\nFeed health: ${FEED_HEALTH.length - dead.length}/${FEED_HEALTH.length} returning items`);
+  dead.forEach((f) => console.log(`  DEAD  ${f.name} — ${f.detail}`));
+
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    const lines = [
+      '## 🔗 Backlink Outreach Monitor',
+      `**Feeds:** ${FEED_HEALTH.length - dead.length}/${FEED_HEALTH.length} healthy · **new articles:** ${allArticles.length}`,
+    ];
+    if (dead.length) {
+      lines.push('', '| Dead feed | Reason |', '|---|---|');
+      dead.forEach((f) => lines.push(`| ${f.name} | ${f.detail} |`));
+    }
+    try { require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n'); } catch { /* non-fatal */ }
+  }
+
   if (allArticles.length === 0) {
     console.log('No new articles found. Done.\n');
+    if (unhealthy) {
+      console.error(`\n❌ ${dead.length}/${FEED_HEALTH.length} feeds are dead — failing so this surfaces.`);
+      process.exit(1);
+    }
     return;
   }
 
@@ -484,6 +487,13 @@ async function main() {
   console.log(`║  Review drafts in the Backlink_Prospects tab     ║`);
   console.log(`║  Send the best ones manually — 2-3 per week max  ║`);
   console.log(`╚══════════════════════════════════════════════════╝\n`);
+
+  // Prospects are saved first, then we fail the run if the source feeds have
+  // rotted — so a bad feed list raises an alert without losing this week's work.
+  if (unhealthy) {
+    console.error(`❌ ${dead.length}/${FEED_HEALTH.length} feeds are dead — failing so this surfaces.`);
+    process.exit(1);
+  }
 }
 
 main().catch(err => { console.error('\n❌ Fatal error:', err.message); process.exit(1); });

@@ -25,6 +25,7 @@ on:
       - "Search Console Insights"
       - "Index Coverage"
       - "SME Index Refresh"
+      - "Backlink Outreach Monitor"
       - "Reddit Monitor"
     types:
       - completed
