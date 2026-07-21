@@ -395,8 +395,9 @@ AI SEARCH (AEO) — additional rules for Google AI Overviews and Perplexity:
 - faqSchema must be a valid FAQ schema object with @type: FAQPage matching the FAQ in contentHtml exactly
 
 CALLS TO ACTION (both required):
-- Mid-article CTA: include one paragraph encouraging the reader to get advice, linking to ${chatUrl}. Use a keyword-rich anchor that names the product, e.g. "compare ${row.keyword} deals", "arrange ${row.keyword} today", "get a ${row.keyword} quote", or "find a ${row.keyword} broker" — NEVER generic phrases like "click here", "contact us", "speak to a specialist", or "get in touch"
-- Closing CTA: end the article (before the FAQ) with a short paragraph linking to ${chatUrl} using a keyword-rich anchor as above — vary it from the mid-article CTA
+- Mid-article CTA: include one paragraph encouraging the reader to get advice, linking to ${chatUrl}. Use a 2-5 word anchor built around the PRODUCT NAME ("bridging loans"), e.g. "compare bridging loan rates", "arrange a bridging loan", "get a bridging loan quote", "find a bridging loan broker" — NEVER generic phrases like "click here", "contact us", "speak to a specialist", or "get in touch"
+- CRITICAL — do NOT paste the target keyword into a CTA template. The keyword for this article is a DESCRIPTIVE PHRASE, not a product name, and slotting it in produces broken English. A real example that reached the live site: keyword "bridging loan borrowers over 70" became the anchor "get a bridging loan borrowers over 70 quote" and "find a bridging loan borrowers over 70 broker". Write anchors that read as natural English a person would say out loud. If an anchor would not survive being read aloud, rewrite it.
+- Closing CTA: end the article (before the FAQ) with a short paragraph linking to ${chatUrl} using a different natural anchor from the mid-article CTA
 
 INTERNAL LINKS — anchor text rules are MANDATORY. Follow 2026 SEO/AEO best practices: descriptive 2-5 word anchors, never generic single words. Never use "here", "this page", "click here", "read more", "learn more", "find out more", "our services", "our page", "speak to a specialist", or "get in touch".
 - Service page (${serviceUrl}): include at least 3 contextual links. Use keyword-rich 2-5 word anchor text that names the product and its benefit or audience, e.g. "${row.keyword} for UK businesses", "${row.keyword} options", "UK ${row.keyword} solutions", "${row.keyword} rates UK" — vary the phrasing across the 3+ links so they are not identical
@@ -474,14 +475,14 @@ ${row.service === 'Bridging Finance' ? `BRIDGING LOANS TERMINOLOGY (mandatory fo
     }
   }
 
-  let linkIssues = auditContentHtml(article.contentHtml);
+  let linkIssues = auditContentHtml(article.contentHtml, row.keyword);
   for (let attempt = 1; attempt <= 2 && linkIssues.length > 0; attempt++) {
     console.log(`  Link audit: ${linkIssues.length} issue(s) found — fix pass ${attempt}...`);
     linkIssues.forEach(i => console.log(`    ⚠ ${i}`));
     article.contentHtml = await fixContentIssues(article.contentHtml, linkIssues, {
       serviceUrl, chatUrl, keyword: row.keyword, locationLinksText, relatedBlogsText,
     });
-    linkIssues = auditContentHtml(article.contentHtml);
+    linkIssues = auditContentHtml(article.contentHtml, row.keyword);
     console.log(`  After fix pass ${attempt}: ${linkIssues.length} issue(s) remaining`);
   }
   if (linkIssues.length > 0) {
@@ -495,8 +496,28 @@ ${row.service === 'Bridging Finance' ? `BRIDGING LOANS TERMINOLOGY (mandatory fo
 }
 
 // ─── Inline content audit — same rules as seo-audit.js ──────────────────────
-function auditContentHtml(html) {
+function auditContentHtml(html, keyword) {
   const issues = [];
+
+  // Keyword-stuffed anchors. The CTA templates used to interpolate the target
+  // keyword directly, which reads fine when the keyword is a product name and
+  // breaks badly when it is a descriptive phrase. Live example:
+  //   keyword "bridging loan borrowers over 70"
+  //   → "get a bridging loan borrowers over 70 quote"
+  //   → "find a bridging loan borrowers over 70 broker"
+  // Detect the shape rather than the length: a LONG keyword wrapped in extra
+  // words. Plain length is a bad proxy — "current bridging loan rates in the
+  // UK" is seven words and perfectly readable.
+  if (keyword && keyword.split(/\s+/).length >= 4) {
+    const kw = keyword.toLowerCase().trim();
+    for (const m of html.matchAll(/<a[^>]*>([^<]+)<\/a>/gi)) {
+      const anchor = m[1].trim();
+      const a = anchor.toLowerCase();
+      if (a !== kw && a.includes(kw)) {
+        issues.push(`Anchor "${anchor}" wraps the full target keyword in filler — write a natural 2-5 word anchor around the product name instead (e.g. "get a bridging loan quote")`);
+      }
+    }
+  }
 
   const FORBIDDEN_ANCHORS = [
     'speak to a commercial finance specialist',
