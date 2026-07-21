@@ -13,15 +13,31 @@ const { parseModelJson, logJsonFailure } = require('./lib/parse-model-json');
 const ARTICLE_SCHEMA = {
   type: 'object',
   properties: {
-    slug:              { type: 'string' },
-    title:             { type: 'string' },
-    excerpt:           { type: 'string' },
-    metaTitle:         { type: 'string' },
-    metaDescription:   { type: 'string' },
-    primaryKeyword:    { type: 'string' },
-    secondaryKeywords: { type: 'array', items: { type: 'string' } },
-    category:          { type: 'string' },
-    contentHtml:       { type: 'string' },
+    // Descriptions are load-bearing, not documentation. Under structured
+    // outputs the schema constrains decoding and competes with the prose
+    // prompt for the model's attention — a bare `{type: 'string'}` says
+    // nothing about what the field must contain. The first article generated
+    // with a description-less schema came back with 1 internal link instead of
+    // the ~12 the prompt asks for; everything else about it was fine. Keep the
+    // hard requirements restated here, in sync with the prompt below.
+    slug:              { type: 'string', description: 'URL slug, lowercase words separated by hyphens. No dates, no stop words.' },
+    title:             { type: 'string', description: 'Article H1. Names the product using "bridging loans" (never "bridging finance") where relevant.' },
+    excerpt:           { type: 'string', description: 'Plain text only — NO markdown, NO HTML tags. One or two sentences, 25-40 words, shown on the insights listing card.' },
+    metaTitle:         { type: 'string', description: 'SEO title tag, under 60 characters, front-loads the primary keyword.' },
+    metaDescription:   { type: 'string', description: 'SEO meta description, 140-158 characters, includes the primary keyword and a reason to click.' },
+    primaryKeyword:    { type: 'string', description: 'The single target search phrase for this article.' },
+    secondaryKeywords: { type: 'array', items: { type: 'string' }, description: '4-8 supporting search phrases actually used in the body copy.' },
+    category:          { type: 'string', description: 'Service taxonomy value for this article.' },
+    contentHtml:       { type: 'string', description:
+      'The full article body as valid HTML, minimum 1250 words. ' +
+      'MUST contain at least 4 internal links total, and every one of the following: ' +
+      '(1) 3 or more contextual links to the service page, each with DIFFERENT keyword-rich 2-5 word anchor text; ' +
+      '(2) one link in the opening paragraph to the service page; ' +
+      '(3) one link to the /funding-solutions hub near the end; ' +
+      '(4) a mid-article CTA and a separate closing CTA, both linking to /chat-about-funding with keyword-rich anchors; ' +
+      '(5) the supplied related-blog and location links, embedded naturally in sentences. ' +
+      'Anchor text is NEVER "click here", "read more", "learn more", "contact us", "get in touch", or "speak to a specialist". ' +
+      'Use single quotes for HTML attribute values.' },
     faqSchema: {
       type: 'object',
       properties: {
@@ -76,6 +92,19 @@ const BLOG_FILE = 'src/data/blogPosts.json';
 // the final article over the audit target.
 const TARGET_WORDS = 1200;
 const GENERATION_MIN_WORDS = 1250;
+
+// Minimum internal links per article. Both floors are measured against the
+// published corpus, not aspiration — a gate set above what good articles
+// actually do just fails every run and gets ignored.
+//   Total: average is 6.6 across the 101 posts and 81 carry 4 or more, so 4 is
+//   a floor a healthy article clears easily while still catching a collapse.
+//   Service: the prompt asks for "3 or more" contextual service-page links, but
+//   NO post in the corpus has ever had more than 1 — including the strongest
+//   (bridging-loan-for-foreign-nationals, 10 links, 1 service link). So this is
+//   a presence check, and the prompt's 3+ target is a content-quality gap worth
+//   addressing separately rather than something to enforce retroactively.
+const MIN_TOTAL_LINKS = 4;
+const MIN_SERVICE_LINKS = 1;
 
 // Word count matching seo-audit.js exactly (strip tags, collapse whitespace)
 function wordCount(html) {
@@ -453,6 +482,27 @@ function auditContentHtml(html) {
   const firstParaMatch = html.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
   if (firstParaMatch && !/href=/i.test(firstParaMatch[1]))
     issues.push('Opening paragraph contains no link — add a link to the service page using keyword-rich anchor text');
+
+  // Link COUNT checks. Without these the audit only ever required a single
+  // link in the opening paragraph, so an article with exactly one link passed
+  // as "clean" while the prompt asked for a dozen. That is exactly what
+  // happened to bridging-loan-maximum-term (1 link, audit clean) — the anchor
+  // quality rules above were all satisfied because there was almost nothing to
+  // judge. Quality rules cannot substitute for a presence check.
+  const hrefs = [...html.matchAll(/href=['"]([^'"]+)['"]/g)].map(m => m[1]);
+
+  if (hrefs.length < MIN_TOTAL_LINKS)
+    issues.push(`Only ${hrefs.length} link(s) in the article — needs at least ${MIN_TOTAL_LINKS} (3+ service page, 1 funding-solutions hub, related blog and location links, plus mid-article and closing CTAs)`);
+
+  const serviceLinks = hrefs.filter(h => /\/funding-solutions\/[a-z-]+/i.test(h)).length;
+  if (serviceLinks < MIN_SERVICE_LINKS)
+    issues.push(`Only ${serviceLinks} service-page link(s) — needs at least ${MIN_SERVICE_LINKS}, each with distinct keyword-rich anchor text`);
+
+  if (!hrefs.some(h => /\/funding-solutions\/?$/i.test(h)))
+    issues.push('No link to the /funding-solutions hub — add one near the end using descriptive 2-5 word anchor text');
+
+  if (!hrefs.some(h => /\/chat-about-funding/i.test(h)))
+    issues.push('No CTA link to /chat-about-funding — add mid-article and closing CTAs with keyword-rich anchors');
 
   return issues;
 }
