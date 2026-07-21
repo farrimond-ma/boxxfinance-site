@@ -2,6 +2,49 @@ require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
 const { createOpenAICompatClient } = require('./lib/anthropic-openai-shim');
 const { parseModelJson, logJsonFailure } = require('./lib/parse-model-json');
+
+// Structured output schema — same reason as publish-blog.js: the model embeds a
+// large HTML document in a JSON string and occasionally emits an unescaped `"`
+// mid-prose, which makes the whole document unparseable. A schema constrains
+// decoding so quotes inside values are escaped automatically.
+const LOCATION_SCHEMA = {
+  type: 'object',
+  properties: {
+    slug:            { type: 'string' },
+    title:           { type: 'string' },
+    metaTitle:       { type: 'string' },
+    metaDescription: { type: 'string' },
+    content:         { type: 'string' },
+    faqSchema: {
+      type: 'object',
+      properties: {
+        '@type': { type: 'string' },
+        mainEntity: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              '@type': { type: 'string' },
+              name:    { type: 'string' },
+              acceptedAnswer: {
+                type: 'object',
+                properties: { '@type': { type: 'string' }, text: { type: 'string' } },
+                required: ['@type', 'text'],
+                additionalProperties: false,
+              },
+            },
+            required: ['@type', 'name', 'acceptedAnswer'],
+            additionalProperties: false,
+          },
+        },
+      },
+      required: ['@type', 'mainEntity'],
+      additionalProperties: false,
+    },
+  },
+  required: ['slug', 'title', 'metaTitle', 'metaDescription', 'content', 'faqSchema'],
+  additionalProperties: false,
+};
 const { google } = require('googleapis');
 
 // ─── Clients ────────────────────────────────────────────────────────────────
@@ -346,6 +389,7 @@ async function generateLocationPage(row, relatedBlogs) {
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
     max_tokens: 6000,
+    response_format: { json_schema: { schema: LOCATION_SCHEMA } },
     messages: [
       {
         role: 'system',

@@ -42,7 +42,7 @@ function createOpenAICompatClient({ apiKey, defaultModel = DEFAULT_MODEL } = {})
   const anthropic = new Anthropic({ apiKey });
 
   async function create(params = {}) {
-    const { messages = [], model, max_tokens, temperature } = params;
+    const { messages = [], model, max_tokens, temperature, response_format } = params;
 
     // Anthropic takes `system` as a top-level string, not a message role.
     const system = messages
@@ -74,6 +74,19 @@ function createOpenAICompatClient({ apiKey, defaultModel = DEFAULT_MODEL } = {})
       thinking: { type: 'disabled' },
     };
     if (system) req.system = system;
+
+    // Structured outputs — the guarantee these callers actually need.
+    // Free-form generation embeds a large HTML document inside a JSON string,
+    // and the model periodically emits an unescaped `"` mid-prose ("felt
+    // safer."), which terminates the string and makes the whole document
+    // unparseable. gpt-4o never did this because it ran in guaranteed-JSON
+    // mode. Passing a schema constrains the response to valid JSON at the
+    // decoding level, so a stray quote is escaped rather than fatal.
+    // OpenAI-style `response_format` in, Anthropic `output_config.format` out.
+    const schema = response_format?.json_schema?.schema || response_format?.schema;
+    if (schema) {
+      req.output_config = { format: { type: 'json_schema', schema } };
+    }
     // Sonnet 5 REJECTS non-default temperature/top_p/top_k with a 400, so this
     // is only forwarded for models that still accept it.
     if (typeof temperature === 'number' && !/^claude-sonnet-5|^claude-opus-4-[78]|^claude-fable/.test(req.model)) {

@@ -3,6 +3,58 @@ const { Octokit } = require('@octokit/rest');
 const { createOpenAICompatClient } = require('./lib/anthropic-openai-shim');
 const { isBridgingService, pickBridgingHero } = require('./lib/bridging-hero');
 const { parseModelJson, logJsonFailure } = require('./lib/parse-model-json');
+
+// Schema for the generated article, passed as a structured output so the model
+// CANNOT return unparseable JSON. Without it, the model occasionally emits an
+// unescaped `"` mid-prose (…because it "felt safer.") inside contentHtml, which
+// terminates the JSON string and fails the whole run. Structured outputs
+// constrain decoding, so quotes inside values are escaped automatically.
+// Note: every object needs additionalProperties:false and a `required` list.
+const ARTICLE_SCHEMA = {
+  type: 'object',
+  properties: {
+    slug:              { type: 'string' },
+    title:             { type: 'string' },
+    excerpt:           { type: 'string' },
+    metaTitle:         { type: 'string' },
+    metaDescription:   { type: 'string' },
+    primaryKeyword:    { type: 'string' },
+    secondaryKeywords: { type: 'array', items: { type: 'string' } },
+    category:          { type: 'string' },
+    contentHtml:       { type: 'string' },
+    faqSchema: {
+      type: 'object',
+      properties: {
+        '@type': { type: 'string' },
+        mainEntity: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              '@type': { type: 'string' },
+              name:    { type: 'string' },
+              acceptedAnswer: {
+                type: 'object',
+                properties: { '@type': { type: 'string' }, text: { type: 'string' } },
+                required: ['@type', 'text'],
+                additionalProperties: false,
+              },
+            },
+            required: ['@type', 'name', 'acceptedAnswer'],
+            additionalProperties: false,
+          },
+        },
+      },
+      required: ['@type', 'mainEntity'],
+      additionalProperties: false,
+    },
+  },
+  required: [
+    'slug', 'title', 'excerpt', 'metaTitle', 'metaDescription',
+    'primaryKeyword', 'secondaryKeywords', 'category', 'contentHtml', 'faqSchema',
+  ],
+  additionalProperties: false,
+};
 const Anthropic = require('@anthropic-ai/sdk');
 const sharp = require('sharp');
 const { google } = require('googleapis');
@@ -244,6 +296,7 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
     max_tokens: 8000, // headroom for 1400-word article + HTML + faqSchema + JSON wrapping
+    response_format: { json_schema: { schema: ARTICLE_SCHEMA } },
     messages: [
       {
         role: 'system',
