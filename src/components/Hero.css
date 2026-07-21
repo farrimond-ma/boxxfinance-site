@@ -116,3 +116,75 @@
         display: none !important;
     }
 }
+
+/* -- Bridging-led hero additions ------------------------------------------
+   Specificity note: `.hero p` is (0,1,1) and beat a bare `.hero-eyebrow`
+   (0,1,0), so the eyebrow rendered at 17.6px near-white instead of 12px gold.
+   These are scoped under `.hero` to win cleanly rather than reaching for
+   !important.                                                             */
+
+.hero .hero-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    opacity: 1;
+    margin: 0 0 var(--spacing-sm);
+    max-width: none;
+}
+
+.hero .hero-lead {
+    max-width: 46rem;
+}
+
+.hero .hero-secondary {
+    margin-top: var(--spacing-md);
+    margin-bottom: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: rgba(244, 244, 244, 0.72);
+    opacity: 1;
+    max-width: 42rem;
+}
+
+.hero .hero-secondary a {
+    color: var(--color-secondary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    /* On mobile this is the ONLY route to the wider product range, since
+       .btn-outline is display:none there. Inline text gave a 17px tap target;
+       padding brings it to the 44px minimum without changing the line's look.
+       inline-block is required for vertical padding to affect hit area. */
+    display: inline-block;
+    padding: 0.6875rem 0.25rem;
+    margin: -0.6875rem -0.25rem;
+}
+
+.hero .hero-secondary a:hover,
+.hero .hero-secondary a:focus-visible {
+    color: var(--color-secondary-light);
+}
+
+@media (max-width: 768px) {
+    .hero .hero-eyebrow {
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-align: center !important;
+    }
+
+    .hero .hero-secondary {
+        font-size: 0.875rem;
+        margin-top: var(--spacing-sm);
+        text-align: center !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero,
+    .hero-content * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
