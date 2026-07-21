@@ -270,14 +270,17 @@ TONE AND STYLE:
 - Include at least one realistic business scenario showing the product in use
 - Include mild, well-reasoned opinion where appropriate (e.g. "In our experience..." or "The honest answer is...")
 - No generic AI phrases, no corporate waffle
+- Write as a broker who arranges these deals every week, NOT as a neutral explainer. The reader must finish thinking "these people do this for a living", not "this is a well-written guide". Include at least TWO first-hand observations of the kind only an active broker would make — e.g. "The most common reason we see these declined is...", "Lenders rarely say this outright, but...", "In our experience, developers buying with planning potential usually...". Generic both-sides explanation is the single biggest weakness to avoid.
+- Guide the reader to a view. Where there is a sensible default choice, say so and say why, rather than only listing advantages and disadvantages.
 
 ARTICLE STRUCTURE (adapt headings to fit the specific topic, but follow this pattern):
 - Open with a single <p> of 50-70 words that directly and definitively answers the core question. Use declarative language ("X is...", "Businesses use X when...") — NOT hedging. This is what Google AI Overviews and ChatGPT extract as a featured answer. Within this opening paragraph, link the product name to the service page (${serviceUrl}) using keyword-rich anchor text (e.g. "${row.keyword}") — this counts toward the 3+ service-page links required below.
 - <h2> What this means in practice</h2>
 - <h2> How it works</h2>
-- <h2> Typical scenarios</h2>  ← include a realistic named-business example here
+- <h2> Typical scenarios</h2>  ← MUST include an anonymised deal with CONCRETE FIGURES: loan amount, loan-to-value, term, the exit, and how long it took to complete. e.g. "A landlord in Leeds needed £180,000 against a £320,000 property (56% LTV) over 9 months, exiting on a refinance once the tenancy was established — funds released in 12 working days." A scenario without numbers is not acceptable.
+- <h2> What lenders look for</h2>  ← REQUIRED SECTION. Concrete underwriting detail: typical loan-to-value ranges, realistic timescales from enquiry to funds, what security is acceptable, what evidence of the exit lenders expect, and the most common reasons applications are declined. This is the section competitors copy least and readers value most — be specific, use real UK ranges, never generic.
 - <h2> Common mistakes</h2>
-- <h2> Alternatives or comparisons</h2>
+- <h2> Alternatives or comparisons</h2>  ← MUST state plainly when this product is the WRONG choice and what to use instead. Naming the situations where the reader should NOT take this product — and what genuinely suits them better — is the strongest trust signal on the page. Do not hedge it or bury it.
 - <h2> How to get the best outcome</h2>
 - <h2> Summary</h2>
 - <h2> Frequently Asked Questions</h2>  ← 4-6 Q&As using <dl><dt><dd> tags
