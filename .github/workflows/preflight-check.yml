@@ -1,0 +1,61 @@
+name: Preflight Check
+
+# Verifies every external dependency BEFORE the day's content jobs run.
+#
+# The other watchdogs are reactive — failure-watchdog reports a job that already
+# failed, health-check runs at 22:53 once everything is over. This one runs
+# first and answers a different question: can today's jobs run at all?
+#
+# It exists because three services ran dry in four days (Anthropic credit,
+# Google One storage, and LinkedIn tokens approaching expiry) and each time the
+# visible symptom pointed somewhere else. There is no credit-balance endpoint to
+# poll, so this makes a minimal live call to each service and classifies the
+# failure — which also catches expired tokens and lapsed quota.
+
+on:
+  # 05:47 UTC — ~50 minutes before the earliest content job (Publish Blog, 06:37).
+  # Enough lead time to top up a balance or rotate a token before anything runs.
+  # Off :00 to dodge the scheduler queue.
+  schedule:
+    - cron: '47 5 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  preflight:
+    name: Verify services before the day's content jobs
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm ci || npm install
+
+      - name: Run preflight check
+        working-directory: scripts/content-engine
+        env:
+          # github.token (not GH_PAT) so issues are bot-authored — GitHub does
+          # not email you about issues you authored yourself.
+          GITHUB_TOKEN:                  ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY:             ${{ secrets.ANTHROPIC_API_KEY }}
+          SPREADSHEET_ID:                ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIALS:            ${{ secrets.GOOGLE_CREDENTIALS }}
+          LINKEDIN_ORG_ACCESS_TOKEN:     ${{ secrets.LINKEDIN_ORG_ACCESS_TOKEN }}
+          LINKEDIN_ACCESS_TOKEN_MARK:    ${{ secrets.LINKEDIN_ACCESS_TOKEN_MARK }}
+          LINKEDIN_ACCESS_TOKEN_ANDREW:  ${{ secrets.LINKEDIN_ACCESS_TOKEN_ANDREW }}
+          FACEBOOK_PAGE_ACCESS_TOKEN:    ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+          FACEBOOK_PAGE_ID:              ${{ secrets.FACEBOOK_PAGE_ID }}
+        run: node preflight-check.js
