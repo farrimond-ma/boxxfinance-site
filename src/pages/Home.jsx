@@ -12,7 +12,7 @@ const Home = () => {
             <SEO
                 title="UK Commercial Finance & Business Funding"
                 description="Boxx Commercial Finance provides tailored funding solutions for UK businesses. From asset finance to commercial mortgages, we help you grow."
-                keywords="commercial finance UK, business funding UK, commercial mortgages, bridging finance, asset finance, specialist finance broker"
+                keywords="bridging loans UK, commercial finance UK, business funding UK, commercial mortgages, asset finance, specialist finance broker"
                 schema={[
                     {
                         "@context": "https://schema.org",
@@ -22,8 +22,10 @@ const Home = () => {
                         "logo": "https://boxxfinance.co.uk/logo.png",
                         "contactPoint": {
                             "@type": "ContactPoint",
-                            "telephone": "+44-0-000-0000",
-                            "contactType": "customer service"
+                            "telephone": "+44-330-043-1612",
+                            "contactType": "customer service",
+                            "areaServed": "GB",
+                            "availableLanguage": "English"
                         },
                         "sameAs": [
                             "https://www.linkedin.com/company/boxx-commercial-finance"
