@@ -30,6 +30,10 @@ const ARTICLE_SCHEMA = {
     category:          { type: 'string', description: 'Service taxonomy value for this article.' },
     contentHtml:       { type: 'string', description:
       'The full article body as valid HTML, minimum 1250 words. ' +
+      'MUST end with a "Frequently Asked Questions" H2 section containing the same 5-7 Q&As as faqSchema — ' +
+      'the first article generated without this instruction omitted the FAQ entirely and shipped with zero FAQ schema. ' +
+      'MUST also include H2 sections covering: what it means in practice, how it works, typical scenarios, ' +
+      'what lenders look for, common mistakes, alternatives or comparisons, and a summary. ' +
       'MUST contain at least 4 internal links total, and every one of the following: ' +
       '(1) 3 or more contextual links to the service page, each with DIFFERENT keyword-rich 2-5 word anchor text; ' +
       '(2) one link in the opening paragraph to the service page; ' +
@@ -40,15 +44,19 @@ const ARTICLE_SCHEMA = {
       'Use single quotes for HTML attribute values.' },
     faqSchema: {
       type: 'object',
+      description: 'FAQPage structured data. MUST contain 5-7 question/answer pairs — never an empty list. ' +
+        'This is what AI answer engines quote directly, so it is not optional decoration. ' +
+        'The same questions must also appear as a "Frequently Asked Questions" H2 section at the end of contentHtml.',
       properties: {
-        '@type': { type: 'string' },
+        '@type': { type: 'string', description: 'Always the literal string "FAQPage".' },
         mainEntity: {
           type: 'array',
+          description: '5-7 items. Real questions a UK borrower would type into Google, not restatements of the title.',
           items: {
             type: 'object',
             properties: {
-              '@type': { type: 'string' },
-              name:    { type: 'string' },
+              '@type': { type: 'string', description: 'Always the literal string "Question".' },
+              name:    { type: 'string', description: 'The question, phrased as a searcher would ask it.' },
               acceptedAnswer: {
                 type: 'object',
                 properties: { '@type': { type: 'string' }, text: { type: 'string' } },
@@ -105,6 +113,11 @@ const GENERATION_MIN_WORDS = 1250;
 //   addressing separately rather than something to enforce retroactively.
 const MIN_TOTAL_LINKS = 4;
 const MIN_SERVICE_LINKS = 1;
+
+// Section floor, also corpus-measured: healthy articles carry 8 H2s (7 content
+// sections plus the FAQ). 6 catches the collapse — the broken post had 4 and no
+// FAQ — without flagging older posts that run slightly leaner.
+const MIN_H2_SECTIONS = 6;
 
 // Word count matching seo-audit.js exactly (strip tags, collapse whitespace)
 function wordCount(html) {
@@ -503,6 +516,17 @@ function auditContentHtml(html) {
 
   if (!hrefs.some(h => /\/chat-about-funding/i.test(h)))
     issues.push('No CTA link to /chat-about-funding — add mid-article and closing CTAs with keyword-rich anchors');
+
+  // Structure checks. The same description-less schema that cost the links also
+  // dropped four H2 sections and the entire FAQ block — bridging-loan-maximum-term
+  // shipped as the only post in 101 with zero FAQ schema. The FAQ is what AI
+  // answer engines quote, so its absence is a bigger loss than the links were.
+  if (!/Frequently Asked Questions/i.test(html))
+    issues.push('No "Frequently Asked Questions" section — add an H2 FAQ block with 5-7 Q&As matching faqSchema');
+
+  const h2Count = (html.match(/<h2[^>]*>/gi) || []).length;
+  if (h2Count < MIN_H2_SECTIONS)
+    issues.push(`Only ${h2Count} H2 section(s) — needs at least ${MIN_H2_SECTIONS} including the FAQ`);
 
   return issues;
 }
