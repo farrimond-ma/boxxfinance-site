@@ -10,18 +10,33 @@
     overflow: hidden;
     padding-top: 80px;
 }
+/* Hero background.
+   Previously /hero-desktop.webp — a cream-backgrounded box-and-warehouse
+   image — under a 0.95-opacity navy scrim. The image loaded fine but was
+   only ~5% visible where the copy sits, so the hero read as a blank navy
+   panel. The scrim was that heavy because the image is light and the hero
+   text is white; it was compensating for a mismatched image rather than
+   being wrong in itself.
+   Now uses a UK terraced-street photo, which suits a bridging-loans hero
+   (property) far better than logistics imagery, and the scrim is tuned so
+   the street is clearly visible while keeping white text legible. Contrast
+   at the copy is measured, not assumed — see the commit message. */
 .hero-overlay {
     position: absolute;
     inset: 0;
     z-index: 1;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: linear-gradient(to bottom, rgba(1, 8, 22, 0.85) 0%, rgba(1, 8, 22, 0.5) 50%, rgba(1, 8, 22, 0.1) 100%), url('/hero-mobile-portrait.webp');
-    background-position: center bottom;
+    background-image:
+        linear-gradient(to bottom, rgba(1, 8, 22, 0.90) 0%, rgba(1, 8, 22, 0.72) 45%, rgba(1, 8, 22, 0.55) 100%),
+        url('/images/hero/bridging-1.webp');
+    background-position: center center;
 }
 @media (min-width: 769px) {
     .hero-overlay {
-        background-image: linear-gradient(to right, rgba(1, 8, 22, 0.95) 0%, rgba(1, 8, 22, 0.6) 60%, transparent 100%), url('/hero-desktop.webp');
+        background-image:
+            linear-gradient(to right, rgba(1, 8, 22, 0.92) 0%, rgba(1, 8, 22, 0.72) 42%, rgba(1, 8, 22, 0.35) 100%),
+            url('/images/hero/bridging-1.webp');
         background-position: center right;
     }
 }

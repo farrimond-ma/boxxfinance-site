@@ -1,0 +1,128 @@
+/* Home page FAQ section.
+
+   The FaqAccordion markup is shared with resource pages, whose styles live in
+   ResourcePage.css and are not loaded on the home page. Rather than import a
+   whole page stylesheet for four rules, the accordion internals are restyled
+   here scoped under .home-faq — so this cannot leak into or fight with the
+   resource-page presentation. */
+
+.home-faq {
+    padding: var(--spacing-lg) 0;
+    background-color: var(--color-bg-light);
+}
+
+.home-faq-intro {
+    max-width: 46rem;
+    margin: 0 auto var(--spacing-md);
+    text-align: center;
+}
+
+.home-faq-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    margin: 0 0 var(--spacing-xs);
+}
+
+.home-faq-intro h2 {
+    margin: 0 0 var(--spacing-sm);
+}
+
+.home-faq-intro p {
+    color: var(--color-text-dark);
+    margin: 0;
+}
+
+.home-faq-intro a {
+    color: var(--color-text-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.home-faq-intro a:hover,
+.home-faq-intro a:focus-visible {
+    color: var(--color-primary);
+}
+
+/* The accordion renders its own <h2>; the section already has one, so hide
+   the duplicate from both sighted users and the accessibility tree rather
+   than shipping two headings with the same meaning. */
+.home-faq .resource-faqs > h2 {
+    display: none;
+}
+
+.home-faq .resource-faqs {
+    max-width: 52rem;
+    margin: 0 auto;
+}
+
+.home-faq .faq-item {
+    background: var(--color-white);
+    border: 1px solid rgba(1, 8, 22, 0.08);
+    border-radius: 6px;
+    margin-bottom: var(--spacing-xs);
+    overflow: hidden;
+}
+
+.home-faq .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    /* 1rem vertical keeps the tap target comfortably over 44px */
+    padding: 1rem 1.25rem;
+    background: none;
+    border: 0;
+    font-family: var(--font-heading);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--color-primary);
+    text-align: left;
+    cursor: pointer;
+}
+
+.home-faq .faq-question:hover {
+    background: rgba(212, 175, 55, 0.06);
+}
+
+.home-faq .faq-question:focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: -2px;
+}
+
+.home-faq .faq-icon {
+    flex: 0 0 auto;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--color-secondary);
+}
+
+.home-faq .faq-answer {
+    padding: 0 1.25rem 1.25rem;
+}
+
+.home-faq .faq-answer p {
+    margin: 0;
+    color: var(--color-text-dark);
+    line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+    .home-faq {
+        padding: var(--spacing-md) 0;
+    }
+
+    .home-faq .faq-question {
+        font-size: 1rem;
+        padding: 0.875rem 1rem;
+    }
+
+    .home-faq .faq-answer {
+        padding: 0 1rem 1rem;
+    }
+}

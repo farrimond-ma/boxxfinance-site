@@ -4,7 +4,9 @@ import Services from '../components/Services';
 import About from '../components/About';
 import CaseStudies from '../components/CaseStudies';
 import Contact from '../components/Contact';
+import HomeFaq from '../components/HomeFaq';
 import SEO from '../components/SEO';
+import { homeFaqSchema } from '../data/homeFaqs';
 
 const Home = () => {
     return (
@@ -36,13 +38,17 @@ const Home = () => {
                         "@type": "WebSite",
                         "name": "Boxx Commercial Finance",
                         "url": "https://boxxfinance.co.uk"
-                    }
+                    },
+                    // FAQPage built from the same source as the visible
+                    // accordion below, so the two can never disagree.
+                    homeFaqSchema
                 ]}
             />
             <Hero />
             <Services />
             <About />
             <CaseStudies />
+            <HomeFaq />
             <Contact />
         </>
     );
