@@ -450,6 +450,30 @@ ${row.service === 'Bridging Finance' ? `BRIDGING LOANS TERMINOLOGY (mandatory fo
   }
 
   // ── Link & anchor validation loop (up to 2 targeted fix passes)
+  // Title and slug are corrected in place rather than sent through the fix
+  // loop: they are short, the correction is mechanical, and leaving them to the
+  // model risks another pass that changes them back. The sheet keyword is the
+  // upstream source of "bridging finance" here, so this is the last line of
+  // defence before it reaches a published URL.
+  if (row.service === 'Bridging Finance') {
+    if (/bridging finance/i.test(article.title)) {
+      const before = article.title;
+      article.title = article.title.replace(/bridging finance/gi, m => m[0] === 'B' ? 'Bridging Loans' : 'bridging loans');
+      console.log(`  Title corrected: "${before}" → "${article.title}"`);
+    }
+    if (/bridging-finance/i.test(article.slug)) {
+      const before = article.slug;
+      article.slug = article.slug.replace(/bridging-finance/gi, 'bridging-loans');
+      console.log(`  Slug corrected: "${before}" → "${article.slug}"`);
+    }
+    for (const field of ['metaTitle', 'metaDescription', 'excerpt']) {
+      if (article[field] && /bridging finance/i.test(article[field])) {
+        article[field] = article[field].replace(/bridging finance/gi, m => m[0] === 'B' ? 'Bridging loans' : 'bridging loans');
+        console.log(`  ${field} corrected to "bridging loans"`);
+      }
+    }
+  }
+
   let linkIssues = auditContentHtml(article.contentHtml);
   for (let attempt = 1; attempt <= 2 && linkIssues.length > 0; attempt++) {
     console.log(`  Link audit: ${linkIssues.length} issue(s) found — fix pass ${attempt}...`);
@@ -516,6 +540,15 @@ function auditContentHtml(html) {
 
   if (!hrefs.some(h => /\/chat-about-funding/i.test(h)))
     issues.push('No CTA link to /chat-about-funding — add mid-article and closing CTAs with keyword-rich anchors');
+
+  // Terminology. The body rule in the prompt works, but it only ever covered
+  // body copy — bridging-finance-for-permitted-development shipped with
+  // "Bridging Finance" in its title AND slug because the sheet supplied the
+  // keyword "PD rights bridging finance UK" and nothing checked the output.
+  // Body-level compliance is not enough when the title is the thing people and
+  // search engines see first.
+  if (/bridging finance/i.test(html))
+    issues.push('Body uses "bridging finance" — rewrite as "bridging loans" or "short-term property finance"');
 
   // Structure checks. The same description-less schema that cost the links also
   // dropped four H2 sections and the entire FAQ block — bridging-loan-maximum-term
