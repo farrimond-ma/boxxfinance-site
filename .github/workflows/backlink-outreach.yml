@@ -45,7 +45,11 @@ jobs:
           ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
-          GH_TOKEN:           ${{ secrets.GH_PAT || github.token }}
+          # MUST be github.token, NOT GH_PAT. The PAT belongs to the repo owner,
+          # so a PAT-authored issue is "your own action" and GitHub will not
+          # email you about it — silently defeating the point. The bot authoring
+          # it is exactly why the Failure Watchdog's emails arrive.
+          GH_TOKEN:           ${{ github.token }}
           GITHUB_OWNER:       farrimond-ma
           GITHUB_REPO:        boxxfinance-site
         run: |
