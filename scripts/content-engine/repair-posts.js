@@ -112,6 +112,20 @@ function auditPost(post) {
   if (faqQas < MIN_FAQ_QAS)
     issues.push(`only ${faqQas} FAQ schema Q&A(s), needs ${MIN_FAQ_QAS}+`);
 
+  // Terminology in prose. terminology-sweep.js handles titles and keyword
+  // lists mechanically, but body copy cannot be fixed by substitution:
+  // "bridging finance" is a mass noun, "bridging loans" is plural, so the
+  // sentences need rewriting rather than a token swap. That is this path's job.
+  const prose = html.replace(/<[^>]+>/g, ' ');
+  const termHits = (prose.match(/bridging finance/gi) || []).length;
+  if (termHits)
+    issues.push(`uses "bridging finance" ${termHits} time(s) in body prose — rewrite the sentences to use "bridging loans" with correct plural agreement (not a find-and-replace: "bridging loans is" and "bridging loans are a short-term loan" are both wrong)`);
+
+  const faqProse = (post.schema?.mainEntity || [])
+    .map(qa => `${qa.name || ''} ${qa.acceptedAnswer?.text || ''}`).join(' ');
+  if (/bridging finance/i.test(faqProse))
+    issues.push('FAQ schema uses "bridging finance" — rewrite those questions and answers with correct plural agreement');
+
   return issues;
 }
 
@@ -155,6 +169,10 @@ async function main() {
   const isDryRun = process.argv.includes('--dry-run');
   const slugArg = (process.argv.find(a => a.startsWith('--slug=')) || '').replace('--slug=', '');
   const wanted = slugArg ? slugArg.split(',').map(s => s.trim()).filter(Boolean) : null;
+  // Batch limit. ~73 posts fail the audit; running them all in one go is a long
+  // job and a large single commit. Default to 10 so runs stay reviewable.
+  const limitArg = (process.argv.find(a => a.startsWith('--limit=')) || '').replace('--limit=', '');
+  const limit = limitArg ? Number(limitArg) : (wanted ? wanted.length : 10);
 
   console.log(`Repair posts${isDryRun ? ' [DRY RUN]' : ''}${wanted ? ` — targeting: ${wanted.join(', ')}` : ' — all failing posts'}\n`);
 
@@ -163,13 +181,21 @@ async function main() {
   });
   const posts = JSON.parse(Buffer.from(file.content, 'base64').toString('utf8'));
 
-  const candidates = posts
+  const allFailing = posts
     .map((p, i) => ({ post: p, i, issues: auditPost(p) }))
     .filter(({ post, issues }) => {
       if (post.status && post.status !== 'published') return false;
       if (wanted) return wanted.includes(post.slug);
       return issues.length > 0;
     });
+
+  // Worst first, so a limited batch fixes the most damaged posts.
+  allFailing.sort((a, b) => b.issues.length - a.issues.length);
+  const candidates = allFailing.slice(0, limit);
+  if (allFailing.length > candidates.length) {
+    console.log(`${allFailing.length} post(s) failing; repairing the ${candidates.length} worst this run (--limit to change).
+`);
+  }
 
   if (!candidates.length) {
     console.log('Nothing to repair — every targeted post passes the structural audit.');

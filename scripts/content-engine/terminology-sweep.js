@@ -15,8 +15,12 @@
  *      indexing it has accumulated. Slug correction belongs at generation time
  *      (publish-blog.js does that); retrofitting it here would need 301s and is
  *      a separate, deliberate migration.
- *   2. URLs / href values. The service page genuinely lives at
- *      /funding-solutions/bridging-finance. Rewriting that produces 404s.
+ *   2. URLs / href values. Left alone here because URL changes are a separate,
+ *      deliberate decision — not a side effect of a text sweep. Note the
+ *      canonical service page is /funding-solutions/bridging-loans; the older
+ *      /funding-solutions/bridging-finance still appears in 32 body links and
+ *      301-redirects (public/.htaccess:120), so those resolve but cost an extra
+ *      hop. Updating them to the canonical URL is a worthwhile follow-up.
  *   3. post.service. "Bridging Finance" is the internal taxonomy identity used
  *      by SERVICE_FILTER and the sheet; Blog.jsx already maps it to "Bridging
  *      Loans" for display.
