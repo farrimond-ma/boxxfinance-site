@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
 const { createOpenAICompatClient } = require('./lib/anthropic-openai-shim');
+const { parseModelJson, logJsonFailure } = require('./lib/parse-model-json');
 const { google } = require('googleapis');
 
 // ─── Clients ────────────────────────────────────────────────────────────────
@@ -359,21 +360,15 @@ async function generateLocationPage(row, relatedBlogs) {
     ],
   });
 
-  let content = response.choices[0].message.content;
-  content = content
-    .replace(/```json/g, '')
-    .replace(/```/g, '')
-    .replace(/\u201c/g, '"')
-    .replace(/\u201d/g, '"')
-    .trim();
-
+  // Parse AS WRITTEN \u2014 do not pre-normalise curly quotes. Claude writes
+  // typographic quotes inside prose, and rewriting them to straight quotes
+  // corrupts otherwise-valid JSON. See lib/parse-model-json.js.
   let page;
   try {
-    page = JSON.parse(content);
+    page = parseModelJson(response.choices[0].message.content, { label: 'location generator' });
   } catch (err) {
-    console.error('OpenAI returned invalid JSON. Raw output:');
-    console.error(content.substring(0, 500));
-    throw new Error('Failed to parse OpenAI response as JSON');
+    logJsonFailure(err);
+    throw err;
   }
 
   return page;

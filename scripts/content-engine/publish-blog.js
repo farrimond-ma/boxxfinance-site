@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
 const { createOpenAICompatClient } = require('./lib/anthropic-openai-shim');
 const { isBridgingService, pickBridgingHero } = require('./lib/bridging-hero');
+const { parseModelJson, logJsonFailure } = require('./lib/parse-model-json');
 const Anthropic = require('@anthropic-ai/sdk');
 const sharp = require('sharp');
 const { google } = require('googleapis');
@@ -328,16 +329,15 @@ ${row.service === 'Bridging Finance' ? `BRIDGING LOANS TERMINOLOGY (mandatory fo
     ],
   });
 
-  let content = response.choices[0].message.content;
-  content = content.replace(/```json/g, '').replace(/```/g, '').replace(/\u201c/g, '"').replace(/\u201d/g, '"').trim();
-
+  // Parse AS WRITTEN \u2014 do not pre-normalise curly quotes. Claude writes
+  // typographic quotes inside prose, and rewriting them to straight quotes
+  // corrupts otherwise-valid JSON. See lib/parse-model-json.js.
   let article;
   try {
-    article = JSON.parse(content);
+    article = parseModelJson(response.choices[0].message.content, { label: 'article generator' });
   } catch (err) {
-    console.error('OpenAI returned invalid JSON. Raw output:');
-    console.error(content.substring(0, 500));
-    throw new Error('Failed to parse OpenAI response as JSON');
+    logJsonFailure(err);
+    throw err;
   }
 
   // GPT-4o reliably under-delivers on "minimum 1200 words" in a single shot
