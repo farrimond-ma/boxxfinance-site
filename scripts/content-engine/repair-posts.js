@@ -179,7 +179,25 @@ async function main() {
   const { data: file } = await octokit.repos.getContent({
     owner: GITHUB_OWNER, repo: GITHUB_REPO, path: BLOG_FILE,
   });
-  const posts = JSON.parse(Buffer.from(file.content, 'base64').toString('utf8'));
+
+  // blogPosts.json is ~1.33MB. The contents API silently returns an EMPTY
+  // `content` field for anything over 1MB — it still gives you the sha and a
+  // 200, so the only symptom is JSON.parse("") throwing "Unexpected end of
+  // JSON input". Fall back to the blob API, which has no such limit.
+  // (publish-blog.js has handled this since it was written; this script
+  // originally did not, and failed on its first run for exactly this reason.)
+  const raw = file.content && file.encoding !== 'none'
+    ? file.content
+    : (await octokit.git.getBlob({
+        owner: GITHUB_OWNER, repo: GITHUB_REPO, file_sha: file.sha,
+      })).data.content;
+
+  const json = Buffer.from(raw, 'base64').toString('utf8');
+  if (!json.trim()) {
+    throw new Error(`${BLOG_FILE} came back empty from GitHub (sha ${file.sha}) — refusing to continue.`);
+  }
+  const posts = JSON.parse(json);
+  console.log(`Loaded ${posts.length} posts from ${BLOG_FILE}\n`);
 
   const allFailing = posts
     .map((p, i) => ({ post: p, i, issues: auditPost(p) }))
@@ -251,6 +269,7 @@ async function main() {
     message: `content: repair ${repaired} post(s) — restore FAQ, sections and internal links`,
     content: Buffer.from(JSON.stringify(posts, null, 2)).toString('base64'),
     sha: file.sha,
+    branch: 'main',
   });
   console.log(`\nCommitted ${repaired} repaired post(s).`);
 }
