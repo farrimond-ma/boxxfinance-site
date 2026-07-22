@@ -5,7 +5,11 @@
 .sme-hero {
     background: linear-gradient(100deg, #0a192f 0%, #0a192f 55%, #0f2747 100%);
     color: #fff;
-    padding: 90px 0 60px;
+    /* Top padding must clear the position:fixed navbar, which renders ~110px
+       tall in its scrolled state (base 4.9rem plus the "Call us now" button).
+       The previous 90px left the H1 sitting 20px UNDER the header. 9rem matches
+       the site-wide resource-hero convention and clears it with breathing room. */
+    padding: 9rem 0 60px;
 }
 
 .sme-hero h1 {
@@ -227,6 +231,6 @@
 }
 
 @media (max-width: 640px) {
-    .sme-hero { padding: 70px 0 44px; }
+    .sme-hero { padding: 8rem 0 44px; } /* clear the fixed navbar on mobile — 7rem left only 2px, 8rem gives real headroom */
     .sme-stat-value { font-size: 2rem; }
 }
