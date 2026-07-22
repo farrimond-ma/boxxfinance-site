@@ -109,7 +109,7 @@ const FundingSolutions = () => {
                 <div className="container resource-hero-grid">
                     <div className="resource-hero-text">
                         <h1>
-                            Commercial <span className="text-highlight">Funding Solutions</span>
+                            Our Range of <span className="text-highlight">Funding Solutions</span>
                         </h1>
                         <p className="resource-hero-lead">
                             We are a whole-of-market commercial finance broker, not a lender — our only job
