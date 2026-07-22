@@ -90,8 +90,14 @@
 }
 @media (max-width: 768px) {
     .hero {
-        align-items: flex-start !important;
+        /* Was flex-start, which pinned the content to the top of the 100vh hero
+           and left a large empty stretch of the property image below the CTAs.
+           Centring fills that space by moving the whole block down. padding-top
+           is kept as a floor so the eyebrow still clears the fixed header if the
+           copy ever grows tall enough to reach it. */
+        align-items: center !important;
         padding-top: 100px !important;
+        padding-bottom: 40px;
     }
     .hero-content {
         text-align: center !important;
