@@ -89,7 +89,7 @@ const Blog = () => {
                 <div className="container resource-hero-grid">
                     <div className="resource-hero-text">
                         <h1>
-                            Commercial Funding <span className="text-highlight">Insights</span>
+                            Our Funding <span className="text-highlight">Insights</span>
                         </h1>
                         <p className="resource-hero-lead">
                             Practical, up-to-date funding intelligence for UK businesses, homeowners
