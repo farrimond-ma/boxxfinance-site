@@ -92,6 +92,23 @@ const REPAIR_SCHEMA = {
 // Mirrors auditContentHtml in publish-blog.js. Kept deliberately narrow: this
 // script only repairs STRUCTURAL gaps, so it does not re-litigate anchor
 // wording in older posts that are otherwise healthy.
+// Is rates / cost of borrowing / market conditions a CORE topic of this post,
+// not just an incidental mention? Used to gate the SME Funding Index link so it
+// lands only where it is genuinely relevant — the index is live Bank of England
+// SME lending data. Scored so "occasionally" falls out of topical fit rather
+// than being forced into every finance post (a plain "mentions rate" test
+// matched 100 of 103 posts, which is the opposite of occasional).
+function isRateCentric(post) {
+  const text = (post.content || '').replace(/<[^>]+>/g, ' ');
+  const title = (post.title || '').toLowerCase();
+  let s = 0;
+  if (/rate|cost|market|bank of england/i.test(title)) s += 3;
+  s += (text.match(/interest rate|lending rate|bank rate|base rate/gi) || []).length;
+  s += (text.match(/bank of england/gi) || []).length * 2;
+  if (/compare .{0,20}rate|current .{0,15}rate|rate environment/i.test(text)) s += 2;
+  return s >= 6;
+}
+
 function auditPost(post) {
   const html = post.content || '';
   const issues = [];
@@ -125,6 +142,11 @@ function auditPost(post) {
     .map(qa => `${qa.name || ''} ${qa.acceptedAnswer?.text || ''}`).join(' ');
   if (/bridging finance/i.test(faqProse))
     issues.push('FAQ schema uses "bridging finance" — rewrite those questions and answers with correct plural agreement');
+
+  // SME Funding Index — only for genuinely rate/market-focused posts that do
+  // not already link it. Keeps the link occasional and earned.
+  if (isRateCentric(post) && !hrefs.some(h => /uk-sme-funding-index/i.test(h)))
+    issues.push('rate/market-focused post with no link to the UK SME Funding Index — weave in one contextual link to https://boxxfinance.co.uk/uk-sme-funding-index using descriptive anchor text such as "UK SME lending rates" or "current SME funding costs"');
 
   return issues;
 }
