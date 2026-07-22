@@ -30,6 +30,24 @@ jobs:
           sudo dpkg -i libcaca0_0.99.beta20-4build2_amd64.deb
           sudo apt-get install -y ffmpeg
 
+      # Reels previously used DejaVuSans, the generic Linux default, which
+      # looked cheap. Outfit is the site's heading font. It ships as a variable
+      # font (assets/fonts/Outfit-Variable.ttf); ffmpeg drawtext can't select a
+      # named instance, so derive static Bold (700) and SemiBold (600) weights
+      # here. If this step ever fails, the script falls back to DejaVu rather
+      # than crashing (and logs it loudly).
+      - name: Build brand fonts for reels
+        run: |
+          python3 -m pip install --quiet fonttools
+          mkdir -p /tmp/boxx-fonts
+          OUTFIT=scripts/content-engine/assets/fonts/Outfit-Variable.ttf
+          python3 -m fontTools.varLib.instancer "$OUTFIT" wght=700 -o /tmp/boxx-fonts/Outfit-Bold.ttf
+          python3 -m fontTools.varLib.instancer "$OUTFIT" wght=600 -o /tmp/boxx-fonts/Outfit-SemiBold.ttf
+          # Playfair Display — the high-contrast serif for the headline and 01/02/03 numerals
+          PLAYFAIR=scripts/content-engine/assets/fonts/PlayfairDisplay-Variable.ttf
+          python3 -m fontTools.varLib.instancer "$PLAYFAIR" wght=700 -o /tmp/boxx-fonts/PlayfairDisplay-Bold.ttf
+          ls -la /tmp/boxx-fonts/
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:

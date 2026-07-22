@@ -90,31 +90,45 @@ function getArticleContent(post) {
 
 async function generateReelScript(post) {
   const content = getArticleContent(post);
-  const prompt = `You are writing text for a 20-second Facebook Reel for Boxx Commercial Finance.
+  const prompt = `You are writing the on-screen text and narration for a 20-second Facebook Reel for Boxx Commercial Finance, a UK bridging loan and commercial finance broker.
 
 ${content ? `ARTICLE: "${post.title}"\n\nCONTENT:\n${content}` : `TOPIC: "${post.title}" — service: ${post.service}`}
 
-Write exactly 4 lines of text to display on screen:
-- LINE 1 (HOOK): Bold statement or question. Max 8 words. All caps.
-- LINE 2 (INSIGHT 1): One practical fact from the article. Max 10 words.
-- LINE 3 (INSIGHT 2): One more insight or benefit. Max 10 words.
-- LINE 4 (CTA): Exactly: "Read more at boxxfinance.co.uk"
+The reel shows a kicker, a headline, and three numbered points (each a short heading plus one line of detail). Draw SPECIFIC, concrete facts from the article — real numbers, timeframes, requirements, use cases — never generic filler like "fast flexible funding" or "expert advice".
 
-Return ONLY the 4 lines, one per line, nothing else.`;
+Return EXACTLY these 8 labelled lines and nothing else:
+KICKER: 3-5 word category label in sentence case, e.g. "Short-term property finance"
+HEADLINE: 3-6 word headline that stops the scroll, sentence case, no full stop
+POINT1H: 2-4 word heading for the first point
+POINT1D: one line of detail, max 10 words, ending with a full stop
+POINT2H: 2-4 word heading for the second point
+POINT2D: one line of detail, max 10 words, ending with a full stop
+POINT3H: 2-4 word heading for the third point
+POINT3D: one line of detail, max 10 words, ending with a full stop
+
+Use "bridging loans", never "bridging finance". Sentence case, not ALL CAPS (the design applies styling). Return only the 8 lines.`;
 
   const response = await anthropic.messages.create({
-    model: 'claude-haiku-4-5-20251001', max_tokens: 150,
+    model: 'claude-haiku-4-5-20251001', max_tokens: 400,
     messages: [{ role: 'user', content: prompt }],
   });
 
-  const text  = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
-  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+  const text = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
+  const grab = (label, fallback) => {
+    const m = text.match(new RegExp(`^${label}:\\s*(.+)$`, 'im'));
+    return (m && m[1].trim()) || fallback;
+  };
 
+  const svc = /bridging/i.test(post.service || post.slug || '') ? 'Short-term property finance' : (post.service || 'UK business funding');
   return {
-    hook:     lines[0] || post.title.toUpperCase().substring(0, 40),
-    insight1: lines[1] || `Expert ${post.service || ''} advice for UK businesses`,
-    insight2: lines[2] || 'Fast, flexible funding solutions',
-    cta:      lines[3] || 'Read more at boxxfinance.co.uk',
+    kicker:   grab('KICKER', svc),
+    headline: grab('HEADLINE', post.title),
+    points: [
+      { h: grab('POINT1H', 'Fast decisions'),   d: grab('POINT1D', 'Terms in principle in as little as 24 hours.') },
+      { h: grab('POINT2H', 'Property-led'),      d: grab('POINT2D', 'Based on the asset and your exit, not payslips.') },
+      { h: grab('POINT3H', 'A clear way out'),   d: grab('POINT3D', 'Repaid by sale or refinance.') },
+    ],
+    cta: 'boxxfinance.co.uk',
   };
 }
 
@@ -134,11 +148,11 @@ async function downloadImage(imageUrl, destPath) {
 async function generateVoiceover(script, outputPath) {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-  // Convert to natural speech (no ALL CAPS, add pauses with punctuation)
+  // Natural speech: headline, then each point (heading + detail), then the CTA.
+  const endPunct = s => (/[.!?]$/.test(s.trim()) ? s.trim() : s.trim() + '.');
   const spokenText = [
-    script.hook.charAt(0) + script.hook.slice(1).toLowerCase() + '.',
-    script.insight1 + '.',
-    script.insight2 + '.',
+    endPunct(script.headline),
+    ...script.points.map(p => `${endPunct(p.h)} ${endPunct(p.d)}`),
     'Find out more at Boxx Finance dot co dot uk.',
   ].join('  ');
 
@@ -166,14 +180,23 @@ async function generateVoiceover(script, outputPath) {
       console.log(`  Voiceover generated: ${Math.round(buffer.length / 1024)} KB`);
       return outputPath;
     } catch (err) {
-      console.warn(`  ElevenLabs failed (${err.message}) — trying OpenAI TTS fallback`);
+      // Loud on purpose. If this fires, every reel silently drops from the
+      // British ElevenLabs voice to the OpenAI fallback — which is how an
+      // American narrator ended up on the reels without anyone being told.
+      console.error(`  ⚠ ElevenLabs TTS FAILED (${err.message})`);
+      console.error(`  ⚠ Falling back to OpenAI TTS — check the ELEVENLABS_API_KEY secret and account credit.`);
     }
+  } else {
+    console.error('  ⚠ ELEVENLABS_API_KEY not set — using OpenAI TTS fallback (check the secret is present).');
   }
 
   // ── Fallback: OpenAI TTS ─────────────────────────────────────────────────────
   if (OPENAI_API_KEY) {
     try {
-      const voice = process.env.OPENAI_TTS_VOICE || 'onyx'; // onyx = deep male
+      // 'fable' is OpenAI's British-accented voice. The previous 'onyx' is
+      // American — that was the narrator the user heard whenever ElevenLabs
+      // was unavailable. Keep the fallback British so it matches a UK broker.
+      const voice = process.env.OPENAI_TTS_VOICE || 'fable';
       console.log(`  Using OpenAI TTS fallback (voice: ${voice})`);
       const res = await fetch('https://api.openai.com/v1/audio/speech', {
         method:  'POST',
@@ -242,68 +265,93 @@ function buildVideo(imagePath, script, outputPath, audioPath = null) {
     fs.writeFileSync(p, text, 'utf8');
     return p;
   };
-  const hookFile     = textFile('hook.txt',     wrapLine(script.hook,     22)); // fontsize 54 bold ≈ 22 chars/line
-  const insight1File = textFile('insight1.txt', wrapLine(script.insight1, 32)); // fontsize 40 bold ≈ 32 chars/line
-  const insight2File = textFile('insight2.txt', wrapLine(script.insight2, 32));
-  const ctaFile      = textFile('cta.txt',      script.cta);
+  // On-screen text (each written to a file so ffmpeg drawtext needs no escaping).
+  const kickerFile = textFile('kicker.txt', (script.kicker || '').toUpperCase());
+  const headFile   = textFile('head.txt',   wrapLine(script.headline || '', 18)); // Playfair 74 ≈ 18 chars/line
+  const p = script.points || [];
+  const pointFiles = p.map((pt, i) => ({
+    h: textFile(`p${i}h.txt`, wrapLine(pt.h || '', 24)),
+    d: textFile(`p${i}d.txt`, wrapLine(pt.d || '', 34)),
+  }));
+  const urlFile = textFile('url.txt', script.cta || 'boxxfinance.co.uk');
 
-  const boldFont    = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf';
-  const regularFont = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';
+  // Fonts, instanced to static weights by the workflow. Playfair Bold for the
+  // headline and the 01/02/03 numerals; Outfit for the kicker, point headings
+  // and details. Fall back gracefully (and loudly) if the instancing step did
+  // not run, so a missing font never crashes ffmpeg.
+  const pick = (primary, fallback) => (fs.existsSync(primary) ? primary : (console.warn(`  ⚠ font missing (${primary}) — falling back`), fallback));
+  // Serif fallback is DejaVuSans-Bold (always present) not DejaVuSerif — a
+  // sans headline is ugly but won't crash if Playfair instancing ever fails.
+  const serifFont   = pick('/tmp/boxx-fonts/PlayfairDisplay-Bold.ttf', '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf');
+  const boldFont    = pick('/tmp/boxx-fonts/Outfit-Bold.ttf',          '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf');
+  const bodyFont    = pick('/tmp/boxx-fonts/Outfit-SemiBold.ttf',      '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf');
 
-  // Logo — use logo_solid.png from the checked-out repo
-  const logoPath = path.resolve(__dirname, '../../public/logo_solid.png');
-  const hasLogo  = fs.existsSync(logoPath);
-  if (hasLogo) console.log('  Logo overlay: enabled');
+  const GOLD = '0xd4af37', GOLD_LIGHT = '0xf2c94c', WHITE = 'white', MUTED = '0xaeb9c8';
 
-  // Layout (1080×1920, 9:16 vertical Reel):
-  //   y=0–90    Navy bar (logo)
-  //   y=300–480 HOOK text (fontsize 54, up to 2 lines × ~90px + line_spacing)
-  //   y=530     Gold separator bar
-  //   y=570–700 INSIGHT 1 (fontsize 40, up to 2 lines × ~60px + line_spacing)
-  //   y=760–890 INSIGHT 2 (fontsize 40, up to 2 lines)
-  //   y=1780    Navy bar (CTA)
-  //   y=1830    CTA text
-  const videoChain = [
-    `[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920`,
-    `zoompan=z='if(lte(zoom,1.0),1.0,zoom+0.0008)':d=${duration * 30}:s=1080x1920:fps=30`,
-    `drawbox=x=0:y=0:w=iw:h=ih:color=black@0.55:t=fill`,
-    `drawbox=x=0:y=0:w=iw:h=90:color=0x031b49@0.95:t=fill`,
-    `drawtext=fontfile=${boldFont}:textfile=${hookFile}:fontcolor=white:fontsize=54:x=(w-text_w)/2:y=300:borderw=3:bordercolor=black@0.8:line_spacing=12`,
-    `drawbox=x=100:y=530:w=880:h=3:color=0xb8922a@0.9:t=fill`,
-    `drawtext=fontfile=${boldFont}:textfile=${insight1File}:fontcolor=white:fontsize=40:x=(w-text_w)/2:y=570:borderw=2:bordercolor=black@0.7:line_spacing=10`,
-    `drawtext=fontfile=${boldFont}:textfile=${insight2File}:fontcolor=white:fontsize=40:x=(w-text_w)/2:y=760:borderw=2:bordercolor=black@0.7:line_spacing=10`,
-    `drawbox=x=0:y=1780:w=iw:h=140:color=0x031b49@0.95:t=fill`,
-    `drawtext=fontfile=${regularFont}:textfile=${ctaFile}:fontcolor=0xb8922a:fontsize=36:x=(w-text_w)/2:y=1830`,
-  ].join(',');
+  // Faded-photo scrim (navy gradient, same feel as the blog hero) and the gold
+  // logo, both bundled in the repo.
+  const scrimPath = path.resolve(__dirname, 'assets/reel-scrim.png');
+  const logoPath  = path.resolve(__dirname, '../../public/logo_gold.png');
+  const hasScrim  = fs.existsSync(scrimPath);
+  const hasLogo   = fs.existsSync(logoPath);
 
-  // Audio input index depends on whether logo is present
-  // inputs: 0=image, 1=logo (if any), then audio
-  const logoInputIdx  = 1;
-  const audioInputIdx = hasLogo ? 2 : 1;
+  // Input indices: 0=photo, then scrim, logo, audio in that order when present.
+  let idx = 0;
+  const photoIdx = idx++;
+  const scrimIdx = hasScrim ? idx++ : -1;
+  const logoIdx  = hasLogo  ? idx++ : -1;
+  const audioIdx = audioPath ? idx++ : -1;
 
-  let filterComplex;
-  if (hasLogo) {
-    // Scale logo to 65px height, overlay centred in the 90px navy bar
-    filterComplex = `${videoChain}[bg];[${logoInputIdx}:v]scale=-1:65[logo];[bg][logo]overlay=x=(W-w)/2:y=12[out]`;
+  // Layout (1080×1920):
+  //   y=170  kicker (gold, uppercase)
+  //   y=235  headline (Playfair, white, up to 3 lines)
+  //   y=560  gold rule
+  //   y=650 / 830 / 1010  three points — number + heading + detail
+  //   y=1770 footer hairline · y=1808 gold logo · URL right-aligned
+  const draw = [];
+  draw.push(`drawtext=fontfile=${bodyFont}:textfile=${kickerFile}:fontcolor=${GOLD}:fontsize=30:x=90:y=170`);
+  draw.push(`drawtext=fontfile=${serifFont}:textfile=${headFile}:fontcolor=${WHITE}:fontsize=74:x=90:y=235:line_spacing=14:borderw=2:bordercolor=black@0.5`);
+  draw.push(`drawbox=x=90:y=560:w=90:h=4:color=${GOLD}@0.95:t=fill`);
+  const rows = [650, 830, 1010];
+  pointFiles.forEach((pf, i) => {
+    const y = rows[i];
+    const n = String(i + 1).padStart(2, '0');
+    draw.push(`drawtext=fontfile=${serifFont}:text='${n}':fontcolor=${GOLD}:fontsize=56:x=90:y=${y}`);
+    draw.push(`drawtext=fontfile=${boldFont}:textfile=${pf.h}:fontcolor=${WHITE}:fontsize=40:x=210:y=${y}`);
+    draw.push(`drawtext=fontfile=${bodyFont}:textfile=${pf.d}:fontcolor=${MUTED}:fontsize=30:x=210:y=${y + 54}`);
+  });
+  draw.push(`drawbox=x=90:y=1770:w=900:h=1:color=white@0.16:t=fill`);
+  draw.push(`drawtext=fontfile=${bodyFont}:textfile=${urlFile}:fontcolor=${GOLD_LIGHT}:fontsize=30:x=w-text_w-90:y=1822`);
+  const drawChain = draw.join(',');
+
+  // Filtergraph: photo → (scrim overlay) → drawtext chain → (logo overlay) → out
+  const chains = [];
+  chains.push(`[${photoIdx}:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,zoompan=z='if(lte(zoom,1.0),1.0,zoom+0.0006)':d=${duration * 30}:s=1080x1920:fps=30[ph]`);
+  if (hasScrim) {
+    chains.push(`[ph][${scrimIdx}:v]overlay=0:0[bg]`);
   } else {
-    filterComplex = `${videoChain}[out]`;
+    chains.push(`[ph]drawbox=x=0:y=0:w=iw:h=ih:color=0x0a192f@0.72:t=fill[bg]`);
   }
-
-  const logoInput  = hasLogo  ? `-loop 1 -i "${logoPath}"` : '';
-  const audioInput = audioPath ? `-i "${audioPath}"` : '';
-  const audioMap   = audioPath ? `-map ${audioInputIdx}:a` : '';
-  const audioCodec = audioPath ? `-c:a aac -shortest` : '-an';
+  chains.push(`[bg]${drawChain}[txt]`);
+  if (hasLogo) {
+    chains.push(`[${logoIdx}:v]scale=-1:44[logo]`);
+    chains.push(`[txt][logo]overlay=x=90:y=1806[out]`);
+  } else {
+    chains.push(`[txt]null[out]`);
+  }
+  const filterComplex = chains.join(';');
 
   const cmd = [
     'ffmpeg -y',
     `-loop 1 -t ${duration} -i "${imagePath}"`,
-    logoInput,
-    audioInput,
+    hasScrim ? `-loop 1 -i "${scrimPath}"` : '',
+    hasLogo  ? `-loop 1 -i "${logoPath}"`  : '',
+    audioPath ? `-i "${audioPath}"` : '',
     `-filter_complex "${filterComplex}"`,
     `-map "[out]"`,
-    audioMap,
+    audioPath ? `-map ${audioIdx}:a` : '',
     `-c:v libx264 -preset fast -pix_fmt yuv420p -r 30`,
-    audioCodec,
+    audioPath ? `-c:a aac -shortest` : '-an',
     `-movflags +faststart`,
     `"${outputPath}"`,
   ].filter(Boolean).join(' ');
@@ -312,9 +360,8 @@ function buildVideo(imagePath, script, outputPath, audioPath = null) {
   try {
     execSync(cmd, { stdio: 'pipe' });
   } finally {
-    for (const f of [hookFile, insight1File, insight2File, ctaFile]) {
-      try { fs.unlinkSync(f); } catch {}
-    }
+    const cleanup = [kickerFile, headFile, urlFile, ...pointFiles.flatMap(pf => [pf.h, pf.d])];
+    for (const f of cleanup) { try { fs.unlinkSync(f); } catch {} }
   }
   const size = Math.round(fs.statSync(outputPath).size / (1024 * 1024) * 10) / 10;
   console.log(`  Video created: ${size} MB`);
