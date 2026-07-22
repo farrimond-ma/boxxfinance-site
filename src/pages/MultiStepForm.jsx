@@ -236,7 +236,12 @@ const MultiStepForm = () => {
             {/* Hero Section */}
             <div className="service-hero">
                 <div className="container">
-                    <h1>Let's Discuss <span className="text-highlight">{service ? service.title : 'Your Funding'}</span></h1>
+                    {/* Bridging is the strategic focus and sells on speed, so it
+                        gets a more active H1. Other services keep the warmer
+                        "Let's Discuss …" template. */}
+                    {isBridging
+                        ? <h1>Let's Get Your <span className="text-highlight">Bridging Loan</span> Moving</h1>
+                        : <h1>Let's Discuss <span className="text-highlight">{service ? service.title : 'Your Funding'}</span></h1>}
                     <p>{service ? service.description : 'Complete the short form below and our funding specialists will review your requirements promptly. We’ll assess suitability, structure the right approach, and guide you through the next steps with clarity and confidence.'}</p>
                 </div>
             </div>
@@ -253,7 +258,7 @@ const MultiStepForm = () => {
                     {/* Step 1: Requirement */}
                     {step === 1 && (
                         <div className="step-content">
-                            <h2 className="step-title">{service ? `${service.title} Details` : 'Share Your Funding Requirements'}</h2>
+                            <h2 className="step-title">What are you looking for?</h2>
                             <p className="step-subtitle" style={{ fontSize: '0.9rem', color: '#666', marginBottom: '2rem' }}>
                                 All information is handled confidentially and reviewed by a funding specialist. We do not share details without your consent.
                             </p>
