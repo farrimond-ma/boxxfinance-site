@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import { FinalCtaBand } from '../components/resource/ResourceHero';
+import { pickHero } from '../components/resource/heroPool';
 import locationPages from '../data/locationPages.json';
 import '../components/resource/ResourcePage.css'; // shared hero design language
 import './Locations.css';
@@ -13,6 +15,10 @@ import './Locations.css';
  * reporting them as "URL is unknown to Google" (verified via the URL
  * Inspection watchdog, 21 Jul 2026). Sitemap-only programmatic pages get
  * deprioritised; a footer-linked hub gives each one a crawl path.
+ *
+ * Design mirrors the funding-solutions hub: property-image hero with CTAs and
+ * trust list, pill-style town links, a mid-page CTA after the bridging block,
+ * and the shared FinalCtaBand.
  */
 
 // The data's service names are inconsistent ("Business Loans" vs
@@ -62,6 +68,7 @@ const buildGroups = () => {
 const Locations = () => {
     const groups = buildGroups();
     const total = groups.reduce((n, [, towns]) => n + towns.length, 0);
+    const [bridging, ...otherServices] = groups;
 
     return (
         <>
@@ -71,7 +78,11 @@ const Locations = () => {
                 keywords="bridging loans UK locations, commercial finance near me, UK bridging loan broker, local business funding"
             />
 
-            <div className="resource-hero">
+            {/* Same navy→property-image hero used across the site */}
+            <div
+                className="resource-hero has-hero-image"
+                style={{ '--hero-image': `url("${pickHero('locations-hub')}")` }}
+            >
                 <div className="container resource-hero-grid">
                     <div className="resource-hero-text">
                         <h1>
@@ -80,17 +91,62 @@ const Locations = () => {
                         <p className="resource-hero-lead">
                             We arrange bridging loans and commercial funding for clients across the UK —
                             {' '}{total} towns and cities and counting. Every case is handled by the same
-                            team, wherever you are; these pages cover what we arrange in each area.
+                            team, wherever you are.
                         </p>
+                        <div className="resource-hero-actions">
+                            <Link to="/chat-about-funding/bridging-loans" className="btn btn-primary">
+                                Discuss your funding
+                            </Link>
+                            <a href="tel:03300431612" className="btn btn-outline resource-btn-phone">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                Talk to an expert
+                            </a>
+                        </div>
+                        <ul className="resource-hero-trust" aria-label="Why choose Boxx">
+                            <li>Independent broker</li>
+                            <li>Whole of market</li>
+                            <li>UK-wide coverage</li>
+                        </ul>
                     </div>
                 </div>
             </div>
 
             <div className="container locations-body">
-                {groups.map(([service, towns]) => (
+                {/* Bridging first — the strategic focus gets its own framing */}
+                <section className="locations-section" aria-labelledby="loc-bridging">
+                    <h2 id="loc-bridging">
+                        {bridging[0]} <span className="locations-count">{bridging[1].length} locations</span>
+                    </h2>
+                    <p className="locations-section-lead">
+                        Short-term property funding for auction purchases, chain breaks, refurbishments
+                        and probate — arranged for homeowners, landlords, investors and developers in:
+                    </p>
+                    <ul className="locations-grid">
+                        {bridging[1].map((t) => (
+                            <li key={t.slug}>
+                                <Link to={`/locations/${t.slug}`}>{t.location}</Link>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+
+                {/* Mid-page CTA between bridging and the other services */}
+                <div className="locations-midcta">
+                    <div>
+                        <h3>Need a bridging loan where you are?</h3>
+                        <p>Tell us about the property and your timescale — terms in principle can be same-day.</p>
+                    </div>
+                    <Link to="/chat-about-funding/bridging-loans" className="btn btn-primary">
+                        Get started
+                    </Link>
+                </div>
+
+                {otherServices.map(([service, towns]) => (
                     <section key={service} className="locations-section" aria-labelledby={`loc-${service.replace(/\W+/g, '-')}`}>
                         <h2 id={`loc-${service.replace(/\W+/g, '-')}`}>
-                            {service} <span className="locations-count">({towns.length})</span>
+                            {service} <span className="locations-count">{towns.length} locations</span>
                         </h2>
                         <ul className="locations-grid">
                             {towns.map((t) => (
@@ -102,14 +158,13 @@ const Locations = () => {
                     </section>
                 ))}
 
-                <div className="locations-cta">
-                    <p>
-                        Don't see your town? We cover the whole of the UK —{' '}
-                        <Link to="/chat-about-funding/bridging-loans">tell us what you need</Link> and
-                        we'll take it from there.
-                    </p>
-                </div>
+                <p className="locations-anywhere">
+                    Don't see your town? We cover the whole of the UK —{' '}
+                    <Link to="/chat-about-funding">tell us what you need</Link> and we'll take it from there.
+                </p>
             </div>
+
+            <FinalCtaBand ctaTo="/chat-about-funding/bridging-loans" />
         </>
     );
 };
