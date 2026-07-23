@@ -21,6 +21,9 @@ const Footer = () => {
                             <li><a href="/#about">About Us</a></li>
                             <li><Link to="/insights">Insights</Link></li>
                             <li><Link to="/uk-sme-funding-index">UK SME Funding Index</Link></li>
+                            {/* The locations hub — the footer link is what gives all
+                                209 location pages a sitewide crawl path. */}
+                            <li><Link to="/locations">UK Locations</Link></li>
                             <li><a href="/#case-studies">Case Studies</a></li>
                             <li><a href="/#contact">Contact</a></li>
                         </ul>

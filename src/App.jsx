@@ -15,6 +15,7 @@ import ContentDashboard from './pages/ContentDashboard';
 import './App.css';
 import ScrollToTop from './components/ScrollToTop';
 import LocationPage from './pages/LocationPage';
+import Locations from './pages/Locations';
 import FundingSolutions from './pages/FundingSolutions';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           {/* Single page only. The old /uk-sme-funding-index/:archiveSlug routes
               served 61 months of fabricated "archives" and now return 410 Gone. */}
           <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
+          <Route path="locations" element={<Locations />} />
           <Route path="locations/:slug" element={<LocationPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>

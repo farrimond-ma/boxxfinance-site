@@ -16,6 +16,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://boxxfinance.co.uk/locations</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://boxxfinance.co.uk/chat-about-funding</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

@@ -15,6 +15,7 @@ const staticRoutes = [
     '/',
     '/funding-solutions',
     '/insights',
+    '/locations',
     '/chat-about-funding',
     '/uk-sme-funding-index',
     '/privacy-policy',
