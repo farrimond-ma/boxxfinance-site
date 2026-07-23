@@ -64,7 +64,33 @@ const LocationPage = () => {
         );
     }
 
-    const pageSchema = fullPage && fullPage.faqSchema ? [fullPage.faqSchema] : undefined;
+    // FinancialService + areaServed is the structured-data half of the
+    // "near me" strategy: Google rewrites "bridging loans near me" to the
+    // searcher's town, and this tells it explicitly which town each page
+    // serves. Previously these pages emitted only FAQ schema — no local
+    // signal at all. (The map-pack half of "near me" is Google Business
+    // Profile, which lives outside the site.)
+    const serviceName = (page.service || '')
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, (c) => c.toUpperCase())
+        .replace(/^Bridging Finance$/i, 'Bridging Loans');
+    const localServiceSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'FinancialService',
+        name: `${serviceName} ${page.location} — Boxx Commercial Finance`,
+        url: `https://boxxfinance.co.uk/locations/${page.slug}`,
+        telephone: '+44-330-043-1612',
+        areaServed: { '@type': 'City', name: page.location, containedInPlace: { '@type': 'Country', name: 'United Kingdom' } },
+        provider: {
+            '@type': 'Organization',
+            name: 'Boxx Commercial Finance',
+            url: 'https://boxxfinance.co.uk',
+        },
+        serviceType: serviceName,
+    };
+    const pageSchema = fullPage && fullPage.faqSchema
+        ? [localServiceSchema, fullPage.faqSchema]
+        : [localServiceSchema];
     // Some location titles carry a "| Commercial Finance Broker" meta suffix;
     // strip it so the big hero H1 reads cleanly (full title still used for SEO).
     const displayTitle = (page.title || '').split('|')[0].trim();
