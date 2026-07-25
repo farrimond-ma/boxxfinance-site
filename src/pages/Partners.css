@@ -3,7 +3,10 @@
 .partners-body {
     max-width: 900px;
     margin: 0 auto;
-    padding: var(--spacing-lg) 1rem;
+    /* Explicit rem, not the spacing var — the .container class this element also
+       carries was zeroing the shorthand, leaving the first header flush against
+       the hero. Generous top gap gives it room to breathe. */
+    padding: 3.5rem 1rem 4rem !important;
 }
 
 .partners-body section {

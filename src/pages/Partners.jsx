@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { pickHero } from '../components/resource/heroPool';
 import '../components/resource/ResourcePage.css';
 import './Partners.css';
 
@@ -75,9 +74,12 @@ const Partners = () => {
                 keywords="bridging loan introducer, refer bridging enquiries, mortgage broker partner program, bridging loan referral"
             />
 
+            {/* Pinned to a bright terraced-street image — the random pickHero
+                landed on a dark renovation interior that read poorly under the
+                hero scrim on this professional, broker-facing page. */}
             <div
                 className="resource-hero has-hero-image"
-                style={{ '--hero-image': `url("${pickHero('partners-program')}")` }}
+                style={{ '--hero-image': 'url("/images/hero/bridging-5.webp")' }}
             >
                 <div className="container resource-hero-grid">
                     <div className="resource-hero-text">
@@ -104,7 +106,7 @@ const Partners = () => {
 
             <div className="container partners-body">
                 <section className="partners-intro">
-                    <h2>Bridging isn't your thing. It's ours.</h2>
+                    <h2>If bridging loans aren't your thing, let us help</h2>
                     <p>
                         Most residential and mainstream brokers see bridging enquiries they'd rather not
                         take on — auction deadlines, chain breaks, refurbishment funding, probate. Instead
