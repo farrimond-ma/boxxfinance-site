@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './Layout';
 import Home from './pages/Home';
@@ -17,8 +17,16 @@ import ScrollToTop from './components/ScrollToTop';
 import LocationPage from './pages/LocationPage';
 import Locations from './pages/Locations';
 import FundingSolutions from './pages/FundingSolutions';
+import Partners from './pages/Partners';
 
 function App() {
+  // Capture a partner's ?ref=CODE on first load and keep it for the session, so
+  // an enquiry that starts on any page still attributes to the introducer.
+  useEffect(() => {
+    const ref = new URLSearchParams(window.location.search).get('ref');
+    if (ref) sessionStorage.setItem('boxx_ref', ref.slice(0, 40));
+  }, []);
+
   return (
     <>
       <ScrollToTop />
@@ -37,6 +45,7 @@ function App() {
           {/* Single page only. The old /uk-sme-funding-index/:archiveSlug routes
               served 61 months of fabricated "archives" and now return 410 Gone. */}
           <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
+          <Route path="partners" element={<Partners />} />
           <Route path="locations" element={<Locations />} />
           <Route path="locations/:slug" element={<LocationPage />} />
           <Route path="*" element={<NotFound />} />

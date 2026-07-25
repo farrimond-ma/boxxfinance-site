@@ -24,6 +24,7 @@ const Footer = () => {
                             {/* The locations hub — the footer link is what gives all
                                 209 location pages a sitewide crawl path. */}
                             <li><Link to="/locations">UK Locations</Link></li>
+                            <li><Link to="/partners">Broker Partners</Link></li>
                             <li><a href="/#case-studies">Case Studies</a></li>
                             <li><a href="/#contact">Contact</a></li>
                         </ul>

@@ -147,6 +147,14 @@ const MultiStepForm = () => {
                 }
                 params.append('preferred_contact', formData.preferredContact);
 
+                // Referral attribution: a partner's ?ref=CODE is stashed in
+                // sessionStorage on first page load (see App.jsx) and sent with
+                // the lead so introducer referrals can be traced and paid.
+                const referral = (typeof window !== 'undefined' &&
+                    (sessionStorage.getItem('boxx_ref') ||
+                     new URLSearchParams(window.location.search).get('ref'))) || '';
+                if (referral) params.append('referral_code', referral);
+
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors', // Apps Script requires no-cors for simple POST redirection

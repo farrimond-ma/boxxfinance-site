@@ -1,0 +1,193 @@
+/* /partners — introducer program page. Hero from ResourcePage.css; body below. */
+
+.partners-body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-lg) 1rem;
+}
+
+.partners-body section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.partners-body h2 {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin: 0 0 var(--spacing-sm);
+}
+
+.partners-intro p,
+.partners-benefit-list li {
+    color: var(--color-text-dark);
+    line-height: 1.7;
+}
+
+/* How it works */
+.partners-step-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.partners-step-grid li {
+    background: var(--color-white);
+    border: 1px solid rgba(1, 8, 22, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.partners-step-n {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.partners-step-grid h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.1rem;
+    color: var(--color-primary);
+}
+
+.partners-step-grid p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-text-dark);
+}
+
+/* Benefits */
+.partners-benefit-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.partners-benefit-list li {
+    padding-left: 1.75rem;
+    position: relative;
+}
+
+.partners-benefit-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 8px;
+    height: 8px;
+    background: var(--color-secondary);
+    border-radius: 50%;
+}
+
+/* Sponsored-link snippet */
+.partners-snippet p {
+    color: var(--color-text-dark);
+    line-height: 1.7;
+    max-width: 46rem;
+}
+
+.partners-code {
+    background: var(--color-primary);
+    color: #e7ecf3;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 1rem 0;
+}
+
+.partners-code code {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.partners-snippet code:not(.partners-code code) {
+    background: rgba(1, 8, 22, 0.06);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* Sign-up form */
+.partners-signup {
+    background: var(--color-bg-light);
+    border-radius: 12px;
+    padding: 1.75rem;
+}
+
+.partners-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0 0 1rem;
+}
+
+.partners-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.partners-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.partners-form input,
+.partners-form textarea {
+    font: inherit;
+    font-weight: 400;
+    padding: 12px 14px;
+    border: 1px solid rgba(1, 8, 22, 0.18);
+    border-radius: 8px;
+    background: var(--color-white);
+}
+
+.partners-form input:focus,
+.partners-form textarea:focus {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: -1px;
+    border-color: var(--color-secondary);
+}
+
+.partners-form button {
+    align-self: flex-start;
+}
+
+.partners-thanks {
+    background: var(--color-white);
+    border-left: 3px solid var(--color-secondary);
+    padding: 1.25rem;
+    border-radius: 0;
+}
+
+.partners-thanks p { margin: 0 0 0.5rem; color: var(--color-text-dark); }
+.partners-thanks p:last-child { margin: 0; }
+
+.partners-error { color: #a3271f; font-size: 0.9rem; margin: 0; }
+
+.partners-smallprint {
+    font-size: 0.85rem;
+    color: #6a7482;
+    line-height: 1.6;
+    margin: 0.5rem 0 0;
+}
+
+@media (max-width: 600px) {
+    .partners-field-row {
+        grid-template-columns: 1fr;
+    }
+}
