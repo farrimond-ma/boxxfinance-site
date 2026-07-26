@@ -1040,20 +1040,12 @@ async function main() {
   const publishedAt = new Date().toISOString();
   const fullUrl = `https://boxxfinance.co.uk${url}`;
 
-  // ── YouTube embed — stored as videoId field, rendered by React (avoids WAF) ──
-  console.log('Searching YouTube for a relevant embed...');
+  // ── YouTube embed disabled (2026-07) — third-party videos sent readers to
+  // other creators' brands with no SEO credit (no VideoObject schema). Holding
+  // for a small set of Boxx-owned bridging loan videos to reuse across posts
+  // instead of a per-post third-party search.
   const contentHtml = article.contentHtml;
   let videoId = null;
-  try {
-    videoId = await findYouTubeVideo(row.keyword);
-    if (videoId) {
-      console.log(`  Found video: https://youtu.be/${videoId} — storing as videoId (React renders the iframe)`);
-    } else {
-      console.log('  No suitable video found — skipping embed');
-    }
-  } catch (err) {
-    console.warn(`  YouTube search failed (non-fatal): ${err.message}`);
-  }
 
   // ── Hero image ────────────────────────────────────────────────────────────
   // Bridging posts render from the curated pool (heroForPost/pickHero), so a
