@@ -4,9 +4,12 @@
    pill chips rather than a bare text wall. */
 
 .locations-body {
-    padding: var(--spacing-lg) 1rem;
     max-width: 1200px;
     margin: 0 auto;
+    /* Explicit rem, not the spacing var — the .container class this element also
+       carries was zeroing the shorthand, leaving the heading flush against the
+       hero. Matches the /partners page fix. */
+    padding: 3.5rem 1rem 4rem !important;
 }
 
 .locations-section {
@@ -112,10 +115,6 @@
 }
 
 @media (max-width: 600px) {
-    .locations-body {
-        padding-top: var(--spacing-md);
-    }
-
     .locations-midcta {
         flex-direction: column;
         align-items: flex-start;
