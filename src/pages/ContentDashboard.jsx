@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SEO from '../components/SEO';
 import blogPostsData from '../data/blogIndex.json';
 import locationPagesData from '../data/locationIndex.json';
+import partnersData from '../data/partners.json';
 
 const REPO = 'farrimond-ma/boxxfinance-site';
 const GH   = `https://api.github.com/repos/${REPO}/actions/workflows`;
@@ -296,6 +297,60 @@ export default function ContentDashboard() {
                 </table>
               </div>
             </>
+          )}
+        </div>
+
+        {/* ── Partner / introducer registry ── */}
+        <div style={{ marginBottom: '2.5rem' }}>
+          <h2 style={{
+            fontSize: '1.1rem', fontWeight: 700, color: '#031b49',
+            borderBottom: '2px solid #031b49', paddingBottom: '0.5rem', marginBottom: '0.25rem',
+          }}>
+            🤝 Partners ({partnersData.filter(p => p.status === 'active').length} active)
+          </h2>
+          <p style={{ fontSize: '0.78rem', color: '#9ca3af', margin: '0 0 0.75rem' }}>
+            Issued from <code>scripts/content-engine/partners-manager.js</code> — codes are only
+            created once an introducer agreement has actually been sent. Sign-up form submissions
+            land in the <a href="https://docs.google.com/spreadsheets/d/1244VCHh0asyN9Uav9_7UHcoa8LyuLvHK0uprnHNAVrg" target="_blank" rel="noopener noreferrer" style={{ color: '#031b49' }}>Google Sheet</a> tagged
+            "Partner sign-up (introducer)" for review before a code is issued.
+          </p>
+          {partnersData.length === 0 ? (
+            <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.08)', padding: '1.25rem', fontSize: '0.85rem', color: '#6b7280' }}>
+              No partners yet. Add one with <code>node scripts/content-engine/partners-manager.js add --firm "..." --contact "..." --email "..."</code>
+            </div>
+          ) : (
+            <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr style={{ background: '#f8fafc' }}>
+                    {['Code', 'Firm', 'Contact', 'Status', 'Joined'].map(h => (
+                      <th key={h} style={{
+                        padding: '0.65rem 1rem', textAlign: 'left',
+                        fontSize: '0.75rem', fontWeight: 600, color: '#6b7280',
+                        borderBottom: '1px solid #e5e7eb', textTransform: 'uppercase', letterSpacing: '0.05em',
+                      }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {partnersData.map((p, idx) => (
+                    <tr key={p.code} style={{ borderBottom: idx === partnersData.length - 1 ? 'none' : '1px solid #f3f4f6' }}>
+                      <td style={{ padding: '0.7rem 1rem', fontWeight: 600, fontFamily: 'monospace', fontSize: '0.85rem', color: '#031b49' }}>{p.code}</td>
+                      <td style={{ padding: '0.7rem 1rem', fontSize: '0.85rem', color: '#1f2937' }}>{p.firm}</td>
+                      <td style={{ padding: '0.7rem 1rem', fontSize: '0.85rem', color: '#6b7280' }}>{p.contact} · {p.email}</td>
+                      <td style={{ padding: '0.7rem 1rem' }}>
+                        <span style={{
+                          background: p.status === 'active' ? '#d1fae5' : '#f3f4f6',
+                          color: p.status === 'active' ? '#065f46' : '#6b7280',
+                          padding: '2px 10px', borderRadius: '999px', fontSize: '0.78rem', fontWeight: 600,
+                        }}>{p.status}</span>
+                      </td>
+                      <td style={{ padding: '0.7rem 1rem', fontSize: '0.82rem', color: '#9ca3af', whiteSpace: 'nowrap' }}>{p.dateJoined}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
 
