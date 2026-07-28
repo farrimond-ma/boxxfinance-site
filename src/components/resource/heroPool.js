@@ -21,6 +21,9 @@ export const pickHero = (slug) => {
 // post's own /images/blog/<slug>.webp is NOT a reliable source of variety.
 const BESPOKE_HERO_SLUGS = new Set([
     'bridging-loans-for-hmo-conversion',
+    // Pool hash landed on a posh finished London terrace for a post about
+    // unmortgageable property — pinned to a genuine redevelopment shot instead.
+    'bridging-finance-unmortgageable-property',
 ]);
 
 // The hero image for a post, used identically by the /insights cards and the
