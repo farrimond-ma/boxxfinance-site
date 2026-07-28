@@ -298,7 +298,7 @@ const MultiStepForm = () => {
 
                             <div className="quiz-input-group">
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
-                                    {service ? `How soon do you need the ${service.title.toLowerCase()}?` : 'Purpose of funding'}
+                                    {service ? `How soon do you need the ${service.title.toLowerCase().replace(/s$/, '')}?` : 'Purpose of funding'}
                                 </label>
                                 <input
                                     type="text"
