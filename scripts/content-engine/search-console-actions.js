@@ -269,6 +269,22 @@ const toSlug = q => q
   .replace(/-{2,}/g, '-')
   .replace(/^-|-$/g, '');
 
+// Word-by-word title case, matching visibility-checker/src/add-visibility-content.js.
+// Used for both auto-scheduled row titles below — a naive "capitalize the first
+// letter" left titles like "Finance for property mortgage lender refused" live.
+function toTitle(text) {
+  const lower = ['a','an','the','and','but','or','for','nor','on','at','to',
+                 'by','in','of','up','as','is','vs'];
+  return text
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+    .split(' ')
+    .map((w, i) => (i === 0 || !lower.includes(w.toLowerCase()))
+      ? w.charAt(0).toUpperCase() + w.slice(1)
+      : w.toLowerCase())
+    .join(' ');
+}
+
 // Derive a clean keyword phrase from an AI visibility prompt
 function promptToKeyword(prompt) {
   return prompt
@@ -390,7 +406,7 @@ async function action0_scheduleAIVisibilityGaps(sheets, posts, gaps, isDryRun) {
 
     const keyword = promptToKeyword(gap.prompt);
     const service = PILLAR_TO_SERVICE[gap.pillar] || 'Bridging Finance';
-    const title   = keyword.charAt(0).toUpperCase() + keyword.slice(1);
+    const title   = toTitle(keyword);
     const date    = available[slotIdx++];
     const brief   = buildAIGapBrief(gap);
 
@@ -570,7 +586,7 @@ async function action2_scheduleContentGaps(sheets, posts, contentGaps, isDryRun)
     if (existingSlugs.has(slug) || publishedSlugs.has(slug)) continue;
 
     const service = detectService(gap.query);
-    const title   = gap.query.split(' ').map((w, i) => i === 0 ? w.charAt(0).toUpperCase() + w.slice(1) : w).join(' ');
+    const title   = toTitle(gap.query);
     const date    = availableSlots[slotIdx++];
 
     newRows.push([
