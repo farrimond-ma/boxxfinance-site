@@ -38,6 +38,16 @@ function mimeType(filePath) {
 }
 
 function startStaticServer() {
+  // Snapshot the neutral, pre-prerender index.html ONCE, in memory, before any
+  // route is rendered. The SPA-fallback below must always serve this — never
+  // re-read dist/index.html from disk — because route '/' overwrites that file
+  // on disk with the homepage's own fully-rendered snapshot (baked-in title,
+  // meta, canonical). If the fallback re-read the file, every route processed
+  // after '/' would hydrate on top of the homepage's tags instead of an empty
+  // shell, leaving both sets in <head> — the exact duplicate title/meta/
+  // canonical bug this file exists to prevent.
+  const shellHtml = fs.readFileSync(path.join(distDir, 'index.html'));
+
   const server = http.createServer((req, res) => {
     try {
       let reqPath = decodeURIComponent((req.url || '/').split('?')[0]);
@@ -52,11 +62,7 @@ function startStaticServer() {
         filePath = path.join(filePath, 'index.html');
       }
 
-      if (!fs.existsSync(filePath)) {
-        filePath = path.join(distDir, 'index.html');
-      }
-
-      const data = fs.readFileSync(filePath);
+      const data = fs.existsSync(filePath) ? fs.readFileSync(filePath) : shellHtml;
       res.writeHead(200, { 'Content-Type': mimeType(filePath) });
       res.end(data);
     } catch (err) {
