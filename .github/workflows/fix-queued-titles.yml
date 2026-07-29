@@ -1,0 +1,44 @@
+name: Fix Queued Titles (raw-keyword bug)
+
+on:
+  # Manual trigger only — one-off repair for scheduled ContentEngine rows
+  # written before the title-casing fix in search-console-actions.js
+  # (commit 3b8d35a) landed. See scripts/content-engine/fix-queued-titles.js.
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — report only, no writes"
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  fix-titles:
+    name: Scan and fix queued titles
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Fix queued titles
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node fix-queued-titles.js --dry-run
+          else
+            node fix-queued-titles.js
+          fi
