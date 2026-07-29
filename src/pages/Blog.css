@@ -384,6 +384,30 @@
     border-radius: 0;
 }
 
+/* Same bleed, same fix, for the FAQ answer style (.blog-post-content h3 + p)
+   landing on the CTA card's own paragraph — it was rendering in a white box
+   floating inside the navy/gold card. */
+.blog-post-content .article-cta p {
+    background: none;
+    padding: 0;
+    margin: 0 0 1.4rem;
+    border-bottom: none;
+    color: var(--color-text-dark);
+}
+
+/* .blog-post-content h3 + p (0,1,2 specificity: one class, two elements)
+   otherwise beats the plain .article-cta-mid p rule (0,1,1) on color, so
+   the mid CTA's paragraph needs its own explicit override here too — both
+   classes chained onto one selector (0,3,1) rather than relying on source
+   order to break the tie against the rule above. */
+.blog-post-content .article-cta.article-cta-mid p {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.blog-post-content .article-cta p:last-child {
+    margin-bottom: 0;
+}
+
 /* Comparison tables — 2026-07: publish-blog.js now asks for a <table> when an
    article has genuinely comparable numeric values (LTV by property type,
    rates by term). AI engines preferentially extract tabular data, so these
