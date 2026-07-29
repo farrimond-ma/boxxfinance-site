@@ -104,16 +104,29 @@ export const CanWeHelp = ({ service }) => (
     </aside>
 );
 
+// Every generated article (blog, location, county) is prompted to end with
+// its own written-out "Frequently Asked Questions" H2 section, matching the
+// separate faqSchema the page also carries — needed so the FAQ is genuinely
+// visible on the page, not schema-only (a Google rich-result requirement).
+// FaqAccordion (rendered by ResourcePage below the article body) ALSO renders
+// that same faqSchema, visibly, as an interactive accordion — so the FAQ has
+// been appearing twice on every single page: once as flat inline copy here,
+// once again in the accordion. Stripping the inline copy at render time
+// (not touching the stored content) makes the accordion the one visible FAQ,
+// site-wide, retroactively, without editing hundreds of stored HTML strings.
+const stripInlineFaq = (html) =>
+    (html || '').replace(/<h2[^>]*>\s*Frequently Asked Questions\s*<\/h2>[\s\S]*$/i, '');
+
 // ── Article body with CTAs injected at section boundaries ────────────────────
 // Splits the generated HTML at <h2> headings: soft CTA after the intro,
 // mid CTA at the halfway section. Falls back gracefully for short articles.
 const ArticleBody = ({ html, service }) => {
-    const sections = React.useMemo(() => (html || '').split(/(?=<h2[\s>])/i), [html]);
+    const sections = React.useMemo(() => stripInlineFaq(html).split(/(?=<h2[\s>])/i), [html]);
 
     if (sections.length < 4) {
         return (
             <>
-                <div dangerouslySetInnerHTML={{ __html: html }} />
+                <div dangerouslySetInnerHTML={{ __html: sections.join('') }} />
                 <MidCta service={service} />
             </>
         );

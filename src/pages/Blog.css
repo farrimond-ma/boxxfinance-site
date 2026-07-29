@@ -365,6 +365,25 @@
     background: #fff;
 }
 
+/* The FAQ h3 rules above unintentionally bled into the CTA cards
+   (.article-cta / .article-cta-mid / .article-cta-soft) — ArticleBody
+   injects those as SIBLINGS of the raw content inside .blog-post-content,
+   not something separate, so "h3 is only used for FAQs" was wrong. The
+   h3's own #fafafa background painted over the CTA card's navy/gold
+   background, leaving the "Considering a bridging loan?" heading as
+   near-invisible light text on light grey. Higher-specificity reset here
+   (two classes + element beats the one-class-one-element FAQ rule
+   regardless of source order) rather than narrowing the FAQ selector,
+   since :not() with a descendant combinator isn't safe across browsers.
+*/
+.blog-post-content .article-cta h3 {
+    background: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    border-top: none;
+    border-radius: 0;
+}
+
 /* Comparison tables — 2026-07: publish-blog.js now asks for a <table> when an
    article has genuinely comparable numeric values (LTV by property type,
    rates by term). AI engines preferentially extract tabular data, so these
