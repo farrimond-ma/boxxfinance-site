@@ -4,7 +4,12 @@ import SEO from '../components/SEO';
 import { FinalCtaBand } from '../components/resource/ResourceHero';
 import { pickHero } from '../components/resource/heroPool';
 import locationPages from '../data/locationPages.json';
+import countyPages from '../data/countyPages.json';
 import { countyForTown, nationForCounty } from '../data/townCounties';
+
+const countySlugByName = new Map(
+    countyPages.filter((c) => c.status === 'published').map((c) => [c.county, c.slug])
+);
 import '../components/resource/ResourcePage.css'; // shared hero design language
 import './Locations.css';
 
@@ -160,7 +165,11 @@ const Locations = () => {
                             <div className="locations-county-grid">
                                 {counties.map(([county, towns]) => (
                                     <div className="locations-county" key={county}>
-                                        <h4>{county}</h4>
+                                        <h4>
+                                            {countySlugByName.has(county)
+                                                ? <Link to={`/locations/county/${countySlugByName.get(county)}`}>{county}</Link>
+                                                : county}
+                                        </h4>
                                         <ul className="locations-grid locations-grid-compact">
                                             {towns.map((t) => (
                                                 <li key={t.slug}>

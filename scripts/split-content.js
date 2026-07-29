@@ -26,6 +26,12 @@ const SPLITS = [
     contentDir: path.join(rootDir, 'public', 'content', 'locations'),
     heavyFields: ['content', 'faqSchema'],
   },
+  {
+    source: path.join(rootDir, 'src', 'data', 'countyPages.json'),
+    index: path.join(rootDir, 'src', 'data', 'countyIndex.json'),
+    contentDir: path.join(rootDir, 'public', 'content', 'counties'),
+    heavyFields: ['content', 'faqSchema'],
+  },
 ];
 
 for (const { source, index, contentDir, heavyFields } of SPLITS) {

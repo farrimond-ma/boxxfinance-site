@@ -90,6 +90,20 @@ const getLocationSlugs = () => {
     }
 };
 
+// Extract County Page Slugs
+const getCountySlugs = () => {
+    try {
+        const content = readFile('../src/data/countyPages.json');
+        const pages = JSON.parse(content);
+        return pages
+            .filter(p => p.status === 'published' && p.slug)
+            .map(p => p.slug);
+    } catch (error) {
+        console.warn('Could not read countyPages.json:', error.message);
+        return [];
+    }
+};
+
 // The UK SME Funding Index's 61 monthly "archive" URLs were removed in 2026-07:
 // every figure was generated with Math.random() while the page claimed Bank of
 // England / UK Finance provenance. Those archive URLs now return 410 Gone (see
@@ -103,10 +117,12 @@ const generateSitemap = () => {
     const services = getServiceSlugs();
     const blogs = getBlogSlugs();
     const locations = getLocationSlugs();
+    const counties = getCountySlugs();
 
     console.log(`Found ${services.length} services`);
     console.log(`Found ${blogs.length} blog posts`);
     console.log(`Found ${locations.length} location pages`);
+    console.log(`Found ${counties.length} county pages`);
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -146,6 +162,16 @@ const generateSitemap = () => {
     locations.forEach(slug => {
         xml += `  <url>
     <loc>${BASE_URL}/locations/${slug}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`;
+    });
+
+    // Add County Pages
+    counties.forEach(slug => {
+        xml += `  <url>
+    <loc>${BASE_URL}/locations/county/${slug}</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -105,6 +105,12 @@ async function waitForArticlePage(page) {
   });
 }
 
+async function waitForCountyPage(page) {
+  await page.waitForSelector('[data-page-type="county-page"]', {
+    timeout: 15000
+  });
+}
+
 async function waitForLocationPage(page) {
   await page.waitForSelector('[data-page-type="location-page"]', {
     timeout: 15000
@@ -116,6 +122,7 @@ async function renderRoute(browser, route, options = {}) {
     isArticleRoute = false,
     isInsightsRoute = false,
     isLocationRoute = false,
+    isCountyRoute = false,
     expectedMinimumCards = 2,
     expectedTitle = ''
   } = options;
@@ -129,6 +136,10 @@ async function renderRoute(browser, route, options = {}) {
 
   if (isInsightsRoute) {
     await waitForInsightsPage(page, expectedMinimumCards);
+  }
+
+  if (isCountyRoute) {
+    await waitForCountyPage(page);
   }
 
   if (isArticleRoute) {
@@ -203,6 +214,20 @@ async function renderRoute(browser, route, options = {}) {
     }
   }
 
+  if (isCountyRoute) {
+    if (finalUrl !== `http://127.0.0.1:${PORT}${route}`) {
+      throw new Error(`Prerender failed for ${route}: page redirected to ${finalUrl}`);
+    }
+
+    if (html.includes('data-page-type="county-not-found"')) {
+      throw new Error(`Prerender failed for ${route}: rendered the not found county page.`);
+    }
+
+    if (!html.includes('data-page-type="county-page"')) {
+      throw new Error(`Prerender failed for ${route}: county page container not found.`);
+    }
+  }
+
   await page.close();
 
   let outputPath;
@@ -272,6 +297,9 @@ function optionsForRoute(route, ctx) {
   if (route.startsWith('/insights/')) {
     return { isArticleRoute: true };
   }
+  if (route.startsWith('/locations/county/')) {
+    return { isCountyRoute: true };
+  }
   if (route.startsWith('/locations/')) {
     const slug = route.slice('/locations/'.length);
     return { isLocationRoute: true, expectedTitle: ctx.locationTitles.get(slug) || '' };
@@ -284,7 +312,11 @@ function optionsForRoute(route, ctx) {
 function outputPathForRoute(route) {
   if (route === '/') return path.join(distDir, 'index.html');
   const clean = route.replace(/^\//, '');
-  if (route.startsWith('/locations/')) return path.join(distDir, `${clean}.html`);
+  // /locations/county/<slug> renders as a directory (like most routes) —
+  // only flat town-level /locations/<slug> routes use the .html-file shape.
+  if (route.startsWith('/locations/') && !route.startsWith('/locations/county/')) {
+    return path.join(distDir, `${clean}.html`);
+  }
   return path.join(distDir, clean, 'index.html');
 }
 

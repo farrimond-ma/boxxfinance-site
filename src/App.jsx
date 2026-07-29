@@ -15,6 +15,7 @@ import ContentDashboard from './pages/ContentDashboard';
 import './App.css';
 import ScrollToTop from './components/ScrollToTop';
 import LocationPage from './pages/LocationPage';
+import CountyPage from './pages/CountyPage';
 import Locations from './pages/Locations';
 import FundingSolutions from './pages/FundingSolutions';
 import Partners from './pages/Partners';
@@ -48,6 +49,7 @@ function App() {
           <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
           <Route path="partners" element={<Partners />} />
           <Route path="locations" element={<Locations />} />
+          <Route path="locations/county/:countySlug" element={<CountyPage />} />
           <Route path="locations/:slug" element={<LocationPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
