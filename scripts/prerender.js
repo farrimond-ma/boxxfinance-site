@@ -62,8 +62,15 @@ function startStaticServer() {
         filePath = path.join(filePath, 'index.html');
       }
 
-      const data = fs.existsSync(filePath) ? fs.readFileSync(filePath) : shellHtml;
-      res.writeHead(200, { 'Content-Type': mimeType(filePath) });
+      // Content-Type must be computed from what's ACTUALLY being served, not the
+      // originally-requested path — when falling back to shellHtml, filePath is
+      // still e.g. '/funding-solutions' (no extension), so mimeType() returned
+      // 'application/octet-stream'. Chrome refuses to render an HTML navigation
+      // served as octet-stream and aborts it (net::ERR_ABORTED), which is why
+      // every route after '/' failed to prerender once this fallback was added.
+      const usingShell = !fs.existsSync(filePath);
+      const data = usingShell ? shellHtml : fs.readFileSync(filePath);
+      res.writeHead(200, { 'Content-Type': usingShell ? 'text/html; charset=utf-8' : mimeType(filePath) });
       res.end(data);
     } catch (err) {
       res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
