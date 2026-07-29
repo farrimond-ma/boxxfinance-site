@@ -18,6 +18,7 @@ import LocationPage from './pages/LocationPage';
 import Locations from './pages/Locations';
 import FundingSolutions from './pages/FundingSolutions';
 import Partners from './pages/Partners';
+import AdLandingBridgingLoans from './pages/AdLandingBridgingLoans';
 
 function App() {
   // Capture a partner's ?ref=CODE on first load and keep it for the session, so
@@ -52,6 +53,10 @@ function App() {
         </Route>
         {/* Dashboard sits outside Layout — no navbar, no footer */}
         <Route path="/dashboard" element={<ContentDashboard />} />
+        {/* Ad landing page — outside Layout deliberately: paid traffic should
+            see a single-purpose page with a form in the hero, not the full
+            site nav pulling attention away from conversion. */}
+        <Route path="/ads/bridging-loans" element={<AdLandingBridgingLoans />} />
       </Routes>
     </>
   );
