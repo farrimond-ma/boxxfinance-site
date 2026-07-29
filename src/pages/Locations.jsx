@@ -4,6 +4,7 @@ import SEO from '../components/SEO';
 import { FinalCtaBand } from '../components/resource/ResourceHero';
 import { pickHero } from '../components/resource/heroPool';
 import locationPages from '../data/locationPages.json';
+import { countyForTown, nationForCounty } from '../data/townCounties';
 import '../components/resource/ResourcePage.css'; // shared hero design language
 import './Locations.css';
 
@@ -65,10 +66,38 @@ const buildGroups = () => {
     });
 };
 
+// Nests towns Nation > County > Town for the Bridging Loans section — the only
+// group with enough volume (210 towns) to need it. Towns with no county match
+// go in "Other locations" rather than being silently dropped or guessed at.
+const NATION_ORDER = ['England', 'Scotland', 'Wales', 'Northern Ireland'];
+
+const groupByCounty = (towns) => {
+    const nations = new Map();
+    const unmatched = [];
+    for (const t of towns) {
+        const county = countyForTown(t.location);
+        if (!county) { unmatched.push(t); continue; }
+        const nation = nationForCounty(county);
+        if (!nations.has(nation)) nations.set(nation, new Map());
+        const counties = nations.get(nation);
+        if (!counties.has(county)) counties.set(county, []);
+        counties.get(county).push(t);
+    }
+    const ordered = NATION_ORDER
+        .filter((n) => nations.has(n))
+        .map((nation) => ({
+            nation,
+            counties: [...nations.get(nation).entries()]
+                .sort((a, b) => a[0].localeCompare(b[0])),
+        }));
+    return { ordered, unmatched };
+};
+
 const Locations = () => {
     const groups = buildGroups();
     const total = groups.reduce((n, [, towns]) => n + towns.length, 0);
     const [bridging, ...otherServices] = groups;
+    const { ordered: bridgingByNation, unmatched: bridgingUnmatched } = groupByCounty(bridging[1]);
 
     return (
         <>
@@ -121,15 +150,42 @@ const Locations = () => {
                     </h2>
                     <p className="locations-section-lead">
                         Short-term property funding for auction purchases, chain breaks, refurbishments
-                        and probate — arranged for homeowners, landlords, investors and developers in:
+                        and probate — arranged for homeowners, landlords, investors and developers across
+                        the UK, grouped below by county:
                     </p>
-                    <ul className="locations-grid">
-                        {bridging[1].map((t) => (
-                            <li key={t.slug}>
-                                <Link to={`/locations/${t.slug}`}>{t.location}</Link>
-                            </li>
-                        ))}
-                    </ul>
+
+                    {bridgingByNation.map(({ nation, counties }) => (
+                        <div className="locations-nation" key={nation}>
+                            {bridgingByNation.length > 1 && <h3 className="locations-nation-title">{nation}</h3>}
+                            <div className="locations-county-grid">
+                                {counties.map(([county, towns]) => (
+                                    <div className="locations-county" key={county}>
+                                        <h4>{county}</h4>
+                                        <ul className="locations-grid locations-grid-compact">
+                                            {towns.map((t) => (
+                                                <li key={t.slug}>
+                                                    <Link to={`/locations/${t.slug}`}>{t.location}</Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+
+                    {bridgingUnmatched.length > 0 && (
+                        <div className="locations-county">
+                            <h4>Other locations</h4>
+                            <ul className="locations-grid locations-grid-compact">
+                                {bridgingUnmatched.map((t) => (
+                                    <li key={t.slug}>
+                                        <Link to={`/locations/${t.slug}`}>{t.location}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </section>
 
                 {/* Mid-page CTA between bridging and the other services */}

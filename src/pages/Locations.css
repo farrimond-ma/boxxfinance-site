@@ -41,6 +41,43 @@
     line-height: 1.6;
 }
 
+.locations-nation {
+    margin-bottom: var(--spacing-md);
+}
+
+.locations-nation-title {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-secondary);
+    margin: 0 0 var(--spacing-sm);
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(1, 8, 22, 0.1);
+}
+
+.locations-county-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem 2rem;
+}
+
+.locations-county h4 {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0 0 0.5rem;
+}
+
+.locations-grid-compact {
+    gap: 6px;
+}
+
+.locations-grid-compact a {
+    padding: 7px 12px;
+    font-size: 0.85rem;
+}
+
 .locations-grid {
     list-style: none;
     margin: 0;
