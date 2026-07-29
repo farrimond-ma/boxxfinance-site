@@ -434,13 +434,20 @@
    stays fully legible without an overlay fighting the photo */
 @media (max-width: 640px) {
     .resource-hero {
-        padding: 8rem 0 2.5rem;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 9.5rem 0 3rem;
     }
     .resource-hero h1 {
         font-size: 1.8rem;
     }
     .resource-hero-text {
         max-width: none;
+    }
+    .resource-hero-trust {
+        flex-direction: column;
+        gap: 0.75rem;
     }
     .resource-column {
         padding: 2rem 1.25rem 2.5rem;
