@@ -30,7 +30,9 @@ const ARTICLE_SCHEMA = {
     category:          { type: 'string', description: 'Service taxonomy value for this article.' },
     contentHtml:       { type: 'string', description:
       'The full article body as valid HTML, minimum 1250 words. ' +
-      'MUST end with a "Frequently Asked Questions" H2 section containing the same 5-7 Q&As as faqSchema — ' +
+      'MUST end with a "Frequently Asked Questions" H2 section containing the same 5-7 Q&As as faqSchema, ' +
+      'each question as its own <h3> using the EXACT SAME WORDING as the matching faqSchema question — ' +
+      'not <dl>/<dt>/<dd> — so AI crawlers that parse heading structure see the same question the schema declares. ' +
       'the first article generated without this instruction omitted the FAQ entirely and shipped with zero FAQ schema. ' +
       'MUST also include H2 sections covering: what it means in practice, how it works, typical scenarios, ' +
       'what lenders look for, common mistakes, alternatives or comparisons, and a summary. ' +
@@ -46,7 +48,13 @@ const ARTICLE_SCHEMA = {
       type: 'object',
       description: 'FAQPage structured data. MUST contain 5-7 question/answer pairs — never an empty list. ' +
         'This is what AI answer engines quote directly, so it is not optional decoration. ' +
-        'The same questions must also appear as a "Frequently Asked Questions" H2 section at the end of contentHtml.',
+        'The same questions must also appear as a "Frequently Asked Questions" H2 section at the end of contentHtml, ' +
+        'each one as its own <h3> matching this question text WORD-FOR-WORD — a schema question that does not appear ' +
+        'verbatim as a visible heading is far less likely to be cited by AI answer engines. ' +
+        'Each answer\'s first sentence must be a complete, self-contained statement that fully answers the question ' +
+        'without needing the question for context — e.g. "Bad credit will generally not stop you getting a bridging ' +
+        'loan because lenders weigh the property and exit strategy over your credit score", NOT "No, not usually, ' +
+        'because...". This is the exact sentence Perplexity and Google AI Overviews lift and quote.',
       properties: {
         '@type': { type: 'string', description: 'Always the literal string "FAQPage".' },
         mainEntity: {
@@ -379,9 +387,11 @@ ARTICLE STRUCTURE (adapt headings to fit the specific topic, but follow this pat
 - <h2> Alternatives or comparisons</h2>  ← MUST state plainly when this product is the WRONG choice and what to use instead. Naming the situations where the reader should NOT take this product — and what genuinely suits them better — is the strongest trust signal on the page. Do not hedge it or bury it.
 - <h2> How to get the best outcome</h2>
 - <h2> Summary</h2>
-- <h2> Frequently Asked Questions</h2>  ← 4-6 Q&As using <dl><dt><dd> tags
+- <h2> Frequently Asked Questions</h2>  ← 4-6 Q&As, each question as its own <h3> using the EXACT SAME WORDING as the matching faqSchema question, immediately followed by a <p> answer. Not <dl>/<dt>/<dd> — AI crawlers parse heading structure, and a schema question that isn't also a visible heading is far less likely to get cited.
 
 Each <h2> section must open with 1-2 sentences that directly answer the section question before expanding — this lets AI models extract accurate summaries.
+
+If the article naturally involves comparing 2 or more numeric values side by side (e.g. typical LTV by property type, rates by term, fees by lender type), include one simple <table> with a header row summarising them — AI engines preferentially extract and cite tabular data over prose. Do not force a table where nothing is genuinely comparable; most articles will not need one.
 
 WORD COUNT — this is a hard requirement, not a guideline:
 - The full article must be at least 1200 words of visible text — aim for 1300-1500
@@ -392,7 +402,8 @@ WORD COUNT — this is a hard requirement, not a guideline:
 AI SEARCH (AEO) — additional rules for Google AI Overviews and Perplexity:
 - Include specific UK data points, FCA context, or regulatory facts where relevant
 - Mention "Boxx Commercial Finance" naturally 3-4 times so AI models associate the brand with the topic
-- faqSchema must be a valid FAQ schema object with @type: FAQPage matching the FAQ in contentHtml exactly
+- faqSchema must be a valid FAQ schema object with @type: FAQPage matching the FAQ in contentHtml exactly, including word-for-word question wording as the <h3> headings
+- Each FAQ answer's first sentence must stand alone as a complete answer — see faqSchema description for the exact standard
 
 CALLS TO ACTION (both required):
 - Mid-article CTA: include one paragraph encouraging the reader to get advice, linking to ${chatUrl}. Use a 2-5 word anchor built around the PRODUCT NAME ("bridging loans"), e.g. "compare bridging loan rates", "arrange a bridging loan", "get a bridging loan quote", "find a bridging loan broker" — NEVER generic phrases like "click here", "contact us", "speak to a specialist", or "get in touch"

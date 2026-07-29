@@ -334,6 +334,70 @@
     border-bottom: none;
 }
 
+/* FAQ Section — h3/p variant (2026-07: new posts write each FAQ question as
+   its own <h3> matching the JSON-LD wording word-for-word, since AI crawlers
+   parse heading structure — see publish-blog.js. h3 is reserved for FAQ
+   questions only, nothing else in generated articles uses it, so these
+   selectors are safe to scope broadly. Mirrors the dt/dd treatment above so
+   older dl-based posts and newer h3-based posts look the same. */
+.blog-post-content h2 + h3 {
+    border-top: 2px solid var(--color-secondary);
+    border-radius: 0 0 8px 8px;
+    margin-top: 0;
+}
+
+.blog-post-content h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    padding: 1.1rem 1.25rem 0.4rem 1.25rem;
+    margin: 0 0 -0.5rem;
+    background: #fafafa;
+}
+
+.blog-post-content h3 + p {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.7;
+    padding: 0.25rem 1.25rem 1.1rem 1.25rem;
+    margin: 0 0 -0.5rem;
+    border-bottom: 1px solid #eaeaea;
+    background: #fff;
+}
+
+/* Comparison tables — 2026-07: publish-blog.js now asks for a <table> when an
+   article has genuinely comparable numeric values (LTV by property type,
+   rates by term). AI engines preferentially extract tabular data, so these
+   need to render cleanly rather than fall back to unstyled browser defaults. */
+.blog-post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+}
+
+.blog-post-content th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    background: var(--color-primary);
+    color: #fff;
+    font-weight: 700;
+}
+
+.blog-post-content td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid #eaeaea;
+    color: #444;
+}
+
+.blog-post-content tr:last-child td {
+    border-bottom: none;
+}
+
+.blog-post-content tr:nth-child(even) td {
+    background: #fafafa;
+}
+
 .blog-meta {
     margin-top: 2.5rem;
     padding: 0 2rem 2.5rem 2rem;
