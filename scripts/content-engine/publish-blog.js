@@ -127,6 +127,22 @@ const MIN_SERVICE_LINKS = 1;
 // FAQ — without flagging older posts that run slightly leaner.
 const MIN_H2_SECTIONS = 6;
 
+// Word-by-word title case, matching search-console-actions.js and
+// fix-queued-titles.js exactly — used to self-heal the raw-keyword title bug
+// at publish time, see the self-healing guard below.
+function toTitle(text) {
+  const lower = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to',
+    'by', 'in', 'of', 'up', 'as', 'is', 'vs'];
+  return String(text || '')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+    .split(' ')
+    .map((w, i) => (i === 0 || !lower.includes(w.toLowerCase()))
+      ? w.charAt(0).toUpperCase() + w.slice(1)
+      : w.toLowerCase())
+    .join(' ');
+}
+
 // Word count matching seo-audit.js exactly (strip tags, collapse whitespace)
 function wordCount(html) {
   return (html || '')
@@ -1037,6 +1053,19 @@ async function main() {
     finalWords = wordCount(article.contentHtml);
   }
   console.log(`Final word count: ${finalWords}${finalWords < TARGET_WORDS ? ` (still below ${TARGET_WORDS} — seo-audit will WARN)` : ' ✅'}`);
+
+  // Self-healing guard against the raw-keyword title bug (fixed at the
+  // generator in commit 3b8d35a, but that fix only stops NEW rows — rows
+  // already sitting in the queue before it landed still carry the bad
+  // title, and kept publishing broken for days because the one-off repair
+  // workflow (fix-queued-titles.yml) requires a manual click that never
+  // happened. Checking the exact bug signature here — title is just the
+  // keyword re-cased, nothing else — means it's caught at the one place
+  // that's guaranteed to run for every single post, no manual step needed.
+  if (row.title && row.keyword && row.title.trim().toLowerCase() === row.keyword.trim().toLowerCase()) {
+    console.log(`  ⚠ Row title is the raw keyword re-cased ("${row.title}") — rewriting with proper Title Case before publish.`);
+    row.title = toTitle(row.keyword);
+  }
 
   // Ensure question-style titles end with ?
   const rawTitle = row.title || article.title;
