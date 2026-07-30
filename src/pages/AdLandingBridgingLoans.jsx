@@ -97,12 +97,6 @@ const AdLandingBridgingLoans = () => {
                 <Link to="/" className="adlp-logo">
                     <img src="/logo_gold.png" alt="Boxx Commercial Finance" />
                 </Link>
-                <a href="tel:03300431612" className="adlp-header-phone">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                    </svg>
-                    0330 043 1612
-                </a>
             </header>
 
             {/* Pinned (not pickHero's hash) — same reasoning as /partners: a
@@ -134,7 +128,7 @@ const AdLandingBridgingLoans = () => {
                             <div className="adlp-thanks">
                                 <h3>Thanks — request received.</h3>
                                 <p>A funding specialist will call you shortly to talk through your options.</p>
-                                <p>Need to speak to someone now? <a href="tel:03300431612">0330 043 1612</a></p>
+                                <p>Need to speak to someone now? <a href="tel:01236702070">01236 702070</a></p>
                             </div>
                         ) : (
                             <form onSubmit={onSubmit}>
@@ -160,7 +154,7 @@ const AdLandingBridgingLoans = () => {
                                 <button type="submit" className="btn btn-primary" disabled={status === 'sending'}>
                                     {status === 'sending' ? 'Sending…' : 'Get my free quote'}
                                 </button>
-                                {status === 'error' && <p className="adlp-error">Something went wrong — call <a href="tel:03300431612">0330 043 1612</a> instead.</p>}
+                                {status === 'error' && <p className="adlp-error">Something went wrong — call <a href="tel:01236702070">01236 702070</a> instead.</p>}
                             </form>
                         )}
                     </div>
@@ -233,7 +227,7 @@ const AdLandingBridgingLoans = () => {
                 <p>Get a free, no-obligation quote — or call the team directly.</p>
                 <div className="adlp-final-cta-actions">
                     <a href="#quote-form" className="btn btn-primary">Get my free quote</a>
-                    <a href="tel:03300431612" className="btn btn-outline">0330 043 1612</a>
+                    <a href="tel:01236702070" className="btn btn-outline">01236 702070</a>
                 </div>
             </section>
 

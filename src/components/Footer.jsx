@@ -41,9 +41,9 @@ const Footer = () => {
 
                     <div className="footer-contact">
                         <h4>Contact Us</h4>
-                        <p><strong>Boxx Commercial Finance</strong><br />6th Floor Gordon Chambers, <br />90 Mitchell Street, Glasgow, G1 3NQ</p>
+                        <p><strong>Boxx Commercial Finance</strong><br />Atrium Business Centre, <br />North Caldeen Road, Coatbridge, ML5 4EF</p>
                         <p><a href="mailto:hello@boxxfinance.co.uk" className="clickable-email">hello@boxxfinance.co.uk</a></p>
-                        <p><a href="tel:03300431612" className="clickable-email">0330 043 1612</a></p>
+                        <p><a href="tel:01236702070" className="clickable-email">01236 702070</a></p>
                     </div>
                 </div>
 

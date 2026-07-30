@@ -24,7 +24,7 @@ const Home = () => {
                         "logo": "https://boxxfinance.co.uk/logo.png",
                         "contactPoint": {
                             "@type": "ContactPoint",
-                            "telephone": "+44-330-043-1612",
+                            "telephone": "+44-1236-702070",
                             "contactType": "customer service",
                             "areaServed": "GB",
                             "availableLanguage": "English"

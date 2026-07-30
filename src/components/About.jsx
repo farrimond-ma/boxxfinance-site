@@ -20,7 +20,7 @@ const About = () => {
 
                     <p>We arrange funding across the full spectrum of commercial finance — including commercial mortgages, development finance, asset finance, invoice finance, bridging loans, structured finance and working capital. Whether you need a straightforward facility or a complex multi-tranche structure, we have the experience and the lender relationships to deliver.</p>
 
-                    <p>Based in Glasgow and operating across the whole of the UK, we work with clients from Manchester to Edinburgh, London to Belfast. Distance is no barrier — what matters is that your funding is right for your business.</p>
+                    <p>Based in Coatbridge and operating across the whole of the UK, we work with clients from Manchester to Edinburgh, London to Belfast. Distance is no barrier — what matters is that your funding is right for your business.</p>
 
 
                 </div>
@@ -44,7 +44,7 @@ const About = () => {
                                     <a href="mailto:mark@boxxfinance.co.uk" className="director-email gold-link">mark@boxxfinance.co.uk</a>
                                 </div>
                                 <div className="contact-link-row">
-                                    <a href="tel:03300431612" className="director-phone gold-link">0330 043 1612</a>
+                                    <a href="tel:01236702070" className="director-phone gold-link">01236 702070</a>
                                 </div>
                                 <div className="contact-link-row">
                                     <a href="https://www.linkedin.com/in/mark-higgins-05ab363b2/" target="_blank" rel="noopener noreferrer" className="director-linkedin-btn" title="Connect on LinkedIn">
@@ -68,7 +68,7 @@ const About = () => {
                                     <a href="mailto:andrew@boxxfinance.co.uk" className="director-email gold-link">andrew@boxxfinance.co.uk</a>
                                 </div>
                                 <div className="contact-link-row">
-                                    <a href="tel:03300431612" className="director-phone gold-link">0330 043 1612</a>
+                                    <a href="tel:01236702070" className="director-phone gold-link">01236 702070</a>
                                 </div>
                                 <div className="contact-link-row">
                                     <a href="https://www.linkedin.com/in/commercial-funding/" target="_blank" rel="noopener noreferrer" className="director-linkedin-btn" title="Connect on LinkedIn">

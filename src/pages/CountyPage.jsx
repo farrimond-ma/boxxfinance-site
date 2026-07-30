@@ -71,7 +71,7 @@ const CountyPage = () => {
         '@type': 'FinancialService',
         name: `Bridging Loans ${page.county} — Boxx Commercial Finance`,
         url: `https://boxxfinance.co.uk/locations/county/${page.slug}`,
-        telephone: '+44-330-043-1612',
+        telephone: '+44-1236-702070',
         areaServed: { '@type': 'AdministrativeArea', name: page.county, containedInPlace: { '@type': 'Country', name: 'United Kingdom' } },
         provider: {
             '@type': 'Organization',

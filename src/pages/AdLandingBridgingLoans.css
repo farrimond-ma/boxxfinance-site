@@ -22,7 +22,7 @@
 .adlp-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 1rem 1.5rem;
     background: var(--color-white);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -34,20 +34,6 @@
 .adlp-logo img {
     height: 36px;
     display: block;
-}
-
-.adlp-header-phone {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--color-primary);
-    font-weight: 700;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-.adlp-header-phone svg {
-    color: var(--color-secondary);
 }
 
 /* Hero — same blended-photo treatment as every other hero on the site

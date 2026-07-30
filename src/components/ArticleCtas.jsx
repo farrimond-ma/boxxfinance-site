@@ -6,8 +6,8 @@ import { serviceCtaTo } from './resource/serviceSlug';
 // generated content) so every article — existing and future — gets identical,
 // centrally-editable CTAs. Copy lives here and nowhere else.
 
-const PHONE_DISPLAY = '0330 043 1612';
-const PHONE_HREF = 'tel:03300431612';
+const PHONE_DISPLAY = '01236 702070';
+const PHONE_HREF = 'tel:01236702070';
 
 const isBridging = (service) => (service || '').toLowerCase().includes('bridging');
 

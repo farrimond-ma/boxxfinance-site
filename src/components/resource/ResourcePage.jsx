@@ -87,7 +87,7 @@ const ResourcePage = ({
                                         {author.email && (
                                             <a href={`mailto:${author.email}`} className="gold-link">{author.email}</a>
                                         )}
-                                        <a href="tel:03300431612" className="gold-link">0330 043 1612</a>
+                                        <a href="tel:01236702070" className="gold-link">01236 702070</a>
                                         {author.linkedIn && (
                                             <a href={author.linkedIn} target="_blank" rel="noopener noreferrer" className="gold-link">
                                                 Connect on LinkedIn

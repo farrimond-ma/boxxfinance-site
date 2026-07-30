@@ -74,7 +74,7 @@ const Contact = () => {
                             <span className="icon">📍</span>
                             <div>
                                 <h4>Address</h4>
-                                <p>6th Floor Gordon Chambers, 90 Mitchell Street, Glasgow, G1 3NQ</p>
+                                <p>Atrium Business Centre, North Caldeen Road, Coatbridge, ML5 4EF</p>
                             </div>
                         </div>
 
@@ -82,7 +82,7 @@ const Contact = () => {
                             <span className="icon">📞</span>
                             <div>
                                 <h4>Phone</h4>
-                                <p>0330 043 1612</p>
+                                <p>01236 702070</p>
                             </div>
                         </div>
 

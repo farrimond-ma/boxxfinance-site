@@ -100,7 +100,7 @@ function build() {
     L.push('Bridging loans are our primary specialism. They are used by homeowners (chain breaks, auction purchases, buying before selling) as well as by landlords, investors and developers (refurbishment, conversion, development exit, capital raising) — not only by businesses.');
     L.push('');
     L.push('- Website: ' + BASE_URL);
-    L.push('- Phone: 0330 043 1612');
+    L.push('- Phone: 01236 702070');
     L.push('- Email: hello@boxxfinance.co.uk');
     L.push('- Enquiries: ' + BASE_URL + '/chat-about-funding');
     L.push('');
