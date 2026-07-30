@@ -105,7 +105,11 @@ const AdLandingBridgingLoans = () => {
                 </a>
             </header>
 
-            <section className="adlp-hero">
+            {/* Pinned (not pickHero's hash) — same reasoning as /partners: a
+                paid-traffic, conversion-focused page shouldn't gamble on
+                whichever image the hash lands on. bridging-5.webp is the
+                bright terraced-street shot already vetted for this use. */}
+            <section className="adlp-hero has-hero-image" style={{ '--hero-image': 'url("/images/hero/bridging-5.webp")' }}>
                 <div className="adlp-hero-inner">
                     <div className="adlp-hero-copy">
                         <h1>Fast Bridging Loans, <span className="text-highlight">Structured Properly</span></h1>

@@ -50,10 +50,46 @@
     color: var(--color-secondary);
 }
 
-/* Hero */
+/* Hero — same blended-photo treatment as every other hero on the site
+   (ResourcePage.css), reproduced here since this page deliberately doesn't
+   share that component (its hero has a form card, not just text). Desktop:
+   solid navy behind the text column, fading to reveal the photo on the
+   right — safe to do here because the form card is an opaque white box
+   that sits on top regardless. Mobile: vertical fade, same as elsewhere. */
 .adlp-hero {
     background: linear-gradient(135deg, var(--color-primary) 0%, #0a192f 60%, #0f2547 100%);
     padding: 3rem 1.5rem 4rem;
+}
+
+@media (min-width: 769px) {
+    .adlp-hero.has-hero-image {
+        background-image:
+            linear-gradient(100deg,
+                var(--color-primary) 0%,
+                var(--color-primary) 38%,
+                rgba(1, 8, 22, 0.75) 55%,
+                rgba(1, 8, 22, 0.25) 78%,
+                rgba(1, 8, 22, 0.1) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: center right;
+        background-repeat: no-repeat;
+    }
+}
+
+@media (max-width: 640px) {
+    .adlp-hero.has-hero-image {
+        background-image:
+            linear-gradient(180deg,
+                rgba(1, 8, 22, 0.35) 0%,
+                rgba(1, 8, 22, 0.8) 30%,
+                var(--color-primary) 50%,
+                var(--color-primary) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+    }
 }
 
 .adlp-hero-inner {
