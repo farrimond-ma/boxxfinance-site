@@ -23,11 +23,11 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwF7_EU1ekXav
 
 const TRUST_BULLETS = [
     'Funding from £50,000+',
-    'Completion from 7 days',
-    'Terms from 3 to 18 months',
-    'LTV up to 75%',
-    'Whole-of-market lender panel',
-    'Regulated & unregulated bridging',
+    'Completion in 7 days',
+    'Terms up to 24 months',
+    'No exit fees',
+    'LTV up to 90%',
+    'Day 1 Refinance for Cash Purchases',
 ];
 
 const USE_CASES = ['Auction purchases', 'Chain breaks', 'Refurbishment projects', 'Planning gain', 'Short-term refinancing'];
