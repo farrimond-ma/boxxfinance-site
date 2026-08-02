@@ -79,6 +79,10 @@ const AdLandingBridgingLoans = () => {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: params.toString(),
             });
+            // The one event Meta Ads actually optimises campaigns and reports
+            // conversions against — this page is the paid-traffic destination,
+            // so this is the most important of the three Lead fires.
+            if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
             setStatus('done');
         } catch {
             setStatus('error');

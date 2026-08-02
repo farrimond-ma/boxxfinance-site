@@ -167,6 +167,7 @@ const MultiStepForm = () => {
                 // With no-cors, we can't read the response body, but we can assume success if it doesn't throw
             }
 
+            if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
             setSubmitted(true);
             window.scrollTo(0, 0);
         } catch (error) {

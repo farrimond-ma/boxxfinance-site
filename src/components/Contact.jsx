@@ -41,6 +41,7 @@ const Contact = () => {
                 body: params.toString()
             });
 
+            if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
             alert('Thank you for your enquiry. We will be in touch shortly.');
             setFormData({
                 name: '',
