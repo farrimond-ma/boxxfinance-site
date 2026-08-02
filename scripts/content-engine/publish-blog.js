@@ -1054,21 +1054,42 @@ async function main() {
   }
   console.log(`Final word count: ${finalWords}${finalWords < TARGET_WORDS ? ` (still below ${TARGET_WORDS} — seo-audit will WARN)` : ' ✅'}`);
 
-  // Self-healing guard against the raw-keyword title bug (fixed at the
-  // generator in commit 3b8d35a, but that fix only stops NEW rows — rows
-  // already sitting in the queue before it landed still carry the bad
-  // title, and kept publishing broken for days because the one-off repair
-  // workflow (fix-queued-titles.yml) requires a manual click that never
-  // happened. Checking the exact bug signature here — title is just the
-  // keyword re-cased, nothing else — means it's caught at the one place
-  // that's guaranteed to run for every single post, no manual step needed.
-  if (row.title && row.keyword && row.title.trim().toLowerCase() === row.keyword.trim().toLowerCase()) {
-    console.log(`  ⚠ Row title is the raw keyword re-cased ("${row.title}") — rewriting with proper Title Case before publish.`);
-    row.title = toTitle(row.keyword);
+  // Self-healing guard against the raw-keyword title bug. First attempt
+  // (this session, commit e1c675a) only checked row.title in isolation —
+  // missed every case where the SHEET'S title cell was blank and rawTitle
+  // fell through to article.title (the model's own generated title)
+  // instead, which is exactly what happened with GSC-content-gap keywords
+  // that are themselves ungrammatical query fragments ("no running water
+  // uk", "derelict property uk") — the model sometimes just echoes the
+  // fragment back rather than writing a real headline. Checking rawTitle
+  // AFTER the row.title||article.title fallback catches the bug regardless
+  // of which source produced it. Mechanical Title Case isn't a real fix for
+  // an ungrammatical fragment either — "No Running Water Uk" capitalized is
+  // still not English — so this now asks the model for a proper headline,
+  // falling back to toTitle() only if that call fails.
+  let rawTitle = row.title || article.title;
+  if (row.keyword && rawTitle && rawTitle.trim().toLowerCase() === row.keyword.trim().toLowerCase()) {
+    console.log(`  ⚠ Title is the raw keyword, not a headline ("${rawTitle}") — rewriting before publish.`);
+    try {
+      const fixResponse = await anthropic.messages.create({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 100,
+        messages: [{
+          role: 'user',
+          content: `Write a natural, grammatical UK blog headline (under 70 characters, no quotation marks) for an article targeting this search phrase: "${row.keyword}". The phrase itself is a raw search query fragment, not a sentence — do not just capitalize it, write an actual headline a person would title an article with. Name the product as "bridging loan" or "bridging loans" where relevant, never "bridging finance". Return ONLY the headline, nothing else.`,
+        }],
+      });
+      const rewritten = fixResponse.content[0]?.type === 'text' ? fixResponse.content[0].text.trim().replace(/^["']|["']$/g, '') : '';
+      rawTitle = rewritten || toTitle(row.keyword);
+    } catch (err) {
+      console.warn(`  Title rewrite call failed (${err.message}) — falling back to Title Case`);
+      rawTitle = toTitle(row.keyword);
+    }
+    console.log(`  → "${rawTitle}"`);
+    row.title = rawTitle;
   }
 
   // Ensure question-style titles end with ?
-  const rawTitle = row.title || article.title;
   const questionRe = /^(what|how|why|when|where|who|which|can|should|do|does|is|are|will|would|could)\s/i;
   const finalTitle = questionRe.test(rawTitle) && !rawTitle.trim().endsWith('?')
     ? rawTitle.trim() + '?'
