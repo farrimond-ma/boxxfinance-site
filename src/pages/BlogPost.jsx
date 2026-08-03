@@ -14,9 +14,9 @@ const AUTHORS = {
         linkedIn: 'https://www.linkedin.com/in/mark-higgins-05ab363b2/',
     },
     'Tara Jameson': {
-        title: 'Managing Partner, Commercial Finance',
+        title: 'Commercial Finance and Bridging Loans Specialist',
         image: '/images/tara-jameson.webp',
-        bio: 'Tara specialises in invoice finance, asset finance and working capital solutions, with a strong track record in helping growth-stage businesses unlock the liquidity they need to scale. Her whole-of-market approach ensures clients receive competitive, lender-agnostic advice.',
+        bio: 'Tara specialises in bridging loans, invoice finance, asset finance and working capital solutions, with a strong track record in helping property investors and growth-stage businesses unlock the funding they need. Her whole-of-market approach ensures clients receive competitive, lender-agnostic advice.',
         email: 'tara@boxxfinance.co.uk',
         linkedIn: 'https://www.linkedin.com/in/commercial-funding/',
     },

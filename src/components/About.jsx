@@ -58,11 +58,11 @@ const About = () => {
                         </div>
                     </div>
                     <div className="director-card">
-                        <img src="/images/tara-jameson.webp" alt="Tara Jameson, Managing Partner at Boxx Commercial Finance" className="director-avatar-photo" />
+                        <img src="/images/tara-jameson.webp" alt="Tara Jameson, Commercial Finance and Bridging Loans Specialist at Boxx Commercial Finance" className="director-avatar-photo" />
                         <div className="director-info">
                             <h4>Tara Jameson</h4>
-                            <p className="director-title">Managing Partner, Commercial Finance</p>
-                            <p className="director-bio">Tara specialises in invoice finance, asset finance and working capital solutions, with a strong track record in helping growth-stage businesses unlock the liquidity they need to scale. Her whole-of-market approach ensures clients receive competitive, lender-agnostic advice.</p>
+                            <p className="director-title">Commercial Finance and Bridging Loans Specialist</p>
+                            <p className="director-bio">Tara specialises in bridging loans, invoice finance, asset finance and working capital solutions, with a strong track record in helping property investors and growth-stage businesses unlock the funding they need. Her whole-of-market approach ensures clients receive competitive, lender-agnostic advice.</p>
                             <div className="director-social-links">
                                 <div className="contact-link-row">
                                     <a href="mailto:tara@boxxfinance.co.uk" className="director-email gold-link">tara@boxxfinance.co.uk</a>

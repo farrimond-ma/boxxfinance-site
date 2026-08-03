@@ -79,7 +79,11 @@
     width: 100%;
     min-height: 450px;
     background-color: #f5f5f5;
-    background-image: url('/about_bg.png');
+    /* Was a generic café-owner stock photo — unrelated to the bridging-loan
+       focus. Elegant Georgian terrace, same vetted pool used across every
+       bridging location/blog hero, aspirational property visual for the
+       About section rather than another generic small-business shot. */
+    background-image: url('/images/hero/bridging-15.webp');
     background-size: cover;
     background-position: center;
     border-radius: 8px;
