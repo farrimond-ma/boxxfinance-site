@@ -1131,7 +1131,7 @@ async function main() {
 
   const authorEmails = {
     'Mark Higgins': 'mark@boxxfinance.co.uk',
-    'Andrew Farrimond': 'andrew@boxxfinance.co.uk',
+    'Tara Jameson': 'tara@boxxfinance.co.uk',
   };
 
   const newPost = {

@@ -95,12 +95,12 @@ const SERVICE_AUTHORS = {
   'Commercial Mortgages':'Mark Higgins',
   'Mezzanine Finance':   'Mark Higgins',
   'Structured Finance':  'Mark Higgins',
-  'Invoice Finance':     'Andrew Farrimond',
-  'Asset Finance':       'Andrew Farrimond',
-  'Business Loans':      'Andrew Farrimond',
-  'Working Capital':     'Andrew Farrimond',
-  'Trade Finance':       'Andrew Farrimond',
-  'Cashflow Finance':    'Andrew Farrimond',
+  'Invoice Finance':     'Tara Jameson',
+  'Asset Finance':       'Tara Jameson',
+  'Business Loans':      'Tara Jameson',
+  'Working Capital':     'Tara Jameson',
+  'Trade Finance':       'Tara Jameson',
+  'Cashflow Finance':    'Tara Jameson',
 };
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────

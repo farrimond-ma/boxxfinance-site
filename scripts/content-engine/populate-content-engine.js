@@ -23,19 +23,19 @@ const MAX_SCHEDULE_DAYS = 90;
 const SERVICE_META = {
   'Business Loans': {
     slug: 'business-loans',
-    author: 'Andrew Farrimond',
+    author: 'Tara Jameson',
     serviceUrl: '/funding-solutions/business-loans',
     category: 'Business Loans',
   },
   'Asset Finance': {
     slug: 'asset-finance',
-    author: 'Andrew Farrimond',
+    author: 'Tara Jameson',
     serviceUrl: '/funding-solutions/asset-finance',
     category: 'Asset Finance',
   },
   'Invoice Finance': {
     slug: 'invoice-finance',
-    author: 'Andrew Farrimond',
+    author: 'Tara Jameson',
     serviceUrl: '/funding-solutions/invoice-finance',
     category: 'Invoice Finance',
   },
@@ -59,19 +59,19 @@ const SERVICE_META = {
   },
   'Working Capital': {
     slug: 'working-capital',
-    author: 'Andrew Farrimond',
+    author: 'Tara Jameson',
     serviceUrl: '/funding-solutions/working-capital',
     category: 'Working Capital',
   },
   'Trade Finance': {
     slug: 'trade-finance',
-    author: 'Andrew Farrimond',
+    author: 'Tara Jameson',
     serviceUrl: '/funding-solutions/trade-finance',
     category: 'Trade Finance',
   },
   'Cashflow Finance': {
     slug: 'cashflow-finance',
-    author: 'Andrew Farrimond',
+    author: 'Tara Jameson',
     serviceUrl: '/funding-solutions/working-capital',
     category: 'Cashflow Finance',
   },

@@ -51,14 +51,14 @@ const SERVICE_META = {
   'Bridging Finance':    { slug:'bridging-finance',    author:'Mark Higgins',    url:'/funding-solutions/bridging-loans'    },
   'Development Finance': { slug:'development-finance', author:'Mark Higgins',    url:'/funding-solutions/development-finance' },
   'Commercial Mortgage': { slug:'commercial-mortgages',author:'Mark Higgins',    url:'/funding-solutions/commercial-mortgages'},
-  'Invoice Finance':     { slug:'invoice-finance',     author:'Andrew Farrimond',url:'/funding-solutions/invoice-finance'     },
-  'Asset Finance':       { slug:'asset-finance',       author:'Andrew Farrimond',url:'/funding-solutions/asset-finance'       },
-  'Working Capital':     { slug:'working-capital',     author:'Andrew Farrimond',url:'/funding-solutions/working-capital'     },
-  'Trade Finance':       { slug:'trade-finance',       author:'Andrew Farrimond',url:'/funding-solutions/trade-finance'       },
-  'Cashflow Finance':    { slug:'cashflow-finance',    author:'Andrew Farrimond',url:'/funding-solutions/working-capital'    },
+  'Invoice Finance':     { slug:'invoice-finance',     author:'Tara Jameson',url:'/funding-solutions/invoice-finance'     },
+  'Asset Finance':       { slug:'asset-finance',       author:'Tara Jameson',url:'/funding-solutions/asset-finance'       },
+  'Working Capital':     { slug:'working-capital',     author:'Tara Jameson',url:'/funding-solutions/working-capital'     },
+  'Trade Finance':       { slug:'trade-finance',       author:'Tara Jameson',url:'/funding-solutions/trade-finance'       },
+  'Cashflow Finance':    { slug:'cashflow-finance',    author:'Tara Jameson',url:'/funding-solutions/working-capital'    },
   'Mezzanine Finance':   { slug:'mezzanine-finance',   author:'Mark Higgins',    url:'/funding-solutions/structured-finance'  },
   'Structured Finance':  { slug:'structured-finance',  author:'Mark Higgins',    url:'/funding-solutions/structured-finance' },
-  'Business Loans':      { slug:'business-loans',      author:'Andrew Farrimond',url:'/funding-solutions/business-loans'     },
+  'Business Loans':      { slug:'business-loans',      author:'Tara Jameson',url:'/funding-solutions/business-loans'     },
 };
 
 const PEXELS_SERVICE_QUERIES = {

@@ -2,7 +2,7 @@
  * seed-content-engine.js
  *
  * Seeds the ContentEngine Google Sheet with 90 days of Bridging Finance content:
- *   - 2 blog rows per day  (AM = Mark Higgins, PM = Andrew Farrimond)
+ *   - 2 blog rows per day  (AM = Mark Higgins, PM = Tara Jameson)
  *   - 5 location rows per day (UK cities, cycling through the full list)
  *
  * Reads existing rows first — never duplicates a (date, slot) or (date, city) combination.
@@ -43,7 +43,7 @@ function today() { return new Date().toISOString().split('T')[0]; }
 
 // ─── Blog topics ─────────────────────────────────────────────────────────────
 // AM = Mark Higgins (property/transaction focused)
-// PM = Andrew Farrimond (finance/rates/strategy focused)
+// PM = Tara Jameson (finance/rates/strategy focused)
 
 const AM_BLOGS = [
   { keyword: 'how do bridging loans work uk',              slug: 'how-do-bridging-loans-work-uk',              title: 'How Do Bridging Loans Work in the UK?' },
@@ -339,7 +339,7 @@ function toLocationMetaDesc(city) {
 let nextId = 1;
 
 function buildBlogRow(id, date, slot, topic) {
-  const author = slot === 'AM' ? 'Mark Higgins' : 'Andrew Farrimond';
+  const author = slot === 'AM' ? 'Mark Higgins' : 'Tara Jameson';
   return [
     id,
     'blog',

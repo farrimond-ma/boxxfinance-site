@@ -58,14 +58,18 @@ const About = () => {
                         </div>
                     </div>
                     <div className="director-card">
-                        <img src="/images/andrew-farrimond.webp" alt="Andrew Farrimond, Managing Partner at Boxx Commercial Finance" className="director-avatar-photo" />
+                        {/* Placeholder initials avatar (public/images/tara-jameson.svg) — swap for
+                            a real photo once one is available. Deliberately not reusing
+                            andrew-farrimond.webp: that would misrepresent Andrew's actual
+                            likeness as Tara's, the same problem as the AI-avatar request. */}
+                        <img src="/images/tara-jameson.svg" alt="Tara Jameson, Managing Partner at Boxx Commercial Finance" className="director-avatar-photo" />
                         <div className="director-info">
-                            <h4>Andrew Farrimond</h4>
+                            <h4>Tara Jameson</h4>
                             <p className="director-title">Managing Partner, Commercial Finance</p>
-                            <p className="director-bio">Andrew specialises in invoice finance, asset finance and working capital solutions, with a strong track record in helping growth-stage businesses unlock the liquidity they need to scale. His whole-of-market approach ensures clients receive competitive, lender-agnostic advice.</p>
+                            <p className="director-bio">Tara specialises in invoice finance, asset finance and working capital solutions, with a strong track record in helping growth-stage businesses unlock the liquidity they need to scale. Her whole-of-market approach ensures clients receive competitive, lender-agnostic advice.</p>
                             <div className="director-social-links">
                                 <div className="contact-link-row">
-                                    <a href="mailto:andrew@boxxfinance.co.uk" className="director-email gold-link">andrew@boxxfinance.co.uk</a>
+                                    <a href="mailto:tara@boxxfinance.co.uk" className="director-email gold-link">tara@boxxfinance.co.uk</a>
                                 </div>
                                 <div className="contact-link-row">
                                     <a href="tel:01236702070" className="director-phone gold-link">01236 702070</a>

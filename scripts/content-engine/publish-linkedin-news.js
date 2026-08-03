@@ -92,7 +92,7 @@ function pickAuthor(item) {
   if (/bridging|development finance|commercial mortgage|property|mezzanine|auction|structured/.test(text)) {
     return 'Mark Higgins';
   }
-  return 'Andrew Farrimond';
+  return 'Tara Jameson';
 }
 
 // ── RSS fetch ─────────────────────────────────────────────────────────────────

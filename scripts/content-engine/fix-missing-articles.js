@@ -32,7 +32,7 @@ async function main() {
 
   const missing = [
     {
-      id: '2162', service: 'Business Loans', author: 'Andrew Farrimond',
+      id: '2162', service: 'Business Loans', author: 'Tara Jameson',
       keyword: 'business loans for startups uk',
       title: 'Business Loans for Startups: Options When You Have No Trading History',
       slug: 'business-loans-for-startups',
@@ -50,7 +50,7 @@ async function main() {
       note: 'Urgent — fixes broken LinkedIn link from 2026-06-02',
     },
     {
-      id: '2164', service: 'Invoice Finance', author: 'Andrew Farrimond',
+      id: '2164', service: 'Invoice Finance', author: 'Tara Jameson',
       keyword: 'invoice finance for small businesses',
       title: 'Invoice Finance for Small Businesses: Is It Right for You?',
       slug: 'invoice-finance-for-small-businesses',

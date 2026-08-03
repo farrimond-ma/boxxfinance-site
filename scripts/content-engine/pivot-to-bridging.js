@@ -132,7 +132,7 @@ async function loadBridgingKeywords(sheets) {
       const title = r.keyword.split(' ').map((w, i) => i === 0 ? w.charAt(0).toUpperCase() + w.slice(1) : w).join(' ');
       const slug  = toSlug(r.keyword);
       // Alternate between Mark and Andrew for both LinkedIn channels
-      const author = idx % 2 === 0 ? 'Mark Higgins' : 'Andrew Farrimond';
+      const author = idx % 2 === 0 ? 'Mark Higgins' : 'Tara Jameson';
       return {
         service: FOCUS_SERVICE, keyword: r.keyword, title, slug, author,
         brief: `Expert UK guide on "${r.keyword}" for property investors and developers. Cover what it is, how it works, rates, eligibility, and why Boxx Commercial Finance is the right broker. 1,200+ words with FAQ schema. Mention Boxx 3-4 times naturally.`,

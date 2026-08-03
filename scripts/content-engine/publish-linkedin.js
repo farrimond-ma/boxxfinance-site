@@ -15,9 +15,9 @@ const SERVICE_AUTHORS = {
   'bridging-finance':'Mark Higgins','development-finance':'Mark Higgins',
   'commercial-mortgages':'Mark Higgins','commercial-mortgage':'Mark Higgins',
   'property-finance':'Mark Higgins','structured-finance':'Mark Higgins','mezzanine-finance':'Mark Higgins',
-  'invoice-finance':'Andrew Farrimond','asset-finance':'Andrew Farrimond',
-  'working-capital':'Andrew Farrimond','trade-finance':'Andrew Farrimond',
-  'cashflow-finance':'Andrew Farrimond','business-loans':'Andrew Farrimond',
+  'invoice-finance':'Tara Jameson','asset-finance':'Tara Jameson',
+  'working-capital':'Tara Jameson','trade-finance':'Tara Jameson',
+  'cashflow-finance':'Tara Jameson','business-loans':'Tara Jameson',
 };
 
 function resolveAuthor(postAuthor, service) {
