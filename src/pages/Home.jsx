@@ -12,8 +12,8 @@ const Home = () => {
     return (
         <>
             <SEO
-                title="UK Commercial Finance & Business Funding"
-                description="Boxx Commercial Finance provides tailored funding solutions for UK businesses. From asset finance to commercial mortgages, we help you grow."
+                title="Bridging Loans & Commercial Finance UK"
+                description="Fast, whole-of-market bridging loans for UK property purchases, chain breaks and refurbishment — plus commercial mortgages, asset finance and the full range of business funding solutions."
                 keywords="bridging loans UK, commercial finance UK, business funding UK, commercial mortgages, asset finance, specialist finance broker"
                 schema={[
                     {
