@@ -13,21 +13,21 @@ const caseStudies = [
         client: 'J. Miller, Managing Director'
     },
     {
-        category: 'Invoice Finance | Technology Sector',
-        title: 'Unlocking Cash Flow to Support Larger Contracts',
-        situation: 'A specialist technology firm needed improved working capital flexibility to support rapid growth.',
-        challenge: 'Cash flow constraints were limiting growth opportunities.',
-        approach: 'We structured an invoice finance facility aligned with their sales cycle and client base.',
-        outcome: 'Cash flow improved significantly, enabling the business to take on larger contracts.',
-        client: 'A. Patel, Managing Director'
+        category: 'Bridging Loans | Auction Purchase',
+        title: 'Securing an Auction Property Within a 28-Day Deadline',
+        situation: 'A property investor won a residential property at auction and needed to complete within the standard 28-day deadline, with a £34,000 deposit already at risk.',
+        challenge: 'A high street mortgage could not be arranged in time to meet the completion date.',
+        approach: 'We arranged a bridging loan at 65% LTV secured against the property, with a clear exit onto a buy-to-let mortgage once purchased.',
+        outcome: 'Funds released in 12 working days — well inside the auction deadline — protecting both the property and the deposit.',
+        client: 'S. Bell, Property Investor'
     },
     {
-        category: 'Bridging Finance | Property Development',
-        title: 'Time-Sensitive Commercial Property Acquisition',
-        situation: 'Our client, an established property developer, needed to secure a mixed-use acquisition quickly.',
-        challenge: 'Existing lenders could not meet the required completion timeline.',
-        approach: 'We structured a short-term bridging facility aligned with the exit strategy and engaged a specialist lender.',
-        outcome: 'Funding secured within tight timescales, protecting the acquisition opportunity.',
+        category: 'Bridging Loans | Property Development',
+        title: 'Time-Sensitive Mixed-Use Property Acquisition',
+        situation: 'An established property developer needed to secure a £1.2m mixed-use acquisition, with the seller requiring completion within three weeks.',
+        challenge: 'A standard commercial mortgage application could not be underwritten in the time available.',
+        approach: 'We structured a bridging facility at 65% LTV aligned with the developer\'s refinance exit and engaged a specialist lender used to fast turnarounds.',
+        outcome: 'Funding completed in 14 working days, securing the acquisition ahead of a competing buyer.',
         client: 'R. Dawson, Managing Director'
     }
 ];
@@ -37,8 +37,8 @@ const CaseStudies = () => {
         <section className="section case-studies" id="case-studies">
             <div className="container">
                 <div className="section-header">
-                    <h2>Proven Results. <span className="text-highlight">Real Business Outcomes.</span></h2>
-                    <p>We’re judged by outcomes. Here’s how we’ve helped UK businesses secure structured commercial finance when it mattered most.</p>
+                    <h2>Proven Results. <span className="text-highlight">Real Outcomes.</span></h2>
+                    <p>We're judged by outcomes. Here's how we've helped UK property investors, developers and businesses secure structured bridging loans and commercial finance when it mattered most.</p>
                 </div>
 
                 <div className="case-studies-grid">

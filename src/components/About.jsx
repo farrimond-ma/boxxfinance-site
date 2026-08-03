@@ -8,17 +8,17 @@ const About = () => {
 
                 {/* ── Row 1: Story + Image ── */}
                 <div className="about-content">
-                    <h2>Expert Funding Partners <span className="text-highlight">For UK Businesses</span></h2>
+                    <h2>UK Bridging Loan Specialists <span className="text-highlight">— And Your Whole-of-Market Partner</span></h2>
 
-                    <p><strong>We structure funding properly.</strong> Boxx Commercial Finance was built by directors who spent years watching UK businesses lose deals, miss growth opportunities and pay over the odds — simply because their funding was wrong for their situation. We set out to change that.</p>
+                    <p><strong>Speed and structure, not just approval.</strong> Boxx Commercial Finance built its reputation arranging fast, whole-of-market bridging loans for UK property buyers, landlords and developers — funding structured around your exit strategy, not just the headline rate. We were built by directors who spent years watching businesses and investors lose deals, miss opportunities and pay over the odds because their funding was wrong for their situation. We set out to change that.</p>
 
-                    <p>With access to a panel of 50+ lenders — from high street banks and challenger lenders to specialist and private debt providers — we go to the whole market on your behalf. We don't just source finance; we structure it around your business objectives, timescales and risk profile.</p>
+                    <p>With access to a panel of 50+ lenders — from high street banks and challenger lenders to specialist and private debt providers — we go to the whole market on your behalf, whether that's a bridging loan completing in days or a longer-term commercial facility.</p>
 
-                    <p><strong>Who we work with:</strong> UK-based SMEs, property investors and developers, business owners seeking growth capital, and entrepreneurs restructuring or refinancing existing facilities. Whether you're raising £50,000 or £5 million, we treat every case with the same rigour.</p>
+                    <p><strong>Who we work with:</strong> property investors and developers, UK-based SMEs, business owners seeking growth capital, and entrepreneurs restructuring or refinancing existing facilities. Whether you're raising £50,000 or £5 million, we treat every case with the same rigour.</p>
 
-                    <p><strong>Our approach is deliberate.</strong> Every facility we arrange starts with a strategy conversation — not a form. We analyse your business, your sector, your financials and your goals before approaching a single lender. That preparation is what separates a structured deal from a rejected application, and it's why our clients consistently secure better terms than they expected.</p>
+                    <p><strong>Our approach is deliberate.</strong> Every facility we arrange starts with a strategy conversation — not a form. We analyse your situation, your timescales and your exit before approaching a single lender. That preparation is what separates a structured deal from a rejected application, and it's why our clients consistently secure better terms than they expected.</p>
 
-                    <p>We arrange funding across the full spectrum of commercial finance — including commercial mortgages, development finance, asset finance, invoice finance, bridging loans, structured finance and working capital. Whether you need a straightforward facility or a complex multi-tranche structure, we have the experience and the lender relationships to deliver.</p>
+                    <p>Beyond bridging loans, we arrange funding across the full spectrum of commercial finance — commercial mortgages, development finance, asset finance, invoice finance, structured finance and working capital. Whether you need a straightforward facility or a complex multi-tranche structure, we have the experience and the lender relationships to deliver.</p>
 
                     <p>Based in Coatbridge and operating across the whole of the UK, we work with clients from Manchester to Edinburgh, London to Belfast. Distance is no barrier — what matters is that your funding is right for your business.</p>
 
