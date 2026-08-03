@@ -58,11 +58,7 @@ const About = () => {
                         </div>
                     </div>
                     <div className="director-card">
-                        {/* Placeholder initials avatar (public/images/tara-jameson.svg) — swap for
-                            a real photo once one is available. Deliberately not reusing
-                            andrew-farrimond.webp: that would misrepresent Andrew's actual
-                            likeness as Tara's, the same problem as the AI-avatar request. */}
-                        <img src="/images/tara-jameson.svg" alt="Tara Jameson, Managing Partner at Boxx Commercial Finance" className="director-avatar-photo" />
+                        <img src="/images/tara-jameson.webp" alt="Tara Jameson, Managing Partner at Boxx Commercial Finance" className="director-avatar-photo" />
                         <div className="director-info">
                             <h4>Tara Jameson</h4>
                             <p className="director-title">Managing Partner, Commercial Finance</p>
