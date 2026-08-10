@@ -52,6 +52,7 @@ const ProgressApplication = () => {
         purchasePrice: '',
         securityAddress: '',
         securityValue: '',
+        loanAmount: '',
         exitStrategy: '',
         exitStrategyDetail: '',
     });
@@ -64,6 +65,7 @@ const ProgressApplication = () => {
         setStatus('sending');
         try {
             const summary = [
+                `Loan amount required: £${form.loanAmount ? Number(form.loanAmount).toLocaleString() : 'n/a'}`,
                 `Purchase property: ${form.purchaseAddress} (£${form.purchasePrice ? Number(form.purchasePrice).toLocaleString() : 'n/a'})`,
                 `Security property: ${form.securityAddress} (£${form.securityValue ? Number(form.securityValue).toLocaleString() : 'n/a'})`,
                 `Exit strategy: ${form.exitStrategy}${form.exitStrategyDetail ? ' — ' + form.exitStrategyDetail : ''}`,
@@ -76,6 +78,7 @@ const ProgressApplication = () => {
             params.append('phone', form.phone);
             params.append('funding_type', 'Progress Application (Bridging)');
             params.append('funding_purpose', summary);
+            params.append('funding_amount', form.loanAmount);
             params.append('property_value', form.securityValue);
             await fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
@@ -100,6 +103,7 @@ const ProgressApplication = () => {
                 crmParams.append('purchase_price', form.purchasePrice);
                 crmParams.append('security_address', form.securityAddress);
                 crmParams.append('security_value', form.securityValue);
+                crmParams.append('loan_amount', form.loanAmount);
                 crmParams.append('exit_strategy', form.exitStrategy);
                 crmParams.append('exit_strategy_notes', form.exitStrategyDetail);
                 fetch(CRM_INTAKE_URL, {
@@ -169,6 +173,9 @@ const ProgressApplication = () => {
                                 <textarea name="securityAddress" className="quiz-input" rows="5" required value={form.securityAddress} onChange={onChange} />
                             </div>
                             <CurrencyInput label="Value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 500,000" />
+
+                            <h3>How much do you need to borrow?</h3>
+                            <CurrencyInput label="Loan amount required" name="loanAmount" value={form.loanAmount} onChange={onChange} placeholder="e.g. £ 250,000" />
 
                             <h3>How will you exit the bridge?</h3>
                             <div className="quiz-input-group">
