@@ -207,9 +207,9 @@ const ProgressApplication = () => {
                                     anything that's changed, or just call us on <a href="tel:01236702070">01236 702070</a> if you have questions.
                                 </p>
                             )}
-                            <h3 style={{ marginTop: 0 }}>About you</h3>
+                            <h3 style={{ marginTop: 0 }}>About the applicant</h3>
                             <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Full name</label>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Applicant's Full Name</label>
                                 <input type="text" name="fullName" className="quiz-input" required value={form.fullName} onChange={onChange} />
                             </div>
                             <div className="quiz-input-group">
