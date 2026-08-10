@@ -20,6 +20,7 @@ import Locations from './pages/Locations';
 import FundingSolutions from './pages/FundingSolutions';
 import Partners from './pages/Partners';
 import AdLandingBridgingLoans from './pages/AdLandingBridgingLoans';
+import ProgressApplication from './pages/ProgressApplication';
 
 function App() {
   // Capture a partner's ?ref=CODE on first load and keep it for the session, so
@@ -41,6 +42,7 @@ function App() {
           <Route path="insights/:slug" element={<BlogPost />} />
           <Route path="chat-about-funding" element={<MultiStepForm />} />
           <Route path="chat-about-funding/:slug" element={<MultiStepForm />} />
+          <Route path="progress-your-application" element={<ProgressApplication />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="legal-disclaimer" element={<LegalDisclaimer />} />
           <Route path="terms-and-conditions" element={<TermsConditions />} />
