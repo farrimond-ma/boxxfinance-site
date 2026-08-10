@@ -1,9 +1,14 @@
-﻿name: Publish Facebook Reel
+﻿name: Publish Facebook Reel (PAUSED)
 
+# Paused 2026-08-05 — the AI voiceover reads as robotic, Mark wants to rethink
+# the creative approach before this resumes. Schedule triggers commented out
+# rather than deleted so this is a one-line revert once there's a new
+# direction; workflow_dispatch still works for manual testing in the
+# meantime.
 on:
-  schedule:
-    - cron: '9 11 * * *'   # AM run: 11:09 UTC = ~just after noon BST (staggered off :00 to dodge scheduler queueing)
-    - cron: '21 16 * * *'   # PM run: 16:21 UTC = ~just after 5pm BST (staggered off :00)
+  # schedule:
+  #   - cron: '9 11 * * *'   # AM run: 11:09 UTC = ~just after noon BST (staggered off :00 to dodge scheduler queueing)
+  #   - cron: '21 16 * * *'   # PM run: 16:21 UTC = ~just after 5pm BST (staggered off :00)
 
   workflow_dispatch:
     inputs:

@@ -97,13 +97,41 @@ async function getPageToken() {
   return FB_TOKEN;
 }
 
+// Facebook caches whatever og:image it first scrapes for a URL and does not
+// reliably re-scrape on its own — Mark reported posts showing an image that
+// hadn't been used on the site "for weeks", even though the live page's
+// og:image (heroForPost, same logic the page itself uses) was already
+// correct. The fix isn't a site change — it's forcing Facebook to actually
+// re-scrape the URL right before posting, via the Graph API's official
+// scrape=true parameter (the same thing the Sharing Debugger UI does).
+async function forceFacebookRescrape(url, pageToken) {
+  try {
+    const res = await fetch('https://graph.facebook.com/' + FB_API_VER + '/?id=' + encodeURIComponent(url) + '&scrape=true', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + pageToken },
+    });
+    const data = await res.json();
+    if (data.error) {
+      console.warn('  OG re-scrape failed (non-fatal): ' + JSON.stringify(data.error));
+    } else {
+      console.log('  Forced fresh OG scrape for ' + url);
+    }
+  } catch (err) {
+    console.warn('  OG re-scrape request failed (non-fatal): ' + err.message);
+  }
+}
+
 async function postToFacebook(postText, articleUrl) {
   if (!FB_PAGE_ID || !FB_TOKEN) throw new Error('FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN required');
 
   const pageToken = await getPageToken();
 
+  if (articleUrl) await forceFacebookRescrape(articleUrl, pageToken);
+
   // Facebook auto-scrapes the OG image from the link URL — no need to pass picture param
-  // (passing picture requires domain ownership verification which is unreliable)
+  // (passing picture requires domain ownership verification which is unreliable).
+  // The forced re-scrape above ensures it picks up the CURRENT image, not a
+  // stale cached one from whenever this URL was first shared anywhere.
   const body = { message: postText };
   if (articleUrl) body.link = articleUrl;
 
