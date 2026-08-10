@@ -203,8 +203,7 @@ const ProgressApplication = () => {
                         <form onSubmit={onSubmit}>
                             {alreadyCompleted && (
                                 <p style={{ background: '#fff3cd', color: '#8a5a00', padding: '0.75rem 1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                    Looks like we've already got these details from you — feel free to update
-                                    anything that's changed, or just call us on <a href="tel:01236702070">01236 702070</a> if you have questions.
+                                    Please complete the form below in full if you would like us to provide you with a quotation.
                                 </p>
                             )}
                             <h3 style={{ marginTop: 0 }}>About the applicant</h3>
