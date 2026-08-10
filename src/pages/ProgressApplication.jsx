@@ -5,6 +5,12 @@ import './MultiStepForm.css';
 // Same Apps Script endpoint every other form on the site posts to.
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwF7_EU1ekXaviBoRU_Xay1P4uzAhIm7t_Ded9j73jh9B_fpObwNdspWtSji8YLrpHFag/exec';
 
+// Boxx applications CRM intake endpoint (see boxx_webapp/INTAKE.md in the CRM project).
+// Fill these in once the CRM is deployed to SiteGround; until then this call is skipped
+// so the Google Sheet remains the only destination.
+const CRM_INTAKE_URL = ''; // e.g. 'https://crm.boxxfinance.co.uk/intake.php'
+const CRM_INTAKE_KEY = ''; // the 'intake_key' value set in the CRM's config.php
+
 const CurrencyInput = ({ label, name, value, onChange, placeholder }) => {
     const formatValue = (val) => {
         if (!val) return '';
@@ -40,6 +46,8 @@ const ProgressApplication = () => {
     const [form, setForm] = useState({
         fullName: '',
         dob: '',
+        email: '',
+        phone: '',
         purchaseAddress: '',
         purchasePrice: '',
         securityAddress: '',
@@ -64,6 +72,8 @@ const ProgressApplication = () => {
 
             const params = new URLSearchParams();
             params.append('name', form.fullName);
+            params.append('email', form.email);
+            params.append('phone', form.phone);
             params.append('funding_type', 'Progress Application (Bridging)');
             params.append('funding_purpose', summary);
             params.append('property_value', form.securityValue);
@@ -73,6 +83,33 @@ const ProgressApplication = () => {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: params.toString(),
             });
+
+            // Also send to the Boxx applications CRM, best-effort — if this fails the
+            // Google Sheet above still has the lead, so we don't surface an error to the
+            // client or block the "thanks" screen on it.
+            if (CRM_INTAKE_URL) {
+                // mode:'no-cors' only permits "simple" headers/bodies, so this uses
+                // form-urlencoded (like the Google Script call above) rather than JSON.
+                const crmParams = new URLSearchParams();
+                crmParams.append('intake_key', CRM_INTAKE_KEY);
+                crmParams.append('full_name', form.fullName);
+                crmParams.append('client_dob', form.dob);
+                crmParams.append('email', form.email);
+                crmParams.append('phone', form.phone);
+                crmParams.append('purchase_address', form.purchaseAddress);
+                crmParams.append('purchase_price', form.purchasePrice);
+                crmParams.append('security_address', form.securityAddress);
+                crmParams.append('security_value', form.securityValue);
+                crmParams.append('exit_strategy', form.exitStrategy);
+                crmParams.append('exit_strategy_notes', form.exitStrategyDetail);
+                fetch(CRM_INTAKE_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: crmParams.toString(),
+                }).catch(() => { /* best-effort, Sheet already has the lead */ });
+            }
+
             setStatus('done');
         } catch {
             setStatus('error');
@@ -110,18 +147,26 @@ const ProgressApplication = () => {
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Date of birth</label>
                                 <input type="date" name="dob" className="quiz-input" required value={form.dob} onChange={onChange} />
                             </div>
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Email</label>
+                                <input type="email" name="email" className="quiz-input" required value={form.email} onChange={onChange} />
+                            </div>
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Phone</label>
+                                <input type="tel" name="phone" className="quiz-input" required value={form.phone} onChange={onChange} />
+                            </div>
 
                             <h3>The property you want to buy</h3>
                             <div className="quiz-input-group">
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address</label>
-                                <input type="text" name="purchaseAddress" className="quiz-input" required value={form.purchaseAddress} onChange={onChange} />
+                                <textarea name="purchaseAddress" className="quiz-input" rows="5" required value={form.purchaseAddress} onChange={onChange} />
                             </div>
                             <CurrencyInput label="Purchase price" name="purchasePrice" value={form.purchasePrice} onChange={onChange} placeholder="e.g. £ 350,000" />
 
                             <h3>The property securing the bridge</h3>
                             <div className="quiz-input-group">
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address</label>
-                                <input type="text" name="securityAddress" className="quiz-input" required value={form.securityAddress} onChange={onChange} />
+                                <textarea name="securityAddress" className="quiz-input" rows="5" required value={form.securityAddress} onChange={onChange} />
                             </div>
                             <CurrencyInput label="Value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 500,000" />
 
