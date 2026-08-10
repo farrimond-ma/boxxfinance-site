@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SEO from '../components/SEO';
 import './MultiStepForm.css';
 
 // Same Apps Script endpoint every other form on the site posts to.
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwF7_EU1ekXaviBoRU_Xay1P4uzAhIm7t_Ded9j73jh9B_fpObwNdspWtSji8YLrpHFag/exec';
 
-// Boxx applications CRM intake endpoint (see boxx_webapp/INTAKE.md in the CRM project).
-// Fill these in once the CRM is deployed to SiteGround; until then this call is skipped
-// so the Google Sheet remains the only destination.
-const CRM_INTAKE_URL = ''; // e.g. 'https://crm.boxxfinance.co.uk/intake.php'
-const CRM_INTAKE_KEY = ''; // the 'intake_key' value set in the CRM's config.php
+// Boxx applications CRM endpoints (see boxx_webapp/INTAKE.md and GOOGLE_SHEET_SYNC.md in the CRM
+// project). Fill these in once the CRM is deployed to SiteGround; until then these calls are
+// skipped so the Google Sheet remains the only destination, and links with ?t=... just show a
+// blank form (no pre-fill, submits as a normal new lead).
+const CRM_INTAKE_URL = 'https://crm.boxxfinance.co.uk/intake.php'; // new leads
+const CRM_INTAKE_KEY = '83cb574fb096ff8c62df4e117ac969a5f601c1ec43d5e91f'; // must match config.php's 'intake_key'
+const CRM_LOOKUP_URL = 'https://crm.boxxfinance.co.uk/lookup.php'; // resolves ?t=... to a name/email
+const CRM_PROGRESS_SUBMIT_URL = 'https://crm.boxxfinance.co.uk/progress_submit.php'; // completes an existing case
 
 const CurrencyInput = ({ label, name, value, onChange, placeholder }) => {
     const formatValue = (val) => {
@@ -57,12 +60,66 @@ const ProgressApplication = () => {
         exitStrategyDetail: '',
     });
     const [status, setStatus] = useState('idle'); // idle | sending | done | error
+    const [token, setToken] = useState(null); // set once a valid ?t=... link is confirmed
+    const [prefillStatus, setPrefillStatus] = useState('idle'); // idle | loading | found | not_found
+    const [alreadyCompleted, setAlreadyCompleted] = useState(false);
+
+    // If this page was opened via a client's unique link (?t=...), resolve it to their name/email
+    // and pre-fill the form. An invalid/expired token just falls back to a normal blank form —
+    // no error shown, since a client clicking an old link shouldn't hit a dead end.
+    useEffect(() => {
+        const t = new URLSearchParams(window.location.search).get('t');
+        if (!t || !CRM_LOOKUP_URL) return;
+        setPrefillStatus('loading');
+        fetch(`${CRM_LOOKUP_URL}?t=${encodeURIComponent(t)}`)
+            .then((r) => (r.ok ? r.json() : Promise.reject()))
+            .then((data) => {
+                if (!data.ok) throw new Error();
+                setToken(t);
+                setForm((f) => ({ ...f, fullName: data.full_name || '', email: data.email || '' }));
+                setAlreadyCompleted(!!data.already_completed);
+                setPrefillStatus('found');
+            })
+            .catch(() => setPrefillStatus('not_found'));
+    }, []);
 
     const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
     const onSubmit = async (e) => {
         e.preventDefault();
         setStatus('sending');
+
+        // Opened via a client link: this completes that specific case in the CRM directly.
+        // No new lead, no Google Sheet row — it's the same case being filled in, not a new one.
+        if (token && CRM_PROGRESS_SUBMIT_URL) {
+            try {
+                const params = new URLSearchParams();
+                params.append('t', token);
+                params.append('full_name', form.fullName);
+                params.append('client_dob', form.dob);
+                params.append('client_email', form.email);
+                params.append('client_phone', form.phone);
+                params.append('purchase_address', form.purchaseAddress);
+                params.append('purchase_price', form.purchasePrice);
+                params.append('security_address', form.securityAddress);
+                params.append('security_value', form.securityValue);
+                params.append('loan_amount_required', form.loanAmount);
+                params.append('exit_strategy', form.exitStrategy);
+                params.append('exit_strategy_notes', form.exitStrategyDetail);
+                const res = await fetch(CRM_PROGRESS_SUBMIT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString(),
+                });
+                const data = await res.json();
+                if (!data.ok) throw new Error(data.error || 'Submit failed');
+                setStatus('done');
+            } catch {
+                setStatus('error');
+            }
+            return;
+        }
+
         try {
             const summary = [
                 `Loan amount required: £${form.loanAmount ? Number(form.loanAmount).toLocaleString() : 'n/a'}`,
@@ -140,8 +197,16 @@ const ProgressApplication = () => {
                             <h2>Thanks — we've got everything we need.</h2>
                             <p>A member of the team will be in touch shortly to progress your application.</p>
                         </div>
+                    ) : prefillStatus === 'loading' ? (
+                        <p>Loading your details…</p>
                     ) : (
                         <form onSubmit={onSubmit}>
+                            {alreadyCompleted && (
+                                <p style={{ background: '#fff3cd', color: '#8a5a00', padding: '0.75rem 1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                    Looks like we've already got these details from you — feel free to update
+                                    anything that's changed, or just call us on <a href="tel:01236702070">01236 702070</a> if you have questions.
+                                </p>
+                            )}
                             <h3 style={{ marginTop: 0 }}>About you</h3>
                             <div className="quiz-input-group">
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Full name</label>
