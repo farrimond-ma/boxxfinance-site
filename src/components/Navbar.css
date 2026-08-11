@@ -162,5 +162,17 @@
     .navbar-toggle {
         display: flex;
     }
+
+    /* Minimal navbar (e.g. progress-your-application) has no toggle to reveal the menu with,
+       so keep the Call Us button inline instead of hidden off-screen via the normal dropdown. */
+    .navbar-menu.navbar-menu-minimal {
+        position: static;
+        transform: none;
+        width: auto;
+        padding: 0;
+        box-shadow: none;
+        background-color: transparent;
+        z-index: auto;
+    }
 }
 

@@ -188,7 +188,7 @@ const ProgressApplication = () => {
 
             <div className="service-hero">
                 <h1>Progress Your <span className="text-highlight">Application</span></h1>
-                <p>A few more details so we can move your bridging loan forward.</p>
+                <p className="progress-hero-subtitle">We just need a few more details so we can move your bridging loan forward.</p>
             </div>
 
             <div className="service-layout single-column">

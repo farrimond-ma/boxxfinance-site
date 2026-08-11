@@ -13,7 +13,7 @@ const Layout = () => {
 
     return (
         <div className="App">
-            <Navbar />
+            <Navbar minimal={pathname === '/progress-your-application'} />
             <main>
                 <Outlet />
             </main>

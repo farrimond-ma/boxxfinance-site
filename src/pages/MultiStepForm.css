@@ -201,6 +201,10 @@
         font-size: 1rem;
     }
 
+    .progress-hero-subtitle {
+        padding: 0 1.5rem;
+    }
+
     .service-layout.single-column {
         margin-top: -2rem;
     }
