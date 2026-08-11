@@ -14,7 +14,7 @@ const CRM_INTAKE_KEY = '83cb574fb096ff8c62df4e117ac969a5f601c1ec43d5e91f'; // mu
 const CRM_LOOKUP_URL = 'https://crm.boxxfinance.co.uk/lookup.php'; // resolves ?t=... to a name/email
 const CRM_PROGRESS_SUBMIT_URL = 'https://crm.boxxfinance.co.uk/progress_submit.php'; // completes an existing case
 
-const CurrencyInput = ({ label, name, value, onChange, placeholder }) => {
+const CurrencyInput = ({ label, name, value, onChange, placeholder, required }) => {
     const formatValue = (val) => {
         if (!val) return '';
         return '£ ' + parseInt(val).toLocaleString();
@@ -33,6 +33,7 @@ const CurrencyInput = ({ label, name, value, onChange, placeholder }) => {
                 placeholder={placeholder}
                 value={formatValue(value)}
                 onChange={handleChange}
+                required={required}
             />
         </div>
     );
@@ -231,17 +232,17 @@ const ProgressApplication = () => {
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address</label>
                                 <textarea name="purchaseAddress" className="quiz-input" rows="5" required value={form.purchaseAddress} onChange={onChange} />
                             </div>
-                            <CurrencyInput label="Purchase price" name="purchasePrice" value={form.purchasePrice} onChange={onChange} placeholder="e.g. £ 350,000" />
+                            <CurrencyInput label="Purchase price" name="purchasePrice" value={form.purchasePrice} onChange={onChange} placeholder="e.g. £ 350,000" required />
 
                             <h3>The property securing the bridge</h3>
                             <div className="quiz-input-group">
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address</label>
                                 <textarea name="securityAddress" className="quiz-input" rows="5" required value={form.securityAddress} onChange={onChange} />
                             </div>
-                            <CurrencyInput label="Value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 500,000" />
+                            <CurrencyInput label="Value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 500,000" required />
 
                             <h3>How much do you need to borrow?</h3>
-                            <CurrencyInput label="Loan amount required" name="loanAmount" value={form.loanAmount} onChange={onChange} placeholder="e.g. £ 250,000" />
+                            <CurrencyInput label="Loan amount required" name="loanAmount" value={form.loanAmount} onChange={onChange} placeholder="e.g. £ 250,000" required />
 
                             <h3>How will you exit the bridge?</h3>
                             <div className="quiz-input-group">
