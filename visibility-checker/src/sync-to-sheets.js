@@ -119,18 +119,18 @@ function buildSchedule() {
   const kwIdx = Object.fromEntries(PILLARS.map(p => [p.name, 0]));
 
   // Author rotation:
-  // Week 1: Mark = Mon/Wed/Fri, Andrew = Tue/Thu
-  // Week 2: Andrew = Mon/Wed/Fri, Mark = Tue/Thu
+  // Week 1: Mark = Mon/Wed/Fri, Tara = Tue/Thu
+  // Week 2: Tara = Mon/Wed/Fri, Mark = Tue/Thu
   // Alternates every week. Week number relative to start date.
   function getAuthor(d) {
     const startMonday = new Date('2026-05-18'); // Monday of week 1
     const msPerWeek = 7 * 24 * 60 * 60 * 1000;
     const weekNum = Math.floor((d - startMonday) / msPerWeek);
     const dow = d.getDay(); // 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
-    const markWeekdays  = weekNum % 2 === 0 ? [1, 3, 5] : [2, 4]; // week 1: Mon/Wed/Fri
-    const andrewWeekdays = weekNum % 2 === 0 ? [2, 4] : [1, 3, 5];
+    const markWeekdays = weekNum % 2 === 0 ? [1, 3, 5] : [2, 4]; // week 1: Mon/Wed/Fri
+    const taraWeekdays = weekNum % 2 === 0 ? [2, 4] : [1, 3, 5];
     if (markWeekdays.includes(dow)) return 'Mark Higgins';
-    if (andrewWeekdays.includes(dow)) return 'Andrew Farrimond';
+    if (taraWeekdays.includes(dow)) return 'Tara Jameson';
     return 'Mark Higgins'; // weekends default to Mark
   }
 
