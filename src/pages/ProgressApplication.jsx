@@ -219,10 +219,12 @@ const ProgressApplication = () => {
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Email</label>
                                 <input type="email" name="email" className="quiz-input" required value={form.email} onChange={onChange} />
                             </div>
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Phone</label>
-                                <input type="tel" name="phone" className="quiz-input" required value={form.phone} onChange={onChange} />
-                            </div>
+                            {!token && (
+                                <div className="quiz-input-group">
+                                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Phone</label>
+                                    <input type="tel" name="phone" className="quiz-input" required value={form.phone} onChange={onChange} />
+                                </div>
+                            )}
 
                             <h3>The property you want to buy</h3>
                             <div className="quiz-input-group">
