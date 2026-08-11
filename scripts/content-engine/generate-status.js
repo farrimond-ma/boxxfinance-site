@@ -41,6 +41,8 @@ const DAILY_ACTIONS = [
     commitPattern: /^Publish blog: (.+)$/,  slot: 'am',  days: 'all' },
   { id: 'blog-pm',    label: 'Blog article published (PM)',  workflow: 'publish-blog-pm.yml',
     commitPattern: /^Publish blog: (.+)$/,  slot: 'pm',  days: 'all' },
+  { id: 'blog-trigger', label: 'Blog article published (Trigger-event)', workflow: 'publish-blog-trigger.yml',
+    commitPattern: /^Publish blog: (.+)$/,  slot: 'trigger',  days: 'all' },
   { id: 'locations',  label: 'Location pages published',     workflow: 'publish-location.yml',
     commitPattern: /^Publish location: (.+)$/, multiple: true, days: 'weekdays' },
   { id: 'facebook',   label: 'Facebook post',                workflow: 'publish-facebook.yml',
@@ -206,11 +208,17 @@ function buildEntry(action, { commits, runs, platformPosts, dateStr }) {
   let matched = [];
   if (action.commitPattern) {
     matched = commits.filter(c => action.commitPattern.test(c.message));
-    // AM/PM blog slots share the same commit message — split by London hour
+    // AM/PM blog slots share the same commit message and can no longer be told
+    // apart by time of day (both crons were doubled up and now both finish
+    // before the old 2pm London cutoff). `runs` is already scoped to this
+    // action's own workflow file, so attribute a commit to this slot only if
+    // it landed within an hour of one of THIS workflow's successful runs
+    // starting — that stays correct no matter what the cron times are.
     if (action.slot) {
+      const runStarts = runs.filter(r => r.conclusion === 'success').map(r => new Date(r.created_at).getTime());
       matched = matched.filter(c => {
-        const hour = parseInt(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', hour12: false }).format(new Date(c.date)), 10);
-        return action.slot === 'am' ? hour < 14 : hour >= 14;
+        const t = new Date(c.date).getTime();
+        return runStarts.some(st => t >= st && t - st < 60 * 60 * 1000);
       });
     }
     if (!action.multiple) matched = matched.slice(0, 1);

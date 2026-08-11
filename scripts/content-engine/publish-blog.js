@@ -222,9 +222,12 @@ async function getScheduledRow(sheets) {
   const slot          = (process.env.PUBLISH_SLOT || 'AM').toUpperCase();
   const serviceFilter = (process.env.SERVICE_FILTER || '').trim().toLowerCase();
 
+  // A2:AD, not A2:AC — column AD carries contentFramework (e.g. 'trigger-event'),
+  // an unused trailing column reused rather than inserted, so every other
+  // script's fixed-width A2:AC/A:AC reads and appends stay untouched.
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID,
-    range: 'ContentEngine!A2:AC',
+    range: 'ContentEngine!A2:AD',
   });
 
   const rows = res.data.values || [];
@@ -266,6 +269,8 @@ async function getScheduledRow(sheets) {
         linkedInRequired: row[24] || 'no',
         author: row[25] || 'Mark Higgins',
         internalLinkService: row[16] || '',
+        notes: row[28] || '',
+        contentFramework: (row[29] || '').trim().toLowerCase(),
       };
     }
   }
@@ -340,9 +345,54 @@ function toPublicServiceSlug(service) {
   return raw === 'bridging-finance' ? 'bridging-loans' : raw;
 }
 
+// ─── Trigger-event framework (urgency-led bridging content) ─────────────────
+// Runs ALONGSIDE the standard keyword-driven pipeline above — activated only
+// for rows with contentFramework === 'trigger-event' (column AD), seeded by
+// scripts/content-engine/seed-trigger-content.js from the Trigger Map. See
+// docs/trigger-event-content-brief.md for the full source-of-truth brief.
+// The thesis: bridging demand is event-triggered, not interest-triggered —
+// the reader landed here because something just broke and a deadline is now
+// running, not because they were idly researching finance products. Every
+// structural/voice/compliance rule below exists to meet that reader where
+// they actually are, rather than writing another generic explainer.
+const TRIGGER_EVENT_STRUCTURE = `ARTICLE STRUCTURE — this is a trigger-event / urgency-led article. Do NOT use the generic "what is X" explainer shape. Follow this exact 10-part shape instead (adapt headings to the specific trigger, but keep the order and intent):
+
+1. THE MIRROR (first 60 words, no heading, opens the article) — restate the reader's exact situation back to them in plain language. No preamble, no "In today's property market...". They must recognise themselves in sentence one. Second person, present tense ("You've just...").
+2. <h2>The clock</h2> — name the actual real-world deadline for this trigger and count it out with SPECIFIC NUMBERS, e.g. "You exchanged on the 3rd. Completion is the 31st. That's 19 working days, and a lender typically needs 10-14 of them." Never vague ("soon", "quickly") — always a number.
+3. <h2>What happens if you miss it</h2> — concrete, factual consequences (lost deposit, forfeited fees, seller's right to claim losses, chain collapse). Factual, not lurid. Do not manufacture drama beyond the genuine stakes.
+4. <h2>Your options</h2> — MUST include a comparison <table> of every realistic route, NOT just bridging. Bridging is one option among several, presented with honest trade-offs. This is the single biggest trust signal in the piece — do not make it look like a bridging advert.
+5. <h2>How a bridging loan works for this situation</h2> — timeline in days, what's needed from the reader, what the lender needs, where this specific trigger's applications typically stall.
+6. <h2>What it actually costs</h2> — a fully worked example with REAL ARITHMETIC for this scenario: gross vs net loan, arrangement fee (~2% typical), monthly interest (quote monthly AND show the annualised equivalent so the true cost is never disguised), exit fee, legals, valuation. Never hand-wave cost. Explain the gross/net loan distinction explicitly — most competing articles skip it and most borrowers get caught by it.
+7. <h2>Your exit strategy</h2> — non-negotiable section. Spell out what a lender will actually accept as an exit for THIS trigger (sale of the security property, sale of another asset, refinance onto a term product). Bridging without a credible exit is the single biggest reason applications fail.
+8. <h2>Who this is wrong for</h2> — genuinely disqualify people for whom bridging is not the right answer here, and say what they should do instead. This raises lead quality and is the right thing to do — do not skip or soften it.
+9. <h2>What to do in the next 24 hours</h2> — a numbered, concrete action list specific to this trigger.
+10. <h2>Frequently Asked Questions</h2> — 5-7 Q&As taken from real search phrasing for this trigger, each question as its own <h3> matching the faqSchema wording exactly.
+
+Word count for trigger-event pieces: 1400-2200 words (spokes) — longer than the standard 1200-word minimum, because steps 4 and 6 require real tables and worked arithmetic, not padding.`;
+
+const TRIGGER_EVENT_VOICE = `URGENCY VOICE RULES (in addition to the tone rules above):
+- Second person, present tense, throughout — not just the opening.
+- Specific numbers everywhere. Vagueness reads as evasion to a reader who is mid-crisis and skimming.
+- Short sentences in the opening 100 words — the reader is stressed and scanning, not settling in to read.
+- Acknowledge the emotion once, briefly, in the opening section only, then move to mechanics. The reader wants competence, not sympathy.
+- Do NOT manufacture false scarcity ("only 3 lenders left!"). The genuine deadline is already urgent enough — quantify it, do not dramatise it.
+- Never write "bridging loans are a great solution" or similar unearned endorsement — show the arithmetic in section 6 and let the reader reach that conclusion themselves.
+- Never open with "In the fast-paced world of property finance..." or any close variant.`;
+
+const TRIGGER_EVENT_COMPLIANCE = `COMPLIANCE — UK FINANCIAL PROMOTIONS (hard constraints, this is FCA-adjacent content):
+- State plainly whether the scenario described is generally FCA-regulated bridging (secured against a property the borrower or an immediate family member occupies) or generally unregulated (investment/BTL/commercial purpose) — readers routinely don't know this and it changes their protections. If genuinely ambiguous for this trigger, say so rather than guessing.
+- Never guarantee an outcome. Do not write "guaranteed approval", "instant decision", "everyone accepted", "no credit checks", or anything that reads as a promise of approval, speed, or a specific rate.
+- Any benefit stated must sit alongside the corresponding risk in the same section — bridging is expensive short-term debt secured on property.
+- Where the loan may be secured on the reader's home, include clear risk wording that the property may be repossessed if they do not keep up repayments or repay the loan at term end.
+- When quoting a monthly interest rate, always also show the annualised equivalent in the same sentence or table row — never present a monthly figure in a way that disguises the true annual cost.
+- Do not state specific live rates or LTV caps as settled fact. Use ranges, label them "indicative", and note they should be confirmed at enquiry — do not imply the figures in this article are a live quote.
+- This is educational content, not advice. Never write "you should take a bridging loan" or similar direct recommendation — direct the reader to speak to a broker for advice specific to their situation, and frame the CTA that way rather than as a foregone conclusion.`;
+
 // ─── Generate article with OpenAI ────────────────────────────────────────────
 async function generateArticle(row, locationLinks, relatedBlogs) {
   console.log(`Generating article for: ${row.keyword || row.title}`);
+  const isTriggerEvent = row.contentFramework === 'trigger-event';
+  if (isTriggerEvent) console.log(`  Trigger-event framework active${row.notes ? ` (${row.notes})` : ''}`);
 
   const serviceUrl = row.internalLinkService
     ? `https://boxxfinance.co.uk${row.internalLinkService}`
@@ -366,7 +416,9 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
     messages: [
       {
         role: 'system',
-        content: `You are an experienced UK commercial finance broker writing a blog article for Boxx Commercial Finance. Write in a natural, human, UK tone — as a trusted adviser speaking directly to a UK SME owner. Never use em dashes. Never use generic AI phrases ("in today's fast-paced world", "navigating the landscape", "it's worth noting", etc.). Never use markdown formatting, backticks, or code fences. Return only a raw JSON object with no wrapper, no explanation, no markdown.`,
+        content: isTriggerEvent
+          ? `You are an experienced UK bridging finance broker writing for Boxx Commercial Finance. The reader has landed on this page because a specific deal or life event just went wrong and a deadline is now running — a chain collapsed, an auction deposit is at risk, a mortgage was declined days before exchange, a probate deadline is looming. You are the person who meets them at that exact moment: calm, precise, numbers-first. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases ("in today's fast-paced world", "navigating the landscape", "it's worth noting", "delve", "unlock the potential", etc.). Never use markdown formatting, backticks, or code fences. Return only a raw JSON object with no wrapper, no explanation, no markdown.`
+          : `You are an experienced UK commercial finance broker writing a blog article for Boxx Commercial Finance. Write in a natural, human, UK tone — as a trusted adviser speaking directly to a UK SME owner. Never use em dashes. Never use generic AI phrases ("in today's fast-paced world", "navigating the landscape", "it's worth noting", etc.). Never use markdown formatting, backticks, or code fences. Return only a raw JSON object with no wrapper, no explanation, no markdown.`,
       },
       {
         role: 'user',
@@ -392,8 +444,8 @@ TONE AND STYLE:
 - No generic AI phrases, no corporate waffle
 - Write as a broker who arranges these deals every week, NOT as a neutral explainer. The reader must finish thinking "these people do this for a living", not "this is a well-written guide". Include at least TWO first-hand observations of the kind only an active broker would make — e.g. "The most common reason we see these declined is...", "Lenders rarely say this outright, but...", "In our experience, developers buying with planning potential usually...". Generic both-sides explanation is the single biggest weakness to avoid.
 - Guide the reader to a view. Where there is a sensible default choice, say so and say why, rather than only listing advantages and disadvantages.
-
-ARTICLE STRUCTURE (adapt headings to fit the specific topic, but follow this pattern):
+${isTriggerEvent ? '\n' + TRIGGER_EVENT_VOICE + '\n' : ''}
+${isTriggerEvent ? TRIGGER_EVENT_STRUCTURE : `ARTICLE STRUCTURE (adapt headings to fit the specific topic, but follow this pattern):
 - Open with a single <p> of 50-70 words that directly and definitively answers the core question. Use declarative language ("X is...", "Businesses use X when...") — NOT hedging. This is what Google AI Overviews and ChatGPT extract as a featured answer. Within this opening paragraph, link the product name to the service page (${serviceUrl}) using keyword-rich anchor text (e.g. "${row.keyword}") — this counts toward the 3+ service-page links required below.
 - <h2> What this means in practice</h2>
 - <h2> How it works</h2>
@@ -403,14 +455,14 @@ ARTICLE STRUCTURE (adapt headings to fit the specific topic, but follow this pat
 - <h2> Alternatives or comparisons</h2>  ← MUST state plainly when this product is the WRONG choice and what to use instead. Naming the situations where the reader should NOT take this product — and what genuinely suits them better — is the strongest trust signal on the page. Do not hedge it or bury it.
 - <h2> How to get the best outcome</h2>
 - <h2> Summary</h2>
-- <h2> Frequently Asked Questions</h2>  ← 4-6 Q&As, each question as its own <h3> using the EXACT SAME WORDING as the matching faqSchema question, immediately followed by a <p> answer. Not <dl>/<dt>/<dd> — AI crawlers parse heading structure, and a schema question that isn't also a visible heading is far less likely to get cited.
+- <h2> Frequently Asked Questions</h2>  ← 4-6 Q&As, each question as its own <h3> using the EXACT SAME WORDING as the matching faqSchema question, immediately followed by a <p> answer. Not <dl>/<dt>/<dd> — AI crawlers parse heading structure, and a schema question that isn't also a visible heading is far less likely to get cited.`}
 
 Each <h2> section must open with 1-2 sentences that directly answer the section question before expanding — this lets AI models extract accurate summaries.
 
-If the article naturally involves comparing 2 or more numeric values side by side (e.g. typical LTV by property type, rates by term, fees by lender type), include one simple <table> with a header row summarising them — AI engines preferentially extract and cite tabular data over prose. Do not force a table where nothing is genuinely comparable; most articles will not need one.
+If the article naturally involves comparing 2 or more numeric values side by side (e.g. typical LTV by property type, rates by term, fees by lender type${isTriggerEvent ? ', the options table required above' : ''}), include one simple <table> with a header row summarising them — AI engines preferentially extract and cite tabular data over prose.${isTriggerEvent ? '' : ' Do not force a table where nothing is genuinely comparable; most articles will not need one.'}
 
 WORD COUNT — this is a hard requirement, not a guideline:
-- The full article must be at least 1200 words of visible text — aim for 1300-1500
+- The full article must be at least ${isTriggerEvent ? '1400 words of visible text — aim for 1600-2200, because the options table and worked cost example require real detail, not padding' : '1200 words of visible text — aim for 1300-1500'}
 - Every <h2> section except Summary and the FAQ must be at least 150 words
 - Each FAQ answer must be 40-70 words
 - Articles under 1200 words fail the site's SEO audit and are rejected, so expand thin sections with practical detail, realistic UK figures and broker insight before returning
@@ -436,7 +488,7 @@ INTERNAL LINKS — anchor text rules are MANDATORY. Follow 2026 SEO/AEO best pra
 - Only use links explicitly provided — do not invent any URLs
 ${locationLinksText}
 ${relatedBlogsText}
-
+${isTriggerEvent ? '\n' + TRIGGER_EVENT_COMPLIANCE + '\n' : ''}
 Keyword: ${row.keyword}
 Service: ${row.service}
 Category: ${row.category}

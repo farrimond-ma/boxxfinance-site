@@ -1,0 +1,53 @@
+name: Publish Blog (Trigger-Event)
+
+# Publishes the urgency-led "trigger-event" bridging content seeded by
+# seed-trigger-content.js (see PUBLISH_SLOT=TRIGGER). Runs alongside, and
+# entirely independent of, the two keyword-driven AM/PM publishers — its own
+# slot means it never competes with them for a row. One run a day is enough:
+# this stream is deliberately a slow, high-quality batch, not a volume queue.
+
+on:
+  # 8:15 AM UTC = 9:15 AM BST (staggered off :00 to dodge scheduler queueing;
+  # sits between the AM (6:37/12:37) and PM (10:07/15:07) blog crons)
+  schedule:
+    - cron: '15 8 * * *'
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+
+      - name: Run trigger-event blog publisher
+        env:
+          GH_TOKEN:          ${{ secrets.GH_PAT }}
+          OPENAI_API_KEY:    ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SPREADSHEET_ID:    ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          YOUTUBE_API_KEY:   ${{ secrets.YOUTUBE_API_KEY }}
+          PEXELS_API_KEY:    ${{ secrets.PEXELS_API_KEY }}
+          GITHUB_OWNER:      farrimond-ma
+          GITHUB_REPO:       boxxfinance-site
+          SERVICE_FILTER:    Bridging Finance
+          PUBLISH_SLOT:      TRIGGER
+        run: node publish-blog.js
+        working-directory: scripts/content-engine

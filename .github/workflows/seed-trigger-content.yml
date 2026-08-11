@@ -1,0 +1,44 @@
+name: Seed Trigger-Event Content (Trigger Map)
+
+on:
+  # Manual trigger only — one-off seed of the first batch of urgency-led
+  # bridging content from the Trigger Map brief. Safe to re-run: it skips any
+  # row whose slug already exists in ContentEngine.
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — report only, no writes"
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  seed:
+    name: Seed trigger-event ContentEngine rows
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Seed trigger-event content
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node seed-trigger-content.js --dry-run
+          else
+            node seed-trigger-content.js
+          fi

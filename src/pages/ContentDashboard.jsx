@@ -10,8 +10,9 @@ const GH   = `https://api.github.com/repos/${REPO}/actions/workflows`;
 // ─── Workflow definitions ─────────────────────────────────────────────────────
 const WORKFLOWS = [
   // Daily publishing
-  { id: 'publish-blog.yml',          label: 'Blog Publisher (AM)',       group: 'daily',   schedule: 'Daily ~11am BST' },
-  { id: 'publish-blog-pm.yml',       label: 'Blog Publisher (PM)',       group: 'daily',   schedule: 'Daily ~2pm BST' },
+  { id: 'publish-blog.yml',          label: 'Blog Publisher (AM)',       group: 'daily',   schedule: 'Daily 7:37am + 1:37pm BST' },
+  { id: 'publish-blog-pm.yml',       label: 'Blog Publisher (PM)',       group: 'daily',   schedule: 'Daily 11:07am + 4:07pm BST' },
+  { id: 'publish-blog-trigger.yml',  label: 'Blog Publisher (Trigger-event)', group: 'daily', schedule: 'Daily 9:15am BST' },
   { id: 'publish-location.yml',      label: 'Location Pages',            group: 'daily',   schedule: 'Daily ~9am BST' },
   { id: 'update-internal-links.yml', label: 'Internal Links Updater',    group: 'daily',   schedule: 'Weekdays ~12:30pm BST' },
   // Social media
