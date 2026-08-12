@@ -50,6 +50,8 @@ jobs:
           # github.token (not GH_PAT) so issues are bot-authored — GitHub does
           # not email you about issues you authored yourself.
           GITHUB_TOKEN:                  ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_OWNER:                  farrimond-ma
+          GITHUB_REPO:                   boxxfinance-site
           ANTHROPIC_API_KEY:             ${{ secrets.ANTHROPIC_API_KEY }}
           SPREADSHEET_ID:                ${{ secrets.SPREADSHEET_ID }}
           GOOGLE_CREDENTIALS:            ${{ secrets.GOOGLE_CREDENTIALS }}
