@@ -533,7 +533,7 @@ const MultiStepForm = () => {
                             )}
 
                             <button className="btn-next" onClick={nextStep} disabled={isSubmitting}>
-                                {isSubmitting ? 'Submitting...' : (step === totalSteps ? 'Request Funding Review' : 'Next →')}
+                                {isSubmitting ? 'Submitting...' : (step === totalSteps ? 'Get Started' : 'Next →')}
                             </button>
                         </div>
                     </div>

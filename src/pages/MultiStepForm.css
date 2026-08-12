@@ -152,9 +152,15 @@
 /* Buttons */
 .form-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    position: relative;
     margin-top: 2rem;
     align-items: center;
+}
+
+.form-actions .btn-back {
+    position: absolute;
+    left: 0;
 }
 
 .btn-back {
@@ -172,20 +178,20 @@
 }
 
 .btn-next {
-    background: var(--color-primary);
-    color: white;
+    background: var(--color-secondary);
+    color: var(--color-primary);
     border: none;
     padding: 1rem 2.5rem;
     font-size: 1.1rem;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    transition: transform 0.2s;
+    transition: transform 0.2s, background 0.2s;
 }
 
 .btn-next:hover {
     transform: translateY(-2px);
-    background: #1a202c;
+    background: var(--color-secondary-light);
 }
 
 @media (max-width: 768px) {
