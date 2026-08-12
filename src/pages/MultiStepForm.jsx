@@ -38,9 +38,11 @@ const MultiStepForm = () => {
     // Bridging loans are for individuals (homeowners, landlords, investors,
     // developers) as much as businesses — so the "Business Overview" step is
     // replaced with property/deal questions that actually fit those applicants.
+    // Bridging is a fast-capture form now — just enough to start a conversation (same idea as
+    // the Facebook lead form), so it's a single step rather than the full 3-step wizard.
     const isBridging = slug === 'bridging-loans';
     const [step, setStep] = useState(1);
-    const totalSteps = 3;
+    const totalSteps = isBridging ? 1 : 3;
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState(null);
@@ -64,12 +66,6 @@ const MultiStepForm = () => {
         tradingStatus: '',
         yearsTrading: '',
         turnover: '',
-        // Step 2 (bridging loan)
-        applicantType: '',
-        propertyType: '',
-        loanPurpose: '',
-        propertyValue: '',
-        exitStrategy: '',
         // Step 3
         contactName: '',
         email: '',
@@ -124,28 +120,10 @@ const MultiStepForm = () => {
                 params.append('funding_amount', formData.amount);
                 params.append('funding_type', formData.fundingType);
 
-                if (isBridging) {
-                    // Send discrete bridging fields...
-                    params.append('applicant_type', formData.applicantType);
-                    params.append('property_type', formData.propertyType);
-                    params.append('loan_purpose', formData.loanPurpose);
-                    params.append('property_value', formData.propertyValue);
-                    params.append('exit_strategy', formData.exitStrategy);
-                    // ...and fold them into funding_purpose so the detail is
-                    // captured even if the sheet only records known columns.
-                    const bridgingSummary = [
-                        formData.applicantType && `Applicant: ${formData.applicantType}`,
-                        formData.propertyType && `Property: ${formData.propertyType}`,
-                        formData.loanPurpose && `Purpose: ${formData.loanPurpose}`,
-                        formData.propertyValue && `Est. value: £${parseInt(formData.propertyValue).toLocaleString()}`,
-                        formData.exitStrategy && `Exit: ${formData.exitStrategy}`,
-                        formData.purpose && `Timescale: ${formData.purpose}`,
-                    ].filter(Boolean).join(' | ');
-                    params.append('funding_purpose', bridgingSummary);
-                } else {
-                    params.append('funding_purpose', formData.purpose || '');
-                }
-                params.append('preferred_contact', formData.preferredContact);
+                // Bridging is now just amount + "how soon" (formData.purpose covers both,
+                // labelled dynamically below) — same shape as the Facebook lead form.
+                params.append('funding_purpose', formData.purpose || '');
+                if (!isBridging) params.append('preferred_contact', formData.preferredContact);
 
                 // Referral attribution: a partner's ?ref=CODE is stashed in
                 // sessionStorage on first page load (see App.jsx) and sent with
@@ -264,8 +242,74 @@ const MultiStepForm = () => {
                         </div>
                     </div>
 
-                    {/* Step 1: Requirement */}
-                    {step === 1 && (
+                    {/* Bridging: single-step fast capture — just enough to start a conversation */}
+                    {step === 1 && isBridging && (
+                        <div className="step-content">
+                            <h2 className="step-title">Tell us the essentials</h2>
+                            <p className="step-subtitle" style={{ fontSize: '0.9rem', color: '#666', marginBottom: '2rem' }}>
+                                All information is handled confidentially and reviewed by a funding specialist. We do not share details without your consent.
+                            </p>
+
+                            <CurrencyInput
+                                label="Loan amount required"
+                                name="amount"
+                                value={formData.amount}
+                                onChange={handleChange}
+                                placeholder="e.g. £ 250,000"
+                            />
+
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>How soon is the loan needed?</label>
+                                <input
+                                    type="text"
+                                    name="purpose"
+                                    className="quiz-input"
+                                    placeholder="e.g. ASAP, 2 weeks, 1 month..."
+                                    value={formData.purpose}
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Full Name</label>
+                                <input
+                                    type="text"
+                                    name="contactName"
+                                    className="quiz-input"
+                                    placeholder="Your Name"
+                                    value={formData.contactName}
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Email Address</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    className="quiz-input"
+                                    placeholder="name@example.com"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Phone Number</label>
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    className="quiz-input"
+                                    placeholder="07700 900000"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Step 1 (non-bridging): Requirement */}
+                    {step === 1 && !isBridging && (
                         <div className="step-content">
                             <h2 className="step-title">What are you looking for?</h2>
                             <p className="step-subtitle" style={{ fontSize: '0.9rem', color: '#666', marginBottom: '2rem' }}>
@@ -309,75 +353,6 @@ const MultiStepForm = () => {
                                     value={formData.purpose}
                                     onChange={handleChange}
                                 />
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Step 2 (bridging): Property & Deal */}
-                    {step === 2 && isBridging && (
-                        <div className="step-content">
-                            <h2 className="step-title">About the Property & Deal</h2>
-                            <p className="step-subtitle" style={{ fontSize: '0.9rem', color: '#666', marginBottom: '2rem' }}>
-                                Bridging loans are available to homeowners, landlords, investors and developers — not just businesses. A few quick details help us match the right lender.
-                            </p>
-
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Who is the loan for?</label>
-                                <select name="applicantType" className="quiz-input" value={formData.applicantType} onChange={handleChange}>
-                                    <option value="">Select...</option>
-                                    <option value="Homeowner">Homeowner (e.g. chain break)</option>
-                                    <option value="Landlord">Landlord</option>
-                                    <option value="Property investor">Property investor</option>
-                                    <option value="Property developer">Property developer</option>
-                                    <option value="Business">Business</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Type of property</label>
-                                <select name="propertyType" className="quiz-input" value={formData.propertyType} onChange={handleChange}>
-                                    <option value="">Select...</option>
-                                    <option value="Residential">Residential</option>
-                                    <option value="Buy-to-let / HMO">Buy-to-let / HMO</option>
-                                    <option value="Semi-commercial">Semi-commercial</option>
-                                    <option value="Commercial">Commercial</option>
-                                    <option value="Land / development site">Land / development site</option>
-                                </select>
-                            </div>
-
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>What do you need the bridging loan for?</label>
-                                <select name="loanPurpose" className="quiz-input" value={formData.loanPurpose} onChange={handleChange}>
-                                    <option value="">Select...</option>
-                                    <option value="Breaking a property chain">Breaking a property chain</option>
-                                    <option value="Auction purchase">Auction purchase</option>
-                                    <option value="Buy before you sell">Buy before you sell</option>
-                                    <option value="Refurbishment / conversion">Refurbishment / conversion</option>
-                                    <option value="Development exit">Development exit</option>
-                                    <option value="Raising capital / equity release">Raising capital / equity release</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-
-                            <CurrencyInput
-                                label="Estimated property value"
-                                name="propertyValue"
-                                value={formData.propertyValue}
-                                onChange={handleChange}
-                                placeholder="e.g. £ 350,000"
-                            />
-
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>How will the loan be repaid (exit)?</label>
-                                <select name="exitStrategy" className="quiz-input" value={formData.exitStrategy} onChange={handleChange}>
-                                    <option value="">Select...</option>
-                                    <option value="Sale of this property">Sale of this property</option>
-                                    <option value="Sale of another property">Sale of another property</option>
-                                    <option value="Refinance onto a mortgage">Refinance onto a mortgage</option>
-                                    <option value="Sale after refurbishment">Sale after refurbishment</option>
-                                    <option value="Not sure yet">Not sure yet</option>
-                                </select>
                             </div>
                         </div>
                     )}
