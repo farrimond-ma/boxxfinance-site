@@ -50,6 +50,11 @@ const MultiStepForm = () => {
     // TODO: Replace with your actual Google Apps Script Web App URL
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwF7_EU1ekXaviBoRU_Xay1P4uzAhIm7t_Ded9j73jh9B_fpObwNdspWtSji8YLrpHFag/exec';
 
+    // Boxx applications CRM — bridging leads only (see boxx_webapp/INTAKE.md). The Sheet write
+    // above stays as a backup; this is the actual live pipeline for bridging enquiries.
+    const CRM_INTAKE_URL = 'https://crm.boxxfinance.co.uk/intake.php';
+    const CRM_INTAKE_KEY = '83cb574fb096ff8c62df4e117ac969a5f601c1ec43d5e91f';
+
     // Dynamic funding options from services data
     const fundingOptions = serviceContent ? Object.values(serviceContent).map(s => s.title).sort() : [];
     // Add "Not Sure" manually if not present
@@ -143,6 +148,28 @@ const MultiStepForm = () => {
                 });
 
                 // With no-cors, we can't read the response body, but we can assume success if it doesn't throw
+
+                // Also send bridging leads straight to the CRM, best-effort — if this fails the
+                // Sheet above still has the lead, so it never blocks the "thanks" screen.
+                if (isBridging) {
+                    const crmParams = new URLSearchParams();
+                    crmParams.append('intake_key', CRM_INTAKE_KEY);
+                    crmParams.append('full_name', formData.contactName);
+                    crmParams.append('client_email', formData.email);
+                    crmParams.append('client_phone', formData.phone);
+                    crmParams.append('loan_amount_required', formData.amount);
+                    const crmNotes = [
+                        formData.purpose && `How soon: ${formData.purpose}`,
+                        referral && `Referral: ${referral}`,
+                    ].filter(Boolean).join(' | ');
+                    if (crmNotes) crmParams.append('notes', crmNotes);
+                    fetch(CRM_INTAKE_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: crmParams.toString(),
+                    }).catch(() => { /* best-effort, Sheet already has the lead */ });
+                }
             }
 
             if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
