@@ -63,7 +63,6 @@ const ProgressApplication = () => {
     const [status, setStatus] = useState('idle'); // idle | sending | done | error
     const [token, setToken] = useState(null); // set once a valid ?t=... link is confirmed
     const [prefillStatus, setPrefillStatus] = useState('idle'); // idle | loading | found | not_found
-    const [alreadyCompleted, setAlreadyCompleted] = useState(false);
 
     // If this page was opened via a client's unique link (?t=...), resolve it to their name/email
     // and pre-fill the form. An invalid/expired token just falls back to a normal blank form —
@@ -78,7 +77,6 @@ const ProgressApplication = () => {
                 if (!data.ok) throw new Error();
                 setToken(t);
                 setForm((f) => ({ ...f, fullName: data.full_name || '', email: data.email || '' }));
-                setAlreadyCompleted(!!data.already_completed);
                 setPrefillStatus('found');
             })
             .catch(() => setPrefillStatus('not_found'));
@@ -202,11 +200,6 @@ const ProgressApplication = () => {
                         <p>Loading your details…</p>
                     ) : (
                         <form onSubmit={onSubmit}>
-                            {alreadyCompleted && (
-                                <p style={{ background: '#fff3cd', color: '#8a5a00', padding: '0.75rem 1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                    Please complete the form below in full if you would like us to provide you with a quotation.
-                                </p>
-                            )}
                             <h3 style={{ marginTop: 0 }}>About the applicant</h3>
                             <div className="quiz-input-group">
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Applicant's Full Name</label>
