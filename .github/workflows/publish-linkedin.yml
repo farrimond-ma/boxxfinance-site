@@ -1,9 +1,16 @@
 ﻿name: Publish LinkedIn Post
 
 on:
-  # Trigger after either blog publisher (AM or PM) completes successfully
+  # Trigger after the site DEPLOY completes — not after the blog publisher.
+  # Posting straight after the publisher raced the ~25-minute deploy
+  # (prerender + FTP): the link preview's OG image could be scraped before
+  # the new page — and its correct heroImage — was actually live, so the
+  # post cached whatever the PREVIOUS deploy was serving at that URL. Same
+  # class of bug already fixed the same way in seo-audit.yml and
+  # publish-facebook.yml. The job-level guard below limits this to deploys
+  # that actually shipped a new blog post.
   workflow_run:
-    workflows: ["Publish Blog (1 of 2)", "Publish Blog (2 of 2)"]
+    workflows: ["Deploy Site"]
     types:
       - completed
 
@@ -18,8 +25,9 @@ jobs:
   publish-linkedin:
     name: Generate and post to LinkedIn
     runs-on: ubuntu-latest
-    # Only run if the blog publish succeeded (or if triggered manually/scheduled)
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name != 'workflow_run' }}
+    # Chained runs: only after a SUCCESSFUL deploy of a new blog post — not
+    # after every other deploy (sitemap regen, social-flag commits, etc.)
+    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && contains(github.event.workflow_run.head_commit.message, 'Publish blog:')) }}
     # Must exceed the random delay step's 90-min maximum or most runs get cancelled
     timeout-minutes: 105
 
