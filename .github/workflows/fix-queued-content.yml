@@ -1,0 +1,44 @@
+name: Fix Queued Content (author + brand-name bugs)
+
+on:
+  # Manual trigger only — one-off repair for ContentEngine rows queued before
+  # the Andrew Farrimond removal and the Boxx Finance rebrand landed. See
+  # scripts/content-engine/fix-queued-content.js for what this touches.
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — report only, no writes"
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  fix-content:
+    name: Scan and fix queued author + brand-name bugs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Fix queued content
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node fix-queued-content.js --dry-run
+          else
+            node fix-queued-content.js
+          fi
