@@ -14,7 +14,7 @@ export const serviceContent = {
             "name": "Asset Finance",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Acquire essential equipment and machinery without restricting your working capital. Spread the cost over the asset's useful life and preserve cash flow for growth.",
             "areaServed": "GB"
@@ -32,7 +32,7 @@ export const serviceContent = {
             <>
                 <p>Asset finance allows UK businesses to acquire essential equipment, vehicles, machinery and technology without committing large amounts of upfront capital. Instead of funding assets from cash reserves, repayments are structured over an agreed term that aligns with your revenue cycle.</p>
                 <p>Structured correctly, asset finance protects working capital, preserves liquidity and supports sustainable growth.</p>
-                <p>At Boxx Commercial Finance, we don’t simply arrange asset finance. We structure it around your business.</p>
+                <p>At Boxx Finance, we don’t simply arrange asset finance. We structure it around your business.</p>
 
                 <h3>Why Asset Finance Matters</h3>
                 <p>Most business growth follows a predictable pattern.</p>
@@ -108,7 +108,7 @@ export const serviceContent = {
             "name": "Structured Finance",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Complex funding solutions for business acquisitions, buyouts and restructuring. Layered debt and equity structured for major transactions by experienced specialists.",
             "areaServed": "GB"
@@ -156,7 +156,7 @@ export const serviceContent = {
             "name": "Invoice Finance",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Release up to 90% of your invoice value immediately. Improve cash flow without taking on long-term debt.",
             "areaServed": "GB"
@@ -209,7 +209,7 @@ export const serviceContent = {
             "name": "Business Loans",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Flexible secured and unsecured business loans for growth, acquisitions or working capital.",
             "areaServed": "GB"
@@ -224,7 +224,7 @@ export const serviceContent = {
         content: (
             <>
                 <p>Accessing the right business loan can accelerate growth, support acquisitions or stabilise cash flow. But the structure of the facility determines whether it strengthens your balance sheet or creates unnecessary strain.</p>
-                <p>At Boxx Commercial Finance, we structure business loans around trading performance, cash flow timing and long-term objectives. We do not simply source capital. We design funding aligned to your business model.</p>
+                <p>At Boxx Finance, we structure business loans around trading performance, cash flow timing and long-term objectives. We do not simply source capital. We design funding aligned to your business model.</p>
 
                 <h3>What Is a Business Loan?</h3>
                 <p>A business loan is a structured borrowing facility used to fund: expansion and growth, equipment purchases, working capital, acquisitions, refinancing existing debt, or short-term cash flow requirements.</p>
@@ -273,7 +273,7 @@ export const serviceContent = {
             "name": "Commercial Mortgages",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Purchase or refinance trading premises or investment property.",
             "areaServed": "GB"
@@ -331,7 +331,7 @@ export const serviceContent = {
             "name": "Asset Refinance",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Unlock capital tied up in your existing assets. Release equity from owned vehicles and machinery.",
             "areaServed": "GB"
@@ -346,7 +346,7 @@ export const serviceContent = {
             <>
                 <p>Unlock capital tied up in equipment, vehicles and machinery without disrupting operations. Asset refinance allows UK businesses to release equity from assets they already own. Instead of raising new unsecured debt or reducing cash reserves, you can convert existing asset value into working capital.</p>
                 <p>Structured correctly, asset refinance strengthens liquidity, improves flexibility and supports growth without selling operational equipment.</p>
-                <p>At Boxx Commercial Finance, we structure asset refinance around your balance sheet strategy, not just immediate funding need.</p>
+                <p>At Boxx Finance, we structure asset refinance around your balance sheet strategy, not just immediate funding need.</p>
 
                 <h3>What Is Asset Refinance?</h3>
                 <p>Asset refinance is a form of secured funding that allows businesses to raise capital against assets they already own, either outright or with minimal existing finance outstanding.</p>
@@ -395,7 +395,7 @@ export const serviceContent = {
             "name": "Merchant Cash Advance",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Flexible business funding that repays in line with your card sales.",
             "areaServed": "GB"
@@ -409,7 +409,7 @@ export const serviceContent = {
         content: (
             <>
                 <p>A Merchant Cash Advance (MCA) provides short-term business funding repaid through a percentage of daily debit and credit card transactions. Unlike traditional loans with fixed monthly repayments, repayments fluctuate in line with revenue.</p>
-                <p>At Boxx Commercial Finance, we structure merchant cash advance facilities carefully. Flexibility is valuable — but cost and suitability must be understood clearly before proceeding.</p>
+                <p>At Boxx Finance, we structure merchant cash advance facilities carefully. Flexibility is valuable — but cost and suitability must be understood clearly before proceeding.</p>
 
                 <h3>What Is a Merchant Cash Advance?</h3>
                 <p>It is an advance against future card sales. The lender provides a lump sum, and in return, a fixed percentage of your daily card takings is automatically collected until the total amount is satisfied. This means higher repayments during strong trade and lower during slower periods.</p>
@@ -453,7 +453,7 @@ export const serviceContent = {
             "name": "Trade Finance",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Bridge the gap between supplier orders and customer payments. Fund your supply chain and support imports.",
             "areaServed": "GB"
@@ -501,7 +501,7 @@ export const serviceContent = {
             "name": "Tax & VAT Funding",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Spread the cost of VAT and Corporation Tax over manageable monthly instalments.",
             "areaServed": "GB"
@@ -548,7 +548,7 @@ export const serviceContent = {
             "name": "Working Capital",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Boost liquidity to cover operational costs, stock purchases or seasonal cash flow gaps.",
             "areaServed": "GB"
@@ -563,7 +563,7 @@ export const serviceContent = {
         content: (
             <>
                 <p>Working capital funding provides structured facilities designed to improve short-term liquidity and support day-to-day operations. Whether managing seasonal fluctuations, delayed customer payments or rapid expansion, working capital funding ensures your business maintains financial flexibility.</p>
-                <p>At Boxx Commercial Finance, we structure working capital facilities around cash flow timing, not simply turnover.</p>
+                <p>At Boxx Finance, we structure working capital facilities around cash flow timing, not simply turnover.</p>
 
                 <h3>What Is Working Capital Funding?</h3>
                 <p>Working capital funding refers to short-to-medium term finance designed to support operational liquidity. It is commonly used to fund payroll, supplier payments, inventory purchases, VAT and tax liabilities, or seasonal trading gaps.</p>
@@ -607,7 +607,7 @@ export const serviceContent = {
             "name": "Bridging Loans",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Fast, short-term property funding for auction purchases, refurbishments or chain breaks.",
             "areaServed": "GB"
@@ -622,7 +622,7 @@ export const serviceContent = {
             <>
                 <p>A bridging loan provides short-term property funding when speed, certainty and structure matter most. Whether you are securing an auction purchase, refinancing ahead of sale, funding refurbishment, or resolving a chain break, bridging finance is designed to move quickly.</p>
                 <p>But speed alone is not enough. The structure of the facility determines whether the transaction strengthens your position or creates unnecessary risk.</p>
-                <p>At Boxx Commercial Finance, we structure every bridging loan around your exit strategy, not simply the loan term.</p>
+                <p>At Boxx Finance, we structure every bridging loan around your exit strategy, not simply the loan term.</p>
 
                 <h3>What Is a Bridging Loan?</h3>
                 <p>A bridging loan is a short-term secured loan used to “bridge” the gap between an immediate funding requirement and a planned repayment event.</p>
@@ -679,7 +679,7 @@ export const serviceContent = {
             "name": "Development Finance",
             "provider": {
                 "@type": "Organization",
-                "name": "Boxx Commercial Finance"
+                "name": "Boxx Finance"
             },
             "description": "Funding for ground-up builds, conversions and major refurbishments.",
             "areaServed": "GB"

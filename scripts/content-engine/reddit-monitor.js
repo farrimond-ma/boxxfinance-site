@@ -102,7 +102,7 @@ async function generateDraftResponse(post, matchedKeyword) {
   const { keyword, url, author } = matchedKeyword;
   const authorFirstName = author.split(' ')[0];
 
-  const prompt = `You are ${author} at Boxx Commercial Finance, a UK commercial finance broker.
+  const prompt = `You are ${author} at Boxx Finance, a UK commercial finance broker.
 
 Someone on Reddit (r/${post.subreddit_name_prefixed || 'Reddit'}) posted this:
 
@@ -114,7 +114,7 @@ Write a genuinely helpful Reddit reply that:
 - Is 80–150 words — conversational, not corporate
 - Shares real practical knowledge about ${keyword} in a UK context
 - Does NOT sound like an advert
-- Mentions Boxx Commercial Finance naturally at most once, only if it's genuinely relevant to their question
+- Mentions Boxx Finance naturally at most once, only if it's genuinely relevant to their question
 - If you do mention Boxx, include this URL naturally: ${url}
 - Signs off as ${authorFirstName}
 - Follows Reddit etiquette — add value first, any mention of your firm is secondary

@@ -108,7 +108,7 @@ const Locations = () => {
         <>
             <SEO
                 title="UK Locations | Bridging Loans & Commercial Finance Across the UK"
-                description={`Bridging loans and commercial finance arranged across ${total} UK towns and cities. Find your local Boxx Commercial Finance coverage, from bridging loans to commercial mortgages.`}
+                description={`Bridging loans and commercial finance arranged across ${total} UK towns and cities. Find your local Boxx Finance coverage, from bridging loans to commercial mortgages.`}
                 keywords="bridging loans UK locations, commercial finance near me, UK bridging loan broker, local business funding"
             />
 

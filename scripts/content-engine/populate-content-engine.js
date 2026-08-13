@@ -1602,7 +1602,7 @@ async function loadKeywordBacklog(sheets) {
         keyword: r.keyword,
         title,
         slug,
-        brief: `Comprehensive UK guide on "${r.keyword}" for UK business owners seeking ${r.service.toLowerCase()} solutions. Cover what it is, how it works, eligibility, rates, and why Boxx Commercial Finance is the right broker. Target 1,200+ words with FAQ schema.`,
+        brief: `Comprehensive UK guide on "${r.keyword}" for UK business owners seeking ${r.service.toLowerCase()} solutions. Cover what it is, how it works, eligibility, rates, and why Boxx Finance is the right broker. Target 1,200+ words with FAQ schema.`,
       };
     });
 }
@@ -1663,7 +1663,7 @@ function addDays(dateStr, n) {
 
 function buildBlogRow(id, date, topic) {
   const meta = SERVICE_META[topic.service] || {};
-  const metaTitle = `${topic.title} | Boxx Commercial Finance`;
+  const metaTitle = `${topic.title} | Boxx Finance`;
   return [
     String(id),                       // A: id
     'blog',                           // B: type
@@ -1703,7 +1703,7 @@ function buildLocationRow(id, date, service, city) {
   const title = `${service} ${city}`;
   const keyword = `${service.toLowerCase()} ${city.toLowerCase()}`;
   const url = `/locations/${slug}`;
-  const metaTitle = `${title} | Boxx Commercial Finance`;
+  const metaTitle = `${title} | Boxx Finance`;
   return [
     String(id),                       // A: id
     'location',                       // B: type

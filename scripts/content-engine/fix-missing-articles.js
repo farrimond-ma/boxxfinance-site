@@ -70,7 +70,7 @@ async function main() {
     p.service, '', p.keyword, '', p.title,
     p.slug,
     `https://boxxfinance.co.uk/insights/${p.slug}`,
-    `${p.title} | Boxx Commercial Finance`, '',
+    `${p.title} | Boxx Finance`, '',
     p.service, p.brief, p.serviceUrl,
     '', '', '', '', '', '',
     'yes', 'yes', p.author, '', '', p.note,

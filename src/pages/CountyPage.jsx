@@ -69,13 +69,13 @@ const CountyPage = () => {
     const localServiceSchema = {
         '@context': 'https://schema.org',
         '@type': 'FinancialService',
-        name: `Bridging Loans ${page.county} — Boxx Commercial Finance`,
+        name: `Bridging Loans ${page.county} — Boxx Finance`,
         url: `https://boxxfinance.co.uk/locations/county/${page.slug}`,
         telephone: '+44-1236-702070',
         areaServed: { '@type': 'AdministrativeArea', name: page.county, containedInPlace: { '@type': 'Country', name: 'United Kingdom' } },
         provider: {
             '@type': 'Organization',
-            name: 'Boxx Commercial Finance',
+            name: 'Boxx Finance',
             url: 'https://boxxfinance.co.uk',
         },
         serviceType: 'Bridging Loans',

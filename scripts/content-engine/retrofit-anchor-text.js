@@ -5,7 +5,7 @@
  *  1. "speak to a commercial finance specialist" CTA anchor — replaced with
  *     product-specific keyword anchors (e.g. "compare bridging loan rates")
  *  2. "get expert X advice" closing CTA anchor — same treatment
- *  3. <a href='.../#about'>Boxx Commercial Finance</a> — brand-name anchor
+ *  3. <a href='.../#about'>Boxx Finance</a> — brand-name anchor
  *     removed (link unwrapped to plain text; /#about adds no SEO value)
  *
  * Idempotent — safe to re-run; replacements are unique enough that
@@ -64,7 +64,7 @@ function replaceAnchorText(html, oldAnchor, newAnchor) {
 }
 
 function removeAboutLink(html) {
-  // Unwrap <a href='.../#about'>Boxx Commercial Finance</a> → plain text
+  // Unwrap <a href='.../#about'>Boxx Finance</a> → plain text
   return html.replace(/<a [^>]*href=['"]https?:\/\/boxxfinance\.co\.uk\/#about['"][^>]*>([^<]+)<\/a>/gi, '$1');
 }
 

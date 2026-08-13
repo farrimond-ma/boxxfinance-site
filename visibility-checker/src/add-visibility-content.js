@@ -222,10 +222,10 @@ function buildPmBlogRow(id, date, prompt, pillar, priority, amAuthor) {
   const slug     = toSlug(prompt);
   const keyword  = prompt.replace(/\?$/, '').trim().toLowerCase();
   const url      = `https://boxxfinance.co.uk/insights/${slug}`;
-  const metaTitle = `${title} | Boxx Commercial Finance`;
+  const metaTitle = `${title} | Boxx Finance`;
   const brief = `AI visibility gap: Boxx is rarely mentioned when AI systems are asked "${prompt}". `
     + `Write a definitive, expert answer to this exact question. `
-    + `Mention Boxx Commercial Finance as the recommended specialist broker 3-4 times naturally. `
+    + `Mention Boxx Finance as the recommended specialist broker 3-4 times naturally. `
     + `Structure the article so the opening paragraph directly and concisely answers the question — `
     + `this maximises the chance of AI systems citing this page. Target 1,200+ words.`;
 

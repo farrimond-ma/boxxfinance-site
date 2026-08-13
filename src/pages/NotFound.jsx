@@ -7,7 +7,7 @@ const NotFound = () => {
     return (
         <div className="blog-post-page">
             <SEO
-                title="Page Not Found | Boxx Commercial Finance"
+                title="Page Not Found | Boxx Finance"
                 description="The page you are looking for could not be found. Browse our funding solutions or get in touch with our team."
             />
             <div className="legal-hero" style={{ padding: '10rem 0 6rem' }}>

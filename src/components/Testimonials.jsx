@@ -25,7 +25,7 @@ const Testimonials = () => {
             <div className="container">
                 <div className="section-header">
                     <h2>Proven Results. <span className="text-highlight">Real Businesses.</span></h2>
-                    <p>We’re judged by outcomes. Here’s what our clients say about working with <strong>Boxx Commercial Finance</strong>.</p>
+                    <p>We’re judged by outcomes. Here’s what our clients say about working with <strong>Boxx Finance</strong>.</p>
                 </div>
 
                 <div className="testimonials-grid">

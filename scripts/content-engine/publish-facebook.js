@@ -64,8 +64,8 @@ async function generateFacebookPost(post) {
   const text = getArticleText(post, 2000);
   const url  = post.url.startsWith('http') ? post.url : SITE_URL + post.url;
   const prompt = text
-    ? 'Write a Facebook post for Boxx Commercial Finance based on this article.\nTitle: ' + post.title + '\nURL: ' + url + '\nContent: ' + text + '\n\nPost requirements:\n- 80-120 words, punchy and mobile-friendly\n- Opens with question or bold statement from the article\n- 2-3 relevant emojis\n- Ends with CTA to read more\n- Include URL on own line then 3 hashtags\n\nFormat:\nPOST:\n[text]\n\n' + url + '\n#tag1 #tag2 #tag3'
-    : 'Write a Facebook post for Boxx Commercial Finance about "' + post.title + '".\n80-120 words, 2-3 emojis, CTA.\nURL: ' + url + '\n\nPOST:\n[text]\n\n' + url + '\n#tag1 #tag2 #tag3';
+    ? 'Write a Facebook post for Boxx Finance based on this article.\nTitle: ' + post.title + '\nURL: ' + url + '\nContent: ' + text + '\n\nPost requirements:\n- 80-120 words, punchy and mobile-friendly\n- Opens with question or bold statement from the article\n- 2-3 relevant emojis\n- Ends with CTA to read more\n- Include URL on own line then 3 hashtags\n\nFormat:\nPOST:\n[text]\n\n' + url + '\n#tag1 #tag2 #tag3'
+    : 'Write a Facebook post for Boxx Finance about "' + post.title + '".\n80-120 words, 2-3 emojis, CTA.\nURL: ' + url + '\n\nPOST:\n[text]\n\n' + url + '\n#tag1 #tag2 #tag3';
   const r = await anthropic.messages.create({ model:'claude-haiku-4-5-20251001', max_tokens:500, messages:[{role:'user',content:prompt}] });
   const t = r.content[0].type === 'text' ? r.content[0].text : '';
   return (t.match(/POST:\n([\s\S]*)/) || ['',t])[1].trim();

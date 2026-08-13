@@ -19,7 +19,7 @@ const Home = () => {
                     {
                         "@context": "https://schema.org",
                         "@type": "Organization",
-                        "name": "Boxx Commercial Finance",
+                        "name": "Boxx Finance",
                         "url": "https://boxxfinance.co.uk",
                         "logo": "https://boxxfinance.co.uk/logo.png",
                         "contactPoint": {
@@ -36,7 +36,7 @@ const Home = () => {
                     {
                         "@context": "https://schema.org",
                         "@type": "WebSite",
-                        "name": "Boxx Commercial Finance",
+                        "name": "Boxx Finance",
                         "url": "https://boxxfinance.co.uk"
                     },
                     // FAQPage built from the same source as the visible

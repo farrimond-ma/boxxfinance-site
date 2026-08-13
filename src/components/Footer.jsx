@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="footer-content">
                     <div className="footer-brand">
                         <Link to="/" className="footer-logo">
-                            <img src="/logo.png" alt="Boxx Commercial Finance" className="footer-logo-img" />
+                            <img src="/logo.png" alt="Boxx Finance" className="footer-logo-img" />
                             <span className="footer-logo-text"><span className="text-highlight">Commercial Finance</span></span>
                         </Link>
                         <p>Funding Done Properly. Structured for Growth.</p>
@@ -41,7 +41,7 @@ const Footer = () => {
 
                     <div className="footer-contact">
                         <h4>Contact Us</h4>
-                        <p><strong>Boxx Commercial Finance</strong><br />Atrium Business Centre, <br />North Caldeen Road, Coatbridge, ML5 4EF</p>
+                        <p><strong>Boxx Finance</strong><br />Atrium Business Centre, <br />North Caldeen Road, Coatbridge, ML5 4EF</p>
                         <p><a href="mailto:hello@boxxfinance.co.uk" className="clickable-email">hello@boxxfinance.co.uk</a></p>
                         <p><a href="tel:01236702070" className="clickable-email">01236 702070</a></p>
                     </div>
@@ -49,7 +49,7 @@ const Footer = () => {
 
                 <div className="footer-bottom">
                     <p className="footer-disclaimer">We are a commercial finance broker and not a lender. Funding is subject to lender criteria, status and terms. Commercial finance is not regulated by the Financial Conduct Authority. We may receive commission from lenders for arranging finance. The amount of commission may vary depending on the lender and product.</p>
-                    <p>&copy; {new Date().getFullYear()} Boxx Commercial Finance. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Boxx Finance. All rights reserved.</p>
                 </div>
             </div>
         </footer>

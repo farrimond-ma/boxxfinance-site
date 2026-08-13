@@ -139,7 +139,7 @@ async function saveNewsFile(shared, sha, message) {
 async function generateCommentary(article, author) {
   const style = COMMENTARY_STYLES[Math.floor(Math.random() * COMMENTARY_STYLES.length)];
 
-  const prompt = `You are ${author} at Boxx Commercial Finance, a UK commercial finance broker.
+  const prompt = `You are ${author} at Boxx Finance, a UK commercial finance broker.
 
 A news story has just been published:
 Title: "${article.title}"

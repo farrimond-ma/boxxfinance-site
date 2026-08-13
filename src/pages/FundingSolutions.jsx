@@ -24,9 +24,9 @@ const DISPLAY_ORDER = [
 const schema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'UK Commercial Finance & Business Funding Solutions — Boxx Commercial Finance',
+    name: 'UK Commercial Finance & Business Funding Solutions — Boxx Finance',
     description:
-        'A full overview of the commercial finance and business funding solutions Boxx Commercial Finance arranges for UK businesses, including bridging finance, development finance, commercial mortgages, asset finance, invoice finance, and more.',
+        'A full overview of the commercial finance and business funding solutions Boxx Finance arranges for UK businesses, including bridging finance, development finance, commercial mortgages, asset finance, invoice finance, and more.',
     url: 'https://boxxfinance.co.uk/funding-solutions',
     mainEntity: {
         '@type': 'ItemList',
@@ -45,10 +45,10 @@ const faqSchema = {
     mainEntity: [
         {
             '@type': 'Question',
-            name: 'What types of commercial finance does Boxx Commercial Finance offer?',
+            name: 'What types of commercial finance does Boxx Finance offer?',
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Boxx Commercial Finance arranges 12 types of business funding for UK businesses: bridging finance, development finance, commercial mortgages, asset finance, asset refinance, business loans, working capital facilities, invoice finance, merchant cash advance, trade finance, tax & VAT funding, and structured finance. Each solution is matched to your specific business circumstances and growth objectives.',
+                text: 'Boxx Finance arranges 12 types of business funding for UK businesses: bridging finance, development finance, commercial mortgages, asset finance, asset refinance, business loans, working capital facilities, invoice finance, merchant cash advance, trade finance, tax & VAT funding, and structured finance. Each solution is matched to your specific business circumstances and growth objectives.',
             },
         },
         {
@@ -56,7 +56,7 @@ const faqSchema = {
             name: 'How do I know which type of business funding is right for me?',
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'The right funding type depends on your purpose, security, and timescale. Bridging finance suits short-term property transactions. Development finance is for ground-up or heavy refurbishment projects. Commercial mortgages are for long-term property acquisition. Asset finance spreads the cost of equipment. Invoice finance, working capital, and merchant cash advance address cash flow. Speaking to a specialist at Boxx Commercial Finance is the fastest way to identify the most cost-effective structure for your situation.',
+                text: 'The right funding type depends on your purpose, security, and timescale. Bridging finance suits short-term property transactions. Development finance is for ground-up or heavy refurbishment projects. Commercial mortgages are for long-term property acquisition. Asset finance spreads the cost of equipment. Invoice finance, working capital, and merchant cash advance address cash flow. Speaking to a specialist at Boxx Finance is the fastest way to identify the most cost-effective structure for your situation.',
             },
         },
         {
@@ -77,7 +77,7 @@ const faqSchema = {
         },
         {
             '@type': 'Question',
-            name: 'How quickly can Boxx Commercial Finance arrange business funding?',
+            name: 'How quickly can Boxx Finance arrange business funding?',
             acceptedAnswer: {
                 '@type': 'Answer',
                 text: 'Speed depends on the product and the lender. Bridging finance can complete in as little as 5–10 working days with the right preparation. Commercial mortgages typically take 4–8 weeks. Invoice finance and merchant cash advance facilities can be in place within days. In every case, having clean documentation ready (accounts, bank statements, security details) is the single biggest factor in reducing timescales.',

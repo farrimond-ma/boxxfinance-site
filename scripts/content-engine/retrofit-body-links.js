@@ -125,7 +125,7 @@ function buildLocationParagraph(post, locBySlug) {
     locationList = linkParts.join(', ') + ' and ' + last;
   }
 
-  return `<p>Boxx Commercial Finance arranges ${service.toLowerCase()} across the UK, with advisers covering ${locationList}.</p>`;
+  return `<p>Boxx Finance arranges ${service.toLowerCase()} across the UK, with advisers covering ${locationList}.</p>`;
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────

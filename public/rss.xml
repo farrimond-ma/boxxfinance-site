@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Boxx Commercial Finance Insights</title>
+        <title>Boxx Finance Insights</title>
         <link>https://www.boxxfinance.co.uk</link>
         <description>Commercial finance insights and funding intelligence for UK business owners.</description>
         <language>en-gb</language>
         <atom:link href="https://www.boxxfinance.co.uk/rss.xml" rel="self" type="application/rss+xml" />
         
+        <item>
+            <title>Same Day Bridging Loans in the UK: Fast Cash Solutions</title>
+            <link>https://www.boxxfinance.co.uk/insights/same-day-bridging-loan-uk</link>
+            <guid>https://www.boxxfinance.co.uk/insights/same-day-bridging-loan-uk</guid>
+            <pubDate>Thu, 13 Aug 2026 00:00:00 GMT</pubDate>
+            <description>Same day bridging loans can release funds within 24 hours when the security and exit are clear cut, though most genuine cases complete in three to seven days. Here&apos;s how it actually works.</description>
+            <author>mark@boxxfinance.co.uk (Mark Higgins)</author>
+        </item>
+        <item>
+            <title>The Complete UK Guide to Bridging Loans for Property Auctions</title>
+            <link>https://www.boxxfinance.co.uk/insights/finance-for-property-auction-uk-guide</link>
+            <guid>https://www.boxxfinance.co.uk/insights/finance-for-property-auction-uk-guide</guid>
+            <pubDate>Wed, 12 Aug 2026 00:00:00 GMT</pubDate>
+            <description>Auction properties complete in 28 days, and most mortgages cannot move that fast. This guide explains how bridging loans fund UK auction purchases, what lenders check, and typical costs.</description>
+            <author>mark@boxxfinance.co.uk (Andrew Farrimond)</author>
+        </item>
+        <item>
+            <title>Using a Bridging Loan to Buy a Receiver&apos;s Sale Property</title>
+            <link>https://www.boxxfinance.co.uk/insights/bridging-loan-receivers-sale</link>
+            <guid>https://www.boxxfinance.co.uk/insights/bridging-loan-receivers-sale</guid>
+            <pubDate>Wed, 12 Aug 2026 00:00:00 GMT</pubDate>
+            <description>Buying a property from receivers or administrators means racing tight deadlines. Here&apos;s how bridging loans help UK buyers and developers complete receivers sale purchases fast and safely.</description>
+            <author>mark@boxxfinance.co.uk (Andrew Farrimond)</author>
+        </item>
         <item>
             <title>Bridging Loans for Unconditional Property Auctions</title>
             <link>https://www.boxxfinance.co.uk/insights/bridging-loan-for-unconditional-auction</link>
@@ -14,6 +38,14 @@
             <pubDate>Tue, 11 Aug 2026 00:00:00 GMT</pubDate>
             <description>Buying at auction on unconditional terms gives you 28 days to complete. Here is how a bridging loan lets you meet that deadline without losing your deposit.</description>
             <author>mark@boxxfinance.co.uk (Mark Higgins)</author>
+        </item>
+        <item>
+            <title>Bridging Loans for Flood Risk Properties</title>
+            <link>https://www.boxxfinance.co.uk/insights/bridging-loan-flood-risk-property</link>
+            <guid>https://www.boxxfinance.co.uk/insights/bridging-loan-flood-risk-property</guid>
+            <pubDate>Tue, 11 Aug 2026 00:00:00 GMT</pubDate>
+            <description>Flood risk doesn&apos;t have to kill a property purchase. Here&apos;s how bridging loans work for flood zone properties, what lenders actually check, and when this route makes sense.</description>
+            <author>mark@boxxfinance.co.uk (Andrew Farrimond)</author>
         </item>
         <item>
             <title>Same-Day Bridging Loan Decisions for Property Auctions</title>
@@ -572,7 +604,7 @@
             <link>https://www.boxxfinance.co.uk/insights/bridging-loan-for-semi-commercial</link>
             <guid>https://www.boxxfinance.co.uk/insights/bridging-loan-for-semi-commercial</guid>
             <pubDate>Tue, 07 Jul 2026 00:00:00 GMT</pubDate>
-            <description>A bridging loan for a semi commercial property provides temporary finance for properties with both residential and commercial elements. These loans bridge the gap between the purchase of a new property and the sale of an existing one. To discuss your semi commercial property needs, visit Boxx Commercial Finance to explore your options.</description>
+            <description>A bridging loan for a semi commercial property provides temporary finance for properties with both residential and commercial elements. These loans bridge the gap between the purchase of a new property and the sale of an existing one. To discuss your semi commercial property needs, visit Boxx Finance to explore your options.</description>
             <author>mark@boxxfinance.co.uk (Mark Higgins)</author>
         </item>
         <item>
@@ -612,7 +644,7 @@
             <link>https://www.boxxfinance.co.uk/insights/bridging-loan-additional-security</link>
             <guid>https://www.boxxfinance.co.uk/insights/bridging-loan-additional-security</guid>
             <pubDate>Sat, 04 Jul 2026 00:00:00 GMT</pubDate>
-            <description>Bridging loan additional security is a key element that helps secure better terms on bridging finance, offering both flexibility and reassurance to lenders. It works by using extra collateral to safeguard the loan, which can be crucial for fast property finance. Discover how Boxx Commercial Finance can assist in finding the best options tailored to your needs.</description>
+            <description>Bridging loan additional security is a key element that helps secure better terms on bridging finance, offering both flexibility and reassurance to lenders. It works by using extra collateral to safeguard the loan, which can be crucial for fast property finance. Discover how Boxx Finance can assist in finding the best options tailored to your needs.</description>
             <author>tara@boxxfinance.co.uk (Tara Jameson)</author>
         </item>
         <item>
@@ -628,7 +660,7 @@
             <link>https://www.boxxfinance.co.uk/insights/bridging-loan-for-divorce-settlement</link>
             <guid>https://www.boxxfinance.co.uk/insights/bridging-loan-for-divorce-settlement</guid>
             <pubDate>Fri, 03 Jul 2026 00:00:00 GMT</pubDate>
-            <description>A bridging loan for divorce settlements can quickly provide the funds needed to buy out a partner before a property sale completes. By using this type of short-term finance, you can secure your future amidst the complexities of divorce. To learn more, contact the experts at Boxx Commercial Finance.</description>
+            <description>A bridging loan for divorce settlements can quickly provide the funds needed to buy out a partner before a property sale completes. By using this type of short-term finance, you can secure your future amidst the complexities of divorce. To learn more, contact the experts at Boxx Finance.</description>
             <author>mark@boxxfinance.co.uk (Mark Higgins)</author>
         </item>
         <item>
@@ -668,7 +700,7 @@
             <link>https://www.boxxfinance.co.uk/insights/extending-a-bridging-loan</link>
             <guid>https://www.boxxfinance.co.uk/insights/extending-a-bridging-loan</guid>
             <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
-            <description>Extending a bridging loan in the UK is often a viable choice when a short-term financial gap requires more time to resolve. Businesses and developers consider this option to prevent losing their investment. To explore options for extending a bridging loan, Boxx Commercial Finance offers valuable advice.</description>
+            <description>Extending a bridging loan in the UK is often a viable choice when a short-term financial gap requires more time to resolve. Businesses and developers consider this option to prevent losing their investment. To explore options for extending a bridging loan, Boxx Finance offers valuable advice.</description>
             <author>tara@boxxfinance.co.uk (Tara Jameson)</author>
         </item>
         <item>
@@ -932,7 +964,7 @@
             <link>https://www.boxxfinance.co.uk/insights/bridging-finance-for-property-developers</link>
             <guid>https://www.boxxfinance.co.uk/insights/bridging-finance-for-property-developers</guid>
             <pubDate>Sun, 14 Jun 2026 00:00:00 GMT</pubDate>
-            <description>Bridging finance is a powerful tool for property developers, offering fast access to capital to bridge the gap between purchase and long-term financing. Businesses use bridging finance to quickly secure a property or complete a project without waiting for traditional funding. Discover how this short-term finance solution can support your development projects at Boxx Commercial Finance.</description>
+            <description>Bridging finance is a powerful tool for property developers, offering fast access to capital to bridge the gap between purchase and long-term financing. Businesses use bridging finance to quickly secure a property or complete a project without waiting for traditional funding. Discover how this short-term finance solution can support your development projects at Boxx Finance.</description>
             <author>mark@boxxfinance.co.uk (Mark Higgins)</author>
         </item>
         <item>
@@ -988,7 +1020,7 @@
             <link>https://www.boxxfinance.co.uk/insights/bridging-loan-application-process</link>
             <guid>https://www.boxxfinance.co.uk/insights/bridging-loan-application-process</guid>
             <pubDate>Thu, 11 Jun 2026 00:00:00 GMT</pubDate>
-            <description>The bridging loan application process in the UK is a streamlined pathway to securing short-term property finance quickly and efficiently. It&apos;s a favoured option for those needing fast property finance, such as buyers facing a property chain break or developers working on refurbishment projects. Learn more about the process and get expert advice from Boxx Commercial Finance.</description>
+            <description>The bridging loan application process in the UK is a streamlined pathway to securing short-term property finance quickly and efficiently. It&apos;s a favoured option for those needing fast property finance, such as buyers facing a property chain break or developers working on refurbishment projects. Learn more about the process and get expert advice from Boxx Finance.</description>
             <author>tara@boxxfinance.co.uk (Tara Jameson)</author>
         </item>
         <item>

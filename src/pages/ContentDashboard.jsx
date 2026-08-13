@@ -163,7 +163,7 @@ export default function ContentDashboard() {
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
       <SEO
-        title="Content Engine Dashboard | Boxx Commercial Finance"
+        title="Content Engine Dashboard | Boxx Finance"
         description="Live status dashboard for the Boxx content publishing system."
         noIndex={true}
       />

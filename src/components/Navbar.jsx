@@ -20,7 +20,7 @@ const Navbar = ({ minimal = false }) => {
                     <Link to="/">
                         <img
                             src="/logo_scroll.webp"
-                            alt="Boxx Commercial Finance"
+                            alt="Boxx Finance"
                             className="navbar-logo-img"
                             onError={(e) => {
                                 if (!e.currentTarget.dataset.fallback) {

@@ -76,7 +76,7 @@ targets it deliberately:
 - **It measures it directly.** The weekly AI visibility check tells us which
   questions Boxx is absent from. Most sites are blind to this.
 - **It writes for how AI extracts answers.** Gap-driven articles answer the
-  question *in the first paragraph*, name "Boxx Commercial Finance" several times
+  question *in the first paragraph*, name "Boxx Finance" several times
   with clear broker credentials, include a comparison / "how to choose a lender"
   section, and carry 6+ FAQ Q&As (models lean heavily on structured FAQ content).
 - **It makes content machine-readable.** Every post ships with **FAQPage schema**

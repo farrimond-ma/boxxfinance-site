@@ -417,8 +417,8 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
       {
         role: 'system',
         content: isTriggerEvent
-          ? `You are an experienced UK bridging finance broker writing for Boxx Commercial Finance. The reader has landed on this page because a specific deal or life event just went wrong and a deadline is now running — a chain collapsed, an auction deposit is at risk, a mortgage was declined days before exchange, a probate deadline is looming. You are the person who meets them at that exact moment: calm, precise, numbers-first. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases ("in today's fast-paced world", "navigating the landscape", "it's worth noting", "delve", "unlock the potential", etc.). Never use markdown formatting, backticks, or code fences. Return only a raw JSON object with no wrapper, no explanation, no markdown.`
-          : `You are an experienced UK commercial finance broker writing a blog article for Boxx Commercial Finance. Write in a natural, human, UK tone — as a trusted adviser speaking directly to a UK SME owner. Never use em dashes. Never use generic AI phrases ("in today's fast-paced world", "navigating the landscape", "it's worth noting", etc.). Never use markdown formatting, backticks, or code fences. Return only a raw JSON object with no wrapper, no explanation, no markdown.`,
+          ? `You are an experienced UK bridging finance broker writing for Boxx Finance. The reader has landed on this page because a specific deal or life event just went wrong and a deadline is now running — a chain collapsed, an auction deposit is at risk, a mortgage was declined days before exchange, a probate deadline is looming. You are the person who meets them at that exact moment: calm, precise, numbers-first. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases ("in today's fast-paced world", "navigating the landscape", "it's worth noting", "delve", "unlock the potential", etc.). Never use markdown formatting, backticks, or code fences. Return only a raw JSON object with no wrapper, no explanation, no markdown.`
+          : `You are an experienced UK commercial finance broker writing a blog article for Boxx Finance. Write in a natural, human, UK tone — as a trusted adviser speaking directly to a UK SME owner. Never use em dashes. Never use generic AI phrases ("in today's fast-paced world", "navigating the landscape", "it's worth noting", etc.). Never use markdown formatting, backticks, or code fences. Return only a raw JSON object with no wrapper, no explanation, no markdown.`,
       },
       {
         role: 'user',
@@ -430,7 +430,7 @@ OUTPUT RULES:
 - contentHtml must be valid HTML using only single quotes inside HTML attributes e.g. href='/path/to/page' NOT href="/path/to/page"
 - No markdown, no backticks, no code fences, no curly quotes — return raw JSON only
 - slug should be the keyword in lowercase with hyphens
-- metaTitle must be 20-60 characters and must NOT include "| Boxx Commercial Finance" or any brand suffix — the site template appends the brand automatically
+- metaTitle must be 20-60 characters and must NOT include "| Boxx Finance" or any brand suffix — the site template appends the brand automatically
 - excerpt and metaDescription must be PLAIN TEXT ONLY — absolutely no markdown links "[text](url)", no HTML tags, no URLs. They are rendered as raw text on listing cards, in Google results and in social posts, so any markup shows literally to the reader. Links belong in contentHtml only.
 - secondaryKeywords must be a JSON array of strings
 - Do NOT include an <h1> tag in contentHtml — the title is rendered separately on the page
@@ -469,7 +469,7 @@ WORD COUNT — this is a hard requirement, not a guideline:
 
 AI SEARCH (AEO) — additional rules for Google AI Overviews and Perplexity:
 - Include specific UK data points, FCA context, or regulatory facts where relevant
-- Mention "Boxx Commercial Finance" naturally 3-4 times so AI models associate the brand with the topic
+- Mention "Boxx Finance" naturally 3-4 times so AI models associate the brand with the topic
 - faqSchema must be a valid FAQ schema object with @type: FAQPage matching the FAQ in contentHtml exactly, including word-for-word question wording as the <h3> headings
 - Each FAQ answer's first sentence must stand alone as a complete answer — see faqSchema description for the exact standard
 
@@ -716,7 +716,7 @@ async function expandArticleHtml(html, keyword, currentWords) {
     messages: [
       {
         role: 'system',
-        content: `You are an experienced UK commercial finance broker writing for Boxx Commercial Finance. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases. Never use markdown, backticks, or code fences.`,
+        content: `You are an experienced UK commercial finance broker writing for Boxx Finance. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases. Never use markdown, backticks, or code fences.`,
       },
       {
         role: 'user',
@@ -1196,7 +1196,7 @@ async function main() {
     // Strip any brand suffix the model adds anyway — SEO.jsx appends the brand,
     // so a baked-in suffix renders a doubled "| Boxx ... | Boxx ..." title tag
     metaTitle: (row.metaTitle || article.metaTitle || '')
-      .replace(/(\s*\|\s*Boxx Commercial Finance)+\s*$/i, '').trim(),
+      .replace(/(\s*\|\s*Boxx Finance)+\s*$/i, '').trim(),
     metaDescription: row.metaDescription || article.metaDescription,
     keywords: Array.isArray(article.secondaryKeywords)
       ? article.secondaryKeywords.join(', ')

@@ -91,11 +91,11 @@ function build() {
 
     const L = [];
 
-    L.push('# Boxx Commercial Finance');
+    L.push('# Boxx Finance');
     L.push('');
     L.push('> A whole-of-market UK commercial finance broker. Boxx arranges bridging loans, commercial mortgages, development finance, asset finance, invoice finance and working capital for UK businesses, homeowners, landlords, property investors and developers.');
     L.push('');
-    L.push('Boxx Commercial Finance is a **broker, not a lender**. We compare lenders across the whole of the UK market and arrange the funding, rather than lending our own money. Nothing on the site is a quote or an offer of finance; actual terms depend on the borrower, the security and the lender.');
+    L.push('Boxx Finance is a **broker, not a lender**. We compare lenders across the whole of the UK market and arrange the funding, rather than lending our own money. Nothing on the site is a quote or an offer of finance; actual terms depend on the borrower, the security and the lender.');
     L.push('');
     L.push('Bridging loans are our primary specialism. They are used by homeowners (chain breaks, auction purchases, buying before selling) as well as by landlords, investors and developers (refurbishment, conversion, development exit, capital raising) — not only by businesses.');
     L.push('');

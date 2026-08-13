@@ -322,7 +322,7 @@ function toLocationTitle(city) {
   return `Bridging Finance ${city} | Commercial Finance Broker`;
 }
 function toLocationMetaTitle(city) {
-  return `Bridging Finance in ${city} | Boxx Commercial Finance`;
+  return `Bridging Finance in ${city} | Boxx Finance`;
 }
 function toLocationMetaDesc(city) {
   return `Independent bridging finance broker in ${city}. Whole-of-market access, fast decisions. Speak to our team today.`;
@@ -353,8 +353,8 @@ function buildBlogRow(id, date, slot, topic) {
     topic.title,
     topic.slug,
     '',          // url (filled after publish)
-    topic.title + ' | Boxx Commercial Finance',
-    `${topic.title}. Expert advice from Boxx Commercial Finance, a whole-of-market UK bridging finance broker.`,
+    topic.title + ' | Boxx Finance',
+    `${topic.title}. Expert advice from Boxx Finance, a whole-of-market UK bridging finance broker.`,
     SERVICE,
     '',          // contentBrief
     SERVICE_URL, // internalLinkService

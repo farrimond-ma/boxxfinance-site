@@ -84,7 +84,7 @@ const SmeFundingIndex = () => {
         headline && bankRate ? Number((headline.latest.value - bankRate.latest.value).toFixed(2)) : null;
 
     const title = 'UK SME Funding Index | Bank of England SME Lending Rates';
-    const description = `The effective interest rate on new loans to UK SMEs was ${headline.latest.value}% in ${smeData.dataAsOfLabel}, per Bank of England data. Updated monthly by Boxx Commercial Finance.`;
+    const description = `The effective interest rate on new loans to UK SMEs was ${headline.latest.value}% in ${smeData.dataAsOfLabel}, per Bank of England data. Updated monthly by Boxx Finance.`;
 
     // Dataset schema with explicit attribution, so machines cite the Bank as the
     // source of the figures and Boxx as the publisher of the summary.
@@ -98,7 +98,7 @@ const SmeFundingIndex = () => {
         dateModified: smeData.retrievedAt,
         license: smeData.source.licenceUrl,
         isBasedOn: { '@type': 'Dataset', name: smeData.source.name, url: smeData.source.url },
-        creator: { '@type': 'Organization', name: 'Boxx Commercial Finance', url: SITE },
+        creator: { '@type': 'Organization', name: 'Boxx Finance', url: SITE },
         sourceOrganization: { '@type': 'Organization', name: 'Bank of England', url: 'https://www.bankofengland.co.uk' },
         variableMeasured: smeData.series.map((s) => ({
             '@type': 'PropertyValue',
@@ -228,7 +228,7 @@ const SmeFundingIndex = () => {
                             {smeData.source.name}
                         </a>{' '}
                         by an automated job, and is shown with the Bank's own series code and observation date so it
-                        can be checked at source. Boxx Commercial Finance does not estimate, model or adjust any of
+                        can be checked at source. Boxx Finance does not estimate, model or adjust any of
                         these numbers.
                     </p>
                     <p>{smeData.definition}</p>
@@ -254,7 +254,7 @@ const SmeFundingIndex = () => {
                         <em>
                             These are published market averages for information only. They are not a quote, not an
                             offer of finance, and not a prediction of the rate available to any individual business.
-                            Boxx Commercial Finance is a commercial finance broker, not a lender.
+                            Boxx Finance is a commercial finance broker, not a lender.
                         </em>
                     </p>
                 </section>

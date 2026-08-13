@@ -9,7 +9,7 @@
 
 An autonomous content-marketing platform. It plans, writes, publishes, distributes,
 measures and repairs SEO content with no human in the daily loop. It currently runs
-one brand (Boxx Commercial Finance, boxxfinance.co.uk) and is designed to scale to
+one brand (Boxx Finance, boxxfinance.co.uk) and is designed to scale to
 50,000+ pages and multiple brands.
 
 The platform is a **team of specialist agents**. Each agent has exactly one

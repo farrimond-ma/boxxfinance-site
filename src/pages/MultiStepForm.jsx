@@ -190,7 +190,7 @@ const MultiStepForm = () => {
             <div className="multi-step-page">
                 <SEO
                     title="Application Received"
-                    description="Your commercial finance application has been received by Boxx Commercial Finance. A specialist will review your requirements and be in touch shortly."
+                    description="Your commercial finance application has been received by Boxx Finance. A specialist will review your requirements and be in touch shortly."
                     type="article"
                 />
                 {/* Hero Section */}

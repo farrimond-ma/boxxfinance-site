@@ -118,7 +118,7 @@ async function generateLinkedInPost(post, author) {
     : `- No emojis`;
   // NOTE: the model must NOT write the URL — it hallucinates wrong domains.
   // It writes the teaser sentence only; we append the real URL in code below.
-  const base = `You are writing a LinkedIn post for ${author} at Boxx Commercial Finance.\n\nPost format: ${fmt.name}\nWord count: ${fmt.wordRange} words\n${emojiLine}\n\nInstructions:\n${fmt.instructions}\n\nHashtags in POST only. FIRST_COMMENT has no hashtags and NO URL or link — just one teaser sentence (we add the link separately).\n\nFormat:\nPOST:\n[text + hashtags]\n\nFIRST_COMMENT:\n[one teaser sentence, no URL, no hashtags]`;
+  const base = `You are writing a LinkedIn post for ${author} at Boxx Finance.\n\nPost format: ${fmt.name}\nWord count: ${fmt.wordRange} words\n${emojiLine}\n\nInstructions:\n${fmt.instructions}\n\nHashtags in POST only. FIRST_COMMENT has no hashtags and NO URL or link — just one teaser sentence (we add the link separately).\n\nFormat:\nPOST:\n[text + hashtags]\n\nFIRST_COMMENT:\n[one teaser sentence, no URL, no hashtags]`;
   const src  = text ? `Article: "${post.title}"\nContent: ${text}\n\n${base}` : `Topic: "${post.title}"\n\n${base}`;
 
   const r = await anthropic.messages.create({ model:'claude-haiku-4-5-20251001', max_tokens:700, messages:[{role:'user',content:src}] });

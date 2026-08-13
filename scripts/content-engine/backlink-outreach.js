@@ -2,7 +2,7 @@
  * Boxx Finance — Backlink Outreach System
  *
  * Monitors UK bridging finance trade publications via RSS for new articles
- * where Boxx Commercial Finance could contribute expert insight or request
+ * where Boxx Finance could contribute expert insight or request
  * a mention/link.
  *
  * For each relevant new article:
@@ -305,7 +305,7 @@ async function generateOutreach(article) {
   // Alternate between Mark (property focus) and Andrew (cashflow/business)
   // For bridging finance, Mark is the primary voice
   const author    = 'Mark Higgins';
-  const authorBio = 'Mark Higgins, bridging finance specialist at Boxx Commercial Finance';
+  const authorBio = 'Mark Higgins, bridging finance specialist at Boxx Finance';
 
   const prompt = `You are helping ${authorBio} respond to a trade press article about bridging finance.
 
@@ -321,13 +321,13 @@ Generate two things:
    - Written in first person as ${author}
    - Draws on real-world bridging finance experience
    - Adds a specific insight or data point the article didn't mention
-   - Mentions "Boxx Commercial Finance" once, naturally
+   - Mentions "Boxx Finance" once, naturally
    - Ends with a subtle offer: "Happy to provide further insight or a case study if useful"
    - No fluff, no marketing speak — sounds like a practitioner
 
 2. OUTREACH_EMAIL (100-150 words):
    A brief, professional email to the editor requesting a mention or offering expert contribution.
-   - From: ${author}, Boxx Commercial Finance
+   - From: ${author}, Boxx Finance
    - Subject line included
    - References the specific article
    - Offers: (a) expert comment for the article, (b) a case study, or (c) to be a regular source

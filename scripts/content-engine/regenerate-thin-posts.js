@@ -125,7 +125,7 @@ async function generateArticle(post, service, meta) {
   const serviceCtaSlug = meta.slug || service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
   const chatUrl = `${SITE_URL}/chat-about-funding/${serviceCtaSlug}`;
 
-  const systemPrompt = `You are an experienced UK commercial finance broker writing a blog article for Boxx Commercial Finance. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases. Return only a raw JSON object with no wrapper, no explanation, no markdown.`;
+  const systemPrompt = `You are an experienced UK commercial finance broker writing a blog article for Boxx Finance. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases. Return only a raw JSON object with no wrapper, no explanation, no markdown.`;
 
   const userPrompt = `Write a blog article and return it as a single JSON object with exactly these keys:
 slug, title, excerpt, metaTitle, metaDescription, primaryKeyword, secondaryKeywords, category, faqSchema, contentHtml
@@ -167,7 +167,7 @@ CALLS TO ACTION:
 INTERNAL LINKS — follow 2026 SEO/AEO best practices. Anchor text must be descriptive 2-5 words, never generic ("here", "this page", "click here", "read more", "find out more"):
 - Service page (${serviceUrl}): include at least 3 contextual links using keyword-rich anchor text that names the product and its benefit, e.g. "${keyword} solutions", "${keyword} for UK businesses", "specialist ${keyword} advice" — vary the phrasing
 - Funding hub https://boxxfinance.co.uk/funding-solutions: include once using anchor text like "UK commercial funding solutions" or "business funding options" — NEVER the long phrase "full range of UK business funding solutions"
-- About us section https://boxxfinance.co.uk/#about: use "Boxx Commercial Finance" as anchor text on the first natural mention of the brand — do NOT link to /about-us (that page does not exist)
+- About us section https://boxxfinance.co.uk/#about: use "Boxx Finance" as anchor text on the first natural mention of the brand — do NOT link to /about-us (that page does not exist)
 - Never invent URLs — only link to pages explicitly provided in this prompt
 
 faqSchema must be a valid FAQ schema object matching the FAQ in contentHtml exactly.
@@ -210,7 +210,7 @@ async function expandArticleHtml(html, keyword, currentWords) {
     messages: [
       {
         role: 'system',
-        content: `You are an experienced UK commercial finance broker writing for Boxx Commercial Finance. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases. Never use markdown, backticks, or code fences.`,
+        content: `You are an experienced UK commercial finance broker writing for Boxx Finance. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases. Never use markdown, backticks, or code fences.`,
       },
       {
         role: 'user',
@@ -289,7 +289,7 @@ async function humanize(html, author) {
 
   const originalWords = wordCount(html);
 
-  const prompt = `Edit this HTML article for ${author} at Boxx Commercial Finance. Remove AI writing patterns:
+  const prompt = `Edit this HTML article for ${author} at Boxx Finance. Remove AI writing patterns:
 - Remove em dashes (—). Replace overused words (tapestry, leverage, pivotal, underscore, nuanced, robust), rewrite hedging phrases (it's worth noting, in order to) as direct statements, rewrite passive voice as active where possible, rewrite generic conclusions.
 - Preserve ALL HTML tags, links, and factual content exactly.
 - Do NOT shorten the article: rewrite weak phrasing in place rather than deleting sentences — the output must stay within 10% of the input's word count.

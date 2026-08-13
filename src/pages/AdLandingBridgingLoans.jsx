@@ -93,13 +93,13 @@ const AdLandingBridgingLoans = () => {
         <div className="adlp">
             <SEO
                 title="Bridging Loans UK | Fast, Whole-of-Market Funding Quote"
-                description="Fast bridging loans from £50,000. Whole-of-market comparison, completion from 7 days, terms from 3 to 18 months. Get a same-day quote from Boxx Commercial Finance."
+                description="Fast bridging loans from £50,000. Whole-of-market comparison, completion from 7 days, terms from 3 to 18 months. Get a same-day quote from Boxx Finance."
                 noIndex={true}
             />
 
             <header className="adlp-header">
                 <Link to="/" className="adlp-logo">
-                    <img src="/logo_gold.png" alt="Boxx Commercial Finance" />
+                    <img src="/logo_gold.png" alt="Boxx Finance" />
                 </Link>
             </header>
 
@@ -242,7 +242,7 @@ const AdLandingBridgingLoans = () => {
                     commission from lenders for arranging finance. The amount of commission may vary depending on the
                     lender and product.
                 </p>
-                <p>&copy; {new Date().getFullYear()} Boxx Commercial Finance. <Link to="/privacy-policy">Privacy Policy</Link></p>
+                <p>&copy; {new Date().getFullYear()} Boxx Finance. <Link to="/privacy-policy">Privacy Policy</Link></p>
             </footer>
         </div>
     );

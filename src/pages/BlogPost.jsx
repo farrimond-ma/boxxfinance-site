@@ -86,13 +86,13 @@ const BlogPost = () => {
         datePublished: post.date || '',
         dateModified: post.date || '',
         author: { '@type': 'Person', name: post.author || 'Mark Higgins', url: `${SITE_URL}/` },
-        publisher: { '@type': 'Organization', name: 'Boxx Commercial Finance', logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` } },
+        publisher: { '@type': 'Organization', name: 'Boxx Finance', logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` } },
         mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/insights/${post.slug}` },
     };
 
     const heroDescription =
         post.metaDescription || post.excerpt ||
-        'Practical insight from the commercial finance specialists at Boxx Commercial Finance.';
+        'Practical insight from the commercial finance specialists at Boxx Finance.';
 
     return (
         <>

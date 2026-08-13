@@ -5,9 +5,9 @@ export const blogPosts = [
     excerpt:
       "A guide to how commercial mortgage rates work in the UK and what affects the rate a business is likely to secure.",
     date: "2026-04-01",
-    author: "Boxx Commercial Finance",
+    author: "Boxx Finance",
     category: "Commercial Mortgages",
-    metaTitle: "Commercial Mortgage Rates UK | Boxx Commercial Finance",
+    metaTitle: "Commercial Mortgage Rates UK | Boxx Finance",
     metaDescription:
       "Learn what affects commercial mortgage rates in the UK, what lenders look for, and how businesses can improve their options.",
     featuredImage: "/images/blog/commercial-mortgage-rates-uk.jpg",

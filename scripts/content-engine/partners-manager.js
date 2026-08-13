@@ -81,7 +81,7 @@ function addPartner(opts) {
   writePartners(partners);
 
   const link = `https://boxxfinance.co.uk/?ref=${code}`;
-  const snippet = `<p>Need a bridging loan? Our specialist partner\n  <a href="${link}" rel="sponsored" target="_blank">Boxx Commercial Finance</a>\n  arranges short-term property finance across the UK.</p>`;
+  const snippet = `<p>Need a bridging loan? Our specialist partner\n  <a href="${link}" rel="sponsored" target="_blank">Boxx Finance</a>\n  arranges short-term property finance across the UK.</p>`;
 
   console.log('\n✅ Partner added\n');
   console.log(`  Firm:    ${entry.firm}`);

@@ -65,7 +65,7 @@ function getBoardId(service) {
 
 async function generatePinDescription(post) {
   const text = getArticleText(post, 1500);
-  const prompt = 'Write a Pinterest pin description for Boxx Commercial Finance.\nTitle: ' + post.title + (text ? '\nContent: ' + text : '') + '\n\n150-300 chars, useful insight, ends with 3-5 hashtags. Return ONLY the description.';
+  const prompt = 'Write a Pinterest pin description for Boxx Finance.\nTitle: ' + post.title + (text ? '\nContent: ' + text : '') + '\n\n150-300 chars, useful insight, ends with 3-5 hashtags. Return ONLY the description.';
   const r = await anthropic.messages.create({ model:'claude-haiku-4-5-20251001', max_tokens:200, messages:[{role:'user',content:prompt}] });
   return r.content[0].type === 'text' ? r.content[0].text.trim() : post.title;
 }

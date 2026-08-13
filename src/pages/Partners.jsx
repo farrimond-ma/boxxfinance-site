@@ -10,7 +10,7 @@ import './Partners.css';
  *
  * Two deliberate compliance choices baked into this page:
  *  1. The partner link snippet uses rel="sponsored" and a BRANDED anchor
- *     ("Boxx Commercial Finance"), never exact-match "bridging loans". A paid
+ *     ("Boxx Finance"), never exact-match "bridging loans". A paid
  *     relationship with optimised commercial anchor text is a Google link
  *     scheme; branded + sponsored is the correct, penalty-safe form.
  *  2. The commercial terms (referral fee) are described qualitatively, not with
@@ -24,7 +24,7 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwF7_EU1ekXav
 
 const SPONSORED_SNIPPET =
 `<p>Need a bridging loan? Our specialist partner
-  <a href="https://boxxfinance.co.uk/?ref=YOUR-CODE" rel="sponsored" target="_blank">Boxx Commercial Finance</a>
+  <a href="https://boxxfinance.co.uk/?ref=YOUR-CODE" rel="sponsored" target="_blank">Boxx Finance</a>
   arranges short-term property finance across the UK.</p>`;
 
 const Partners = () => {
@@ -70,7 +70,7 @@ const Partners = () => {
         <>
             <SEO
                 title="Introducer Program for Mortgage Brokers | Refer Bridging Loans"
-                description="Refer the bridging loan enquiries you don't place to Boxx Commercial Finance. A specialist partner for UK mortgage brokers — high-intent leads handled properly, with a referral fee on completed cases."
+                description="Refer the bridging loan enquiries you don't place to Boxx Finance. A specialist partner for UK mortgage brokers — high-intent leads handled properly, with a referral fee on completed cases."
                 keywords="bridging loan introducer, refer bridging enquiries, mortgage broker partner program, bridging loan referral"
             />
 

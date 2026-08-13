@@ -11,7 +11,7 @@ const DEFAULT_OG_IMAGE = `${SITE_URL}/header_bg.png`;
 
 const SEO = ({
     title,
-    description = "Boxx Commercial Finance arranges tailored business funding across the UK. Commercial mortgages, bridging finance, asset finance, invoice finance and more — structured for growth.",
+    description = "Boxx Finance arranges tailored business funding across the UK. Commercial mortgages, bridging finance, asset finance, invoice finance and more — structured for growth.",
     keywords,
     name,
     type,
@@ -20,7 +20,7 @@ const SEO = ({
     canonical,
     noIndex = false,
 }) => {
-    const fullTitle = `${title} | Boxx Commercial Finance`;
+    const fullTitle = `${title} | Boxx Finance`;
     const canonicalUrl = canonical
         ? (canonical.startsWith('http') ? canonical : `${SITE_URL}${canonical}`)
         : `${SITE_URL}${typeof window !== 'undefined' ? (window.location.pathname.replace(/\/$/, '') || '/') : '/'}`;
@@ -45,11 +45,11 @@ const SEO = ({
             <meta property="og:description" content={description} />
             <meta property="og:url"         content={canonicalUrl} />
             <meta property="og:image"       content={ogImage} />
-            <meta property="og:site_name"   content="Boxx Commercial Finance" />
+            <meta property="og:site_name"   content="Boxx Finance" />
 
             {/* Twitter */}
             <meta name="twitter:card"        content="summary_large_image" />
-            <meta name="twitter:creator"     content={name || "Boxx Commercial Finance"} />
+            <meta name="twitter:creator"     content={name || "Boxx Finance"} />
             <meta name="twitter:title"       content={fullTitle} />
             <meta name="twitter:description" content={description} />
             <meta name="twitter:image"       content={ogImage} />

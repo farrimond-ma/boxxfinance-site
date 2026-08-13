@@ -24,7 +24,7 @@ require('dotenv').config();
 const { google } = require('googleapis');
 
 const GITHUB_OWNER = process.env.GITHUB_OWNER || 'farrimond-ma';
-const GITHUB_REPO = process.env.GITHUB_REPO || 'Boxx-Commercial-Finance';
+const GITHUB_REPO = process.env.GITHUB_REPO || 'boxxfinance-site';
 
 // Bot-authored, so GitHub actually emails the repo owner. A PAT-authored issue
 // makes the owner the author, and GitHub never notifies you about your own.

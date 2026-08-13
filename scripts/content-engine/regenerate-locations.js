@@ -100,7 +100,7 @@ async function generateLocationPage(service, city, slug, relatedBlogs) {
     messages: [
       {
         role: 'system',
-        content: `You are an experienced UK commercial finance broker at Boxx Commercial Finance writing a location-specific landing page. Write as a trusted local expert who genuinely understands the business finance landscape in this city. Natural, human, advisory tone — as if speaking directly to a local business owner. Never use em dashes. Never use generic AI phrases ("in today's landscape", "navigating the challenges", etc.). No markdown, no backticks, no code fences. Return only a raw JSON object with no wrapper, no explanation.`,
+        content: `You are an experienced UK commercial finance broker at Boxx Finance writing a location-specific landing page. Write as a trusted local expert who genuinely understands the business finance landscape in this city. Natural, human, advisory tone — as if speaking directly to a local business owner. Never use em dashes. Never use generic AI phrases ("in today's landscape", "navigating the challenges", etc.). No markdown, no backticks, no code fences. Return only a raw JSON object with no wrapper, no explanation.`,
       },
       {
         role: 'user',
@@ -114,12 +114,12 @@ OUTPUT FORMAT RULES:
 - No markdown, backticks, code fences, or curly quotes — raw JSON only
 - slug format: ${serviceSlug}-${city.toLowerCase().replace(/\s+/g, '-')} (e.g. business-loans-leeds)
 - title format: "${service} ${city}" (e.g. "Business Loans Leeds")
-- metaTitle format: "${service} ${city} | Boxx Commercial Finance"
+- metaTitle format: "${service} ${city} | Boxx Finance"
 
 CONTENT STRUCTURE — follow this exact order:
 
 1. OPENING PARAGRAPH (2–3 sentences, 60–80 words)
-Start with clear intent matching: "Looking for ${service} in ${city}?" or similar. Directly answer why a ${city} business owner would come to this page. Mention Boxx Commercial Finance and link it to ${serviceUrl} using anchor text like "${service.toLowerCase()} for ${city} businesses".
+Start with clear intent matching: "Looking for ${service} in ${city}?" or similar. Directly answer why a ${city} business owner would come to this page. Mention Boxx Finance and link it to ${serviceUrl} using anchor text like "${service.toLowerCase()} for ${city} businesses".
 
 2. <h2>What We Can Fund in ${city}</h2>
 Specific types of businesses and deals common in ${city} — think about the actual economy of this city (manufacturing, retail, hospitality, property, logistics, professional services, etc.). What would a local business owner typically need ${service.toLowerCase()} for? Be specific and local — not generic. 3–4 short paragraphs or a practical list.
@@ -146,7 +146,7 @@ Four clear steps: initial enquiry → lender matching → offer received → com
 - "Can I get ${service.toLowerCase()} in ${city}?"
 - "How quickly can ${service.toLowerCase()} be arranged in ${city}?"
 - "What are the requirements for ${service.toLowerCase()} in ${city}?"
-- "Does Boxx Commercial Finance work with businesses in ${city}?"
+- "Does Boxx Finance work with businesses in ${city}?"
 Keep answers direct and specific to ${city} where possible.
 
 8. CLOSING CTA PARAGRAPH
@@ -158,12 +158,12 @@ TONE AND QUALITY:
 - Every section must feel genuinely written for ${city} — not a template with city name swapped
 - Short paragraphs throughout
 - Include natural keyword variations: "${service.toLowerCase()} ${city.toLowerCase()}", "${service.toLowerCase()} broker ${city.toLowerCase()}", "business finance ${city.toLowerCase()}", "SME funding ${city.toLowerCase()}"
-- Mention "Boxx Commercial Finance" 2–3 times
-- Link https://boxxfinance.co.uk/#about as "Boxx Commercial Finance" the first time the brand name appears — do NOT link to /about-us (that page does not exist)
+- Mention "Boxx Finance" 2–3 times
+- Link https://boxxfinance.co.uk/#about as "Boxx Finance" the first time the brand name appears — do NOT link to /about-us (that page does not exist)
 
 INTERNAL LINKS — mandatory, keyword-rich anchor text only:
 - ${serviceUrl}: at least 2 links, anchor text like "${service.toLowerCase()} for ${city} businesses" or "specialist ${service.toLowerCase()} solutions"
-- https://boxxfinance.co.uk/#about: link brand name "Boxx Commercial Finance" first time it appears — do NOT use /about-us (that page does not exist)
+- https://boxxfinance.co.uk/#about: link brand name "Boxx Finance" first time it appears — do NOT use /about-us (that page does not exist)
 - ${chatUrl}: in closing CTA
 - NEVER invent URLs — only use URLs explicitly provided
 ${blogLinksText}

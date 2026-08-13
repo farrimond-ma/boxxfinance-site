@@ -90,7 +90,7 @@ function getArticleContent(post) {
 
 async function generateReelScript(post) {
   const content = getArticleContent(post);
-  const prompt = `You are writing the on-screen text and narration for a 20-second Facebook Reel for Boxx Commercial Finance, a UK bridging loan and commercial finance broker.
+  const prompt = `You are writing the on-screen text and narration for a 20-second Facebook Reel for Boxx Finance, a UK bridging loan and commercial finance broker.
 
 ${content ? `ARTICLE: "${post.title}"\n\nCONTENT:\n${content}` : `TOPIC: "${post.title}" — service: ${post.service}`}
 

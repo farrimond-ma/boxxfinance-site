@@ -54,7 +54,7 @@ async function generate(city, relatedBlogs) {
   const response = await anthropic.messages.create({
     model: MODEL,
     max_tokens: 6000,
-    system: `You are an experienced UK commercial finance broker at Boxx Commercial Finance writing a location-specific landing page. Write as a trusted local expert who genuinely understands the business finance landscape in this city. Natural, human, advisory tone — as if speaking directly to a local business owner. Never use em dashes. Never use generic AI phrases ("in today's landscape", "navigating the challenges", etc.). No markdown, no backticks, no code fences. Return only a raw JSON object with no wrapper, no explanation.`,
+    system: `You are an experienced UK commercial finance broker at Boxx Finance writing a location-specific landing page. Write as a trusted local expert who genuinely understands the business finance landscape in this city. Natural, human, advisory tone — as if speaking directly to a local business owner. Never use em dashes. Never use generic AI phrases ("in today's landscape", "navigating the challenges", etc.). No markdown, no backticks, no code fences. Return only a raw JSON object with no wrapper, no explanation.`,
     messages: [
       {
         role: 'user',
@@ -68,12 +68,12 @@ OUTPUT FORMAT RULES:
 - No markdown, backticks, code fences, or curly quotes — raw JSON only
 - slug format: bridging-loans-${citySlug(city)}
 - title format: "Bridging Loans ${city}"
-- metaTitle format: "Bridging Loans in ${city}" — do NOT append "| Boxx Commercial Finance" or any brand suffix (the site template adds the brand automatically)
+- metaTitle format: "Bridging Loans in ${city}" — do NOT append "| Boxx Finance" or any brand suffix (the site template adds the brand automatically)
 
 CONTENT STRUCTURE — follow this exact order:
 
 1. OPENING PARAGRAPH (2–3 sentences, 60–80 words)
-Start with clear intent matching: "Looking for bridging loans in ${city}?" or similar. Directly answer why a ${city} property owner or investor would come to this page. Mention Boxx Commercial Finance and link it to ${serviceUrl} using anchor text like "bridging loans for ${city} property".
+Start with clear intent matching: "Looking for bridging loans in ${city}?" or similar. Directly answer why a ${city} property owner or investor would come to this page. Mention Boxx Finance and link it to ${serviceUrl} using anchor text like "bridging loans for ${city} property".
 
 2. <h2>What We Can Fund in ${city}</h2>
 Specific property and business scenarios common in ${city} — think about the actual property market of this city (residential chains, auctions, refurbishments, developments, commercial conversions). What would a local owner or investor typically need a bridging loan for? Be specific and local — not generic. 3–4 short paragraphs or a practical list.
@@ -100,7 +100,7 @@ Four clear steps: initial enquiry → lender matching → offer received → com
 - "Can I get a bridging loan in ${city}?"
 - "How quickly can bridging finance be arranged in ${city}?"
 - "What are the requirements for a bridging loan in ${city}?"
-- "Does Boxx Commercial Finance arrange bridging loans in ${city}?"
+- "Does Boxx Finance arrange bridging loans in ${city}?"
 Keep answers direct and specific to ${city} where possible.
 
 8. Closing CTA paragraph — this is a plain <p> with NO heading. Do NOT output a heading for this section; the paragraph follows the FAQ directly.
@@ -112,7 +112,7 @@ TONE AND QUALITY:
 - Every section must feel genuinely written for ${city} — not a template with city name swapped
 - Short paragraphs throughout
 - Include natural keyword variations: "bridging loans ${city}", "bridging loan broker ${city}", "bridging finance ${city}", "property finance ${city}"
-- Mention "Boxx Commercial Finance" 2–3 times — as plain text, NOT as a hyperlink
+- Mention "Boxx Finance" 2–3 times — as plain text, NOT as a hyperlink
 - Do NOT add a link to https://boxxfinance.co.uk/#about or https://boxxfinance.co.uk/about-us
 
 BRIDGING TERMINOLOGY (mandatory):
@@ -127,7 +127,7 @@ INTERNAL LINKS — mandatory, keyword-rich anchor text only:
 - ${serviceUrl}: at least 2 links, anchor text like "bridging loans for ${city} property" or "specialist bridging loan solutions"
 - ${chatUrl}: in closing CTA — keyword-rich anchor only (see CTA rules above)
 - NEVER invent URLs — only use URLs explicitly provided
-- NEVER link brand names ("Boxx Commercial Finance", "Boxx") — use keyword anchors only
+- NEVER link brand names ("Boxx Finance", "Boxx") — use keyword anchors only
 ${blogLinksText}
 
 faqSchema: valid @type: FAQPage object, exactly matching the FAQ section in content`,
@@ -151,7 +151,7 @@ faqSchema: valid @type: FAQPage object, exactly matching the FAQ section in cont
     slug,
     title: `Bridging Loans ${city}`,
     metaTitle: `Bridging Loans in ${city}`,
-    metaDescription: (page.metaDescription || `Looking for bridging loans in ${city}? Boxx Commercial Finance arranges fast, flexible bridging finance for property owners, investors and developers across ${city}.`).replace(/Bridging Finance/g, 'Bridging Loans'),
+    metaDescription: (page.metaDescription || `Looking for bridging loans in ${city}? Boxx Finance arranges fast, flexible bridging finance for property owners, investors and developers across ${city}.`).replace(/Bridging Finance/g, 'Bridging Loans'),
     location: city,
     service: SERVICE,
     publishDate: new Date().toISOString().split('T')[0],

@@ -77,7 +77,7 @@ function main() {
     });
 
     // 3. Append homeowner FAQ to the last </dl> and the schema
-    const faqAnswer = `Yes. Boxx Commercial Finance arranges bridging loans in ${city} for homeowners and property investors alike, whether you are breaking a chain, buying at auction or funding a refurbishment. We compare bridging loan rates from lenders across the market and can typically agree terms within days.`;
+    const faqAnswer = `Yes. Boxx Finance arranges bridging loans in ${city} for homeowners and property investors alike, whether you are breaking a chain, buying at auction or funding a refurbishment. We compare bridging loan rates from lenders across the market and can typically agree terms within days.`;
     const lastDl = content.lastIndexOf('</dl>');
     if (lastDl !== -1) {
       content = content.slice(0, lastDl)

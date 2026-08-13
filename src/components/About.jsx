@@ -10,7 +10,7 @@ const About = () => {
                 <div className="about-content">
                     <h2>UK Bridging Loan Specialists <span className="text-highlight">— And Your Whole-of-Market Partner</span></h2>
 
-                    <p><strong>Speed and structure, not just approval.</strong> Boxx Commercial Finance built its reputation arranging fast, whole-of-market bridging loans for UK property buyers, landlords and developers — funding structured around your exit strategy, not just the headline rate. We were built by directors who spent years watching businesses and investors lose deals, miss opportunities and pay over the odds because their funding was wrong for their situation. We set out to change that.</p>
+                    <p><strong>Speed and structure, not just approval.</strong> Boxx Finance built its reputation arranging fast, whole-of-market bridging loans for UK property buyers, landlords and developers — funding structured around your exit strategy, not just the headline rate. We were built by directors who spent years watching businesses and investors lose deals, miss opportunities and pay over the odds because their funding was wrong for their situation. We set out to change that.</p>
 
                     <p>With access to a panel of 50+ lenders — from high street banks and challenger lenders to specialist and private debt providers — we go to the whole market on your behalf, whether that's a bridging loan completing in days or a longer-term commercial facility.</p>
 
@@ -34,7 +34,7 @@ const About = () => {
             <div className="container">
                 <div className="director-cards">
                     <div className="director-card">
-                        <img src="/images/mark-higgins.webp" alt="Mark Higgins, Managing Partner at Boxx Commercial Finance" className="director-avatar-photo" />
+                        <img src="/images/mark-higgins.webp" alt="Mark Higgins, Managing Partner at Boxx Finance" className="director-avatar-photo" />
                         <div className="director-info">
                             <h4>Mark Higgins</h4>
                             <p className="director-title">Managing Partner, Commercial Finance</p>
@@ -58,7 +58,7 @@ const About = () => {
                         </div>
                     </div>
                     <div className="director-card">
-                        <img src="/images/tara-jameson.webp" alt="Tara Jameson, Commercial Finance and Bridging Loans Specialist at Boxx Commercial Finance" className="director-avatar-photo" />
+                        <img src="/images/tara-jameson.webp" alt="Tara Jameson, Commercial Finance and Bridging Loans Specialist at Boxx Finance" className="director-avatar-photo" />
                         <div className="director-info">
                             <h4>Tara Jameson</h4>
                             <p className="director-title">Commercial Finance and Bridging Loans Specialist</p>

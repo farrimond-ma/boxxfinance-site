@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
         <div className="blog-post-page">
             <SEO
                 title="Privacy Policy"
-                description="Read the Boxx Commercial Finance Privacy Policy. We are committed to protecting your personal data and handling it transparently in line with UK data protection law."
+                description="Read the Boxx Finance Privacy Policy. We are committed to protecting your personal data and handling it transparently in line with UK data protection law."
             />
             <div className="legal-hero" style={{ padding: '10rem 0 6rem' }}>
                 <div className="container">
@@ -23,7 +23,7 @@ const PrivacyPolicy = () => {
                     <div className="blog-main-card">
                         <div className="blog-post-content" style={{ padding: '3rem' }}>
                             <h2>1. Introduction</h2>
-                            <p>Boxx Commercial Finance ("we", "us", "our") is committed to protecting and respecting your privacy. This policy sets out the basis on which any personal data we collect from you, or that you provide to us, will be processed by us.</p>
+                            <p>Boxx Finance ("we", "us", "our") is committed to protecting and respecting your privacy. This policy sets out the basis on which any personal data we collect from you, or that you provide to us, will be processed by us.</p>
 
                             <h2>2. Information We Collect</h2>
                             <p>We may collect and process the following data about you:</p>
@@ -45,7 +45,7 @@ const PrivacyPolicy = () => {
                             <p>We may disclose your personal information to third parties:</p>
                             <ul>
                                 <li>In the event that we sell or buy any business or assets, in which case we may disclose your personal data to the prospective seller or buyer of such business or assets.</li>
-                                <li>If Boxx Commercial Finance or substantially all of its assets are acquired by a third party, in which case personal data held by it about its customers will be one of the transferred assets.</li>
+                                <li>If Boxx Finance or substantially all of its assets are acquired by a third party, in which case personal data held by it about its customers will be one of the transferred assets.</li>
                             </ul>
 
                             <h2>5. Your Rights</h2>

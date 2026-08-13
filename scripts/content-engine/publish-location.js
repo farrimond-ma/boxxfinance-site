@@ -218,12 +218,12 @@ OUTPUT FORMAT RULES:
 - No markdown, backticks, code fences, or curly quotes — raw JSON only
 - slug format: ${row.service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}-${row.city.toLowerCase().replace(/\s+/g, '-')} (e.g. business-loans-leeds)
 - title format: "${row.service} ${row.city}" (e.g. "Business Loans Leeds")
-- metaTitle format: "${row.service} in ${row.city}" — do NOT append "| Boxx Commercial Finance" or any brand suffix (the site template adds the brand automatically)
+- metaTitle format: "${row.service} in ${row.city}" — do NOT append "| Boxx Finance" or any brand suffix (the site template adds the brand automatically)
 
 CONTENT STRUCTURE — follow this exact order:
 
 1. OPENING PARAGRAPH (2–3 sentences, 60–80 words)
-Start with clear intent matching: "Looking for ${row.service} in ${row.city}?" or similar. Directly answer why a ${row.city} business owner would come to this page. Mention Boxx Commercial Finance and link it to ${serviceUrl} using anchor text like "${row.service.toLowerCase()} for ${row.city} businesses".
+Start with clear intent matching: "Looking for ${row.service} in ${row.city}?" or similar. Directly answer why a ${row.city} business owner would come to this page. Mention Boxx Finance and link it to ${serviceUrl} using anchor text like "${row.service.toLowerCase()} for ${row.city} businesses".
 
 2. <h2>What We Can Fund in ${row.city}</h2>
 Specific types of businesses and deals common in ${row.city} — think about the actual economy of this city (manufacturing, retail, hospitality, property, logistics, professional services, etc.). What would a local business owner typically need ${row.service.toLowerCase()} for? Be specific and local — not generic. 3–4 short paragraphs or a practical list.
@@ -250,7 +250,7 @@ Four clear steps: initial enquiry → lender matching → offer received → com
 - "Can I get ${row.service.toLowerCase()} in ${row.city}?"
 - "How quickly can ${row.service.toLowerCase()} be arranged in ${row.city}?"
 - "What are the requirements for ${row.service.toLowerCase()} in ${row.city}?"
-- "Does Boxx Commercial Finance work with businesses in ${row.city}?"
+- "Does Boxx Finance work with businesses in ${row.city}?"
 Keep answers direct and specific to ${row.city} where possible.
 
 8. Closing CTA paragraph — this is a plain <p> with NO heading. Do NOT output "<h2>Closing CTA</h2>" or any heading for this section; the paragraph follows the FAQ directly.
@@ -262,14 +262,14 @@ TONE AND QUALITY:
 - Every section must feel genuinely written for ${row.city} — not a template with city name swapped
 - Short paragraphs throughout
 - Include natural keyword variations: "${row.service.toLowerCase()} ${row.city}", "${row.service.toLowerCase()} broker ${row.city}", "business finance ${row.city}", "SME funding ${row.city}"
-- Mention "Boxx Commercial Finance" 2–3 times — as plain text, NOT as a hyperlink
+- Mention "Boxx Finance" 2–3 times — as plain text, NOT as a hyperlink
 - Do NOT add a link to https://boxxfinance.co.uk/#about or https://boxxfinance.co.uk/about-us
 
 INTERNAL LINKS — mandatory, keyword-rich anchor text only:
 - ${serviceUrl}: at least 2 links, anchor text like "${row.service.toLowerCase()} for ${row.city} businesses" or "specialist ${row.service.toLowerCase()} solutions"
 - ${chatUrl}: in closing CTA — keyword-rich anchor only (see CTA rules above)
 - NEVER invent URLs — only use URLs explicitly provided
-- NEVER link brand names ("Boxx Commercial Finance", "Boxx") — use keyword anchors only
+- NEVER link brand names ("Boxx Finance", "Boxx") — use keyword anchors only
 ${blogLinksText}
 
 faqSchema: valid @type: FAQPage object, exactly matching the FAQ section in content`;
@@ -293,7 +293,7 @@ OUTPUT FORMAT RULES:
 - No markdown, backticks, code fences, or curly quotes — raw JSON only
 - slug format: bridging-loans-${city.toLowerCase().replace(/\s+/g, '-')}
 - title format: "Bridging Loans ${city}"
-- metaTitle format: "Bridging Loans in ${city}" — do NOT append "| Boxx Commercial Finance" or any brand suffix (the site template adds the brand automatically)
+- metaTitle format: "Bridging Loans in ${city}" — do NOT append "| Boxx Finance" or any brand suffix (the site template adds the brand automatically)
 
 AUDIENCE — this page is NOT for "businesses" or "SMEs". Bridging loans are secured
 against property and used by:
@@ -306,7 +306,7 @@ The correct terms are "homeowner", "landlord", "property investor", "property de
 CONTENT STRUCTURE — follow this exact order:
 
 1. OPENING PARAGRAPH (2–3 sentences, 60–80 words)
-Start with clear intent matching: "Looking for a bridging loan in ${city}?" or similar. Directly answer why a ${city} homeowner, landlord, or property investor would come to this page. Mention Boxx Commercial Finance and link it to ${serviceUrl} using anchor text like "bridging loans for ${city} property".
+Start with clear intent matching: "Looking for a bridging loan in ${city}?" or similar. Directly answer why a ${city} homeowner, landlord, or property investor would come to this page. Mention Boxx Finance and link it to ${serviceUrl} using anchor text like "bridging loans for ${city} property".
 
 2. <h2>What We Can Fund in ${city}</h2>
 Specific property scenarios common in ${city} — residential chain breaks, auction purchases, buy-to-let refinancing, refurbishment projects, development exits, commercial-to-residential conversions. What would a local homeowner, landlord or investor typically need a bridging loan for? Be specific and local — not generic. 3–4 short paragraphs or a practical list.
@@ -333,7 +333,7 @@ Four clear steps: initial enquiry → lender matching → offer received → com
 - "Can I get a bridging loan in ${city}?"
 - "How quickly can a bridging loan be arranged in ${city}?"
 - "What are the requirements for a bridging loan in ${city}?"
-- "Does Boxx Commercial Finance arrange bridging loans in ${city}?"
+- "Does Boxx Finance arrange bridging loans in ${city}?"
 Keep answers direct and specific to ${city} where possible.
 
 8. Closing CTA paragraph — this is a plain <p> with NO heading. Do NOT output a heading for this section; the paragraph follows the FAQ directly.
@@ -345,7 +345,7 @@ TONE AND QUALITY:
 - Every section must feel genuinely written for ${city} — not a template with city name swapped
 - Short paragraphs throughout
 - Include natural keyword variations: "bridging loans ${city}", "bridging loan broker ${city}", "bridging loan lender ${city}", "property finance ${city}"
-- Mention "Boxx Commercial Finance" 2–3 times — as plain text, NOT as a hyperlink
+- Mention "Boxx Finance" 2–3 times — as plain text, NOT as a hyperlink
 - Do NOT add a link to https://boxxfinance.co.uk/#about or https://boxxfinance.co.uk/about-us
 
 BRIDGING TERMINOLOGY (mandatory):
@@ -360,7 +360,7 @@ INTERNAL LINKS — mandatory, keyword-rich anchor text only:
 - ${serviceUrl}: at least 2 links, anchor text like "bridging loans for ${city} property" or "specialist bridging loan solutions"
 - ${chatUrl}: in closing CTA — keyword-rich anchor only (see CTA rules above)
 - NEVER invent URLs — only use URLs explicitly provided
-- NEVER link brand names ("Boxx Commercial Finance", "Boxx") — use keyword anchors only
+- NEVER link brand names ("Boxx Finance", "Boxx") — use keyword anchors only
 ${blogLinksText}
 
 faqSchema: valid @type: FAQPage object, exactly matching the FAQ section in content`;
@@ -393,7 +393,7 @@ async function generateLocationPage(row, relatedBlogs) {
     messages: [
       {
         role: 'system',
-        content: `You are an experienced UK commercial finance broker at Boxx Commercial Finance writing a location-specific landing page. Write as a trusted local expert who genuinely understands the business finance landscape in this city. Natural, human, advisory tone — as if speaking directly to a local business owner. Never use em dashes. Never use generic AI phrases ("in today's landscape", "navigating the challenges", etc.). No markdown, no backticks, no code fences. Return only a raw JSON object with no wrapper, no explanation.`,
+        content: `You are an experienced UK commercial finance broker at Boxx Finance writing a location-specific landing page. Write as a trusted local expert who genuinely understands the business finance landscape in this city. Natural, human, advisory tone — as if speaking directly to a local business owner. Never use em dashes. Never use generic AI phrases ("in today's landscape", "navigating the challenges", etc.). No markdown, no backticks, no code fences. Return only a raw JSON object with no wrapper, no explanation.`,
       },
       {
         role: 'user',
@@ -527,7 +527,7 @@ async function main() {
       // Strip any brand suffix — SEO.jsx appends the brand, so a baked-in
       // suffix renders a doubled "| Boxx ... | Boxx ..." title tag
       metaTitle: (row.metaTitle || page.metaTitle || '')
-        .replace(/(\s*\|\s*Boxx Commercial Finance)+\s*$/i, '').trim(),
+        .replace(/(\s*\|\s*Boxx Finance)+\s*$/i, '').trim(),
       metaDescription: row.metaDescription || page.metaDescription,
       location: row.city,
       service: row.service,

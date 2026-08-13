@@ -184,7 +184,7 @@ async function main() {
     }
     const publishDate = addDays(tomorrow, i); // one per day, in brief order
     const url = `https://boxxfinance.co.uk/insights/${slug}`;
-    const metaTitle = `${item.title} | Boxx Commercial Finance`;
+    const metaTitle = `${item.title} | Boxx Finance`;
 
     // 30 columns, A-AD. See publish-blog.js getScheduledRow() for the read
     // side of this schema.

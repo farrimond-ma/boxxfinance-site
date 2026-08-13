@@ -81,7 +81,7 @@ async function main() {
     if (newTitle === title) continue; // already fine (e.g. single word)
 
     const rowIndex = i + 2; // sheet row number (A2 = row 2)
-    const newMetaTitle = `${newTitle} | Boxx Commercial Finance`;
+    const newMetaTitle = `${newTitle} | Boxx Finance`;
     fixes.push({ rowIndex, oldTitle: title, newTitle, newMetaTitle });
   }
 
