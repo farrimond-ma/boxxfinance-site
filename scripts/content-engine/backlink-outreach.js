@@ -10,7 +10,7 @@
  *   2. Generates a personalized outreach email to the journalist/editor
  *   3. Saves everything to a 'Backlink_Prospects' tab in Google Sheets
  *
- * Runs weekly (Mondays after the visibility checker).
+ * Runs daily.
  * Humans review the drafts and send the best ones manually.
  *
  * Run: node backlink-outreach.js [--dry-run]
