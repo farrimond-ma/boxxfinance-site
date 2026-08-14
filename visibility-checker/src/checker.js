@@ -1,8 +1,14 @@
 /**
  * Boxx Finance — AI Visibility Checker
- * Tests 80 prompts across ChatGPT, Perplexity, and Claude
+ * Tests 80 prompts across ChatGPT, Perplexity, Claude and Gemini
  * Tracks Boxx mentions and competitor mentions
  * Exports to CSV + Google Sheets
+ *
+ * All four queries are web-search-grounded (OpenAI's search-preview model,
+ * Anthropic's web_search tool, Perplexity's sonar, Gemini's google_search
+ * tool) rather than frozen pretraining knowledge — otherwise this metric
+ * can never move no matter how much content the site publishes, since a
+ * plain non-grounded model has no way to know new pages exist.
  */
 
 import Anthropic from "@anthropic-ai/sdk";
@@ -33,7 +39,6 @@ const COMPETITORS = [
   "LendInvest",
   "Masthaven",
   "TML",
-  "Bridging Finance",
   "Funding 365",
   "InterBay",
   "Shawbrook",
@@ -165,9 +170,15 @@ function getAnthropicClient() {
 
 // ─── Query Functions ──────────────────────────────────────────────────────────
 
+// gpt-4o-mini (no tools) only ever answers from frozen pretraining data — no
+// amount of new content on the site could ever move that number, so it was a
+// dead metric. gpt-4o-mini-search-preview is OpenAI's web-search-grounded
+// chat-completions model: same endpoint, but it actually looks the query up.
+// That model rejects a non-default `temperature`, so it's omitted here.
 async function queryChatGPT(openai, prompt) {
   const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: "gpt-4o-mini-search-preview",
+    web_search_options: {},
     messages: [
       {
         role: "system",
@@ -176,7 +187,6 @@ async function queryChatGPT(openai, prompt) {
       { role: "user", content: prompt },
     ],
     max_tokens: 600,
-    temperature: 0.3,
   });
   return response.choices[0].message.content || "";
 }
@@ -210,27 +220,44 @@ async function queryPerplexity(prompt) {
   return data.choices?.[0]?.message?.content || "";
 }
 
+// Plain messages.create (no tools) is frozen-knowledge only, same problem as
+// the old ChatGPT call. Attaching the web_search server tool lets Claude
+// actually search before answering. max_tokens is raised because search
+// results and tool-use blocks eat into the budget before the final text
+// does; the response can also interleave multiple text blocks around the
+// search actions, so every text block is concatenated rather than just the
+// first one.
 async function queryClaude(anthropic, prompt) {
   const response = await anthropic.messages.create({
     model: "claude-haiku-4-5-20251001",
-    max_tokens: 600,
+    max_tokens: 1024,
     system: "You are a helpful assistant. Answer questions about UK property finance clearly and concisely. Name specific lenders and companies where relevant.",
     messages: [{ role: "user", content: prompt }],
+    tools: [{ type: "web_search_20250305", name: "web_search", max_uses: 3 }],
   });
-  return response.content[0].type === "text" ? response.content[0].text : "";
+  return response.content
+    .filter((block) => block.type === "text")
+    .map((block) => block.text)
+    .join("\n");
 }
 
+// The `google_search` grounding tool (live web search) needs a 2.0+ model —
+// 1.5-flash predates it and would either ignore the tool or error. Bumped to
+// 2.0-flash so grounding actually applies; without it this was frozen
+// pretraining knowledge like the old ChatGPT/Claude calls, unmovable by any
+// amount of new content on the site.
 async function queryGemini(prompt) {
   if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY not set");
   const systemPrompt = "You are a helpful assistant. Answer questions about UK property finance clearly and concisely. Name specific lenders and companies where relevant.";
   const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         system_instruction: { parts: [{ text: systemPrompt }] },
         contents: [{ role: "user", parts: [{ text: prompt }] }],
+        tools: [{ google_search: {} }],
         generationConfig: { maxOutputTokens: 600, temperature: 0.3 },
       }),
     }
@@ -240,7 +267,8 @@ async function queryGemini(prompt) {
     throw new Error(`Gemini API error ${response.status}: ${err}`);
   }
   const data = await response.json();
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+  const parts = data.candidates?.[0]?.content?.parts || [];
+  return parts.map((p) => p.text || "").join("");
 }
 
 // ─── Analysis ─────────────────────────────────────────────────────────────────
