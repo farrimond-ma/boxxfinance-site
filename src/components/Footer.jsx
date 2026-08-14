@@ -9,9 +9,8 @@ const Footer = () => {
                     <div className="footer-brand">
                         <Link to="/" className="footer-logo">
                             <img src="/logo.png" alt="Boxx Finance" className="footer-logo-img" />
-                            <span className="footer-logo-text"><span className="text-highlight">Commercial Finance</span></span>
                         </Link>
-                        <p>Funding Done Properly. Structured for Growth.</p>
+                        <p>Bridging Loans and Commercial Finance</p>
                     </div>
 
                     <div className="footer-links">
