@@ -561,7 +561,7 @@ async function main() {
   const servicesArg = args.find((a) => a.startsWith("--services="));
   const services = servicesArg
     ? servicesArg.replace("--services=", "").split(",")
-    : ["chatgpt", "perplexity", "claude"];
+    : ["chatgpt", "perplexity", "claude", "gemini"];
 
   try {
     const results = await runChecker({
