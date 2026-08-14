@@ -5,6 +5,22 @@ on:
     branches:
       - main
 
+# Without this, GitHub happily runs multiple deploys in parallel whenever
+# commits land close together (very common here — AM/PM/trigger blog
+# publishers, social bots and sitemap regen all push through the day).
+# Each deploy holds an FTP session open for 5-10 minutes; two overlapping
+# deploys mean two simultaneous FTP connections to the same SiteGround
+# account, and SiteGround's own connection-limit protection then rejects
+# one of them — the "Deploy via FTP" failures traced back to exactly this
+# (e.g. one commit triggered two deploy runs 27 seconds apart). Queuing
+# deploys one at a time removes the collision instead of just retrying
+# into it again. cancel-in-progress stays false — cancelling a deploy
+# mid-FTP-upload would leave the live site half-updated, worse than
+# waiting.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
