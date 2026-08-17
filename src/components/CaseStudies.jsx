@@ -4,31 +4,43 @@ import './CaseStudies.css';
 
 const caseStudies = [
     {
-        category: 'Asset Finance | Logistics Sector',
-        title: 'Warehouse Expansion Funding After High Street Decline',
-        situation: 'Our client, a national logistics firm, required funding to support the expansion of their warehouse operations.',
-        challenge: 'Their existing high street bank declined the application due to internal criteria.',
-        approach: 'We structured a proposal aligned to projected cash flow and sourced a specialist lender suited to the asset profile.',
-        outcome: 'Funding secured promptly, allowing expansion to proceed without disruption.',
-        client: 'J. Miller, Managing Director'
+        category: 'Bridging Loans | Buy-to-Let Refurbishment',
+        title: 'Glasgow Portfolio Expansion',
+        loanAmount: '£95,000',
+        ltv: '68% LTV',
+        completionTime: '11 days',
+        narrative: [
+            'A landlord in Glasgow identified an opportunity to purchase a two-bedroom flat that had been discounted because it required extensive refurbishment. Traditional lenders were unable to provide funding within the seller\'s timescale, putting the purchase at risk.',
+            'A bridging facility of £95,000 was arranged at 68% loan-to-value, enabling the client to complete the purchase and begin refurbishment immediately — a new kitchen, bathroom and heating system. Once the improvements were complete, the property\'s value increased significantly.'
+        ],
+        exitStrategy: 'Refinance onto a long-term buy-to-let mortgage following completion of the refurbishment.',
+        outcome: 'The landlord added another income-producing property to an existing portfolio while preserving cash reserves for future investments.'
     },
     {
-        category: 'Bridging Loans | Auction Purchase',
-        title: 'Securing an Auction Property Within a 28-Day Deadline',
-        situation: 'A property investor won a residential property at auction and needed to complete within the standard 28-day deadline, with a £34,000 deposit already at risk.',
-        challenge: 'A high street mortgage could not be arranged in time to meet the completion date.',
-        approach: 'We arranged a bridging loan at 65% LTV secured against the property, with a clear exit onto a buy-to-let mortgage once purchased.',
-        outcome: 'Funds released in 12 working days — well inside the auction deadline — protecting both the property and the deposit.',
-        client: 'S. Bell, Property Investor'
+        category: 'Bridging Loans | Portfolio Acquisition',
+        title: 'Manchester Buy-to-Let Acquisition',
+        loanAmount: '£245,000',
+        ltv: '72% LTV',
+        completionTime: '14 days',
+        narrative: [
+            'An experienced landlord in Manchester was given the opportunity to acquire a four-property package from a retiring investor. The transaction needed to complete quickly to prevent the properties being marketed more widely.',
+            'A bridging loan of £245,000 was arranged at 72% loan-to-value, allowing the client to secure all four properties within the required timeframe. Because the properties were already tenanted, the landlord generated rental income immediately after completion.'
+        ],
+        exitStrategy: 'Portfolio refinance through a specialist buy-to-let lender.',
+        outcome: 'The client expanded their rental portfolio in a single transaction and secured several properties below current market value.'
     },
     {
-        category: 'Bridging Loans | Property Development',
-        title: 'Time-Sensitive Mixed-Use Property Acquisition',
-        situation: 'An established property developer needed to secure a £1.2m mixed-use acquisition, with the seller requiring completion within three weeks.',
-        challenge: 'A standard commercial mortgage application could not be underwritten in the time available.',
-        approach: 'We structured a bridging facility at 65% LTV aligned with the developer\'s refinance exit and engaged a specialist lender used to fast turnarounds.',
-        outcome: 'Funding completed in 14 working days, securing the acquisition ahead of a competing buyer.',
-        client: 'R. Dawson, Managing Director'
+        category: 'Bridging Loans | Property Conversion',
+        title: 'Liverpool Property Conversion Project',
+        loanAmount: '£425,000',
+        ltv: '70% LTV',
+        completionTime: '9 days',
+        narrative: [
+            'A landlord in Liverpool acquired a large residential property intending to convert it into multiple self-contained apartments. Although the project was commercially viable, the property\'s condition made it unsuitable for conventional mortgage funding.',
+            'A bridging facility of £425,000 was arranged at 70% loan-to-value, providing the speed and flexibility required to complete the purchase. The conversion took six months and created four modern apartments, quickly let to long-term tenants.'
+        ],
+        exitStrategy: 'Refinancing onto a specialist investment mortgage based on the completed development\'s higher valuation.',
+        outcome: 'The landlord transformed an underutilised property into a high-yielding rental investment, substantially increasing both rental income and portfolio value.'
     }
 ];
 
@@ -47,27 +59,33 @@ const CaseStudies = () => {
                             <div className="cs-category">{study.category}</div>
                             <h3 className="cs-title">{study.title}</h3>
 
+                            <div className="cs-stats">
+                                <div className="cs-stat">
+                                    <span className="cs-stat-value">{study.loanAmount}</span>
+                                    <span className="cs-stat-label">Loan amount</span>
+                                </div>
+                                <div className="cs-stat">
+                                    <span className="cs-stat-value">{study.ltv}</span>
+                                    <span className="cs-stat-label">Loan-to-value</span>
+                                </div>
+                                <div className="cs-stat">
+                                    <span className="cs-stat-value">{study.completionTime}</span>
+                                    <span className="cs-stat-label">Completion</span>
+                                </div>
+                            </div>
+
                             <div className="cs-details">
+                                {study.narrative.map((para, i) => (
+                                    <p className="cs-narrative" key={i}>{para}</p>
+                                ))}
                                 <div className="cs-section">
-                                    <h4>Situation:</h4>
-                                    <p>{study.situation}</p>
-                                </div>
-                                <div className="cs-section">
-                                    <h4>Challenge:</h4>
-                                    <p>{study.challenge}</p>
-                                </div>
-                                <div className="cs-section">
-                                    <h4>Our Approach:</h4>
-                                    <p>{study.approach}</p>
+                                    <h4>Exit strategy:</h4>
+                                    <p>{study.exitStrategy}</p>
                                 </div>
                                 <div className="cs-section cs-outcome">
                                     <h4>Outcome:</h4>
                                     <p>{study.outcome}</p>
                                 </div>
-                            </div>
-
-                            <div className="cs-client">
-                                <p>{study.client}</p>
                             </div>
                         </div>
                     ))}

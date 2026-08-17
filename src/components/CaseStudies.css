@@ -55,6 +55,42 @@
     color: var(--color-white);
 }
 
+.cs-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cs-stat {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.cs-stat-value {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    line-height: 1.2;
+}
+
+.cs-stat-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.15rem;
+}
+
+.cs-narrative {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
 .cs-details {
     flex-grow: 1;
     display: flex;
@@ -91,19 +127,6 @@
 .cs-outcome p {
     font-weight: 500;
     color: var(--color-white);
-}
-
-.cs-client {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.cs-client p {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin: 0;
-    font-style: italic;
 }
 
 .cs-cta {
