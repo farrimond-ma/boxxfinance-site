@@ -66,6 +66,13 @@ export const FinalCtaBand = ({ ctaTo = '/chat-about-funding' }) => (
 );
 
 // Floating "Need funding?" pill — the single floating element on a page.
+//
+// NOT yet wired to the AI chat widget (built in src/components/chat/) —
+// deliberately held back until the chatbot has been tested on the internal
+// preview page (src/pages/ChatbotTest.jsx, /internal/chatbot-preview) and
+// signed off. The one-line flip when ready: swap this back to a button
+// calling useChatWidget().openChat(), same as the reverted version in git
+// history on this commit's parent.
 export const FloatingCta = ({ ctaTo = '/chat-about-funding' }) => (
     <Link to={ctaTo} className="resource-float-cta" aria-label="Need funding? Talk to us">
         <span>Need funding?</span> Talk to us

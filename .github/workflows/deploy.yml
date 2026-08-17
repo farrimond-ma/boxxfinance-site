@@ -68,6 +68,14 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
           server-dir: boxxfinance.co.uk/public_html/
+          # api/config.php holds the chatbot's live Anthropic API key and is
+          # placed on the server manually (see public/api/config.sample.php)
+          # — it's gitignored, so it never exists in the local dist/ this
+          # action syncs from. Without this exclude, the action's default
+          # delete-what's-missing-locally behaviour would wipe it on every
+          # single deploy.
+          exclude: |
+            **/api/config.php
 
       - name: Ping search engines with updated sitemap
         run: |

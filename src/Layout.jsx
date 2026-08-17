@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { ChatWidgetProvider } from './components/chat/ChatWidgetContext';
 import { useEffect } from 'react';
 
 const Layout = () => {
@@ -13,11 +14,13 @@ const Layout = () => {
 
     return (
         <div className="App">
-            <Navbar minimal={pathname === '/progress-your-application'} />
-            <main>
-                <Outlet />
-            </main>
-            <Footer />
+            <ChatWidgetProvider>
+                <Navbar minimal={pathname === '/progress-your-application'} />
+                <main>
+                    <Outlet />
+                </main>
+                <Footer />
+            </ChatWidgetProvider>
         </div>
     );
 };
