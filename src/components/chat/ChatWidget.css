@@ -2,11 +2,14 @@
     position: fixed;
     right: 20px;
     bottom: 20px;
-    z-index: 200;
+    /* Anchored to a top offset (not just a fixed height) so the panel can
+       never render under the fixed navbar (~4.9rem tall, z-index: 1000) —
+       a tall fixed height combined with a short viewport let the panel's
+       top edge land underneath it. */
+    top: 100px;
+    z-index: 1001;
     width: 380px;
     max-width: calc(100vw - 40px);
-    height: 600px;
-    max-height: calc(100vh - 100px);
     background: var(--color-white);
     border-radius: 16px;
     box-shadow: 0 20px 60px rgba(1, 8, 22, 0.35), 0 2px 8px rgba(1, 8, 22, 0.15);
