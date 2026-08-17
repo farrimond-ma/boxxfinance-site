@@ -20,14 +20,6 @@ function inferPageCategory(pathname) {
     return 'general site page';
 }
 
-const QUICK_STARTS = [
-    'I need a bridging loan',
-    "I'm buying at auction",
-    'I need to refinance',
-    'I need money quickly',
-    'I have a question about bridging',
-];
-
 function TypingIndicator() {
     return (
         <div className="chat-bubble chat-bubble-assistant chat-typing" aria-label="Typing">
@@ -130,14 +122,10 @@ const ChatWidget = ({ isOpen, onClose }) => {
                 {messages.length === 0 && (
                     <div className="chat-greeting">
                         <div className="chat-bubble chat-bubble-assistant">
-                            Looking for a bridging loan? Tell me what you're trying to finance and I'll help you work out what information a broker will need.
+                            Hi, welcome to Boxx Finance.
                         </div>
-                        <div className="chat-quick-starts">
-                            {QUICK_STARTS.map((qs) => (
-                                <button type="button" key={qs} className="chat-quick-start" onClick={() => sendMessage(qs)}>
-                                    {qs}
-                                </button>
-                            ))}
+                        <div className="chat-bubble chat-bubble-assistant">
+                            How can we help?
                         </div>
                     </div>
                 )}
