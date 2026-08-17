@@ -22,4 +22,12 @@ return [
     // Model used for the chat — Haiku is what the rest of the content
     // engine already uses for conversational (non-long-form) calls.
     'MODEL' => 'claude-haiku-4-5-20251001',
+
+    // Optional: pushes captured leads + full chat transcript directly to the
+    // CRM, in addition to the Google Sheet write above (see
+    // docs/chatbot-crm-sync.md for the endpoint spec this expects). Leave
+    // both blank/unset to skip the CRM push entirely — nothing breaks, it's
+    // just a no-op until the CRM side exists.
+    'CRM_CHATBOT_URL' => '',
+    'CRM_CHATBOT_KEY' => '',
 ];

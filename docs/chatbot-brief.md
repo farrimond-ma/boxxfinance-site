@@ -88,10 +88,10 @@ chat.
 - **Rate limiting** is a simple file-based per-IP counter (40 req/hour) in
   `chat.php` — adequate for a sales chat's real traffic level, not
   bulletproof against a determined abuser. Worth revisiting if traffic grows.
-- **CRM delivery**: leads currently go to the Sheet only, per the "start
-  simple" decision when this was scoped. Same pattern as
-  `scripts/content-engine/sync-backlinks-to-crm.js` could be used to also
-  push chatbot leads into the CRM once it has a suitable intake endpoint.
+- **CRM delivery**: implemented 2026-08-18 — `chat.php` now also pushes
+  captured leads plus the full chat transcript directly to the CRM (in
+  addition to the Sheet write), once `CRM_CHATBOT_URL`/`CRM_CHATBOT_KEY` are
+  set in `config.php`. See `docs/chatbot-crm-sync.md` for the endpoint spec.
 - **Model swap**: `MODEL` lives in `config.php`, not hardcoded, so changing
   providers only touches `chat.php`'s Anthropic-specific cURL call — the
   frontend and lead logic don't know or care which model answered.

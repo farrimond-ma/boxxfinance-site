@@ -187,6 +187,17 @@ if (is_array($leadData) && !empty($leadData['ready_to_submit'])) {
     $hasContact = !empty($leadData['telephone']) || !empty($leadData['email']);
     if ($hasName && $hasContact) {
         $leadCaptured = submitLead($leadData, $pageContext, $config['GOOGLE_SCRIPT_URL']);
+        // CRM push is independent of the Sheet write above — if CRM_CHATBOT_URL
+        // isn't configured yet (see docs/chatbot-crm-sync.md), this is a no-op,
+        // not a failure. $leadCaptured (used for the UI confirmation banner)
+        // reflects the Sheet write only.
+        if (!empty($config['CRM_CHATBOT_URL'])) {
+            // Include this turn's reply — $anthropicMessages only has the
+            // conversation up to the visitor's latest message, not the
+            // assistant's response that (usually) confirms the details back.
+            $fullTranscript = array_merge($anthropicMessages, [['role' => 'assistant', 'content' => $reply]]);
+            submitLeadToCrm($leadData, $pageContext, $fullTranscript, $config);
+        }
     }
 }
 
@@ -245,4 +256,58 @@ function submitLead($lead, $pageContext, $googleScriptUrl) {
     $ok = curl_errno($ch) === 0;
     curl_close($ch);
     return $ok;
+}
+
+// ─── Deliver the lead + full transcript to the CRM directly ──────────────
+// Separate from submitLead() above (which posts a one-line summary to the
+// Sheet every other form uses) — this sends the structured fields AND the
+// full back-and-forth conversation to a dedicated CRM endpoint, so an
+// adviser can read exactly how the visitor described their situation
+// instead of only a compressed summary. See docs/chatbot-crm-sync.md for
+// the receiving-endpoint spec. Best-effort: failure here never blocks the
+// chat response or the Sheet write above.
+function submitLeadToCrm($lead, $pageContext, $transcript, $config) {
+    $transcriptText = '';
+    foreach ($transcript as $turn) {
+        $speaker = $turn['role'] === 'user' ? 'Visitor' : 'Boxx AI';
+        $transcriptText .= "{$speaker}: {$turn['content']}\n\n";
+    }
+
+    $params = [
+        'intake_key' => $config['CRM_CHATBOT_KEY'] ?? '',
+        'source' => 'AI Chatbot',
+        'full_name' => $lead['name'] ?? '',
+        'email' => $lead['email'] ?? '',
+        'phone' => $lead['telephone'] ?? '',
+        'company' => $lead['company'] ?? '',
+        'finance_type' => $lead['finance_type'] ?? '',
+        'purpose' => $lead['purpose'] ?? '',
+        'property_type' => $lead['property_type'] ?? '',
+        'property_location' => $lead['property_location'] ?? '',
+        'property_value' => $lead['property_value'] ?? '',
+        'purchase_price' => $lead['purchase_price'] ?? '',
+        'loan_amount' => $lead['loan_required'] ?? '',
+        'existing_mortgage' => $lead['existing_mortgage'] ?? '',
+        'ltv_estimate' => $lead['ltv_estimate'] ?? '',
+        'exit_strategy' => $lead['exit_strategy'] ?? '',
+        'required_completion_date' => $lead['required_completion_date'] ?? '',
+        'term_required' => $lead['term_required'] ?? '',
+        'borrower_type' => $lead['borrower_type'] ?? '',
+        'additional_information' => $lead['additional_information'] ?? '',
+        'conversation_summary' => $lead['conversation_summary'] ?? '',
+        'lead_quality' => $lead['lead_quality'] ?? 'COLD',
+        'chat_transcript' => trim($transcriptText),
+        'page_url' => $pageContext['url'] ?? '',
+    ];
+
+    $ch = curl_init($config['CRM_CHATBOT_URL']);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => http_build_query($params),
+        CURLOPT_HTTPHEADER => ['Content-Type: application/x-www-form-urlencoded'],
+        CURLOPT_TIMEOUT => 15,
+    ]);
+    curl_exec($ch);
+    curl_close($ch);
 }
