@@ -165,9 +165,13 @@ $reply = '';
 if (preg_match('/<reply>(.*?)<\/reply>/s', $modelText, $m)) {
     $reply = trim($m[1]);
 } else {
-    // Model didn't follow the format — fall back to showing the raw text
-    // rather than a blank message, but this shouldn't happen in practice.
-    $reply = trim($modelText) !== '' ? trim($modelText) : "Sorry, could you rephrase that?";
+    // Model didn't follow the format exactly (e.g. dropped the closing tag).
+    // Strip out the lead_data block and any stray envelope tags so the raw
+    // JSON never reaches the visitor, even in this fallback path.
+    $fallback = preg_replace('/<lead_data>.*?<\/lead_data>/s', '', $modelText);
+    $fallback = str_replace(['<reply>', '</reply>'], '', $fallback);
+    $fallback = trim($fallback);
+    $reply = $fallback !== '' ? $fallback : "Sorry, could you rephrase that?";
 }
 
 $leadData = null;
