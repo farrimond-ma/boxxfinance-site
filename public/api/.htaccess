@@ -1,0 +1,7 @@
+# Re-allow PHP execution for this folder only — the root .htaccess blanket-denies
+# .php everywhere else on the site. This is the one deliberate exception: the
+# chatbot backend (chat.php, prompt.php) must be able to run. See docs/chatbot-brief.md.
+<FilesMatch "\.php$">
+  Order Deny,Allow
+  Allow from all
+</FilesMatch>

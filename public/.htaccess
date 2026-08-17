@@ -1,6 +1,9 @@
-# ── Block PHP execution ───────────────────────────────────────────────────────
-# This site is a React SPA — no PHP should ever execute.
-# If an attacker uploads a PHP file, this prevents it from running.
+# ── Block PHP execution (except the chatbot backend) ───────────────────────────
+# This site is a React SPA with one deliberate exception: public/api/ holds the
+# PHP backend for the AI chat widget (see docs/chatbot-brief.md), which has its
+# own .htaccess re-allowing PHP just for that folder. Everywhere else, PHP must
+# never execute — if an attacker uploads a PHP file outside api/, this still
+# stops it from running.
 <FilesMatch "\.php$">
   Order Allow,Deny
   Deny from all
