@@ -22,9 +22,9 @@ const ARTICLE_SCHEMA = {
     // hard requirements restated here, in sync with the prompt below.
     slug:              { type: 'string', description: 'URL slug, lowercase words separated by hyphens. No dates, no stop words.' },
     title:             { type: 'string', description: 'Article H1. Names the product using "bridging loans" (never "bridging finance") where relevant.' },
-    excerpt:           { type: 'string', description: 'Plain text only — NO markdown, NO HTML tags. One or two sentences, 25-40 words, shown on the insights listing card.' },
+    excerpt:           { type: 'string', description: 'Plain text only — NO markdown, NO HTML tags. One or two sentences, 25-40 words, shown on the insights listing card. Natural reader-facing prose ONLY — never an instruction to a generator or editor (e.g. never "link to the service page"), and never the raw target keyword phrase pasted in verbatim.' },
     metaTitle:         { type: 'string', description: 'SEO title tag, under 60 characters, front-loads the primary keyword.' },
-    metaDescription:   { type: 'string', description: 'SEO meta description, 140-158 characters, includes the primary keyword and a reason to click.' },
+    metaDescription:   { type: 'string', description: 'SEO meta description, 140-158 characters, includes the primary keyword and a reason to click. Natural reader-facing prose ONLY — never an instruction to a generator or editor, and never the raw target keyword phrase pasted in verbatim.' },
     primaryKeyword:    { type: 'string', description: 'The single target search phrase for this article.' },
     secondaryKeywords: { type: 'array', items: { type: 'string' }, description: '4-8 supporting search phrases actually used in the body copy.' },
     category:          { type: 'string', description: 'Service taxonomy value for this article.' },
@@ -432,6 +432,7 @@ OUTPUT RULES:
 - slug should be the keyword in lowercase with hyphens
 - metaTitle must be 20-60 characters and must NOT include "| Boxx Finance" or any brand suffix — the site template appends the brand automatically
 - excerpt and metaDescription must be PLAIN TEXT ONLY — absolutely no markdown links "[text](url)", no HTML tags, no URLs. They are rendered as raw text on listing cards, in Google results and in social posts, so any markup shows literally to the reader. Links belong in contentHtml only.
+- excerpt and metaDescription must read as natural sentences a person would write, never as an instruction to yourself or a note about the page structure. A real example that reached the live site: excerpt ending "Link to the service page to explore bridging finance for commercial property and how it can work for you." — that is a leaked generator instruction, not copy, and must never happen. Similarly, never paste the raw target keyword phrase into the middle of a sentence unchanged (e.g. "Discover more about how do bridging loans require income proof can support your business ambitions" is broken English caused by inserting the keyword literally) — reword the keyword into a grammatical sentence instead.
 - secondaryKeywords must be a JSON array of strings
 - Do NOT include an <h1> tag in contentHtml — the title is rendered separately on the page
 
@@ -530,6 +531,25 @@ ${row.service === 'Bridging Finance' ? `BRIDGING LOANS TERMINOLOGY (mandatory fo
     console.warn(`  Still ${words} words after expansion passes — publishing anyway, seo-audit will flag if under ${TARGET_WORDS}`);
   }
 
+  // ── Meta-copy validation (excerpt/metaDescription) — up to 1 fix pass each.
+  // Catches leaked generator instructions and broken keyword insertions before
+  // they publish. See auditMetaCopy for why this exists.
+  for (const field of ['excerpt', 'metaDescription']) {
+    let metaIssues = auditMetaCopy(article[field], row.keyword);
+    if (metaIssues.length > 0) {
+      console.log(`  ${field} audit: ${metaIssues.length} issue(s) found — fix pass...`);
+      metaIssues.forEach(i => console.log(`    ⚠ ${i}`));
+      article[field] = await fixMetaField(article[field], field, metaIssues, row.keyword);
+      metaIssues = auditMetaCopy(article[field], row.keyword);
+      if (metaIssues.length > 0) {
+        console.warn(`  ${field} still has ${metaIssues.length} issue(s) after fix pass:`);
+        metaIssues.forEach(i => console.warn(`    ⚠ ${i}`));
+      } else {
+        console.log(`  ${field} audit: clean after fix`);
+      }
+    }
+  }
+
   // ── Link & anchor validation loop (up to 2 targeted fix passes)
   // Title and slug are corrected in place rather than sent through the fix
   // loop: they are short, the correction is mechanical, and leaving them to the
@@ -573,6 +593,57 @@ ${row.service === 'Bridging Finance' ? `BRIDGING LOANS TERMINOLOGY (mandatory fo
   }
 
   return article;
+}
+
+// ─── Meta-copy audit — catches leaked generator instructions and broken
+// keyword insertions in excerpt/metaDescription before they publish. Both
+// fields are shown as raw, unescaped text on listing cards, in Google
+// results and in social posts — unlike contentHtml there is no HTML tag to
+// visually flag a mistake, so a leak here is invisible until a human reads
+// it. Found live on boxxfinance.co.uk 2026-08-17 (see git history), hence
+// this check.
+function auditMetaCopy(text, keyword) {
+  const issues = [];
+  if (!text) return issues;
+
+  if (/\bservice page\b/i.test(text))
+    issues.push('References "the service page" directly — reads as a leaked generator instruction, not visitor-facing copy. Rewrite as natural prose with no meta-reference to page structure.');
+
+  if (/\bthis (page|article)\b/i.test(text))
+    issues.push('References "this page/article" — meta-language that should never appear in an excerpt or description. Rewrite as natural prose.');
+
+  if (/\blink(?:ing)? to\b/i.test(text))
+    issues.push('Contains "link to" — reads as an instruction to a generator rather than reader-facing copy. Rewrite as natural prose with no instruction-like phrasing.');
+
+  if (/\babout how (do|does|can|should|would|is|are)\b/i.test(text))
+    issues.push('Contains an ungrammatical "about how do/does/can..." construction — a broken keyword insertion. Rewrite as a natural, grammatical sentence.');
+
+  if (keyword && keyword.split(/\s+/).length >= 4 && text.toLowerCase().includes(keyword.toLowerCase().trim()))
+    issues.push(`Contains the raw target keyword phrase "${keyword}" pasted in verbatim — reword it into a natural sentence instead of inserting the keyword directly.`);
+
+  return issues;
+}
+
+// Regenerates a single short meta field (excerpt or metaDescription) that
+// failed auditMetaCopy, given the specific issues found. Kept separate from
+// fixContentIssues below since this operates on a sentence, not an HTML body.
+async function fixMetaField(text, fieldName, issues, keyword) {
+  const issueList = issues.map((msg, i) => `${i + 1}. ${msg}`).join('\n');
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o',
+    max_tokens: 300,
+    messages: [
+      {
+        role: 'system',
+        content: 'You are a UK SEO copy editor. Rewrite the given text to fix only the specific issues listed, keeping the same length and meaning as closely as possible. Return ONLY the corrected text, no quotes, no explanation, no markdown.',
+      },
+      {
+        role: 'user',
+        content: `Field: ${fieldName}\nTarget keyword: ${keyword}\n\nIssues to fix:\n${issueList}\n\nOriginal text:\n${text}`,
+      },
+    ],
+  });
+  return response.choices[0].message.content.trim().replace(/^["']|["']$/g, '');
 }
 
 // ─── Inline content audit — same rules as seo-audit.js ──────────────────────

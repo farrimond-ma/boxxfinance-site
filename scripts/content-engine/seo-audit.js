@@ -73,6 +73,27 @@ function auditPostData(posts) {
     if (!post.excerpt)
       pf.push(issue('WARN', 'excerpt', 'Missing excerpt'));
 
+    // ── Leaked generator instructions / broken keyword insertions in
+    // excerpt & metaDescription. Both are shown as raw, unescaped text on
+    // listing cards, in Google results and in social posts — there is no
+    // HTML tag to visually flag a mistake here the way there is in content,
+    // so a leak is invisible until a human reads it. ERROR because these
+    // read as broken/unprofessional copy to every visitor who sees them.
+    // Mirrors auditMetaCopy() in publish-blog.js (kept as a duplicate check
+    // rather than a shared import since these are independent CLI entrypoints).
+    for (const field of ['excerpt', 'metaDescription']) {
+      const text = post[field];
+      if (!text) continue;
+      if (/\bservice page\b/i.test(text))
+        pf.push(issue('ERROR', field, 'References "the service page" directly — leaked generator instruction, not visitor-facing copy'));
+      if (/\bthis (page|article)\b/i.test(text))
+        pf.push(issue('ERROR', field, 'References "this page/article" — meta-language that should never appear here'));
+      if (/\blink(?:ing)? to\b/i.test(text))
+        pf.push(issue('ERROR', field, 'Contains "link to" — reads as a leaked generator instruction'));
+      if (/\babout how (do|does|can|should|would|is|are)\b/i.test(text))
+        pf.push(issue('ERROR', field, 'Ungrammatical "about how do/does/can..." construction — broken keyword insertion'));
+    }
+
     // ── Content length
     // ERROR only for truly empty/broken content (< 300 words).
     // WARN for content below the 1200-word target — flags for regeneration
