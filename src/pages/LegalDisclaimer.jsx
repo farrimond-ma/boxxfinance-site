@@ -29,7 +29,7 @@ const LegalDisclaimer = () => {
                             <p>The content on this website is for information purposes only and does not constitute financial or professional advice. We recommend that you seek independent professional advice before entering into any financial agreement.</p>
 
                             <h2>3. Regulatory Status</h2>
-                            <p>Commercial finance is not regulated by the Financial Conduct Authority (FCA). As such, Boxx Finance is not authorised or regulated by the FCA for commercial finance activities.</p>
+                            <p>Boxx Finance can provide regulated and non-regulated bridging loans and is authorised and regulated by the FCA to provide such services.</p>
 
                             <h2>4. Commission Disclosure</h2>
                             <p>We may receive a commission or finder's fee from lenders for arranging finance. The amount of commission may vary depending on the lender, the product, and the complexity of the deal. You have the right to request information about any commissions we may receive.</p>
