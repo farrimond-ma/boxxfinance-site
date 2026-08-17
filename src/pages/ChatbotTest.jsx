@@ -2,16 +2,12 @@ import React, { useEffect } from 'react';
 import SEO from '../components/SEO';
 import { ChatWidgetProvider, useChatWidget } from '../components/chat/ChatWidgetContext';
 
-// Internal-only page for testing the AI chatbot before it's wired up to the
-// real "Talk to us" button sitewide (see FloatingCta in ResourceHero.jsx,
-// deliberately left untouched pointing at /chat-about-funding until this is
-// signed off). NOT in the sitemap, NOT linked from anywhere on the site,
-// and noindex'd below as a second layer of "don't get found by accident" —
-// reachable only if you know this exact URL.
-//
-// Once the chatbot is approved, the one line to flip is FloatingCta's
-// onClick back to opening the widget instead of navigating to the form —
-// this page and its route can stay or be removed at that point, your call.
+// Internal-only page originally used to test the AI chatbot before it went
+// live sitewide (2026-08-17 — the "Talk to us" pill in Layout.jsx now opens
+// the chat widget everywhere). Kept as a standalone, isolated place to test
+// prompt/behaviour changes going forward. NOT in the sitemap, NOT linked
+// from anywhere on the site, and noindex'd below as a second layer of
+// "don't get found by accident" — reachable only if you know this exact URL.
 
 const AutoOpen = () => {
     const { openChat } = useChatWidget();

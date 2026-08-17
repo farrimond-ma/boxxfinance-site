@@ -1,14 +1,22 @@
-﻿name: Publish Blog (1 of 2)
-# Two parallel blog publishers run on staggered times to lift daily throughput —
-# the "(1 of 2)" / "(2 of 2)" naming is NOT morning/afternoon. This one handles
-# the AM slot in the ContentEngine sheet (publish-blog.js PUBLISH_SLOT default = AM).
+﻿name: Publish Blog
+# 2026-08-17: consolidated from 3 separate daily streams (this AM publisher
+# running twice a day, a PM publisher running twice a day, and a separate
+# trigger-event publisher) down to ONE run, weekdays only — fewer, longer,
+# more detailed posts instead of a high-volume queue. The old cadence
+# produced near-duplicate articles on the same topic published days apart
+# (see the cannibalisation cleanup in git history the same day) because
+# nothing checked for existing coverage before queuing a keyword.
+#
+# publish-blog.js now checks TRIGGER-slot rows first, then AM, then PM (see
+# SLOT_PRIORITY in getScheduledRow) — so this single run picks up whichever
+# type of content is actually due that day, from any of the old queues.
+# publish-blog-pm.yml and publish-blog-trigger.yml are retired (schedule
+# removed, workflow_dispatch kept for manual/emergency use).
 
 on:
   schedule:
-    # 6:37 AM UTC = 7:37 AM UK time (BST). Runs every day. (staggered off :30 to dodge scheduler queueing)
-    - cron: '37 6 * * *'
-    # Second AM-slot run added 2026-07-15 to drain the backlog faster (doubles AM throughput to ~2/day)
-    - cron: '37 12 * * *'
+    # 6:37 AM UTC = 7:37 AM UK time (BST). Weekdays only.
+    - cron: '37 6 * * 1-5'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 permissions:

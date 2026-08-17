@@ -239,8 +239,8 @@ This must feel written by someone who actually brokers deals in ${row.city} — 
 4. <h2>Our ${row.service} Solutions for ${row.city} Businesses</h2>
 What Boxx actually offers — amounts, terms, lender types, timescales. Link ${serviceUrl} at least once more using keyword-rich anchor text (e.g. "specialist ${row.service.toLowerCase()} solutions"). Practical and specific — no waffle. 1–2 paragraphs.
 
-5. <h2>A Recent ${row.city} Success Story</h2>
-An anonymised but realistic case study. "Recently, we helped a ${row.city}-based [specific type of business]..." — include a realistic funding amount, the challenge they faced, what product was arranged, and the outcome. This is highly persuasive for local visitors. 1 solid paragraph.
+5. <h2>A Typical ${row.city} Scenario</h2>
+An illustrative, realistic example of how ${row.service.toLowerCase()} works for a ${row.city} business — framed explicitly as an illustration, NOT as a specific real event. Use hedged language throughout: "For example, a ${row.city} business might..." or "A typical case looks like this:...". NEVER write "Recently, we helped..." or present invented specifics (an exact funding amount, an exact timeline, a named outcome) as if they are a real historical event — that reads as a fabricated testimonial, which is misleading to readers and a genuine risk under the ASA CAP Code for financial services advertising. Realistic ballpark figures are fine to illustrate scale (e.g. "funding of around £150,000") as long as the framing stays clearly hypothetical. 1 solid paragraph.
 
 6. <h2>How the Process Works</h2>
 Four clear steps: initial enquiry → lender matching → offer received → completion. Brief and reassuring — show it's straightforward. Use a numbered list or 4 short sentences.
@@ -264,6 +264,8 @@ TONE AND QUALITY:
 - Include natural keyword variations: "${row.service.toLowerCase()} ${row.city}", "${row.service.toLowerCase()} broker ${row.city}", "business finance ${row.city}", "SME funding ${row.city}"
 - Mention "Boxx Finance" 2–3 times — as plain text, NOT as a hyperlink
 - Do NOT add a link to https://boxxfinance.co.uk/#about or https://boxxfinance.co.uk/about-us
+- NEVER promise or guarantee a specific outcome — no "the best rate(s)/terms/deal", "ensuring you get...", "guarantees a...". Use "competitive rates/terms" instead. Boxx cannot promise any individual applicant the best rate on the market, only access to a lender panel.
+- ALWAYS use the £ symbol for money — "£50,000", never "50,000 pounds"
 
 INTERNAL LINKS — mandatory, keyword-rich anchor text only:
 - ${serviceUrl}: at least 2 links, anchor text like "${row.service.toLowerCase()} for ${row.city} businesses" or "specialist ${row.service.toLowerCase()} solutions"
@@ -322,8 +324,8 @@ This must feel written by someone who actually arranges bridging loans in ${city
 4. <h2>Our Bridging Loan Solutions for ${city} Borrowers</h2>
 What Boxx actually offers — loan amounts, terms, lender types, timescales, exit strategies (sale, remortgage, development completion). Link ${serviceUrl} at least once more using keyword-rich anchor text (e.g. "specialist bridging loan solutions"). Practical and specific — no waffle. 1–2 paragraphs.
 
-5. <h2>A Recent ${city} Success Story</h2>
-An anonymised but realistic case study about a homeowner, landlord, or property investor — NOT a business. "Recently, we helped a ${city}-based [homeowner / landlord / property investor]..." — include a realistic loan amount, the challenge they faced (chain break, auction deadline, refurbishment), what was arranged, and the outcome. 1 solid paragraph.
+5. <h2>A Typical ${city} Scenario</h2>
+An illustrative, realistic example of how a bridging loan works for a homeowner, landlord, or property investor in ${city} — framed explicitly as an illustration, NOT as a specific real event. Use hedged language throughout: "For example, a landlord in ${city} might..." or "A typical case looks like this:...". NEVER write "Recently, we helped..." or present invented specifics (an exact loan amount, an exact timeline, a named outcome) as if they are a real historical event — that reads as a fabricated testimonial, which is misleading to readers and a genuine risk under the ASA CAP Code for financial services advertising. Realistic ballpark figures are fine to illustrate scale (e.g. "a loan of around £250,000") as long as the framing stays clearly hypothetical. 1 solid paragraph.
 
 6. <h2>How the Process Works</h2>
 Four clear steps: initial enquiry → lender matching → offer received → completion. Brief and reassuring — show it's straightforward. Use a numbered list or 4 short sentences.
@@ -347,6 +349,8 @@ TONE AND QUALITY:
 - Include natural keyword variations: "bridging loans ${city}", "bridging loan broker ${city}", "bridging loan lender ${city}", "property finance ${city}"
 - Mention "Boxx Finance" 2–3 times — as plain text, NOT as a hyperlink
 - Do NOT add a link to https://boxxfinance.co.uk/#about or https://boxxfinance.co.uk/about-us
+- NEVER promise or guarantee a specific outcome — no "the best rate(s)/terms/deal", "ensuring you get...", "guarantees a...". Use "competitive rates/terms" instead. Boxx cannot promise any individual borrower the best rate on the market, only access to a lender panel.
+- ALWAYS use the £ symbol for money — "£50,000", never "50,000 pounds"
 
 BRIDGING TERMINOLOGY (mandatory):
 - "Bridging loans" is the ONLY primary term. Use "bridging loan" / "bridging loans" throughout. Do NOT use "bridging finance" — we are deliberately concentrating all ranking signal on "bridging loans". If a sentence would naturally reach for "bridging finance", rewrite it with "bridging loan(s)" or a neutral phrase like "short-term property finance".
@@ -372,6 +376,51 @@ faqSchema: valid @type: FAQPage object, exactly matching the FAQ section in cont
 function toPublicServiceSlug(service) {
   const raw = (service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
   return raw === 'bridging-finance' ? 'bridging-loans' : raw;
+}
+
+// ─── Deterministic compliance-language fixer ──────────────────────────────────
+// Catches two mistakes the model makes despite the prompt-level instructions
+// above: absolute rate/outcome promises ("the best rate", "ensuring you get",
+// "guarantees a...") and spelled-out currency ("50,000 pounds" instead of
+// "£50,000"). Found live across 64 of 340 published location pages on
+// 2026-08-17 (see git history) — this runs on every new page so it can't
+// recur. Deterministic regex rather than another model call: cheap, instant,
+// and these are simple, well-defined phrase substitutions, not judgement calls.
+function fixComplianceLanguage(text) {
+  if (!text) return { text, subs: 0 };
+  let subs = 0;
+  const count = (replacement) => (...args) => { subs++; return replacement; };
+
+  let out = text
+    .replace(/ensuring you get the fastest decision and the best available rates/gi, count('helping you access fast decisions and competitive rates'))
+    .replace(/Working with Boxx Finance guarantees a smooth, transparent loan process/g, count('Working with Boxx Finance means a smooth, transparent loan process'))
+    .replace(/our expertise and local knowledge guarantee that you're in safe hands/gi, count("our expertise and local knowledge mean you're in safe hands"))
+    .replace(/\bensuring you get\b/gi, count('helping you access'))
+    .replace(/\bbest available rates\b/gi, count('competitive rates'))
+    .replace(/\bbest available rate\b/gi, count('competitive rate'))
+    .replace(/\bbest available terms\b/gi, count('competitive terms'))
+    .replace(/\bbest rates\b/gi, count('competitive rates'))
+    .replace(/\bbest rate\b/gi, count('competitive rate'))
+    .replace(/\bbest terms\b/gi, count('competitive terms'))
+    .replace(/\bbest deal\b/gi, count('competitive deal'))
+    .replace(/\bsecuring the best\b/gi, count('securing a competitive'))
+    // Article cleanup for the substitutions above ("the best rate" -> "the
+    // competitive rate" reads wrong once "best" is no longer superlative)
+    .replace(/\bthe competitive rates\b/g, count('competitive rates'))
+    .replace(/\bThe competitive rates\b/g, count('Competitive rates'))
+    .replace(/\bthe competitive terms\b/g, count('competitive terms'))
+    .replace(/\bThe competitive terms\b/g, count('Competitive terms'))
+    .replace(/\bthe competitive rate\b/g, count('a competitive rate'))
+    .replace(/\bThe competitive rate\b/g, count('A competitive rate'))
+    .replace(/\bthe competitive deal\b/g, count('a competitive deal'))
+    .replace(/\bThe competitive deal\b/g, count('A competitive deal'))
+    // "50,000 pounds" / "1.2 million pounds" -> "£50,000" / "£1.2 million"
+    .replace(/([\d,]+(?:\.\d+)?)\s*(million\s+)?pounds\b/gi, (match, num, million) => {
+      subs++;
+      return `£${num}${million ? ' million' : ''}`;
+    });
+
+  return { text: out, subs };
 }
 
 // ─── Generate location page with OpenAI ──────────────────────────────────────
@@ -413,6 +462,15 @@ async function generateLocationPage(row, relatedBlogs) {
   } catch (err) {
     logJsonFailure(err);
     throw err;
+  }
+
+  const fixed = fixComplianceLanguage(page.content);
+  if (fixed.subs > 0) {
+    console.log(`  Compliance-language audit: ${fixed.subs} fix(es) applied (guarantee-style wording / spelled-out currency)`);
+    page.content = fixed.text;
+  }
+  if (page.metaDescription) {
+    page.metaDescription = fixComplianceLanguage(page.metaDescription).text;
   }
 
   return page;

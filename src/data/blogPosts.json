@@ -3634,7 +3634,7 @@
   },
   {
     "id": 1781271580116,
-    "status": "published",
+    "status": "redirected",
     "slug": "how-fast-can-you-get-bridging-loan",
     "url": "/insights/how-fast-can-you-get-bridging-loan",
     "title": "How Fast Can You Get a Bridging Loan in the UK?",
@@ -3700,7 +3700,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": false,
-    "reelPosted": true
+    "reelPosted": true,
+    "redirectTo": "/insights/same-day-bridging-loan-uk"
   },
   {
     "id": 1781343938125,
@@ -3992,7 +3993,7 @@
   },
   {
     "id": 1781527986790,
-    "status": "published",
+    "status": "redirected",
     "slug": "fast-bridging-loans-uk",
     "url": "/insights/fast-bridging-loans-uk",
     "title": "Fast Bridging Loans UK",
@@ -4056,7 +4057,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": false,
-    "reelPosted": true
+    "reelPosted": true,
+    "redirectTo": "/insights/same-day-bridging-loan-uk"
   },
   {
     "id": 1781539001783,
@@ -4208,7 +4210,7 @@
   },
   {
     "id": 1781623363610,
-    "status": "published",
+    "status": "redirected",
     "slug": "monthly-vs-rolled-up-interest-bridging",
     "url": "/insights/monthly-vs-rolled-up-interest-bridging",
     "title": "Monthly vs Rolled-Up Interest on Bridging Loans",
@@ -4274,11 +4276,12 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": false,
-    "reelPosted": true
+    "reelPosted": true,
+    "redirectTo": "/insights/bridging-loan-interest-options"
   },
   {
     "id": 1781695441696,
-    "status": "published",
+    "status": "redirected",
     "slug": "open-vs-closed-bridging-loans",
     "url": "/insights/open-vs-closed-bridging-loans",
     "title": "Open Vs Closed Bridging Loans",
@@ -4344,7 +4347,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": false,
-    "reelPosted": true
+    "reelPosted": true,
+    "redirectTo": "/insights/closed-vs-open-bridging-loan"
   },
   {
     "id": 1781704757218,
@@ -4724,7 +4728,7 @@
   },
   {
     "id": 1781957258188,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-valuation-process",
     "url": "/insights/bridging-loan-valuation-process",
     "title": "Bridging Loan Valuations: What You Need to Know",
@@ -4798,7 +4802,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": false,
-    "reelPosted": true
+    "reelPosted": true,
+    "redirectTo": "/insights/bridging-loan-valuation-uk"
   },
   {
     "id": 1782037281176,
@@ -4880,7 +4885,7 @@
   },
   {
     "id": 1782044418623,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-without-full-valuation",
     "url": "/insights/bridging-loan-without-full-valuation",
     "title": "Bridging Loans Without a Full Valuation",
@@ -4942,7 +4947,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/desktop-valuation-bridging-loan"
   },
   {
     "id": 1782131882091,
@@ -5091,7 +5097,7 @@
   },
   {
     "id": 1782210208625,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loans-for-auction-purchases",
     "url": "/insights/bridging-loans-for-auction-purchases",
     "title": "Bridging Loans for Auction Purchases: Meeting the 28-Day Deadline",
@@ -5158,7 +5164,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": false,
-    "reelPosted": true
+    "reelPosted": true,
+    "redirectTo": "/insights/auction-finance-28-days-uk"
   },
   {
     "id": 1782218740200,
@@ -5536,7 +5543,7 @@
   },
   {
     "id": 1782468058403,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-bad-credit",
     "url": "/insights/bridging-loan-bad-credit",
     "title": "Can You Get a Bridging Loan with Bad Credit?",
@@ -5602,7 +5609,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/bridging-loan-bad-credit-uk"
   },
   {
     "id": 1782476734246,
@@ -5833,7 +5841,7 @@
   },
   {
     "id": 1782639931300,
-    "status": "published",
+    "status": "redirected",
     "slug": "how-quickly-can-you-get-a-bridging-loan",
     "url": "/insights/how-quickly-can-you-get-a-bridging-loan",
     "title": "How Quickly Can You Get a Bridging Loan?",
@@ -5899,7 +5907,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/same-day-bridging-loan-uk"
   },
   {
     "id": 1782647854776,
@@ -6277,7 +6286,7 @@
   },
   {
     "id": 1783501889128,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-for-uninhabitable-property",
     "url": "/insights/bridging-loan-for-uninhabitable-property",
     "title": "Bridging Loans for Uninhabitable Properties: What Lenders Accept",
@@ -6351,7 +6360,8 @@
     "fbPosted": false,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/short-term-finance-for-unmortgageable-property-uk"
   },
   {
     "id": 1783511769604,
@@ -6947,7 +6957,7 @@
   },
   {
     "id": 1783936631264,
-    "status": "published",
+    "status": "redirected",
     "slug": "open-vs-closed-bridging-loan",
     "url": "/insights/open-vs-closed-bridging-loan",
     "title": "Open vs. Closed Bridging Loans: Which Do You Need?",
@@ -7021,7 +7031,8 @@
     "fbPosted": false,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/closed-vs-open-bridging-loan"
   },
   {
     "id": 1783946495991,
@@ -9363,7 +9374,7 @@
   },
   {
     "id": 1785230905825,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-finance-unmortgageable-property",
     "url": "/insights/bridging-finance-unmortgageable-property",
     "title": "Bridging Loans for Unmortgageable Property: Your Options Explained",
@@ -9455,7 +9466,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": false,
-    "reelPosted": true
+    "reelPosted": true,
+    "redirectTo": "/insights/short-term-finance-for-unmortgageable-property-uk"
   },
   {
     "id": 1785240652762,
@@ -10369,7 +10381,7 @@
   },
   {
     "id": 1785490186941,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-uninhabitable-property-uk",
     "url": "/insights/bridging-loan-uninhabitable-property-uk",
     "title": "Bridging Loans for Uninhabitable Property: What Lenders Want to See",
@@ -10404,7 +10416,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": false,
-    "reelPosted": true
+    "reelPosted": true,
+    "redirectTo": "/insights/short-term-finance-for-unmortgageable-property-uk"
   },
   {
     "id": 1785499960498,
@@ -11028,7 +11041,7 @@
   },
   {
     "id": 1785680015925,
-    "status": "published",
+    "status": "redirected",
     "slug": "auction-finance-uk",
     "url": "/insights/auction-finance-uk",
     "title": "Auction Finance: How to Buy Property at Auction",
@@ -11112,7 +11125,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/how-to-finance-auction-property-uk"
   },
   {
     "id": 1785687164199,
@@ -11434,7 +11448,7 @@
   },
   {
     "id": 1785921864939,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-finance-auction-property-uk",
     "url": "/insights/bridging-finance-auction-property-uk",
     "title": "Bridging Loans for Auction Property Purchases in the UK",
@@ -11526,7 +11540,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": false,
-    "reelPosted": true
+    "reelPosted": true,
+    "redirectTo": "/insights/how-to-finance-auction-property-uk"
   },
   {
     "id": 1785931934758,
@@ -11887,7 +11902,7 @@
   },
   {
     "id": 1786186182164,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-fast-completion",
     "url": "/insights/bridging-loan-fast-completion",
     "title": "Bridging Finance for Fast Property Completions",
@@ -11971,7 +11986,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/same-day-bridging-loan-uk"
   },
   {
     "id": 1786261223350,
@@ -12102,7 +12118,7 @@
   },
   {
     "id": 1786349875896,
-    "status": "published",
+    "status": "redirected",
     "slug": "property-auction-finance-same-day-decision",
     "url": "/insights/property-auction-finance-same-day-decision",
     "title": "Same-Day Bridging Loan Decisions for Property Auctions",
@@ -12194,7 +12210,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/fast-bridging-loan-for-auction-property"
   },
   {
     "id": 1786360826692,
@@ -12373,7 +12390,7 @@
   },
   {
     "id": 1786521795815,
-    "status": "published",
+    "status": "redirected",
     "slug": "finance-for-property-auction-uk-guide",
     "url": "/insights/finance-for-property-auction-uk-guide",
     "title": "The Complete UK Guide to Bridging Loans for Property Auctions",
@@ -12457,7 +12474,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/how-to-finance-auction-property-uk"
   },
   {
     "id": 1786533080141,
@@ -12684,7 +12702,7 @@
   },
   {
     "id": 1786694525319,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-finance-24-hours-uk",
     "url": "/insights/bridging-finance-24-hours-uk",
     "title": "Get a Bridging Loan Approved in 24 Hours Across the UK",
@@ -12728,7 +12746,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/same-day-bridging-loan-uk"
   },
   {
     "id": 1786699406375,
@@ -12916,7 +12935,7 @@
   },
   {
     "id": 1786777911550,
-    "status": "published",
+    "status": "redirected",
     "slug": "fastest-bridging-loan-uk",
     "url": "/insights/fastest-bridging-loan-uk",
     "title": "Quick Bridging Loans: Find the Fastest Option for Your UK Move",
@@ -12951,11 +12970,12 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/same-day-bridging-loan-uk"
   },
   {
     "id": 1786783599846,
-    "status": "published",
+    "status": "redirected",
     "slug": "how-long-do-you-actually-have-to-complete-on-an-auction-property",
     "url": "/insights/how-long-do-you-actually-have-to-complete-on-an-auction-property",
     "title": "How Long Do You Actually Have To Complete On An Auction Property?",
@@ -12990,7 +13010,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/auction-finance-28-days-uk"
   },
   {
     "id": 1786973234647,

@@ -4,7 +4,7 @@ import './ServicePage.css';
 
 import { serviceContent } from '../data/services';
 import SEO from '../components/SEO';
-import ResourceHero, { FinalCtaBand, FloatingCta } from '../components/resource/ResourceHero';
+import ResourceHero, { FinalCtaBand } from '../components/resource/ResourceHero';
 import FundingCards from '../components/resource/FundingCards';
 import { pickHero } from '../components/resource/heroPool';
 import '../components/resource/ResourcePage.css';
@@ -58,7 +58,6 @@ const ServicePage = () => {
             </div>
 
             <FinalCtaBand ctaTo={ctaTo} />
-            <FloatingCta ctaTo={ctaTo} />
         </div>
     );
 };

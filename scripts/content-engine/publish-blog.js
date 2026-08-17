@@ -29,7 +29,7 @@ const ARTICLE_SCHEMA = {
     secondaryKeywords: { type: 'array', items: { type: 'string' }, description: '4-8 supporting search phrases actually used in the body copy.' },
     category:          { type: 'string', description: 'Service taxonomy value for this article.' },
     contentHtml:       { type: 'string', description:
-      'The full article body as valid HTML, minimum 1250 words. ' +
+      'The full article body as valid HTML, minimum 2200 words. ' +
       'MUST end with a "Frequently Asked Questions" H2 section containing the same 5-7 Q&As as faqSchema, ' +
       'each question as its own <h3> using the EXACT SAME WORDING as the matching faqSchema question — ' +
       'not <dl>/<dt>/<dd> — so AI crawlers that parse heading structure see the same question the schema declares. ' +
@@ -103,11 +103,13 @@ const GITHUB_OWNER = process.env.GITHUB_OWNER;
 const GITHUB_REPO = process.env.GITHUB_REPO;
 const BLOG_FILE = 'src/data/blogPosts.json';
 
-// seo-audit.js WARNs below 1200 words. We demand a buffer above that from
-// generation so the humanizer pass (which may trim up to 10%) still lands
-// the final article over the audit target.
-const TARGET_WORDS = 1200;
-const GENERATION_MIN_WORDS = 1250;
+// 2026-08-17: raised from 1200/1250 alongside the move to fewer, longer,
+// weekday-only posts (see publish-blog.yml). seo-audit.js WARNs below
+// TARGET_WORDS. We demand a buffer above that from generation so the
+// humanizer pass (which may trim up to 10%) still lands the final article
+// over the audit target.
+const TARGET_WORDS = 2000;
+const GENERATION_MIN_WORDS = 2200;
 
 // Minimum internal links per article. Both floors are measured against the
 // published corpus, not aspiration — a gate set above what good articles
@@ -211,15 +213,31 @@ async function getSheetsClient() {
 }
 
 // ─── Get one scheduled blog row ──────────────────────────────────────────────
-// PUBLISH_SLOT controls which slot this run handles: 'AM' (regular content)
-// or 'PM' (visibility-gap content added by the weekly visibility sync).
-// Defaults to 'AM' so existing behaviour is unchanged when not set.
+// 2026-08-17: publishing consolidated to a single weekday slot (was 3 separate
+// daily streams — AM, PM and trigger-event — publishing up to ~14-21 posts/week
+// between them). One post per weekday now, longer and more detailed, to stop
+// the topic-scheduling collisions that produced near-duplicate articles (see
+// the SPEED/AUCTION/etc. cannibalisation cleanup in git history the same day).
+//
+// SLOT_PRIORITY defines what a single run looks for, in order: trigger-event
+// content first (time-sensitive, and deliberately a slow/high-quality stream
+// already — see publish-blog-trigger.yml), then whatever's due in the AM or
+// PM queues (PM checked too so rows already tagged PM in the sheet from
+// before this change don't get stranded).
+//
+// PUBLISH_SLOT can still override this to restrict a run to exactly one slot
+// (e.g. for a manual workflow_dispatch test run) — unset, it uses the merged
+// priority order above.
 //
 // SERVICE_FILTER (optional): if set, only publish rows for that service.
 // e.g. SERVICE_FILTER=Bridging Finance restricts to bridging finance content
 // during the strategic pivot period.
+const SLOT_PRIORITY = ['TRIGGER', 'AM', 'PM'];
+
 async function getScheduledRow(sheets) {
-  const slot          = (process.env.PUBLISH_SLOT || 'AM').toUpperCase();
+  const slots = process.env.PUBLISH_SLOT
+    ? [process.env.PUBLISH_SLOT.toUpperCase()]
+    : SLOT_PRIORITY;
   const serviceFilter = (process.env.SERVICE_FILTER || '').trim().toLowerCase();
 
   // A2:AD, not A2:AC — column AD carries contentFramework (e.g. 'trigger-event'),
@@ -237,41 +255,43 @@ async function getScheduledRow(sheets) {
     console.log(`  SERVICE_FILTER active: only publishing "${process.env.SERVICE_FILTER}" content`);
   }
 
-  for (let i = 0; i < rows.length; i++) {
-    const row = rows[i];
-    const type        = (row[1] || '').toLowerCase().trim();
-    const status      = (row[2] || '').toLowerCase().trim();
-    const publishDate = (row[3] || '').trim();
-    const publishSlot = (row[4] || 'AM').toUpperCase().trim();
-    const service     = (row[5] || '').trim();
+  const buildRow = (row, i) => ({
+    rowIndex: i + 2,
+    id: row[0] || '',
+    publishDate: (row[3] || '').trim(),
+    publishSlot: row[4] || 'AM',
+    service: row[5] || '',
+    city: row[6] || '',
+    keyword: row[7] || '',
+    topic: row[8] || '',
+    title: row[9] || '',
+    slug: row[10] || '',
+    url: row[11] || '',
+    metaTitle: row[12] || '',
+    metaDescription: row[13] || '',
+    category: row[14] || '',
+    contentBrief: row[15] || '',
+    faqRequired: row[23] || 'yes',
+    linkedInRequired: row[24] || 'no',
+    author: row[25] || 'Mark Higgins',
+    internalLinkService: row[16] || '',
+    notes: row[28] || '',
+    contentFramework: (row[29] || '').trim().toLowerCase(),
+  });
 
-    // Skip rows that don't match the service filter
-    if (serviceFilter && service.toLowerCase() !== serviceFilter) continue;
+  for (const slot of slots) {
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      const type        = (row[1] || '').toLowerCase().trim();
+      const status      = (row[2] || '').toLowerCase().trim();
+      const publishDate = (row[3] || '').trim();
+      const publishSlot = (row[4] || 'AM').toUpperCase().trim();
+      const service     = (row[5] || '').trim();
 
-    if (type === 'blog' && status === 'scheduled' && publishDate <= today && publishSlot === slot) {
-      return {
-        rowIndex: i + 2,
-        id: row[0] || '',
-        publishDate,
-        publishSlot: row[4] || 'AM',
-        service: row[5] || '',
-        city: row[6] || '',
-        keyword: row[7] || '',
-        topic: row[8] || '',
-        title: row[9] || '',
-        slug: row[10] || '',
-        url: row[11] || '',
-        metaTitle: row[12] || '',
-        metaDescription: row[13] || '',
-        category: row[14] || '',
-        contentBrief: row[15] || '',
-        faqRequired: row[23] || 'yes',
-        linkedInRequired: row[24] || 'no',
-        author: row[25] || 'Mark Higgins',
-        internalLinkService: row[16] || '',
-        notes: row[28] || '',
-        contentFramework: (row[29] || '').trim().toLowerCase(),
-      };
+      if (serviceFilter && service.toLowerCase() !== serviceFilter) continue;
+      if (type === 'blog' && status === 'scheduled' && publishDate <= today && publishSlot === slot) {
+        return buildRow(row, i);
+      }
     }
   }
   return null;
@@ -368,7 +388,7 @@ const TRIGGER_EVENT_STRUCTURE = `ARTICLE STRUCTURE — this is a trigger-event /
 9. <h2>What to do in the next 24 hours</h2> — a numbered, concrete action list specific to this trigger.
 10. <h2>Frequently Asked Questions</h2> — 5-7 Q&As taken from real search phrasing for this trigger, each question as its own <h3> matching the faqSchema wording exactly.
 
-Word count for trigger-event pieces: 1400-2200 words (spokes) — longer than the standard 1200-word minimum, because steps 4 and 6 require real tables and worked arithmetic, not padding.`;
+Word count for trigger-event pieces: 2200-3000 words (spokes) — longer than the standard 2000-word minimum, because steps 4 and 6 require real tables and worked arithmetic, not padding.`;
 
 const TRIGGER_EVENT_VOICE = `URGENCY VOICE RULES (in addition to the tone rules above):
 - Second person, present tense, throughout — not just the opening.
@@ -411,7 +431,7 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
-    max_tokens: 8000, // headroom for 1400-word article + HTML + faqSchema + JSON wrapping
+    max_tokens: 12000, // headroom for 3000-word article + HTML + faqSchema + JSON wrapping
     response_format: { json_schema: { schema: ARTICLE_SCHEMA } },
     messages: [
       {
@@ -463,10 +483,10 @@ Each <h2> section must open with 1-2 sentences that directly answer the section 
 If the article naturally involves comparing 2 or more numeric values side by side (e.g. typical LTV by property type, rates by term, fees by lender type${isTriggerEvent ? ', the options table required above' : ''}), include one simple <table> with a header row summarising them — AI engines preferentially extract and cite tabular data over prose.${isTriggerEvent ? '' : ' Do not force a table where nothing is genuinely comparable; most articles will not need one.'}
 
 WORD COUNT — this is a hard requirement, not a guideline:
-- The full article must be at least ${isTriggerEvent ? '1400 words of visible text — aim for 1600-2200, because the options table and worked cost example require real detail, not padding' : '1200 words of visible text — aim for 1300-1500'}
-- Every <h2> section except Summary and the FAQ must be at least 150 words
+- The full article must be at least ${isTriggerEvent ? '2200 words of visible text — aim for 2500-3000, because the options table and worked cost example require real detail, not padding' : '2000 words of visible text — aim for 2200-3000'}
+- Every <h2> section except Summary and the FAQ must be at least 220 words — this is a longer, more detailed article format than before, so depth must come from genuinely expanding every section, not padding a couple of them
 - Each FAQ answer must be 40-70 words
-- Articles under 1200 words fail the site's SEO audit and are rejected, so expand thin sections with practical detail, realistic UK figures and broker insight before returning
+- Articles under 2000 words fail the site's SEO audit and are rejected, so expand thin sections with practical detail, realistic UK figures and broker insight before returning
 
 AI SEARCH (AEO) — additional rules for Google AI Overviews and Perplexity:
 - Include specific UK data points, FCA context, or regulatory facts where relevant
@@ -517,11 +537,11 @@ ${row.service === 'Bridging Finance' ? `BRIDGING LOANS TERMINOLOGY (mandatory fo
     throw err;
   }
 
-  // GPT-4o reliably under-delivers on "minimum 1200 words" in a single shot
-  // (every post to date came back at 330-960 words), so verify and expand.
+  // GPT-4o reliably under-delivers on the word-count minimum in a single shot
+  // (early posts came back well short), so verify and expand.
   let words = wordCount(article.contentHtml);
   console.log(`  Draft word count: ${words}`);
-  for (let attempt = 1; attempt <= 2 && words < GENERATION_MIN_WORDS; attempt++) {
+  for (let attempt = 1; attempt <= 3 && words < GENERATION_MIN_WORDS; attempt++) {
     console.log(`  Below ${GENERATION_MIN_WORDS}-word minimum — expansion pass ${attempt}...`);
     article.contentHtml = await expandArticleHtml(article.contentHtml, row.keyword, words);
     words = wordCount(article.contentHtml);
@@ -781,9 +801,13 @@ ${html}`,
 
 // ─── Expand an article that came back under the word-count minimum ───────────
 async function expandArticleHtml(html, keyword, currentWords) {
+  // A jump straight to GENERATION_MIN_WORDS can be a big ask in one pass at
+  // the current 2000+ word target, so aim for meaningful, achievable
+  // progress each call rather than the full gap every time.
+  const passTarget = Math.max(GENERATION_MIN_WORDS, currentWords + 800);
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
-    max_tokens: 8000,
+    max_tokens: 12000,
     messages: [
       {
         role: 'system',
@@ -791,7 +815,7 @@ async function expandArticleHtml(html, keyword, currentWords) {
       },
       {
         role: 'user',
-        content: `The article below is ${currentWords} words. The minimum is 1200 words. Expand it to at least 1400 words by deepening the existing sections: add practical detail, realistic UK figures, concrete steps, and broker insight on "${keyword}".
+        content: `The article below is ${currentWords} words. The minimum is ${GENERATION_MIN_WORDS} words. Expand it to at least ${passTarget} words by deepening the existing sections: add practical detail, realistic UK figures, concrete steps, and broker insight on "${keyword}".
 
 RULES:
 - Keep every existing HTML tag, link, href and attribute exactly as it is — do not remove or rewrite any <a> link

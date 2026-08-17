@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useChatWidget } from '../chat/ChatWidgetContext';
 import './ResourcePage.css';
 
 // Shared hero + final-CTA band used by BOTH content pages (ResourcePage) and
@@ -66,17 +67,16 @@ export const FinalCtaBand = ({ ctaTo = '/chat-about-funding' }) => (
 );
 
 // Floating "Need funding?" pill — the single floating element on a page.
-//
-// NOT yet wired to the AI chat widget (built in src/components/chat/) —
-// deliberately held back until the chatbot has been tested on the internal
-// preview page (src/pages/ChatbotTest.jsx, /internal/chatbot-preview) and
-// signed off. The one-line flip when ready: swap this back to a button
-// calling useChatWidget().openChat(), same as the reverted version in git
-// history on this commit's parent.
-export const FloatingCta = ({ ctaTo = '/chat-about-funding' }) => (
-    <Link to={ctaTo} className="resource-float-cta" aria-label="Need funding? Talk to us">
-        <span>Need funding?</span> Talk to us
-    </Link>
-);
+// Opens the AI chat widget. Rendered once, globally, from Layout.jsx so it
+// appears on every page site-wide — not per-page here, to avoid it being
+// forgotten on pages that don't go through ResourcePage/ServicePage.
+export const FloatingCta = () => {
+    const { openChat } = useChatWidget();
+    return (
+        <button type="button" onClick={openChat} className="resource-float-cta" aria-label="Need funding? Talk to us">
+            <span>Need funding?</span> Talk to us
+        </button>
+    );
+};
 
 export default ResourceHero;

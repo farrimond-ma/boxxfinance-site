@@ -96,13 +96,16 @@ function auditPostData(posts) {
 
     // ── Content length
     // ERROR only for truly empty/broken content (< 300 words).
-    // WARN for content below the 1200-word target — flags for regeneration
-    // but does not block the audit from passing.
+    // WARN for content below the 2000-word target — flags for regeneration
+    // but does not block the audit from passing. Target raised from 1200 to
+    // 2000 on 2026-08-17 alongside the move to fewer, longer, weekday-only
+    // posts — this will correctly flag the pre-existing corpus (written to
+    // the old 1200-word target) as a real backlog to work through, not noise.
     const wc = wordCount(post.content);
     if (wc < 300)
       pf.push(issue('ERROR', 'content', `Too short — ${wc} words (broken or empty)`));
-    else if (wc < 1200)
-      pf.push(issue('WARN', 'content', `Below target — ${wc} words (target 1200+, needs regeneration)`));
+    else if (wc < 2000)
+      pf.push(issue('WARN', 'content', `Below target — ${wc} words (target 2000+, needs regeneration)`));
 
     // ── AEO: direct-answer lede (first <p> should be a definitive answer, ≤80 words)
     const firstPara = (post.content || '').match(/<p[^>]*>([\s\S]*?)<\/p>/i);

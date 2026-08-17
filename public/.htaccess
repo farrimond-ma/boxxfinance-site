@@ -63,6 +63,40 @@ Options -Indexes -MultiViews
   RewriteCond %{HTTP_HOST} ^www\.boxxfinance\.co\.uk [NC]
   RewriteRule ^(.*)$ https://boxxfinance.co.uk/$1 [R=301,L]
 
+  # ── Duplicate/cannibalising insights articles — CONSOLIDATED 2026-08-17 ────
+  # An external AI review of the site (asked to compare it against a
+  # competitor) flagged severe keyword cannibalisation: the same question
+  # published as near-duplicate articles under reordered titles, e.g. 8
+  # separate "how fast can I get a bridging loan" pages, several written
+  # within days of each other by the content-engine scheduler queuing
+  # overlapping keywords without checking for existing coverage. 21 articles
+  # across 10 topic clusters are redirected here into whichever page in each
+  # cluster was longest/most recent (proxy for the current, stronger
+  # generation prompt) or — where real internal link data existed — already
+  # had inbound links from location pages. See src/data/blogPosts.json entries
+  # with "status": "redirected" for the full record of what was merged where.
+  RewriteRule ^insights/fastest-bridging-loan-uk/?$ /insights/same-day-bridging-loan-uk [R=301,L]
+  RewriteRule ^insights/bridging-finance-24-hours-uk/?$ /insights/same-day-bridging-loan-uk [R=301,L]
+  RewriteRule ^insights/bridging-loan-fast-completion/?$ /insights/same-day-bridging-loan-uk [R=301,L]
+  RewriteRule ^insights/fast-bridging-loans-uk/?$ /insights/same-day-bridging-loan-uk [R=301,L]
+  RewriteRule ^insights/how-fast-can-you-get-bridging-loan/?$ /insights/same-day-bridging-loan-uk [R=301,L]
+  RewriteRule ^insights/how-quickly-can-you-get-a-bridging-loan/?$ /insights/same-day-bridging-loan-uk [R=301,L]
+  RewriteRule ^insights/open-vs-closed-bridging-loan/?$ /insights/closed-vs-open-bridging-loan [R=301,L]
+  RewriteRule ^insights/open-vs-closed-bridging-loans/?$ /insights/closed-vs-open-bridging-loan [R=301,L]
+  RewriteRule ^insights/auction-finance-uk/?$ /insights/how-to-finance-auction-property-uk [R=301,L]
+  RewriteRule ^insights/bridging-finance-auction-property-uk/?$ /insights/how-to-finance-auction-property-uk [R=301,L]
+  RewriteRule ^insights/finance-for-property-auction-uk-guide/?$ /insights/how-to-finance-auction-property-uk [R=301,L]
+  RewriteRule ^insights/how-long-do-you-actually-have-to-complete-on-an-auction-property/?$ /insights/auction-finance-28-days-uk [R=301,L]
+  RewriteRule ^insights/bridging-loans-for-auction-purchases/?$ /insights/auction-finance-28-days-uk [R=301,L]
+  RewriteRule ^insights/property-auction-finance-same-day-decision/?$ /insights/fast-bridging-loan-for-auction-property [R=301,L]
+  RewriteRule ^insights/bridging-loan-for-uninhabitable-property/?$ /insights/short-term-finance-for-unmortgageable-property-uk [R=301,L]
+  RewriteRule ^insights/bridging-finance-unmortgageable-property/?$ /insights/short-term-finance-for-unmortgageable-property-uk [R=301,L]
+  RewriteRule ^insights/bridging-loan-uninhabitable-property-uk/?$ /insights/short-term-finance-for-unmortgageable-property-uk [R=301,L]
+  RewriteRule ^insights/bridging-loan-bad-credit/?$ /insights/bridging-loan-bad-credit-uk [R=301,L]
+  RewriteRule ^insights/bridging-loan-valuation-process/?$ /insights/bridging-loan-valuation-uk [R=301,L]
+  RewriteRule ^insights/bridging-loan-without-full-valuation/?$ /insights/desktop-valuation-bridging-loan [R=301,L]
+  RewriteRule ^insights/monthly-vs-rolled-up-interest-bridging/?$ /insights/bridging-loan-interest-options [R=301,L]
+
   # ── UK SME Funding Index archives — REMOVED 2026-07-15, return 410 Gone ────
   # The 61 monthly "archive" pages had every figure generated with Math.random()
   # while claiming to aggregate "over 50 UK lenders" and citing the Bank of

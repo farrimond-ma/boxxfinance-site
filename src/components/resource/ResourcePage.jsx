@@ -1,6 +1,6 @@
 import React from 'react';
 import ArticleBody, { CanWeHelp, EndCta } from '../ArticleCtas';
-import { ResourceHero, FinalCtaBand, FloatingCta } from './ResourceHero';
+import { ResourceHero, FinalCtaBand } from './ResourceHero';
 import { serviceCtaTo } from './serviceSlug';
 import TableOfContents from './TableOfContents';
 import FaqAccordion from './FaqAccordion';
@@ -104,7 +104,6 @@ const ResourcePage = ({
             </div>
 
             <FinalCtaBand ctaTo={ctaTo} />
-            <FloatingCta ctaTo={ctaTo} />
         </div>
     );
 };
