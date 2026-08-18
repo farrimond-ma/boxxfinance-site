@@ -35,3 +35,7 @@ src/data/blogIndex.json
 src/data/locationIndex.json
 src/data/countyIndex.json
 public/content/
+
+# NACFB compliance document drafts — not website content, not for the
+# public repo. Local storage only.
+NACFB/
