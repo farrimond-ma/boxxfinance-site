@@ -416,21 +416,23 @@
     z-index: 50;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
     background: var(--color-secondary);
     color: var(--color-primary);
-    font-weight: 700;
     font-family: inherit;
-    font-size: 1rem;
-    padding: 0.75rem 1.15rem;
-    border-radius: 999px;
+    padding: 0;
+    border-radius: 50%;
     border: none;
     cursor: pointer;
     text-decoration: none;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s ease, background 0.15s ease;
 }
 .resource-float-cta:hover {
     background: var(--color-secondary-light);
+    transform: scale(1.06);
 }
 
 /* ── Responsive ── */
@@ -482,8 +484,5 @@
     }
     .resource-guides-grid {
         grid-template-columns: 1fr;
-    }
-    .resource-float-cta span {
-        display: none;
     }
 }
