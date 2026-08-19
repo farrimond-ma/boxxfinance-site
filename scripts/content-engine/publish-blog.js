@@ -311,21 +311,20 @@ async function getPublishedLocations(_sheets, service) {
     const serviceSlug = service.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
     const toSlug = s => (s || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
 
-    const serviceLabel = (service || '').trim();
-    // Build keyword-rich anchor text for each location link.
-    // Bridging is anchored on "bridging loans" only — the strategic focus term
-    // (2026-07). Do NOT reintroduce "bridging finance" here; we are deliberately
-    // concentrating all bridging ranking signal on "bridging loans".
-    const isBridging = serviceSlug === 'bridging-finance';
-    return pages
-      .filter(p => p.status === 'published' && toSlug(p.service) === serviceSlug)
-      .slice(0, 4)
-      .map(p => {
-        const anchor = isBridging
-          ? `bridging loans in ${p.location}`
-          : `${serviceLabel.toLowerCase()} in ${p.location}`;
-        return { url: `/locations/${p.slug}`, anchor };
-      });
+    // Anchor text is just the place name — natural to embed mid-sentence
+    // ("whether you're in Norwich or Reading"). Previously used the full
+    // keyword phrase ("bridging loans in Norwich"), which reads as broken
+    // English once embedded in a sentence rather than standing alone — an
+    // external review of a live article caught this on 2026-08-19.
+    const matches = pages.filter(p => p.status === 'published' && toSlug(p.service) === serviceSlug);
+    // Randomised per generation run, not the same first 4 every time — a
+    // fixed slice(0, 4) meant every single article on the site linked to
+    // the exact same 4 location pages (whichever published first), so the
+    // other 300+ location pages never received any internal links from
+    // blog content at all. Spotted independently by Mark noticing "all the
+    // blogs seem to reference just 4 locations" the same day.
+    const shuffled = [...matches].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 4).map(p => ({ url: `/locations/${p.slug}`, anchor: p.location }));
   } catch (err) {
     console.warn(`  Could not read locationPages.json: ${err.message}`);
     return [];
@@ -406,6 +405,8 @@ const TRIGGER_EVENT_COMPLIANCE = `COMPLIANCE — UK FINANCIAL PROMOTIONS (hard c
 - Where the loan may be secured on the reader's home, include clear risk wording that the property may be repossessed if they do not keep up repayments or repay the loan at term end.
 - When quoting a monthly interest rate, always also show the annualised equivalent in the same sentence or table row — never present a monthly figure in a way that disguises the true annual cost.
 - Do not state specific live rates or LTV caps as settled fact. Use ranges, label them "indicative", and note they should be confirmed at enquiry — do not imply the figures in this article are a live quote.
+- NEVER invent a named rate, benchmark or authority as the source for a figure (e.g. "the Law Society's published rate") unless it was actually supplied to you — a real published article did this, citing a specific named rate that doesn't even apply to lender-charged bridging interest, and got both the source and the resulting figure wrong. If you need a number and don't have a real source for it, describe it in hedged general terms instead (e.g. "typically well above a standard mortgage rate, confirm the exact figure with your solicitor") rather than attaching a specific-sounding source you're not certain of.
+- If the worked cost example needs to mention property purchase tax (stamp duty in England/NI, LBTT in Scotland, LTT in Wales — different rules and rates in each), do NOT default to "stamp duty" as if it's UK-wide. Either name the relevant one for the specific location this piece is for, or — if the piece isn't location-specific — describe it generically ("an additional property purchase tax or surcharge — the rules differ across England, Scotland and Wales") rather than picking one jurisdiction's term by default.
 - This is educational content, not advice. Never write "you should take a bridging loan" or similar direct recommendation — direct the reader to speak to a broker for advice specific to their situation, and frame the CTA that way rather than as a foregone conclusion.`;
 
 // ─── Generate article with OpenAI ────────────────────────────────────────────
@@ -461,9 +462,10 @@ TONE AND STYLE:
 - Short paragraphs — no paragraph longer than 4 sentences
 - Practical, real-world advice that a broker would actually give a client
 - Include at least one realistic business scenario showing the product in use
-- Include mild, well-reasoned opinion where appropriate (e.g. "In our experience..." or "The honest answer is...")
+- Include mild, well-reasoned opinion where appropriate (e.g. "The honest answer is..." or "The straightforward view is...")
 - No generic AI phrases, no corporate waffle
-- Write as a broker who arranges these deals every week, NOT as a neutral explainer. The reader must finish thinking "these people do this for a living", not "this is a well-written guide". Include at least TWO first-hand observations of the kind only an active broker would make — e.g. "The most common reason we see these declined is...", "Lenders rarely say this outright, but...", "In our experience, developers buying with planning potential usually...". Generic both-sides explanation is the single biggest weakness to avoid.
+- Write as a broker who arranges these deals every week, NOT as a neutral explainer. The reader must finish thinking "these people do this for a living", not "this is a well-written guide". Include at least TWO observations of the kind only an active broker would make — specific, operational, confidently stated — e.g. "The most common reason applications like this get declined is...", "Lenders rarely say this outright, but...", "Developers buying with planning potential usually...". Generic both-sides explanation is the single biggest weakness to avoid.
+- IMPORTANT: do NOT phrase these as "in our experience", "we see", "our clients" or similar first-person claims of specific Boxx case history — that presents invented statistics as real, verified track record under Boxx's name, which is misleading if untrue (a real published article did exactly this and was flagged by an external review). State the same observation as general, confident industry knowledge instead — the voice stays authoritative, it just isn't claiming to be a specific real statistic you don't actually have.
 - Guide the reader to a view. Where there is a sensible default choice, say so and say why, rather than only listing advantages and disadvantages.
 ${isTriggerEvent ? '\n' + TRIGGER_EVENT_VOICE + '\n' : ''}
 ${isTriggerEvent ? TRIGGER_EVENT_STRUCTURE : `ARTICLE STRUCTURE (adapt headings to fit the specific topic, but follow this pattern):

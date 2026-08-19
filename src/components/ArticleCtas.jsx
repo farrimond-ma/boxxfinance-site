@@ -97,7 +97,7 @@ export const CanWeHelp = ({ service }) => (
         <p>
             If your circumstances are different, we can still help.{' '}
             <Link to={serviceCtaTo(service)} className="article-cta-link">
-                Speak to a specialist &rarr;
+                Tell us what you need &rarr;
             </Link>{' '}
             or explore our <Link to="/funding-solutions" className="article-cta-link">funding solutions</Link>.
         </p>
