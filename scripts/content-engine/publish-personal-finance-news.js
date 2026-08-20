@@ -29,6 +29,8 @@
  */
 
 require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
 const { Octokit } = require('@octokit/rest');
 const sharp = require('sharp');
 const { createOpenAICompatClient } = require('./lib/anthropic-openai-shim');
@@ -38,6 +40,7 @@ const GITHUB_OWNER = process.env.GITHUB_OWNER || 'farrimond-ma';
 const GITHUB_REPO  = process.env.GITHUB_REPO  || 'boxxfinance-site';
 const BLOG_FILE     = 'src/data/blogPosts.json';
 const TRACKING_FILE = 'src/data/personalFinanceNewsTracking.json';
+const FEEDS_FILE    = path.resolve(__dirname, '../../src/data/personalFinanceNewsFeeds.json');
 const MAX_AGE_DAYS  = 2; // genuinely reactive — Discover rewards freshness, not a week-old story
 const PILLAR_NAME   = 'Property News and Market Updates';
 
@@ -45,24 +48,19 @@ const octokit = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_T
 const openai  = createOpenAICompatClient({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 // ── Consumer-facing UK property/personal-finance RSS feeds ────────────────────
-// Deliberately NOT the trade-press feeds publish-linkedin-news.js uses (those
-// are written for brokers). Chosen and verified live 2026-08-20/21 to
-// specifically cover homeowners and landlords, not just general business news
-// (the original 3-feed set leaned too heavily on BBC Business, which is
-// broad-economy content, not property/homeowner-specific). Checked several
-// other candidates first: Daily Mail's mortgages/home feed is dropped as an
-// exact duplicate of This Is Money (same publisher, identical syndicated
-// content); Independent Property, Mirror Money, Metro Money and Daily
-// Express Property were all broken, empty, or misconfigured; MoneySavingExpert
-// blocks non-browser requests.
-const RSS_FEEDS = [
-  { url: 'https://www.theguardian.com/money/property/rss',            name: 'The Guardian — Property' },
-  { url: 'https://www.theguardian.com/money/rss',                     name: 'The Guardian — Money' },
-  { url: 'http://feeds.bbci.co.uk/news/business/rss.xml',             name: 'BBC News — Business' },
-  { url: 'https://www.thisismoney.co.uk/money/mortgageshome/index.rss', name: 'This Is Money — Mortgages & Home' },
-  { url: 'https://www.landlordtoday.co.uk/rss/news',                  name: 'Landlord Today' },
-  { url: 'https://inews.co.uk/topic/property/feed',                   name: 'i — Property' },
-];
+// Read from src/data/personalFinanceNewsFeeds.json (the "active" ones) rather
+// than a hardcoded array — that file is a maintained registry, periodically
+// re-validated by discover-personal-finance-feeds.js, so the list can grow
+// (or self-heal if a feed goes down) without editing this script. Deliberately
+// NOT the trade-press feeds publish-linkedin-news.js uses (those are written
+// for brokers, not the general public). 20 feeds active as of 2026-08-21,
+// chosen specifically to cover homeowners and landlords — see the registry
+// file for the full list of what was tested and why candidates were excluded.
+function loadActiveFeeds() {
+  const registry = JSON.parse(fs.readFileSync(FEEDS_FILE, 'utf8'));
+  return registry.feeds.filter(f => f.status === 'active').map(f => ({ url: f.url, name: f.name }));
+}
+const RSS_FEEDS = loadActiveFeeds();
 
 const RELEVANT_KEYWORDS = [
   'house price', 'property market', 'mortgage rate', 'mortgage', 'stamp duty',

@@ -1,0 +1,50 @@
+name: Discover Personal Finance Feeds
+
+# Weekly health-check/re-validation for the personal-finance news feed
+# registry (src/data/personalFinanceNewsFeeds.json). Re-tests every "active"
+# feed (in case one breaks) and every "candidate" feed (in case a
+# previously-broken one comes back online), and promotes/demotes
+# accordingly. Never touches "excluded" or "rejected" entries — see
+# discover-personal-finance-feeds.js's header for why that distinction
+# matters (a feed can pass a pure connectivity test while still being wrong
+# for the audience, e.g. trade press or mislabelled content).
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # Mondays, 6am UTC
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (report only, do not write changes)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+
+      - name: Run feed health check
+        env:
+          GH_TOKEN:     ${{ secrets.GH_PAT }}
+          GITHUB_OWNER: farrimond-ma
+          GITHUB_REPO:  boxxfinance-site
+        run: node discover-personal-finance-feeds.js ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+        working-directory: scripts/content-engine

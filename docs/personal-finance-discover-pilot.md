@@ -19,19 +19,37 @@ it up at all.
 
 **`scripts/content-engine/publish-personal-finance-news.js`** + its workflow
 (`publish-personal-finance-news.yml`, runs 3x/day). This is the *reactive*
-piece: it watches six consumer-facing UK news feeds (Guardian Money, Guardian
-Property, BBC Business, This Is Money — Mortgages & Home, Landlord Today, and
-i — Property — deliberately not the trade-press feeds `publish-linkedin-news.js`
-uses, which are written for brokers, not the general public; the original
-3-feed set was expanded 2026-08-21 after Mark flagged it leaned too heavily
-on BBC Business's general-economy slant rather than homeowner/landlord-
-specific coverage), and when something genuinely new and relevant has happened
-in the last 2 days, writes and publishes one short (700-1000 word)
-news-analysis article about it. Most runs will find nothing worth
-publishing — that's correct, not a bug. It won't publish more than one
-article per run, and it never invents facts beyond what's in the source
-story (same anti-fabrication discipline as the bridging-vertical fixes
-earlier this week).
+piece: it watches consumer-facing UK news feeds (deliberately not the
+trade-press feeds `publish-linkedin-news.js` uses, which are written for
+brokers, not the general public), and when something genuinely new and
+relevant has happened in the last 2 days, writes and publishes one short
+(700-1000 word) news-analysis article about it. Most runs will find nothing
+worth publishing — that's correct, not a bug. It won't publish more than
+one article per run, and it never invents facts beyond what's in the
+source story (same anti-fabrication discipline as the bridging-vertical
+fixes earlier this week).
+
+**Feed list**: `src/data/personalFinanceNewsFeeds.json` — a maintained
+registry, not a hardcoded list. 20 active feeds as of 2026-08-21 (started
+at 3, expanded after Mark flagged the original set leaned too heavily on
+BBC Business's general-economy slant rather than homeowner/landlord-
+specific coverage — now includes This Is Money's Mortgages & Home/Buy to
+Let/Saving/Bills sections, Landlord Today, Property118, Property Investor
+Today, Letting Agent Today, Rightmove, the Telegraph, Which?, and others).
+The registry also tracks 18 "candidate" feeds that failed validation
+(blocked, 404, empty, etc. — see the file for why each one), and 3
+"rejected" feeds that work fine technically but were excluded on editorial
+grounds (e.g. Mortgage Solutions is genuinely broker/trade-audience, not
+consumer; one candidate feed labelled "Property" turned out to actually be
+a politics feed). `scripts/content-engine/discover-personal-finance-feeds.js`
+runs weekly (`discover-personal-finance-feeds.yml`) to re-test the active
+and candidate feeds and keep the registry self-healing — it deliberately
+never touches "rejected"/"excluded" entries, since a feed can pass a pure
+connectivity test while still being wrong for the audience; only a human
+reviewing actual content can catch that. This script does NOT discover
+genuinely new outlets on its own (no search API wired in) — new candidates
+get added to the registry by hand, on request; the automation's job is
+keeping the existing list accurate over time, not finding new things.
 
 **Images**: reuses the same Pexels API pipeline already proven on the
 bridging vertical (real licensed photos, filtered to avoid non-UK
