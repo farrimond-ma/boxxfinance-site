@@ -46,11 +46,22 @@ const openai  = createOpenAICompatClient({ apiKey: process.env.ANTHROPIC_API_KEY
 
 // ── Consumer-facing UK property/personal-finance RSS feeds ────────────────────
 // Deliberately NOT the trade-press feeds publish-linkedin-news.js uses (those
-// are written for brokers). All three verified live 2026-08-20.
+// are written for brokers). Chosen and verified live 2026-08-20/21 to
+// specifically cover homeowners and landlords, not just general business news
+// (the original 3-feed set leaned too heavily on BBC Business, which is
+// broad-economy content, not property/homeowner-specific). Checked several
+// other candidates first: Daily Mail's mortgages/home feed is dropped as an
+// exact duplicate of This Is Money (same publisher, identical syndicated
+// content); Independent Property, Mirror Money, Metro Money and Daily
+// Express Property were all broken, empty, or misconfigured; MoneySavingExpert
+// blocks non-browser requests.
 const RSS_FEEDS = [
-  { url: 'https://www.theguardian.com/money/property/rss', name: 'The Guardian — Property' },
-  { url: 'https://www.theguardian.com/money/rss',           name: 'The Guardian — Money' },
-  { url: 'http://feeds.bbci.co.uk/news/business/rss.xml',   name: 'BBC News — Business' },
+  { url: 'https://www.theguardian.com/money/property/rss',            name: 'The Guardian — Property' },
+  { url: 'https://www.theguardian.com/money/rss',                     name: 'The Guardian — Money' },
+  { url: 'http://feeds.bbci.co.uk/news/business/rss.xml',             name: 'BBC News — Business' },
+  { url: 'https://www.thisismoney.co.uk/money/mortgageshome/index.rss', name: 'This Is Money — Mortgages & Home' },
+  { url: 'https://www.landlordtoday.co.uk/rss/news',                  name: 'Landlord Today' },
+  { url: 'https://inews.co.uk/topic/property/feed',                   name: 'i — Property' },
 ];
 
 const RELEVANT_KEYWORDS = [
@@ -62,6 +73,17 @@ const RELEVANT_KEYWORDS = [
 ];
 
 // ── RSS parser (no external dependency — same approach as publish-linkedin-news.js) ──
+// Decodes the handful of HTML/XML entities that actually show up in RSS
+// titles/descriptions (numeric entities like &#8230; for an ellipsis, plus
+// the standard named ones) — without this, "&#8230;" was appearing literally
+// in generated article titles, since the model just repeats what it's given.
+function decodeEntities(str) {
+  return str
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(code))
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&apos;/g, "'");
+}
+
 function parseRSS(xml) {
   const items = [];
   const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
@@ -78,9 +100,10 @@ function parseRSS(xml) {
       link = m2 ? m2[1].trim() : '';
     }
     const pubDate = get('pubDate') || get('dc:date') || get('published');
-    const description = get('description').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 500);
-    if (get('title') && link) {
-      items.push({ title: get('title'), link, description, pubDate: pubDate ? new Date(pubDate) : new Date() });
+    const description = decodeEntities(get('description').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 500));
+    const title = decodeEntities(get('title'));
+    if (title && link) {
+      items.push({ title, link, description, pubDate: pubDate ? new Date(pubDate) : new Date() });
     }
   }
   return items;

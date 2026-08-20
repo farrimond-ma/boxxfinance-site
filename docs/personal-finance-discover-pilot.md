@@ -19,10 +19,13 @@ it up at all.
 
 **`scripts/content-engine/publish-personal-finance-news.js`** + its workflow
 (`publish-personal-finance-news.yml`, runs 3x/day). This is the *reactive*
-piece: it watches three consumer-facing UK news feeds (Guardian Money,
-Guardian Property, BBC Business — deliberately not the trade-press feeds
-`publish-linkedin-news.js` uses, which are written for brokers, not the
-general public), and when something genuinely new and relevant has happened
+piece: it watches six consumer-facing UK news feeds (Guardian Money, Guardian
+Property, BBC Business, This Is Money — Mortgages & Home, Landlord Today, and
+i — Property — deliberately not the trade-press feeds `publish-linkedin-news.js`
+uses, which are written for brokers, not the general public; the original
+3-feed set was expanded 2026-08-21 after Mark flagged it leaned too heavily
+on BBC Business's general-economy slant rather than homeowner/landlord-
+specific coverage), and when something genuinely new and relevant has happened
 in the last 2 days, writes and publishes one short (700-1000 word)
 news-analysis article about it. Most runs will find nothing worth
 publishing — that's correct, not a bug. It won't publish more than one
