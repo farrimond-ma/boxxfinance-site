@@ -88,7 +88,7 @@ const GENERAL_USES = [
 export const CanWeHelp = ({ service }) => (
     <aside className="article-cta can-we-help">
         <h3>Is this suitable for your situation?</h3>
-        <p>We commonly arrange {isBridging(service) ? 'bridging finance' : 'funding'} for:</p>
+        <p>We commonly arrange {isBridging(service) ? 'bridging loans' : 'funding'} for:</p>
         <ul className="can-we-help-grid">
             {(isBridging(service) ? BRIDGING_USES : GENERAL_USES).map((use) => (
                 <li key={use}>{use}</li>
