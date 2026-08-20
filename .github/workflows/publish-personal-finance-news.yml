@@ -1,0 +1,55 @@
+name: Publish Personal Finance News
+
+# Non-evergreen half of the personal-finance / Google Discover pilot
+# (2026-08-20). Deliberately small-scale and separate from the main content
+# schedule: checks a few times a day for genuinely new, relevant UK
+# consumer property/finance news and publishes AT MOST one reactive article
+# when something real is found — most runs will find nothing to publish,
+# and that's correct behaviour, not a failure.
+#
+# The 8 evergreen personal-finance pillars (personal-finance-schedule-90day.xlsx)
+# are NOT wired into any workflow yet — Mark asked to start with this
+# reactive piece only, see how it performs in Google Search Console's
+# Discover report, then decide whether to scale up.
+
+on:
+  schedule:
+    - cron: '15 7,13,17 * * *'   # 3x/day: ~8:15am, ~2:15pm, ~6:15pm BST
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (find + generate but do not publish)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+
+      - name: Run personal finance news publisher
+        env:
+          GH_TOKEN:          ${{ secrets.GH_PAT }}
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          PEXELS_API_KEY:     ${{ secrets.PEXELS_API_KEY }}
+          GITHUB_OWNER:       farrimond-ma
+          GITHUB_REPO:        boxxfinance-site
+        run: node publish-personal-finance-news.js ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+        working-directory: scripts/content-engine

@@ -24,6 +24,7 @@ on:
     workflows:
       - "Publish Blog"
       - "Publish Blog (Trigger-Event)"
+      - "Publish Personal Finance News"
       - "Publish Location"
       - "Publish Facebook Post"
       - "Publish Facebook Reel (PAUSED)"
