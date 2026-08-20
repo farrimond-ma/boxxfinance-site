@@ -181,12 +181,22 @@ async function main() {
   console.log(`Found: "${post.title}" (${post.date})`);
   const author = resolveAuthor(post.author, post.service);
   const { postText, firstComment } = await generateLinkedInPost(post, author);
+  let liSuccess = false;
   try {
     const id = await postToLinkedIn(post, author, postText, firstComment);
     post.liPosted = true;
+    liSuccess = true;
     console.log(`LinkedIn posted: ${id}`);
-  } catch (err) { console.error(`LinkedIn failed: ${err.message}`); }
-  await pushBlogPostsFile(posts, `social: linkedin posted for ${post.slug}`);
+  } catch (err) {
+    console.error(`LinkedIn failed: ${err.message}`);
+    console.error('Post NOT marked as liPosted — will retry next run.');
+  }
+  if (liSuccess) {
+    await pushBlogPostsFile(posts, `social: linkedin posted for ${post.slug}`);
+  } else {
+    console.error('Skipping git commit — nothing was successfully posted.');
+    process.exit(1); // a failed attempt should show red, not green
+  }
   console.log('Done.');
 }
 

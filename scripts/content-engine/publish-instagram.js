@@ -96,12 +96,22 @@ async function main() {
   console.log('Found: "' + post.title + '"');
   const caption  = await generateCaption(post);
   const imageUrl = getImageUrl(post);
+  let igSuccess = false;
   try {
     const id = await postToInstagram(imageUrl, caption);
     post.igPosted = true;
+    igSuccess = true;
     console.log('Instagram posted: ' + id);
-  } catch (err) { console.error('Instagram failed: ' + err.message); }
-  await pushBlogPostsFile(posts, 'social: instagram posted for ' + post.slug);
+  } catch (err) {
+    console.error('Instagram failed: ' + err.message);
+    console.error('Post NOT marked as igPosted — will retry next run.');
+  }
+  if (igSuccess) {
+    await pushBlogPostsFile(posts, 'social: instagram posted for ' + post.slug);
+  } else {
+    console.error('Skipping git commit — nothing was successfully posted.');
+    process.exit(1); // a failed attempt should show red, not green
+  }
   console.log('Done.');
 }
 main().catch(err => { console.error('Fatal:', err.message); process.exit(1); });

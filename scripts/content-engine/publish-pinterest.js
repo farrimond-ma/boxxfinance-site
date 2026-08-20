@@ -91,12 +91,22 @@ async function main() {
   const description = await generatePinDescription(post);
   const imageUrl    = getImageUrl(post);
   const boardId     = getBoardId(post.service);
+  let pinSuccess = false;
   try {
     const id = await createPin(post, description, imageUrl, boardId);
     post.pinterestPosted = true;
+    pinSuccess = true;
     console.log('Pinterest pin created: ' + id);
-  } catch (err) { console.error('Pinterest failed: ' + err.message); }
-  await pushBlogPostsFile(posts, 'social: pinterest posted for ' + post.slug);
+  } catch (err) {
+    console.error('Pinterest failed: ' + err.message);
+    console.error('Post NOT marked as pinterestPosted — will retry next run.');
+  }
+  if (pinSuccess) {
+    await pushBlogPostsFile(posts, 'social: pinterest posted for ' + post.slug);
+  } else {
+    console.error('Skipping git commit — nothing was successfully posted.');
+    process.exit(1); // a failed attempt should show red, not green
+  }
   console.log('Done.');
 }
 main().catch(err => { console.error('Fatal:', err.message); process.exit(1); });

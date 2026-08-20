@@ -8,12 +8,25 @@ name: Failure Watchdog
 
 on:
   workflow_run:
+    # 2026-08-20: audited this list against the actual `name:` field of every
+    # workflow file — three entries had gone stale and were silently matching
+    # nothing (a workflow_run trigger matches on exact name, so a rename
+    # elsewhere breaks the watch with no warning). "Publish Blog (1 of 2)" /
+    # "(2 of 2)" were retired 2026-08-17 when blog publishing consolidated to
+    # a single "Publish Blog" workflow; "Publish Facebook Reel" is actually
+    # named "Publish Facebook Reel (PAUSED)"; "Backlink Outreach Monitor"
+    # never matched anything — that script has no scheduled workflow at all,
+    # it's run manually. Same investigation also found publish-linkedin.js,
+    # publish-instagram.js and publish-pinterest.js were swallowing post
+    # failures and always exiting 0 (success) regardless — fixed separately,
+    # but note for next time: this list being correct only catches failures
+    # a script actually *reports* as failures.
     workflows:
-      - "Publish Blog (1 of 2)"
-      - "Publish Blog (2 of 2)"
+      - "Publish Blog"
+      - "Publish Blog (Trigger-Event)"
       - "Publish Location"
       - "Publish Facebook Post"
-      - "Publish Facebook Reel"
+      - "Publish Facebook Reel (PAUSED)"
       - "Publish LinkedIn Post"
       - "Publish LinkedIn News"
       - "Publish Instagram Post"
@@ -25,7 +38,6 @@ on:
       - "Search Console Insights"
       - "Index Coverage"
       - "SME Index Refresh"
-      - "Backlink Outreach Monitor"
       - "Reddit Monitor"
     types:
       - completed
