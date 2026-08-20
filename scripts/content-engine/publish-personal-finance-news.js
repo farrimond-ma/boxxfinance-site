@@ -42,7 +42,7 @@ const BLOG_FILE     = 'src/data/blogPosts.json';
 const TRACKING_FILE = 'src/data/personalFinanceNewsTracking.json';
 const FEEDS_FILE    = path.resolve(__dirname, '../../src/data/personalFinanceNewsFeeds.json');
 const MAX_AGE_DAYS  = 2; // genuinely reactive — Discover rewards freshness, not a week-old story
-const PILLAR_NAME   = 'Property News and Market Updates';
+const PILLAR_NAME   = 'Latest News'; // shown as the Blog listing filter chip / category tag for these posts
 
 const octokit = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_TOKEN });
 const openai  = createOpenAICompatClient({ apiKey: process.env.ANTHROPIC_API_KEY });
