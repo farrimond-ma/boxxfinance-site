@@ -14,6 +14,13 @@ export const ResourceHero = ({ title, description, heroImage, primaryCtaTo = '/c
     const colonIdx = (title || '').indexOf(':');
     const titleWhite = colonIdx !== -1 ? title.slice(0, colonIdx + 1) : title;
     const titleGold = colonIdx !== -1 ? title.slice(colonIdx + 1).trim() : '';
+    // Most titles are ~50-55 characters and read fine at the full hero size.
+    // Longer, more conversational titles (trigger-event and news content
+    // especially — e.g. "Landlords Who Incorporated Their Property
+    // Businesses Could Face Surprise Capital Gains Tax Bills" at 96 chars)
+    // wrap to 4-5 lines and dominate the hero. Scale down rather than
+    // shrink every title uniformly.
+    const isLongTitle = (title || '').length > 70;
 
     return (
         <div
@@ -22,7 +29,7 @@ export const ResourceHero = ({ title, description, heroImage, primaryCtaTo = '/c
         >
             <div className="container resource-hero-grid">
                 <div className="resource-hero-text">
-                    <h1>
+                    <h1 className={isLongTitle ? 'is-long-title' : undefined}>
                         {titleWhite}
                         {titleGold && <> <span className="text-highlight">{titleGold}</span></>}
                     </h1>

@@ -57,10 +57,19 @@
     margin: 0 0 1.5rem;
     color: #fff;
 }
+/* Longer, conversational titles (news/trigger-event content especially)
+   would otherwise wrap 4-5 lines at the standard size and dominate the
+   hero — see ResourceHero.jsx's isLongTitle. */
+.resource-hero h1.is-long-title {
+    font-size: 1.9rem;
+}
 @media (min-width: 993px) {
     .resource-hero h1 {
         font-size: 3.4rem;
         line-height: 1.1;
+    }
+    .resource-hero h1.is-long-title {
+        font-size: 2.6rem;
     }
 }
 .resource-hero .text-highlight {
@@ -465,6 +474,9 @@
     }
     .resource-hero h1 {
         font-size: 1.8rem;
+    }
+    .resource-hero h1.is-long-title {
+        font-size: 1.5rem;
     }
     .resource-hero-text {
         max-width: none;
