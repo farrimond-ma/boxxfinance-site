@@ -22,8 +22,8 @@ const Hero = () => {
             <div className="container hero-content">
                 <p className="hero-eyebrow">UK Bridging Loan Specialists</p>
                 <h1>
-                    Bridging Loans, <br />
-                    <span className="text-gold">Done Properly.</span>
+                    Bridging Loans. <br />
+                    <span className="text-gold">Funded Fast.</span>
                 </h1>
                 <p className="hero-lead">
                     Short-term property funding for auction purchases, chain breaks, refurbishments
