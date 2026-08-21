@@ -13353,5 +13353,60 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1787298934698,
+    "status": "published",
+    "slug": "landlord-incorporation-capital-gains-tax-warning",
+    "url": "/insights/landlord-incorporation-capital-gains-tax-warning",
+    "title": "Landlords Who Incorporated Their Property Businesses Could Face Surprise Capital Gains Tax Bills",
+    "excerpt": "Landlords who moved rental properties into companies using conventional incorporation advice may now face unexpected Capital Gains Tax demands, according to a new warning reported by Property118.",
+    "metaTitle": "Landlord Incorporation: Surprise CGT Bills Warning",
+    "metaDescription": "Landlords who incorporated property businesses via standard advice could face unexpected Capital Gains Tax bills. Here's what the Property118 warning means for you.",
+    "keywords": "mortgage, landlord, capital gains tax",
+    "date": "2026-08-21",
+    "publishedAt": "2026-08-21T07:55:34.698Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/landlord-incorporation-capital-gains-tax-warning.webp",
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this affect every landlord who incorporated their property business?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily. The warning specifically concerns cases where personal or partnership mortgages were repaid using new borrowing taken out by the company at the time of incorporation. Landlords who incorporated without this particular financing structure may not be affected in the same way, but it's worth checking individual circumstances with a tax adviser rather than assuming either way."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can landlords challenge a Capital Gains Tax bill if they were following professional advice at the time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Following professional advice doesn't automatically remove a tax liability if HMRC takes a different view of how the transaction should be treated, though it may be relevant to any discussion around penalties. Landlords in this position should speak to a specialist tax adviser about their specific circumstances and what recourse, if any, might be available against the advice originally given."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if I can't pay a Capital Gains Tax bill straight away?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If a liability is confirmed, landlords generally need to find a way to settle it within the deadlines HMRC sets, even if the original transaction didn't generate cash in hand. This is where short-term finance can help bridge the gap while a longer-term plan, such as refinancing or a partial sale, is arranged."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Landlords who moved their rental property portfolios into limited companies, a strategy widely recommended by accountants and advisers in recent years, could be sitting on unexpected Capital Gains Tax liabilities, according to a warning reported by <a href=\"https://www.property118.com/landlords-could-face-unexpected-tax-bills-after-following-professional-advice/\" target=\"_blank\" rel=\"noopener\">Property118</a>. The issue centres on a specific and previously common part of the incorporation process: where a landlord's personal or partnership mortgage was paid off using new borrowing taken out by the company itself at the point of incorporation. What was long presented as a standard, low-risk step now appears to carry tax consequences that many landlords and even their advisers did not anticipate.</p><p>This matters because incorporation has been one of the most heavily promoted tax planning strategies for landlords over the past decade, particularly since changes to mortgage interest relief made holding properties personally less attractive for many higher-rate taxpayers. If a routine part of that process turns out to trigger a Capital Gains Tax charge that wasn't properly flagged at the time, landlords could now be facing bills they never budgeted for, potentially years after the transaction took place.</p><h2>What actually happened during incorporation</h2><p>When landlords incorporate, they typically transfer properties held personally or in a partnership into a limited company. As part of that process, it became common practice for the company to take out new borrowing and use it to repay the original personal or partnership mortgage. This was generally treated as a straightforward refinancing step rather than something with independent tax significance. The warning highlighted by Property118 suggests that, in at least some cases, this repayment mechanism may not have been as tax-neutral as landlords were led to believe, opening the door to Capital Gains Tax exposure that wasn't part of the original financial planning.</p><h2>Why this matters for landlords now</h2><p>For any landlord who incorporated using this approach, the practical risk is a tax bill arriving well after the transaction is complete, at a point where the cash to pay it may not be readily available since the original sale proceeds were never actually received in cash form. Because incorporation is often irreversible or extremely costly to unwind, landlords in this position may have limited options beyond finding the funds to settle any liability that HMRC decides applies. This is also a reminder that tax advice given at the time, however conventional it seemed, isn't a guarantee against a later challenge or reinterpretation.</p><h2>What landlords should do next</h2><p>Anyone who incorporated a property business in recent years, particularly where a new company mortgage was used to clear an existing personal or partnership loan, would be sensible to go back to their accountant or tax adviser and specifically ask whether this issue applies to their situation. It's worth getting this checked proactively rather than waiting for a query from HMRC. Landlords should also consider what their options would be for raising funds quickly if a liability turned out to be due, since Capital Gains Tax bills can be substantial and are typically expected to be settled within a set timeframe.</p><h2>Frequently Asked Questions</h2><h3>Does this affect every landlord who incorporated their property business?</h3><p>Not necessarily. The warning specifically concerns cases where personal or partnership mortgages were repaid using new borrowing taken out by the company at the time of incorporation. Landlords who incorporated without this particular financing structure may not be affected in the same way, but it's worth checking individual circumstances with a tax adviser rather than assuming either way.</p><h3>Can landlords challenge a Capital Gains Tax bill if they were following professional advice at the time?</h3><p>Following professional advice doesn't automatically remove a tax liability if HMRC takes a different view of how the transaction should be treated, though it may be relevant to any discussion around penalties. Landlords in this position should speak to a specialist tax adviser about their specific circumstances and what recourse, if any, might be available against the advice originally given.</p><h3>What if I can't pay a Capital Gains Tax bill straight away?</h3><p>If a liability is confirmed, landlords generally need to find a way to settle it within the deadlines HMRC sets, even if the original transaction didn't generate cash in hand. This is where short-term finance can help bridge the gap while a longer-term plan, such as refinancing or a partial sale, is arranged.</p><p>If this situation applies to you, or you simply want to be prepared in case an unexpected tax bill lands, it can help to know your options in advance. Landlords looking to understand how they might bridge a sudden liability can explore <a href=\"https://boxxfinance.co.uk/funding-solutions\">short-term property finance options</a> with Boxx Finance.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
