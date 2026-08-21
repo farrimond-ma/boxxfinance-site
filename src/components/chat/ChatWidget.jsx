@@ -97,7 +97,12 @@ const ChatWidget = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="chat-panel" role="dialog" aria-label="Chat with Boxx Finance">
+        <>
+            {/* Only visible/interactive on mobile (see CSS) — on desktop the
+                panel is a small anchored popover, not a modal, so nothing
+                should dim the rest of the page or capture clicks. */}
+            <div className="chat-backdrop" onClick={onClose} aria-hidden="true"></div>
+            <div className="chat-panel" role="dialog" aria-label="Chat with Boxx Finance">
             <div className="chat-header">
                 <div className="chat-header-info">
                     <span className="chat-header-dot" aria-hidden="true"></span>
@@ -164,7 +169,8 @@ const ChatWidget = ({ isOpen, onClose }) => {
                     </svg>
                 </button>
             </form>
-        </div>
+            </div>
+        </>
     );
 };
 
