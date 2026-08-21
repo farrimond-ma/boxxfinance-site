@@ -13480,5 +13480,60 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1787334192062,
+    "status": "published",
+    "slug": "landlord-couple-locked-out-capital-professional-advice",
+    "url": "/insights/landlord-couple-locked-out-capital-professional-advice",
+    "title": "Landlord couple left unable to access their own capital after later professional advice, case study warns",
+    "excerpt": "A Property118 case study describes how a landlord couple's access to their own capital may have been restricted following advice from a professional adviser, raising questions about due diligence before restructuring property finances.",
+    "metaTitle": "Landlord Couple Locked Out of Capital: Case Study Lessons",
+    "metaDescription": "A Property118 case study shows how a landlord couple may have lost access to their own capital after professional advice. Here's what other landlords should check.",
+    "keywords": "landlord, buy-to-let",
+    "date": "2026-08-21",
+    "publishedAt": "2026-08-21T17:43:12.062Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/landlord-couple-locked-out-capital-professional-advice.webp",
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What went wrong in the Property118 case study?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "According to Property118, a landlord couple took professional advice which may have subsequently left them unable to access their own capital. The publication has withheld names and financial details, has not seen the complete file, and stresses that no court or regulator has found any adviser negligent."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can restructuring how I hold rental property affect my ability to access capital later?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can. Changes such as incorporation, adding a trust, or refinancing across properties may come with conditions that affect future borrowing, sale or access to equity. It is worth asking any adviser specifically how a proposed structure would affect your ability to release capital in future before going ahead."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do if I think I'm already locked out of my own capital?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Seek an independent review of your situation from someone not involved in the original advice. A fresh set of eyes, along with a broker or lender familiar with complex ownership structures, can help clarify what options are actually available to you."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>A case study published by Property118 has raised concerns about how professional advice given to a landlord couple may have left them unable to access their own capital. The publication is careful to stress that the account is based on correspondence it has seen, that names and financial details have been withheld, and that no court or regulator has found any adviser negligent. But the story still lands as a warning to landlords about the risks of restructuring their finances without fully understanding the long-term consequences.</p><p>For ordinary landlords, this is not a story about a single unlucky couple. It is a reminder that decisions taken on professional advice, whether about incorporation, refinancing, trusts or other structures, can sometimes have effects that are not obvious until years later, when an owner tries to release equity, sell, or simply move money around and finds they cannot.</p><h2>Why capital can become harder to reach after restructuring</h2><p>Property118's case study does not detail the exact structure involved, and Boxx Finance has not seen the underlying file either. But the broad pattern it describes, a couple who took later professional advice and subsequently found their own capital tied up, is a familiar shape in the landlord world. Structures set up to save tax, protect assets, or plan for inheritance can sometimes come with conditions attached: lenders may take a different view of the new arrangement, other parties may need to consent to any changes, or the structure itself may make refinancing or selling more complicated than before.</p><p>None of this means such advice is wrong for every landlord. Many restructuring decisions are entirely sound and achieve exactly what they set out to do. The issue highlighted by this case study is what happens when the practical, day-to-day consequences of a structure, particularly around access to capital, are not fully explained or understood at the time.</p><h2>What landlords should check before taking similar advice</h2><p>Anyone considering a change to how they hold rental property, whether that is moving into a limited company, adding a trust, or refinancing across multiple properties, should ask specifically how the change will affect their ability to borrow against, sell, or release money from those properties in future. It is worth asking an adviser directly: if I needed to access capital quickly in two, five or ten years, would this structure make that easier or harder? A good adviser should be able to answer that clearly, and any answer that is vague or assumes everything will stay exactly as planned deserves closer scrutiny.</p><p>It is also worth remembering that lenders assess restructured or complex ownership arrangements differently, and what is available to a standard buy-to-let landlord may not automatically be available once a trust, company or other vehicle is involved. Checking this with a broker or lender before committing to a structure, rather than after, can avoid the kind of position described in the Property118 case study.</p><h2>What this means if you are already in this situation</h2><p>Landlords who suspect they may already be in a similar position, unable to access equity or capital because of a structure set up on earlier advice, should seek a fresh, independent review of their situation rather than assuming nothing can be done. Property118's case study itself is a reminder that these situations often only become clear with hindsight, and that getting a second opinion, ideally from someone with no involvement in the original advice, is a reasonable first step.</p><p>As reported by <a href=",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
