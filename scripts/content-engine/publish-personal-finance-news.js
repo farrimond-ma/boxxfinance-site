@@ -160,7 +160,7 @@ const ARTICLE_SCHEMA = {
   type: 'object',
   properties: {
     slug: { type: 'string', description: 'URL slug, lowercase words separated by hyphens, describing the story angle (not dated).' },
-    title: { type: 'string', description: 'Article H1 — a clear, specific headline about what happened and what it means, not generic.' },
+    title: { type: 'string', description: 'Article H1 — a clear, specific headline about what happened and what it means, not generic. Must accurately represent the article body: no exaggeration, no misleading implication, no sensationalism or curiosity-bait phrasing (Google Discover demotes content whose preview overstates or misrepresents what the article actually says).' },
     excerpt: { type: 'string', description: 'Plain text, one or two sentences, 25-40 words, for the listing card. Natural prose only.' },
     metaTitle: { type: 'string', description: 'SEO title tag, under 60 characters.' },
     metaDescription: { type: 'string', description: 'SEO meta description, 140-158 characters.' },
@@ -253,12 +253,25 @@ Funnel link to include near the end: https://boxxfinance.co.uk/funding-solutions
 
 // ── Image — reuses the same Pexels pipeline publish-blog.js uses, with a
 // story-derived query instead of a fixed per-service one ─────────────────────
+// Ordered most-specific-first so a story that touches several themes (e.g.
+// "landlord capital gains tax") gets the more precise query rather than the
+// first broad bucket it happens to match. Google's Discover guidance calls
+// out generic/unrelated imagery specifically, so these are deliberately
+// narrower than a handful of blanket categories.
 function deriveImageQuery(story) {
   const text = (story.title + ' ' + story.description).toLowerCase();
-  if (/rent|renter|landlord|tenant/.test(text)) return 'UK rental apartment building';
-  if (/interest rate|bank of england|inflation/.test(text)) return 'UK finance city bank';
-  if (/mortgage|remortgage|first-time buyer|first time buyer/.test(text)) return 'UK home mortgage keys';
-  if (/tax|stamp duty|capital gains|inheritance/.test(text)) return 'UK property paperwork documents';
+  if (/capital gains tax/.test(text)) return 'UK property tax calculation documents';
+  if (/inheritance tax/.test(text)) return 'UK family home inheritance';
+  if (/stamp duty|\bsdlt\b|\blbtt\b|\bltt\b/.test(text)) return 'UK house purchase paperwork';
+  if (/buy-to-let|buy to let|landlord/.test(text)) return 'UK rental apartment building';
+  if (/renter|tenant|rental market|rent prices/.test(text)) return 'UK tenant apartment keys';
+  if (/bank of england|interest rate/.test(text)) return 'UK finance city bank';
+  if (/inflation|cost of living/.test(text)) return 'UK household budget finances';
+  if (/remortgage/.test(text)) return 'UK home remortgage paperwork';
+  if (/first-time buyer|first time buyer/.test(text)) return 'UK first home buyer keys';
+  if (/mortgage/.test(text)) return 'UK home mortgage keys';
+  if (/conveyancing/.test(text)) return 'UK property legal documents';
+  if (/house price|property market|property price|housing market/.test(text)) return 'UK residential property street';
   return 'UK residential property street';
 }
 
