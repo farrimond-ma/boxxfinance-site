@@ -13552,5 +13552,60 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1787384631710,
+    "status": "published",
+    "slug": "pay-it-forward-schemes-cost-of-living-uk",
+    "url": "/insights/pay-it-forward-schemes-cost-of-living-uk",
+    "title": "Pay-it-forward schemes exist to help with bills, so why aren't more people using them",
+    "excerpt": "BBC News reports that London's pay-it-forward schemes, designed to help people struggling with living costs, are being underused because some feel they aren't 'poor enough' to qualify.",
+    "metaTitle": "Pay-It-Forward Schemes: Why Few People Use Them",
+    "metaDescription": "BBC News finds London's pay-it-forward cost-of-living schemes are underused, with many feeling they don't qualify. Here's what it means for households.",
+    "keywords": "mortgage, landlord, renter, homeowner, cost of living",
+    "date": "2026-08-22",
+    "publishedAt": "2026-08-22T07:43:51.711Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/pay-it-forward-schemes-cost-of-living-uk.webp",
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a pay-it-forward scheme?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It's a system, often run by cafes or community organisations, where customers pay in advance for an item such as a coffee or meal that someone who is struggling can later collect for free, without needing to prove hardship in detail."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why don't more people use these schemes if they're struggling financially?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "According to the BBC's reporting, many people who could benefit feel they aren't 'poor enough' to justify using the scheme, assuming the help should go to someone in a worse position, even when they are genuinely feeling the cost of living squeeze."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this pattern affect other types of financial support in the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The same reluctance is commonly seen with council tax support, energy assistance schemes and mortgage forbearance, where eligible people often delay asking for help out of a sense that others need it more."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>A BBC News report has highlighted a curious problem with London's pay-it-forward schemes, which let customers pay in advance for a coffee, meal or other essential that someone else who is struggling can later claim for free. The schemes exist specifically to help people cope with the cost of living, yet the report finds that many who could genuinely use the help are reluctant to, because they don't feel 'poor enough' to ask.</p><p>It's a small story on the surface, but it points to something much bigger that affects households across the UK right now: a persistent gap between the support that's available and people's willingness, or ability, to access it. That gap shows up not just in coffee shops and food schemes, but in mortgage support, benefits take-up, and financial help for homeowners and renters who are quietly struggling.</p><h2>Why this matters beyond the coffee shop counter</h2><p>The pay-it-forward model relies on two things working together: people willing to fund it, and people willing to use it. According to the BBC's reporting, the second part is where things are breaking down. People who are stretched financially, but not in crisis, often assume the help is meant for someone worse off than them. That hesitation is well documented in other areas of financial support too, including council tax reductions, energy grants and mortgage forbearance arrangements, where uptake is routinely lower than eligibility would suggest.</p><p>For UK homeowners and renters navigating a tighter budget, the lesson here isn't really about free coffee. It's a reminder that support schemes, whether run by charities, local councils or lenders, tend to be used less than intended because people underestimate their own need or feel embarrassed to ask. If that's true for a pay-it-forward board in a cafe, it's almost certainly true for more consequential financial support too.</p><h2>What it means for homeowners feeling the squeeze</h2><p>Cost of living pressure doesn't only hit renters or those on low incomes. Plenty of homeowners with mortgages, especially those who fixed a rate a few years ago and are now facing a jump at renewal, are also feeling stretched without necessarily seeing themselves as in financial difficulty. The same psychological barrier described in the BBC report, the sense of not being 'in bad enough shape' to ask for help, can stop homeowners from contacting their lender early when repayments become tight, or from looking into support options before arrears build up.</p><p>Lenders generally prefer borrowers to flag problems early rather than after missed payments, since there are usually more options available at that stage. The same principle applies to landlords managing cash flow across a portfolio, where a temporary shortfall doesn't need to become a full-blown crisis if it's addressed promptly.</p><h2>Small-scale schemes, bigger financial habits</h2><p>There's also a wider point about how people think about financial support generally. Whether it's a free meal, a rent relief fund, or short-term finance to bridge a gap while a property sale or refinance completes, the instinct to wait until things are dire before seeking help often makes the eventual problem harder to solve. Landlords and property investors dealing with short-term cash flow gaps, whether from a delayed sale, a refurbishment overrun, or a tenant issue, are often better served by looking at their options early rather than assuming they need to be in serious difficulty first.</p><p>For those in that position, it can be worth taking the time to explore short-term property finance options before a temporary shortfall turns into a bigger issue.</p><h2>Frequently Asked Questions</h2><h3>What is a pay-it-forward scheme?</h3><p>It's a system, often run by cafes or community organisations, where customers pay in advance for an item such as a coffee or meal that someone who is struggling can later collect for free, without needing to prove hardship in detail.</p><h3>Why don't more people use these schemes if they're struggling financially?</h3><p>According to the BBC's reporting, many people who could benefit feel they aren't 'poor enough' to justify using the scheme, assuming the help should go to someone in a worse position, even when they are genuinely feeling the cost of living squeeze.</p><h3>Does this pattern affect other types of financial support in the UK?</h3><p>The same reluctance is commonly seen with council tax support, energy assistance schemes and mortgage forbearance, where eligible people often delay asking for help out of a sense that others need it more.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
