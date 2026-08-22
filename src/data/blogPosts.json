@@ -13607,5 +13607,60 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1787406302420,
+    "status": "published",
+    "slug": "landlord-incorporation-relief-new-hmrc-claim-rules",
+    "url": "/insights/landlord-incorporation-relief-new-hmrc-claim-rules",
+    "title": "HMRC changes the rules for landlords incorporating their property businesses from 2026",
+    "excerpt": "HMRC has published new guidance meaning landlords who incorporate their property business after 6 April 2026 will have to actively claim Incorporation Relief rather than receiving it automatically.",
+    "metaTitle": "HMRC's new rules for landlord Incorporation Relief",
+    "metaDescription": "From 6 April 2026, landlords incorporating a property business must actively claim Incorporation Relief. Here's what HMRC's new guidance means for you.",
+    "keywords": "landlord, capital gains tax",
+    "date": "2026-08-22",
+    "publishedAt": "2026-08-22T13:45:02.421Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/landlord-incorporation-relief-new-hmrc-claim-rules.webp",
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Incorporation Relief and why does it matter to landlords?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Incorporation Relief under Section 162 allows a property business to be transferred into a limited company without an immediate Capital Gains Tax charge on the properties, provided the business qualifies. It matters to landlords because many use incorporation to restructure how they hold property for tax and mortgage reasons, and losing or delaying the relief could mean an unexpected tax bill."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this change affect landlords who incorporated before April 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, the source guidance is specifically about business transfers taking place from 6 April 2026. Transfers completed before that date are treated under the previous approach where the relief applied automatically once the qualifying conditions were met."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should landlords do if they are planning to incorporate after April 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Landlords should speak to a specialist tax adviser well before the transfer date to understand what evidence HMRC will expect and to make sure the claim is prepared properly, since the relief will no longer be granted automatically."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>HMRC has published detailed new guidance setting out exactly what landlords must provide when claiming Section 162 Incorporation Relief for business transfers taking place from 6 April 2026. The key change is that, unlike transfers completed before that date, the relief will no longer be automatic even where all the usual qualifying conditions are met. Landlords planning to move their property portfolio into a limited company will now need to actively make a claim and supply evidence to support it, rather than assuming the relief simply applies.</p><p>This matters because Incorporation Relief is the mechanism that lets landlords transfer a property business into a company without triggering an immediate Capital Gains Tax bill on the properties involved. For years, many landlords and their accountants have treated this as something that happens automatically behind the scenes, provided the business qualifies. HMRC's new guidance changes that assumption for anyone incorporating from 6 April 2026 onwards, as reported by <a href=",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
