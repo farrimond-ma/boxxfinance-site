@@ -13662,5 +13662,60 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1787420078681,
+    "status": "published",
+    "slug": "landlords-epc-upgrade-costs-royal-estates-comparison",
+    "url": "/insights/landlords-epc-upgrade-costs-royal-estates-comparison",
+    "title": "Royal Estates Face £10m EPC Bill, But Landlords Collectively Face Almost £10bn",
+    "excerpt": "The Duchy of Cornwall and Duchy of Lancaster reportedly face a £10m bill to upgrade rental properties, putting into sharp relief the near £9.9bn cost facing landlords across England and Wales.",
+    "metaTitle": "Royal EPC Bill vs Landlords' £9.87bn Challenge",
+    "metaDescription": "King Charles and Prince William reportedly face a £10m EPC upgrade bill. Here's what that comparison means for ordinary landlords facing a much bigger total cost.",
+    "keywords": "mortgage, rental market, landlord, buy-to-let",
+    "date": "2026-08-22",
+    "publishedAt": "2026-08-22T17:34:38.681Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/landlords-epc-upgrade-costs-royal-estates-comparison.webp",
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why do landlords need to upgrade their properties' energy efficiency?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Government has been pushing for higher minimum energy efficiency standards in rented homes, meaning many properties currently rated D, E or below are likely to need improvements such as better insulation, glazing or heating systems to meet future requirements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much might it cost landlords to upgrade a rental property?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The source reporting does not give a per-property figure, but it cites a sector-wide estimate of nearly £9.87 billion across England and Wales, suggesting significant costs for many individual landlords depending on the condition and rating of their properties."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What options do landlords have if they cannot afford the upgrade costs upfront?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Landlords without spare cash may look at remortgaging, taking a further advance, or using short-term finance to cover the cost of works before refinancing once the property has been improved and its value or rating has increased."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>King Charles and Prince William could face a bill of around £10 million to bring rental properties across their estates up to higher energy efficiency standards, according to reporting picked up by Property118. That figure sounds substantial until you set it against the wider bill facing landlords in England and Wales, which the Government's own proposals suggest could total nearly £9.87 billion. The comparison is a useful way of understanding the scale of what is being asked of the private rented sector, and why many landlords are anxious about how they will actually pay for it.</p><p>The context here is the ongoing push to raise minimum energy efficiency standards for rented homes. Landlords have been aware for some time that a tightening of Energy Performance Certificate (EPC) requirements is likely, meaning many rental properties currently rated D, E or below will need upgrading. Even the Royal estates, with all their scale and resources, are reportedly looking at a bill in the tens of millions to bring their portfolios into line. For ordinary landlords with one, two or a handful of properties, finding the money for insulation, glazing, heating upgrades or other improvements is a far more daunting prospect.</p><h2>Why this comparison matters for everyday landlords</h2><p>Most landlords do not have the borrowing power, cash reserves or property management infrastructure of a royal duchy. A £10 million bill spread across a large, professionally managed estate is one thing. A few thousand pounds per property, multiplied across an individual landlord's entire portfolio, is quite another, particularly for those who own just one or two buy-to-lets alongside a day job.</p><p>The near £9.87 billion figure being cited is a sector-wide total, not a per-property cost, but it illustrates the scale of investment the Government is expecting from a sector made up overwhelmingly of small-scale, individual landlords rather than large institutions. Many of these landlords will need to find the money through savings, remortgaging, or short-term borrowing, and will be doing so at a time when mortgage costs and general running expenses have already been squeezed.</p><h2>What this could mean for rents and the rental market</h2><p>Where landlords cannot easily absorb these costs, there are a few likely outcomes. Some will pass costs on through higher rents where the market allows it. Others may decide the numbers no longer work and sell up, which could reduce the overall supply of rental homes at a time when demand remains strong in many areas. A smaller pool of landlords with tighter margins is unlikely to be good news for tenants either, even though the underlying goal of warmer, cheaper to run homes is a sensible one.</p><p>For landlords weighing up their next move, the practical question is less about whether upgrades are needed and more about timing and financing. Waiting until requirements are finalised and enforced can mean scrambling for contractors and funding all at once. Planning ahead, even before firm deadlines are confirmed, tends to give landlords more control over cost and quality.</p><h2>Planning ahead as a landlord</h2><p>Landlords who own older or less efficient properties may want to start assessing what work would be needed to reach a higher EPC rating, and how much that is likely to cost, well before any final rules take effect. For those without spare cash sitting ready, it can be worth looking at how the work might be funded, whether that is through remortgaging, a further advance, or short-term finance used specifically to cover renovation costs before refinancing onto a standard mortgage once the work is done. Landlords considering their options can explore short-term property finance options to understand what is available if they need to move quickly on upgrade work.</p><p>As reported by <a href=",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
