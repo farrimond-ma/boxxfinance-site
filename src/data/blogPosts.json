@@ -13742,5 +13742,60 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1787471158237,
+    "status": "published",
+    "slug": "conveyancing-fraud-warning-homebuyers-bank-scams",
+    "url": "/insights/conveyancing-fraud-warning-homebuyers-bank-scams",
+    "title": "'Friday Afternoon Fraud': Why Homebuyers Are Losing Their Deposits to Fake Solicitor Emails",
+    "excerpt": "A new warning highlights how UK homebuyers are losing tens of thousands of pounds, in one case £300,000, to scammers impersonating solicitors or estate agents at the final stage of a house purchase.",
+    "metaTitle": "Conveyancing Fraud: Homebuyer Bank Scam Warning",
+    "metaDescription": "UK homebuyers are losing life savings to fake solicitor emails during property purchases. Here's how the scam works and how to protect your deposit.",
+    "keywords": "mortgage, landlord, remortgage, first time buyer, conveyancing",
+    "date": "2026-08-23",
+    "publishedAt": "2026-08-23T07:45:58.237Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/conveyancing-fraud-warning-homebuyers-bank-scams.webp",
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How can I tell if an email with bank details is genuine?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Never rely solely on the email itself. Call your solicitor or conveyancer using a phone number you already have on file or can find independently, not one included in the email, and verbally confirm the account details before transferring any money."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do if I think I've already sent money to a fraudulent account?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Contact your bank immediately, as speed matters when trying to freeze or recover funds. You should also report the incident to Action Fraud and inform your solicitor straight away so they can alert their own bank and the wider transaction chain."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are solicitors responsible if I fall victim to this kind of fraud?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on the circumstances, including whether the solicitor's own systems were compromised or whether appropriate warnings were given. This is a developing area and outcomes vary case by case, so anyone affected should seek independent legal advice."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>A fresh warning about so-called conveyancing fraud has highlighted just how costly a single fake email can be for someone buying a home. According to <a href=\"https://www.theguardian.com/money/2026/aug/23/friday-afternoon-fraud-scam-conveyancing-fraud-uk-property-buyer-bank-account\">the Guardian</a>, victims have lost tens of thousands of pounds, and in one case as much as £300,000, after criminals intercepted communications and sent fraudulent bank details posing as a solicitor or estate agent. The buyer, believing they were following genuine instructions, transferred their deposit straight into the scammer's account.</p><p>This matters because it strikes at the single most vulnerable moment in a house purchase: the point where a large sum of money has to move quickly, based on an email, between people who may never have met in person and are often communicating under time pressure. It is a scam built entirely around trust in routine paperwork, which is exactly why it keeps working.</p><h2>How the scam actually operates</h2><p>The mechanics described in the report are simple but effective. A buyer is waiting for confirmation from their solicitor that everything is ready and it is time to send the deposit. Criminals, having gained access to email accounts or intercepted correspondence somewhere along the chain, send a message that looks identical to the one the buyer is expecting, complete with different bank details. The buyer transfers the money, and it is only when the real solicitor later asks where the funds are that the fraud becomes apparent. By then, the money has often already been moved on and is very difficult to recover.</p><p>The nickname 'Friday afternoon fraud' reflects the timing that criminals often exploit, when transactions are being rushed through before a weekend and there is less time to double check anything by phone before banks close.</p><h2>What this means for buyers, sellers and landlords</h2><p>For anyone currently going through a purchase, sale or remortgage, the lesson is not that conveyancing itself is unsafe, but that email is not a secure enough channel to trust blindly when large sums are involved. Landlords buying additional properties, first time buyers moving their entire savings in one go, and people selling to fund a chain are all exposed in the same way, because the fraud targets the process rather than any particular type of buyer.</p><p>Solicitors' firms generally warn clients about this risk at the outset of a transaction, but the report suggests that warning alone is not stopping people falling victim. Anyone due to send a deposit or completion funds should treat a change in bank details, or even a first-time set of bank details arriving by email, as something to verify independently. That means phoning the solicitor's office on a number sourced separately, not one taken from the email itself, and confirming the details verbally before sending anything.</p><p>It is also worth building in time rather than transferring money at the last possible moment. Rushed transactions, particularly late in the week, are precisely the conditions criminals rely on.</p><h2>Frequently Asked Questions</h2><h3>How can I tell if an email with bank details is genuine?</h3><p>Never rely solely on the email itself. Call your solicitor or conveyancer using a phone number you already have on file or can find independently, not one included in the email, and verbally confirm the account details before transferring any money.</p><h3>What should I do if I think I've already sent money to a fraudulent account?</h3><p>Contact your bank immediately, as speed matters when trying to freeze or recover funds. You should also report the incident to Action Fraud and inform your solicitor straight away so they can alert their own bank and the wider transaction chain.</p><h3>Are solicitors responsible if I fall victim to this kind of fraud?</h3><p>It depends on the circumstances, including whether the solicitor's own systems were compromised or whether appropriate warnings were given. This is a developing area and outcomes vary case by case, so anyone affected should seek independent legal advice.</p><p>If a delay in a property transaction leaves you needing funds quickly while a dispute or fraud investigation is resolved, it can help to explore <a href=\"https://boxxfinance.co.uk/funding-solutions\">short-term property finance options</a> designed to bridge exactly these kinds of gaps.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
