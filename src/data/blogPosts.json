@@ -13852,5 +13852,60 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1787506383442,
+    "status": "published",
+    "slug": "hmrc-20-hour-landlord-incorporation-guidance-change",
+    "url": "/insights/hmrc-20-hour-landlord-incorporation-guidance-change",
+    "title": "HMRC softens 20-hour rule guidance for landlords incorporating their property business",
+    "excerpt": "HMRC has updated its guidance to confirm landlords working under 20 hours a week can still count as running a business for Incorporation Relief purposes, following pressure from Property118.",
+    "metaTitle": "HMRC changes 20-hour rule guidance for landlords",
+    "metaDescription": "HMRC has amended its guidance on the 20-hour test for landlord Incorporation Relief after a Property118 open letter. Here's what it means for landlords.",
+    "keywords": "mortgage, stamp duty, landlord, capital gains tax",
+    "date": "2026-08-23",
+    "publishedAt": "2026-08-23T17:33:03.442Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/hmrc-20-hour-landlord-incorporation-guidance-change.webp",
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this guidance change mean I automatically qualify for Incorporation Relief?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. HMRC has confirmed that spending fewer than 20 hours a week on your properties does not automatically disqualify you, but you still need to show that your activity amounts to a genuine business under the wider test, taking into account factors such as scale and how actively the portfolio is managed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Incorporation Relief and why does it matter to landlords?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Incorporation Relief allows certain business owners, including some landlords, to defer capital gains tax when they transfer assets such as rental properties into a limited company, provided the activity qualifies as a business rather than simple property investment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I incorporate my rental properties now that HMRC has changed its guidance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This depends on your individual circumstances, including your portfolio size, how you manage it, and your wider financial plans. The guidance change reduces one area of uncertainty, but landlords should still get professional tax advice before transferring properties into a company structure."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>HMRC has changed its published guidance on the so called 20-hour test that determines whether a landlord can claim Incorporation Relief when moving a property portfolio into a limited company. The revised wording now expressly confirms that someone who spends fewer than 20 hours a week on their property activities may still be treated as running a business for the purposes of section 162 of the Taxation of Chargeable Gains Act 1992. The change follows an open letter from the landlord campaign group Property118, as reported by <a href=\"https://www.property118.com/hmrc-changes-20-hour-landlord-incorporation-guidance-weeks-after-property118-open-letter/\">Property118</a>.</p><p>This matters because Incorporation Relief is one of the main routes landlords use to defer capital gains tax when they transfer personally held rental properties into a company structure. Whether HMRC accepts that a landlord is genuinely running a business, rather than simply holding investments, has long been the key test for qualifying. The 20-hour figure had become something of an unofficial benchmark, even though it was never a statutory requirement, and many landlords and their advisers were worried that HMRC was using it as a hard cut-off when deciding claims.</p><h2>Why the 20-hour figure caused so much confusion</h2><p>The number of hours a landlord spends managing their properties has never been written into tax law as a fixed threshold for Incorporation Relief. Instead, the legal test is whether the activity amounts to a business, which has always depended on a range of factors including the scale of the portfolio, the level of active management involved, and the degree of organisation behind it. The concern raised by Property118 was that HMRC's own internal guidance appeared to treat 20 hours a week as something close to a pass or fail mark, which risked catching out landlords with smaller portfolios who nonetheless actively manage their properties, just not for 20 hours every week.</p><p>By updating the guidance to confirm that fewer than 20 hours does not automatically rule someone out, HMRC has removed a source of real uncertainty for landlords planning incorporation. It does not mean the hours test disappears entirely, but it does mean landlords should no longer assume they fail the business test purely because they cannot demonstrate 20 hours of weekly involvement.</p><h2>What this means if you are considering incorporating</h2><p>For landlords weighing up whether to move properties into a limited company, this guidance change is a positive development, but it is not a green light to assume Incorporation Relief will automatically apply. HMRC will still look at the wider picture, including how the portfolio is managed, whether there is a genuine ongoing business rather than passive letting, and how the transfer is structured. Landlords considering incorporation should still take proper tax advice before making any transfer, since getting this wrong can mean an unexpected capital gains tax bill rather than the deferral they were hoping for.</p><p>It is also worth remembering that incorporation brings its own costs and complications beyond the tax position, including potential stamp duty land tax charges in England and Northern Ireland, or the equivalent Land and Buildings Transaction Tax in Scotland and Land Transaction Tax in Wales, along with mortgage refinancing and lender criteria that differ for limited company borrowing.</p><h2>The bigger picture for landlords</h2><p>This episode also shows that landlord groups and advisers can influence how HMRC applies its own guidance, particularly where that guidance risks going further than the underlying law actually requires. For landlords who had paused incorporation plans because of concerns about the 20-hour rule, it may be worth revisiting those plans with an adviser now that the guidance has been clarified. Anyone restructuring a portfolio, whether through incorporation or otherwise, will often need short-term funding to bridge the transition, and it can be useful to explore <a href=\"https://boxxfinance.co.uk/funding-solutions\">short-term property finance options</a> as part of that planning process.</p><h2>Frequently Asked Questions</h2><h3>Does this guidance change mean I automatically qualify for Incorporation Relief?</h3><p>No. HMRC has confirmed that spending fewer than 20 hours a week on your properties does not automatically disqualify you, but you still need to show that your activity amounts to a genuine business under the wider test, taking into account factors such as scale and how actively the portfolio is managed.</p><h3>What is Incorporation Relief and why does it matter to landlords?</h3><p>Incorporation Relief allows certain business owners, including some landlords, to defer capital gains tax when they transfer assets such as rental properties into a limited company, provided the activity qualifies as a business rather than simple property investment.</p><h3>Should I incorporate my rental properties now that HMRC has changed its guidance?</h3><p>This depends on your individual circumstances, including your portfolio size, how you manage it, and your wider financial plans. The guidance change reduces one area of uncertainty, but landlords should still get professional tax advice before transferring properties into a company structure.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
