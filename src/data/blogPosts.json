@@ -13797,5 +13797,60 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1787492678064,
+    "status": "published",
+    "slug": "mansion-tax-hmrc-inspectors-property-valuations",
+    "url": "/insights/mansion-tax-hmrc-inspectors-property-valuations",
+    "title": "HMRC to Send Inspectors Into Homes to Check Who Owes the New Mansion Tax",
+    "excerpt": "HMRC is deploying valuation agents who can demand entry to properties to assess whether homes are worth over £2m under the new High Value Council Tax surcharge, sometimes called the mansion tax.",
+    "metaTitle": "HMRC Mansion Tax Inspectors to Visit UK Homes",
+    "metaDescription": "HMRC is sending valuation agents into homes worth over £2m to check mansion tax liability. Here's what it means for homeowners across the UK.",
+    "keywords": "landlord, homeowner, property price",
+    "date": "2026-08-23",
+    "publishedAt": "2026-08-23T13:44:38.064Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/mansion-tax-hmrc-inspectors-property-valuations.webp",
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Who is affected by the mansion tax valuation inspections?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Based on current reporting, it applies to owners of properties HMRC believes could be worth over £2m, which fall under the new High Value Council Tax surcharge. Most UK homeowners with lower-value properties will not be affected."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I refuse entry to an HMRC valuation inspector?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The source reporting states that agents will be able to demand entry to assess a property's value, though full detail on the legal process and homeowner rights has not yet been published. Homeowners with concerns should wait for further official guidance from HMRC before assuming what their options are."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will this affect council tax as well as the new mansion tax?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The mansion tax operates as a separate high value surcharge alongside existing council tax bands, according to the reporting. It is not a replacement for council tax, but an additional charge targeted specifically at higher-value properties."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>HMRC is preparing to send valuation inspectors into homes across the UK as part of the new mansion tax, with agents given powers to demand entry to properties to assess whether they are worth more than £2m and therefore liable under the High Value Council Tax surcharge. As reported by <a href=\"https://www.cityam.com/hmrc-mansion-tax-inspectors-to-target-homes-for-property-valuations/\">City AM</a>, this marks the first time in years that homeowners could face a physical inspection to determine a tax bill based on the current value of their property, rather than a historic council tax band.</p><p>For most people this will never come up. But for anyone who owns, or is thinking of buying, a property that could plausibly sit near or above the £2m mark, this is a real practical shift. It moves valuation away from paperwork and desk-based estimates towards inspectors who can turn up and look at the property itself.</p><h2>Why this matters even if your home isn't worth £2m</h2><p>The obvious group affected is owners of higher-value homes, particularly in London and the South East where £2m properties are far more common than the headline figure suggests. But there's a wider ripple effect. Buyers looking at property in that bracket now need to factor in the possibility of a formal valuation visit as part of ownership, not just at the point of purchase. That could influence how attractive certain homes are, how quickly they sell, and how sellers price them if they're trying to stay just under the threshold.</p><p>Landlords with high-value portfolio properties should also pay attention. If a rental property is valued above £2m, the annual cost of holding it changes, and that has knock-on effects for rental pricing and investment returns. Anyone weighing up whether to buy, extend, or improve a property that sits near the boundary will now need to think harder about whether renovations could tip it over the line and trigger a valuation and a bigger bill.</p><h2>What an HMRC visit could mean in practice</h2><p>The source summary confirms that valuation agents will be able to demand entry to assess a property's worth, but doesn't detail the exact process, timeline, or how appeals will work. Homeowners in the affected bracket should expect more clarity from HMRC in the coming months on how inspections will be scheduled, what evidence agents will use, and what rights owners have to challenge a valuation they disagree with. Until then, it's sensible for owners of higher-value homes to keep good records of their property's condition, any structural issues, and comparable sales nearby, since these are the kinds of details that typically matter in a valuation dispute.</p><h2>What this means for buyers and sellers near the threshold</h2><p>Anyone buying or selling a property close to £2m should factor the mansion tax into their planning now rather than after a sale completes. A property priced just under the threshold could become more desirable, while one just over it may need a seller to be realistic about how the new tax affects buyer appetite. For those needing to move quickly, whether to complete a purchase, fund a renovation before a valuation review, or bridge a cash flow gap while a property sale or tax matter is resolved, it can be worth taking time to explore short-term property finance options rather than being forced into a rushed decision.</p><h2>Frequently Asked Questions</h2><h3>Who is affected by the mansion tax valuation inspections?</h3><p>Based on current reporting, it applies to owners of properties HMRC believes could be worth over £2m, which fall under the new High Value Council Tax surcharge. Most UK homeowners with lower-value properties will not be affected.</p><h3>Can I refuse entry to an HMRC valuation inspector?</h3><p>The source reporting states that agents will be able to demand entry to assess a property's value, though full detail on the legal process and homeowner rights has not yet been published. Homeowners with concerns should wait for further official guidance from HMRC before assuming what their options are.</p><h3>Will this affect council tax as well as the new mansion tax?</h3><p>The mansion tax operates as a separate high value surcharge alongside existing council tax bands, according to the reporting. It is not a replacement for council tax, but an additional charge targeted specifically at higher-value properties.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
