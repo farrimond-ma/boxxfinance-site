@@ -1,49 +1,237 @@
 {
-  "lastChecked": null,
+  "lastChecked": "2026-08-24T07:00:33.153Z",
   "feeds": [
-    { "url": "https://www.theguardian.com/money/property/rss", "name": "The Guardian — Property", "status": "active" },
-    { "url": "https://www.theguardian.com/money/rss", "name": "The Guardian — Money", "status": "active" },
-    { "url": "http://feeds.bbci.co.uk/news/business/rss.xml", "name": "BBC News — Business", "status": "active" },
-    { "url": "https://www.thisismoney.co.uk/money/mortgageshome/index.rss", "name": "This Is Money — Mortgages & Home", "status": "active" },
-    { "url": "https://www.landlordtoday.co.uk/rss/news", "name": "Landlord Today", "status": "active" },
-    { "url": "https://inews.co.uk/topic/property/feed", "name": "i — Property", "status": "active" },
-    { "url": "https://www.thisismoney.co.uk/money/buytolet/index.rss", "name": "This Is Money — Buy to Let", "status": "active" },
-    { "url": "https://www.thisismoney.co.uk/money/saving/index.rss", "name": "This Is Money — Saving", "status": "active" },
-    { "url": "https://www.thisismoney.co.uk/money/bills/index.rss", "name": "This Is Money — Bills", "status": "active" },
-    { "url": "https://www.property118.com/feed/", "name": "Property118", "status": "active" },
-    { "url": "https://www.rightmove.co.uk/news/feed/", "name": "Rightmove — Property News", "status": "active" },
-    { "url": "https://www.telegraph.co.uk/property/rss.xml", "name": "The Telegraph — Property", "status": "active" },
-    { "url": "https://www.propertyinvestortoday.co.uk/rss/news", "name": "Property Investor Today", "status": "active" },
-    { "url": "https://www.lettingagenttoday.co.uk/rss/news", "name": "Letting Agent Today", "status": "active" },
-    { "url": "https://www.idealhome.co.uk/feed", "name": "Ideal Home", "status": "active" },
-    { "url": "https://www.which.co.uk/news/feed", "name": "Which? News", "status": "active" },
-    { "url": "https://www.cityam.com/feed/", "name": "City A.M.", "status": "active" },
-    { "url": "https://www.moneyweek.com/feed", "name": "MoneyWeek", "status": "active" },
-    { "url": "https://www.propertynotify.co.uk/feed/", "name": "Property Notify", "status": "active" },
-    { "url": "https://www.estateagenttoday.co.uk/rss/news", "name": "Estate Agent Today", "status": "active" },
-
-    { "url": "https://www.propertyindustryeye.com/feed/", "name": "Property Industry Eye", "status": "candidate", "note": "connection failed 2026-08-21" },
-    { "url": "https://www.homebuilding.co.uk/feed", "name": "Homebuilding & Renovating", "status": "candidate", "note": "404 2026-08-21" },
-    { "url": "https://www.uswitch.com/feeds/news.xml", "name": "Uswitch", "status": "candidate", "note": "403 (blocks non-browser requests) 2026-08-21" },
-    { "url": "https://www.mortgagefinancegazette.com/feed/", "name": "Mortgage Finance Gazette", "status": "candidate", "note": "0 items 2026-08-21" },
-    { "url": "https://www.leaders.co.uk/feed", "name": "Leaders (letting agency)", "status": "candidate", "note": "404 2026-08-21" },
-    { "url": "https://www.simplybusiness.co.uk/knowledge/feed/", "name": "Simply Business", "status": "candidate", "note": "403 2026-08-21" },
-    { "url": "https://www.zoopla.co.uk/discover/feed/", "name": "Zoopla Discover", "status": "candidate", "note": "403 2026-08-21" },
-    { "url": "https://news.sky.com/feeds/rss/business.xml", "name": "Sky News — Business", "status": "candidate", "note": "403 2026-08-21" },
-    { "url": "https://www.reuters.com/arc/outboundfeeds/rss/category/business/?outputType=xml", "name": "Reuters — Business", "status": "candidate", "note": "404 2026-08-21" },
-    { "url": "https://www.propertyreporter.co.uk/rss", "name": "Property Reporter", "status": "candidate", "note": "0 items 2026-08-21" },
-    { "url": "https://www.homesandproperty.co.uk/feed", "name": "Homes & Property (Evening Standard)", "status": "candidate", "note": "404 2026-08-21" },
-    { "url": "https://www.propertyweek.com/rss", "name": "Property Week", "status": "candidate", "note": "0 items 2026-08-21" },
-    { "url": "https://www.buyassociationgroup.com/en-gb/feed/", "name": "BuyAssociation", "status": "candidate", "note": "server error (508) 2026-08-21" },
-    { "url": "https://www.mortgagebrokertools.co.uk/feed/", "name": "Mortgage Broker Tools", "status": "candidate", "note": "404 2026-08-21" },
-    { "url": "https://www.independent.co.uk/topic/property/rss", "name": "The Independent — Property", "status": "candidate", "note": "works but effectively empty (1 item) 2026-08-21" },
-    { "url": "https://www.mirror.co.uk/all-about/money/?service=rss", "name": "Mirror — Money", "status": "candidate", "note": "0 items 2026-08-21" },
-    { "url": "https://metro.co.uk/money/feed/", "name": "Metro — Money", "status": "candidate", "note": "0 items 2026-08-21" },
-    { "url": "https://www.moneysavingexpert.com/feed/latestnews/", "name": "MoneySavingExpert", "status": "candidate", "note": "403, blocks non-browser requests 2026-08-21" },
-
-    { "url": "https://www.mortgagesolutions.co.uk/feed/", "name": "Mortgage Solutions", "status": "rejected", "note": "works fine technically (10 items) but broker/trade audience (leadership appointments, FCA advised-sales data) rather than consumer — a judgement-call exclusion, not a technical failure, so the health-check script must never auto-promote this even though it would pass a pure connectivity test. Promote manually only if reviewed and wanted." },
-    { "url": "https://www.express.co.uk/posts/rss/139/property", "name": "Daily Express — Property", "status": "rejected", "note": "returns valid RSS with real items but the content is mislabeled — it's actually the Politics feed, not Property. Would pass a pure connectivity/item-count test, so must never be auto-promoted; needs a human to verify the content is actually correct before reconsidering." },
-    { "url": "https://www.thisismoney.co.uk/money/pensions/index.rss", "name": "This Is Money — Pensions", "status": "rejected", "note": "works fine technically (150 items) but least directly property-relevant of the This Is Money sections — held back 2026-08-21 as a judgement call, not a technical failure. Promote manually if the active list needs topping up." },
-    { "url": "https://www.dailymail.co.uk/money/mortgageshome/index.rss", "name": "Daily Mail — Mortgages & Home", "status": "excluded", "note": "identical syndicated content to This Is Money (same publisher) — permanently excluded as a duplicate, not re-tested" }
+    {
+      "url": "https://www.theguardian.com/money/property/rss",
+      "name": "The Guardian — Property",
+      "status": "active"
+    },
+    {
+      "url": "https://www.theguardian.com/money/rss",
+      "name": "The Guardian — Money",
+      "status": "active"
+    },
+    {
+      "url": "http://feeds.bbci.co.uk/news/business/rss.xml",
+      "name": "BBC News — Business",
+      "status": "active"
+    },
+    {
+      "url": "https://www.thisismoney.co.uk/money/mortgageshome/index.rss",
+      "name": "This Is Money — Mortgages & Home",
+      "status": "active"
+    },
+    {
+      "url": "https://www.landlordtoday.co.uk/rss/news",
+      "name": "Landlord Today",
+      "status": "active"
+    },
+    {
+      "url": "https://inews.co.uk/topic/property/feed",
+      "name": "i — Property",
+      "status": "active"
+    },
+    {
+      "url": "https://www.thisismoney.co.uk/money/buytolet/index.rss",
+      "name": "This Is Money — Buy to Let",
+      "status": "active"
+    },
+    {
+      "url": "https://www.thisismoney.co.uk/money/saving/index.rss",
+      "name": "This Is Money — Saving",
+      "status": "active"
+    },
+    {
+      "url": "https://www.thisismoney.co.uk/money/bills/index.rss",
+      "name": "This Is Money — Bills",
+      "status": "active"
+    },
+    {
+      "url": "https://www.property118.com/feed/",
+      "name": "Property118",
+      "status": "active"
+    },
+    {
+      "url": "https://www.rightmove.co.uk/news/feed/",
+      "name": "Rightmove — Property News",
+      "status": "active"
+    },
+    {
+      "url": "https://www.telegraph.co.uk/property/rss.xml",
+      "name": "The Telegraph — Property",
+      "status": "active"
+    },
+    {
+      "url": "https://www.propertyinvestortoday.co.uk/rss/news",
+      "name": "Property Investor Today",
+      "status": "active"
+    },
+    {
+      "url": "https://www.lettingagenttoday.co.uk/rss/news",
+      "name": "Letting Agent Today",
+      "status": "active"
+    },
+    {
+      "url": "https://www.idealhome.co.uk/feed",
+      "name": "Ideal Home",
+      "status": "active"
+    },
+    {
+      "url": "https://www.which.co.uk/news/feed",
+      "name": "Which? News",
+      "status": "active"
+    },
+    {
+      "url": "https://www.cityam.com/feed/",
+      "name": "City A.M.",
+      "status": "active"
+    },
+    {
+      "url": "https://www.moneyweek.com/feed",
+      "name": "MoneyWeek",
+      "status": "active"
+    },
+    {
+      "url": "https://www.propertynotify.co.uk/feed/",
+      "name": "Property Notify",
+      "status": "active"
+    },
+    {
+      "url": "https://www.estateagenttoday.co.uk/rss/news",
+      "name": "Estate Agent Today",
+      "status": "active"
+    },
+    {
+      "url": "https://www.propertyindustryeye.com/feed/",
+      "name": "Property Industry Eye",
+      "status": "candidate",
+      "note": "connection failed 2026-08-21"
+    },
+    {
+      "url": "https://www.homebuilding.co.uk/feed",
+      "name": "Homebuilding & Renovating",
+      "status": "candidate",
+      "note": "404 2026-08-21"
+    },
+    {
+      "url": "https://www.uswitch.com/feeds/news.xml",
+      "name": "Uswitch",
+      "status": "candidate",
+      "note": "403 (blocks non-browser requests) 2026-08-21"
+    },
+    {
+      "url": "https://www.mortgagefinancegazette.com/feed/",
+      "name": "Mortgage Finance Gazette",
+      "status": "candidate",
+      "note": "0 items 2026-08-21"
+    },
+    {
+      "url": "https://www.leaders.co.uk/feed",
+      "name": "Leaders (letting agency)",
+      "status": "candidate",
+      "note": "404 2026-08-21"
+    },
+    {
+      "url": "https://www.simplybusiness.co.uk/knowledge/feed/",
+      "name": "Simply Business",
+      "status": "candidate",
+      "note": "403 2026-08-21"
+    },
+    {
+      "url": "https://www.zoopla.co.uk/discover/feed/",
+      "name": "Zoopla Discover",
+      "status": "candidate",
+      "note": "403 2026-08-21"
+    },
+    {
+      "url": "https://news.sky.com/feeds/rss/business.xml",
+      "name": "Sky News — Business",
+      "status": "candidate",
+      "note": "403 2026-08-21"
+    },
+    {
+      "url": "https://www.reuters.com/arc/outboundfeeds/rss/category/business/?outputType=xml",
+      "name": "Reuters — Business",
+      "status": "candidate",
+      "note": "404 2026-08-21"
+    },
+    {
+      "url": "https://www.propertyreporter.co.uk/rss",
+      "name": "Property Reporter",
+      "status": "candidate",
+      "note": "0 items 2026-08-21"
+    },
+    {
+      "url": "https://www.homesandproperty.co.uk/feed",
+      "name": "Homes & Property (Evening Standard)",
+      "status": "candidate",
+      "note": "404 2026-08-21"
+    },
+    {
+      "url": "https://www.propertyweek.com/rss",
+      "name": "Property Week",
+      "status": "candidate",
+      "note": "0 items 2026-08-21"
+    },
+    {
+      "url": "https://www.buyassociationgroup.com/en-gb/feed/",
+      "name": "BuyAssociation",
+      "status": "active",
+      "note": "promoted 2026-08-24 — 10 items"
+    },
+    {
+      "url": "https://www.mortgagebrokertools.co.uk/feed/",
+      "name": "Mortgage Broker Tools",
+      "status": "candidate",
+      "note": "404 2026-08-21"
+    },
+    {
+      "url": "https://www.independent.co.uk/topic/property/rss",
+      "name": "The Independent — Property",
+      "status": "candidate",
+      "note": "works but effectively empty (1 item) 2026-08-21"
+    },
+    {
+      "url": "https://www.mirror.co.uk/all-about/money/?service=rss",
+      "name": "Mirror — Money",
+      "status": "candidate",
+      "note": "0 items 2026-08-21"
+    },
+    {
+      "url": "https://metro.co.uk/money/feed/",
+      "name": "Metro — Money",
+      "status": "candidate",
+      "note": "0 items 2026-08-21"
+    },
+    {
+      "url": "https://www.moneysavingexpert.com/feed/latestnews/",
+      "name": "MoneySavingExpert",
+      "status": "candidate",
+      "note": "403, blocks non-browser requests 2026-08-21"
+    },
+    {
+      "url": "https://www.mortgagesolutions.co.uk/feed/",
+      "name": "Mortgage Solutions",
+      "status": "rejected",
+      "note": "works fine technically (10 items) but broker/trade audience (leadership appointments, FCA advised-sales data) rather than consumer — a judgement-call exclusion, not a technical failure, so the health-check script must never auto-promote this even though it would pass a pure connectivity test. Promote manually only if reviewed and wanted."
+    },
+    {
+      "url": "https://www.express.co.uk/posts/rss/139/property",
+      "name": "Daily Express — Property",
+      "status": "rejected",
+      "note": "returns valid RSS with real items but the content is mislabeled — it's actually the Politics feed, not Property. Would pass a pure connectivity/item-count test, so must never be auto-promoted; needs a human to verify the content is actually correct before reconsidering."
+    },
+    {
+      "url": "https://www.thisismoney.co.uk/money/pensions/index.rss",
+      "name": "This Is Money — Pensions",
+      "status": "rejected",
+      "note": "works fine technically (150 items) but least directly property-relevant of the This Is Money sections — held back 2026-08-21 as a judgement call, not a technical failure. Promote manually if the active list needs topping up."
+    },
+    {
+      "url": "https://www.dailymail.co.uk/money/mortgageshome/index.rss",
+      "name": "Daily Mail — Mortgages & Home",
+      "status": "excluded",
+      "note": "identical syndicated content to This Is Money (same publisher) — permanently excluded as a duplicate, not re-tested"
+    }
   ]
 }
