@@ -19,8 +19,15 @@
 //    Georgian) actually matches how UK photos get tagged.
 function deriveImageQueries(story) {
   const text = (story.title + ' ' + story.description).toLowerCase();
-  if (/capital gains tax|inheritance tax/.test(text)) return ['British house keys paperwork', 'UK property documents desk', 'English terraced house exterior'];
-  if (/stamp duty|\bsdlt\b|\blbtt\b|\bltt\b/.test(text)) return ['British estate agent sign', 'UK house sold sign street', 'English suburban houses'];
+  // Lead every category with a BUILDING, never an abstract object. A query
+  // like "British house keys paperwork" names no building, so the UK_MARKERS
+  // preference below just attaches "British" to whatever object happens to be
+  // tagged that way — the capital gains post ended up with a photo of an
+  // antique typewriter, captioned "Made in Leicester, England". Correctly
+  // British, useless as a property hero. Building-type queries (terraced,
+  // Georgian, Cotswold) reliably return real UK housing stock.
+  if (/capital gains tax|inheritance tax/.test(text)) return ['Victorian terraced houses London', 'British semi detached houses street', 'English brick townhouses'];
+  if (/stamp duty|\bsdlt\b|\blbtt\b|\bltt\b/.test(text)) return ['British estate agent sign house', 'UK house sold sign street', 'English suburban houses'];
   // Before the landlord branch: most EPC stories mention landlords too, and
   // the specific subject is the energy upgrade, not the landlord.
   if (/epc|energy efficiency|insulation|energy performance/.test(text)) return ['UK home insulation loft', 'British house energy meter', 'terraced houses roofs UK'];
@@ -30,7 +37,7 @@ function deriveImageQueries(story) {
   if (/remortgage/.test(text)) return ['British house keys door', 'UK mortgage paperwork signing', 'English semi detached house'];
   if (/first-time buyer|first time buyer/.test(text)) return ['British couple new home keys', 'UK first home moving boxes', 'English starter home exterior'];
   if (/mortgage/.test(text)) return ['British house keys door', 'UK estate agent window', 'English suburban street houses'];
-  if (/conveyancing/.test(text)) return ['UK legal documents signing', 'British solicitor paperwork', 'house contract signing pen'];
+  if (/conveyancing/.test(text)) return ['British terraced houses street', 'English suburban houses', 'UK house sold sign street'];
   return ['British terraced houses street', 'English suburban houses', 'UK residential street houses'];
 }
 

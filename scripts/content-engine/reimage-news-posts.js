@@ -69,8 +69,24 @@ async function main() {
   const { json: posts } = await getJsonFile(BLOG_FILE);
   const { json: covered, sha: trackingSha } = await getJsonFile(TRACKING_FILE);
 
-  const news = posts.filter(p => p.service === PILLAR_NAME && p.status === 'published');
-  console.log(`Found ${news.length} published "${PILLAR_NAME}" posts.\n`);
+  // --only <slug>[,<slug>] re-images just those posts. Most of the backfill
+  // produced good images; without this, fixing one bad pick would re-roll the
+  // good ones too and could easily make things worse.
+  const onlyArg = process.argv.indexOf('--only');
+  const only = onlyArg !== -1 && process.argv[onlyArg + 1]
+    ? new Set(process.argv[onlyArg + 1].split(',').map(s => s.trim()).filter(Boolean))
+    : null;
+
+  let news = posts.filter(p => p.service === PILLAR_NAME && p.status === 'published');
+  if (only) {
+    const missing = [...only].filter(s => !news.some(p => p.slug === s));
+    if (missing.length) {
+      console.error(`\n❌ No published "${PILLAR_NAME}" post for: ${missing.join(', ')}\n`);
+      process.exit(1);
+    }
+    news = news.filter(p => only.has(p.slug));
+  }
+  console.log(`Found ${news.length} published "${PILLAR_NAME}" post(s)${only ? ' (--only filter applied)' : ''}.\n`);
   if (news.length === 0) return;
 
   // Seeded with anything already recorded, so a re-run does not hand out a

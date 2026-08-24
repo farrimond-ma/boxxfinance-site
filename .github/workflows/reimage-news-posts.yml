@@ -15,6 +15,10 @@ on:
         description: 'Dry run (report what would change, write nothing)'
         required: false
         default: 'true'
+      only:
+        description: 'Optional: re-image only these slugs (comma-separated). Leave blank for all.'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -44,5 +48,5 @@ jobs:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           GITHUB_OWNER:   farrimond-ma
           GITHUB_REPO:    boxxfinance-site
-        run: node reimage-news-posts.js ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+        run: node reimage-news-posts.js ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }} ${{ github.event.inputs.only != '' && format('--only {0}', github.event.inputs.only) || '' }}
         working-directory: scripts/content-engine
