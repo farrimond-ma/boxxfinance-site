@@ -80,6 +80,35 @@ Two fixes, both in `regenerate-thin-posts.js`:
 **If you add another content pillar with its own word-count profile, check
 this script first.**
 
+## Hero images: repetition and Americana (fixed 2026-08-24)
+
+Mark spotted the same apartment block on repeated landlord posts, and that it
+looked American. Both were true, and worse than they appeared: the ten news
+posts were sharing **five** images, one used four times.
+
+Two causes:
+- `fetchPexelsImage()` requested 8 results and took `filtered[0]` — the first
+  one, every time. One fixed query per category meant the same query returned
+  the same photo forever.
+- The queries said "UK residential property", but Pexels is US-heavy and "UK"
+  barely constrains it, so landlord posts kept drawing American apartment
+  blocks.
+
+(The four-way duplicate was a separate contributor: those four posts had been
+rewritten by the thin-post regenerator, which sourced its own image from its
+`'UK business professionals'` fallback. Excluding news posts from that script
+stops it recurring.)
+
+Now: `deriveImageQueries()` returns several variants per category, naming
+British building types (terraced, semi-detached, Victorian, Georgian) that
+match how UK photos actually get tagged; results are filtered against
+`NON_UK_MARKERS` and preferred on `UK_MARKERS`; the pool is 80 rather than 8;
+and each chosen photo's Pexels id is recorded on the tracking entry so
+`usedPhotoIds` stops it being picked again. Posts sharing a query still get
+different photos.
+
+The existing posts keep their current images — this only affects new ones.
+
 ## Generated articles are now validated before publishing (2026-08-24)
 
 The prompt always said the source citation and funding link were mandatory,
