@@ -107,7 +107,19 @@ and each chosen photo's Pexels id is recorded on the tracking entry so
 `usedPhotoIds` stops it being picked again. Posts sharing a query still get
 different photos.
 
-The existing posts keep their current images — this only affects new ones.
+The selection logic lives in `scripts/content-engine/lib/news-images.js`,
+shared with the backfill script below so the two cannot drift on what counts
+as a usable, British-looking photo.
+
+**Backfilling the existing posts:** run the **Re-image News Posts** workflow
+(`reimage-news-posts.yml`, manual only — it defaults to `dry_run: true`, so
+set it to `false` to actually write). It re-sources every published news post
+through the same module, accumulating photo ids as it goes so no two posts can
+end up with the same picture, and records the ids in the tracking file so
+future posts avoid them too. It overwrites the image at each post's existing
+`heroImage` path, so `blogPosts.json` is untouched and it is safe to re-run.
+Seven of the ten posts start from the same query — that is fine, the used-id
+exclusion is what guarantees they differ, not the query.
 
 ## Generated articles are now validated before publishing (2026-08-24)
 

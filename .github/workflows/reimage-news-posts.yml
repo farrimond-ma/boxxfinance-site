@@ -1,0 +1,48 @@
+name: Re-image News Posts
+
+# Manual one-off backfill. Re-sources the hero image on every published
+# "Latest News" post through lib/news-images.js, so the ten posts published
+# 2026-08-21 to 2026-08-24 stop sharing five images between them (and stop
+# looking American). See docs/personal-finance-discover-pilot.md.
+#
+# No schedule — this is run by hand, and should not normally need running
+# again now that publish-personal-finance-news.js sources images correctly.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (report what would change, write nothing)'
+        required: false
+        default: 'true'
+
+permissions:
+  contents: write
+
+jobs:
+  reimage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+
+      - name: Re-image news posts
+        env:
+          GH_TOKEN:       ${{ secrets.GH_PAT }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          GITHUB_OWNER:   farrimond-ma
+          GITHUB_REPO:    boxxfinance-site
+        run: node reimage-news-posts.js ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+        working-directory: scripts/content-engine

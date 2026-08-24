@@ -25,6 +25,7 @@ on:
       - "Publish Blog"
       - "Publish Blog (Trigger-Event)"
       - "Publish Personal Finance News"
+      - "Re-image News Posts"
       - "Discover Personal Finance Feeds"
       - "Publish Location"
       - "Publish Facebook Post"
