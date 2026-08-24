@@ -93,11 +93,13 @@ function getWindows() {
 
 // ─── Fetch helpers ────────────────────────────────────────────────────────────
 
-async function queryGSC(wm, window, dimensions, rowLimit = 5000) {
+// `type` selects the surface: 'web' (normal Search) or 'discover'. Discover is
+// a genuinely separate report — none of its traffic appears in the web figures.
+async function queryGSC(wm, window, dimensions, rowLimit = 5000, type = 'web') {
   try {
     const res = await wm.searchanalytics.query({
       siteUrl: SITE_URL,
-      requestBody: { startDate: window.startDate, endDate: window.endDate, dimensions, rowLimit },
+      requestBody: { startDate: window.startDate, endDate: window.endDate, dimensions, rowLimit, type },
     });
     return (res.data.rows || []).map(r => ({
       keys: r.keys || [],
@@ -131,6 +133,57 @@ function aggregate(rows) {
     ctr: impressions ? clicks / impressions : 0,
     position: impressions ? weightedPos / impressions : 0,
   };
+}
+
+// ─── Discover ─────────────────────────────────────────────────────────────────
+// Added 2026-08-24 for the personal-finance news pilot (see
+// docs/personal-finance-discover-pilot.md). Discover is the whole point of
+// those posts and it does not show up anywhere in the Search figures above.
+//
+// Two things differ from the web report:
+//   - No `query` dimension. Discover is a feed, not a search — there are no
+//     queries, so only date/page/country/device are available.
+//   - No average position. Nothing is "ranked" in a feed, so the API returns
+//     no position and any average would be meaningless. Clicks, impressions
+//     and CTR are the real metrics.
+//
+// Never fatal: a property with no Discover impressions yet is the expected
+// early state, and a Discover failure must not take the main report down.
+async function fetchDiscover(wm, windows) {
+  try {
+    const [curRows, priRows, pageRows] = await Promise.all([
+      queryGSC(wm, windows.current, ['date'], 5000, 'discover'),
+      queryGSC(wm, windows.prior,   ['date'], 5000, 'discover'),
+      queryGSC(wm, windows.current, ['page'], 100,  'discover'),
+    ]);
+    const sum = rows => rows.reduce((a, r) => ({
+      clicks: a.clicks + r.clicks,
+      impressions: a.impressions + r.impressions,
+    }), { clicks: 0, impressions: 0 });
+
+    const cur = sum(curRows), pri = sum(priRows);
+    cur.ctr = cur.impressions ? cur.clicks / cur.impressions : 0;
+    pri.ctr = pri.impressions ? pri.clicks / pri.impressions : 0;
+
+    return {
+      available: true,
+      hasData: cur.impressions > 0 || pri.impressions > 0,
+      cur, pri,
+      days: curRows.length,
+      topPages: pageRows
+        .sort((a, b) => b.impressions - a.impressions)
+        .slice(0, 10)
+        .map(r => ({
+          page: (r.keys[0] || '').replace('https://boxxfinance.co.uk', ''),
+          clicks: r.clicks,
+          impressions: r.impressions,
+          ctr: r.ctr,
+        })),
+    };
+  } catch (err) {
+    console.warn(`  ⚠ Discover data unavailable: ${err.message}`);
+    return { available: false, hasData: false, topPages: [] };
+  }
 }
 
 // ─── Trend maths ──────────────────────────────────────────────────────────────
@@ -317,7 +370,39 @@ async function ensureTab(sheets, title) {
   }
 }
 
-async function writeReportTab(sheets, cur, pri, verdict, windows, geo, trending, milestones) {
+// Discover block for the scorecard. Kept visually separate from the Search
+// figures above it, because merging the two would misrepresent both.
+function discoverReportRows(discover) {
+  const rows = [['GOOGLE DISCOVER (separate surface — none of this is in the Search figures above)']];
+  if (!discover.available) {
+    rows.push(['Discover data could not be fetched this run — see the run log.'], []);
+    return rows;
+  }
+  if (!discover.hasData) {
+    rows.push(
+      ['No Discover impressions in either window yet.'],
+      ['Expected while the news pilot is new: Discover only starts reporting once Google chooses to surface a page in the feed.'],
+      []
+    );
+    return rows;
+  }
+  const d = discover;
+  rows.push(
+    ['METRIC', 'LAST 90 DAYS', 'PRIOR 90 DAYS', 'CHANGE', '', ''],
+    ['Discover clicks',      d.cur.clicks,      d.pri.clicks,      fmtPct(pctChange(d.cur.clicks, d.pri.clicks)), '', ''],
+    ['Discover impressions', d.cur.impressions, d.pri.impressions, fmtPct(pctChange(d.cur.impressions, d.pri.impressions)), '', ''],
+    ['Discover CTR', (d.cur.ctr * 100).toFixed(2) + '%', (d.pri.ctr * 100).toFixed(2) + '%', fmtPct(pctChange(d.cur.ctr, d.pri.ctr)), '', ''],
+    [`Days with Discover traffic in the last 90: ${d.days}`],
+    [],
+    ['TOP DISCOVER PAGES (which content Google is actually surfacing)'],
+    ['PAGE', 'IMPRESSIONS', 'CLICKS', 'CTR', '', '']
+  );
+  d.topPages.forEach(p => rows.push([p.page, p.impressions, p.clicks, (p.ctr * 100).toFixed(2) + '%', '', '']));
+  rows.push([]);
+  return rows;
+}
+
+async function writeReportTab(sheets, cur, pri, verdict, windows, geo, trending, milestones, discover) {
   await ensureTab(sheets, REPORT_TAB);
   await sheets.spreadsheets.values.clear({ spreadsheetId: SPREADSHEET_ID, range: `${REPORT_TAB}!A:F` });
 
@@ -336,6 +421,7 @@ async function writeReportTab(sheets, cur, pri, verdict, windows, geo, trending,
     ['WHAT THIS MEANS'],
     ...verdict.lines.map(l => [l]),
     [],
+    ...discoverReportRows(discover),
   ];
 
   if (geo) {
@@ -372,21 +458,30 @@ async function writeReportTab(sheets, cur, pri, verdict, windows, geo, trending,
   console.log(`  Wrote ${REPORT_TAB} scorecard`);
 }
 
-async function appendHistory(sheets, cur, verdict) {
+const HISTORY_HEADER = [
+  'Run date', 'Clicks (90d)', 'Impressions (90d)', 'Avg position', 'CTR',
+  'Impr change', 'Verdict', 'Window end',
+  // Added 2026-08-24. Rows written before this date stop at column H.
+  'Discover clicks (90d)', 'Discover impressions (90d)',
+];
+
+async function appendHistory(sheets, cur, verdict, discover) {
   await ensureTab(sheets, HISTORY_TAB);
-  // Seed a header row once.
-  const existing = await sheets.spreadsheets.values.get({ spreadsheetId: SPREADSHEET_ID, range: `${HISTORY_TAB}!A1:H1` });
-  if (!existing.data.values || existing.data.values.length === 0) {
+  // Seed the header, or widen it if this sheet still has the pre-Discover
+  // 8-column version — otherwise the two new columns would sit unlabelled.
+  const existing = await sheets.spreadsheets.values.get({ spreadsheetId: SPREADSHEET_ID, range: `${HISTORY_TAB}!A1:J1` });
+  const header = (existing.data.values || [])[0];
+  if (!header || header.length < HISTORY_HEADER.length) {
     await sheets.spreadsheets.values.update({
       spreadsheetId: SPREADSHEET_ID,
       range: `${HISTORY_TAB}!A1`,
       valueInputOption: 'RAW',
-      requestBody: { values: [['Run date', 'Clicks (90d)', 'Impressions (90d)', 'Avg position', 'CTR', 'Impr change', 'Verdict', 'Window end']] },
+      requestBody: { values: [HISTORY_HEADER] },
     });
   }
   await sheets.spreadsheets.values.append({
     spreadsheetId: SPREADSHEET_ID,
-    range: `${HISTORY_TAB}!A:H`,
+    range: `${HISTORY_TAB}!A:J`,
     valueInputOption: 'RAW',
     insertDataOption: 'INSERT_ROWS',
     requestBody: { values: [[
@@ -398,6 +493,10 @@ async function appendHistory(sheets, cur, verdict) {
       fmtPct(verdict.imprChange),
       verdict.health,
       getWindows().current.endDate,
+      // Blank rather than 0 when Discover could not be read, so a fetch
+      // failure is not recorded as a genuine zero in the trend.
+      discover.available ? discover.cur.clicks : '',
+      discover.available ? discover.cur.impressions : '',
     ]] },
   });
   console.log(`  Appended run to ${HISTORY_TAB}`);
@@ -431,7 +530,7 @@ async function appendTrendingGaps(sheets, trending) {
 
 // ─── GitHub Actions run summary ──────────────────────────────────────────────
 
-function writeStepSummary(cur, pri, verdict, geo, trending, windows, milestones) {
+function writeStepSummary(cur, pri, verdict, geo, trending, windows, milestones, discover) {
   if (!process.env.GITHUB_STEP_SUMMARY) return;
   const l = [];
   l.push('## 📊 90-Day Search Console Performance Report');
@@ -445,6 +544,30 @@ function writeStepSummary(cur, pri, verdict, geo, trending, windows, milestones)
   l.push(`| CTR | ${(cur.ctr * 100).toFixed(2)}% | ${(pri.ctr * 100).toFixed(2)}% | ${fmtPct(pctChange(cur.ctr, pri.ctr))} |`);
   l.push('');
   verdict.lines.forEach(line => l.push('- ' + line));
+
+  l.push('');
+  l.push('### 🔎 Google Discover');
+  l.push('_Separate surface — none of the figures above include it._');
+  if (!discover.available) {
+    l.push('');
+    l.push('Discover data could not be fetched this run.');
+  } else if (!discover.hasData) {
+    l.push('');
+    l.push('No Discover impressions yet in either window. Expected while the news pilot is new.');
+  } else {
+    l.push('');
+    l.push('| Metric | Last 90d | Prior 90d | Change |');
+    l.push('|---|---|---|---|');
+    l.push(`| Clicks | ${discover.cur.clicks} | ${discover.pri.clicks} | ${fmtPct(pctChange(discover.cur.clicks, discover.pri.clicks))} |`);
+    l.push(`| Impressions | ${discover.cur.impressions} | ${discover.pri.impressions} | ${fmtPct(pctChange(discover.cur.impressions, discover.pri.impressions))} |`);
+    l.push(`| CTR | ${(discover.cur.ctr * 100).toFixed(2)}% | ${(discover.pri.ctr * 100).toFixed(2)}% | ${fmtPct(pctChange(discover.cur.ctr, discover.pri.ctr))} |`);
+    if (discover.topPages.length) {
+      l.push('');
+      l.push('**Top Discover pages**');
+      discover.topPages.slice(0, 5).forEach(p => l.push(`- \`${p.page}\` — ${p.impressions} impr, ${p.clicks} clicks`));
+    }
+  }
+
   if (geo) { l.push(''); l.push(`**GEO:** Boxx named in ${geo.boxxMentionRate}% of ${geo.checks} AI checks (avg ${geo.avgCompetitors} competitors).`); }
   l.push('');
   l.push('**Ranking milestones**');
@@ -498,6 +621,18 @@ async function main() {
   console.log(`\n  Trending content gaps: ${trending.length}`);
   trending.slice(0, 8).forEach(t => console.log(`   • "${t.query}" — ${t.impressions} impr @ pos ${t.position} (${t.growth === Infinity ? 'new' : t.growth.toFixed(1) + '×'})`));
 
+  console.log('\nFetching Google Discover (separate surface)...');
+  const discover = await fetchDiscover(wm, windows);
+  if (!discover.available) {
+    console.log('  Discover: unavailable this run');
+  } else if (!discover.hasData) {
+    console.log('  Discover: no impressions yet in either window (expected early in the news pilot)');
+  } else {
+    console.log(`  Discover current: ${discover.cur.clicks} clicks, ${discover.cur.impressions} impr, CTR ${(discover.cur.ctr * 100).toFixed(2)}%`);
+    console.log(`  Discover prior:   ${discover.pri.clicks} clicks, ${discover.pri.impressions} impr`);
+    discover.topPages.slice(0, 5).forEach(p => console.log(`   • ${p.page} — ${p.impressions} impr, ${p.clicks} clicks`));
+  }
+
   const geo = await readAIVisibilitySummary(sheets);
   if (geo) console.log(`\n  GEO: Boxx in ${geo.boxxMentionRate}% of ${geo.checks} AI checks`);
 
@@ -506,11 +641,11 @@ async function main() {
   milestones.forEach(m => console.log(`   • ${m.date} ${m.label} — ${m.target} (now ${m.current}): ${m.status}`));
 
   console.log('\nWriting to Google Sheet...');
-  await writeReportTab(sheets, cur, pri, verdict, windows, geo, trending, milestones);
-  await appendHistory(sheets, cur, verdict);
+  await writeReportTab(sheets, cur, pri, verdict, windows, geo, trending, milestones, discover);
+  await appendHistory(sheets, cur, verdict, discover);
   await appendTrendingGaps(sheets, trending);
 
-  writeStepSummary(cur, pri, verdict, geo, trending, windows, milestones);
+  writeStepSummary(cur, pri, verdict, geo, trending, windows, milestones, discover);
 
   console.log('\n✅ Done. View report at:');
   console.log(`   https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}\n`);

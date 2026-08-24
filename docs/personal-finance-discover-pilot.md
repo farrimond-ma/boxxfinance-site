@@ -225,9 +225,28 @@ What to look for after a few weeks:
   the reactive-news angle working, or something else
 - Click-through rate on any impressions you do get
 
-`search-console-insights.js` already exists for the regular Search report;
-it does not currently pull Discover-specific data. Worth extending once
-there's actually something to look at — not worth building before that.
+**This is now tracked automatically (2026-08-24).** `gsc-performance-report.js`
+("Report B", run weekly by `search-console-insights.yml`) pulls Discover
+alongside Search and writes it to the `GSC_Report` tab, the GitHub Actions run
+summary, and two new `GSC_History` columns so the trend accumulates. No need to
+check the Search Console UI by hand.
+
+Discover is queried as a separate `type: 'discover'` request because none of
+its traffic appears in the Search figures. Two differences worth knowing when
+reading the output:
+- **No queries.** Discover is a feed, not a search, so only date/page/country/
+  device dimensions exist. The report shows top *pages* instead.
+- **No average position.** Nothing is ranked in a feed, so clicks, impressions
+  and CTR are the only real metrics. A position column would be meaningless.
+
+A Discover fetch failure never fails the run — the Search report still writes,
+and the history row records blank rather than 0, so a failed fetch is not
+recorded as a genuine zero in the trend.
+
+Avoid the last-24-hours / hourly view in the Search Console UI for judging
+core-topic rankings: on low-volume B2B queries the sample is far too small and
+average position swings on noise. It is a useful *monitoring* tool (spotting a
+sudden drop, or a news post being picked up within hours), not a ranking one.
 
 ## Decision point
 
