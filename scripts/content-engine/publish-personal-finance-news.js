@@ -25,7 +25,13 @@
  * "in our experience" claims, UK-nation-aware tax language (SDLT/LBTT/LTT
  * are different taxes, not one UK-wide "stamp duty").
  *
- * Run: node publish-personal-finance-news.js [--dry-run]
+ * Editorial scope (Mark, 2026-08-24): these run ALONGSIDE the daily bridging
+ * posts and exist to earn Google Discover traffic, so the bar is property
+ * market relevance rather than a bridging-loan use case — landlords, property,
+ * auctions, mortgages and conveyancing all qualify. Party politics and general
+ * cost-of-living content do not. Enforced by checkMarketRelevance().
+ *
+ * Run: node publish-personal-finance-news.js [--dry-run|--check-feeds|--test-gate]
  */
 
 require('dotenv').config();
@@ -62,19 +68,18 @@ function loadActiveFeeds() {
 }
 const RSS_FEEDS = loadActiveFeeds();
 
-// Broad enough to still surface candidates from general property/finance
-// feeds — this is only the cheap pre-filter. It is NOT the thing deciding
-// whether a story is bridging-relevant; that's checkBridgingRelevance()
-// below, which is the actual gate (2026-08-24: a story that passed this
-// keyword filter — landlord incorporation / capital gains tax — got
-// thousands of GSC impressions with no genuine bridging-loan connection,
-// which is exactly the failure mode the gate exists to catch).
+// Cheap pre-filter only — it just cuts down how many stories get sent to the
+// model. checkMarketRelevance() below is the actual editorial decision.
+// 'inflation' and 'cost of living' were deliberately removed (2026-08-24):
+// they were the route by which two general cost-of-living stories with no
+// property angle reached publication. Genuine property stories that happen to
+// mention inflation still match on their property terms instead.
 const RELEVANT_KEYWORDS = [
   'house price', 'property market', 'mortgage rate', 'mortgage', 'stamp duty',
   'bank of england', 'interest rate', 'rental market', 'landlord', 'renter',
   'remortgage', 'first-time buyer', 'first time buyer', 'buy-to-let', 'buy to let',
-  'homeowner', 'housing market', 'rent prices', 'property price', 'inflation',
-  'cost of living', 'capital gains tax', 'inheritance tax', 'conveyancing',
+  'homeowner', 'housing market', 'rent prices', 'property price',
+  'capital gains tax', 'inheritance tax', 'conveyancing',
   'auction', 'probate', 'repossession', 'chain break', 'renovation',
   'refurbishment', 'planning permission', 'developer', 'development finance',
 ];
@@ -164,33 +169,41 @@ async function saveTrackingFile(covered, sha) {
   });
 }
 
-// ── Bridging-relevance gate ───────────────────────────────────────────────────
+// ── Property-market relevance gate ────────────────────────────────────────────
 // The keyword pre-filter above is deliberately loose (it's just cutting down
-// what gets sent to the model). This is the actual decision: does this story
-// have a DEFINITE, specific connection to bridging loans — not just "it's
-// about property" or "it's about tax". Runs before article generation so a
-// story that fails never gets written up at all. Mark's instruction
-// (2026-08-24) after checking GSC: a published post about landlord
-// incorporation / capital gains tax got thousands of impressions with no
-// real bridging angle — general property/tax news is exactly what this gate
-// is meant to filter out now, even if it would perform well on Discover.
+// what gets sent to the model). This is the actual editorial decision.
+//
+// These posts exist to earn Google Discover traffic ALONGSIDE the daily
+// bridging posts, so the bar is property-market relevance, not a bridging-loan
+// use case — landlords, property, auctions, mortgages, conveyancing and
+// housing tax are all wanted. What is NOT wanted is party politics and
+// general cost-of-living/household-bills content, which brings the wrong
+// audience regardless of how well it might perform.
+//
+// History: an earlier version of this gate demanded a concrete bridging-loan
+// scenario, which was too strict — it would have rejected most of the genuinely
+// on-topic landlord and property stories this is meant to publish. Two posts
+// that slipped through before any gate existed ("Andy Burnham may need tax
+// rises to fund cost of living support", "Pay-it-forward schemes exist to help
+// with bills") are the exact failure mode the exclusions below target; they
+// reached here via the 'inflation'/'cost of living' keywords, now removed.
 const RELEVANCE_SCHEMA = {
   type: 'object',
   properties: {
-    isBridgingRelevant: {
+    isMarketRelevant: {
       type: 'boolean',
-      description: 'True only if there is a definite, specific bridging-loan use case in this story — not a vague or generic property/finance connection.',
+      description: 'True only if the story is genuinely about the UK property market or property ownership. False for party politics and for general cost-of-living/household-bills stories with no substantive property angle.',
     },
-    bridgingAngle: {
+    marketAngle: {
       type: 'string',
-      description: 'If isBridgingRelevant is true: the exact, concrete bridging-loan scenario this story creates or affects (e.g. "auction buyers now need to complete faster, which is what bridging finance is for" or "chain breaks caused by this will push more sellers toward bridging to avoid losing their onward purchase"). If false: leave empty.',
+      description: 'If isMarketRelevant is true: one sentence on what this story actually means for UK homeowners, landlords, buyers or property investors. If false: leave empty.',
     },
   },
-  required: ['isBridgingRelevant', 'bridgingAngle'],
+  required: ['isMarketRelevant', 'marketAngle'],
   additionalProperties: false,
 };
 
-async function checkBridgingRelevance(story) {
+async function checkMarketRelevance(story) {
   const response = await openai.chat.completions.create({
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 400,
@@ -198,21 +211,34 @@ async function checkBridgingRelevance(story) {
     messages: [
       {
         role: 'system',
-        content: `You are a strict editorial gatekeeper for Boxx Finance, a UK bridging loan broker. Your only job is deciding whether a news story has a genuine, specific bridging-loan angle. Be strict: general property market, tax, interest-rate or homeowner news does NOT qualify just because bridging loans exist in the same broad space. It must be a story where a bridging loan is a natural, concrete solution to something the story describes — e.g. auction purchase deadlines, chain breaks, probate property sales, properties unmortgageable in current condition, developers needing to exit one project to start another, repossession-avoidance timelines. When in doubt, say no. Return only a raw JSON object.`,
+        content: `You are an editorial gatekeeper for Boxx Finance, a UK property finance broker. Decide whether a news story belongs in a UK property news section.
+
+PUBLISH (property market and property ownership):
+- Landlords and the private rented sector: tax, incorporation, regulation, EPC and licensing rules, tenant/landlord relations, rental yields
+- Buying and selling: house prices, mortgage rates and lending criteria, first-time buyers, conveyancing, chain breaks, auctions, probate and inherited property
+- Property investment and development: buy-to-let, refurbishment, planning, development sites, repossessions
+- Taxes levied on property specifically: stamp duty/SDLT/LBTT/LTT, capital gains tax on property, mansion or council tax on homes, inheritance tax where the story is about property
+
+DO NOT PUBLISH:
+- Party politics: what a politician, party, mayor or minister said, wants, or might do; elections; political rows. A tax story only qualifies if it is about the actual property tax rules, not about the politics of who is proposing what.
+- General cost-of-living and household bills with no substantive property angle: energy bills, food prices, benefits, debt advice, savings accounts, budgeting schemes, broad inflation coverage
+- Business, markets or economy stories that merely mention housing in passing
+
+The test is what the story is genuinely ABOUT, not what it briefly mentions. If the property angle is incidental or would have to be invented to make the piece work, say no. Return only a raw JSON object.`,
       },
       {
         role: 'user',
-        content: `Story headline: ${story.title}\nStory summary: ${story.description}\n\nDoes this have a definite bridging-loan angle?`,
+        content: `Story headline: ${story.title}\nStory summary: ${story.description}\n\nDoes this belong in a UK property news section?`,
       },
     ],
   });
 
   let result;
   try {
-    result = parseModelJson(response.choices[0].message.content, { label: 'bridging-relevance gate' });
+    result = parseModelJson(response.choices[0].message.content, { label: 'market-relevance gate' });
   } catch (err) {
     logJsonFailure(err);
-    return { isBridgingRelevant: false, bridgingAngle: '' };
+    return { isMarketRelevant: false, marketAngle: '' };
   }
   return result;
 }
@@ -233,10 +259,10 @@ const ARTICLE_SCHEMA = {
       'practical implications for UK homeowners, buyers, landlords or investors as relevant to this specific ' +
       'story. End with a short "Frequently Asked Questions" H2 with 2-3 Q&As (questions as <h3>, matching ' +
       'faqSchema exactly) — genuinely useful follow-up questions a reader would have, not padding. Then one ' +
-      'final paragraph explaining, specifically, the bridging-loan angle supplied for this story (not a ' +
-      'generic funding mention) and pointing to Boxx Finance funding solutions with a natural, non-pushy ' +
-      'anchor (this is a news piece, not a sales page — the CTA should feel like a genuinely relevant next ' +
-      'step, not an advert bolted on). MUST ' +
+      'final paragraph pointing to Boxx Finance funding solutions with a natural, non-pushy anchor. This is ' +
+      'a news piece, not a sales page: only make a funding connection where the story genuinely supports one, ' +
+      'and keep it to a light closing signpost. Do NOT force a bridging-loan angle onto a story that does not ' +
+      'have one, and do not inflate the reader\'s situation to manufacture a need. MUST ' +
       'include a clear attribution sentence citing the source (e.g. "as reported by [outlet]") with an ' +
       'outbound link to the source article URL supplied — a genuine citation, not SEO decoration. HARD RULES: ' +
       'never invent a statistic, rate, date or figure not present in the supplied source material — if the ' +
@@ -279,7 +305,7 @@ const ARTICLE_SCHEMA = {
   additionalProperties: false,
 };
 
-async function generateArticle(story, bridgingAngle) {
+async function generateArticle(story, marketAngle) {
   const response = await openai.chat.completions.create({
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 4000,
@@ -298,11 +324,11 @@ Source summary: ${story.description}
 Source outlet: ${story.source}
 Source URL (cite and link this): ${story.link}
 
-The specific bridging-loan angle for this story (this is WHY this story was selected — the article must actually make this connection, not just mention bridging loans in passing): ${bridgingAngle}
+Why this story matters to our readers (the angle it was selected on): ${marketAngle}
 
-Do not simply summarise the source — explain what it actually means for an ordinary UK homeowner, buyer or landlord reading this today, and how the bridging angle above applies to them concretely. Only state facts and figures that are actually in the source summary above; if you need more detail than is given, describe it in general hedged terms rather than inventing specifics.
+Do not simply summarise the source — explain what it actually means for an ordinary UK homeowner, buyer or landlord reading this today. Only state facts and figures that are actually in the source summary above; if you need more detail than is given, describe it in general hedged terms rather than inventing specifics.
 
-Funnel link to include near the end: https://boxxfinance.co.uk/funding-solutions (Boxx Finance's funding solutions hub) — anchor text should read naturally and tie to the specific bridging angle above, not a generic phrase like "explore short-term property finance options".`,
+Funnel link to include near the end: https://boxxfinance.co.uk/funding-solutions (Boxx Finance's funding solutions hub) — anchor text should read naturally in context. Keep this to a light closing signpost; do not manufacture a funding need this story does not support.`,
       },
     ],
   });
@@ -388,10 +414,45 @@ async function pushBlogPostsFile(posts, sha, slug) {
   });
 }
 
+// ── Gate regression fixtures ──────────────────────────────────────────────────
+// The ten stories this script actually published between 2026-08-21 and
+// 2026-08-24, before any relevance gate existed, with the verdict each one
+// SHOULD get. Mark reviewed these against his criteria: property, landlords
+// and auctions are wanted; party politics and general cost-of-living are not.
+// Run with --test-gate to check the gate still agrees. Needs ANTHROPIC_API_KEY,
+// so in practice this runs in CI rather than locally.
+const GATE_FIXTURES = [
+  { expect: true,  title: 'Landlords Who Incorporated Their Property Businesses Could Face Surprise Capital Gains Tax Bills', description: 'Landlords who moved their property portfolios into limited companies may face unexpected capital gains tax bills.' },
+  { expect: false, title: 'Andy Burnham may need tax rises to fund cost of living support, economists warn', description: 'Economists warn the Greater Manchester mayor may need to raise taxes to fund cost of living support measures.' },
+  { expect: true,  title: 'Landlord couple left unable to access their own capital after later professional advice, case study warns', description: 'A landlord couple found themselves unable to release capital tied up in their property portfolio.' },
+  { expect: false, title: "Pay-it-forward schemes exist to help with bills, so why aren't more people using them", description: 'Pay-it-forward schemes can help households struggling with energy and other bills, but take-up remains low.' },
+  { expect: true,  title: 'HMRC changes the rules for landlords incorporating their property businesses from 2026', description: 'HMRC has updated incorporation relief rules affecting landlords transferring property businesses to companies.' },
+  { expect: true,  title: 'Royal Estates Face £10m EPC Bill, But Landlords Collectively Face Almost £10bn', description: 'EPC upgrade requirements will cost the royal estates millions and private landlords billions collectively.' },
+  { expect: true,  title: "'Friday Afternoon Fraud': Why Homebuyers Are Losing Their Deposits to Fake Solicitor Emails", description: 'Homebuyers are losing deposits to fraudsters impersonating conveyancing solicitors by email.' },
+  { expect: true,  title: 'HMRC to Send Inspectors Into Homes to Check Who Owes the New Mansion Tax', description: 'HMRC inspectors will carry out property valuations to determine liability for the new mansion tax on high value homes.' },
+  { expect: true,  title: 'HMRC softens 20-hour rule guidance for landlords incorporating their property business', description: 'HMRC has relaxed guidance on the 20-hour week test landlords must meet for incorporation relief.' },
+  { expect: true,  title: 'NRLA research points to growing hostility towards landlords, but what does it mean for the private rented sector?', description: 'New NRLA research suggests rising public hostility towards private landlords and questions the impact on the rented sector.' },
+];
+
+async function testGate() {
+  console.log('Testing market-relevance gate against 10 known stories...\n');
+  let passed = 0;
+  for (const f of GATE_FIXTURES) {
+    const result = await checkMarketRelevance(f);
+    const ok = result.isMarketRelevant === f.expect;
+    if (ok) passed++;
+    console.log(`${ok ? 'PASS' : 'FAIL'}  got=${String(result.isMarketRelevant).padEnd(5)} want=${String(f.expect).padEnd(5)}  ${f.title.slice(0, 70)}`);
+    if (!ok) console.log(`      angle: ${result.marketAngle || '(none)'}`);
+  }
+  console.log(`\n${passed}/${GATE_FIXTURES.length} correct.`);
+  if (passed < GATE_FIXTURES.length) process.exit(1);
+}
+
 // ── Main ───────────────────────────────────────────────────────────────────────
 async function main() {
   const isDryRun = process.argv.includes('--dry-run');
   const checkFeedsOnly = process.argv.includes('--check-feeds');
+  if (process.argv.includes('--test-gate')) return testGate();
   console.log('\n[Personal Finance News Publisher — Discover pilot, non-evergreen]\n');
   if (isDryRun) console.log('⚠ DRY RUN — no changes written\n');
 
@@ -401,7 +462,7 @@ async function main() {
 
   if (checkFeedsOnly) {
     const candidates = articles.filter(a => isRelevant(a) && isRecent(a)).sort((a, b) => b.pubDate - a.pubDate);
-    console.log(`\nRelevant + recent (keyword pre-filter only, no bridging-relevance gate, no dedupe check): ${candidates.length}`);
+    console.log(`\nRelevant + recent (keyword pre-filter only, no market-relevance gate, no dedupe check): ${candidates.length}`);
     candidates.slice(0, 10).forEach(c => console.log(` - ${c.pubDate.toISOString().split('T')[0]} | ${c.source} | ${c.title}`));
     return;
   }
@@ -420,35 +481,33 @@ async function main() {
     return;
   }
 
-  // Keyword pre-filter is loose; the bridging-relevance gate is the real
-  // decision. Check candidates in recency order, cap at 8 per run to bound
-  // API cost, and stop at the first one with a definite bridging angle. Most
-  // runs are expected to find none — that's correct, not a bug (this is
-  // deliberately a much narrower bar than "relevant to UK property/finance").
+  // Keyword pre-filter is loose; the market-relevance gate is the real
+  // editorial decision. Check candidates in recency order, cap at 8 per run to
+  // bound API cost, and stop at the first genuinely property-market story.
   let story = null;
-  let bridgingAngle = '';
-  console.log('\nChecking candidates for a definite bridging-loan angle...');
+  let marketAngle = '';
+  console.log('\nChecking candidates for property-market relevance...');
   for (const candidate of candidates.slice(0, 8)) {
-    const result = await checkBridgingRelevance(candidate);
-    console.log(`  ${result.isBridgingRelevant ? '✓' : '✗'} ${candidate.title}`);
-    if (result.isBridgingRelevant && result.bridgingAngle) {
+    const result = await checkMarketRelevance(candidate);
+    console.log(`  ${result.isMarketRelevant ? '✓' : '✗'} ${candidate.title}`);
+    if (result.isMarketRelevant && result.marketAngle) {
       story = candidate;
-      bridgingAngle = result.bridgingAngle;
+      marketAngle = result.marketAngle;
       break;
     }
   }
 
   if (!story) {
-    console.log('\nNo candidate had a definite bridging-loan angle this run. Nothing to publish — expected most runs.');
+    console.log('\nNo candidate was genuinely property-market relevant this run. Nothing to publish.');
     return;
   }
 
   console.log(`\nSelected: "${story.title}"`);
   console.log(`Source: ${story.source} (${story.pubDate.toISOString().split('T')[0]})`);
-  console.log(`Bridging angle: ${bridgingAngle}`);
+  console.log(`Market angle: ${marketAngle}`);
 
   console.log('\nGenerating article...');
-  const article = await generateArticle(story, bridgingAngle);
+  const article = await generateArticle(story, marketAngle);
   const words = article.contentHtml.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
   console.log(`Generated: "${article.title}" (${words} words)`);
 

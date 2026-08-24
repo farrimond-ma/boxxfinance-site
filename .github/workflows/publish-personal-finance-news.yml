@@ -17,10 +17,16 @@ on:
     - cron: '15 7,13,17 * * *'   # 3x/day: ~8:15am, ~2:15pm, ~6:15pm BST
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: 'Dry run (find + generate but do not publish)'
+      mode:
+        description: 'What to run'
         required: false
-        default: 'false'
+        default: 'publish'
+        type: choice
+        options:
+          - publish     # normal: find a story and publish it
+          - dry-run     # find + generate an article but do not publish
+          - test-gate   # check the relevance gate against 10 known stories
+          - check-feeds # list what the keyword pre-filter is currently surfacing
 
 permissions:
   contents: write
@@ -51,5 +57,7 @@ jobs:
           PEXELS_API_KEY:     ${{ secrets.PEXELS_API_KEY }}
           GITHUB_OWNER:       farrimond-ma
           GITHUB_REPO:        boxxfinance-site
-        run: node publish-personal-finance-news.js ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+        # Scheduled runs have no inputs.mode, so this falls through to the
+        # normal publish path with no flag — same as before.
+        run: node publish-personal-finance-news.js ${{ github.event.inputs.mode == 'dry-run' && '--dry-run' || github.event.inputs.mode == 'test-gate' && '--test-gate' || github.event.inputs.mode == 'check-feeds' && '--check-feeds' || '' }}
         working-directory: scripts/content-engine

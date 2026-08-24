@@ -15,28 +15,40 @@ non-evergreen content specifically, and use real results to decide whether
 to scale — not commit to 630 pieces before knowing if Discover picks any of
 it up at all.
 
-## 2026-08-24 update: narrowed to bridging-relevant stories only
+## 2026-08-24 update: editorial gate added
 
-Mark checked Search Console and found one published post (landlord
-incorporation / capital gains tax) had picked up thousands of impressions —
-Discover traffic was working — but the story had no genuine bridging-loan
-connection. General UK property/personal-finance news was the pilot's
-original brief, but it drifted the site off its actual focus (bridging
-loans specifically, not property/finance broadly).
+Mark checked Search Console and found a published post picking up thousands
+of impressions — so Discover traffic does work — but on reviewing what had
+actually gone out, two of the ten posts published 21-24 August were off
+topic: *"Andy Burnham may need tax rises to fund cost of living support"*
+(party politics) and *"Pay-it-forward schemes exist to help with bills"*
+(general cost of living, no property content). Both reached the pipeline via
+the `inflation` / `cost of living` keywords, now removed from the pre-filter.
 
-Fix: `publish-personal-finance-news.js` now runs every keyword-matched
-candidate through `checkBridgingRelevance()` — a strict LLM gate that must
-return a **specific, concrete** bridging-loan angle (e.g. "auction
-completion deadlines", "chain break", "probate sale", "unmortgageable
-property", "developer needing to exit one project to start another") before
-an article gets written at all. General property market/tax/rate news that
-happens to match the old broad keyword list no longer passes on its own —
-the keyword list is now just a cheap pre-filter, not the decision. Expect
-this to publish noticeably less often than before; that's the point, not a
-regression.
+**The scope, in Mark's words:** these posts run *in addition to* the daily
+bridging posts and exist to earn Discover traffic, so they do **not** need a
+bridging-loan angle. Landlords, property, auctions, mortgages, conveyancing
+and property taxes are all wanted. Party politics and general
+cost-of-living/household-bills content are not.
 
-The already-published landlord incorporation/CGT post itself is a separate
-decision (unpublish vs. leave live) — not changed by this update.
+An earlier version of this gate got that wrong in the other direction — it
+demanded a concrete bridging-loan use case, which would have rejected most of
+the eight genuinely on-topic landlord and property posts. Worth remembering
+if this is ever tightened again: **too strict starves the pipeline, and the
+failure is silent** (the script just reports "nothing to publish", which is
+also what a correct quiet run looks like).
+
+`checkMarketRelevance()` in `publish-personal-finance-news.js` now makes the
+call, with explicit include/exclude lists in its system prompt. The keyword
+list is only a cheap pre-filter feeding it.
+
+**Verifying the gate:** run the workflow via *Run workflow* with mode
+`test-gate`. It replays all ten of the above stories through the live gate
+and asserts the 8 good / 2 bad split, exiting non-zero if the gate has
+drifted. Use it after any change to the gate prompt.
+
+The two off-topic posts are still live — unpublishing them is a separate
+decision, not made here.
 
 ## What's live right now
 
