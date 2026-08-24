@@ -1,4 +1,4 @@
-# Personal Finance / Google Discover Pilot — 2026-08-20
+# Personal Finance / Google Discover Pilot — 2026-08-20 (narrowed 2026-08-24)
 
 ## What this is
 
@@ -14,6 +14,29 @@ The full plan (8 evergreen pillars, 630 pieces over 90 days) is built but
 non-evergreen content specifically, and use real results to decide whether
 to scale — not commit to 630 pieces before knowing if Discover picks any of
 it up at all.
+
+## 2026-08-24 update: narrowed to bridging-relevant stories only
+
+Mark checked Search Console and found one published post (landlord
+incorporation / capital gains tax) had picked up thousands of impressions —
+Discover traffic was working — but the story had no genuine bridging-loan
+connection. General UK property/personal-finance news was the pilot's
+original brief, but it drifted the site off its actual focus (bridging
+loans specifically, not property/finance broadly).
+
+Fix: `publish-personal-finance-news.js` now runs every keyword-matched
+candidate through `checkBridgingRelevance()` — a strict LLM gate that must
+return a **specific, concrete** bridging-loan angle (e.g. "auction
+completion deadlines", "chain break", "probate sale", "unmortgageable
+property", "developer needing to exit one project to start another") before
+an article gets written at all. General property market/tax/rate news that
+happens to match the old broad keyword list no longer passes on its own —
+the keyword list is now just a cheap pre-filter, not the decision. Expect
+this to publish noticeably less often than before; that's the point, not a
+regression.
+
+The already-published landlord incorporation/CGT post itself is a separate
+decision (unpublish vs. leave live) — not changed by this update.
 
 ## What's live right now
 

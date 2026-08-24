@@ -62,12 +62,21 @@ function loadActiveFeeds() {
 }
 const RSS_FEEDS = loadActiveFeeds();
 
+// Broad enough to still surface candidates from general property/finance
+// feeds — this is only the cheap pre-filter. It is NOT the thing deciding
+// whether a story is bridging-relevant; that's checkBridgingRelevance()
+// below, which is the actual gate (2026-08-24: a story that passed this
+// keyword filter — landlord incorporation / capital gains tax — got
+// thousands of GSC impressions with no genuine bridging-loan connection,
+// which is exactly the failure mode the gate exists to catch).
 const RELEVANT_KEYWORDS = [
   'house price', 'property market', 'mortgage rate', 'mortgage', 'stamp duty',
   'bank of england', 'interest rate', 'rental market', 'landlord', 'renter',
   'remortgage', 'first-time buyer', 'first time buyer', 'buy-to-let', 'buy to let',
   'homeowner', 'housing market', 'rent prices', 'property price', 'inflation',
   'cost of living', 'capital gains tax', 'inheritance tax', 'conveyancing',
+  'auction', 'probate', 'repossession', 'chain break', 'renovation',
+  'refurbishment', 'planning permission', 'developer', 'development finance',
 ];
 
 // ── RSS parser (no external dependency — same approach as publish-linkedin-news.js) ──
@@ -155,6 +164,59 @@ async function saveTrackingFile(covered, sha) {
   });
 }
 
+// ── Bridging-relevance gate ───────────────────────────────────────────────────
+// The keyword pre-filter above is deliberately loose (it's just cutting down
+// what gets sent to the model). This is the actual decision: does this story
+// have a DEFINITE, specific connection to bridging loans — not just "it's
+// about property" or "it's about tax". Runs before article generation so a
+// story that fails never gets written up at all. Mark's instruction
+// (2026-08-24) after checking GSC: a published post about landlord
+// incorporation / capital gains tax got thousands of impressions with no
+// real bridging angle — general property/tax news is exactly what this gate
+// is meant to filter out now, even if it would perform well on Discover.
+const RELEVANCE_SCHEMA = {
+  type: 'object',
+  properties: {
+    isBridgingRelevant: {
+      type: 'boolean',
+      description: 'True only if there is a definite, specific bridging-loan use case in this story — not a vague or generic property/finance connection.',
+    },
+    bridgingAngle: {
+      type: 'string',
+      description: 'If isBridgingRelevant is true: the exact, concrete bridging-loan scenario this story creates or affects (e.g. "auction buyers now need to complete faster, which is what bridging finance is for" or "chain breaks caused by this will push more sellers toward bridging to avoid losing their onward purchase"). If false: leave empty.',
+    },
+  },
+  required: ['isBridgingRelevant', 'bridgingAngle'],
+  additionalProperties: false,
+};
+
+async function checkBridgingRelevance(story) {
+  const response = await openai.chat.completions.create({
+    model: 'claude-haiku-4-5-20251001',
+    max_tokens: 400,
+    response_format: { json_schema: { schema: RELEVANCE_SCHEMA } },
+    messages: [
+      {
+        role: 'system',
+        content: `You are a strict editorial gatekeeper for Boxx Finance, a UK bridging loan broker. Your only job is deciding whether a news story has a genuine, specific bridging-loan angle. Be strict: general property market, tax, interest-rate or homeowner news does NOT qualify just because bridging loans exist in the same broad space. It must be a story where a bridging loan is a natural, concrete solution to something the story describes — e.g. auction purchase deadlines, chain breaks, probate property sales, properties unmortgageable in current condition, developers needing to exit one project to start another, repossession-avoidance timelines. When in doubt, say no. Return only a raw JSON object.`,
+      },
+      {
+        role: 'user',
+        content: `Story headline: ${story.title}\nStory summary: ${story.description}\n\nDoes this have a definite bridging-loan angle?`,
+      },
+    ],
+  });
+
+  let result;
+  try {
+    result = parseModelJson(response.choices[0].message.content, { label: 'bridging-relevance gate' });
+  } catch (err) {
+    logJsonFailure(err);
+    return { isBridgingRelevant: false, bridgingAngle: '' };
+  }
+  return result;
+}
+
 // ── Article generation ────────────────────────────────────────────────────────
 const ARTICLE_SCHEMA = {
   type: 'object',
@@ -171,8 +233,10 @@ const ARTICLE_SCHEMA = {
       'practical implications for UK homeowners, buyers, landlords or investors as relevant to this specific ' +
       'story. End with a short "Frequently Asked Questions" H2 with 2-3 Q&As (questions as <h3>, matching ' +
       'faqSchema exactly) — genuinely useful follow-up questions a reader would have, not padding. Then one ' +
-      'final paragraph pointing to Boxx Finance funding solutions, using a natural, non-pushy anchor (this is ' +
-      'a news piece, not a sales page — the CTA should feel like a helpful next step, not an advert). MUST ' +
+      'final paragraph explaining, specifically, the bridging-loan angle supplied for this story (not a ' +
+      'generic funding mention) and pointing to Boxx Finance funding solutions with a natural, non-pushy ' +
+      'anchor (this is a news piece, not a sales page — the CTA should feel like a genuinely relevant next ' +
+      'step, not an advert bolted on). MUST ' +
       'include a clear attribution sentence citing the source (e.g. "as reported by [outlet]") with an ' +
       'outbound link to the source article URL supplied — a genuine citation, not SEO decoration. HARD RULES: ' +
       'never invent a statistic, rate, date or figure not present in the supplied source material — if the ' +
@@ -215,7 +279,7 @@ const ARTICLE_SCHEMA = {
   additionalProperties: false,
 };
 
-async function generateArticle(story) {
+async function generateArticle(story, bridgingAngle) {
   const response = await openai.chat.completions.create({
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 4000,
@@ -223,7 +287,7 @@ async function generateArticle(story) {
     messages: [
       {
         role: 'system',
-        content: `You are a UK property/personal-finance journalist writing for Boxx Finance's news section. Natural, human, UK tone — direct and clear, not corporate. Never use em dashes. No markdown, no backticks, no code fences. Return only a raw JSON object.`,
+        content: `You are a UK property/personal-finance journalist writing for Boxx Finance's news section — a UK bridging loan broker. Natural, human, UK tone — direct and clear, not corporate. Never use em dashes. No markdown, no backticks, no code fences. Return only a raw JSON object.`,
       },
       {
         role: 'user',
@@ -234,9 +298,11 @@ Source summary: ${story.description}
 Source outlet: ${story.source}
 Source URL (cite and link this): ${story.link}
 
-Do not simply summarise the source — explain what it actually means for an ordinary UK homeowner, buyer or landlord reading this today. Only state facts and figures that are actually in the source summary above; if you need more detail than is given, describe it in general hedged terms rather than inventing specifics.
+The specific bridging-loan angle for this story (this is WHY this story was selected — the article must actually make this connection, not just mention bridging loans in passing): ${bridgingAngle}
 
-Funnel link to include near the end: https://boxxfinance.co.uk/funding-solutions (Boxx Finance's funding solutions hub) — anchor text should read naturally, e.g. "explore short-term property finance options".`,
+Do not simply summarise the source — explain what it actually means for an ordinary UK homeowner, buyer or landlord reading this today, and how the bridging angle above applies to them concretely. Only state facts and figures that are actually in the source summary above; if you need more detail than is given, describe it in general hedged terms rather than inventing specifics.
+
+Funnel link to include near the end: https://boxxfinance.co.uk/funding-solutions (Boxx Finance's funding solutions hub) — anchor text should read naturally and tie to the specific bridging angle above, not a generic phrase like "explore short-term property finance options".`,
       },
     ],
   });
@@ -335,7 +401,7 @@ async function main() {
 
   if (checkFeedsOnly) {
     const candidates = articles.filter(a => isRelevant(a) && isRecent(a)).sort((a, b) => b.pubDate - a.pubDate);
-    console.log(`\nRelevant + recent (no dedupe check): ${candidates.length}`);
+    console.log(`\nRelevant + recent (keyword pre-filter only, no bridging-relevance gate, no dedupe check): ${candidates.length}`);
     candidates.slice(0, 10).forEach(c => console.log(` - ${c.pubDate.toISOString().split('T')[0]} | ${c.source} | ${c.title}`));
     return;
   }
@@ -354,12 +420,35 @@ async function main() {
     return;
   }
 
-  const story = candidates[0];
+  // Keyword pre-filter is loose; the bridging-relevance gate is the real
+  // decision. Check candidates in recency order, cap at 8 per run to bound
+  // API cost, and stop at the first one with a definite bridging angle. Most
+  // runs are expected to find none — that's correct, not a bug (this is
+  // deliberately a much narrower bar than "relevant to UK property/finance").
+  let story = null;
+  let bridgingAngle = '';
+  console.log('\nChecking candidates for a definite bridging-loan angle...');
+  for (const candidate of candidates.slice(0, 8)) {
+    const result = await checkBridgingRelevance(candidate);
+    console.log(`  ${result.isBridgingRelevant ? '✓' : '✗'} ${candidate.title}`);
+    if (result.isBridgingRelevant && result.bridgingAngle) {
+      story = candidate;
+      bridgingAngle = result.bridgingAngle;
+      break;
+    }
+  }
+
+  if (!story) {
+    console.log('\nNo candidate had a definite bridging-loan angle this run. Nothing to publish — expected most runs.');
+    return;
+  }
+
   console.log(`\nSelected: "${story.title}"`);
   console.log(`Source: ${story.source} (${story.pubDate.toISOString().split('T')[0]})`);
+  console.log(`Bridging angle: ${bridgingAngle}`);
 
   console.log('\nGenerating article...');
-  const article = await generateArticle(story);
+  const article = await generateArticle(story, bridgingAngle);
   const words = article.contentHtml.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
   console.log(`Generated: "${article.title}" (${words} words)`);
 
