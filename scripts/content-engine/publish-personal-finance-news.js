@@ -106,10 +106,14 @@ function parseRSS(xml) {
       const m = block.match(new RegExp(`<${tag}[^>]*>(?:<!\\[CDATA\\[)?([\\s\\S]*?)(?:\\]\\]>)?<\\/${tag}>`, 'i'));
       return m ? m[1].trim() : '';
     };
-    let link = get('link');
+    // Decoded like title/description: feed URLs with query strings arrive
+    // HTML-escaped (BBC's look like "...?at_medium=RSS&amp;at_campaign=rss").
+    // Left raw, that &amp; ends up in the published citation link, so the
+    // credit link to the source is broken.
+    let link = decodeEntities(get('link'));
     if (!link) {
       const m2 = block.match(/<link\s*\/?>\s*([^\s<]+)/i);
-      link = m2 ? m2[1].trim() : '';
+      link = m2 ? decodeEntities(m2[1].trim()) : '';
     }
     const pubDate = get('pubDate') || get('dc:date') || get('published');
     const description = decodeEntities(get('description').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 500));
@@ -305,7 +309,62 @@ const ARTICLE_SCHEMA = {
   additionalProperties: false,
 };
 
-async function generateArticle(story, marketAngle) {
+// ── Output validation ─────────────────────────────────────────────────────────
+// The prompt says the source citation and funding link are mandatory, but a
+// prompt is not a guarantee: two posts published on 2026-08-23/24 came out
+// without them (one had no links at all). Nothing checked, so they went live
+// anyway. These are the checks that actually enforce it — an article that
+// fails them is never published.
+//
+// The source link matters most. These pieces are written from another
+// outlet's reporting, so publishing without crediting it is not a formatting
+// miss, it is passing off someone else's work.
+const MIN_ARTICLE_WORDS = 650; // schema asks for 700-1000; this is the hard floor
+
+function validateArticle(article, story) {
+  const html = article.contentHtml || '';
+  const problems = [];
+
+  if (!html.includes(story.link)) {
+    problems.push(`missing source citation link to ${story.link}`);
+  }
+  if (!/href=["']https:\/\/boxxfinance\.co\.uk\/funding-solutions/i.test(html)) {
+    problems.push('missing funding-solutions link');
+  }
+  const words = html.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  if (words < MIN_ARTICLE_WORDS) {
+    problems.push(`only ${words} words (minimum ${MIN_ARTICLE_WORDS})`);
+  }
+  return problems;
+}
+
+// Generates, validates, and retries once with the specific problems fed back.
+// If the second attempt still fails we publish nothing and exit non-zero, so
+// the failure watchdog raises it rather than it passing as a quiet run.
+async function generateValidatedArticle(story, marketAngle) {
+  let article = await generateArticle(story, marketAngle);
+  let problems = validateArticle(article, story);
+  if (problems.length === 0) return article;
+
+  console.log(`  ⚠ Generated article failed validation: ${problems.join('; ')}`);
+  console.log('  Retrying once with corrections...');
+  article = await generateArticle(story, marketAngle, problems);
+  problems = validateArticle(article, story);
+  if (problems.length === 0) {
+    console.log('  ✓ Retry passed validation.');
+    return article;
+  }
+
+  console.error(`\n❌ Article still invalid after retry: ${problems.join('; ')}`);
+  console.error('   Publishing nothing rather than an article missing its source credit.\n');
+  process.exit(1);
+}
+
+async function generateArticle(story, marketAngle, problems = []) {
+  const corrections = problems.length
+    ? `\n\nYOUR PREVIOUS ATTEMPT WAS REJECTED for these reasons:\n${problems.map(p => `- ${p}`).join('\n')}\nFix every one of them. The source citation link and the funding-solutions link are both mandatory and must appear as real <a href="..."> anchors in contentHtml.`
+    : '';
+
   const response = await openai.chat.completions.create({
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 4000,
@@ -328,7 +387,11 @@ Why this story matters to our readers (the angle it was selected on): ${marketAn
 
 Do not simply summarise the source — explain what it actually means for an ordinary UK homeowner, buyer or landlord reading this today. Only state facts and figures that are actually in the source summary above; if you need more detail than is given, describe it in general hedged terms rather than inventing specifics.
 
-Funnel link to include near the end: https://boxxfinance.co.uk/funding-solutions (Boxx Finance's funding solutions hub) — anchor text should read naturally in context. Keep this to a light closing signpost; do not manufacture a funding need this story does not support.`,
+Funnel link to include near the end: https://boxxfinance.co.uk/funding-solutions (Boxx Finance's funding solutions hub) — anchor text should read naturally in context. Keep this to a light closing signpost; do not manufacture a funding need this story does not support.
+
+Both of these must appear in contentHtml as real anchors, or the article will be rejected:
+1. <a href="${story.link}">...</a> crediting ${story.source}
+2. <a href="https://boxxfinance.co.uk/funding-solutions">...</a>${corrections}`,
       },
     ],
   });
@@ -468,7 +531,10 @@ async function main() {
   }
 
   const { covered, sha: trackingSha } = await getTrackingFile();
-  const coveredUrls = new Set(covered.map(c => c.url));
+  // Holds both forms: links tracked before parseRSS decoded entities are
+  // stored with "&amp;", so match the decoded form too or those stories would
+  // look uncovered and get republished.
+  const coveredUrls = new Set(covered.flatMap(c => [c.url, decodeEntities(c.url || '')]));
 
   const candidates = articles
     .filter(a => isRelevant(a) && isRecent(a) && !coveredUrls.has(a.link))
@@ -507,7 +573,7 @@ async function main() {
   console.log(`Market angle: ${marketAngle}`);
 
   console.log('\nGenerating article...');
-  const article = await generateArticle(story, marketAngle);
+  const article = await generateValidatedArticle(story, marketAngle);
   const words = article.contentHtml.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
   console.log(`Generated: "${article.title}" (${words} words)`);
 

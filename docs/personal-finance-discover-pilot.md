@@ -80,6 +80,34 @@ Two fixes, both in `regenerate-thin-posts.js`:
 **If you add another content pillar with its own word-count profile, check
 this script first.**
 
+## Generated articles are now validated before publishing (2026-08-24)
+
+The prompt always said the source citation and funding link were mandatory,
+but nothing checked the output, so two posts went live without them:
+`mansion-tax-hmrc-inspectors-property-valuations` (no funding link) and
+`landlords-feel-persecuted-nrla-research` (no links at all, 588 words).
+
+`validateArticle()` now enforces three things, and an article that fails is
+never published:
+- a citation link to the source story URL
+- a link to `/funding-solutions`
+- at least `MIN_ARTICLE_WORDS` (650) words
+
+On failure it retries once, feeding the specific problems back to the model.
+If the retry also fails it publishes nothing and exits non-zero, so the
+failure watchdog raises it instead of the run passing quietly.
+
+The source link is the one that really matters: these articles are written
+from other outlets' reporting, so shipping without the credit is not a
+formatting slip.
+
+Also fixed alongside this: `parseRSS()` never entity-decoded the item link,
+only the title and description. Feed URLs with query strings arrive escaped
+(BBC's look like `?at_medium=RSS&amp;at_campaign=rss`), so the `&amp;` was
+being written straight into the published citation link and breaking it. The
+dedupe set now matches both the encoded and decoded forms, so stories tracked
+before this fix are not republished.
+
 ## What's live right now
 
 **`scripts/content-engine/publish-personal-finance-news.js`** + its workflow
