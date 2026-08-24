@@ -50,6 +50,36 @@ drifted. Use it after any change to the gate prompt.
 The two off-topic posts are still live — unpublishing them is a separate
 decision, not made here.
 
+## The thin-post regenerator was rewriting these posts (fixed 2026-08-24)
+
+Worth knowing about, because nothing about it was obvious from either script.
+
+`regenerate-thin-posts.js` rewrites any published post under 1200 words. News
+posts are written to 700-1000 words **by design**, so every one of them looked
+"thin" and became a target. Worse, `inferService()` returned `'Latest News'`,
+which has no `SERVICE_META` entry, so it silently fell back to **Business
+Loans** — and rewrote landlord and property news as evergreen business-loan
+guides, padding them to ~1700 words, injecting business-loan CTAs and dropping
+the source attribution link entirely. Articles built on Property118 and
+Guardian reporting ended up crediting nobody.
+
+Three posts were rewritten this way before it was caught
+(`landlord-couple-locked-out-capital-professional-advice`,
+`landlord-incorporation-relief-new-hmrc-claim-rules`,
+`landlords-epc-upgrade-costs-royal-estates-comparison`). They have not been
+restored — they read as business-loan content, not news. The remaining six in
+the queue were all news posts too.
+
+Two fixes, both in `regenerate-thin-posts.js`:
+- `EXCLUDED_SERVICES` now skips `'Latest News'`, whatever the word count.
+- The `|| SERVICE_META['Business Loans']` fallback is gone. An unknown service
+  now exits non-zero instead of guessing a product, so the next time a service
+  is added or renamed it surfaces as a failure rather than quietly mislabelling
+  live articles.
+
+**If you add another content pillar with its own word-count profile, check
+this script first.**
+
 ## What's live right now
 
 **`scripts/content-engine/publish-personal-finance-news.js`** + its workflow

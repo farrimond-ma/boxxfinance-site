@@ -26,6 +26,19 @@ const BLOG_FILE    = 'src/data/blogPosts.json';
 const SITE_URL     = 'https://boxxfinance.co.uk';
 const MIN_WORDS    = 1200; // posts below this get regenerated
 
+// Services this script must never touch, whatever their word count.
+//
+// "Latest News" posts (publish-personal-finance-news.js) are reactive news
+// analysis, deliberately written to 700-1000 words — short is correct for
+// them, not thin. Without this exclusion every single one of them fell under
+// MIN_WORDS and got rewritten as an evergreen guide: the news framing was
+// lost, the piece was padded to ~1700 words, business-loan CTAs were injected
+// and the source attribution link was dropped, leaving articles built on other
+// outlets' reporting with no credit to them. Three had already been rewritten
+// this way before it was spotted (2026-08-24); the rest of the queue was
+// entirely news posts.
+const EXCLUDED_SERVICES = new Set(['Latest News']);
+
 const octokit   = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_TOKEN });
 // Migrated from OpenAI gpt-4o to Claude (2026-07-20) via a drop-in shim. Same call sites.
 const openai    = createOpenAICompatClient({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -334,6 +347,7 @@ async function main() {
   // Find thinnest published post
   const candidates = posts
     .filter(p => p.status === 'published')
+    .filter(p => !EXCLUDED_SERVICES.has(p.service))
     .map(p => ({ p, wc: wordCount(p.content) }))
     .filter(({ wc }) => wc < MIN_WORDS)
     .sort((a, b) => a.wc - b.wc);
@@ -346,7 +360,19 @@ async function main() {
   const { p: post, wc } = candidates[0];
   const remaining = candidates.length;
   const service   = inferService(post);
-  const meta      = SERVICE_META[service] || SERVICE_META['Business Loans'];
+  const meta      = SERVICE_META[service];
+
+  // This used to fall back to Business Loans for any unrecognised service,
+  // which silently rewrote posts around the wrong product — that is how the
+  // "Latest News" posts ended up full of business-loan CTAs. Skip and report
+  // instead, so a new or renamed service surfaces as something to fix rather
+  // than quietly mislabelling live articles.
+  if (!meta) {
+    console.error(`\n❌ No SERVICE_META for service "${service}" (post: ${post.slug}).`);
+    console.error('   Refusing to regenerate rather than guess the product.');
+    console.error('   Add it to SERVICE_META, or to EXCLUDED_SERVICES if these posts should never be regenerated.\n');
+    process.exit(1);
+  }
 
   console.log(`Found: "${post.title}"`);
   console.log(`  Current: ${wc} words  |  Service: ${service}  |  ${remaining} posts remaining\n`);
