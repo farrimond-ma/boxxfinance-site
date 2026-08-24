@@ -43,6 +43,22 @@
   <FilesMatch "\.(png|jpg|jpeg|gif|webp|svg|ico|woff|woff2|ttf)$">
     Header set Cache-Control "public, max-age=604800"
   </FilesMatch>
+
+  # Blog hero images — same reasoning as the JSON rule above: the filename is
+  # stable (/images/blog/<slug>.webp) but the CONTENTS get replaced when a
+  # post is re-imaged. Under the 7-day rule above, a browser that had already
+  # seen a post kept showing the old photo for a week and never asked the
+  # server, so re-imaging looked like it had silently done nothing
+  # (2026-08-24). "no-cache" does not mean "do not cache" — it means
+  # revalidate before reuse, which is a cheap 304 via Last-Modified when the
+  # image has not changed.
+  #
+  # FilesMatch cannot see the path, only the filename, so this is keyed off
+  # REQUEST_URI. It must stay AFTER the blanket image rule above to win.
+  <IfModule mod_setenvif.c>
+    SetEnvIf Request_URI "^/images/blog/" BOXX_REVALIDATE_IMG=1
+    Header set Cache-Control "no-cache" env=BOXX_REVALIDATE_IMG
+  </IfModule>
 </IfModule>
 
 # One page = one URL. Prerendered pages live as directories (insights/slug/index.html)
