@@ -131,6 +131,15 @@ Options -Indexes -MultiViews
   RewriteRule ^(?:advice|insights)/commercial-finance-smes-right-funding-structure/?$ /funding-solutions [R=301,L]
   RewriteRule ^(?:advice|insights)/understanding-loan-costs-mistakes-to-avoid/?$ /insights/bridging-loan-costs-breakdown [R=301,L]
 
+  # Deleted 2026-08-24: a "Latest News" post published that morning, before the
+  # news publisher validated its own output. 588 words, no source citation and
+  # no funding link — written from Property118's reporting with no credit to
+  # them. Deleted outright rather than fixed. No equivalent article to point at,
+  # so it goes to the insights index. Must stay ABOVE the prerendered-directory
+  # rewrite further down, or a stale insights/<slug>/index.html left on the
+  # server by a previous deploy would be served with a 200 instead.
+  RewriteRule ^(?:advice|insights)/landlords-feel-persecuted-nrla-research/?$ /insights [R=301,L]
+
   # Bare /advice index — the /advice/(.+) rule below requires a suffix, so this fell through to a soft 404.
   RewriteRule ^advice/?$ /insights [R=301,L]
 
