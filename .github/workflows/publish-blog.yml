@@ -15,8 +15,18 @@
 
 on:
   schedule:
-    # 6:37 AM UTC = 7:37 AM UK time (BST). Weekdays only.
-    - cron: '37 6 * * 1-5'
+    # 2026-08-25: back to 2 posts/day, 7 days a week (~14/week) at Mark's
+    # request. This is the cadence that produced the 2026-08-17
+    # cannibalisation cleanup, so it is only safe because publish-blog.js now
+    # runs checkDuplicateCoverage() before generating: any queued row that
+    # would duplicate published coverage is skipped and marked "duplicate" in
+    # the sheet rather than written. Do NOT raise the cadence further, or
+    # remove that guard, without reading the note above it.
+    #
+    # Word floors were raised to 3000/3200 at the same time — volume without
+    # depth is what made the old high-cadence output read as churn.
+    - cron: '37 6 * * *'   # 07:37 UK (BST)
+    - cron: '37 13 * * *'  # 14:37 UK (BST)
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 permissions:

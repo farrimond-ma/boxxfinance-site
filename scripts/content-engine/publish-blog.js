@@ -29,7 +29,7 @@ const ARTICLE_SCHEMA = {
     secondaryKeywords: { type: 'array', items: { type: 'string' }, description: '4-8 supporting search phrases actually used in the body copy.' },
     category:          { type: 'string', description: 'Service taxonomy value for this article.' },
     contentHtml:       { type: 'string', description:
-      'The full article body as valid HTML, minimum 2200 words. ' +
+      'The full article body as valid HTML, minimum 3200 words. ' +
       'MUST end with a "Frequently Asked Questions" H2 section containing the same 5-7 Q&As as faqSchema, ' +
       'each question as its own <h3> using the EXACT SAME WORDING as the matching faqSchema question — ' +
       'not <dl>/<dt>/<dd> — so AI crawlers that parse heading structure see the same question the schema declares. ' +
@@ -108,8 +108,11 @@ const BLOG_FILE = 'src/data/blogPosts.json';
 // TARGET_WORDS. We demand a buffer above that from generation so the
 // humanizer pass (which may trim up to 10%) still lands the final article
 // over the audit target.
-const TARGET_WORDS = 2000;
-const GENERATION_MIN_WORDS = 2200;
+// 2026-08-25: raised to 3000 when the cadence went back to 2 posts/day, 7
+// days a week. Length is part of what keeps the higher volume from reading
+// as thin, churned-out filler.
+const TARGET_WORDS = 3000;
+const GENERATION_MIN_WORDS = 3200;
 
 // Minimum internal links per article. Both floors are measured against the
 // published corpus, not aspiration — a gate set above what good articles
@@ -234,6 +237,95 @@ async function getSheetsClient() {
 // during the strategic pivot period.
 const SLOT_PRIORITY = ['TRIGGER', 'AM', 'PM'];
 
+// ─── Duplicate-coverage guard ─────────────────────────────────────────────────
+// 2026-08-25. Cadence went back to 2 posts/day, 7 days a week (~14/week), which
+// is the volume that previously produced the cannibalisation mess — 21
+// near-duplicate articles across 10 topic clusters, still redirected in
+// public/.htaccess today. The only thing that had prevented a repeat was
+// publishing less; nothing ever checked whether a queued keyword was already
+// covered. At this cadence that is not survivable, so this is the check.
+//
+// Two stages, deliberately: a cheap token-overlap shortlist so the model only
+// ever sees a handful of plausible clashes, then the model adjudicates. A pure
+// keyword match is too blunt ("bridging loan rates" vs "cost of a bridging
+// loan" are the same article with different words), and asking the model about
+// all ~180 published posts every run is wasteful.
+const STOPWORDS = new Set(['a','an','the','and','or','for','to','of','in','on','is','are','can','do','does','you','your','uk','with','what','how','my','i','it','be']);
+
+function topicTokens(str) {
+  return new Set(String(str || '').toLowerCase().replace(/[^a-z0-9\s-]/g, ' ')
+    .split(/[\s-]+/).filter(w => w.length > 2 && !STOPWORDS.has(w)));
+}
+
+function overlapScore(a, b) {
+  if (!a.size || !b.size) return 0;
+  let shared = 0;
+  for (const t of a) if (b.has(t)) shared++;
+  return shared / Math.min(a.size, b.size); // how much of the SHORTER topic is covered
+}
+
+// The published posts most likely to clash with what we are about to write.
+function shortlistSimilar(row, posts, limit = 6) {
+  const planned = topicTokens(`${row.keyword} ${row.title} ${row.topic}`);
+  return posts
+    .filter(p => p.status === 'published')
+    .map(p => ({ post: p, score: overlapScore(planned, topicTokens(`${p.keywords} ${p.title} ${p.slug}`)) }))
+    .filter(x => x.score >= 0.4)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
+}
+
+const DUPLICATE_SCHEMA = {
+  type: 'object',
+  properties: {
+    isDuplicate: { type: 'boolean', description: 'True if the planned article would substantially duplicate one of the existing articles — same core question, same reader intent — rather than covering a genuinely distinct angle.' },
+    duplicateOf: { type: 'string', description: 'If isDuplicate: the slug of the existing article it duplicates. Otherwise empty.' },
+    reason: { type: 'string', description: 'One sentence explaining the decision.' },
+  },
+  required: ['isDuplicate', 'duplicateOf', 'reason'],
+  additionalProperties: false,
+};
+
+async function checkDuplicateCoverage(row, posts) {
+  const similar = shortlistSimilar(row, posts);
+  if (similar.length === 0) return { isDuplicate: false, duplicateOf: '', reason: 'no similar published article' };
+
+  const list = similar.map(s => `- ${s.post.slug} :: "${s.post.title}"`).join('\n');
+  try {
+    const res = await openai.chat.completions.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 400,
+      response_format: { json_schema: { schema: DUPLICATE_SCHEMA } },
+      messages: [
+        { role: 'system', content: `You stop a UK finance site publishing near-duplicate articles that compete with each other in search. Two articles duplicate when they answer the same core question for the same reader, even if worded differently ("bridging loan rates" and "what does a bridging loan cost" are the same article). They are NOT duplicates when the angle is genuinely different — a different borrower situation, a different stage of the process, or a different product. Return only a raw JSON object.` },
+        { role: 'user', content: `Planned article:\n  keyword: ${row.keyword}\n  title: ${row.title}\n  topic: ${row.topic}\n\nAlready published:\n${list}\n\nWould publishing the planned article duplicate any of these?` },
+      ],
+    });
+    return parseModelJson(res.choices[0].message.content, { label: 'duplicate-coverage guard' });
+  } catch (err) {
+    // Never block publishing on a failed check — but say so loudly, because a
+    // silent pass here is how the cannibalisation happened the first time.
+    console.warn(`  ⚠ Duplicate check failed (${err.message}) — publishing without it.`);
+    return { isDuplicate: false, duplicateOf: '', reason: 'check failed' };
+  }
+}
+
+// Park a row rather than deleting it: 'duplicate' keeps it out of the queue on
+// every future run while leaving a visible record in the sheet of what was
+// skipped and why.
+async function markRowDuplicate(sheets, rowIndex, duplicateOf) {
+  await sheets.spreadsheets.values.batchUpdate({
+    spreadsheetId: SPREADSHEET_ID,
+    requestBody: {
+      valueInputOption: 'RAW',
+      data: [
+        { range: `ContentEngine!C${rowIndex}`, values: [['duplicate']] },
+        { range: `ContentEngine!AC${rowIndex}`, values: [[`Skipped ${new Date().toISOString().split('T')[0]}: duplicates ${duplicateOf || 'existing coverage'}`]] },
+      ],
+    },
+  });
+}
+
 async function getScheduledRow(sheets) {
   const slots = process.env.PUBLISH_SLOT
     ? [process.env.PUBLISH_SLOT.toUpperCase()]
@@ -279,6 +371,9 @@ async function getScheduledRow(sheets) {
     contentFramework: (row[29] || '').trim().toLowerCase(),
   });
 
+  // Every eligible row in priority order, not just the first — the duplicate
+  // guard in main() needs somewhere to fall through to when it skips one.
+  const candidates = [];
   for (const slot of slots) {
     for (let i = 0; i < rows.length; i++) {
       const row = rows[i];
@@ -290,11 +385,11 @@ async function getScheduledRow(sheets) {
 
       if (serviceFilter && service.toLowerCase() !== serviceFilter) continue;
       if (type === 'blog' && status === 'scheduled' && publishDate <= today && publishSlot === slot) {
-        return buildRow(row, i);
+        candidates.push(buildRow(row, i));
       }
     }
   }
-  return null;
+  return candidates;
 }
 
 // ─── Get published location pages for internal linking ───────────────────────
@@ -387,7 +482,7 @@ const TRIGGER_EVENT_STRUCTURE = `ARTICLE STRUCTURE — this is a trigger-event /
 9. <h2>What to do in the next 24 hours</h2> — a numbered, concrete action list specific to this trigger.
 10. <h2>Frequently Asked Questions</h2> — 5-7 Q&As taken from real search phrasing for this trigger, each question as its own <h3> matching the faqSchema wording exactly.
 
-Word count for trigger-event pieces: 2200-3000 words (spokes) — longer than the standard 2000-word minimum, because steps 4 and 6 require real tables and worked arithmetic, not padding.`;
+Word count for trigger-event pieces: 3200-4000 words (spokes) — longer than the standard 3000-word minimum, because steps 4 and 6 require real tables and worked arithmetic, not padding.`;
 
 const TRIGGER_EVENT_VOICE = `URGENCY VOICE RULES (in addition to the tone rules above):
 - Second person, present tense, throughout — not just the opening.
@@ -432,7 +527,7 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
-    max_tokens: 12000, // headroom for 3000-word article + HTML + faqSchema + JSON wrapping
+    max_tokens: 16000, // headroom for a 3500-word article + HTML + faqSchema + JSON wrapping
     response_format: { json_schema: { schema: ARTICLE_SCHEMA } },
     messages: [
       {
@@ -485,7 +580,7 @@ Each <h2> section must open with 1-2 sentences that directly answer the section 
 If the article naturally involves comparing 2 or more numeric values side by side (e.g. typical LTV by property type, rates by term, fees by lender type${isTriggerEvent ? ', the options table required above' : ''}), include one simple <table> with a header row summarising them — AI engines preferentially extract and cite tabular data over prose.${isTriggerEvent ? '' : ' Do not force a table where nothing is genuinely comparable; most articles will not need one.'}
 
 WORD COUNT — this is a hard requirement, not a guideline:
-- The full article must be at least ${isTriggerEvent ? '2200 words of visible text — aim for 2500-3000, because the options table and worked cost example require real detail, not padding' : '2000 words of visible text — aim for 2200-3000'}
+- The full article must be at least ${isTriggerEvent ? '3200 words of visible text — aim for 3500-4000, because the options table and worked cost example require real detail, not padding' : '3000 words of visible text — aim for 3200-3800'}
 - Every <h2> section except Summary and the FAQ must be at least 220 words — this is a longer, more detailed article format than before, so depth must come from genuinely expanding every section, not padding a couple of them
 - Each FAQ answer must be 40-70 words
 - Articles under 2000 words fail the site's SEO audit and are rejected, so expand thin sections with practical detail, realistic UK figures and broker insight before returning
@@ -1157,12 +1252,33 @@ async function main() {
   const sheets = await getSheetsClient();
   console.log('Connected to Google Sheets');
 
-  const row = await getScheduledRow(sheets);
-  if (!row) {
+  const candidates = await getScheduledRow(sheets);
+  if (candidates.length === 0) {
     console.log('No scheduled blog rows found for today. Exiting.');
     return;
   }
-  console.log(`Found scheduled row ${row.rowIndex}: ${row.keyword || row.title}`);
+  console.log(`${candidates.length} scheduled row(s) eligible today`);
+
+  console.log('Fetching current blogPosts.json from GitHub...');
+  const { sha, posts } = await getBlogPostsFile();
+  console.log(`Current file has ${posts.length} posts, SHA: ${sha}`);
+
+  // Skip anything that would duplicate what is already published. At 2
+  // posts/day this is what keeps the queue from cannibalising itself.
+  let row = null;
+  for (const candidate of candidates.slice(0, 8)) {
+    const dup = await checkDuplicateCoverage(candidate, posts);
+    if (!dup.isDuplicate) { row = candidate; break; }
+    console.log(`  ✗ Row ${candidate.rowIndex} "${candidate.keyword || candidate.title}" — duplicates ${dup.duplicateOf}: ${dup.reason}`);
+    await markRowDuplicate(sheets, candidate.rowIndex, dup.duplicateOf);
+  }
+
+  if (!row) {
+    console.log('\nEvery eligible row duplicates existing coverage. Nothing published.');
+    console.log('Rows have been marked "duplicate" in the sheet — the queue needs new topics.');
+    return;
+  }
+  console.log(`Publishing row ${row.rowIndex}: ${row.keyword || row.title}`);
 
   const locationLinks = await getPublishedLocations(sheets, row.service);
   console.log(`Found ${locationLinks.length} published location pages for ${row.service}`);
@@ -1170,10 +1286,7 @@ async function main() {
   const relatedBlogs = await getPublishedBlogs(sheets, row.service);
   console.log(`Found ${relatedBlogs.length} related published blogs for ${row.service}`);
 
-  console.log('Fetching current blogPosts.json from GitHub...');
-  const { sha, posts } = await getBlogPostsFile();
-  console.log(`Current file has ${posts.length} posts, SHA: ${sha}`);
-
+  // blogPosts.json was already fetched above for the duplicate check.
   const slug = row.slug;
   const existingPost = posts.find(p => p.slug === slug);
   if (existingPost) {
