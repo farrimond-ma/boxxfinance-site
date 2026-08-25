@@ -14112,5 +14112,60 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1787644618704,
+    "status": "published",
+    "slug": "landlords-selling-flats-buyers-opportunity",
+    "url": "/insights/landlords-selling-flats-buyers-opportunity",
+    "title": "A Quarter of Flats for Sale Are Landlord Sell-Offs, But Buyers Are Wary",
+    "excerpt": "One in four flats on the market are being sold by landlords exiting buy-to-let, as falling profits and tighter regulation push many out. But demand for flats remains soft.",
+    "metaTitle": "Why Landlords Are Selling Flats, And Who's Buying",
+    "metaDescription": "One in four flats for sale are landlord exits, driven by falling profits and new rules. Here's what it means for buyers and remaining landlords.",
+    "keywords": "property market, mortgage, landlord, first-time buyer, buy-to-let",
+    "date": "2026-08-25",
+    "publishedAt": "2026-08-25T07:56:58.704Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/landlords-selling-flats-buyers-opportunity.webp",
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does more landlord selling mean flat prices will fall?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily straight away, but a larger pool of sellers competing for a smaller pool of interested buyers tends to put downward pressure on asking prices over time, particularly for flats that need work or sit in leasehold blocks with higher service charges."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is now a good time to buy a flat from a landlord?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can be, since landlords selling for financial or regulatory reasons are often more open to negotiation than owner-occupiers. But buyers should still do their usual checks on service charges, lease length and building safety before assuming a bargain."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are buy-to-let profits falling for landlords?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The source points to a mix of stricter regulation and squeezed margins, on top of costs landlords already face such as mortgage interest, maintenance and compliance, which together are making letting less profitable than it used to be for many."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Landlords are selling up in large numbers, with one in four flats currently on the market having been put up for sale by a landlord rather than an owner-occupier, according to <a href=\"https://www.thisismoney.co.uk/money/buytolet/article-16066681/One-four-flats-sale-offloaded-landlord-does-want-buy-them.html?ns_mchannel=rss&ns_campaign=1490&ito=1490\">This Is Money</a>. The exodus is being driven by falling rental profits and stricter regulation on buy-to-let, but the report raises an awkward question: with so many flats flooding the market, is anyone actually queuing up to buy them?</p><p>This matters because it points to two things happening at once. Landlords are finding flats less worthwhile to hold onto, and buyers are not necessarily rushing in to fill the gap. For anyone trying to make sense of the property market right now, whether they are hoping to buy their first home, sell an investment property, or work out whether to keep letting, this shift is worth paying attention to.</p><h2>Why landlords are selling now</h2><p>Buy-to-let has become less attractive for a combination of reasons that have been building for a while: tighter mortgage rules, additional tax changes affecting landlords, and rising costs of compliance with safety and energy regulations have all squeezed profit margins. On top of that, tenant demand and rental yields have not always kept pace with the costs of running a flat, particularly in blocks with service charges or leasehold complications. Put simply, for a growing number of landlords the sums no longer add up the way they once did, and selling looks like the sensible option.</p><h2>What it means if you are trying to buy</h2><p>A glut of landlord-sold flats hitting the market in theory means more choice and potentially softer prices for buyers, since sellers who are exiting an investment are often more motivated to agree a deal than someone selling their family home. But the source is clear that demand for flats is not guaranteed. Many buyers, especially first-time buyers, have become more cautious about flats generally, put off by service charges, leasehold uncertainty, and stories about buildings with unresolved safety issues. That means the extra supply does not automatically translate into a buyer's bargain. It may take patience, and a willingness to negotiate hard, to turn this into a genuine opportunity.</p><h2>What it means if you are a landlord</h2><p>If you are a landlord weighing up whether to sell, you are far from alone, and that is precisely the problem. A market where a quarter of flats for sale are landlord exits is a crowded one, and crowded markets tend to mean slower sales and more haggling over price. Landlords thinking about selling may need to be realistic about timelines and pricing, particularly if their flat sits in a block or area where several other units are also being marketed by landlords at the same time. For those weighing up whether to sell now or wait, the practical question is less about long-term rental yield and more about how quickly a sale needs to happen and what condition the flat is in to attract a cautious pool of buyers.</p><h2>Frequently Asked Questions</h2><h3>Does more landlord selling mean flat prices will fall?</h3><p>Not necessarily straight away, but a larger pool of sellers competing for a smaller pool of interested buyers tends to put downward pressure on asking prices over time, particularly for flats that need work or sit in leasehold blocks with higher service charges.</p><h3>Is now a good time to buy a flat from a landlord?</h3><p>It can be, since landlords selling for financial or regulatory reasons are often more open to negotiation than owner-occupiers. But buyers should still do their usual checks on service charges, lease length and building safety before assuming a bargain.</p><h3>Why are buy-to-let profits falling for landlords?</h3><p>The source points to a mix of stricter regulation and squeezed margins, on top of costs landlords already face such as mortgage interest, maintenance and compliance, which together are making letting less profitable than it used to be for many.</p><p>For landlords who decide selling isn't the right move and instead need to refinance, raise capital against a property, or bridge a gap while a sale is negotiated, it's worth exploring what options exist through <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a>.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
