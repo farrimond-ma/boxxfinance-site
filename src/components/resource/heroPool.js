@@ -31,15 +31,24 @@ const BESPOKE_HERO_SLUGS = new Set([
 //   - Bridging posts → the curated 9-image property pool (visual variety),
 //     unless the post is on the bespoke allowlist above.
 //   - Other services → the post's own image (caller supplies any fallback).
+// Re-sourcing a hero replaces the file at the SAME path, so browsers that
+// already cached it keep showing the old picture (images are served with a
+// 7-day max-age). Appending the version makes it a different URL, which no
+// cache can answer from — the only fix that also clears images already
+// cached before the change. heroVersion is the Pexels photo id, written by
+// publish-personal-finance-news.js and reimage-news-posts.js.
+const withVersion = (url, version) =>
+    url && version ? `${url}${url.includes('?') ? '&' : '?'}v=${version}` : url;
+
 export const heroForPost = (post) => {
     if (!post) return null;
     const own = post.heroImage || post.image || null;
     const isBridging = /bridging/i.test(post.service || '');
     if (isBridging) {
-        if (own && BESPOKE_HERO_SLUGS.has(post.slug)) return own;
+        if (own && BESPOKE_HERO_SLUGS.has(post.slug)) return withVersion(own, post.heroVersion);
         return pickHero(post.slug);
     }
-    return own;
+    return withVersion(own, post.heroVersion);
 };
 
 export default HERO_POOL;

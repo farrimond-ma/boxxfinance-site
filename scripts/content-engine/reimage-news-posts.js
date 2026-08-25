@@ -66,7 +66,7 @@ async function main() {
   console.log('\n[Re-image Latest News posts]\n');
   if (isDryRun) console.log('DRY RUN — no changes written\n');
 
-  const { json: posts } = await getJsonFile(BLOG_FILE);
+  const { json: posts, sha: blogSha } = await getJsonFile(BLOG_FILE);
   const { json: covered, sha: trackingSha } = await getJsonFile(TRACKING_FILE);
 
   // --only <slug>[,<slug>] re-images just those posts. Most of the backfill
@@ -118,6 +118,24 @@ async function main() {
     const kb = await replaceImage(imagePath, image.buffer);
     console.log(`  replaced ${post.heroImage} (${kb}KB)\n`);
     updated++;
+  }
+
+  // Bump heroVersion so the new image actually reaches people. The file path
+  // is unchanged, so without this a browser that cached the old picture keeps
+  // showing it for up to the 7-day image max-age — which is exactly what made
+  // the first two rounds of re-imaging look like they had done nothing.
+  if (!isDryRun && Object.keys(chosen).length > 0) {
+    let bumped = 0;
+    for (const post of posts) {
+      if (chosen[post.slug]) { post.heroVersion = chosen[post.slug]; bumped++; }
+    }
+    await octokit.repos.createOrUpdateFileContents({
+      owner: GITHUB_OWNER, repo: GITHUB_REPO, path: BLOG_FILE,
+      message: 'chore: bump hero image versions after re-imaging',
+      content: Buffer.from(JSON.stringify(posts, null, 2)).toString('base64'),
+      branch: 'main', sha: blogSha,
+    });
+    console.log(`Bumped heroVersion on ${bumped} post(s).`);
   }
 
   // Record the ids so publish-personal-finance-news.js will not reuse them.

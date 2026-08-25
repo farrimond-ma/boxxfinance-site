@@ -13407,7 +13407,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 30683472
   },
   {
     "id": 1787320626723,
@@ -13479,7 +13480,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 37621366
   },
   {
     "id": 1787334192062,
@@ -13551,7 +13553,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 7519151
   },
   {
     "id": 1787384631710,
@@ -13606,7 +13609,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 15797457
   },
   {
     "id": 1787406302420,
@@ -13686,7 +13690,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 37621339
   },
   {
     "id": 1787420078681,
@@ -13758,7 +13763,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 6793229
   },
   {
     "id": 1787471158237,
@@ -13813,7 +13819,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 37296257
   },
   {
     "id": 1787492678064,
@@ -13868,7 +13875,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 37622617
   },
   {
     "id": 1787506383442,
@@ -13923,7 +13931,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 38242017
   },
   {
     "id": 1787557565553,
@@ -14017,7 +14026,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 37623580
   },
   {
     "id": 1787593524182,
@@ -14072,7 +14082,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 12292600
   },
   {
     "id": 1787643130708,
@@ -14166,7 +14177,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 26898875
   },
   {
     "id": 1787666580887,
@@ -14221,7 +14233,8 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 11935244
   },
   {
     "id": 1787679866686,
@@ -14276,6 +14289,7 @@
     "pinterestPosted": false,
     "reelPosted": false,
     "service": "Latest News",
-    "category": "Latest News"
+    "category": "Latest News",
+    "heroVersion": 13585649
   }
 ]

@@ -586,6 +586,10 @@ async function main() {
     author: 'Mark Higgins',
     authorEmail: 'mark@boxxfinance.co.uk',
     heroImage,
+    // Cache-buster appended to the image URL by heroForPost. Without it, a
+    // later re-image replaces the file at the same path and browsers keep
+    // serving the old picture for up to the 7-day image max-age.
+    heroVersion: photoId || null,
     schema: article.faqSchema,
     relatedLocationUrls: [],
     relatedBlogUrls: [],
