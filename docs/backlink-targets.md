@@ -44,6 +44,50 @@ Every one of these requires genuine eligibility. They are membership
 directories, not link farms — the link is a by-product of actually being a
 member, which is why they are worth having.
 
+## Free/cheap directories — tested, links confirmed followed
+
+Checked 25 Aug 2026 by pulling a live listing and reading the `rel` on the
+business's own website link.
+
+| Directory | Cost | Evidence |
+|---|---|---|
+| [FreeIndex](https://www.freeindex.co.uk/) | **Free** (optional £7.95/mo Premium only removes ads — not needed for the link) | `rel=NONE` on `https://clarityft.co.uk/` from a live profile page |
+| [Approved Business](https://www.approvedbusiness.co.uk/) | Package-based, **not yet confirmed** — check before committing | `rel=NONE` on `https://www.keyelement.co.uk`. B2B/trade focus, better audience fit than a consumer directory |
+
+**Could not verify** (403 / Cloudflare / timeouts, so untested — do not assume
+either way): Yell, Cylex, Hotfrog, Scoot, Tupalo, BusinessMagnet. Yell is
+widely *reported* to nofollow but that was not confirmed here.
+
+**Temper expectations.** Generic directory links have been heavily discounted
+by Google since the directory-spam era. "Followed" means not worthless, not
+valuable — one NACFB listing is worth more than all of these together. Worth
+one hour, once. Not a project, and not worth paying for.
+
+**Free things with more value than any of the above:** claim the **Google
+Business Profile** (biggest single local signal, and a trust signal for a
+regulated firm), then **Bing Places**. Keep name/address/phone identical
+across all listings and Companies House — the consistency is what Google uses
+to confirm the business is real.
+
+## Routes evaluated and ruled out
+
+Checked 25 Aug 2026, so they don't get re-proposed.
+
+**The test, for anything new:** open a live listing on the site, check whether
+the listed business's own website link is `nofollow`, and look at what the site
+links to *followed*. If your link is nofollowed while someone else's is not,
+you are the product rather than the customer.
+
+| Route | Verdict |
+|---|---|
+| **Glasgow Chamber of Commerce** | Standard membership does include a directory link, but the directory lives on `portal.glasgowchamberofcommerce.com` **behind password protection** — Googlebot cannot crawl it, so the link is worth nothing for SEO. Public followed links exist only at **Gold Partner** tier: **£5,500 + VAT** (£6,600). Mark's call: not worth it yet. Still arguable as a *networking* spend (~1,800 members, open regardless of location) — just never as a link buy. |
+| **Scottish Chambers of Commerce** | Cannot join. It is an umbrella body for 30 local chambers; its members are the chambers, not businesses. Its `/partners/` page has followed links but the partners are Heathrow, SSE, CGI, ScotRail — national sponsorship scale. |
+| **Lanarkshire Chamber of Commerce** | Not assessed — the site looks stale (news pages 404, markup contains a 2011-dated archive URL). Phone them rather than trusting the site. |
+| **118 Business Directory** | **Avoid.** Listed businesses get `rel="nofollow"`, while followed sitewide links go to paying advertisers — one of them an escort domain. ~75,000 bulk-scraped listings. No value, and bad company for a regulated firm. |
+| **BrightLocal Citation Builder** | Reputable company, wrong tool. Citations are a *local map pack* signal, not backlinks, and most citation sites nofollow. Useful only for the one real Lanarkshire location; does nothing for the 370 location pages. Do Google Business Profile free first. |
+| **markhigginsmortgages.com** (same owner) | Worth one contextual link for **referral traffic and entity association**, not for ranking — a self-owned link is not an independent vote. Different IPs, so hosting is not the issue; common ownership is. Avoid sitewide footer links or exact-match anchors. |
+| **Press release distribution** (PRWeb, EIN, Newswire etc.) | Not a backlink route. Google's policy is that press release links should be `nofollow`/`sponsored`. Any service promising dofollow links from releases is selling a link scheme. Earned digital PR is the real version — but see the trade-press finding above before aiming it at this sector. |
+
 ## When the NACFB listing goes live
 
 Worth getting right first time:
