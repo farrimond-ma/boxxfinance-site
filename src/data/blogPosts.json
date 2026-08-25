@@ -14167,5 +14167,60 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1787666580887,
+    "status": "published",
+    "slug": "hmrc-incorporation-relief-guidance-tribunal-case",
+    "url": "/insights/hmrc-incorporation-relief-guidance-tribunal-case",
+    "title": "HMRC's landlord tax guidance is still shifting, and a new tribunal case shows why incorporation is riskier than it looks",
+    "excerpt": "A fresh tribunal ruling has landed just days after HMRC amended its 20-hour rule guidance for landlord Incorporation Relief, raising fresh questions for landlords weighing up incorporating their portfolios.",
+    "metaTitle": "New Tribunal Case Adds to Landlord Tax Uncertainty",
+    "metaDescription": "HMRC's 20-hour guidance for landlord Incorporation Relief has already changed once. A new tribunal case suggests more grey areas are still to come.",
+    "keywords": "mortgage, landlord, capital gains tax",
+    "date": "2026-08-25",
+    "publishedAt": "2026-08-25T14:03:00.888Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/hmrc-incorporation-relief-guidance-tribunal-case.webp",
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the 20-hour rule for landlords?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It refers to guidance HMRC uses, alongside other factors, to help decide whether a landlord's property activities amount to a genuine business rather than a passive investment, which affects eligibility for reliefs such as Incorporation Relief. HMRC has recently amended its guidance on this point after it caused confusion among landlords and advisers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this new tribunal case change the rules on Incorporation Relief?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not directly. The case is not a Section 162 Incorporation Relief case, but according to Property118 it touches on similar questions about how business activity is assessed for tax purposes, which is why it is being watched closely by landlords and tax advisers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I delay incorporating my property portfolio because of this?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "That depends entirely on individual circumstances, and this is a decision that needs proper professional tax advice rather than general guidance. What this story shows is that the rules in this area are still evolving, so getting advice before acting is more important than ever."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>HMRC has already been forced to amend its guidance once on the so called 20-hour rule, the test used to decide whether a landlord is running a genuine property business eligible for Incorporation Relief when they move a portfolio into a limited company. Now, just a week before that change was made, the First-tier Tribunal handed down a separate property tax judgment that, according to specialist landlord publication <a href=\"https://www.property118.com/hmrc-thought-it-had-fixed-its-20-hour-landlord-guidance-but-has-another-property-tax-case-exposed-the-next-flaw/\">Property118</a>, exposes another area of uncertainty that has so far gone largely unnoticed. For landlords weighing up whether to incorporate, it is another reminder that the rules around this decision are far from settled.</p><h2>Why the 20-hour rule matters so much</h2><p>Incorporation Relief allows landlords to transfer their rental properties into a limited company without triggering an immediate capital gains tax bill, but only if HMRC accepts that what is being transferred is a genuine business rather than simply a passive investment. The number of hours a landlord spends actively managing their properties each week has become a key part of how HMRC assesses that. When HMRC's own guidance on this point proved unclear or inconsistent, it created real uncertainty for landlords trying to plan ahead, which is presumably why HMRC felt compelled to amend it.</p><p>The tribunal case highlighted by Property118 is not directly about the 20-hour rule or Incorporation Relief under Section 162 of the relevant tax legislation, but the publication argues that part of the judgment touches on similar territory, namely how tax authorities and tribunals assess what counts as a business activity for tax purposes. That is precisely the kind of grey area that landlords considering incorporation need to understand before they commit.</p><h2>What this means if you are thinking about incorporating</h2><p>For landlords with a handful of properties run alongside a full-time job, or those who use letting agents to handle the day-to-day management, this is a live and practical concern rather than an abstract legal point. If HMRC or a tribunal takes the view that too little personal time and effort has gone into managing a portfolio, the case for treating it as a business, and therefore the case for Incorporation Relief, can weaken considerably.</p><p>The wider lesson from both the amended guidance and this newer case is that the rules in this area are still being tested and clarified, sometimes in ways that only become clear after a tribunal has ruled. Landlords who assumed their situation was straightforward under the old guidance may now need to revisit that assumption, and anyone part way through an incorporation should take proper advice on where they stand before going further.</p><h2>The financial planning angle</h2><p>Incorporating a property portfolio is rarely just a tax decision. It often involves restructuring finance, refinancing mortgages into a company name, and sometimes needing to move quickly once a tax or legal position becomes clear, particularly if a transaction needs to complete before a deadline or before circumstances change again. Landlords going through this process sometimes need short term finance to bridge the gap between one structure and the next, which is where specialist lenders can play a part. Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> page is worth a look for landlords who find themselves needing flexible finance while they sort out the tax and legal side of an incorporation.</p><h2>Frequently Asked Questions</h2><h3>What is the 20-hour rule for landlords?</h3><p>It refers to guidance HMRC uses, alongside other factors, to help decide whether a landlord's property activities amount to a genuine business rather than a passive investment, which affects eligibility for reliefs such as Incorporation Relief. HMRC has recently amended its guidance on this point after it caused confusion among landlords and advisers.</p><h3>Does this new tribunal case change the rules on Incorporation Relief?</h3><p>Not directly. The case is not a Section 162 Incorporation Relief case, but according to Property118 it touches on similar questions about how business activity is assessed for tax purposes, which is why it is being watched closely by landlords and tax advisers.</p><h3>Should I delay incorporating my property portfolio because of this?</h3><p>That depends entirely on individual circumstances, and this is a decision that needs proper professional tax advice rather than general guidance. What this story shows is that the rules in this area are still evolving, so getting advice before acting is more important than ever.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
