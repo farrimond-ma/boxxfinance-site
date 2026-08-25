@@ -14222,5 +14222,60 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1787679866686,
+    "status": "published",
+    "slug": "holiday-let-investor-demand-rises-despite-tax-changes",
+    "url": "/insights/holiday-let-investor-demand-rises-despite-tax-changes",
+    "title": "Holiday Let Mortgage Demand Is Rising Even as Tax Rules Get Tougher",
+    "excerpt": "Nearly nine in ten mortgage brokers report growing demand for holiday and short-let finance, new data shows, as investors chase higher yields despite a harder tax and regulatory backdrop.",
+    "metaTitle": "Holiday Let Demand Rises Despite Tax Changes",
+    "metaDescription": "Brokers report a surge in holiday and short-let mortgage demand as investors chase higher yields, despite tougher tax rules. Here's what it means for landlords.",
+    "keywords": "property market, mortgage rate, mortgage, landlord, buy-to-let, homeowner",
+    "date": "2026-08-25",
+    "publishedAt": "2026-08-25T17:44:26.686Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/holiday-let-investor-demand-rises-despite-tax-changes.webp",
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is a holiday let mortgage the same as a buy-to-let mortgage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Holiday let mortgages are a specialist product, priced and underwritten differently from standard buy-to-let mortgages because lenders treat the income as more seasonal and variable, and because the properties are usually let on a short-term basis rather than to a single long-term tenant."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are holiday let yields often higher than standard buy-to-let?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Short-let and holiday properties can typically be let at a higher rate per night or week than the equivalent monthly rent achieved on a standard tenancy, particularly in tourist areas, though this needs to be weighed against higher management costs and periods when the property sits empty."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Has the tax treatment of holiday lets changed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, the tax rules around furnished holiday lettings have become less favourable than they previously were, which is one of the reasons this is described as a less favourable regulatory environment for investors, even though demand for finance in this area is still rising."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Almost nine in ten mortgage brokers say they are seeing more demand for holiday and short-let finance, according to new data from The Cumberland Building Society's inaugural Holiday Let Index, even though investors in this corner of the property market are dealing with a less generous tax and regulatory environment than before. The finding suggests that, for a certain type of landlord, the appeal of higher rental yields is still outweighing the extra costs and red tape that now come with running a short-let property.</p><p>As <a href=\"https://www.buyassociationgroup.com/en-gb/news/rise-in-investor-interest-in-short-term-and-holiday-lets/\">reported by BuyAssociation</a>, the higher yields available from holiday lets compared with conventional buy-to-let are one of the main reasons brokers are being asked about this type of finance more often. That is a notable signal at a time when many landlords have been retreating from the private rental sector altogether, put off by rising costs, stricter energy efficiency expectations, and changes to how furnished holiday lettings are taxed.</p><h2>Why yields are pulling investors toward short lets</h2><p>Traditional buy-to-let has become a harder sum to make work for many landlords. Mortgage rates remain elevated compared with a few years ago, and tax relief on mortgage interest has been restricted for standard rental properties. Holiday and short-let properties, by contrast, can often command significantly higher weekly or nightly rates than a long-term tenancy would generate over the same period, particularly in popular tourist areas. For investors doing the maths, that yield gap can be enough to justify the extra work involved in managing a short-let, such as more frequent turnover, cleaning, and marketing.</p><p>This does not mean the sums are easy. Short-let income can be seasonal and less predictable than a fixed monthly rent, and running costs are typically higher. But the broker data suggests enough investors are satisfied with the trade-off that demand for this type of mortgage finance is climbing.</p><h2>The tax and regulatory backdrop has got tougher</h2><p>It is worth being clear-eyed about the environment this demand is happening in. The favourable tax treatment that furnished holiday lettings used to enjoy has been curtailed, and local authorities in various tourist hotspots have been tightening planning rules and licensing requirements around short-term lets in response to concerns about housing availability for local residents. None of that has disappeared. What the Cumberland's index points to is that, despite these headwinds, appetite has not collapsed. Investors appear to be recalculating rather than retreating, weighing the higher gross yields against the higher compliance burden and deciding the numbers still work for them.</p><h2>What this means if you are considering a holiday let</h2><p>For homeowners or landlords thinking about moving into this market, the message from brokers is that lenders are actively active in this space and that specialist holiday let mortgage products exist and are being used. But anyone weighing this up should go in with eyes open about the regulatory patchwork, which varies by local authority and by nation, and should not assume that headline yield figures translate directly into net profit once management costs, void periods and tax are factored in. Getting advice on both the mortgage product and the tax treatment before committing is sensible, given how much both areas have shifted recently.</p><p>For investors who need to move quickly, whether that is to secure a property before a licensing deadline, to fund refurbishment works to bring a property up to holiday-let standard, or to bridge the gap between purchase and arranging a specialist mortgage, short-term finance can play a useful role. Anyone in that position may want to look at the <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions available through Boxx Finance</a> to understand the options.</p><h2>Frequently Asked Questions</h2><h3>Is a holiday let mortgage the same as a buy-to-let mortgage?</h3><p>No. Holiday let mortgages are a specialist product, priced and underwritten differently from standard buy-to-let mortgages because lenders treat the income as more seasonal and variable, and because the properties are usually let on a short-term basis rather than to a single long-term tenant.</p><h3>Why are holiday let yields often higher than standard buy-to-let?</h3><p>Short-let and holiday properties can typically be let at a higher rate per night or week than the equivalent monthly rent achieved on a standard tenancy, particularly in tourist areas, though this needs to be weighed against higher management costs and periods when the property sits empty.</p><h3>Has the tax treatment of holiday lets changed?</h3><p>Yes, the tax rules around furnished holiday lettings have become less favourable than they previously were, which is one of the reasons this is described as a less favourable regulatory environment for investors, even though demand for finance in this area is still rising.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
