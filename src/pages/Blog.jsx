@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import blogPosts from '../data/blogIndex.json';
 import SEO from '../components/SEO';
 import { heroForPost } from '../components/resource/heroPool';
+import { publishedAtOf, byNewestFirst } from '../data/postDates';
 import '../components/resource/ResourcePage.css'; // shared hero design language
 import './Blog.css';
 
@@ -46,7 +47,10 @@ const Blog = () => {
         () =>
             [...blogPosts]
                 .filter((post) => post && post.status === 'published')
-                .sort((a, b) => new Date(b.date) - new Date(a.date)),
+                // By real publication time, not the scheduled date — the
+                // bridging schedule runs days behind, which pushed newly
+                // published long-form posts below older news items.
+                .sort(byNewestFirst),
         []
     );
 
@@ -171,7 +175,7 @@ const Blog = () => {
                                             <p className="blog-card-date">
                                                 {post.updatedAt
                                                     ? `Last updated: ${formatDate(post.updatedAt)}`
-                                                    : `Published: ${formatDate(post.date)}`}
+                                                    : `Published: ${formatDate(publishedAtOf(post))}`}
                                             </p>
                                             <span className="read-more">Read Article &rarr;</span>
                                         </div>

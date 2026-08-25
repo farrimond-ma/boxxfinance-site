@@ -4,6 +4,7 @@ import blogPosts from '../data/blogIndex.json';
 import SEO from '../components/SEO';
 import ResourcePage from '../components/resource/ResourcePage';
 import { heroForPost } from '../components/resource/heroPool';
+import { publishedAtOf } from '../data/postDates';
 
 const AUTHORS = {
     'Mark Higgins': {
@@ -83,7 +84,9 @@ const BlogPost = () => {
         headline: post.metaTitle || post.title,
         description: post.metaDescription || post.excerpt || '',
         image: heroImage ? (heroImage.startsWith('http') ? heroImage : `${SITE_URL}${heroImage}`) : `${SITE_URL}/header_bg.png`,
-        datePublished: post.date || '',
+        // Real publication time where known — post.date is the SCHEDULED date
+        // for the bridging pipeline and can run days early (see postDates.js).
+        datePublished: publishedAtOf(post) || '',
         // Real last-modified date where the post has genuinely been rewritten
         // (updatedAt is set by regenerate-thin-posts.js). Previously this
         // mirrored datePublished, so ~49 substantially rewritten posts were
@@ -119,7 +122,7 @@ const BlogPost = () => {
                 contentHtml={fullPost ? (fullPost.content || '<p>No article content found.</p>') : null}
                 faqSchema={fullPost && fullPost.schema && fullPost.schema['@type'] === 'FAQPage' ? fullPost.schema : null}
                 videoId={post.videoId}
-                publishedDate={post.date}
+                publishedDate={publishedAtOf(post)}
                 updatedDate={post.updatedAt}
                 relatedSlug={post.slug}
             />
