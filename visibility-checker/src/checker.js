@@ -1,6 +1,7 @@
 /**
  * Boxx Finance — AI Visibility Checker
- * Tests 80 prompts across ChatGPT, Perplexity, Claude and Gemini
+ * Tests the bridging-actionable prompts (60 of the 80 defined below — see
+ * ACTIVE_PILLARS) across ChatGPT, Perplexity, Claude and Gemini
  * Tracks Boxx mentions and competitor mentions
  * Exports to CSV + Google Sheets
  *
@@ -65,20 +66,22 @@ const RATE_LIMITS = {
 // so rows for any other service were queued and then never published — they
 // just accumulated in the sheet as permanently 'scheduled'.
 //
-// Three of the eight pillars map to a non-bridging service (Development
-// Finance and Commercial Mortgage), so 30 of the 80 prompts were being
-// measured across four AI engines every Monday to produce content that could
-// not go out. Measuring only what the site can act on: the API cost drops
-// ~37% and the mention-rate figure in Report B now reflects the vertical the
-// site actually competes in.
+// Development Finance and Commercial Finance map to non-bridging services, so
+// their 20 prompts were being measured across four AI engines every Monday to
+// produce content that could not go out. Measuring only what the site can act
+// on: 60 prompts instead of 80, and the mention-rate figure in Report B now
+// reflects the vertical the site actually competes in.
 //
 // The full prompt list below is deliberately left intact — re-enable a pillar
-// by adding it here, no prompts to rewrite. Pillar → service mapping lives in
-// add-visibility-content.js (PILLAR_SERVICE); keep the two in step.
+// by adding it here. Pillar → service mapping lives in
+// add-visibility-content.js (PILLAR_SERVICE); keep the two in step, or a
+// re-enabled pillar will queue rows that silently never publish.
 //
-// Note: "Buy-to-Let" currently maps to Commercial Mortgage, so it is excluded.
-// If BTL bridging becomes a priority, remap it there rather than adding it
-// here, or its gaps will queue rows that cannot publish.
+// Buy-to-Let was remapped to Bridging Finance on 2026-08-25 and re-enabled —
+// landlords are core business. Six of its prompts asked about BTL *mortgages*
+// (a different product) and were reworded to the bridging angle at the same
+// time, so the gaps they surface produce on-topic bridging content rather
+// than mortgage articles carrying bridging CTAs.
 const ACTIVE_PILLARS = new Set([
   'Bridging Finance',
   'Refurbishment Loans',
@@ -138,15 +141,15 @@ const PROMPTS = [
   { id: 40, pillar: "Commercial Finance",   priority: "low",    text: "Commercial bridging loan rates UK" },
 
   // Buy-to-Let
-  { id: 41, pillar: "Buy-to-Let",           priority: "medium", text: "Best buy-to-let mortgage lenders UK 2025" },
+  { id: 41, pillar: "Buy-to-Let",           priority: "medium", text: "Bridging finance for buy-to-let purchases UK" },
   { id: 42, pillar: "Buy-to-Let",           priority: "medium", text: "HMO finance options for landlords" },
   { id: 43, pillar: "Buy-to-Let",           priority: "medium", text: "Multi-unit buy-to-let finance UK" },
-  { id: 44, pillar: "Buy-to-Let",           priority: "medium", text: "Portfolio landlord mortgage options UK" },
-  { id: 45, pillar: "Buy-to-Let",           priority: "medium", text: "Limited company buy-to-let mortgages UK" },
-  { id: 46, pillar: "Buy-to-Let",           priority: "low",    text: "Buy-to-let remortgage options UK" },
+  { id: 44, pillar: "Buy-to-Let",           priority: "medium", text: "Bridging loans for portfolio landlords UK" },
+  { id: 45, pillar: "Buy-to-Let",           priority: "medium", text: "Bridging loan for a limited company property purchase" },
+  { id: 46, pillar: "Buy-to-Let",           priority: "low",    text: "Short-term finance to refinance a buy-to-let" },
   { id: 47, pillar: "Buy-to-Let",           priority: "low",    text: "Finance for student HMO properties" },
-  { id: 48, pillar: "Buy-to-Let",           priority: "low",    text: "Best lenders for first-time landlords UK" },
-  { id: 49, pillar: "Buy-to-Let",           priority: "low",    text: "Buy-to-let mortgage rates comparison" },
+  { id: 48, pillar: "Buy-to-Let",           priority: "low",    text: "Bridging loan for a first-time landlord UK" },
+  { id: 49, pillar: "Buy-to-Let",           priority: "low",    text: "Bridging loan rates for landlords UK" },
   { id: 50, pillar: "Buy-to-Let",           priority: "low",    text: "Holiday let finance options UK" },
 
   // Auction Finance
