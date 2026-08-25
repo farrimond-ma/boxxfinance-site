@@ -137,6 +137,17 @@ async function readVisibilityGaps(sheets) {
   const gaps = [...promptMap.values()]
     .map(e => ({ ...e, mentionRate: e.total > 0 ? e.yesCount / e.total : 0 }))
     .filter(e => e.mentionRate < GAP_THRESHOLD)
+    // Belt and braces against the two files drifting apart: publish-blog.js
+    // runs with SERVICE_FILTER=Bridging Finance, so a row for any other
+    // service would be queued and never published. checker.js should already
+    // have excluded these pillars (ACTIVE_PILLARS), but historical
+    // AI_Visibility rows predate that filter and are still read here.
+    .filter(e => {
+      const svc = PILLAR_SERVICE[e.pillar];
+      if (svc === 'Bridging Finance') return true;
+      console.log(`    Skipping ${e.pillar} gap — maps to ${svc || 'no service'}, which SERVICE_FILTER will not publish`);
+      return false;
+    })
     .sort((a, b) => {
       // Sort by priority first (high > medium > low), then by mentionRate (asc)
       const pOrder = { high: 0, medium: 1, low: 2 };

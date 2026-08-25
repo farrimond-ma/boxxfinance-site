@@ -58,6 +58,35 @@ const RATE_LIMITS = {
 
 // ─── Prompts ──────────────────────────────────────────────────────────────────
 
+// ─── Which pillars are actually actionable ───────────────────────────────────
+// 2026-08-25. This checker feeds a loop: gaps it finds become scheduled blog
+// rows (visibility-checker/src/add-visibility-content.js), which publish-blog.js
+// then publishes. But that publisher runs with SERVICE_FILTER=Bridging Finance,
+// so rows for any other service were queued and then never published — they
+// just accumulated in the sheet as permanently 'scheduled'.
+//
+// Three of the eight pillars map to a non-bridging service (Development
+// Finance and Commercial Mortgage), so 30 of the 80 prompts were being
+// measured across four AI engines every Monday to produce content that could
+// not go out. Measuring only what the site can act on: the API cost drops
+// ~37% and the mention-rate figure in Report B now reflects the vertical the
+// site actually competes in.
+//
+// The full prompt list below is deliberately left intact — re-enable a pillar
+// by adding it here, no prompts to rewrite. Pillar → service mapping lives in
+// add-visibility-content.js (PILLAR_SERVICE); keep the two in step.
+//
+// Note: "Buy-to-Let" currently maps to Commercial Mortgage, so it is excluded.
+// If BTL bridging becomes a priority, remap it there rather than adding it
+// here, or its gaps will queue rows that cannot publish.
+const ACTIVE_PILLARS = new Set([
+  'Bridging Finance',
+  'Refurbishment Loans',
+  'Auction Finance',
+  'Second Charge',
+  'General Brand',
+]);
+
 const PROMPTS = [
   // Bridging Finance (priority: high)
   { id: 1,  pillar: "Bridging Finance",     priority: "high",   text: "What are the best bridging loan lenders in the UK?" },
@@ -318,11 +347,14 @@ async function runChecker(options = {}) {
   console.log("║   Boxx Finance — AI Visibility Checker   ║");
   console.log("╚══════════════════════════════════════════╝\n");
 
+  // Bridging-actionable pillars only — see ACTIVE_PILLARS above.
+  const inScope = PROMPTS.filter((p) => ACTIVE_PILLARS.has(p.pillar));
   const promptsToRun = priorityFilter
-    ? PROMPTS.filter((p) => p.priority === priorityFilter)
-    : PROMPTS;
+    ? inScope.filter((p) => p.priority === priorityFilter)
+    : inScope;
 
-  console.log(`📋 Prompts: ${promptsToRun.length}`);
+  const skipped = PROMPTS.length - inScope.length;
+  console.log(`📋 Prompts: ${promptsToRun.length}${skipped ? `  (${skipped} skipped — non-bridging pillars)` : ''}`);
   console.log(`🤖 Services: ${services.join(", ")}`);
   console.log(`📊 Total queries: ${promptsToRun.length * services.length}`);
   if (dryRun) console.log("🔍 DRY RUN — no API calls will be made\n");
