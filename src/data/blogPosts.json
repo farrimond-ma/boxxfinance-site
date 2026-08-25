@@ -79,7 +79,8 @@
     "reelPosted": true,
     "service": "Business Loans",
     "category": "Business Loans",
-    "heroImage": "/images/blog/ultimate-guide-commercial-finance-uk.webp"
+    "heroImage": "/images/blog/ultimate-guide-commercial-finance-uk.webp",
+    "updatedAt": "2026-07-24"
   },
   {
     "id": "commercial-mortgages-uk-guide",
@@ -153,7 +154,8 @@
     "reelPosted": true,
     "service": "Commercial Mortgage",
     "category": "Commercial Mortgage",
-    "heroImage": "/images/blog/commercial-mortgages-uk-guide.webp"
+    "heroImage": "/images/blog/commercial-mortgages-uk-guide.webp",
+    "updatedAt": "2026-07-14"
   },
   {
     "id": 1,
@@ -227,7 +229,8 @@
     "metaTitle": "Ultimate Guide to Commercial Loans for SMEs | Boxx Finance",
     "service": "Business Loans",
     "category": "Business Loans",
-    "heroImage": "/images/blog/ultimate-guide-commercial-loans-smes.webp"
+    "heroImage": "/images/blog/ultimate-guide-commercial-loans-smes.webp",
+    "updatedAt": "2026-06-13"
   },
   {
     "id": 2,
@@ -301,7 +304,8 @@
     "service": "Business Loans",
     "category": "Business Loans",
     "metaTitle": "Commercial Finance Explained | Boxx Finance",
-    "heroImage": "/images/blog/commercial-finance-explained.webp"
+    "heroImage": "/images/blog/commercial-finance-explained.webp",
+    "updatedAt": "2026-06-23"
   },
   {
     "id": 3,
@@ -367,7 +371,8 @@
     "service": "Business Loans",
     "category": "Business Loans",
     "metaTitle": "Secure Commercial Funding with Bad Credit | Business Loans",
-    "heroImage": "/images/blog/secure-commercial-funding-bad-credit.webp"
+    "heroImage": "/images/blog/secure-commercial-funding-bad-credit.webp",
+    "updatedAt": "2026-06-19"
   },
   {
     "id": 4,
@@ -433,7 +438,8 @@
     "service": "Invoice Finance",
     "category": "Invoice Finance",
     "metaTitle": "Top 5 Benefits of Invoice Finance | Cash Flow Management",
-    "heroImage": "/images/blog/benefits-invoice-finance-cash-flow.webp"
+    "heroImage": "/images/blog/benefits-invoice-finance-cash-flow.webp",
+    "updatedAt": "2026-06-16"
   },
   {
     "id": 5,
@@ -506,7 +512,8 @@
     "service": "Commercial Mortgage",
     "category": "Commercial Mortgage",
     "metaTitle": "Commercial Mortgages vs. Renting: How to Make the Right Choice",
-    "heroImage": "/images/blog/commercial-mortgages-vs-renting.webp"
+    "heroImage": "/images/blog/commercial-mortgages-vs-renting.webp",
+    "updatedAt": "2026-06-19"
   },
   {
     "id": 6,
@@ -580,7 +587,8 @@
     "service": "Business Loans",
     "category": "Business Loans",
     "metaTitle": "Debt vs Equity: How to Fund Business Growth in the UK",
-    "heroImage": "/images/blog/raising-capital-debt-vs-equity.webp"
+    "heroImage": "/images/blog/raising-capital-debt-vs-equity.webp",
+    "updatedAt": "2026-07-22"
   },
   {
     "id": 7,
@@ -646,7 +654,8 @@
     "metaTitle": "Leasing vs Hire Purchase: A Guide for UK Businesses",
     "service": "Asset Finance",
     "category": "Asset Finance",
-    "heroImage": "/images/blog/asset-finance-leasing-vs-hire-purchase.webp"
+    "heroImage": "/images/blog/asset-finance-leasing-vs-hire-purchase.webp",
+    "updatedAt": "2026-06-12"
   },
   {
     "id": 8,
@@ -720,7 +729,8 @@
     "metaTitle": "How to Secure Development Finance for Property Projects",
     "service": "Development Finance",
     "category": "Development Finance",
-    "heroImage": "/images/blog/secure-development-finance-property-projects.webp"
+    "heroImage": "/images/blog/secure-development-finance-property-projects.webp",
+    "updatedAt": "2026-06-13"
   },
   {
     "id": 9,
@@ -794,7 +804,8 @@
     "metaTitle": "The Role of Bridging Loans in Business Growth | Boxx Finance",
     "service": "Bridging Finance",
     "category": "Bridging Finance",
-    "heroImage": "/images/blog/role-bridging-finance-business-growth.webp"
+    "heroImage": "/images/blog/role-bridging-finance-business-growth.webp",
+    "updatedAt": "2026-06-15"
   },
   {
     "id": 10,
@@ -868,7 +879,8 @@
     "service": "Structured Finance",
     "category": "Structured Finance",
     "metaTitle": "Structured Finance: Solving Complex Funding Challenges",
-    "heroImage": "/images/blog/structured-finance-complex-challenges.webp"
+    "heroImage": "/images/blog/structured-finance-complex-challenges.webp",
+    "updatedAt": "2026-06-18"
   },
   {
     "id": 11,
@@ -934,7 +946,8 @@
     "metaTitle": "Working Capital: How to Optimise Your Business Cash Flow",
     "service": "Working Capital",
     "category": "Working Capital",
-    "heroImage": "/images/blog/working-capital-optimise-cash-flow.webp"
+    "heroImage": "/images/blog/working-capital-optimise-cash-flow.webp",
+    "updatedAt": "2026-06-11"
   },
   {
     "id": 12,
@@ -1008,7 +1021,8 @@
     "metaTitle": "Trade Finance UK: Enhance Your Trading Operations",
     "service": "Trade Finance",
     "category": "Trade Finance",
-    "heroImage": "/images/blog/trade-finance-supporting-supply-chains.webp"
+    "heroImage": "/images/blog/trade-finance-supporting-supply-chains.webp",
+    "updatedAt": "2026-06-11"
   },
   {
     "id": 13,
@@ -1090,7 +1104,8 @@
     "service": "Business Loans",
     "category": "Business Loans",
     "metaTitle": "The SME Guide to Tax and VAT Funding | Business Loans",
-    "heroImage": "/images/blog/sme-guide-tax-vat-funding.webp"
+    "heroImage": "/images/blog/sme-guide-tax-vat-funding.webp",
+    "updatedAt": "2026-07-26"
   },
   {
     "id": 14,
@@ -1162,7 +1177,8 @@
     "metaTitle": "Merchant Cash Advance UK: Flexible Funding for Retail & Hospitality",
     "service": "Cashflow Finance",
     "category": "Cashflow Finance",
-    "heroImage": "/images/blog/merchant-cash-advance-retail-hospitality.webp"
+    "heroImage": "/images/blog/merchant-cash-advance-retail-hospitality.webp",
+    "updatedAt": "2026-06-10"
   },
   {
     "id": 15,
@@ -1228,7 +1244,8 @@
     "service": "Business Loans",
     "category": "Business Loans",
     "metaTitle": "How to Prepare for a Commercial Finance Application in the UK",
-    "heroImage": "/images/blog/commercial-finance-application-uk.webp"
+    "heroImage": "/images/blog/commercial-finance-application-uk.webp",
+    "updatedAt": "2026-06-17"
   },
   {
     "id": 16,
@@ -1302,7 +1319,8 @@
     "metaTitle": "Why Most UK SMEs Get Funding Timing Wrong (And How to Fix It)",
     "service": "Business Loans",
     "category": "Business Loans",
-    "heroImage": "/images/blog/why-uk-smes-get-funding-timing-wrong.webp"
+    "heroImage": "/images/blog/why-uk-smes-get-funding-timing-wrong.webp",
+    "updatedAt": "2026-06-14"
   },
   {
     "id": 17,
@@ -1368,7 +1386,8 @@
     "reelPosted": true,
     "service": "Business Loans",
     "category": "Business Loans",
-    "heroImage": "/images/blog/cheapest-rate-business-finance-mistake.webp"
+    "heroImage": "/images/blog/cheapest-rate-business-finance-mistake.webp",
+    "updatedAt": "2026-06-15"
   },
   {
     "id": 18,
@@ -1434,7 +1453,8 @@
     "reelPosted": true,
     "service": "Business Loans",
     "category": "Business Loans",
-    "heroImage": "/images/blog/unsecured-vs-secured-business-loans-uk.webp"
+    "heroImage": "/images/blog/unsecured-vs-secured-business-loans-uk.webp",
+    "updatedAt": "2026-07-14"
   },
   {
     "id": 42,
@@ -1508,7 +1528,8 @@
     "reelPosted": true,
     "service": "Business Loans",
     "category": "Business Loans",
-    "heroImage": "/images/blog/how-to-get-a-business-loan-uk.webp"
+    "heroImage": "/images/blog/how-to-get-a-business-loan-uk.webp",
+    "updatedAt": "2026-06-12"
   },
   {
     "id": 43,
@@ -1582,7 +1603,8 @@
     "reelPosted": true,
     "service": "Commercial Mortgage",
     "category": "Commercial Mortgage",
-    "heroImage": "/images/blog/commercial-mortgage-rates-uk.webp"
+    "heroImage": "/images/blog/commercial-mortgage-rates-uk.webp",
+    "updatedAt": "2026-06-14"
   },
   {
     "id": 1778888362747,
@@ -1650,7 +1672,8 @@
     "reelPosted": true,
     "service": "Business Loans",
     "category": "Business Loans",
-    "heroImage": "/images/blog/business-loans-uk.webp"
+    "heroImage": "/images/blog/business-loans-uk.webp",
+    "updatedAt": "2026-06-17"
   },
   {
     "id": 1779358261688,
@@ -1726,7 +1749,8 @@
     "reelPosted": true,
     "service": "Development Finance",
     "category": "Development Finance",
-    "heroImage": "/images/blog/property-development-finance-uk.webp"
+    "heroImage": "/images/blog/property-development-finance-uk.webp",
+    "updatedAt": "2026-07-15"
   },
   {
     "id": 1779443881974,
@@ -1790,7 +1814,8 @@
     "reelPosted": true,
     "service": "Invoice Finance",
     "category": "Invoice Finance",
-    "heroImage": "/images/blog/what-is-invoice-finance.webp"
+    "heroImage": "/images/blog/what-is-invoice-finance.webp",
+    "updatedAt": "2026-06-21"
   },
   {
     "id": 1779706647015,
@@ -1874,7 +1899,8 @@
     "reelPosted": true,
     "service": "Asset Finance",
     "category": "Asset Finance",
-    "heroImage": "/images/blog/what-is-asset-finance.webp"
+    "heroImage": "/images/blog/what-is-asset-finance.webp",
+    "updatedAt": "2026-07-27"
   },
   {
     "id": 1779196943032,
@@ -1992,7 +2018,8 @@
     "pinterestPosted": true,
     "reelPosted": true,
     "service": "Bridging Finance",
-    "heroImage": "/images/blog/what-is-bridging-finance.webp"
+    "heroImage": "/images/blog/what-is-bridging-finance.webp",
+    "updatedAt": "2026-07-13"
   },
   {
     "id": 1779878383491,
@@ -2077,7 +2104,8 @@
     "reelPosted": true,
     "service": "Working Capital",
     "category": "Working Capital",
-    "heroImage": "/images/blog/what-is-working-capital-finance.webp"
+    "heroImage": "/images/blog/what-is-working-capital-finance.webp",
+    "updatedAt": "2026-07-26"
   },
   {
     "id": 1779964757616,
@@ -2153,7 +2181,8 @@
     "pinterestPosted": true,
     "reelPosted": true,
     "service": "Trade Finance",
-    "category": "Trade Finance"
+    "category": "Trade Finance",
+    "updatedAt": "2026-07-29"
   },
   {
     "id": 1780050701708,
@@ -2229,7 +2258,8 @@
     "pinterestPosted": true,
     "reelPosted": true,
     "service": "Business Loans",
-    "category": "Business Loans"
+    "category": "Business Loans",
+    "updatedAt": "2026-07-28"
   },
   {
     "id": 1780398079562,
@@ -2304,7 +2334,8 @@
     "pinterestPosted": true,
     "reelPosted": true,
     "service": "Cashflow Finance",
-    "category": "Cashflow Finance"
+    "category": "Cashflow Finance",
+    "updatedAt": "2026-06-22"
   },
   {
     "id": 1780485980406,
@@ -2380,7 +2411,8 @@
     "pinterestPosted": true,
     "reelPosted": true,
     "service": "Structured Finance",
-    "category": "Structured Finance"
+    "category": "Structured Finance",
+    "updatedAt": "2026-07-23"
   },
   {
     "id": 1780568097058,
@@ -2456,7 +2488,8 @@
     "pinterestPosted": true,
     "reelPosted": true,
     "service": "Business Loans",
-    "category": "Business Loans"
+    "category": "Business Loans",
+    "updatedAt": "2026-06-20"
   },
   {
     "id": 1780574606567,
@@ -2542,7 +2575,8 @@
     "pinterestPosted": true,
     "reelPosted": true,
     "service": "Bridging Finance",
-    "category": "Bridging Finance"
+    "category": "Bridging Finance",
+    "updatedAt": "2026-07-27"
   },
   {
     "id": 1780576065875,
@@ -2628,7 +2662,8 @@
     "igPosted": true,
     "pinterestPosted": false,
     "reelPosted": false,
-    "category": "Business Loans"
+    "category": "Business Loans",
+    "updatedAt": "2026-07-21"
   },
   {
     "id": 1780576136598,
@@ -2706,7 +2741,8 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false,
-    "category": "Development Finance"
+    "category": "Development Finance",
+    "updatedAt": "2026-07-23"
   },
   {
     "id": 1780576287989,
@@ -2792,7 +2828,8 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false,
-    "category": "Invoice Finance"
+    "category": "Invoice Finance",
+    "updatedAt": "2026-07-22"
   },
   {
     "id": 1780576548612,
@@ -2870,7 +2907,8 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false,
-    "category": "Asset Finance"
+    "category": "Asset Finance",
+    "updatedAt": "2026-07-15"
   },
   {
     "id": 1780655405468,
@@ -2948,7 +2986,8 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false,
-    "category": "Commercial Mortgages"
+    "category": "Commercial Mortgages",
+    "updatedAt": "2026-06-21"
   },
   {
     "id": 1780736791682,
@@ -3025,7 +3064,8 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false,
-    "category": "Working Capital"
+    "category": "Working Capital",
+    "updatedAt": "2026-06-16"
   },
   {
     "id": 1780933333348,
@@ -3112,7 +3152,8 @@
     "igPosted": true,
     "pinterestPosted": false,
     "reelPosted": true,
-    "category": "Bridging Finance"
+    "category": "Bridging Finance",
+    "updatedAt": "2026-07-25"
   },
   {
     "id": 1781000542606,
@@ -3184,7 +3225,8 @@
     "igPosted": true,
     "pinterestPosted": false,
     "reelPosted": true,
-    "category": "Bridging Finance"
+    "category": "Bridging Finance",
+    "updatedAt": "2026-06-23"
   },
   {
     "id": 1781009341768,
@@ -3256,7 +3298,8 @@
     "igPosted": true,
     "pinterestPosted": false,
     "reelPosted": true,
-    "category": "Bridging Finance"
+    "category": "Bridging Finance",
+    "updatedAt": "2026-06-18"
   },
   {
     "id": 1781088229103,
@@ -3336,7 +3379,8 @@
     "igPosted": true,
     "pinterestPosted": false,
     "reelPosted": true,
-    "category": "Bridging Finance"
+    "category": "Bridging Finance",
+    "updatedAt": "2026-07-29"
   },
   {
     "id": 1781099153344,
@@ -3416,7 +3460,8 @@
     "igPosted": true,
     "pinterestPosted": false,
     "reelPosted": true,
-    "category": "Bridging Finance"
+    "category": "Bridging Finance",
+    "updatedAt": "2026-06-20"
   },
   {
     "id": 1781176516272,
@@ -7261,7 +7306,8 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false,
-    "category": "Bridging Finance"
+    "category": "Bridging Finance",
+    "updatedAt": "2026-08-13"
   },
   {
     "id": 1784105905464,
@@ -13554,7 +13600,8 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News",
-    "heroVersion": 7519151
+    "heroVersion": 7519151,
+    "updatedAt": "2026-08-22"
   },
   {
     "id": 1787384631710,
@@ -13691,7 +13738,8 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News",
-    "heroVersion": 37621339
+    "heroVersion": 37621339,
+    "updatedAt": "2026-08-23"
   },
   {
     "id": 1787420078681,
@@ -13764,7 +13812,8 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News",
-    "heroVersion": 6793229
+    "heroVersion": 6793229,
+    "updatedAt": "2026-08-24"
   },
   {
     "id": 1787471158237,

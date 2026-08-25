@@ -84,7 +84,12 @@ const BlogPost = () => {
         description: post.metaDescription || post.excerpt || '',
         image: heroImage ? (heroImage.startsWith('http') ? heroImage : `${SITE_URL}${heroImage}`) : `${SITE_URL}/header_bg.png`,
         datePublished: post.date || '',
-        dateModified: post.date || '',
+        // Real last-modified date where the post has genuinely been rewritten
+        // (updatedAt is set by regenerate-thin-posts.js). Previously this
+        // mirrored datePublished, so ~49 substantially rewritten posts were
+        // telling Google they had never been touched — understating freshness
+        // on the whole evergreen library.
+        dateModified: post.updatedAt || post.date || '',
         author: { '@type': 'Person', name: post.author || 'Mark Higgins', url: `${SITE_URL}/` },
         publisher: { '@type': 'Organization', name: 'Boxx Finance', logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` } },
         mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/insights/${post.slug}` },
@@ -114,6 +119,8 @@ const BlogPost = () => {
                 contentHtml={fullPost ? (fullPost.content || '<p>No article content found.</p>') : null}
                 faqSchema={fullPost && fullPost.schema && fullPost.schema['@type'] === 'FAQPage' ? fullPost.schema : null}
                 videoId={post.videoId}
+                publishedDate={post.date}
+                updatedDate={post.updatedAt}
                 relatedSlug={post.slug}
             />
         </>

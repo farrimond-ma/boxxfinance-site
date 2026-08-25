@@ -128,6 +128,12 @@
 .resource-main-card .blog-post-content {
     padding: 0;
 }
+/* Deliberately quiet: useful context for the reader, not a headline. */
+.resource-date {
+    margin: 0 0 1.25rem;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
 .resource-skeleton {
     min-height: 22rem;
 }

@@ -17,6 +17,17 @@ const CONTENT_ID = 'resource-article-body';
 // hero with image + trust signals, jump-box ToC at the top of the article,
 // in-content CTAs, full-width trust/linking sections below, one floating
 // CTA). No sidebar — sidebars measurably underperform in-content CTAs.
+// News posts carry a full date (they are about a specific day's events);
+// evergreen guides show month and year, so they do not look stale a fortnight
+// after a genuine update.
+const formatArticleDate = (dateStr, precise = false) => {
+    const d = new Date(dateStr);
+    if (Number.isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('en-GB', precise
+        ? { day: 'numeric', month: 'long', year: 'numeric' }
+        : { month: 'long', year: 'numeric' });
+};
+
 const ResourcePage = ({
     title,
     heroDescription,
@@ -28,6 +39,8 @@ const ResourcePage = ({
     videoId,            // optional YouTube id (blog only)
     relatedSlug,        // current guide's slug — suppresses self-link in GuidesList
     currentLocationSlug, // suppresses self-link in PopularLocations
+    publishedDate,      // 'YYYY-MM-DD' | null — blog posts only
+    updatedDate,        // 'YYYY-MM-DD' | null — only when genuinely rewritten
 }) => {
     const loading = !contentHtml;
     // Every CTA on the page routes to this service's own enquiry form (not
@@ -41,6 +54,19 @@ const ResourcePage = ({
             {/* ── Single centered column ── */}
             <div className="resource-column">
                 <div className="resource-main-card">
+                    {/* Readers of time-sensitive finance content need to know how
+                        current it is — tax and lending rules change. Shows the
+                        rewrite date where there is one, otherwise the publish
+                        date, and never claims an update that did not happen. */}
+                    {publishedDate && (
+                        <p className="resource-date">
+                            {updatedDate ? 'Last updated ' : 'Published '}
+                            <time dateTime={updatedDate || publishedDate}>
+                                {formatArticleDate(updatedDate || publishedDate, service === 'Latest News')}
+                            </time>
+                        </p>
+                    )}
+
                     <TableOfContents containerId={CONTENT_ID} ready={!loading} />
 
                     {loading ? (

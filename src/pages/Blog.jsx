@@ -165,7 +165,14 @@ const Blog = () => {
                                         <div className="blog-card-content">
                                             <h3>{post.title}</h3>
                                             <p>{post.excerpt}</p>
-                                            <p className="blog-card-date">Last updated: {formatDate(post.date)}</p>
+                                            {/* "Last updated" was shown against post.date, i.e. the
+                                                PUBLISH date — claiming an update that had not happened.
+                                                Only say updated when updatedAt proves it. */}
+                                            <p className="blog-card-date">
+                                                {post.updatedAt
+                                                    ? `Last updated: ${formatDate(post.updatedAt)}`
+                                                    : `Published: ${formatDate(post.date)}`}
+                                            </p>
                                             <span className="read-more">Read Article &rarr;</span>
                                         </div>
                                     </Link>

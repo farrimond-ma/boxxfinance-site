@@ -426,6 +426,11 @@ async function main() {
     schema:          article.faqSchema || post.schema,
     content:         article.contentHtml,
     author:          post.author || meta.author,
+    // The article has genuinely been rewritten, so record when. Drives the
+    // visible "Last updated" line and schema.org dateModified — both of which
+    // previously mirrored the publish date, so rewritten posts looked older
+    // than they were. Only ever set by an actual content change.
+    updatedAt:       new Date().toISOString().split('T')[0],
   };
 
   const newWc = wordCount(posts[idx].content);
