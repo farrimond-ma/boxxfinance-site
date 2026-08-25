@@ -31,7 +31,10 @@ const PILLAR_SERVICE = {
   'Refurbishment Loans': 'Bridging Finance',
   'Auction Finance':     'Bridging Finance',
   'Second Charge':       'Bridging Finance',
-  'Buy-to-Let':          'Commercial Mortgage',
+  // 2026-08-25: remapped from Commercial Mortgage. Landlords using bridging
+  // for BTL purchases, HMO conversions and portfolio moves are core business,
+  // and Commercial Mortgage rows cannot publish under SERVICE_FILTER.
+  'Buy-to-Let':          'Bridging Finance',
   'General Brand':       'Bridging Finance',
 };
 

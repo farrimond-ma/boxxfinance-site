@@ -85,6 +85,7 @@ const ACTIVE_PILLARS = new Set([
   'Auction Finance',
   'Second Charge',
   'General Brand',
+  'Buy-to-Let',   // remapped to Bridging Finance 2026-08-25 — landlords are core business
 ]);
 
 const PROMPTS = [
