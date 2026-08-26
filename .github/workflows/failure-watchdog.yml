@@ -27,6 +27,7 @@ on:
       - "Publish Personal Finance News"
       - "Re-image News Posts"
       - "Discover Personal Finance Feeds"
+      - "Discover Autocomplete Topics"
       - "Publish Location"
       - "Publish Facebook Post"
       - "Publish Facebook Reel (PAUSED)"

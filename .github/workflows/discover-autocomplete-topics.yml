@@ -1,0 +1,59 @@
+name: Discover Autocomplete Topics
+
+# Harvests Google autocomplete for the site's core bridging vocabulary and
+# reports the questions no published page answers. This is the only
+# forward-looking research input: Search Console can only show queries the site
+# already gets impressions for, so it cannot reveal demand for topics that have
+# never ranked at all.
+#
+# Report-only unless `queue` is set to a number. Autocomplete carries no volume
+# data and always contains some foreign-market noise, so the default is a
+# report for a human to read rather than rows written straight into the queue.
+#
+# Monthly: autocomplete reflects aggregate search behaviour and moves slowly.
+# Running it more often mostly re-reports the same phrases.
+
+on:
+  schedule:
+    - cron: '40 8 1 * *'   # 08:40 UTC on the 1st of each month
+  workflow_dispatch:
+    inputs:
+      queue:
+        description: 'Queue this many top findings into ContentEngine (0 = report only)'
+        required: false
+        default: '0'
+      dry_run:
+        description: 'With queue > 0, show what would be written without writing'
+        required: false
+        default: 'true'
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+
+      - name: Discover topics
+        env:
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: |
+          node discover-autocomplete-topics.js \
+            ${{ github.event.inputs.queue != '' && github.event.inputs.queue != '0' && format('--queue {0}', github.event.inputs.queue) || '' }} \
+            ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+        working-directory: scripts/content-engine
