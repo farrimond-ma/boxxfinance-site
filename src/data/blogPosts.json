@@ -14379,5 +14379,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1787731047461,
+    "status": "published",
+    "slug": "freeholder-insolvency-leaseholder-mortgage-risk",
+    "url": "/insights/freeholder-insolvency-leaseholder-mortgage-risk",
+    "title": "Flats destroyed by fire, mortgages still due: what the Spectrum Building case reveals about freeholder risk",
+    "excerpt": "Leaseholders at a Dagenham block gutted by fire in 2024 are still paying mortgages on destroyed flats after their freeholder went bankrupt, exposing a gap in protection that buyers and landlords need to understand.",
+    "metaTitle": "Freeholder Collapse Leaves Leaseholders Paying for Burnt Flats",
+    "metaDescription": "A fire-hit block in east London shows what happens when a freeholder goes bust. Here's what it means for leaseholders, buyers and landlords in the UK.",
+    "keywords": "mortgage, landlord, buy-to-let, conveyancing",
+    "date": "2026-08-26",
+    "publishedAt": "2026-08-26T07:57:27.461Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/freeholder-insolvency-leaseholder-mortgage-risk.webp",
+    "heroVersion": 37623577,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can a leaseholder stop paying their mortgage if the freeholder goes bust?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, the mortgage obligation is separate from the freeholder's solvency. Even where a property is destroyed and an insurance payout is delayed by an insolvent freeholder, the lender still expects repayments to continue, since the loan is secured against the leasehold interest."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can a buyer check a freeholder's financial stability before purchasing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A solicitor can look into the freeholder's corporate structure and filing history, and it's reasonable to ask the managing agent or freeholder directly how buildings insurance is held and administered. There's no foolproof check, but asking these questions before exchange is far better than finding out after a disaster."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens to insurance payouts when a freeholder becomes insolvent?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Claims can become caught up in administration or bankruptcy proceedings, which can significantly delay any payout to leaseholders and create uncertainty over who is actually responsible for progressing repairs or compensation."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Two years after fire tore through the Spectrum Building in Dagenham, east London, some leaseholders are still paying mortgages on flats that no longer exist. Their freeholder, Arinium, went bankrupt shortly after the 2024 blaze, and residents are now stuck waiting for insurance payouts with no clear timeline and ongoing loan repayments on homes they cannot live in, as <a href=\"https://www.theguardian.com/society/2026/aug/26/east-london-spectrum-building-fire-cladding-residents-limbo\">reported by The Guardian</a>.</p><p>One leaseholder, Sarah Williams, queued overnight in a car park back in 2016 to secure a flat in the newly built block, describing it at the time as the only home she could afford in London. That flat is now gone, but the mortgage on it isn't.</p><h2>Why a freeholder going bust matters so much</h2><p>Most leaseholders assume that if something catastrophic happens to their building, the buildings insurance policy and the freeholder's obligations will sort things out fairly quickly. The Spectrum Building case shows that assumption can be wrong. When a freeholder becomes insolvent, insurance claims, repair obligations and payout processes can all get tangled up in administration, leaving leaseholders in limbo for years rather than months.</p><p>For an ordinary buyer, this is a risk that sits almost entirely out of view during a normal purchase. Conveyancing tends to focus on the lease terms, ground rent and service charge history, not on how financially stable the freeholder or its parent company actually is. Yet it's the freeholder's solvency that determines how smoothly an insurance claim gets handled if the worst happens.</p><h2>What this means for buyers and current leaseholders</h2><p>Anyone buying a flat, particularly in a newer block, should be asking harder questions about who owns the freehold and how that company is structured and funded. A freeholder with a fragile or opaque financial position is a red flag, even if the building itself looks fine and the service charges seem reasonable. This is worth raising directly with a solicitor during conveyancing, and it is a legitimate question to put to the managing agent or freeholder before exchange.</p><p>For those who already own a leasehold flat, it is worth checking who insures the building, whether that policy is held directly by a solvent freeholder or through a chain of companies, and what would actually happen to a claim if the freeholder collapsed. Being told an answer is easier than discovering there isn't one after a fire.</p><h2>The buy-to-let and landlord angle</h2><p>Landlords with leasehold flats carry the same exposure, but with an added complication: a destroyed or uninhabitable property also means lost rental income on top of a mortgage that keeps running. Lenders generally still expect payments regardless of the building's condition, since the mortgage is secured against the leasehold interest and the debt itself, not contingent on the flat being habitable. That combination of no rent, no home, and no clear payout date is precisely the trap the Spectrum Building leaseholders are living through.</p><p>It reinforces the case for landlords to treat freeholder due diligence as seriously as tenant referencing, and to understand the practical difference between a well capitalised freehold structure and one that could unravel under pressure.</p><h2>Frequently Asked Questions</h2><h3>Can a leaseholder stop paying their mortgage if the freeholder goes bust?</h3><p>No, the mortgage obligation is separate from the freeholder's solvency. Even where a property is destroyed and an insurance payout is delayed by an insolvent freeholder, the lender still expects repayments to continue, since the loan is secured against the leasehold interest.</p><h3>How can a buyer check a freeholder's financial stability before purchasing?</h3><p>A solicitor can look into the freeholder's corporate structure and filing history, and it's reasonable to ask the managing agent or freeholder directly how buildings insurance is held and administered. There's no foolproof check, but asking these questions before exchange is far better than finding out after a disaster.</p><h3>What happens to insurance payouts when a freeholder becomes insolvent?</h3><p>Claims can become caught up in administration or bankruptcy proceedings, which can significantly delay any payout to leaseholders and create uncertainty over who is actually responsible for progressing repairs or compensation.</p><p>For landlords or leaseholders who find themselves needing to move quickly, whether to cover a shortfall, refinance, or bridge a gap while an insurance claim drags on, it's worth looking at what short-term funding options exist through <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a>.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
