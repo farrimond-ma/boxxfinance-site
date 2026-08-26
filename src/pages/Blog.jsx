@@ -80,9 +80,9 @@ const Blog = () => {
     return (
         <div className="blog-page">
             <SEO
-                title="Commercial Funding Insights"
-                description="Commercial finance insights and funding intelligence for UK business owners. Read expert guidance on bridging loans, commercial mortgages, asset finance and more."
-                keywords="commercial finance insights, UK business funding blog, bridging loans advice, SME finance guidance"
+                title="Bridging Loan & Property Finance Guides"
+                description="Practical guides to bridging loans and UK property finance — auction purchases, chain breaks, refurbishment and probate — plus commercial mortgages, business loans and asset finance."
+                keywords="bridging loan guides, UK property finance, bridging loans explained, auction finance, commercial finance guides"
             />
 
             {/* Same navy→property-image hero used across the site (ResourcePage.css). */}
@@ -92,12 +92,16 @@ const Blog = () => {
             >
                 <div className="container resource-hero-grid">
                     <div className="resource-hero-text">
+                        {/* "Guides" rather than "Advice": advice is a regulated term, and
+                            these articles are written explicitly not to be advice — the blog
+                            generator is instructed to direct readers to a broker for anything
+                            situation-specific. The header should not claim otherwise. */}
                         <h1>
-                            Our Funding <span className="text-highlight">Insights</span>
+                            Bridging Loan &amp; Property Finance <span className="text-highlight">Guides</span>
                         </h1>
                         <p className="resource-hero-lead">
-                            Practical, up-to-date funding intelligence for UK businesses, homeowners
-                            and property investors — written by our brokers.
+                            Practical, up-to-date guidance on bridging loans and property finance for
+                            UK homeowners, landlords and investors — written by our brokers.
                         </p>
                         <div className="resource-hero-actions">
                             <Link to="/chat-about-funding" className="btn btn-primary">Get a free quote</Link>
