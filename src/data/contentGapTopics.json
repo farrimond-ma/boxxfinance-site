@@ -1,0 +1,42 @@
+{
+  "_comment": "Curated topics from the competitor content gap analysis (docs/competitor-content-gaps.md, 2026-08-25). Queued into ContentEngine by scripts/content-engine/add-gap-topics.js. Each was checked against published coverage before being added; two shortlist against existing posts on generic tokens and will be adjudicated by the duplicate guard in publish-blog.js, which is correct. Add new topics here rather than editing the script.",
+  "_source": "Sitemap analysis of Together, MT Finance, West One, Roma Finance, Octane Capital",
+  "queued": null,
+  "topics": [
+    {
+      "title": "HMO Licensing Rules And How They Affect Your Finance Options",
+      "keyword": "hmo licensing finance",
+      "brief": "Competitor gap: West One and Together both cover HMOs; Boxx has only bridging-loans-for-hmo-conversion. Explain mandatory vs additional vs selective licensing, what triggers each, and — the part lenders care about — how licensing status changes what finance is available and when. Cover the practical sequencing problem: licences often cannot be granted until works complete, but lenders want to see the route to one. Explain how bridging covers that window and what the exit looks like."
+    },
+    {
+      "title": "How HMO Commercial Valuation Changes What You Can Borrow",
+      "keyword": "hmo commercial valuation borrowing",
+      "brief": "Zero Boxx coverage. Explain the difference between bricks-and-mortar valuation and commercial/investment valuation on an HMO, why a converted HMO can be worth substantially more on a yield basis, and how that changes loan size on both the bridge and the exit. Use worked arithmetic with realistic UK figures. Be explicit that not every lender applies commercial valuation and what determines whether they will."
+    },
+    {
+      "title": "Refinancing An HMO Onto A Term Mortgage After Conversion",
+      "keyword": "refinance hmo after conversion",
+      "brief": "The exit half of the HMO story, which Boxx's existing conversion post does not cover. Walk through the refinance route once works complete and the property is let: what lenders require (licence, tenancy setup, letting history), typical timescales, and how to avoid the bridge running out before the term lender is ready. Emphasise planning the exit before drawing the bridge."
+    },
+    {
+      "title": "Student HMO Property: What Landlords Need To Know About Funding",
+      "keyword": "student hmo finance landlords",
+      "brief": "Both West One and Together publish on student accommodation; Boxx has nothing. Cover what makes student HMOs different for a lender — academic-year void periods, joint and several tenancies, guarantors, purpose-built competition — and how that affects both bridging and the term exit. Practical, not promotional."
+    },
+    {
+      "title": "Raising Business Capital Against A Rental Property You Already Own",
+      "keyword": "second charge rental property business capital",
+      "brief": "Competitor gap: West One covers second charges for business purposes; Boxx has product explainers but not the use case. Explain raising capital against existing rental equity without disturbing a good first-charge rate, when a second charge beats a remortgage, and the regulatory distinction around business-purpose lending. Show the arithmetic comparing remortgage vs second charge over a realistic term."
+    },
+    {
+      "title": "Using A Second Charge Loan To Fund EPC Upgrades On A Rental",
+      "keyword": "second charge epc upgrade rental",
+      "brief": "Ties the second-charge gap to the EPC pressure landlords are already reading about. Cover typical upgrade costs, why many landlords will not want to disturb a low fixed first charge, and how a second charge funds the work. Be accurate and hedged about the current state of MEES requirements rather than stating a deadline as settled fact."
+    },
+    {
+      "title": "Top Slicing Explained: Personal Income And Buy-To-Let Affordability",
+      "keyword": "top slicing buy to let affordability",
+      "brief": "Together covers this; Boxx has zero coverage. Explain what top slicing is, when a lender will let surplus personal income cover a rental shortfall, which borrower profiles it suits, and its limits. A genuine question landlords ask that the site currently cannot answer."
+    }
+  ]
+}

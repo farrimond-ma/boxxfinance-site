@@ -1,0 +1,63 @@
+name: Add Competitor-Gap Topics
+
+# Manual only. Queues the curated topics in src/data/contentGapTopics.json into
+# ContentEngine as scheduled blog rows — topics competitors invest in that Boxx
+# has little or no coverage of (see docs/competitor-content-gaps.md).
+#
+# No schedule: the topic list is hand-written and reviewed, so it only needs
+# running after someone edits it. The script is idempotent, so a repeat run
+# adds nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (report what would be queued, write nothing)'
+        required: false
+        default: 'true'
+      slot:
+        description: 'Publish slot for the queued rows'
+        required: false
+        default: 'PM'
+        type: choice
+        options:
+          - PM
+          - AM
+      start:
+        description: 'First publish date, YYYY-MM-DD (blank = tomorrow)'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  queue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+
+      - name: Queue gap topics
+        env:
+          SPREADSHEET_ID:     ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          GH_TOKEN:           ${{ secrets.GH_PAT }}
+          GITHUB_OWNER:       farrimond-ma
+          GITHUB_REPO:        boxxfinance-site
+        run: |
+          node add-gap-topics.js \
+            ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }} \
+            --slot ${{ github.event.inputs.slot || 'PM' }} \
+            ${{ github.event.inputs.start != '' && format('--start {0}', github.event.inputs.start) || '' }}
+        working-directory: scripts/content-engine
