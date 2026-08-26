@@ -173,6 +173,15 @@ async function main() {
   await updateDraftStatus(sheets, draft.rowIndex, status, commentUrl);
   console.log(`  Row ${draft.rowIndex} updated — status: ${status}`);
 
+  // A failed post used to fall through to "Done" and exit 0, so the workflow
+  // went green and the failure watchdog never fired — the same silent-failure
+  // pattern fixed in the LinkedIn, Instagram and Pinterest publishers. The
+  // sheet recorded 'failed', but nothing surfaced it.
+  if (status === 'failed') {
+    console.error('\n❌ Comment did not post. Failing the run so the watchdog raises it.\n');
+    process.exit(1);
+  }
+
   console.log('\n✅ Done.\n');
 }
 

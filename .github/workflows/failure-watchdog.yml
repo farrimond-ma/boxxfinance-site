@@ -42,6 +42,7 @@ on:
       - "Index Coverage"
       - "SME Index Refresh"
       - "Reddit Monitor"
+      - "Publish Reddit Comment"
     types:
       - completed
 
