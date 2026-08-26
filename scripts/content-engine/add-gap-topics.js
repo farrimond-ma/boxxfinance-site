@@ -40,10 +40,24 @@ function toSlug(s) {
     .replace(/^-+|-+$/g, '');
 }
 
+// GOOGLE_CREDENTIALS is stored base64-encoded. Every other script in this
+// directory tries base64 first and falls back to raw JSON; this one did not,
+// which is why its first run died on JSON.parse before doing anything.
 async function getSheets() {
-  const creds = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+  if (!process.env.GOOGLE_CREDENTIALS) {
+    throw new Error('GOOGLE_CREDENTIALS is not set');
+  }
+  if (!SPREADSHEET_ID) {
+    throw new Error('SPREADSHEET_ID is not set');
+  }
+  let credentials;
+  try {
+    credentials = JSON.parse(Buffer.from(process.env.GOOGLE_CREDENTIALS, 'base64').toString('utf8'));
+  } catch {
+    credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+  }
   const auth = new google.auth.GoogleAuth({
-    credentials: creds,
+    credentials,
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
   return google.sheets({ version: 'v4', auth });
