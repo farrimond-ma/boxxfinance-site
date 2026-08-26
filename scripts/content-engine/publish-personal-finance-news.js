@@ -332,6 +332,13 @@ function validateArticle(article, story) {
   if (!/href=["']https:\/\/boxxfinance\.co\.uk\/funding-solutions/i.test(html)) {
     problems.push('missing funding-solutions link');
   }
+  // Landlord stories should carry the buy-to-let link. Warn rather than
+  // reject: the prompt tells the model to leave it out if the story gives no
+  // natural opening, and forcing one in would produce exactly the shoehorned
+  // copy the CTA rules elsewhere are written to prevent.
+  if (isLandlordStory(story, article) && !html.includes('/insights/bridging-finance-for-buy-to-let')) {
+    console.log('  note: landlord story published without the buy-to-let link — the model found no natural placement.');
+  }
   const words = html.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
   if (words < MIN_ARTICLE_WORDS) {
     problems.push(`only ${words} words (minimum ${MIN_ARTICLE_WORDS})`);
@@ -361,7 +368,22 @@ async function generateValidatedArticle(story, marketAngle) {
   process.exit(1);
 }
 
+// Whether the story is about landlords / rental property, which decides
+// whether the buy-to-let article gets linked. Deliberately a content test
+// rather than "always link it": the generator is told elsewhere not to
+// manufacture a funding need a story does not support, and a forced link on,
+// say, a first-time-buyer story would read as exactly that.
+const LANDLORD_STORY = /landlord|buy.to.let|\bbtl\b|rental propert|rented sector|tenanc|tenant|\bhmo\b|portfolio landlord|letting|holiday let|serviced accommodation/i;
+function isLandlordStory(story, article) {
+  return LANDLORD_STORY.test(`${story.title} ${story.description} ${article ? article.title : ''}`);
+}
+
+// The one landlord-focused bridging article on the site. If more are added,
+// this becomes a small map keyed on story theme rather than a single constant.
+const BTL_ARTICLE_URL = 'https://boxxfinance.co.uk/insights/bridging-finance-for-buy-to-let';
+
 async function generateArticle(story, marketAngle, problems = []) {
+  const isLandlord = isLandlordStory(story, null);
   const corrections = problems.length
     ? `\n\nYOUR PREVIOUS ATTEMPT WAS REJECTED for these reasons:\n${problems.map(p => `- ${p}`).join('\n')}\nFix every one of them. The source citation link and the funding-solutions link are both mandatory and must appear as real <a href="..."> anchors in contentHtml.`
     : '';
@@ -392,7 +414,11 @@ Funnel link to include near the end: https://boxxfinance.co.uk/funding-solutions
 
 Both of these must appear in contentHtml as real anchors, or the article will be rejected:
 1. <a href="${story.link}">...</a> crediting ${story.source}
-2. <a href="https://boxxfinance.co.uk/funding-solutions">...</a>${corrections}`,
+2. <a href="https://boxxfinance.co.uk/funding-solutions">...</a>
+
+${isLandlord ? `This story concerns landlords, so ALSO include ONE contextual link, mid-article rather than in the closing paragraph, to:
+<a href="${BTL_ARTICLE_URL}">...</a>
+Anchor text should describe what the reader would find there (e.g. "how bridging works for buy-to-let purchases"), not a bare command like "click here". Place it where a reader genuinely might want it — typically where the article touches on buying, refinancing or raising capital against a rental property. If the story gives no natural opening for it, leave it out rather than forcing one in.` : ''}${corrections}`,
       },
     ],
   });
