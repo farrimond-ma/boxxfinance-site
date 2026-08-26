@@ -1,6 +1,6 @@
 {
   "_comment": "Curated topics from the competitor content gap analysis (docs/competitor-content-gaps.md, 2026-08-25). Queued into ContentEngine by scripts/content-engine/add-gap-topics.js. Each was checked against published coverage before being added; two shortlist against existing posts on generic tokens and will be adjudicated by the duplicate guard in publish-blog.js, which is correct. Add new topics here rather than editing the script.",
-  "_source": "Sitemap analysis of Together, MT Finance, West One, Roma Finance, Octane Capital",
+  "_source": "Sitemap analysis of Together, MT Finance, West One, Roma Finance, Octane Capital (7 topics), plus leasehold gaps found 2026-08-26 when a freeholder-insolvency news story had no relevant bridging article to link to (4 topics)",
   "queued": null,
   "topics": [
     {
@@ -37,6 +37,26 @@
       "title": "Top Slicing Explained: Personal Income And Buy-To-Let Affordability",
       "keyword": "top slicing buy to let affordability",
       "brief": "Together covers this; Boxx has zero coverage. Explain what top slicing is, when a lender will let surplus personal income cover a rental shortfall, which borrower profiles it suits, and its limits. A genuine question landlords ask that the site currently cannot answer."
+    },
+    {
+      "title": "Bridging Finance For Buying Your Freehold: How Collective Enfranchisement Is Funded",
+      "keyword": "bridging finance collective enfranchisement freehold",
+      "brief": "Zero coverage, and a textbook bridging use case. Leaseholders exercising the statutory right to buy their freehold need funds before any refinance is possible. Explain the process and timescales, why participating leaseholders often cannot all raise cash at once, how a bridge covers the gap, and what the exit looks like once the freehold is owned and lease extensions granted. Be accurate and hedged about the Leasehold and Freehold Reform Act rather than stating provisions as settled where they are still being implemented."
+    },
+    {
+      "title": "Funding A Lease Extension Before You Remortgage",
+      "keyword": "finance lease extension short lease",
+      "brief": "Complements short-lease-flat-mortgage-refused, which covers the problem but not this solution. A short lease blocks mainstream lending, but extending needs money up front - the classic chicken-and-egg a bridge solves. Cover the premium, valuation, the 80-year marriage value threshold, and how the post-extension remortgage repays the bridge. Show the arithmetic with realistic figures."
+    },
+    {
+      "title": "Finance Options When Your Flat Is Unsellable Because Of Cladding",
+      "keyword": "cladding flat unsellable finance options",
+      "brief": "Zero coverage of a problem affecting many UK flat owners. Cover why lenders decline, what EWS1 and remediation status change, and the realistic finance routes for someone who needs to move or raise capital meanwhile. Be careful and factual about remediation funding schemes rather than promising outcomes, and do not imply bridging solves an unsellable flat - it buys time, which is a different claim."
+    },
+    {
+      "title": "What Happens To Your Flat If The Freeholder Goes Bust",
+      "keyword": "freeholder insolvency leaseholder options",
+      "brief": "Prompted by the Spectrum Building case covered in the news section. Explain what freeholder insolvency means for leaseholders - service charges, insurance, remediation liability, and the right of first refusal to buy the freehold. Then the finance angle: how leaseholders fund a collective purchase at short notice. Link to the news article for the real-world example."
     }
   ]
 }
