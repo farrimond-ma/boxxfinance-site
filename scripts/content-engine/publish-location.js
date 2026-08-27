@@ -540,8 +540,28 @@ async function main() {
 
   const allDueRows = await getScheduledRows(sheets);
   if (allDueRows.length === 0) {
-    console.log('No scheduled location rows due today or earlier. Exiting.');
-    return;
+    // This used to return 0, so the run went green having published nothing.
+    // Locations then stopped silently on 2026-08-10 and nobody noticed for 17
+    // days. The queue is scheduled in advance, so empty means it needs
+    // refilling — that is a real problem, not a quiet day.
+    const filter = (process.env.SERVICE_FILTER || '').trim();
+    const detail = filter
+      ? `No location rows are due with status "scheduled" and service "${filter}". `
+        + `Either the queue is exhausted, or the remaining rows are for other services and `
+        + `SERVICE_FILTER is skipping them — check before assuming the former.`
+      : 'No location rows are due with status "scheduled". The queue is exhausted.';
+    console.error('\n❌ No location pages published.');
+    console.error(`   ${detail}`);
+    console.error('   Refill with the Populate Content Engine workflow (last run 2026-06-05).\n');
+    if (process.env.GITHUB_STEP_SUMMARY) {
+      try {
+        require('fs').appendFileSync(
+          process.env.GITHUB_STEP_SUMMARY,
+          `## No location pages published\n\n${detail}\n\nRefill with the **Populate Content Engine** workflow.\n`,
+        );
+      } catch { /* non-fatal */ }
+    }
+    process.exit(1);
   }
 
   // Cap at 10 per run (raised from 5 on 2026-07-15 to drain the backlog faster)
