@@ -3,7 +3,8 @@
  *
  * Seeds the ContentEngine Google Sheet with 90 days of Bridging Finance content:
  *   - 2 blog rows per day  (AM = Mark Higgins, PM = Tara Jameson)
- *   - 5 location rows per day (UK cities, cycling through the full list)
+ *   - 2 location rows per day (UK cities, cycling through the full list)
+ *     — see LOCATIONS_PER_DAY for why this was cut from 5
  *
  * Reads existing rows first — never duplicates a (date, slot) or (date, city) combination.
  * Appends only what is missing.
@@ -311,6 +312,20 @@ const UK_LOCATIONS = [
 // De-duplicate just in case
 const LOCATIONS = [...new Set(UK_LOCATIONS)];
 
+// 2026-08-27: cut from 5/day to 2/day at Mark's request.
+//
+// The site now publishes 2 blog posts a day plus, on a busy day, 3-4 reactive
+// "Latest News" pieces. At 5 location pages on top, that is 10+ new URLs daily
+// on a site of a few hundred pages — and location pages are the thinnest,
+// most templated content of the three. Publishing that volume of near-identical
+// city pages is the pattern Google is most sceptical of.
+//
+// This is the real throttle. publish-location.js caps a RUN at 10 pages, but
+// that cap only bites when a backlog exists; the steady-state rate is however
+// many rows get seeded per day. Raising the cap without raising this does
+// nothing.
+const LOCATIONS_PER_DAY = 2;
+
 // ─── Slug helper ──────────────────────────────────────────────────────────────
 function toLocationSlug(city) {
   return `${SERVICE_SLUG}-${city.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
@@ -486,7 +501,7 @@ async function main() {
     const existingCitiesThisDate = existingLocDates.get(date) || new Set();
     let locAdded = existingCitiesThisDate.size;
 
-    while (locAdded < 5 && locIdx < LOCATIONS.length * 2) { // *2 allows a second pass through locations list
+    while (locAdded < LOCATIONS_PER_DAY && locIdx < LOCATIONS.length * 2) { // *2 allows a second pass through locations list
       const city = LOCATIONS[locIdx % LOCATIONS.length];
       locIdx++;
       const citySlug = toLocationSlug(city);
@@ -535,7 +550,7 @@ async function main() {
 
   console.log(`✅ Appended ${allNewRows.length} rows to ContentEngine tab.\n`);
   console.log(`Blog coverage:     ${newBlogRows.length} posts (${Math.round(newBlogRows.length / 2)} days × 2/day)`);
-  console.log(`Location coverage: ${newLocationRows.length} pages (${Math.round(newLocationRows.length / 5)} days × 5/day)`);
+  console.log(`Location coverage: ${newLocationRows.length} pages (${Math.round(newLocationRows.length / LOCATIONS_PER_DAY)} days × ${LOCATIONS_PER_DAY}/day)`);
   console.log(`\nFrom ${startDate} to ${endDate}\n`);
 }
 
