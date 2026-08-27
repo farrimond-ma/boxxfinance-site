@@ -22,6 +22,12 @@ on:
     # but note for next time: this list being correct only catches failures
     # a script actually *reports* as failures.
     workflows:
+      # The canary that detects service outages was not itself watched. It
+      # files its own issues when a dependency check fails, but that only
+      # happens if the workflow runs — an npm-install failure, a runner
+      # problem or an Actions quota block would take out the detector
+      # silently, which is the exact scenario it exists to catch.
+      - "Preflight Check"
       - "Publish Blog"
       - "Publish Blog (Trigger-Event)"
       - "Publish Personal Finance News"
