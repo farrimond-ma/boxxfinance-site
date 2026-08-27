@@ -7,7 +7,13 @@ import React from 'react';
 // (react-helmet-async v2 silently rendered nothing under React 19.)
 
 const SITE_URL = 'https://boxxfinance.co.uk';
-const DEFAULT_OG_IMAGE = `${SITE_URL}/header_bg.png`;
+// 2026-08-27: was header_bg.png — a stock photo of three people talking, long
+// retired from the visible design but still served as the og:image on every
+// page that does not pass its own. Google was using it as the thumbnail in AI
+// Overviews. hero-desktop.webp is the current branded hero: 1718x916 (1.88:1,
+// close to the 1.91:1 social-card ideal) and it carries the Boxx wordmark,
+// which also helps Google associate the image with the right entity.
+const DEFAULT_OG_IMAGE = `${SITE_URL}/hero-desktop.webp`;
 
 const SEO = ({
     title,

@@ -29,6 +29,16 @@ const Home = () => {
                             "areaServed": "GB",
                             "availableLanguage": "English"
                         },
+                        // sameAs tells Google "this organisation IS that profile",
+                        // so it reconciles the entity against LinkedIn and can take
+                        // the name from there. In Aug 2026 an AI Overview cited the
+                        // business as "Boxx Commercial Finance" — the LinkedIn page
+                        // name, not the name used anywhere on this site.
+                        //
+                        // Fixing that means renaming the LinkedIn page; no schema
+                        // change here can override the profile it points at. Do not
+                        // add "Boxx Commercial Finance" as an alternateName to paper
+                        // over it — that tells Google the wrong name is legitimate.
                         "sameAs": [
                             "https://www.linkedin.com/company/boxx-commercial-finance"
                         ]

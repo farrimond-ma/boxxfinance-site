@@ -83,7 +83,9 @@ const BlogPost = () => {
         '@type': 'Article',
         headline: post.metaTitle || post.title,
         description: post.metaDescription || post.excerpt || '',
-        image: heroImage ? (heroImage.startsWith('http') ? heroImage : `${SITE_URL}${heroImage}`) : `${SITE_URL}/header_bg.png`,
+        // Matches DEFAULT_OG_IMAGE in SEO.jsx — header_bg.png was a retired
+        // stock photo still being served to Google as an article image.
+        image: heroImage ? (heroImage.startsWith('http') ? heroImage : `${SITE_URL}${heroImage}`) : `${SITE_URL}/hero-desktop.webp`,
         // Real publication time where known — post.date is the SCHEDULED date
         // for the bridging pipeline and can run days early (see postDates.js).
         datePublished: publishedAtOf(post) || '',
