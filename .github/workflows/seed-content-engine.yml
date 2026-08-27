@@ -1,6 +1,28 @@
 name: Seed Content Engine
 
 on:
+  # 2026-08-27: put back on a schedule. Both seeders were manual-only and
+  # neither had run since June, so the queue quietly ran dry — location pages
+  # stopped on 10 August and nobody noticed for 17 days, because the publisher
+  # exited 0 on an empty queue.
+  #
+  # MONTHLY rather than quarterly, even though the script seeds 90 days at a
+  # time. It is idempotent — it reads existing rows and appends only missing
+  # (date, slot) and (date, city) combinations — so a monthly run just tops the
+  # window back up to ~90 days. That makes the runway self-healing: one failed
+  # run costs nothing, where a failed quarterly run reopens exactly the gap
+  # this is meant to prevent.
+  #
+  # This seeder rather than populate-content-engine.yml: it seeds Bridging
+  # Finance only, matching SERVICE_FILTER on both publishers, and 2 blog rows
+  # per day, matching the current cadence. populate can emit other services,
+  # whose rows the filter would silently orphan.
+  #
+  # dry_run is only set on manual runs; on a schedule the input is empty and
+  # the step's `if [ "$DRY_RUN" = "true" ]` guard falls through to a real write.
+  schedule:
+    - cron: '20 4 1 * *'   # 04:20 UTC on the 1st, ahead of the day's content jobs
+
   workflow_dispatch:
     inputs:
       dry_run:

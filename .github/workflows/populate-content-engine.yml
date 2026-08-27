@@ -1,7 +1,14 @@
 name: Populate Content Engine
 
 on:
-  # Manual trigger only — quarterly schedule removed (content is seeded via seed-content-engine.yml instead)
+  # Manual trigger only. Routine seeding is handled by seed-content-engine.yml,
+  # which now runs monthly (2026-08-27) — that comment used to say seeding
+  # happened there, but seed-content-engine was itself manual-only and had not
+  # run since 9 June, so nothing was refilling the queue at all.
+  #
+  # Keep this for one-off or non-bridging seeding. Note it can emit rows for
+  # services other than Bridging Finance, which SERVICE_FILTER on the
+  # publishers will skip silently — check the service column before running it.
   workflow_dispatch:
     inputs:
       dry_run:

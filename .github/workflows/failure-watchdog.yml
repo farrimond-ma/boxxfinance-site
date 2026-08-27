@@ -28,6 +28,10 @@ on:
       # problem or an Actions quota block would take out the detector
       # silently, which is the exact scenario it exists to catch.
       - "Preflight Check"
+      # Now the scheduled job that keeps the content queue full (monthly).
+      # A silent failure here empties the queue a month later, which is the
+      # failure that cost 17 days of location pages in August 2026.
+      - "Seed Content Engine"
       - "Publish Blog"
       - "Publish Blog (Trigger-Event)"
       - "Publish Personal Finance News"
