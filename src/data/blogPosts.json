@@ -14673,5 +14673,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1787854623147,
+    "status": "published",
+    "slug": "selling-buy-to-let-with-tenants-in-situ",
+    "url": "/insights/selling-buy-to-let-with-tenants-in-situ",
+    "title": "Why some landlords are choosing to sell with tenants still in place",
+    "excerpt": "Selling a rental property with tenants still living in it can keep income flowing during the sale and may even open the door to a tenant buyer, according to Property118.",
+    "metaTitle": "Selling With Tenants: A Smarter Exit for Landlords?",
+    "metaDescription": "Property118 explains why selling a buy-to-let with sitting tenants can protect rental income and widen the buyer pool, including tenant purchasers.",
+    "keywords": "mortgage, landlord, first-time buyer, buy-to-let",
+    "date": "2026-08-27",
+    "publishedAt": "2026-08-27T18:17:03.147Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/selling-buy-to-let-with-tenants-in-situ.webp",
+    "heroVersion": 37623595,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does selling a property with a tenant in it lower the sale price?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can affect the pool of buyers, since some purchasers want vacant possession, but it doesn't automatically mean a lower price. Investor buyers and sitting tenants themselves may pay a fair price for a property that already comes with an income stream or a home they know well."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I sell my rental property to my existing tenant?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, and Property118's piece specifically highlights this as an option worth exploring, since a long-standing tenant who wants to stay may be a motivated buyer, avoiding the cost and delay of finding someone new."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens to the tenancy agreement if the property is sold?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A sale doesn't automatically end a tenancy. Existing tenancy terms generally transfer to the new owner, which is part of why a tenanted sale suits landlord buyers who want the income to continue uninterrupted."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Landlords looking to sell a rental property are often told to get the tenant out first, tidy the place up, and market it empty. But a new piece from <a href=\"https://www.property118.com/why-selling-with-tenants-puts-landlords-in-a-stronger-position/\">Property118</a> argues that approach can actually weaken a landlord's position, not strengthen it. Selling with tenants still in place keeps rent coming in while a buyer is found, and it removes the pressure that comes with an empty property sitting on the market with no income to offset the mortgage or running costs.</p><p>The logic is straightforward. An empty rental property is a cost, not an asset, while it waits for a sale. Every week without a tenant is a week of mortgage payments, insurance and maintenance with nothing coming back in. That pressure can push a landlord towards accepting a lower offer just to bring the process to an end. A tenanted property, by contrast, continues to generate income throughout the sales process, which takes away some of the urgency to settle for the first offer that lands.</p><h2>Who actually buys a tenanted property</h2><p>There's a common assumption that a sitting tenant automatically shrinks the pool of buyers, since owner-occupiers generally want to move in themselves rather than inherit someone else's tenancy. That's true to an extent, but it misses two groups who are often more motivated than owner-occupiers: other landlords looking for a ready-made income stream, and, as the Property118 piece points out, the existing tenant themselves. A tenant who has lived in a property for years, knows its quirks and would rather buy than move, can be a genuinely strong buyer, and selling to them avoids the disruption, cost and voids that come with marketing to a stranger.</p><h2>What this means for landlords weighing up an exit</h2><p>For landlords thinking about selling in the current market, the decision isn't just about price, it's about timing and cash flow during the sale itself. Keeping a tenant in place protects income while you wait for the right offer rather than the fastest one. It also avoids the void period that typically follows an eviction or a tenant leaving voluntarily, which can stretch on for weeks or months depending on how quickly the property can be readied and remarketed.</p><p>That said, selling with tenants in situ isn't automatically the right call for every landlord or every property. Some buyers will only consider vacant possession, particularly first-time buyers relying on a mortgage that requires them to move in, so a tenanted sale can narrow that particular slice of demand even as it opens up others. Landlords also need to be realistic about condition and access, since viewings and valuations have to work around someone else's home. For those juggling a sale alongside refinancing, or needing to move capital between properties while a tenanted sale plays out, understanding options like <a href=\"https://boxxfinance.co.uk/insights/bridging-finance-for-buy-to-let\">bridging finance for buy-to-let</a> can be useful, since it explains how short-term funding can bridge the gap between one property decision and the next without forcing a rushed sale.</p><h2>The bigger picture for buy-to-let landlords</h2><p>This isn't a new phenomenon so much as a shift in how landlords are being encouraged to think about exiting the sector. With many landlords reassessing their portfolios amid rising costs and regulatory change, the ability to sell without losing rental income in the meantime matters more than it used to. A tenanted sale that keeps cash flowing, and that potentially converts a tenant into a buyer, can be a more controlled and less stressful way to leave the sector than a rushed, vacant sale driven by mounting costs.</p><h2>Frequently Asked Questions</h2><h3>Does selling a property with a tenant in it lower the sale price?</h3><p>It can affect the pool of buyers, since some purchasers want vacant possession, but it doesn't automatically mean a lower price. Investor buyers and sitting tenants themselves may pay a fair price for a property that already comes with an income stream or a home they know well.</p><h3>Can I sell my rental property to my existing tenant?</h3><p>Yes, and Property118's piece specifically highlights this as an option worth exploring, since a long-standing tenant who wants to stay may be a motivated buyer, avoiding the cost and delay of finding someone new.</p><h3>What happens to the tenancy agreement if the property is sold?</h3><p>A sale doesn't automatically end a tenancy. Existing tenancy terms generally transfer to the new owner, which is part of why a tenanted sale suits landlord buyers who want the income to continue uninterrupted.</p><p>Landlords weighing up a sale, a refinance, or how to manage cash flow during a transition between properties can find more on the options available via <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a>.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
