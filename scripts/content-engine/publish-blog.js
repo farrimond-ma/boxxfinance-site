@@ -326,6 +326,24 @@ async function markRowDuplicate(sheets, rowIndex, duplicateOf) {
   });
 }
 
+// A run that publishes nothing is a failure for this workflow, not a quiet
+// day — the queue is scheduled ahead, so empty means it needs refilling.
+// Exits non-zero so the failure watchdog raises it, and writes the reason to
+// the run summary so the cause is visible without opening the log.
+function reportNothingPublished(headline, detail) {
+  console.error(`\n❌ ${headline}`);
+  console.error(`   ${detail}\n`);
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    try {
+      require('fs').appendFileSync(
+        process.env.GITHUB_STEP_SUMMARY,
+        `## No blog post published\n\n**${headline}**\n\n${detail}\n`,
+      );
+    } catch { /* non-fatal */ }
+  }
+  process.exit(1);
+}
+
 async function getScheduledRow(sheets) {
   const slots = process.env.PUBLISH_SLOT
     ? [process.env.PUBLISH_SLOT.toUpperCase()]
@@ -1254,8 +1272,15 @@ async function main() {
 
   const candidates = await getScheduledRow(sheets);
   if (candidates.length === 0) {
-    console.log('No scheduled blog rows found for today. Exiting.');
-    return;
+    // Unlike the reactive news publisher, where finding nothing is normal,
+    // this queue is scheduled in advance. At 2 posts/day an empty queue means
+    // it has been consumed and needs topping up — a real problem. Returning 0
+    // here made the run green and indistinguishable from a healthy day, which
+    // is how a whole morning passed with no post and no signal.
+    reportNothingPublished(
+      'No scheduled blog rows are eligible today.',
+      'The ContentEngine queue has run dry, or every remaining row is dated in the future.',
+    );
   }
   console.log(`${candidates.length} scheduled row(s) eligible today`);
 
@@ -1274,9 +1299,10 @@ async function main() {
   }
 
   if (!row) {
-    console.log('\nEvery eligible row duplicates existing coverage. Nothing published.');
-    console.log('Rows have been marked "duplicate" in the sheet — the queue needs new topics.');
-    return;
+    reportNothingPublished(
+      'Every eligible row duplicates existing coverage.',
+      `${candidates.length} row(s) were checked and marked "duplicate" in the sheet. The queue needs genuinely new topics — see src/data/contentGapTopics.json and the Add Competitor-Gap Topics workflow.`,
+    );
   }
   console.log(`Publishing row ${row.rowIndex}: ${row.keyword || row.title}`);
 
