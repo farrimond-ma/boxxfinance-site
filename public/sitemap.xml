@@ -1056,6 +1056,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://boxxfinance.co.uk/insights/landlords-plug-in-solar-panel-requests</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://boxxfinance.co.uk/locations/business-loans-london</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
