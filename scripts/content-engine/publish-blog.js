@@ -1290,8 +1290,36 @@ async function main() {
 
   // Skip anything that would duplicate what is already published. At 2
   // posts/day this is what keeps the queue from cannibalising itself.
+  // Work through candidates until one is publishable. A stale row must not
+  // cost the whole slot: on 2026-08-28 the AM run hit a row whose slug was
+  // already published, marked it, returned, and posted nothing all morning.
+  //
+  // Two ways a candidate gets skipped:
+  //   - its slug is already in blogPosts.json (free to detect, so it does not
+  //     count against the model budget)
+  //   - the duplicate-coverage gate rejects it (one model call each)
   let row = null;
-  for (const candidate of candidates.slice(0, 8)) {
+  let dupChecks = 0;
+  const MAX_DUP_CHECKS = 8;
+
+  for (const candidate of candidates) {
+    const already = posts.find(p => p.slug === candidate.slug);
+    if (already) {
+      console.log(`  ↷ Row ${candidate.rowIndex} "${candidate.slug}" is already published — marking the row and moving on.`);
+      await updateSheetRow(
+        sheets, candidate.rowIndex, candidate.slug,
+        `https://boxxfinance.co.uk/insights/${candidate.slug}`,
+        already.publishedAt || new Date().toISOString(),
+      );
+      continue;
+    }
+
+    if (dupChecks >= MAX_DUP_CHECKS) {
+      console.log(`  Reached the ${MAX_DUP_CHECKS}-check limit for duplicate screening this run.`);
+      break;
+    }
+    dupChecks++;
+
     const dup = await checkDuplicateCoverage(candidate, posts);
     if (!dup.isDuplicate) { row = candidate; break; }
     console.log(`  ✗ Row ${candidate.rowIndex} "${candidate.keyword || candidate.title}" — duplicates ${dup.duplicateOf}: ${dup.reason}`);
@@ -1313,13 +1341,10 @@ async function main() {
   console.log(`Found ${relatedBlogs.length} related published blogs for ${row.service}`);
 
   // blogPosts.json was already fetched above for the duplicate check.
+  // The "slug already published" case is handled in the candidate loop, which
+  // marks the row and moves to the next one rather than ending the run — so by
+  // here the chosen row is known not to exist yet.
   const slug = row.slug;
-  const existingPost = posts.find(p => p.slug === slug);
-  if (existingPost) {
-    console.log(`Slug "${slug}" already exists — marking sheet row as published and skipping generation.`);
-    await updateSheetRow(sheets, row.rowIndex, slug, `https://boxxfinance.co.uk/insights/${slug}`, existingPost.publishedAt || new Date().toISOString());
-    return;
-  }
 
   const article = await generateArticle(row, locationLinks, relatedBlogs);
   console.log(`Article generated: ${article.title}`);
