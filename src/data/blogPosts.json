@@ -15007,5 +15007,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1788008965747,
+    "status": "published",
+    "slug": "mortgage-fees-what-buyers-need-to-know",
+    "url": "/insights/mortgage-fees-what-buyers-need-to-know",
+    "title": "Mortgage fees explained: what buyers and remortgagers need to check before signing up",
+    "excerpt": "Which? News has set out the key mortgage fees, from arrangement charges to early repayment penalties, that can quietly add thousands to the true cost of a home loan.",
+    "metaTitle": "Mortgage Fees: What UK Buyers Need to Know",
+    "metaDescription": "Which? News breaks down the mortgage fees that catch buyers out. Here's what arrangement, valuation and exit charges really mean for your budget.",
+    "keywords": "mortgage, interest rate, landlord, remortgage, homeowner, renovation",
+    "date": "2026-08-29",
+    "publishedAt": "2026-08-29T13:09:25.747Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/mortgage-fees-what-buyers-need-to-know.webp",
+    "heroVersion": 30683428,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I avoid paying a mortgage arrangement fee?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Some lenders offer fee-free deals, though these often come with a slightly higher interest rate. Whether that trade-off works in your favour depends on the size of your mortgage and how long you intend to keep the deal, so it's worth comparing the total cost over the fixed period rather than just the fee or the rate in isolation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if I want to remortgage before my early repayment charge period ends?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You'll typically need to pay the early repayment charge set out in your original mortgage offer, which is usually a percentage of the outstanding balance. This is worth factoring into any decision to switch lenders or restructure your finances early, since the charge can offset some or all of the savings from a new deal."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it better to pay the arrangement fee upfront or add it to my mortgage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Adding the fee to your mortgage means you pay interest on it for the life of the deal, which increases the overall cost, whereas paying upfront avoids that but requires more cash at completion. Which option suits you depends on your available funds and how long you plan to keep the mortgage."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Choosing a mortgage on the headline interest rate alone is one of the most common and costly mistakes buyers and remortgagers make. <a href=\"https://www.which.co.uk/news/article/6-things-to-know-about-mortgage-fees-aXurX8t3NtQ7\">Which? News has published a rundown of the key mortgage fees</a> that can sit behind that rate, covering everything from arrangement charges through to penalties for paying a loan off early. For anyone buying a home or coming to the end of a fixed deal, understanding these fees matters just as much as comparing interest rates, because a cheaper-looking rate with high fees can end up costing more overall.</p><h2>Why the interest rate is only half the story</h2><p>Lenders often use fees to make the advertised rate look more competitive, particularly on fixed-rate deals. An arrangement fee, sometimes called a product fee, can be charged upfront or added to the loan, and either way it affects the true cost of borrowing. Add in valuation fees, legal costs and potentially a booking fee just to secure the deal, and two mortgages with similar rates can end up worlds apart in total cost. This is exactly why comparison tools that factor in the overall cost of a deal, not just the rate, tend to give a more accurate picture than scanning rate tables alone.</p><h2>Early repayment charges catch people out</h2><p>One of the fees Which? highlights is the early repayment charge, which applies if you pay off some or all of your mortgage before a fixed or discounted period ends. This is particularly relevant for landlords or homeowners who might want to sell, remortgage, or overpay significantly before their current deal expires. Anyone who thinks they might move house, downsize, or restructure their finances within the next few years should check these charges carefully before committing, because they can run into thousands of pounds depending on how much is still owed and how far through the deal you are.</p><h2>What this means when you're comparing deals</h2><p>For buyers, the practical takeaway is to ask for the full fee breakdown from every lender or broker before deciding, not just the headline rate. That means checking whether the arrangement fee can be added to the loan (which means paying interest on it too, over time), what the valuation fee covers, whether there's a booking fee that's non-refundable if you don't go ahead, and what the exit charges look like if your circumstances change. For remortgagers, it's also worth weighing up whether it's cheaper to pay fees upfront or add them to the balance, since that decision can shift depending on how long you plan to stay with the lender.</p><h2>Frequently Asked Questions</h2><h3>Can I avoid paying a mortgage arrangement fee?</h3><p>Some lenders offer fee-free deals, though these often come with a slightly higher interest rate. Whether that trade-off works in your favour depends on the size of your mortgage and how long you intend to keep the deal, so it's worth comparing the total cost over the fixed period rather than just the fee or the rate in isolation.</p><h3>What happens if I want to remortgage before my early repayment charge period ends?</h3><p>You'll typically need to pay the early repayment charge set out in your original mortgage offer, which is usually a percentage of the outstanding balance. This is worth factoring into any decision to switch lenders or restructure your finances early, since the charge can offset some or all of the savings from a new deal.</p><h3>Is it better to pay the arrangement fee upfront or add it to my mortgage?</h3><p>Adding the fee to your mortgage means you pay interest on it for the life of the deal, which increases the overall cost, whereas paying upfront avoids that but requires more cash at completion. Which option suits you depends on your available funds and how long you plan to keep the mortgage.</p><p>For buyers, landlords or homeowners weighing up how mortgage fees fit alongside other borrowing needs, such as bridging finance for a purchase or renovation, Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> hub is a useful starting point for exploring the options available.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
