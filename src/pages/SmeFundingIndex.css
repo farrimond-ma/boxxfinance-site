@@ -6,7 +6,7 @@
     background: linear-gradient(100deg, #0a192f 0%, #0a192f 55%, #0f2747 100%);
     color: #fff;
     /* Top padding must clear the position:fixed navbar, which renders ~110px
-       tall in its scrolled state (base 4.9rem plus the "Call us now" button).
+       tall in its scrolled state (base 4.9rem plus the "Get a Quote" button).
        The previous 90px left the H1 sitting 20px UNDER the header. 9rem matches
        the site-wide resource-hero convention and clears it with breathing room. */
     padding: 9rem 0 60px;
