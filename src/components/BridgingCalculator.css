@@ -1,0 +1,270 @@
+/* Bridging loan calculator — uses the site's existing tokens (navy primary,
+   gold secondary) so it reads as part of the page rather than a bolted-on
+   widget. Two columns on desktop, stacked on mobile. */
+
+.calc-section {
+    padding: 5rem 0;
+    background: var(--color-bg-light);
+}
+
+.calc-head {
+    max-width: 720px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+}
+
+.calc-head h2 {
+    font-size: 2.3rem;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    color: var(--color-primary);
+}
+
+.calc-head p {
+    margin: 0;
+    color: #5b6472;
+    line-height: 1.6;
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+/* ── Inputs ── */
+.calc-inputs {
+    background: var(--color-white);
+    border: 1px solid #e6e8ec;
+    border-radius: 16px;
+    padding: 1.75rem;
+}
+
+.calc-field {
+    display: block;
+    margin-bottom: 1.25rem;
+    border: 0;
+    padding: 0;
+}
+
+.calc-field > span,
+.calc-field legend {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    margin-bottom: 0.45rem;
+    padding: 0;
+}
+
+.calc-field small {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.78rem;
+    color: #7a8290;
+}
+
+.calc-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid #dfe2e8;
+    border-radius: 10px;
+    padding: 0.6rem 0.85rem;
+    background: var(--color-white);
+    transition: border-color 0.15s ease;
+}
+
+.calc-input-wrap:focus-within {
+    border-color: var(--color-secondary);
+}
+
+.calc-input-wrap em {
+    font-style: normal;
+    color: #7a8290;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.calc-input-wrap input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: transparent;
+}
+
+/* Number spinners add clutter and invite mis-clicks on a money field */
+.calc-input-wrap input::-webkit-outer-spin-button,
+.calc-input-wrap input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.calc-input-wrap input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.calc-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.calc-types {
+    margin-bottom: 1.25rem;
+}
+
+.calc-type-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.calc-type-buttons button {
+    padding: 0.6rem 0.4rem;
+    border: 1px solid #dfe2e8;
+    border-radius: 10px;
+    background: var(--color-white);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #5b6472;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.calc-type-buttons button:hover {
+    border-color: var(--color-secondary);
+}
+
+.calc-type-buttons button.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* ── Results ── */
+.calc-results {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 16px;
+    padding: 1.75rem;
+}
+
+.calc-headline {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.calc-headline > span {
+    display: block;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.35rem;
+}
+
+.calc-headline strong {
+    display: block;
+    font-size: 2.6rem;
+    line-height: 1.1;
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+
+.calc-headline strong.is-negative {
+    color: #ff8a80;
+}
+
+.calc-warning {
+    margin: 0.6rem 0 0;
+    font-size: 0.82rem;
+    color: #ffc9c4;
+    line-height: 1.45;
+}
+
+.calc-breakdown {
+    margin: 1.25rem 0 0;
+}
+
+.calc-breakdown > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    font-size: 0.92rem;
+}
+
+.calc-breakdown dt {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.calc-breakdown dd {
+    margin: 0;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.calc-breakdown .calc-total {
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    margin-top: 0.35rem;
+    padding-top: 0.7rem;
+}
+
+.calc-breakdown .calc-total dt {
+    color: var(--color-white);
+    font-weight: 600;
+}
+
+.calc-disclaimer {
+    margin: 1.25rem 0 0;
+    font-size: 0.76rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.calc-actions {
+    margin-top: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.calc-link {
+    font-size: 0.85rem;
+    color: var(--color-secondary);
+    text-decoration: none;
+}
+
+.calc-link:hover {
+    text-decoration: underline;
+}
+
+/* ── Mobile ── */
+@media (max-width: 900px) {
+    .calc-grid {
+        grid-template-columns: 1fr;
+    }
+    .calc-section {
+        padding: 3.5rem 0;
+    }
+    .calc-head h2 {
+        font-size: 1.8rem;
+    }
+    .calc-headline strong {
+        font-size: 2.1rem;
+    }
+    /* Three interest-type labels do not fit side by side on a narrow phone */
+    .calc-type-buttons {
+        grid-template-columns: 1fr;
+    }
+    .calc-row {
+        grid-template-columns: 1fr;
+    }
+}

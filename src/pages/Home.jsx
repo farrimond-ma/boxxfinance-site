@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
+import BridgingCalculator from '../components/BridgingCalculator';
 import About from '../components/About';
 import CaseStudies from '../components/CaseStudies';
 import Contact from '../components/Contact';
@@ -56,6 +57,11 @@ const Home = () => {
             />
             <Hero />
             <Services />
+            {/* Directly after Services: the hero states what Boxx does, Services
+                shows the range, and the calculator is the first thing that lets a
+                visitor do something with their own numbers — before the softer
+                About/case-study content. */}
+            <BridgingCalculator />
             <About />
             <CaseStudies />
             <HomeFaq />
