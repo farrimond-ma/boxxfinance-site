@@ -3,17 +3,71 @@
  *
  * Seeds the ContentEngine Google Sheet with 90 days of Bridging Finance content:
  *   - 2 blog rows per day  (AM = Mark Higgins, PM = Tara Jameson)
- *   - 2 location rows per day (UK cities, cycling through the full list)
- *     — see LOCATIONS_PER_DAY for why this was cut from 5
+ *   - 2 location rows per day (cities from the UK_Places tab, falling back to
+ *     the hardcoded list) — see LOCATIONS_PER_DAY for why this was cut from 5
  *
- * Reads existing rows first — never duplicates a (date, slot) or (date, city) combination.
+ * Reads existing rows AND published pages first — never duplicates a blog
+ * (date, slot), and never re-seeds a city already scheduled or already live.
  * Appends only what is missing.
  *
  * Run: node seed-content-engine.js [--dry-run]
  */
 
 require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
 const { google } = require('googleapis');
+
+// Cities from the UK_Places sheet tab (UK towns 10,000+ population, maintained
+// by expand-uk-places.js), falling back to the hardcoded list below.
+//
+// Without this the seeder could only ever offer its own 288 hardcoded cities,
+// and by Sept 2026 every one of them was already published — so seeding
+// produced rows the publisher could only mark "already exists", and location
+// pages stopped. populate-content-engine.js already read this tab; this seeder
+// did not, which is the gap that made it a dead end once its list ran out.
+// Same read shape as loadUKPlaces() there — keep the two in step.
+async function loadPlacesFromSheet(sheets) {
+    try {
+        const res = await sheets.spreadsheets.values.get({
+            spreadsheetId: SPREADSHEET_ID,
+            range: 'UK_Places!A2:E',
+        });
+        const rows = res.data.values || [];
+        return rows
+            .filter((r) => r[1])
+            .sort((a, b) => (parseInt(a[0], 10) || 0) - (parseInt(b[0], 10) || 0))
+            .map((r) => String(r[1]).trim());
+    } catch (err) {
+        console.warn(`  ⚠ Could not read UK_Places (${err.message}); using the hardcoded city list.`);
+        return [];
+    }
+}
+
+// Cities that already have a live location page, read from the repo the
+// workflow checks out — no API call or token needed.
+//
+// The sheet alone is not enough: a row can be tidied away or the sheet reset
+// while the page stays live, and seeding it again produces a row the publisher
+// can only mark "already exists". Checking published pages is what makes
+// re-seeding genuinely idempotent.
+function publishedLocationKeys() {
+    try {
+        const file = path.resolve(__dirname, '../../src/data/locationPages.json');
+        const pages = JSON.parse(fs.readFileSync(file, 'utf8'));
+        const keys = new Set();
+        for (const p of pages) {
+            if (p.slug) keys.add(String(p.slug).toLowerCase());
+            if (p.city) keys.add(String(p.city).toLowerCase());
+        }
+        return keys;
+    } catch (err) {
+        // Never block seeding on this — but say so, because silently seeding
+        // duplicates is exactly the failure this function exists to prevent.
+        console.warn(`  ⚠ Could not read locationPages.json (${err.message}); seeding without the published-page check.`);
+        return new Set();
+    }
+}
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
 const SERVICE        = 'Bridging Finance';
@@ -429,6 +483,17 @@ async function main() {
   const existingBlogSlugSet  = new Set();
   const existingBlogSlots    = new Set(); // key: `${date}:${slot}`
   const existingLocDates     = new Map(); // date → Set of city slugs
+  // Every city already scheduled on ANY date. The per-date map above only
+  // stopped the same city appearing twice on one day, so seeding always
+  // restarted at LOCATIONS[0] and re-queued cities that were already done.
+  // The publisher then marked each one "already exists" and created nothing —
+  // which is why location pages silently stopped for weeks.
+  const scheduledCities      = new Set();
+  const publishedCities      = publishedLocationKeys();
+  // Prefer the maintained UK_Places tab over the hardcoded list, so the
+  // seeder can keep going once the built-in cities are exhausted.
+  const sheetPlaces          = await loadPlacesFromSheet(sheets);
+  const CITY_POOL            = sheetPlaces.length > 0 ? [...new Set(sheetPlaces)] : LOCATIONS;
   let maxNumericId = 0;
 
   for (const row of rows) {
@@ -456,6 +521,8 @@ async function main() {
       if (!existingLocDates.has(date)) existingLocDates.set(date, new Set());
       if (city) existingLocDates.get(date).add(city.toLowerCase());
       if (slug) existingLocDates.get(date).add(slug); // also track by slug
+      if (city) scheduledCities.add(city.toLowerCase());
+      if (slug) scheduledCities.add(slug);
     }
   }
 
@@ -464,6 +531,9 @@ async function main() {
   console.log(`Existing BF blog slugs: ${existingBlogSlugSet.size}`);
   console.log(`Existing BF blog (date:slot) pairs: ${existingBlogSlots.size}`);
   console.log(`Existing BF location dates: ${existingLocDates.size}`);
+  console.log(`Cities already scheduled anywhere: ${scheduledCities.size}`);
+  console.log(`Cities already published live:     ${publishedCities.size}`);
+  console.log(`City pool in use: ${CITY_POOL.length} (${sheetPlaces.length > 0 ? 'UK_Places tab' : 'hardcoded fallback'})`);
   console.log(`Next ID will start at: ${nextId}\n`);
 
   // ── Plan new rows ───────────────────────────────────────────────────────────
@@ -501,12 +571,17 @@ async function main() {
     const existingCitiesThisDate = existingLocDates.get(date) || new Set();
     let locAdded = existingCitiesThisDate.size;
 
-    while (locAdded < LOCATIONS_PER_DAY && locIdx < LOCATIONS.length * 2) { // *2 allows a second pass through locations list
-      const city = LOCATIONS[locIdx % LOCATIONS.length];
+    // Single pass now, not *2: a second pass could only re-offer cities the
+    // skips below already rejected.
+    while (locAdded < LOCATIONS_PER_DAY && locIdx < CITY_POOL.length) {
+      const city = CITY_POOL[locIdx % CITY_POOL.length];
       locIdx++;
       const citySlug = toLocationSlug(city);
       const cityLower = city.toLowerCase();
       if (existingCitiesThisDate.has(cityLower) || existingCitiesThisDate.has(citySlug)) continue;
+      // Already scheduled on some other date, or already live.
+      if (scheduledCities.has(cityLower) || scheduledCities.has(citySlug)) continue;
+      if (publishedCities.has(cityLower) || publishedCities.has(citySlug)) continue;
       const id = `BF${String(nextId++).padStart(4, '0')}`;
       newLocationRows.push(buildLocationRow(id, date, city));
       existingCitiesThisDate.add(cityLower);
