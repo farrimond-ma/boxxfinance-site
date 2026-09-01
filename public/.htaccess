@@ -109,6 +109,18 @@ Options -Indexes -MultiViews
   RewriteRule ^insights/bridging-loan-without-full-valuation/?$ /insights/desktop-valuation-bridging-loan [R=301,L]
   RewriteRule ^insights/monthly-vs-rolled-up-interest-bridging/?$ /insights/bridging-loan-interest-options [R=301,L]
 
+  # 2026-08-28: the calculator cluster. Two articles were both titled as
+  # calculators — "Bridging Loan Calculator UK" and "Bridging Finance
+  # Calculator" — and competed for the same query. Merged into the first,
+  # which matches the site's "bridging loans" terminology; the unique
+  # sections from the second (what lenders look for, the fee checklist) were
+  # carried over, so nothing is lost by the redirect.
+  #
+  # Note the interactive tool now lives at /bridging-loan-calculator. That is
+  # deliberately NOT redirected here: it serves the "give me the tool" intent,
+  # while this article explains the costs. They link to each other.
+  RewriteRule ^insights/bridging-finance-calculator/?$ /insights/bridging-loan-calculator-uk [R=301,L]
+
   # ── UK SME Funding Index archives — REMOVED 2026-07-15, return 410 Gone ────
   # The 61 monthly "archive" pages had every figure generated with Math.random()
   # while claiming to aggregate "over 50 UK lenders" and citing the Bank of
