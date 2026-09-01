@@ -4,6 +4,7 @@ import './ServicePage.css';
 
 import { serviceContent } from '../data/services';
 import SEO from '../components/SEO';
+import BridgingCalculator from '../components/BridgingCalculator';
 import ResourceHero, { FinalCtaBand } from '../components/resource/ResourceHero';
 import FundingCards from '../components/resource/FundingCards';
 import { pickHero } from '../components/resource/heroPool';
@@ -53,6 +54,11 @@ const ServicePage = () => {
                         {service.content}
                     </div>
                 </div>
+
+                {/* Bridging only — the calculator models monthly-rate, retained
+                    and rolled-up interest, which is a bridging structure. It
+                    would be actively misleading on asset or invoice finance. */}
+                {slug === 'bridging-loans' && <BridgingCalculator />}
 
                 <FundingCards currentService={slug} />
             </div>

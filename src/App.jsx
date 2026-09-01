@@ -10,6 +10,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import LegalDisclaimer from './pages/LegalDisclaimer';
 import TermsConditions from './pages/TermsConditions';
 import SmeFundingIndex from './pages/SmeFundingIndex';
+import BridgingCalculatorPage from './pages/BridgingCalculatorPage';
 import NotFound from './pages/NotFound';
 import ContentDashboard from './pages/ContentDashboard';
 import './App.css';
@@ -49,6 +50,7 @@ function App() {
           <Route path="terms-and-conditions" element={<TermsConditions />} />
           {/* Single page only. The old /uk-sme-funding-index/:archiveSlug routes
               served 61 months of fabricated "archives" and now return 410 Gone. */}
+          <Route path="bridging-loan-calculator" element={<BridgingCalculatorPage />} />
           <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
           <Route path="partners" element={<Partners />} />
           <Route path="locations" element={<Locations />} />

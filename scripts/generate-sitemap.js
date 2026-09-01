@@ -18,6 +18,7 @@ const staticRoutes = [
     '/locations',
     '/partners',
     '/chat-about-funding',
+    '/bridging-loan-calculator',
     '/uk-sme-funding-index',
     '/privacy-policy',
     '/legal-disclaimer',
