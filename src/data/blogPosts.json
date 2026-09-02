@@ -15989,5 +15989,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1788350798516,
+    "status": "published",
+    "slug": "gilt-yields-rate-hikes-mortgage-costs",
+    "url": "/insights/gilt-yields-rate-hikes-mortgage-costs",
+    "title": "Bond Market Turmoil Points to More Rate Hikes and Higher Mortgage Costs",
+    "excerpt": "Investors are now pricing in three interest rate hikes over the next two years as UK gilt yields surge, a shift that could push mortgage rates higher for buyers, remortgagers and landlords.",
+    "metaTitle": "Gilt Yield Surge Signals Higher Mortgage Costs Ahead",
+    "metaDescription": "UK gilt yields have jumped as investors price in three rate hikes. Here's what it could mean for mortgage costs, remortgaging and landlord finances.",
+    "keywords": "mortgage rate, mortgage, bank of england, interest rate, landlord, remortgage",
+    "date": "2026-09-02",
+    "publishedAt": "2026-09-02T12:06:38.516Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/gilt-yields-rate-hikes-mortgage-costs.webp",
+    "heroVersion": 18111345,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Will my current fixed-rate mortgage change because of this?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, an existing fixed-rate deal will not change until it ends. The impact is on new deals and remortgaging, since lenders price new fixed rates using current gilt yields and rate expectations, not historic ones."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does a rise in gilt yields mean the Bank of England will definitely raise rates three times?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily. Gilt yields reflect what investors expect to happen, which can shift again if economic data or Bank of England commentary changes. It is a signal of market sentiment rather than a guaranteed outcome."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What can landlords or homeowners do if a remortgage doesn't stack up at higher rates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Options vary depending on individual circumstances, and it is worth speaking to a broker or adviser early. Where a mortgage shortfall or timing gap arises, some borrowers look at short-term finance to bridge the gap while a longer-term solution is arranged."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Investors have started pricing in three interest rate hikes over the next two years after a global bond market rout sent UK gilt yields sharply higher, according to <a href=\"https://www.cityam.com/mortgage-nightmare-as-investors-price-in-three-interest-rate-hikes/\">City A.M.</a> Two-year gilt yields, which reflect short-term interest rate expectations, have jumped above 4.5 per cent, and that move matters far beyond the trading floors of the City. It feeds directly into what banks and building societies charge for mortgages, and it raises fresh questions about the stability of the UK's borrowing environment.</p><p>For anyone with a mortgage, looking to buy, or renting out property, this is the kind of story that sounds abstract until it shows up in your monthly repayment. Gilt yields are the benchmark lenders use to price fixed-rate mortgage deals. When yields rise, the wholesale cost of funding those mortgages rises too, and lenders tend to pass that on fairly quickly through repricing of their fixed-rate ranges.</p><h2>What rising gilt yields mean for mortgage rates</h2><p>Fixed-rate mortgages are not directly set by the Bank of England base rate. They track swap rates and gilt yields, which reflect what investors expect interest rates to do in future, not just where they are today. If the market is now pricing in three further hikes over the next two years, that expectation gets baked into mortgage pricing almost immediately, often well before any actual Bank of England decision is made. That means homeowners coming up to remortgage could see noticeably less favourable rates on offer than they might have expected just a few months ago.</p><h2>Who feels this first</h2><p>The people most exposed are those with fixed-rate deals ending in the next six to twelve months. They will be moving from historically lower rates onto whatever the market is offering now, and if lenders continue to reprice upward in response to gilt market moves, that gap could widen further. First-time buyers and those trying to move up the ladder also face a tougher affordability picture, since lenders' stress tests and loan-to-income calculations become tighter as rates climb. Landlords are arguably under even more pressure, because buy-to-let mortgage pricing is sensitive to the same gilt yield moves, and many operate on tighter margins once higher borrowing costs are set against rental income.</p><h2>What this means for buying, selling and refinancing decisions</h2><p>Uncertainty in the gilt market tends to make lenders cautious, and cautious lenders can mean slower approvals, more conservative valuations, and less appetite for complex cases. For anyone relying on a mortgage offer to complete a purchase or refinance a portfolio, timing becomes more important than usual. Homeowners near the end of a fixed deal may want to explore options earlier rather than waiting, since rates can move before a formal application is even submitted. Landlords managing multiple properties or facing a remortgage shortfall might also need to look beyond a standard mortgage route if a gap opens up between what is owed and what a lender is now willing to offer.</p><h2>Frequently Asked Questions</h2><h3>Will my current fixed-rate mortgage change because of this?</h3><p>No, an existing fixed-rate deal will not change until it ends. The impact is on new deals and remortgaging, since lenders price new fixed rates using current gilt yields and rate expectations, not historic ones.</p><h3>Does a rise in gilt yields mean the Bank of England will definitely raise rates three times?</h3><p>Not necessarily. Gilt yields reflect what investors expect to happen, which can shift again if economic data or Bank of England commentary changes. It is a signal of market sentiment rather than a guaranteed outcome.</p><h3>What can landlords or homeowners do if a remortgage doesn't stack up at higher rates?</h3><p>Options vary depending on individual circumstances, and it is worth speaking to a broker or adviser early. Where a mortgage shortfall or timing gap arises, some borrowers look at short-term finance to bridge the gap while a longer-term solution is arranged.</p><p>If rising rates are creating a gap between what you need and what a mainstream lender can offer right now, it may be worth exploring the range of options on the <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance funding solutions</a> hub.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
