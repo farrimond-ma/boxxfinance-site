@@ -16045,5 +16045,61 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1788368941252,
+    "status": "published",
+    "slug": "first-time-buyer-mortgage-6-5-times-salary-5-deposit",
+    "url": "/insights/first-time-buyer-mortgage-6-5-times-salary-5-deposit",
+    "title": "New mortgage lets first-time buyers borrow 6.5 times salary with just a 5% deposit",
+    "excerpt": "A new mortgage deal allows first-time buyers to borrow up to 6.5 times their income while putting down only a 5% deposit, opening the door to homeownership for buyers previously priced out.",
+    "metaTitle": "6.5x Salary Mortgage With 5% Deposit: What It Means",
+    "metaDescription": "A new first-time buyer mortgage offers 6.5 times income lending with a 5% deposit. Here's what it means for affordability, risk and your buying plans.",
+    "keywords": "mortgage, interest rate, landlord, first-time buyer, property price",
+    "date": "2026-09-02",
+    "publishedAt": "2026-09-02T17:09:01.253Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/first-time-buyer-mortgage-6-5-times-salary-5-deposit.webp",
+    "heroVersion": 21328027,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does a 6.5 times salary mortgage cost more overall than a standard mortgage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can do, since borrowing more relative to income and putting down a smaller deposit generally means the lender is taking on more risk. Buyers should compare the interest rate and total repayment cost carefully rather than focusing only on how much they can borrow."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will every first-time buyer qualify for this type of mortgage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily. Lenders offering higher income multiples typically apply stricter affordability assessments, looking closely at income stability, existing debts and monthly spending, so approval isn't guaranteed just because the product exists."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Could this push up prices for starter homes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It's possible. If more buyers can afford entry-level properties because of easier borrowing terms, demand in that part of the market could rise, which may put some upward pressure on prices if the number of suitable homes for sale doesn't increase alongside it."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>A new mortgage product is letting first-time buyers borrow up to 6.5 times their annual salary while putting down a deposit of just 5%, as reported by <a href=\"https://www.thisismoney.co.uk/money/mortgageshome/article-16098889/First-time-buyers-mortgage-6-5-times-salary-5-deposit.html?ns_mchannel=rss&ns_campaign=1490&ito=1490\">This Is Money</a>. According to the report, borrowers using this mortgage could buy the average first-time buyer property in England with a deposit of just £12,273. For anyone who has spent years watching rising property prices outpace their savings and their mortgage offers, this is a meaningful shift in what is actually achievable.</p><h2>Why this matters for first-time buyers</h2><p>Most mainstream lenders cap borrowing at around four to four and a half times income, which for many buyers on average salaries simply doesn't stretch far enough to cover the cost of a typical first home, especially in and around higher priced areas. A 6.5 times income multiple changes that calculation significantly. Combined with a 5% deposit requirement rather than the 10% or 15% many lenders ask for, it lowers both of the two biggest barriers to getting on the property ladder at once: the size of the deposit you need to save, and the amount your income alone is deemed able to support.</p><p>That doesn't mean this type of mortgage suits everyone, or that every lender will offer it. Higher income multiples typically come with stricter affordability checks, and buyers should expect closer scrutiny of monthly outgoings, existing debts and job stability before being approved. It's also worth remembering that borrowing more relative to your income means larger repayments, so it's important to stress test your own budget against the possibility of interest rate rises rather than just look at the headline borrowing figure.</p><h2>What it could mean for the wider market</h2><p>Products like this tend to have a knock-on effect beyond the individual buyers who use them. If more first-time buyers can now afford entry-level homes with a smaller deposit, demand at that end of the market is likely to increase. That could be good news for sellers of smaller flats and starter homes who have struggled to find buyers, but it could also put renewed upward pressure on prices in that segment if supply doesn't keep pace. Landlords with entry-level rental stock may also notice more competition from owner-occupiers who previously couldn't afford to buy.</p><h2>What buyers should check before applying</h2><p>Anyone considering this route should look closely at the interest rate attached to the deal, since higher income multiple and low deposit products can sometimes come with less competitive rates than standard mortgages, reflecting the additional risk to the lender. It's also sensible to check whether the offer is available across the whole market or only through specific lenders or schemes, and to get a clear picture of total monthly costs once ground rent, service charges, insurance and maintenance are factored in alongside the mortgage payment itself.</p><h2>Frequently Asked Questions</h2><h3>Does a 6.5 times salary mortgage cost more overall than a standard mortgage?</h3><p>It can do, since borrowing more relative to income and putting down a smaller deposit generally means the lender is taking on more risk. Buyers should compare the interest rate and total repayment cost carefully rather than focusing only on how much they can borrow.</p><h3>Will every first-time buyer qualify for this type of mortgage?</h3><p>Not necessarily. Lenders offering higher income multiples typically apply stricter affordability assessments, looking closely at income stability, existing debts and monthly spending, so approval isn't guaranteed just because the product exists.</p><h3>Could this push up prices for starter homes?</h3><p>It's possible. If more buyers can afford entry-level properties because of easier borrowing terms, demand in that part of the market could rise, which may put some upward pressure on prices if the number of suitable homes for sale doesn't increase alongside it.</p><p>For buyers, landlords or anyone weighing up how a change like this fits into their wider plans, it can help to understand the full range of options available, and the <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance funding solutions hub</a> is a useful starting point for exploring what's out there.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
