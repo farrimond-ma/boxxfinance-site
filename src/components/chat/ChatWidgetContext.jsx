@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 import ChatWidget from './ChatWidget';
 
 // Global chat-open state, so any button anywhere on the site (right now
-// just the FloatingCta "Talk to us" pill in ResourceHero.jsx) can open the
+// just the floating launcher) — now the ContactMenu "Live Chat" option can open the
 // same chat panel without prop-drilling. The panel itself lives here too,
 // rendered once at the top of the tree (see Layout.jsx) rather than once
 // per page.

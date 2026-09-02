@@ -1,0 +1,121 @@
+/* Floating "Get in Touch" menu. Replaces the single chat-only FAB.
+   Sits above page content but below the chat panel (z-index 1001) so opening
+   Live Chat does not leave the menu floating over it. */
+
+.contact-menu-fab {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 60;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(1, 8, 22, 0.28);
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.contact-menu-fab:hover {
+    background: var(--color-secondary-light);
+    transform: scale(1.06);
+}
+
+.contact-menu-fab.is-open {
+    /* Muted while open — the panel is the focus, this is now just a close control */
+    background: #c9a227;
+}
+
+.contact-menu-panel {
+    position: fixed;
+    right: 20px;
+    bottom: 88px;              /* clears the 56px button plus its offset */
+    z-index: 60;
+    width: 300px;
+    max-width: calc(100vw - 40px);
+    background: var(--color-white);
+    border-radius: 14px;
+    padding: 1.5rem 1.5rem 1.25rem;
+    box-shadow: 0 18px 48px rgba(1, 8, 22, 0.22);
+    animation: contact-menu-in 0.18s ease-out;
+}
+
+@keyframes contact-menu-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.contact-menu-panel h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.35rem;
+    color: var(--color-primary);
+}
+
+.contact-menu-panel > p {
+    margin: 0 0 1.15rem;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: #5b6472;
+}
+
+.contact-menu-panel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.contact-menu-panel li + li {
+    margin-top: 0.15rem;
+}
+
+/* Anchors and the Live Chat button must look identical — one is a link, one
+   triggers the widget, but that is an implementation detail to the reader. */
+.contact-menu-panel a,
+.contact-menu-panel button {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    padding: 0.6rem 0.5rem;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.12s ease, color 0.12s ease;
+}
+
+.contact-menu-panel a:hover,
+.contact-menu-panel button:hover {
+    background: #faf6ea;
+    color: #b8912a;
+}
+
+.contact-menu-panel svg {
+    flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+    .contact-menu-panel {
+        right: 16px;
+        left: 16px;
+        width: auto;
+        max-width: none;
+        bottom: 84px;
+    }
+    .contact-menu-fab {
+        right: 16px;
+        bottom: 16px;
+    }
+}

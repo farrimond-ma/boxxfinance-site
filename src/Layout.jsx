@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ChatWidgetProvider, useChatWidget } from './components/chat/ChatWidgetContext';
-import { FloatingCta } from './components/resource/ResourceHero';
+import ContactMenu from './components/ContactMenu';
 import { useEffect, useRef } from 'react';
 
 // Pages where the floating "Talk to us" chat pill would compete with an
@@ -60,9 +60,11 @@ const Layout = () => {
                     <Outlet />
                 </main>
                 <Footer />
-                {/* Global chat launcher — appears site-wide (home, listings,
-                    articles, locations, services) except where suppressed above. */}
-                {!hideFloatingCta(pathname) && <FloatingCta />}
+                {/* Global "Get in Touch" launcher — WhatsApp, phone, live chat
+                    and enquiry form. Appears site-wide except where suppressed
+                    above. Was a chat-only button; people arriving on a funding
+                    page want different routes to a human. */}
+                {!hideFloatingCta(pathname) && <ContactMenu />}
                 <AutoOpenChat />
             </ChatWidgetProvider>
         </div>
