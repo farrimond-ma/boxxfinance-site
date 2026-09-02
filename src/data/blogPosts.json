@@ -16149,5 +16149,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1788378416839,
+    "status": "published",
+    "slug": "renters-rights-act-early-impact-landlords-tenants",
+    "url": "/insights/renters-rights-act-early-impact-landlords-tenants",
+    "title": "Renters' Rights Act: What's Actually Changed Since It Became Law in May",
+    "excerpt": "Six months after the Renters' Rights Act took effect, it is still too early to say whether it has genuinely improved things for tenants or simply added new compliance headaches for landlords.",
+    "metaTitle": "Renters' Rights Act: The Early Verdict So Far",
+    "metaDescription": "The Renters' Rights Act became law on May 1st. Here's what landlords and tenants need to know about its impact so far, and what's still unclear.",
+    "keywords": "rental market, landlord, renter, buy-to-let",
+    "date": "2026-09-02",
+    "publishedAt": "2026-09-02T19:46:56.840Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/renters-rights-act-early-impact-landlords-tenants.webp",
+    "heroVersion": 15622647,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Has the Renters' Rights Act made renting better for tenants?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is too early to say definitively. According to Property Notify's analysis, the full impact of the Act has not yet become clear, and there is not yet enough evidence to confirm whether it has genuinely improved conditions for tenants in practice."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are landlords facing more problems because of the Act?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not clearly, at least not yet. The analysis suggests that some of the biggest feared problems for landlords and letting agents have not obviously come to pass so far, though the situation is still developing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should landlords make changes now or wait and see?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Many landlords are choosing to review their compliance and financial arrangements now rather than wait for total clarity, since the practical implications of the Act are likely to keep emerging over the coming months."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>On May 1st this year, the Renters' Rights Act came into force, billed by many as the biggest overhaul of private renting rules in a generation. Several months on, an analysis by <a href=\"https://www.propertynotify.co.uk/whats-happening/news/featured-insights/expert-view/renters-rights-act-so-far/\">Property Notify</a> asks the obvious question: has it actually delivered? The honest answer, according to that analysis, is that it is still too early to draw firm conclusions either way.</p><p>That matters because a lot of noise was made before the Act arrived, both about the benefits it would bring tenants and the problems it would cause landlords and letting agents. Six months in, neither the promised transformation nor the predicted chaos has fully played out, at least not in a way that can be measured with confidence yet.</p><h2>What the Act was meant to do</h2><p>The Renters' Rights Act reshapes core parts of the landlord-tenant relationship in the private rented sector, changing how tenancies are structured and what obligations landlords must meet. It was pitched as a rebalancing of power towards tenants, addressing long-standing complaints about insecurity and unfair practices in the sector. Whether it has actually shifted that balance in practice, or simply changed the paperwork, is exactly what remains unclear.</p><h2>Why landlords should still be paying attention</h2><p>For landlords, the early months of any major legal change tend to be the most disruptive, not because the rules themselves are necessarily harder to follow, but because everyone involved, from agents to landlords to tenants, is still working out what compliance actually looks like day to day. Property Notify's analysis suggests some of the biggest feared problems have not clearly materialised, but it is equally clear that the full implications of the Act have not yet worked through the system.</p><p>That uncertainty has practical consequences. Landlords who are unsure how new obligations affect their existing tenancies, or who are weighing up whether to expand, restructure or exit parts of a portfolio while the rules bed in, often need to make quick financial decisions without the luxury of waiting for total clarity. For those considering how to fund a purchase, refinance an existing property or restructure borrowing across a portfolio while the regulatory picture settles, it can help to understand how <a href=\"https://boxxfinance.co.uk/insights/bridging-finance-for-buy-to-let\">bridging finance for buy-to-let</a> works and where it fits alongside more traditional lending.</p><h2>What tenants should realistically expect</h2><p>For tenants, the picture is similarly mixed. The Act was sold as a significant improvement in rights and security, but a change in law does not automatically translate into a change in lived experience overnight. Enforcement, awareness of new rights, and how quickly landlords and agents adapt their practices all take time to filter through. Tenants hoping for an immediate and obvious shift in how they are treated may find the reality is more gradual, and in some cases harder to pin down, than the headlines suggested back in the spring.</p><h2>The bigger picture for the rental market</h2><p>Perhaps the most useful takeaway is simply that neither side of the debate has been proven right yet. The loudest fears about the Act causing landlords to flee the sector, and the loudest hopes about it transforming conditions for tenants, both remain, for now, more assertion than evidence. That is not unusual for legislation of this scale. Big changes to housing law tend to reveal their real effects slowly, through court decisions, tribunal cases, and the accumulated experience of thousands of individual tenancies, rather than in the first few months after the ink dries.</p><h2>Frequently Asked Questions</h2><h3>Has the Renters' Rights Act made renting better for tenants?</h3><p>It is too early to say definitively. According to Property Notify's analysis, the full impact of the Act has not yet become clear, and there is not yet enough evidence to confirm whether it has genuinely improved conditions for tenants in practice.</p><h3>Are landlords facing more problems because of the Act?</h3><p>Not clearly, at least not yet. The analysis suggests that some of the biggest feared problems for landlords and letting agents have not obviously come to pass so far, though the situation is still developing.</p><h3>Should landlords make changes now or wait and see?</h3><p>Many landlords are choosing to review their compliance and financial arrangements now rather than wait for total clarity, since the practical implications of the Act are likely to keep emerging over the coming months.</p><p>If the ongoing uncertainty around the Renters' Rights Act has you rethinking how a property purchase, refinance or portfolio change is funded, it's worth exploring the options set out on Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> page.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
