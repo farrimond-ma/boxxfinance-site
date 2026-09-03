@@ -8,28 +8,39 @@ const REPO = 'farrimond-ma/boxxfinance-site';
 const GH   = `https://api.github.com/repos/${REPO}/actions/workflows`;
 
 // ─── Workflow definitions ─────────────────────────────────────────────────────
+// 2026-09-03: rewritten against the actual .github/workflows/*.yml files —
+// this had drifted to list three retired blog workflows (publish-blog.yml
+// consolidated them on 2026-08-17) while omitting several real ones,
+// including the personal-finance news publisher and the index coverage
+// watchdog. If a workflow is renamed or retired, this list goes stale again;
+// check .github/workflows/ against this array occasionally.
 const WORKFLOWS = [
   // Daily publishing
-  { id: 'publish-blog.yml',          label: 'Blog Publisher (AM)',       group: 'daily',   schedule: 'Daily 7:37am + 1:37pm BST' },
-  { id: 'publish-blog-pm.yml',       label: 'Blog Publisher (PM)',       group: 'daily',   schedule: 'Daily 11:07am + 4:07pm BST' },
-  { id: 'publish-blog-trigger.yml',  label: 'Blog Publisher (Trigger-event)', group: 'daily', schedule: 'Daily 9:15am BST' },
-  { id: 'publish-location.yml',      label: 'Location Pages',            group: 'daily',   schedule: 'Daily ~9am BST' },
-  { id: 'update-internal-links.yml', label: 'Internal Links Updater',    group: 'daily',   schedule: 'Weekdays ~12:30pm BST' },
+  { id: 'publish-blog.yml',                 label: 'Blog Publisher',              group: 'daily', schedule: '07:37, 14:37, 19:37 UK — bridging ×2, focus-service ×1' },
+  { id: 'publish-personal-finance-news.yml',label: 'Personal Finance News',        group: 'daily', schedule: 'Several times daily, weekdays' },
+  { id: 'publish-location.yml',             label: 'Location Pages',              group: 'daily', schedule: 'Daily ~9:09am UK, 2/day' },
+  { id: 'update-internal-links.yml',        label: 'Internal Links Updater',       group: 'daily', schedule: 'Weekdays ~12:30pm UK' },
   // Social media
   { id: 'publish-linkedin.yml',      label: 'LinkedIn',                  group: 'social',  schedule: 'Weekdays after blog' },
-  { id: 'publish-facebook.yml',      label: 'Facebook',                  group: 'social',  schedule: 'Weekdays 9:30am + 3:30pm BST' },
-  { id: 'publish-instagram.yml',     label: 'Instagram',                 group: 'social',  schedule: 'Weekdays 10am + 4pm BST' },
-  { id: 'publish-pinterest.yml',     label: 'Pinterest',                 group: 'social',  schedule: 'Weekdays 11am + 3:30pm BST' },
-  { id: 'publish-facebook-reels.yml',label: 'Facebook Reels & TikTok',  group: 'social',  schedule: 'Weekdays noon + 5pm BST' },
+  { id: 'publish-linkedin-news.yml', label: 'LinkedIn (news)',           group: 'social',  schedule: 'After news publisher' },
+  { id: 'publish-facebook.yml',      label: 'Facebook',                  group: 'social',  schedule: 'Weekdays 9:30am + 3:30pm UK' },
+  { id: 'publish-instagram.yml',     label: 'Instagram',                 group: 'social',  schedule: 'Weekdays 10am + 4pm UK' },
+  { id: 'publish-pinterest.yml',     label: 'Pinterest',                 group: 'social',  schedule: 'Weekdays 11am + 3:30pm UK' },
+  { id: 'publish-facebook-reels.yml',label: 'Facebook Reels & TikTok (paused)', group: 'social', schedule: 'Paused' },
   { id: 'publish-reddit.yml',        label: 'Reddit',                    group: 'social',  schedule: 'Mon & Thu after monitor' },
   // SEO & visibility
   { id: 'seo-audit.yml',             label: 'SEO Audit',                 group: 'seo',     schedule: 'After each blog + Mondays' },
   { id: 'visibility-check.yml',      label: 'AI Visibility Checker',     group: 'seo',     schedule: 'Mondays 7am UTC' },
   { id: 'sync-content-engine.yml',   label: 'Visibility Gap Scheduler',  group: 'seo',     schedule: 'After AI visibility check' },
+  { id: 'index-coverage.yml',        label: 'Index Coverage Watchdog',   group: 'seo',     schedule: 'Weekly' },
   { id: 'regenerate-sitemap.yml',    label: 'Sitemap Regeneration',      group: 'seo',     schedule: 'On content changes' },
   // Infrastructure
   { id: 'deploy.yml',                label: 'Site Deploy',               group: 'infra',   schedule: 'On every push' },
+  { id: 'system-status.yml',         label: 'System Status Generator',   group: 'infra',   schedule: 'After each publisher' },
+  { id: 'failure-watchdog.yml',      label: 'Failure Watchdog',          group: 'infra',   schedule: 'On workflow failure' },
+  { id: 'seed-content-engine.yml',   label: 'Seed Content Engine',       group: 'infra',   schedule: 'Monthly, 1st' },
   { id: 'populate-content-engine.yml',label:'Content Schedule (Quarterly)',group:'infra',  schedule: '1 Jan / Apr / Jul / Oct' },
+  { id: 'add-service-topics.yml',    label: 'Add Focus-Service Topics',  group: 'infra',   schedule: 'Manual' },
 ];
 
 const GROUPS = [
@@ -117,6 +128,8 @@ export default function ContentDashboard() {
   const [lastFetch, setLastFetch] = useState(null);
   const [activity, setActivity] = useState(null);
   const [activityError, setActivityError] = useState(false);
+  const [pipeline, setPipeline] = useState(null);
+  const [pipelineError, setPipelineError] = useState(false);
 
   async function fetchActivity() {
     try {
@@ -126,6 +139,21 @@ export default function ContentDashboard() {
       setActivityError(false);
     } catch {
       setActivityError(true);
+    }
+  }
+
+  // The ContentEngine sheet queue itself — separate file from system-status.json
+  // (which answers "did today's jobs run"), generated by
+  // generate-content-engine-status.js server-side so the sheet is never read
+  // from the browser.
+  async function fetchPipeline() {
+    try {
+      const res = await fetch(`/content-engine-status.json?t=${Date.now()}`);
+      if (!res.ok) throw new Error(String(res.status));
+      setPipeline(await res.json());
+      setPipelineError(false);
+    } catch {
+      setPipelineError(true);
     }
   }
 
@@ -154,7 +182,7 @@ export default function ContentDashboard() {
     setLoading(false);
   }
 
-  useEffect(() => { fetchRuns(); fetchActivity(); }, []);
+  useEffect(() => { fetchRuns(); fetchActivity(); fetchPipeline(); }, []);
 
   const failedCount  = WORKFLOWS.filter(w => runs[w.id]?.conclusion === 'failure').length;
   const successCount = WORKFLOWS.filter(w => runs[w.id]?.conclusion === 'success').length;
@@ -200,6 +228,183 @@ export default function ContentDashboard() {
               <div style={{ fontSize: '0.78rem', color: '#6b7280', marginTop: 4 }}>{s.label}</div>
             </div>
           ))}
+        </div>
+
+        {/* ── Content pipeline — the ContentEngine sheet itself ── */}
+        <div style={{ marginBottom: '2.5rem' }}>
+          <h2 style={{
+            fontSize: '1.1rem', fontWeight: 700, color: '#031b49',
+            borderBottom: '2px solid #031b49', paddingBottom: '0.5rem', marginBottom: '0.25rem',
+          }}>
+            🗂️ Content Pipeline
+          </h2>
+          <p style={{ fontSize: '0.78rem', color: '#9ca3af', margin: '0 0 0.75rem' }}>
+            A read-only snapshot of the ContentEngine spreadsheet queue — what's scheduled, what's
+            published, and what the duplicate-coverage guard has skipped. Refreshes after each
+            publisher run.
+            {pipeline && ` Snapshot taken ${londonDateTime(pipeline.generatedAt)}.`}
+          </p>
+
+          {pipelineError && (
+            <div style={{ background: '#fffbeb', border: '1px solid #fbbf24', borderRadius: 8, padding: '1rem 1.25rem' }}>
+              <strong style={{ color: '#92400e' }}>Pipeline snapshot not available yet.</strong>
+              <p style={{ margin: '0.4rem 0 0', fontSize: '0.85rem', color: '#78350f' }}>
+                Run the <a href={`https://github.com/${REPO}/actions/workflows/system-status.yml`} target="_blank" rel="noopener noreferrer">System Status Generator</a> workflow
+                once to create it — it then refreshes automatically after every publisher run.
+              </p>
+            </div>
+          )}
+
+          {pipeline && (
+            <>
+              {/* Overview counts */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                {[
+                  { label: 'Scheduled', value: pipeline.byStatus.scheduled || 0, color: '#0369a1' },
+                  { label: 'Published', value: pipeline.byStatus.published || 0, color: '#065f46' },
+                  { label: 'Skipped (duplicate)', value: pipeline.byStatus.duplicate || 0, color: '#92400e' },
+                  { label: 'Total rows', value: pipeline.totalRows, color: '#6b7280' },
+                ].map(s => (
+                  <div key={s.label} style={{
+                    background: '#fff', borderRadius: 8, padding: '1rem',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.08)', textAlign: 'center',
+                  }}>
+                    <div style={{ fontSize: '1.6rem', fontWeight: 800, color: s.color }}>{s.value}</div>
+                    <div style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: 4 }}>{s.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Per-service breakdown (blog rows) */}
+              <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#2d6a4f', margin: '0 0 0.5rem' }}>
+                Blog articles by service
+              </h3>
+              <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.08)', overflow: 'hidden', marginBottom: '1.5rem' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ background: '#f8fafc' }}>
+                      {['Service', 'Scheduled', 'Published', 'Duplicate (skipped)'].map(h => (
+                        <th key={h} style={{
+                          padding: '0.6rem 1rem', textAlign: h === 'Service' ? 'left' : 'center',
+                          fontSize: '0.75rem', fontWeight: 600, color: '#6b7280',
+                          borderBottom: '1px solid #e5e7eb', textTransform: 'uppercase', letterSpacing: '0.05em',
+                        }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(pipeline.serviceBreakdown)
+                      .sort((a, b) => (b[1].published + b[1].scheduled) - (a[1].published + a[1].scheduled))
+                      .map(([service, counts], idx, arr) => (
+                        <tr key={service} style={{ borderBottom: idx === arr.length - 1 ? 'none' : '1px solid #f3f4f6' }}>
+                          <td style={{ padding: '0.6rem 1rem', fontWeight: 500, fontSize: '0.85rem', color: '#1f2937' }}>{service}</td>
+                          <td style={{ padding: '0.6rem 1rem', textAlign: 'center', fontSize: '0.85rem', color: '#0369a1', fontWeight: 600 }}>{counts.scheduled}</td>
+                          <td style={{ padding: '0.6rem 1rem', textAlign: 'center', fontSize: '0.85rem', color: '#065f46', fontWeight: 600 }}>{counts.published}</td>
+                          <td style={{ padding: '0.6rem 1rem', textAlign: 'center', fontSize: '0.85rem', color: counts.duplicate > 0 ? '#92400e' : '#d1d5db' }}>{counts.duplicate}</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Location queue health */}
+              <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#2d6a4f', margin: '0 0 0.5rem' }}>
+                Location page queue
+              </h3>
+              <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.08)', padding: '1rem 1.25rem', marginBottom: '1.5rem', fontSize: '0.85rem', color: '#1f2937' }}>
+                {pipeline.locationQueue.remaining === 0 ? (
+                  <span style={{ color: '#991b1b', fontWeight: 600 }}>⚠ Queue is empty — refill with Seed Content Engine before the next run.</span>
+                ) : (
+                  <>
+                    <strong>{pipeline.locationQueue.remaining}</strong> location page(s) queued
+                    (~<strong>{pipeline.locationQueue.estimatedDaysRemaining}</strong> day{pipeline.locationQueue.estimatedDaysRemaining === 1 ? '' : 's'} at 2/day)
+                    {' · '}
+                    {Object.entries(pipeline.locationQueue.byService).map(([s, n]) => `${s}: ${n}`).join(', ')}
+                  </>
+                )}
+              </div>
+
+              {/* Two-column: upcoming + recently published */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+                <div>
+                  <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#2d6a4f', margin: '0 0 0.5rem' }}>
+                    Coming up next
+                  </h3>
+                  <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+                    {pipeline.upcoming.length === 0 ? (
+                      <div style={{ padding: '1rem 1.25rem', fontSize: '0.85rem', color: '#6b7280' }}>Nothing scheduled.</div>
+                    ) : (
+                      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <tbody>
+                          {pipeline.upcoming.map((r, idx) => (
+                            <tr key={idx} style={{ borderBottom: idx === pipeline.upcoming.length - 1 ? 'none' : '1px solid #f3f4f6' }}>
+                              <td style={{ padding: '0.55rem 0.9rem', fontSize: '0.78rem', color: r.overdue ? '#991b1b' : '#9ca3af', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                                {r.date}{r.overdue ? ' ⚠' : ''}
+                              </td>
+                              <td style={{ padding: '0.55rem 0.9rem', fontSize: '0.82rem', color: '#1f2937' }}>
+                                {r.title || `${r.type} — ${r.city || r.service}`}
+                                <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>{r.service}{r.city ? ` · ${r.city}` : ''}</div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#2d6a4f', margin: '0 0 0.5rem' }}>
+                    Recently published
+                  </h3>
+                  <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+                    {pipeline.recentlyPublished.length === 0 ? (
+                      <div style={{ padding: '1rem 1.25rem', fontSize: '0.85rem', color: '#6b7280' }}>Nothing published yet.</div>
+                    ) : (
+                      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <tbody>
+                          {pipeline.recentlyPublished.map((r, idx) => (
+                            <tr key={idx} style={{ borderBottom: idx === pipeline.recentlyPublished.length - 1 ? 'none' : '1px solid #f3f4f6' }}>
+                              <td style={{ padding: '0.55rem 0.9rem', fontSize: '0.78rem', color: '#9ca3af', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                                {londonDateTime(r.publishedAt)}
+                              </td>
+                              <td style={{ padding: '0.55rem 0.9rem', fontSize: '0.82rem' }}>
+                                {r.url ? (
+                                  <a href={r.url} target="_blank" rel="noopener noreferrer" style={{ color: '#031b49' }}>{r.title}</a>
+                                ) : r.title}
+                                <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>{r.service}</div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Skipped duplicates — only shown when there are any */}
+              {pipeline.skippedDuplicates.length > 0 && (
+                <>
+                  <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#92400e', margin: '1.5rem 0 0.5rem' }}>
+                    Skipped as duplicate coverage
+                  </h3>
+                  <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                      <tbody>
+                        {pipeline.skippedDuplicates.map((r, idx) => (
+                          <tr key={idx} style={{ borderBottom: idx === pipeline.skippedDuplicates.length - 1 ? 'none' : '1px solid #f3f4f6' }}>
+                            <td style={{ padding: '0.55rem 0.9rem', fontSize: '0.82rem', color: '#1f2937', width: '40%' }}>{r.title}</td>
+                            <td style={{ padding: '0.55rem 0.9rem', fontSize: '0.78rem', color: '#6b7280' }}>{r.notes || '—'}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
+            </>
+          )}
         </div>
 
         {/* ── Today's Activity Log ── */}
@@ -358,7 +563,7 @@ export default function ContentDashboard() {
         {/* Refresh button */}
         <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'flex-end' }}>
           <button
-            onClick={() => { fetchRuns(); fetchActivity(); }}
+            onClick={() => { fetchRuns(); fetchActivity(); fetchPipeline(); }}
             disabled={loading}
             style={{
               background: '#031b49', color: '#fff', border: 'none',
