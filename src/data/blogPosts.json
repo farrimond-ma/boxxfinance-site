@@ -16244,5 +16244,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1788437147623,
+    "status": "published",
+    "slug": "heatwave-subsidence-risk-uk-homeowners",
+    "url": "/insights/heatwave-subsidence-risk-uk-homeowners",
+    "title": "Hot Weather Subsidence: What Cracking Walls and Clay Soil Mean for Your Home's Value",
+    "excerpt": "Prolonged heatwaves can dry out clay soil and cause foundations to shift, leading to subsidence. Here's what that means for insurance, repairs and property value.",
+    "metaTitle": "Heatwave Subsidence: What It Means for UK Homeowners",
+    "metaDescription": "Hot weather can cause subsidence in clay-soil areas. Here's what UK homeowners need to know about insurance, repair costs and property value.",
+    "keywords": "mortgage, landlord, remortgage, homeowner",
+    "date": "2026-09-03",
+    "publishedAt": "2026-09-03T12:05:47.623Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/heatwave-subsidence-risk-uk-homeowners.webp",
+    "heroVersion": 30683430,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does buildings insurance cover subsidence damage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most standard buildings insurance policies do cover subsidence, but claims can affect future premiums and how easily you can get cover elsewhere afterwards. It's worth checking your specific policy wording, since cover and excess levels vary between insurers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will subsidence affect my ability to sell or remortgage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can. A history of subsidence, even after repair, is something you're typically required to disclose to buyers and lenders, and it can make surveys and mortgage approval more cautious until the property has been properly assessed or underpinned."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know if cracks in my home are serious?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cracks that are wider at the top than the bottom, appear suddenly, or run near door and window frames are worth having checked by a structural surveyor. Not all cracking indicates subsidence, but it's better to get a professional opinion than to assume it's purely cosmetic."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Long dry spells and successive heatwaves this year have left some UK homeowners noticing cracks appearing in walls, doors sticking, or gaps opening up around windows and door frames. As <a href=\"https://www.theguardian.com/money/2026/sep/03/uk-homeowners-has-the-hot-weather-damaged-your-property\">reported by The Guardian</a>, this is often a sign of subsidence, a problem that becomes more common during dry periods in areas where homes sit on clay-rich soil.</p><p>The mechanism is straightforward. During a prolonged dry spell, trees and shrubs draw moisture out of the ground to survive. In clay soil, that moisture loss causes the clay itself to shrink and contract. As the ground beneath a property shrinks, the foundations can drop unevenly, and that movement shows up as structural problems in the building above. This isn't a new phenomenon in the UK, but it becomes more of a live issue whenever the country experiences a run of hot, dry weather, as it has this year.</p><h2>Why this matters beyond the cracks themselves</h2><p>For most homeowners, the immediate worry is the physical damage: cracked plaster, sticking doors, or visible movement in brickwork. But the knock-on effects are often more significant than the repair itself. Subsidence has a habit of complicating things well beyond the cost of fixing a wall.</p><p>Insurance is usually the first place this bites. Buildings insurance typically covers subsidence, but a claim can affect future premiums, and some insurers become more cautious about renewing cover on a property with a subsidence history. If you're planning to sell in the next few years, a past claim or ongoing monitoring can also need to be disclosed to buyers, which can slow down a sale or affect the price a buyer is willing to offer.</p><p>Valuations and mortgage decisions are the other pressure point. Lenders and surveyors take subsidence seriously, and a property with confirmed or suspected structural movement can be harder to mortgage or remortgage until the issue has been investigated and, where necessary, remediated. That matters not just for owners looking to sell, but for landlords relying on a property's value to support borrowing, and for anyone hoping to release equity from their home.</p><h2>What homeowners on clay soil should be watching for</h2><p>Not every crack means subsidence, and not every property is equally at risk. The properties most exposed are generally those built on clay-rich ground, particularly older houses with shallower foundations, and those close to large trees or hedges whose roots can draw moisture from a wide area. Warning signs tend to include cracks that are wider at the top than the bottom, cracks around door and window frames, and doors or windows that suddenly stick when they didn't before.</p><p>If you notice any of these signs, the sensible first step is usually to get a structural survey rather than assume the worst, since some cracking is simply cosmetic and linked to normal seasonal movement rather than genuine subsidence. Where subsidence is confirmed, insurers will typically want to be involved early, since delaying a claim can sometimes make matters worse and more expensive to put right.</p><h2>What this means for landlords and buyers</h2><p>Landlords with older properties, especially those in known clay areas, may want to factor subsidence risk into maintenance budgets rather than treating it as a one-off shock. For buyers, it's worth asking directly about any history of subsidence or underpinning work during the purchase process, since this can affect both the mortgage offer and the long-term cost of ownership.</p><p>Where repair or underpinning work is needed and timing is tight, for example if a sale is progressing and remedial work needs funding quickly, some homeowners and landlords look at short-term finance options to bridge the gap between identifying the problem and having insurance or savings cover the cost. Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> hub outlines some of the options available for property owners who need to move quickly on works or transactions.</p><h2>Frequently Asked Questions</h2><h3>Does buildings insurance cover subsidence damage?</h3><p>Most standard buildings insurance policies do cover subsidence, but claims can affect future premiums and how easily you can get cover elsewhere afterwards. It's worth checking your specific policy wording, since cover and excess levels vary between insurers.</p><h3>Will subsidence affect my ability to sell or remortgage?</h3><p>It can. A history of subsidence, even after repair, is something you're typically required to disclose to buyers and lenders, and it can make surveys and mortgage approval more cautious until the property has been properly assessed or underpinned.</p><h3>How do I know if cracks in my home are serious?</h3><p>Cracks that are wider at the top than the bottom, appear suddenly, or run near door and window frames are worth having checked by a structural surveyor. Not all cracking indicates subsidence, but it's better to get a professional opinion than to assume it's purely cosmetic.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
