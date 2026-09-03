@@ -1,0 +1,93 @@
+{
+  "_comment": "Homeowner-equity-weighted town list for secured loan and second charge location pages. Deliberately close to the INVERSE of landlordCities.json: secured borrowing needs mortgaged owner-occupiers with equity, which means commuter and suburban towns, not the northern rental cities that suit buy-to-let refinance. Research and sourcing: docs/secured-loan-cities-research.md. Every town listed already has a bridging location page. Not yet wired into any seeder.",
+  "service": "Secured Loans",
+  "alsoServes": "Second Charge Mortgages",
+  "tiers": [
+    {
+      "tier": 1,
+      "label": "Southern commuter belt — peak mortgaged ownership",
+      "rationale": "The local authorities with the highest share of households owning with a mortgage are all in the south or east: Wokingham 42.0%, Dartford 41.0%, Hart 40.2%, Bracknell Forest 39.7%, Central Bedfordshire 39.3%. Mortgaged owner-occupiers with equity are exactly the second charge market. The South East also holds the highest median household wealth in Britain at £503,400, most of it property.",
+      "cities": [
+        "Wokingham",
+        "Bracknell",
+        "Reading",
+        "Slough",
+        "Watford",
+        "St Albans",
+        "High Wycombe",
+        "Aylesbury",
+        "Milton Keynes",
+        "Bedford",
+        "Basingstoke",
+        "Guildford",
+        "Woking",
+        "Crawley",
+        "Horsham",
+        "Maidstone",
+        "Chelmsford",
+        "Basildon",
+        "Harlow",
+        "Stevenage"
+      ]
+    },
+    {
+      "tier": 2,
+      "label": "Scotland and the Central Belt — home market",
+      "rationale": "Boxx is Coatbridge-based, and Lanarkshire and the wider Central Belt are owner-occupier territory with modest prices and long tenure. Lower absolute equity than the South East, but a local broker has an advantage here that it does not have in Surrey. Scottish secured lending also differs in process — standard securities rather than legal charges — so the copy must not simply be an English page renamed.",
+      "cities": [
+        "Coatbridge",
+        "Motherwell",
+        "Hamilton",
+        "East Kilbride",
+        "Cumbernauld",
+        "Falkirk",
+        "Livingston",
+        "Paisley",
+        "Stirling",
+        "Perth",
+        "Ayr",
+        "Kilmarnock",
+        "Dunfermline",
+        "Kirkcaldy",
+        "Inverness"
+      ]
+    },
+    {
+      "tier": 3,
+      "label": "Regional cities and market towns with settled ownership",
+      "rationale": "Mid-priced towns with high owner-occupation, established equity and enough population to generate volume. Weaker per-lead value than tier 1 but far less competitive, and several are places where a specialist broker can rank quickly.",
+      "cities": [
+        "Northampton",
+        "Peterborough",
+        "Swindon",
+        "Gloucester",
+        "Cheltenham",
+        "Worcester",
+        "Telford",
+        "Shrewsbury",
+        "Lincoln",
+        "York",
+        "Harrogate",
+        "Chester",
+        "Macclesfield",
+        "Warrington",
+        "Solihull",
+        "Colchester",
+        "Ipswich",
+        "Southend-on-Sea",
+        "Exeter",
+        "Taunton",
+        "Bath",
+        "Salisbury",
+        "Winchester",
+        "Tunbridge Wells",
+        "Bournemouth",
+        "Poole",
+        "Newport",
+        "Swansea",
+        "Barry",
+        "Wrexham"
+      ]
+    }
+  ]
+}
