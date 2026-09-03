@@ -1,0 +1,143 @@
+{
+  "_comment": "Curated launch content for the three focus services that had no pipeline behind them (secured loans, bad credit mortgages, buy to let refinance). Hand-written rather than generated: these are the head terms each service page needs supporting content for, chosen so no two overlap and none competes with the service page itself. Queued into the ContentEngine sheet by scripts/content-engine/add-service-topics.js.",
+  "services": [
+    {
+      "service": "Secured Loans",
+      "serviceUrl": "/funding-solutions/secured-loans",
+      "topics": [
+        {
+          "keyword": "secured loan vs remortgage",
+          "title": "Secured Loan or Remortgage: Which Actually Costs You Less?",
+          "brief": "The central decision for anyone raising money against a property they already own. Work the arithmetic properly: the comparison is not the two interest rates, it is the total cost of moving the whole mortgage (including any early repayment charge and new arrangement fees) against the total cost of borrowing the smaller sum at a higher rate. Include at least one fully worked example with real numbers where the secured loan wins, and one where the remortgage wins. Cover the further advance from the existing lender as the third route most people forget."
+        },
+        {
+          "keyword": "secured business loan against property",
+          "title": "Secured Business Loans: What Lenders Want When You Borrow Against Property",
+          "brief": "For business owners securing borrowing against commercial premises, an investment property or their own home. Cover what security does to the terms available, personal guarantees and what they actually mean, the difference between borrowing in a company name and personally, and what lenders assess. Be honest and direct about the risk of securing business debt on a family home, including when it is and is not a reasonable decision."
+        },
+        {
+          "keyword": "how much can you borrow secured loan",
+          "title": "How Much Can You Borrow on a Secured Loan?",
+          "brief": "Explain the two ceilings — available equity (loan to value, typically to around 75% including any existing mortgage) and affordability — and that the lower of the two governs. Work through a full example: property value, outstanding mortgage, equity, maximum LTV, resulting maximum loan. Cover how valuations can come in under expectation and what that does to the figure, and why the amount you can borrow differs from the amount you should."
+        },
+        {
+          "keyword": "secured loan bad credit",
+          "title": "Can You Get a Secured Loan With Bad Credit?",
+          "brief": "Explain why security widens what is possible where credit history is poor, and what the trade-off is in rate. Cover which credit events matter most and how age and severity change the outcome. Link naturally to the bad credit mortgages page for readers whose requirement is a mortgage rather than a loan, and be clear about when waiting a few months would produce a materially better result."
+        },
+        {
+          "keyword": "secured loan home improvements",
+          "title": "Using a Secured Loan for Home Improvements: When It Makes Sense",
+          "brief": "Practical piece on funding extensions, loft conversions and renovations. Compare the realistic routes — savings, unsecured borrowing, further advance, remortgage, secured loan — with honest trade-offs. Cover which improvements typically add value against which do not, and the argument for a term that matches how long you will keep the house rather than the longest term available."
+        },
+        {
+          "keyword": "secured loan on buy to let property",
+          "title": "Secured Loans on Buy To Let Property: Raising Capital Without Selling",
+          "brief": "For landlords raising money against a rental property. Cover how assessment differs from an owner-occupied secured loan (rental income and stress testing rather than personal affordability), first versus second charge on a BTL, consent from the existing lender, and using released capital as a deposit on the next purchase. Link to buy to let refinance for readers whose better route is replacing the mortgage entirely."
+        },
+        {
+          "keyword": "how long does a secured loan take",
+          "title": "How Long Does a Secured Loan Take? A Realistic Timeline",
+          "brief": "Week-by-week timeline from enquiry to funds, typically three to six weeks. Name the specific stages that cause delay — valuation booking, first-charge lender consent, legal work, incomplete documentation — and what the borrower can do in advance to shorten each. Be explicit that where the deadline is tighter than this, a bridging loan is the honest answer rather than a rushed secured loan."
+        },
+        {
+          "keyword": "secured loan early repayment charges",
+          "title": "Secured Loan Early Repayment Charges: What to Check Before You Sign",
+          "brief": "Explain how ERCs are structured on secured loans, how they differ from mortgage ERCs, and why they matter disproportionately for borrowers who expect to refinance once their credit profile improves. Cover the questions to ask before committing and how to weigh a lower rate with a long tie-in against a higher rate with none."
+        }
+      ]
+    },
+    {
+      "service": "Bad Credit Mortgages",
+      "serviceUrl": "/funding-solutions/bad-credit-mortgages",
+      "topics": [
+        {
+          "keyword": "mortgage with a default",
+          "title": "Getting a Mortgage With a Default on Your Credit File",
+          "brief": "Explain how lenders assess defaults: age above all, then size, then whether satisfied. Give a realistic picture of what is available at different points — under 12 months, one to three years, over three years — and how the deposit requirement moves with it. Cover the difference a satisfied default makes, and why a small telecoms default is treated differently from a large credit default."
+        },
+        {
+          "keyword": "mortgage with a CCJ",
+          "title": "Can You Get a Mortgage With a CCJ?",
+          "brief": "Cover what a County Court Judgment does to a mortgage application, the significant difference between satisfied and unsatisfied, the six-year register period, and the set-aside process where the CCJ was wrongly issued. Give realistic LTV and rate expectations at different ages of judgment, and explain why paying off an unsatisfied CCJ before applying is usually the highest-value thing a borrower can do."
+        },
+        {
+          "keyword": "mortgage after bankruptcy",
+          "title": "Getting a Mortgage After Bankruptcy: What's Realistic and When",
+          "brief": "Map the timeline from discharge onwards — what is available at one year, three years and six years, and the deposit each realistically requires. Cover the difference between discharge and the bankruptcy leaving the credit file, why lenders ask what caused it, and what evidence of recovery helps. Sober and practical rather than encouraging: some readers should wait."
+        },
+        {
+          "keyword": "mortgage after an IVA",
+          "title": "Mortgages After an IVA: During, After and How Long to Wait",
+          "brief": "Cover both situations — an IVA still running (a small number of lenders will consider it, usually with permission from the insolvency practitioner) and one completed. Explain the six-year visibility on the credit file, how lenders treat the completion date versus the start date, and the deposit levels typically required at each stage."
+        },
+        {
+          "keyword": "mortgage with late payments",
+          "title": "Missed and Late Payments: How Much Do They Really Affect a Mortgage?",
+          "brief": "The most common form of adverse credit and the least understood. Explain the difference between a single late payment on a credit card and a pattern of missed payments, why arrears on a mortgage or rent weigh far heavier than on other credit, how the last six months matter most, and what a borrower can realistically do in that window to improve the picture before applying."
+        },
+        {
+          "keyword": "mortgage with mortgage arrears",
+          "title": "Mortgages After Mortgage Arrears: The Hardest Case, Honestly Explained",
+          "brief": "Lenders treat mortgage arrears as the most serious adverse credit there is, and this article should say so plainly. Cover how recency and the number of missed payments change the outcome, what is available with a larger deposit, and what a clean recent payment history does to rebuild the position. Include a genuine section on when waiting is the better strategy."
+        },
+        {
+          "keyword": "bad credit mortgage deposit",
+          "title": "How Much Deposit Do You Need for a Bad Credit Mortgage?",
+          "brief": "The deposit is the lever the borrower actually controls, so treat it as the centre of the article. Show how the lender pool and the rate change across LTV bands from 85% down to 70%, with worked monthly-cost examples. Cover gifted deposits and what lenders require to evidence them, and make the case for waiting to save more where the arithmetic supports it."
+        },
+        {
+          "keyword": "remortgage with bad credit",
+          "title": "Remortgaging With Bad Credit: Why It's Often Easier Than You Think",
+          "brief": "Remortgaging with adverse credit is frequently more achievable than a purchase, and many homeowners do not realise it. Cover why existing equity and a clean mortgage payment history carry weight, the risk of drifting onto a standard variable rate through inaction, and the strategy of taking a shorter product now with the intention of refinancing again once the adverse credit has aged."
+        }
+      ]
+    },
+    {
+      "service": "Buy To Let Refinance",
+      "serviceUrl": "/funding-solutions/buy-to-let-refinance",
+      "topics": [
+        {
+          "keyword": "when to remortgage buy to let",
+          "title": "When to Start Your Buy To Let Remortgage (It's Earlier Than You Think)",
+          "brief": "Make the case for starting six months before the fixed rate expires, not six weeks. Cover offer validity periods, the cost of reverting to a standard variable rate expressed in real monthly figures, why rate-switch offers from the existing lender are worth checking but rarely the best available, and a month-by-month checklist for the six months before expiry."
+        },
+        {
+          "keyword": "release equity from rental property",
+          "title": "Releasing Equity From a Rental Property to Fund the Next Purchase",
+          "brief": "The mechanism most portfolios are built on. Work a full example: property bought at one value, refinanced at a higher one, capital released, deposit funded, effect on the monthly cashflow of the original property. Be even-handed about the risk — increasing borrowing against an existing asset raises the stress on it — and cover what rental cover requirements do to how much can actually be released."
+        },
+        {
+          "keyword": "limited company buy to let refinance",
+          "title": "Refinancing Buy To Let Through a Limited Company",
+          "brief": "Cover SPV structures, how lender choice and pricing differ from personal-name borrowing, personal guarantees as standard, and stress testing differences. Be explicit that moving an existing personally-held property into a company is a sale and repurchase with stamp duty and potential capital gains implications, and that the tax question belongs with an accountant rather than a broker."
+        },
+        {
+          "keyword": "portfolio landlord mortgage rules",
+          "title": "Portfolio Landlord Rules: What Changes at Four Properties",
+          "brief": "Explain the PRA definition and what actually changes on application — whole-portfolio review, background stress testing across every property, portfolio schedules, business plans and cash flow forecasts. Cover how one underperforming property can affect an application on a strong one, and what landlords should prepare in advance to make these applications go smoothly."
+        },
+        {
+          "keyword": "bridging loan exit buy to let mortgage",
+          "title": "Exiting a Bridging Loan Onto a Buy To Let Mortgage",
+          "brief": "The most common bridging exit there is, and the point at which many deals go wrong. Cover what term lenders require before they will refinance — works signed off, property let or lettable, minimum ownership periods — the six-month rule and the specialist lenders who will lend on current value from day one, and the timeline for starting the refinance before the bridge term expires. Link back to bridging loans."
+        },
+        {
+          "keyword": "buy to let stress test explained",
+          "title": "Buy To Let Stress Tests: Why Your Rent Decides Your Loan",
+          "brief": "Explain interest cover ratio and stressed rates in plain language, with worked examples showing how the same property supports very different loan sizes under different ICR and stress assumptions. Cover why five-year fixes are often stressed more generously and what that means in practice, and how personal-name and limited company applications differ. This is the single most useful thing a landlord can understand about BTL lending."
+        },
+        {
+          "keyword": "refinance after refurbishment",
+          "title": "Refinancing a Rental After Refurbishment: Getting Your Capital Back Out",
+          "brief": "Cover refinancing on the improved value rather than the purchase price — the mechanism that recycles capital in a buy-refurbish-refinance strategy. Explain the six-month rule and the lenders who work around it, how to evidence the works and the uplift to a surveyor, and what to do when the valuation comes in below expectation, which is the most common failure point."
+        },
+        {
+          "keyword": "buy to let refinance bad credit",
+          "title": "Buy To Let Refinance With Adverse Credit",
+          "brief": "Landlords with credit issues often assume they are stuck on a reversion rate, and frequently are not. Cover why strong rental cover and modest loan to value can carry an application that would fail on personal credit alone, how specialist BTL lenders assess adverse credit, and when the better route is to reduce the loan rather than chase the same amount. Link to the bad credit mortgages page."
+        }
+      ]
+    }
+  ]
+}

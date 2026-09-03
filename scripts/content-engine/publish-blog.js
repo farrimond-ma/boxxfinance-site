@@ -232,9 +232,11 @@ async function getSheetsClient() {
 // (e.g. for a manual workflow_dispatch test run) — unset, it uses the merged
 // priority order above.
 //
-// SERVICE_FILTER (optional): if set, only publish rows for that service.
-// e.g. SERVICE_FILTER=Bridging Finance restricts to bridging finance content
-// during the strategic pivot period.
+// SERVICE_FILTER (optional): comma-separated list of services to publish.
+// e.g. SERVICE_FILTER="Bridging Finance,Secured Loans" restricts the queue to
+// those two. Left unset, every scheduled row is eligible — which is why it is
+// set in publish-blog.yml: the sheet still holds rows for services the site no
+// longer promotes, and an empty filter would start publishing them again.
 const SLOT_PRIORITY = ['TRIGGER', 'AM', 'PM'];
 
 // ─── Duplicate-coverage guard ─────────────────────────────────────────────────
@@ -348,7 +350,13 @@ async function getScheduledRow(sheets) {
   const slots = process.env.PUBLISH_SLOT
     ? [process.env.PUBLISH_SLOT.toUpperCase()]
     : SLOT_PRIORITY;
-  const serviceFilter = (process.env.SERVICE_FILTER || '').trim().toLowerCase();
+  // Comma-separated list. Was a single value during the bridging-only pivot;
+  // the site now runs six focus services, so a row for any of them may be due.
+  // A single value still works unchanged.
+  const serviceFilter = (process.env.SERVICE_FILTER || '')
+    .split(',')
+    .map(s => s.trim().toLowerCase())
+    .filter(Boolean);
 
   // A2:AD, not A2:AC — column AD carries contentFramework (e.g. 'trigger-event'),
   // an unused trailing column reused rather than inserted, so every other
@@ -361,8 +369,8 @@ async function getScheduledRow(sheets) {
   const rows = res.data.values || [];
   const today = new Date().toISOString().split('T')[0];
 
-  if (serviceFilter) {
-    console.log(`  SERVICE_FILTER active: only publishing "${process.env.SERVICE_FILTER}" content`);
+  if (serviceFilter.length) {
+    console.log(`  SERVICE_FILTER active: only publishing ${serviceFilter.length} service(s) — ${process.env.SERVICE_FILTER}`);
   }
 
   const buildRow = (row, i) => ({
@@ -401,7 +409,7 @@ async function getScheduledRow(sheets) {
       const publishSlot = (row[4] || 'AM').toUpperCase().trim();
       const service     = (row[5] || '').trim();
 
-      if (serviceFilter && service.toLowerCase() !== serviceFilter) continue;
+      if (serviceFilter.length && !serviceFilter.includes(service.toLowerCase())) continue;
       if (type === 'blog' && status === 'scheduled' && publishDate <= today && publishSlot === slot) {
         candidates.push(buildRow(row, i));
       }

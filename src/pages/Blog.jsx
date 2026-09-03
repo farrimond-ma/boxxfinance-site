@@ -21,6 +21,13 @@ const displayService = (s) => {
 // image, then a sensible default, so no card is ever imageless or broken.
 const SERVICE_FALLBACK = {
     'Bridging Loans': '/images/hero/bridging-3.webp',
+    // Focus services added 2026-09. Their service heroes are fetched by the
+    // Fetch Hero Images workflow; until that runs these fall through to
+    // DEFAULT_IMG rather than breaking.
+    'Secured Loans': '/images/hero/service-secured-loans.webp',
+    'Bad Credit Mortgages': '/images/hero/service-bad-credit-mortgages.webp',
+    'Buy To Let Refinance': '/images/hero/service-buy-to-let-refinance.webp',
+    'Second Charge Mortgages': '/images/hero/service-second-charge-mortgages.webp',
     'Business Loans': '/images/hero/service-business-loans.webp',
     'Commercial Mortgages': '/images/hero/service-commercial-mortgages.webp',
     'Development Finance': '/images/hero/service-development-finance.webp',

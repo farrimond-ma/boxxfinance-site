@@ -62,6 +62,12 @@ jobs:
           PEXELS_API_KEY:    ${{ secrets.PEXELS_API_KEY }}
           GITHUB_OWNER:      farrimond-ma
           GITHUB_REPO:       boxxfinance-site
-          SERVICE_FILTER:             Bridging Finance
+          # Comma-separated. Bridging remains the bulk of the queue; the three
+          # newer focus services were added 2026-09 when they got their first
+          # queued content (add-service-topics.js). Services the site no longer
+          # promotes are deliberately absent — the sheet still holds scheduled
+          # rows for them, and removing this filter entirely would start
+          # publishing invoice finance and the rest again.
+          SERVICE_FILTER: "Bridging Finance,Secured Loans,Bad Credit Mortgages,Buy To Let Refinance"
         run: node publish-blog.js
         working-directory: scripts/content-engine
