@@ -625,6 +625,29 @@ async function main() {
     published++;
   }
 
+  // The empty-queue path above exits 1, but reaching here having published
+  // nothing was still a green run — every due row can hit the "slug already
+  // exists" skip, mark itself published, and leave `published` at 0. That is
+  // what the daily runs were quietly doing through August: rows were due,
+  // none produced a page, and GitHub showed success every morning.
+  if (published === 0) {
+    const detail =
+      `${dueRows.length} row(s) were due but none produced a page — every one already existed in `
+      + `${LOCATION_FILE} and was marked published. The queue is holding rows for pages that are `
+      + `already live, so it needs refilling with genuinely new cities rather than re-running.`;
+    console.error('\n❌ No location pages published.');
+    console.error(`   ${detail}\n`);
+    if (process.env.GITHUB_STEP_SUMMARY) {
+      try {
+        require('fs').appendFileSync(
+          process.env.GITHUB_STEP_SUMMARY,
+          `## No location pages published\n\n${detail}\n\nRefill with the **Populate Content Engine** workflow.\n`,
+        );
+      } catch { /* non-fatal */ }
+    }
+    process.exit(1);
+  }
+
   console.log(`\n=== Done! Published ${published} location page(s) ===`);
 }
 

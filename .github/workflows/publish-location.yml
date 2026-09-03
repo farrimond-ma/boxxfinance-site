@@ -1,10 +1,21 @@
 name: Publish Location
 
 on:
-  schedule:
-    # 8:09 AM UTC = 9:09 AM UK time (BST). Runs every day. (staggered off :00 to dodge scheduler queueing)
-    # Publishes ALL location pages due today or earlier in one run.
-    - cron: '9 8 * * *'
+  # 2026-09-03: schedule disabled. Location publishing is intentionally paused
+  # (Mark's call). It was still firing daily and reporting SUCCESS while
+  # creating nothing — every due row hit the "slug already exists" branch in
+  # publish-location.js, so the run went green with published === 0. A daily
+  # green tick for work that isn't happening is worse than no run at all, so
+  # the cron is off rather than the failure being left to look like health.
+  #
+  # To resume: uncomment the cron below, then refill the queue with Populate
+  # Content Engine (the seeder's city list was exhausted). publish-location.js
+  # now exits 1 when it publishes nothing, so a green run means real output.
+  #
+  # schedule:
+  #   # 8:09 AM UTC = 9:09 AM UK time (BST). Runs every day. (staggered off :00
+  #   # to dodge scheduler queueing.) Publishes ALL pages due today or earlier.
+  #   - cron: '9 8 * * *'
   workflow_dispatch:
 
 permissions:
