@@ -1,0 +1,77 @@
+{
+  "_comment": "Landlord-weighted city list for future per-service location pages (buy-to-let refinance first). Tiered by landlord concentration rather than population, so the pages target places where landlords actually are. Every city here already has a bridging location page, so local relevance is established. Research and sourcing: docs/landlord-cities-research.md. Not yet wired into any seeder — see that doc for the prerequisites.",
+  "service": "Buy To Let Refinance",
+  "tiers": [
+    {
+      "tier": 1,
+      "label": "High-yield landlord heartlands",
+      "rationale": "Highest gross yields and the biggest landlord share of purchases in the UK. The North East alone accounts for around 28% of purchases by landlords. These are where portfolio landlords are actively buying and therefore actively refinancing.",
+      "cities": [
+        "Sunderland",
+        "Newcastle upon Tyne",
+        "Middlesbrough",
+        "Hull",
+        "Liverpool",
+        "Manchester",
+        "Bradford",
+        "Burnley",
+        "Blackburn",
+        "Blackpool",
+        "Stoke-on-Trent",
+        "Doncaster",
+        "Barnsley",
+        "Bolton",
+        "Wigan",
+        "Salford"
+      ]
+    },
+    {
+      "tier": 2,
+      "label": "Scotland",
+      "rationale": "Boxx is Scotland-based and Scotland is the second-highest yielding region in the UK at 7.6%. Aberdeen (8.3%), Dundee (8.1%) and Glasgow (7.8%) all sit in the national top ten. Note that Scottish content must reflect a different legal regime — landlord registration, Private Residential Tenancies and Scottish rent legislation — so these pages need their own copy, not a re-skin of an English one.",
+      "cities": [
+        "Glasgow",
+        "Edinburgh",
+        "Dundee",
+        "Aberdeen"
+      ]
+    },
+    {
+      "tier": 3,
+      "label": "High private-rented-share cities",
+      "rationale": "Large private rented sectors driven by students and young professionals. Brighton and Hove and Manchester are the highest outside London at 33.2% of dwellings, against an England average of 20.8%. Yields are moderate but landlord density is high, and HMO landlords refinance frequently. City names here match the existing bridging location pages (so 'Brighton', the local authority being Brighton and Hove).",
+      "cities": [
+        "Brighton",
+        "Nottingham",
+        "Leicester",
+        "Sheffield",
+        "Leeds",
+        "Coventry",
+        "Portsmouth",
+        "Southampton",
+        "Norwich",
+        "Cardiff",
+        "Bristol",
+        "Preston",
+        "Plymouth",
+        "Derby",
+        "Wolverhampton",
+        "Stockport",
+        "Rotherham",
+        "Luton",
+        "Birmingham"
+      ]
+    },
+    {
+      "tier": 4,
+      "label": "Low-yield, high-value",
+      "rationale": "Weak yields (London around 5.1%, Oxford 5.0%, Cambridge 4.7%) and high entry costs mean fewer landlord purchases, but loan sizes are far larger, so a single refinance is worth more. Lowest priority by volume, highest by value per enquiry. Do these last.",
+      "cities": [
+        "London",
+        "Reading",
+        "Oxford",
+        "Cambridge"
+      ]
+    }
+  ]
+}
