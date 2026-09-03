@@ -18,6 +18,16 @@ const fs = require('fs');
 const path = require('path');
 const { google } = require('googleapis');
 
+// Towns seeded ahead of the rest of the pool. See the note beside CITY_POOL
+// for why this exists. Keep it short — everything here delays every other town.
+const PRIORITY_CITIES = [
+    'Dartford',    // 41.0% mortgaged ownership — 2nd highest in England
+    'Fleet',       // Hart district, 40.2% — 3rd highest
+    'Sevenoaks',
+    'Stafford',
+    'Airdrie',     // neighbours Coatbridge; an odd gap in the home market
+];
+
 // Cities from the UK_Places sheet tab (UK towns 10,000+ population, maintained
 // by expand-uk-places.js), falling back to the hardcoded list below.
 //
@@ -493,7 +503,16 @@ async function main() {
   // Prefer the maintained UK_Places tab over the hardcoded list, so the
   // seeder can keep going once the built-in cities are exhausted.
   const sheetPlaces          = await loadPlacesFromSheet(sheets);
-  const CITY_POOL            = sheetPlaces.length > 0 ? [...new Set(sheetPlaces)] : LOCATIONS;
+  // PRIORITY_CITIES go to the front of whichever pool is in use. Being in the
+  // pool is not the same as being reached: the seeder walks it in order, two a
+  // day, so a town sitting a few hundred entries down is years away. These
+  // five were identified in docs/secured-loan-cities-research.md as strong
+  // targets with no bridging page — Dartford and Fleet sit first and third in
+  // England for mortgaged home ownership, and Airdrie is next door to the
+  // office. Cities already published are filtered out below as normal, so
+  // leaving names here after they go live is harmless.
+  const basePool             = sheetPlaces.length > 0 ? sheetPlaces : LOCATIONS;
+  const CITY_POOL            = [...new Set([...PRIORITY_CITIES, ...basePool])];
   let maxNumericId = 0;
 
   for (const row of rows) {

@@ -36,6 +36,7 @@ const TOWNS = [
   { place: 'Boston',          country: 'England' },
 
   // England — West Midlands
+  { place: 'Stafford',        country: 'England' },
   { place: 'Cannock',         country: 'England' },
   { place: 'Rugeley',         country: 'England' },
   { place: 'Burntwood',       country: 'England' },
