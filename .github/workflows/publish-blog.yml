@@ -25,9 +25,23 @@ on:
     #
     # Word floors were raised to 3000/3200 at the same time — volume without
     # depth is what made the old high-cadence output read as churn.
-    - cron: '37 6 * * *'   # 07:37 UK (BST)
-    - cron: '37 13 * * *'  # 14:37 UK (BST)
+    #
+    # 2026-09: three runs a day — two bridging, one focus-service. The third
+    # run exists so the newer services (secured loans, bad credit mortgages,
+    # buy to let refinance) get published output without taking a slot from
+    # bridging, which remains the priority. Each run is pinned to its own
+    # SERVICE_FILTER below via github.event.schedule, so the two streams
+    # cannot consume each other's slot. Changing a cron time here means
+    # changing the matching time in that expression.
+    - cron: '37 6 * * *'   # 07:37 UK (BST) — bridging
+    - cron: '37 13 * * *'  # 14:37 UK (BST) — bridging
+    - cron: '37 18 * * *'  # 19:37 UK (BST) — secured loans / bad credit / BTL refinance
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+    inputs:
+      service_filter:
+        description: 'Override SERVICE_FILTER (blank = bridging only)'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -62,12 +76,19 @@ jobs:
           PEXELS_API_KEY:    ${{ secrets.PEXELS_API_KEY }}
           GITHUB_OWNER:      farrimond-ma
           GITHUB_REPO:       boxxfinance-site
-          # Comma-separated. Bridging remains the bulk of the queue; the three
-          # newer focus services were added 2026-09 when they got their first
-          # queued content (add-service-topics.js). Services the site no longer
-          # promotes are deliberately absent — the sheet still holds scheduled
-          # rows for them, and removing this filter entirely would start
-          # publishing invoice finance and the rest again.
-          SERVICE_FILTER: "Bridging Finance,Secured Loans,Bad Credit Mortgages,Buy To Let Refinance"
+          # Per-run, not global: the 19:37 run publishes the three newer focus
+          # services, the other two publish bridging. A manual dispatch defaults
+          # to bridging unless service_filter is given.
+          #
+          # Never leave this unset. The sheet still holds scheduled rows for the
+          # de-listed services (invoice finance and the rest), and an empty
+          # filter means "publish anything", which would start producing them
+          # again.
+          SERVICE_FILTER: >-
+            ${{ github.event.inputs.service_filter != ''
+                && github.event.inputs.service_filter
+                || (github.event.schedule == '37 18 * * *'
+                    && 'Secured Loans,Bad Credit Mortgages,Buy To Let Refinance'
+                    || 'Bridging Finance') }}
         run: node publish-blog.js
         working-directory: scripts/content-engine
