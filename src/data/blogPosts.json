@@ -16300,5 +16300,61 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1788454956066,
+    "status": "published",
+    "slug": "mortgage-rates-lock-in-gilt-yields-rise",
+    "url": "/insights/mortgage-rates-lock-in-gilt-yields-rise",
+    "title": "Why mortgage borrowers are being told to lock in rates now as bond markets wobble",
+    "excerpt": "Rising UK government bond yields are stoking fears that mortgage rates could climb again, prompting brokers to urge borrowers approaching a remortgage or purchase to secure a deal sooner rather than later.",
+    "metaTitle": "Lock in your mortgage rate now, borrowers told",
+    "metaDescription": "UK gilt yields have jumped, raising fears mortgage rates could rise. Here's what it means for homeowners, buyers and landlords considering their next deal.",
+    "keywords": "mortgage rate, mortgage, bank of england, landlord, remortgage, buy-to-let",
+    "date": "2026-09-03",
+    "publishedAt": "2026-09-03T17:02:36.066Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/mortgage-rates-lock-in-gilt-yields-rise.webp",
+    "heroVersion": 37627458,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why do UK gilt yields affect my mortgage rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lenders price fixed-rate mortgages partly based on swap rates, which are influenced by gilt yields and expectations for the Bank of England base rate. When gilt yields rise, it typically becomes more expensive for lenders to fund fixed-rate deals, and they often pass some of that cost on through higher pricing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I lock in a mortgage rate before my current deal ends?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Many lenders let you secure a new rate ahead of your existing deal's expiry, sometimes several months in advance, and some allow you to switch to a better rate later if one appears before your new deal starts. A broker can tell you what your specific lender allows."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if I'm mid-purchase and my mortgage offer is about to expire?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Speak to your broker or lender as soon as possible. Depending on the lender, you may be able to extend the offer, reapply at current rates, or explore short-term finance to keep the purchase moving if there's a delay."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Mortgage borrowers are being urged to secure their next deal sooner rather than later, as turmoil in global bond markets threatens to push borrowing costs higher. UK government borrowing costs have risen sharply, caught up in a worldwide sell-off in government debt, with the yield on 10-year UK gilts climbing above 5.2%, as <a href=\"https://www.buyassociationgroup.com/en-gb/news/borrowers-urged-to-lock-in-mortgage-rates-before-they-rise/\">reported by BuyAssociation</a>. For anyone with a mortgage deal ending soon, or a purchase still working its way through, this is worth paying attention to now rather than waiting.</p><p>Gilt yields matter to mortgage borrowers because lenders use them, alongside swap rates, to price fixed-rate deals. When the cost of government borrowing rises, it tends to feed through into higher pricing on new mortgage products, particularly fixed rates. It doesn't happen overnight, but lenders can and do reprice at short notice when market conditions shift, sometimes with only a few days' notice to brokers.</p><h2>What this means if you're remortgaging soon</h2><p>If your current fixed deal is due to end in the next few months, this is the kind of backdrop where waiting to see what happens can backfire. Many lenders allow borrowers to lock in a new rate weeks or even months ahead of their existing deal expiring, often with the option to switch to a cheaper rate later if one becomes available before completion. Securing a rate now, even provisionally, gives you a safety net against further rises without necessarily committing you to worse terms if the market calms down.</p><h2>Buyers mid-purchase face a similar squeeze</h2><p>Anyone who has had an offer accepted and is going through the conveyancing process is also exposed here. Mortgage offers are typically valid for a set period, but if a purchase drags on and a new application becomes necessary, buyers could find themselves applying into a higher-rate environment than when they first agreed terms. Speaking to a broker now about whether a rate can be secured or extended is a sensible precaution rather than an overreaction.</p><h2>What it means for landlords</h2><p>Landlords with buy-to-let mortgages coming up for renewal face the same pressure, often with less room to absorb higher payments given rental yields are already stretched in many areas. For landlords considering refinancing, raising capital against a property, or restructuring a portfolio, movement in gilt yields is a reminder that the cost of doing so can shift quickly. Where a mortgage isn't the right tool, or timing is tight, some landlords and investors look to alternative short-term finance to bridge a gap while they arrange longer-term borrowing on better terms.</p><h2>Don't panic, but don't be complacent either</h2><p>It's worth being clear that one week's bond market movement doesn't guarantee mortgage rates will keep rising, and gilt yields can fall back just as they can rise. But the direction of travel is the point brokers are making: when borrowing costs are already climbing, there's more to lose by waiting than by acting. Reviewing your options now, even if you don't commit immediately, costs nothing and keeps you ahead of any further repricing.</p><h2>Frequently Asked Questions</h2><h3>Why do UK gilt yields affect my mortgage rate?</h3><p>Lenders price fixed-rate mortgages partly based on swap rates, which are influenced by gilt yields and expectations for the Bank of England base rate. When gilt yields rise, it typically becomes more expensive for lenders to fund fixed-rate deals, and they often pass some of that cost on through higher pricing.</p><h3>Can I lock in a mortgage rate before my current deal ends?</h3><p>Many lenders let you secure a new rate ahead of your existing deal's expiry, sometimes several months in advance, and some allow you to switch to a better rate later if one appears before your new deal starts. A broker can tell you what your specific lender allows.</p><h3>What if I'm mid-purchase and my mortgage offer is about to expire?</h3><p>Speak to your broker or lender as soon as possible. Depending on the lender, you may be able to extend the offer, reapply at current rates, or explore short-term finance to keep the purchase moving if there's a delay.</p><p>For landlords and investors who need funding to move quickly while a mortgage or remortgage is arranged, it's worth understanding the full range of options available, including those covered on Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> page.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
