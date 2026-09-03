@@ -15,8 +15,14 @@ import './ContactMenu.css';
  * the only one.
  */
 
-const PHONE_DISPLAY = '01236 702070';
 const PHONE_TEL = 'tel:01236702070';
+
+// The panel opens itself once per browser session after a minute on site.
+// This used to be the chat widget opening unprompted, which committed the
+// visitor to one channel; the menu offers the same routes without doing that.
+// sessionStorage (not React state) so it survives a reload but not a new tab.
+const AUTO_OPEN_DELAY_MS = 60000;
+const AUTO_OPEN_KEY = 'boxx_contact_menu_auto_opened';
 
 // wa.me needs the full international number, no spaces, no leading zero.
 // 07915 377969 → 44 7915 377969
@@ -37,10 +43,26 @@ const Icon = ({ d, children }) => (
 );
 
 const ContactMenu = () => {
-    const { openChat } = useChatWidget();
+    const { isOpen: chatIsOpen, openChat } = useChatWidget();
     const [open, setOpen] = useState(false);
     const panelRef = useRef(null);
     const buttonRef = useRef(null);
+
+    // Read at fire time rather than at mount, so a visitor who has since
+    // opened the chat (or the menu) themselves isn't interrupted by it.
+    const chatIsOpenRef = useRef(chatIsOpen);
+    const openRef = useRef(open);
+    chatIsOpenRef.current = chatIsOpen;
+    openRef.current = open;
+
+    useEffect(() => {
+        if (sessionStorage.getItem(AUTO_OPEN_KEY)) return undefined;
+        const timer = setTimeout(() => {
+            sessionStorage.setItem(AUTO_OPEN_KEY, '1');
+            if (!chatIsOpenRef.current && !openRef.current) setOpen(true);
+        }, AUTO_OPEN_DELAY_MS);
+        return () => clearTimeout(timer);
+    }, []);
 
     // Close on Escape and on a click outside — expected of anything that opens
     // over the page.
@@ -81,7 +103,7 @@ const ContactMenu = () => {
                         <li>
                             <a href={PHONE_TEL} onClick={() => setOpen(false)}>
                                 <Icon d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                                Call {PHONE_DISPLAY}
+                                Call us now
                             </a>
                         </li>
                         <li>
