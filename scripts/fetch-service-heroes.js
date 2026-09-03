@@ -25,6 +25,8 @@ const SERVICE_QUERIES = {
     'tax-vat-funding': 'accountant calculator financial documents',
     'working-capital': 'business team office meeting growth',
     'development-finance': 'construction site building development crane',
+    'buy-to-let-refinance': 'uk rental flats apartment building exterior',
+    'bad-credit-mortgages': 'uk suburban semi detached houses',
     'second-charge-mortgages': 'uk terraced houses residential street',
     'secured-loans': 'uk detached house exterior driveway',
     // bridging-finance intentionally omitted — it uses the property pool

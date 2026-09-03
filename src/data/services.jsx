@@ -667,6 +667,146 @@ export const serviceContent = {
             buttonText: "Discuss My Bridging Loan"
         }
     },
+    'buy-to-let-refinance': {
+        title: 'Buy To Let Refinance',
+        metaTitle: 'Buy To Let Refinance UK | Remortgage Your Rental Property',
+        metaDescription: 'Buy to let refinance for UK landlords — come off an expiring fix, release equity for the next purchase, or exit a bridge onto a term BTL mortgage. Personal name and limited company.',
+        metaKeywords: 'buy to let refinance, btl remortgage UK, landlord refinance, limited company buy to let mortgage, release equity rental property',
+        description: 'Refinance an existing rental property — coming off an expiring fixed rate, releasing equity for the next purchase, or exiting a bridging loan onto a term mortgage. Personal name and limited company.',
+        schema: {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Buy To Let Refinance",
+            "provider": {
+                "@type": "Organization",
+                "name": "Boxx Finance"
+            },
+            "description": "Buy to let refinance for UK landlords, in personal name or through a limited company.",
+            "areaServed": "GB"
+        },
+        image: '/images/services/buy-to-let-refinance.jpg',
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+        ),
+        content: (
+            <>
+                <p>Buy to let refinance is where most landlords' money is either made or quietly lost. The purchase gets the attention; the refinance three years later decides what the property actually returns.</p>
+                <p>Whether you are coming off an expiring fixed rate, releasing equity to fund the next deposit, or moving a property off a bridging loan onto term finance, the structure matters more than the headline rate.</p>
+
+                <h3>When Landlords Refinance</h3>
+                <ul>
+                    <li><strong>An expiring fixed rate.</strong> Reverting to a lender's standard variable rate is usually the single most expensive thing a landlord can do by inaction. Start six months out, not six weeks.</li>
+                    <li><strong>Releasing equity for the next purchase.</strong> Capital raising against a property that has grown in value, to fund the deposit on the next one. This is how most portfolios are built.</li>
+                    <li><strong>Exiting a bridging loan.</strong> A property bought at auction or refurbished on a <a href="/funding-solutions/bridging-loans">bridging loan</a> needs a term exit. Lenders will want to see the works completed, the property let or lettable, and in many cases a minimum ownership period.</li>
+                    <li><strong>After refurbishment.</strong> Refinancing on the improved value rather than the purchase price is what recycles your capital out of the deal.</li>
+                    <li><strong>Restructuring a portfolio.</strong> Moving between lenders, consolidating onto a portfolio facility, or changing ownership structure.</li>
+                </ul>
+
+                <h3>How Buy To Let Lending Is Assessed</h3>
+                <p>Buy to let is assessed primarily on the rent, not your salary. Lenders apply an interest cover ratio — the rent must exceed the mortgage interest by a set margin, tested at a stressed rate rather than the rate you are paying.</p>
+                <p>Two things follow from that. First, the rental valuation carries enormous weight, and a conservative surveyor's figure can reduce what you can borrow. Second, a five-year fixed rate is often stress-tested more generously than a two-year, which is why a longer fix sometimes permits a materially larger loan.</p>
+                <p>Personal-name and limited company applications are stress-tested differently, and higher-rate taxpayers frequently find the company route works better after tax. That is a decision to take with your accountant — we will tell you what each structure allows you to borrow, and they should tell you what each one costs you in tax.</p>
+
+                <h3>Limited Company and SPV Refinance</h3>
+                <p>Most new landlord borrowing now goes through limited companies, typically an SPV set up for the purpose. Lender choice is narrower than the personal-name market but no longer specialist, and personal guarantees from directors are standard.</p>
+                <p>Moving an existing personally-held property into a company is a sale and repurchase, not a transfer — with the stamp duty and potential capital gains that implies. Take advice before assuming it is worth doing.</p>
+
+                <h3>Portfolio Landlords</h3>
+                <p>At four or more mortgaged buy to let properties, you are a portfolio landlord under PRA rules and the assessment changes. Lenders will review the whole portfolio, not just the property being refinanced — schedules, background rental stress testing, and often business plans and cash flow forecasts. A single weak property can affect an application on a strong one.</p>
+
+                <h3>Refinancing With Adverse Credit</h3>
+                <p>Buy to let refinance with credit issues is workable more often than landlords expect, particularly where the rental income is strong and the loan to value is modest. Where the credit profile is the obstacle, our <a href="/funding-solutions/bad-credit-mortgages">bad credit mortgages</a> page covers what specialist lenders will consider.</p>
+
+                <h3>Frequently Asked Questions</h3>
+                <p><strong>How soon can I refinance after buying?</strong><br />Many lenders apply a six-month rule before they will lend on the current value rather than the purchase price, though a number of specialist lenders will consider day-one refinance where value has been added through works.</p>
+                <p><strong>How much equity can I release?</strong><br />Typically up to 75% loan to value, subject to the rental income covering the stressed payment.</p>
+                <p><strong>Can I refinance a property that is currently empty?</strong><br />Usually yes, on the basis of the achievable market rent, though some lenders will require a tenancy in place.</p>
+                <p><strong>Does bad credit rule out a buy to let remortgage?</strong><br />No. Specialist lenders assess adverse credit on how recent and how serious it is, alongside the rental cover and the loan to value.</p>
+                <p className="disclaimer"><em>Your property may be repossessed if you do not keep up repayments on any loan secured against it. Most buy to let mortgages are not regulated by the Financial Conduct Authority.</em></p>
+            </>
+        ),
+        ctaOverride: {
+            title: "Start Your Refinance Before the Rate Expires",
+            text: "Offers are typically valid for three to six months, so beginning early costs nothing and reverting to a standard variable rate costs a great deal. Tell us about the property and where the borrowing sits today, and we will set out what is achievable.",
+            buttonText: "Discuss a Buy To Let Refinance"
+        }
+    },
+    'bad-credit-mortgages': {
+        title: 'Bad Credit Mortgages',
+        metaTitle: 'Bad Credit Mortgages UK | Adverse Credit Mortgage Options',
+        metaDescription: 'Mortgages for buyers and homeowners with adverse credit — defaults, CCJs, missed payments, an IVA or a discharged bankruptcy. Specialist lenders assess the story, not just the score.',
+        metaKeywords: 'bad credit mortgages UK, adverse credit mortgage, mortgage with defaults, mortgage with CCJ, mortgage after bankruptcy',
+        description: 'Mortgage options where credit history is the obstacle — defaults, CCJs, missed payments, an IVA or a discharged bankruptcy. Specialist lenders assess how recent and how serious, not just the score.',
+        schema: {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Bad Credit Mortgages",
+            "provider": {
+                "@type": "Organization",
+                "name": "Boxx Finance"
+            },
+            "description": "Adverse credit mortgage options for UK buyers, homeowners and landlords.",
+            "areaServed": "GB"
+        },
+        image: '/images/services/bad-credit-mortgages.jpg',
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+            </svg>
+        ),
+        content: (
+            <>
+                <p>A high street decline is not a verdict from the mortgage market. It is one lender applying one credit-scoring model, and those models are built to say no quickly rather than to understand your circumstances.</p>
+                <p>Specialist lenders do the opposite. They look at what happened, when it happened, and what has changed since — and they are willing to be told.</p>
+
+                <h3>What Counts as Adverse Credit</h3>
+                <p>Very nearly all of it is workable with the right lender. What varies is how much choice you have and what it costs.</p>
+                <ul>
+                    <li><strong>Missed or late payments</strong> on credit cards, loans or utilities</li>
+                    <li><strong>Defaults</strong> — widely accepted, with age and size the deciding factors</li>
+                    <li><strong>County Court Judgments (CCJs)</strong> — satisfied CCJs are viewed considerably more favourably than unsatisfied</li>
+                    <li><strong>Debt management plans</strong>, both live and completed</li>
+                    <li><strong>IVAs</strong> — normally after discharge, though some lenders consider an IVA still running</li>
+                    <li><strong>Bankruptcy and repossession</strong> — typically requiring three or more years since discharge, and a larger deposit</li>
+                    <li><strong>Mortgage arrears</strong>, which lenders treat as the most serious category</li>
+                </ul>
+
+                <h3>The Three Things That Decide the Outcome</h3>
+                <p><strong>How recent.</strong> The dominant factor by a distance. A default from four years ago is close to irrelevant to many specialist lenders; the same default from four months ago narrows the field sharply. Credit events fall off your file after six years.</p>
+                <p><strong>How serious.</strong> A £200 mobile phone default is not a £15,000 CCJ, and lenders that ignore the first will decline the second. Mortgage arrears weigh heaviest of all.</p>
+                <p><strong>Your deposit.</strong> The most powerful lever you control. Adverse credit cases are usually priced at 75-85% loan to value, and every additional 5% deposit widens the lender list and lowers the rate.</p>
+                <p>The rate will be higher than a clean-credit case. The realistic objective is a mortgage you can refinance onto better terms in two or three years, once the adverse credit has aged — not the cheapest rate available today.</p>
+
+                <h3>What Helps a Specialist Application</h3>
+                <ul>
+                    <li>A clean recent payment history, particularly on any existing mortgage or rent</li>
+                    <li>Satisfied rather than outstanding defaults and CCJs</li>
+                    <li>A straightforward explanation of the cause — illness, redundancy, a business failure, a separation. Lenders take context seriously when it is documented.</li>
+                    <li>Stable current income, whether employed or self-employed</li>
+                    <li>No new credit searches immediately before applying</li>
+                </ul>
+                <p>Get your credit files from all three agencies first. They differ, and one lender may be reading a report you have not seen.</p>
+
+                <h3>Where a Mortgage Is Not the Right Answer Yet</h3>
+                <p>Sometimes the honest advice is to wait six months for a default to age, or to clear an outstanding CCJ before applying. We would rather say that than place you on an expensive product you did not need.</p>
+                <p>Where the requirement is capital rather than a purchase, a <a href="/funding-solutions/second-charge-mortgages">second charge mortgage</a> or <a href="/funding-solutions/secured-loans">secured loan</a> can raise money against existing equity without disturbing a mortgage you would struggle to replace.</p>
+
+                <h3>Frequently Asked Questions</h3>
+                <p><strong>Can I get a mortgage with a default?</strong><br />In most cases, yes. Age and size matter far more than the existence of the default itself, and satisfied defaults are treated more favourably.</p>
+                <p><strong>How long after bankruptcy can I get a mortgage?</strong><br />Some lenders consider applications from one year after discharge with a substantial deposit. Choice improves markedly at three years, and considerably again at six.</p>
+                <p><strong>Will applying damage my credit score further?</strong><br />An agreement in principle can be obtained on a soft search with many lenders, leaving no visible footprint. A full application does leave a hard search, which is why placing the case with the right lender first time matters.</p>
+                <p><strong>Can I remortgage with bad credit?</strong><br />Yes, and it is often easier than a purchase, particularly where there is meaningful equity and the mortgage itself has been paid on time.</p>
+                <p className="disclaimer"><em>Your home may be repossessed if you do not keep up repayments on your mortgage.</em></p>
+            </>
+        ),
+        ctaOverride: {
+            title: "A Decline Elsewhere Is Not the End of It",
+            text: "Tell us what is on your credit file and when it happened, and we will tell you honestly whether a mortgage is achievable now, what it is likely to cost, or whether waiting a few months would put you in a materially better position.",
+            buttonText: "Discuss a Bad Credit Mortgage"
+        }
+    },
     'second-charge-mortgages': {
         title: 'Second Charge Mortgages',
         metaTitle: 'Second Charge Mortgages UK | Borrow Without Remortgaging',

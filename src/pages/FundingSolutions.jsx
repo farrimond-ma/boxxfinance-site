@@ -9,9 +9,11 @@ import './FundingSolutions.css';
 const DISPLAY_ORDER = [
     'bridging-loans',
     'development-finance',
-    'commercial-mortgages',
+    'buy-to-let-refinance',
+    'bad-credit-mortgages',
     'second-charge-mortgages',
     'secured-loans',
+    'commercial-mortgages',
     'asset-finance',
     'asset-refinance',
     'business-loans',
