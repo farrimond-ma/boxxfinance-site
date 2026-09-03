@@ -667,6 +667,152 @@ export const serviceContent = {
             buttonText: "Discuss My Bridging Loan"
         }
     },
+    'second-charge-mortgages': {
+        title: 'Second Charge Mortgages',
+        metaTitle: 'Second Charge Mortgages UK | Borrow Without Remortgaging',
+        metaDescription: 'Raise capital against the equity in your property without disturbing your existing mortgage. Second charge mortgages for homeowners, landlords and property investors across the UK.',
+        metaKeywords: 'second charge mortgage UK, secured second mortgage, second charge loan, borrow against equity, second charge buy to let',
+        description: 'Raise capital against the equity in your property without disturbing your existing mortgage. Useful when your current rate is worth keeping, or early repayment charges make a remortgage expensive.',
+        schema: {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Second Charge Mortgages",
+            "provider": {
+                "@type": "Organization",
+                "name": "Boxx Finance"
+            },
+            "description": "Raise capital against the equity in your property without disturbing your existing first-charge mortgage.",
+            "areaServed": "GB"
+        },
+        image: '/images/services/second-charge-mortgages.jpg',
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18A2.25 2.25 0 0 1 20.25 10.5V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-7.5A2.25 2.25 0 0 1 10.5 8.25h6Z" />
+            </svg>
+        ),
+        content: (
+            <>
+                <p>A second charge mortgage lets you borrow against the equity in a property you already own, while leaving your existing mortgage exactly where it is. The new lender takes a second charge, sitting behind your current lender in priority.</p>
+                <p>It exists to solve a specific problem: you need capital, but remortgaging would cost you more than it releases.</p>
+
+                <h3>When a Second Charge Beats a Remortgage</h3>
+                <p>Raising money against your home or investment property usually means one of three routes — a further advance from your existing lender, a full remortgage, or a second charge. The right answer depends less on headline rate and more on what a remortgage would cost you elsewhere.</p>
+                <ul>
+                    <li><strong>You are on a rate worth protecting.</strong> Borrowers holding a fixed rate agreed in a cheaper market often lose far more by moving the whole balance than they save on the new borrowing.</li>
+                    <li><strong>Early repayment charges apply.</strong> An ERC on a large first-charge balance can wipe out any benefit from refinancing.</li>
+                    <li><strong>Your circumstances have changed.</strong> Recently self-employed, a shorter trading history, or credit events since the original mortgage completed — a second charge lender assesses the new borrowing on its own terms rather than reopening the whole facility.</li>
+                    <li><strong>Your existing lender has declined a further advance.</strong> A refusal from one lender is not a verdict from the market.</li>
+                    <li><strong>Speed matters.</strong> Second charge cases typically complete faster than a full remortgage.</li>
+                </ul>
+
+                <h3>What a Second Charge Is Used For</h3>
+                <ul>
+                    <li>Home improvements and extensions, where the spend adds value</li>
+                    <li>Deposit for a buy-to-let or an additional property</li>
+                    <li>Consolidating more expensive unsecured borrowing</li>
+                    <li>Capital injection into a business, or a tax bill with a hard deadline</li>
+                    <li>Divorce and separation settlements, where one party buys out the other</li>
+                </ul>
+
+                <h3>How Lending Is Assessed</h3>
+                <p>A second charge lender looks at the combined loan to value — your existing mortgage plus the new borrowing, against the property's current value. Most will lend to around 75% combined, with some specialist lenders going higher on the right case.</p>
+                <p>Because the lender ranks behind your first-charge lender, the rate is usually higher than a mainstream mortgage. The relevant comparison is not the rate on your existing mortgage — it is the total cost of a remortgage, including any early repayment charge, against the total cost of the second charge.</p>
+                <p>Your first-charge lender's consent is generally required, and terms are commonly available from three to thirty years.</p>
+
+                <h3>Second Charge on Buy-to-Let and Commercial Property</h3>
+                <p>Second charges are not limited to owner-occupied homes. Landlords use them to release equity from an existing rental for the deposit on the next purchase, without breaking a fixed buy-to-let rate. Business owners use them to raise working capital against commercial premises or a director's property.</p>
+
+                <h3>Second Charge or Bridging?</h3>
+                <p>Both raise money against property you already own, and they answer different questions. A <a href="/funding-solutions/bridging-loans">bridging loan</a> is short-term and repaid from a specific event — a sale, a refinance, a completed refurbishment. A second charge is term borrowing you repay from income over years. If you cannot name the event that clears the debt, bridging is the wrong instrument.</p>
+                <p>Where the requirement is a straightforward loan against property without the second-charge structure, our <a href="/funding-solutions/secured-loans">secured loans</a> page covers the wider range.</p>
+
+                <h3>Frequently Asked Questions</h3>
+                <p><strong>Will taking a second charge affect my existing mortgage?</strong><br />No. The rate, term and monthly payment on your first-charge mortgage are unchanged. You simply have a second, separate monthly payment.</p>
+                <p><strong>How much can I borrow?</strong><br />It depends on the equity available and affordability. Most lenders work to around 75% of the property's value including your existing mortgage.</p>
+                <p><strong>Can I get a second charge with adverse credit?</strong><br />Often, yes. Specialist second charge lenders take a more considered view of credit history than high street mortgage lenders, particularly where there is solid equity behind the loan.</p>
+                <p><strong>What happens if I sell the property?</strong><br />Both loans are repaid from the sale proceeds, with the first-charge lender paid first and the second charge lender next.</p>
+                <p><strong>Is a second charge regulated?</strong><br />Second charges on a property you live in are regulated mortgage contracts. Those on investment and commercial property are usually unregulated.</p>
+                <p className="disclaimer"><em>Your property may be repossessed if you do not keep up repayments on any loan secured against it. Think carefully before securing other debts against your home.</em></p>
+            </>
+        ),
+        ctaOverride: {
+            title: "Check Whether a Second Charge Is Cheaper Than Remortgaging",
+            text: "The answer depends on your existing rate, any early repayment charge, and how long you need the money for. Tell us what you are trying to raise and we will compare the total cost of both routes before you commit to either.",
+            buttonText: "Discuss a Second Charge Mortgage"
+        }
+    },
+    'secured-loans': {
+        title: 'Secured Loans',
+        metaTitle: 'Secured Loans UK | Borrow Against Property You Own',
+        metaDescription: 'Secured loans for UK homeowners, landlords and business owners. Borrow against the equity in property, with terms and lending criteria that unsecured borrowing cannot match.',
+        metaKeywords: 'secured loans UK, homeowner loans, secured business loans, loans against property, equity release loan UK',
+        description: 'Borrow against the equity in a property you own. Because the loan is secured, terms are longer and lending criteria more flexible than unsecured borrowing allows.',
+        schema: {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Secured Loans",
+            "provider": {
+                "@type": "Organization",
+                "name": "Boxx Finance"
+            },
+            "description": "Loans secured against property equity for UK homeowners, landlords and business owners.",
+            "areaServed": "GB"
+        },
+        image: '/images/services/secured-loans.jpg',
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+        ),
+        content: (
+            <>
+                <p>A secured loan is borrowing backed by a charge over property you own. That security changes what is available to you: larger sums, longer terms, and lenders willing to look past the credit-score arithmetic that governs unsecured lending.</p>
+                <p>It also changes the stakes. The property is at risk if the loan is not repaid, which is precisely why the structure deserves proper thought rather than a rate comparison.</p>
+
+                <h3>Why Security Changes the Terms</h3>
+                <p>Unsecured borrowing is priced almost entirely on credit profile, and rationed accordingly — modest sums, short terms, and a swift decline if the file is imperfect. Securing the loan against a tangible asset gives the lender recourse, and that widens what they will consider.</p>
+                <ul>
+                    <li><strong>Larger amounts.</strong> Driven by available equity rather than an unsecured lending cap.</li>
+                    <li><strong>Longer terms.</strong> Commonly three to thirty years, which lowers the monthly cost of a given sum.</li>
+                    <li><strong>More flexible criteria.</strong> Self-employed income, complex earnings and past credit events are far more workable when there is equity behind the loan.</li>
+                    <li><strong>Lower rates than unsecured equivalents</strong> for the same borrower, in most cases.</li>
+                </ul>
+                <p>Spreading a loan over a longer term reduces the monthly payment but increases the total interest paid. Both figures matter, and we will show you both.</p>
+
+                <h3>First Charge or Second Charge</h3>
+                <p>A secured loan can sit in either position. A first charge is used where the property is owned outright or the existing mortgage is being replaced. Where there is already a mortgage worth keeping, the loan sits behind it as a <a href="/funding-solutions/second-charge-mortgages">second charge mortgage</a> — the more common route for homeowners who do not want to disturb an existing rate.</p>
+
+                <h3>Secured Loans for Business Purposes</h3>
+                <p>Business owners regularly secure lending against commercial premises, an investment property or a director's own home. Where a business has trading history but limited unsecured capacity, security is often what makes the funding possible at all.</p>
+                <p>Common purposes include working capital, acquisitions, funding a tax liability, buying out a business partner, or consolidating expensive short-term facilities into something manageable. Where the property itself is the point of the transaction, a <a href="/funding-solutions/commercial-mortgages">commercial mortgage</a> is usually the cheaper structure over the full term.</p>
+                <p>Securing business borrowing against a home is a serious decision. It is sometimes the right one — and we will say so plainly when it is not.</p>
+
+                <h3>What Lenders Assess</h3>
+                <ul>
+                    <li>Equity available, measured as loan to value against current market value</li>
+                    <li>Affordability, evidenced from income or business trading figures</li>
+                    <li>Property type and condition, including any non-standard construction</li>
+                    <li>Credit history, though with more latitude than unsecured lending allows</li>
+                    <li>The purpose of the loan, and whether the term genuinely fits it</li>
+                </ul>
+
+                <h3>Secured Loan or Bridging Loan?</h3>
+                <p>Both are secured against property, and the distinction is the repayment route. A secured loan is repaid monthly from income over a term of years. A <a href="/funding-solutions/bridging-loans">bridging loan</a> is short-term, priced monthly, and repaid in full from a defined event such as a sale or refinance. If the money is coming from an event, bridge it. If it is coming from income, take a term loan — a bridge held for years becomes an expensive mistake.</p>
+
+                <h3>Frequently Asked Questions</h3>
+                <p><strong>How much can I borrow with a secured loan?</strong><br />It is governed by equity and affordability. Most lenders work to around 75% of the property value, including any existing mortgage.</p>
+                <p><strong>How quickly can a secured loan complete?</strong><br />Typically three to six weeks, depending on valuation and legal work. Where the timescale is tighter than that, bridging finance is usually the more realistic route.</p>
+                <p><strong>Can I get a secured loan if I am self-employed?</strong><br />Yes. Specialist lenders assess self-employed income on a broader basis than high street affordability models, including recent trading rather than only filed accounts.</p>
+                <p><strong>Can I repay early?</strong><br />Usually. Early repayment charges vary by lender and product, and we will confirm them before you proceed.</p>
+                <p className="disclaimer"><em>Your property may be repossessed if you do not keep up repayments on any loan secured against it. Think carefully before securing other debts against your home.</em></p>
+            </>
+        ),
+        ctaOverride: {
+            title: "Borrow Against Property Without Overpaying for It",
+            text: "Secured borrowing spans first and second charge, regulated and unregulated, personal and business purpose — and the cheapest headline rate is rarely the cheapest outcome. Tell us what you need to raise and over what period, and we will set out the realistic options.",
+            buttonText: "Discuss a Secured Loan"
+        }
+    },
     'development-finance': {
         title: 'Development Finance',
         metaTitle: 'Development Finance | Funding for Ground-Up & Conversions',

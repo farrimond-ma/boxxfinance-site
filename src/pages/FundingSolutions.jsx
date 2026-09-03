@@ -10,6 +10,8 @@ const DISPLAY_ORDER = [
     'bridging-loans',
     'development-finance',
     'commercial-mortgages',
+    'second-charge-mortgages',
+    'secured-loans',
     'asset-finance',
     'asset-refinance',
     'business-loans',
@@ -48,7 +50,7 @@ const faqSchema = {
             name: 'What types of commercial finance does Boxx Finance offer?',
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Boxx Finance arranges 12 types of business funding for UK businesses: bridging finance, development finance, commercial mortgages, asset finance, asset refinance, business loans, working capital facilities, invoice finance, merchant cash advance, trade finance, tax & VAT funding, and structured finance. Each solution is matched to your specific business circumstances and growth objectives.',
+                text: 'Boxx Finance arranges 14 types of funding: bridging loans, development finance, commercial mortgages, second charge mortgages, secured loans, asset finance, asset refinance, business loans, working capital facilities, invoice finance, merchant cash advance, trade finance, tax & VAT funding, and structured finance. Each solution is matched to your specific circumstances and objectives.',
             },
         },
         {
@@ -56,7 +58,7 @@ const faqSchema = {
             name: 'How do I know which type of business funding is right for me?',
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'The right funding type depends on your purpose, security, and timescale. Bridging finance suits short-term property transactions. Development finance is for ground-up or heavy refurbishment projects. Commercial mortgages are for long-term property acquisition. Asset finance spreads the cost of equipment. Invoice finance, working capital, and merchant cash advance address cash flow. Speaking to a specialist at Boxx Finance is the fastest way to identify the most cost-effective structure for your situation.',
+                text: 'The right funding type depends on your purpose, security, and timescale. Bridging finance suits short-term property transactions. Development finance is for ground-up or heavy refurbishment projects. Commercial mortgages are for long-term property acquisition. Secured loans and second charge mortgages raise capital against equity in property you already own, over a term repaid from income. Asset finance spreads the cost of equipment. Invoice finance, working capital, and merchant cash advance address cash flow. Speaking to a specialist at Boxx Finance is the fastest way to identify the most cost-effective structure for your situation.',
             },
         },
         {

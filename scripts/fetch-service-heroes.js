@@ -25,8 +25,15 @@ const SERVICE_QUERIES = {
     'tax-vat-funding': 'accountant calculator financial documents',
     'working-capital': 'business team office meeting growth',
     'development-finance': 'construction site building development crane',
+    'second-charge-mortgages': 'uk terraced houses residential street',
+    'secured-loans': 'uk detached house exterior driveway',
     // bridging-finance intentionally omitted — it uses the property pool
 };
+
+// Existing images are left alone by default, so adding a service to the map
+// above and re-running fills only the gap rather than reshuffling every hero
+// on the site. Pass --force to deliberately refresh the lot.
+const FORCE = process.argv.includes('--force');
 
 if (!API_KEY) {
     console.error('PEXELS_API_KEY not set — run via the fetch-hero-images workflow.');
@@ -52,14 +59,26 @@ async function main() {
     const credits = [];
     for (const [slug, query] of Object.entries(SERVICE_QUERIES)) {
         const out = path.join(OUT_DIR, `service-${slug}.webp`);
+        if (!FORCE && fs.existsSync(out)) { console.log(`  service-${slug}.webp  already present, skipped`); continue; }
         const r = await fetchOne(query);
         if (!r) { console.warn(`  no image for ${slug}`); continue; }
         await sharp(r.buf).resize(1600, 1000, { fit: 'cover' }).webp({ quality: 80 }).toFile(out);
         credits.push(`service-${slug}: ${r.photo.photographer} — ${r.photo.url}`);
         console.log(`  service-${slug}.webp  ${Math.round(fs.statSync(out).size / 1024)}KB`);
     }
+    // Merge rather than overwrite — a skipped image still needs its existing
+    // attribution kept, or we would be using Pexels photos uncredited.
     const creditsPath = path.join(OUT_DIR, 'CREDITS-services.txt');
-    fs.writeFileSync(creditsPath, `Pexels service hero images (free licence)\n\n${credits.join('\n')}\n`);
+    const byService = new Map();
+    if (fs.existsSync(creditsPath)) {
+        for (const line of fs.readFileSync(creditsPath, 'utf8').split('\n')) {
+            const m = line.match(/^(service-[a-z0-9-]+):/);
+            if (m) byService.set(m[1], line);
+        }
+    }
+    for (const line of credits) byService.set(line.split(':')[0], line);
+    const merged = [...byService.values()].sort();
+    fs.writeFileSync(creditsPath, `Pexels service hero images (free licence)\n\n${merged.join('\n')}\n`);
     console.log(`\nDone — ${credits.length} service images.`);
 }
 
