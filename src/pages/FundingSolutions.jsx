@@ -1,29 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { serviceContent } from '../data/services';
+import { FOCUS_SERVICES, RETIRED_SERVICES } from '../data/serviceFocus';
 import SEO from '../components/SEO';
 import '../components/resource/ResourcePage.css'; // shared hero design language
 import './FundingSolutions.css';
 
-// Ordered for display: property/asset products first, then cashflow/working capital
-const DISPLAY_ORDER = [
-    'bridging-loans',
-    'development-finance',
-    'buy-to-let-refinance',
-    'bad-credit-mortgages',
-    'second-charge-mortgages',
-    'secured-loans',
-    'commercial-mortgages',
-    'asset-finance',
-    'asset-refinance',
-    'business-loans',
-    'working-capital',
-    'invoice-finance',
-    'merchant-cash-advance',
-    'trade-finance',
-    'tax-vat-funding',
-    'structured-finance',
-];
+// The promoted six, in the order they're sold. Ordering lives in services.jsx
+// so the homepage grid and this page can't drift apart.
+const DISPLAY_ORDER = FOCUS_SERVICES;
 
 const schema = {
     '@context': 'https://schema.org',
@@ -52,7 +37,7 @@ const faqSchema = {
             name: 'What types of commercial finance does Boxx Finance offer?',
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Boxx Finance arranges 14 types of funding: bridging loans, development finance, commercial mortgages, second charge mortgages, secured loans, asset finance, asset refinance, business loans, working capital facilities, invoice finance, merchant cash advance, trade finance, tax & VAT funding, and structured finance. Each solution is matched to your specific circumstances and objectives.',
+                text: 'Boxx Finance specialises in six areas: bridging loans, development finance, buy to let refinance, bad credit mortgages, second charge mortgages and secured loans. We also arrange commercial mortgages, asset finance, invoice finance, business loans and other commercial facilities on request. Each solution is matched to your specific circumstances and objectives.',
             },
         },
         {
@@ -117,8 +102,8 @@ const FundingSolutions = () => {
                         </h1>
                         <p className="resource-hero-lead">
                             We are a whole-of-market commercial finance broker, not a lender — our only job
-                            is to find the structure that serves your business, not the product that suits
-                            our book. Below, a plain-English overview of every funding type we arrange.
+                            is to find the structure that serves you, not the product that suits our
+                            book. Below, a plain-English overview of the six areas we specialise in.
                         </p>
                         <div className="resource-hero-actions">
                             <Link to="/chat-about-funding" className="btn btn-primary">Get a free quote</Link>
@@ -161,6 +146,25 @@ const FundingSolutions = () => {
                                 </Link>
                             </div>
                         ))}
+                    </div>
+                    {/* De-listed services. Kept as a plain text row rather than
+                        cards: they stay crawlable and indexed without competing
+                        with the six for attention. */}
+                    <div className="fs-also-arrange">
+                        <h3>Other funding we arrange</h3>
+                        <p>
+                            Outside our six specialisms we continue to place commercial facilities
+                            for existing clients and introducers.{' '}
+                            {RETIRED_SERVICES.map((slug, i) => (
+                                <React.Fragment key={slug}>
+                                    {i > 0 && ', '}
+                                    <Link to={`/funding-solutions/${slug}`}>
+                                        {serviceContent[slug].title}
+                                    </Link>
+                                </React.Fragment>
+                            ))}
+                            .
+                        </p>
                     </div>
                 </div>
             </section>

@@ -4,13 +4,16 @@ import { Link } from 'react-router-dom';
 // "You may also need" — service cards that link to the money pages. Strong
 // internal-linking + conversion signal on every article. The current page's
 // own service is filtered out so we never link a page to itself.
+// The promoted six only. These cards appear on every article and location
+// page, so they are the main route from published content into the services
+// the business is concentrating on.
 const ALL = [
     { slug: 'bridging-loans', title: 'Bridging Loans', blurb: 'Fast short-term property funding' },
-    { slug: 'commercial-mortgages', title: 'Commercial Mortgages', blurb: 'Long-term property finance' },
-    { slug: 'business-loans', title: 'Business Loans', blurb: 'Flexible funding for growth' },
     { slug: 'development-finance', title: 'Development Finance', blurb: 'Fund your build or conversion' },
-    { slug: 'asset-finance', title: 'Asset Finance', blurb: 'Spread the cost of equipment' },
-    { slug: 'invoice-finance', title: 'Invoice Finance', blurb: 'Release cash tied up in invoices' },
+    { slug: 'buy-to-let-refinance', title: 'Buy To Let Refinance', blurb: 'Remortgage or release equity' },
+    { slug: 'bad-credit-mortgages', title: 'Bad Credit Mortgages', blurb: 'Options after a decline' },
+    { slug: 'second-charge-mortgages', title: 'Second Charge Mortgages', blurb: 'Borrow without remortgaging' },
+    { slug: 'secured-loans', title: 'Secured Loans', blurb: 'Borrow against property you own' },
 ];
 
 // Normalise to a comparable stem: lowercase, alphanumeric only, drop a

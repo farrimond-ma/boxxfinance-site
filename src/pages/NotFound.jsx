@@ -38,7 +38,7 @@ const NotFound = () => {
                         Back to Home
                     </Link>
                     <Link
-                        to="/funding-solutions/business-loans"
+                        to="/funding-solutions"
                         style={{
                             background: 'transparent',
                             color: '#031b49',

@@ -172,3 +172,34 @@
     line-height: 1.7;
     color: var(--color-white);
 }
+
+/* De-listed services — a quiet text row under the six cards. Deliberately
+   understated: it exists to keep those pages crawlable, not to sell them. */
+.fs-also-arrange {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(1, 8, 22, 0.1);
+}
+
+.fs-also-arrange h3 {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    margin-bottom: 0.6rem;
+}
+
+.fs-also-arrange p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #5b6472;
+    max-width: 900px;
+}
+
+.fs-also-arrange a {
+    color: #5b6472;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.fs-also-arrange a:hover {
+    color: var(--color-secondary);
+}

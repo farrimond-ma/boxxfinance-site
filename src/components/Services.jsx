@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { serviceContent } from '../data/services';
+import { FOCUS_SERVICES } from '../data/serviceFocus';
 import './Services.css';
 
 const Services = () => {
-    // Convert serviceContent object to array for mapping
-    const servicesArray = Object.keys(serviceContent).map(slug => ({
-        slug,
-        ...serviceContent[slug]
-    })).sort((a, b) => a.title.localeCompare(b.title));
+    // The promoted six only, in selling order rather than alphabetical — the
+    // de-listed services are still live but are not shown on the homepage.
+    const servicesArray = FOCUS_SERVICES
+        .filter(slug => serviceContent[slug])
+        .map(slug => ({ slug, ...serviceContent[slug] }));
 
     return (
         <section className="section services" id="funding-solutions">

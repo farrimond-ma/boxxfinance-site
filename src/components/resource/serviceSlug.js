@@ -1,4 +1,5 @@
 import { serviceContent } from '../../data/services';
+import { FOCUS_SERVICES, RETIRED_SERVICE_CTA } from '../../data/serviceFocus';
 
 const normalize = (s) => (s || '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z]+/g, '');
 
@@ -24,7 +25,14 @@ export function serviceToSlug(service) {
 // form (/chat-about-funding/<slug>) rather than the generic form, so the
 // visitor's context carries through. Falls back to the generic form when the
 // page has no recognised service.
+// An article or location page written for a de-listed service (invoice
+// finance, business loans and the rest) still exists and still ranks, so its
+// CTAs are re-pointed at a focus service rather than sending the enquiry into
+// a product we no longer promote. The page itself is untouched — only where
+// its "start your enquiry" button lands.
 export function serviceCtaTo(service) {
     const slug = serviceToSlug(service);
-    return slug ? `/chat-about-funding/${slug}` : '/chat-about-funding';
+    if (!slug) return '/chat-about-funding';
+    if (!FOCUS_SERVICES.includes(slug)) return `/chat-about-funding/${RETIRED_SERVICE_CTA}`;
+    return `/chat-about-funding/${slug}`;
 }

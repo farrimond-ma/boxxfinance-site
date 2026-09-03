@@ -76,13 +76,14 @@ const BRIDGING_USES = [
     'Refurbishment projects',
 ];
 
+// Mirrors the six focus services, so the box sells what the business sells.
 const GENERAL_USES = [
-    'Property purchases and refinancing',
-    'Working capital and cashflow',
-    'Asset and equipment funding',
-    'Invoice and trade finance',
-    'Development and refurbishment projects',
-    'Management buyouts and acquisitions',
+    'Auction purchases and chain breaks',
+    'Ground-up development and conversions',
+    'Buy to let refinance and equity release',
+    'Mortgages after adverse credit',
+    'Second charge borrowing',
+    'Loans secured against property',
 ];
 
 export const CanWeHelp = ({ service }) => (
