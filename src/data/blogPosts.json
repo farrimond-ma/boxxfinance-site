@@ -16444,5 +16444,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1788464946611,
+    "status": "published",
+    "slug": "mortgage-rates-bond-sell-off-swap-rates-rise",
+    "url": "/insights/mortgage-rates-bond-sell-off-swap-rates-rise",
+    "title": "Swap rates hit three-year high as bond sell-off pushes UK mortgage rates upward",
+    "excerpt": "A global bond sell-off has driven UK swap rates to their highest level in three years, fuelled by rising oil prices and inflation fears, putting pressure on fixed mortgage deals.",
+    "metaTitle": "UK Mortgage Rates Set to Rise After Bond Sell-Off",
+    "metaDescription": "Swap rates have hit a three-year high after a global bond sell-off. Here's what it means for UK homeowners remortgaging or buying soon.",
+    "keywords": "mortgage rate, mortgage, bank of england, interest rate, landlord, buy-to-let",
+    "date": "2026-09-03",
+    "publishedAt": "2026-09-03T19:49:06.611Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/mortgage-rates-bond-sell-off-swap-rates-rise.webp",
+    "heroVersion": 31816113,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why do bond markets affect my mortgage rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fixed-rate mortgages are largely funded through swap rates, which reflect what it costs lenders to borrow money over a fixed term in the wholesale markets. When bond sell-offs push those swap rates up, lenders' funding costs rise, and they typically pass this on by increasing the rates on new fixed mortgage deals."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I lock in a mortgage rate now if mine is due for renewal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Many lenders let you reserve a rate several months before your current deal ends, often with the option to switch to a cheaper rate later if one becomes available before completion. Given rates are currently trending upward, securing an offer early is generally seen as lower risk than waiting."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will rising swap rates affect how much I can borrow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Higher mortgage rates increase monthly repayments, which lenders factor into affordability assessments. This can reduce the maximum loan amount available to you compared with an assessment done when rates were lower, so it is worth getting an updated agreement in principle if your circumstances or rates have changed recently."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>UK mortgage borrowers are being warned to expect higher borrowing costs after swap rates, which lenders use to price fixed-rate mortgages, climbed to a three-year high. The jump follows a global sell-off in government bonds, triggered in part by rising oil prices that have stoked fears of renewed inflation and further interest rate pressure, as reported by <a href=\"https://www.theguardian.com/money/2026/sep/03/uk-mortgage-borrowers-brace-for-rate-jump-global-bond-sell-off\">The Guardian</a>.</p><p>For anyone with a mortgage due for renewal, or hoping to buy in the coming months, this matters because swap rates are the wholesale cost lenders pay to fund fixed-rate deals. When they rise, banks and building societies typically follow by pulling their cheapest fixed products and repricing new ones higher. It does not take a Bank of England rate rise for this to happen, movements in the bond market alone can be enough to shift what is on offer at your local branch or online mortgage broker within days.</p><h2>What this means if you are remortgaging soon</h2><p>If your current fixed deal is ending in the next few months, this is the moment to pay close attention. Lenders often withdraw and reprice mortgage ranges with little warning when swap rates move sharply, so a rate you saw advertised last week may already be gone. Many mortgage brokers suggest locking in an offer as early as possible once you are eligible to do so, since most lenders allow you to secure a rate months ahead of your actual renewal date and switch later if something cheaper appears. Waiting to see whether rates settle down carries a real risk that they instead keep climbing.</p><h2>What it means for prospective buyers</h2><p>Buyers still house-hunting or waiting on a mortgage offer face a similar squeeze. Higher fixed rates translate directly into higher monthly repayments, which in turn affects how much a lender will agree to lend based on affordability checks. Someone who was approved for a certain loan size a few weeks ago might find that the same income and outgoings now support a smaller mortgage if rates have moved up in the meantime. It is worth asking a broker to re-run affordability figures rather than assuming an earlier agreement in principle still holds.</p><h2>Landlords and investors should watch closely too</h2><p>Buy-to-let mortgages are priced off similar wholesale funding costs, so landlords refinancing existing properties or arranging finance for a purchase are exposed to the same upward pressure. Rental yields that looked comfortable against a lower rate assumption may need revisiting, particularly for landlords with several properties on staggered fixed terms who could see multiple deals repriced over the coming year. For those relying on speed to complete a purchase or refinance before further rate moves, more flexible short-term finance options are sometimes used to bridge the gap while a longer-term mortgage is arranged.</p><p>None of this means the market is in crisis, bond yields and swap rates move up and down regularly, and rates could ease again if inflation fears subside. But the direction of travel right now is upward, and both buyers and existing homeowners are better placed acting on that assumption than hoping it reverses before their next decision point.</p><p>Anyone facing a tight timeline, whether that is a chain that needs to complete before a rate lock expires, or a landlord needing to refinance quickly to avoid a costlier standard variable rate, may find it useful to look at the range of short-term and bridging <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> available while a fixed-rate mortgage is being arranged.</p><h2>Frequently Asked Questions</h2><h3>Why do bond markets affect my mortgage rate?</h3><p>Fixed-rate mortgages are largely funded through swap rates, which reflect what it costs lenders to borrow money over a fixed term in the wholesale markets. When bond sell-offs push those swap rates up, lenders' funding costs rise, and they typically pass this on by increasing the rates on new fixed mortgage deals.</p><h3>Should I lock in a mortgage rate now if mine is due for renewal?</h3><p>Many lenders let you reserve a rate several months before your current deal ends, often with the option to switch to a cheaper rate later if one becomes available before completion. Given rates are currently trending upward, securing an offer early is generally seen as lower risk than waiting.</p><h3>Will rising swap rates affect how much I can borrow?</h3><p>Yes. Higher mortgage rates increase monthly repayments, which lenders factor into affordability assessments. This can reduce the maximum loan amount available to you compared with an assessment done when rates were lower, so it is worth getting an updated agreement in principle if your circumstances or rates have changed recently.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
