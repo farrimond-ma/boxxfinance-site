@@ -36,13 +36,20 @@ const MAX_SAMPLE       = 35;    // URL Inspection API quota is 2000/day — samp
 const INSPECT_DELAY_MS = 250;   // stay well under the 600/min rate limit
 const ERROR_RATIO_ALERT = 0.15; // alert if >15% of sampled pages are in an ERROR state
 
-// Money pages that must ALWAYS be indexed — every one is inspected, never sampled out.
+// Money pages that must ALWAYS be indexed — every one is inspected, never
+// sampled out. Updated 2026-09 to the six focus services: commercial mortgages
+// was listed here and is now de-listed, so an alert on it would have been a
+// false alarm about a page the site no longer promotes.
 const KEY_PATHS = [
   '/',
   '/funding-solutions',
   '/funding-solutions/bridging-loans',
-  '/funding-solutions/commercial-mortgages',
   '/funding-solutions/development-finance',
+  '/funding-solutions/buy-to-let-refinance',
+  '/funding-solutions/bad-credit-mortgages',
+  '/funding-solutions/second-charge-mortgages',
+  '/funding-solutions/secured-loans',
+  '/bridging-loan-calculator',
   '/insights',
 ];
 
@@ -112,7 +119,12 @@ async function inspectUrl(inspector, url) {
       console.error('   Cloud project and ensure the service account is a full/owner user of the property.\n');
       throw err;
     }
-    return { url, verdict: 'API_ERROR', coverageState: err.message.slice(0, 60), state: 'error' };
+    // NOT 'error'. A failed API call means the watchdog could not measure this
+    // URL — it says nothing about whether Google has indexed it. Counting these
+    // as coverage errors let quota exhaustion, transient 500s and permission
+    // problems masquerade as "your pages are falling out of the index", which
+    // is the exact confusion this watchdog exists to prevent.
+    return { url, verdict: 'API_ERROR', coverageState: err.message.slice(0, 60), state: 'apiError' };
   }
 }
 
@@ -125,11 +137,17 @@ async function writeTab(sheets, results, summary) {
   }
   await sheets.spreadsheets.values.clear({ spreadsheetId: SPREADSHEET_ID, range: `${OUTPUT_TAB}!A:D` });
   const runDate = new Date().toISOString().split('T')[0];
-  const problems = results.filter(r => r.state === 'error');
+  // apiError rows are listed too — when the run fails because it could not
+  // measure, the operator needs the actual API message, not an empty table.
+  const problems = results.filter(r => r.state === 'error' || r.state === 'apiError');
   const rows = [
     [`Index Coverage — ${runDate}`],
-    [`Inspected ${summary.total} URLs · indexed ${summary.indexed} · errors ${summary.errors} · pending ${summary.pending} · error rate ${(summary.errorRatio * 100).toFixed(0)}%`],
-    [summary.alert ? '⚠ ALERT — indexing problems detected (see below)' : '✅ Healthy — no actionable indexing errors'],
+    [`Inspected ${summary.total} URLs · indexed ${summary.indexed} · errors ${summary.errors} · pending ${summary.pending} · unmeasurable ${summary.apiErrors} · error rate ${(summary.errorRatio * 100).toFixed(0)}%`],
+    [summary.cannotMeasure
+      ? `❌ COULD NOT MEASURE — ${summary.apiErrors}/${summary.total} URLs failed inspection. A fault in the check, not an indexing problem.`
+      : summary.coverageAlert
+        ? '⚠ ALERT — indexing problems detected (see below)'
+        : '✅ Healthy — no actionable indexing errors'],
     [],
     ['URL', 'STATE', 'VERDICT', 'COVERAGE STATE'],
     ...problems.map(r => [r.url, r.state, r.verdict, r.coverageState]),
@@ -144,12 +162,24 @@ async function writeTab(sheets, results, summary) {
 
 function writeStepSummary(results, summary) {
   if (!process.env.GITHUB_STEP_SUMMARY) return;
-  const problems = results.filter(r => r.state === 'error');
+  // apiError rows are listed too — when the run fails because it could not
+  // measure, the operator needs the actual API message, not an empty table.
+  const problems = results.filter(r => r.state === 'error' || r.state === 'apiError');
   const l = [];
   l.push('## 🔎 Index Coverage Watchdog');
-  l.push(summary.alert ? '**⚠ ALERT — indexing problems detected**' : '**✅ Healthy**');
+  if (summary.cannotMeasure) {
+    l.push(`**❌ COULD NOT MEASURE — ${summary.apiErrors}/${summary.total} URLs failed inspection**`);
+    l.push('');
+    l.push('This is a fault in the check itself, **not** evidence of an indexing problem. Usual causes: the Search Console API is not enabled in the Cloud project, the service account is not a full/owner user of the `sc-domain` property, or the daily quota is exhausted.');
+    const first = results.find(r => r.state === 'apiError');
+    if (first) l.push(`\nFirst error: \`${first.coverageState}\``);
+  } else if (summary.coverageAlert) {
+    l.push('**⚠ ALERT — indexing problems detected**');
+  } else {
+    l.push('**✅ Healthy**');
+  }
   l.push('');
-  l.push(`Inspected **${summary.total}** URLs · indexed **${summary.indexed}** · errors **${summary.errors}** · pending **${summary.pending}** · error rate **${(summary.errorRatio * 100).toFixed(0)}%**`);
+  l.push(`Inspected **${summary.total}** URLs · indexed **${summary.indexed}** · errors **${summary.errors}** · pending **${summary.pending}** · unmeasurable **${summary.apiErrors}** · error rate **${(summary.errorRatio * 100).toFixed(0)}%**`);
   if (problems.length) {
     l.push('');
     l.push('| URL | Verdict | Coverage state |');
@@ -187,25 +217,47 @@ async function main() {
     await new Promise(res => setTimeout(res, INSPECT_DELAY_MS));
   }
 
-  const indexed = results.filter(r => r.state === 'indexed').length;
-  const errors  = results.filter(r => r.state === 'error').length;
-  const pending = results.filter(r => r.state === 'pending').length;
-  const errorRatio = results.length ? errors / results.length : 0;
+  const indexed   = results.filter(r => r.state === 'indexed').length;
+  const errors    = results.filter(r => r.state === 'error').length;
+  const pending   = results.filter(r => r.state === 'pending').length;
+  const apiErrors = results.filter(r => r.state === 'apiError').length;
 
-  // Alert if any KEY page is in error, or the sample-wide error rate is too high.
+  // Error rate is measured against URLs we could actually inspect. Including
+  // unmeasurable ones in the denominator would understate a real problem;
+  // counting them as errors would invent one.
+  const measurable = results.length - apiErrors;
+  const errorRatio = measurable ? errors / measurable : 0;
+
+  // Two distinct alerts, deliberately separated. A watchdog that cannot tell
+  // "the site has an indexing problem" from "I could not measure the site" is
+  // not doing its job — it just fails weekly and trains everyone to ignore it.
   const keyInError = results.filter(r => r.state === 'error' && keySet.has(r.url.replace(/\/$/, '')));
-  const alert = keyInError.length > 0 || errorRatio >= ERROR_RATIO_ALERT;
+  const coverageAlert = keyInError.length > 0 || errorRatio >= ERROR_RATIO_ALERT;
+  const cannotMeasure = apiErrors > results.length * 0.25;
+  const alert = coverageAlert || cannotMeasure;
 
-  const summary = { total: results.length, indexed, errors, pending, errorRatio, alert };
-  console.log(`\n  Indexed ${indexed} · errors ${errors} · pending ${pending} · error rate ${(errorRatio * 100).toFixed(0)}%`);
+  const summary = { total: results.length, indexed, errors, pending, apiErrors, errorRatio, alert, coverageAlert, cannotMeasure };
+  console.log(`\n  Indexed ${indexed} · errors ${errors} · pending ${pending} · unmeasurable ${apiErrors} · error rate ${(errorRatio * 100).toFixed(0)}% of ${measurable} measured`);
   if (keyInError.length) console.log(`  ⚠ KEY pages in error: ${keyInError.map(r => r.url.replace(SITE_ORIGIN, '')).join(', ')}`);
+  if (cannotMeasure) {
+    console.log(`  ⚠ ${apiErrors}/${results.length} URLs could not be inspected — this is a WATCHDOG fault, not an indexing one.`);
+    console.log(`     First error: ${results.find(r => r.state === 'apiError')?.coverageState}`);
+  }
 
   console.log('\nWriting to Google Sheet...');
   await writeTab(sheets, results, summary);
   writeStepSummary(results, summary);
 
   if (alert) {
-    console.error('\n❌ Index coverage ALERT — see Index_Coverage tab. Failing the run so it surfaces via email.');
+    if (summary.cannotMeasure) {
+      console.error(`\n❌ Index coverage watchdog COULD NOT MEASURE ${apiErrors}/${results.length} URLs.`);
+      console.error('   This is a fault in the check, not evidence of an indexing problem.');
+      console.error('   Usual causes: the Search Console API is not enabled in the Cloud project, or the');
+      console.error('   service account is not a full/owner user of the sc-domain property, or daily quota.');
+    }
+    if (summary.coverageAlert) {
+      console.error('\n❌ Index coverage ALERT — see Index_Coverage tab. Failing the run so it surfaces via email.');
+    }
     process.exit(1);
   }
   console.log('\n✅ Index coverage healthy.\n');
