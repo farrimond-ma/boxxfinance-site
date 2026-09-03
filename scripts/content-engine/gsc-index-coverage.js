@@ -112,7 +112,18 @@ async function inspectUrl(inspector, url) {
       requestBody: { inspectionUrl: url, siteUrl: SITE_URL },
     });
     const r = res.data.inspectionResult?.indexStatusResult || {};
-    return { url, verdict: r.verdict || 'UNKNOWN', coverageState: r.coverageState || 'unknown', state: classify(r.verdict, r.coverageState) };
+    // lastCrawlTime is what turns "error" into an answerable question. An
+    // ERROR/Redirect-error verdict from a crawl months ago is very likely
+    // stale — resolved by a since-shipped fix and never re-crawled — where
+    // the same verdict from yesterday is a live problem. Without this column
+    // that distinction takes manually curling the URL to check.
+    return {
+      url,
+      verdict: r.verdict || 'UNKNOWN',
+      coverageState: r.coverageState || 'unknown',
+      lastCrawlTime: r.lastCrawlTime ? r.lastCrawlTime.slice(0, 10) : 'never crawled',
+      state: classify(r.verdict, r.coverageState),
+    };
   } catch (err) {
     if (err.code === 403) {
       console.error('\n❌ URL Inspection API denied (403). Enable "Google Search Console API" in the');
@@ -124,7 +135,7 @@ async function inspectUrl(inspector, url) {
     // as coverage errors let quota exhaustion, transient 500s and permission
     // problems masquerade as "your pages are falling out of the index", which
     // is the exact confusion this watchdog exists to prevent.
-    return { url, verdict: 'API_ERROR', coverageState: err.message.slice(0, 60), state: 'apiError' };
+    return { url, verdict: 'API_ERROR', coverageState: err.message.slice(0, 60), lastCrawlTime: 'n/a', state: 'apiError' };
   }
 }
 
@@ -135,7 +146,7 @@ async function writeTab(sheets, results, summary) {
   if (!meta.data.sheets?.some(s => s.properties?.title === OUTPUT_TAB)) {
     await sheets.spreadsheets.batchUpdate({ spreadsheetId: SPREADSHEET_ID, requestBody: { requests: [{ addSheet: { properties: { title: OUTPUT_TAB } } }] } });
   }
-  await sheets.spreadsheets.values.clear({ spreadsheetId: SPREADSHEET_ID, range: `${OUTPUT_TAB}!A:D` });
+  await sheets.spreadsheets.values.clear({ spreadsheetId: SPREADSHEET_ID, range: `${OUTPUT_TAB}!A:E` });
   const runDate = new Date().toISOString().split('T')[0];
   // apiError rows are listed too — when the run fails because it could not
   // measure, the operator needs the actual API message, not an empty table.
@@ -149,13 +160,17 @@ async function writeTab(sheets, results, summary) {
         ? '⚠ ALERT — indexing problems detected (see below)'
         : '✅ Healthy — no actionable indexing errors'],
     [],
-    ['URL', 'STATE', 'VERDICT', 'COVERAGE STATE'],
-    ...problems.map(r => [r.url, r.state, r.verdict, r.coverageState]),
+    ['URL', 'STATE', 'VERDICT', 'COVERAGE STATE', 'LAST CRAWLED'],
+    ...problems.map(r => [r.url, r.state, r.verdict, r.coverageState, r.lastCrawlTime]),
     ...(problems.length === 0 ? [['— no error-state pages —']] : []),
     [],
+    // A stale error reads very differently from a fresh one — an ERROR verdict
+    // from a crawl months back is likely already fixed and just not re-crawled;
+    // the same verdict from yesterday is live. LAST CRAWLED is what makes that
+    // call possible from the sheet instead of manually curling the URL.
     ['ALL INSPECTED'],
-    ['URL', 'STATE', 'VERDICT', 'COVERAGE STATE'],
-    ...results.map(r => [r.url, r.state, r.verdict, r.coverageState]),
+    ['URL', 'STATE', 'VERDICT', 'COVERAGE STATE', 'LAST CRAWLED'],
+    ...results.map(r => [r.url, r.state, r.verdict, r.coverageState, r.lastCrawlTime]),
   ];
   await sheets.spreadsheets.values.update({ spreadsheetId: SPREADSHEET_ID, range: `${OUTPUT_TAB}!A1`, valueInputOption: 'RAW', requestBody: { values: rows } });
 }
@@ -182,9 +197,9 @@ function writeStepSummary(results, summary) {
   l.push(`Inspected **${summary.total}** URLs · indexed **${summary.indexed}** · errors **${summary.errors}** · pending **${summary.pending}** · unmeasurable **${summary.apiErrors}** · error rate **${(summary.errorRatio * 100).toFixed(0)}%**`);
   if (problems.length) {
     l.push('');
-    l.push('| URL | Verdict | Coverage state |');
-    l.push('|---|---|---|');
-    problems.slice(0, 20).forEach(r => l.push(`| ${r.url.replace(SITE_ORIGIN, '')} | ${r.verdict} | ${r.coverageState} |`));
+    l.push('| URL | Verdict | Coverage state | Last crawled |');
+    l.push('|---|---|---|---|');
+    problems.slice(0, 20).forEach(r => l.push(`| ${r.url.replace(SITE_ORIGIN, '')} | ${r.verdict} | ${r.coverageState} | ${r.lastCrawlTime} |`));
   }
   try { fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, l.join('\n') + '\n'); } catch { /* non-fatal */ }
 }
@@ -213,7 +228,7 @@ async function main() {
   for (const url of inspect) {
     const r = await inspectUrl(inspector, url);
     results.push(r);
-    console.log(`  ${r.state.padEnd(7)} ${r.verdict.padEnd(8)} ${r.url.replace(SITE_ORIGIN, '') || '/'}  (${r.coverageState})`);
+    console.log(`  ${r.state.padEnd(8)} ${r.verdict.padEnd(8)} ${(r.url.replace(SITE_ORIGIN, '') || '/').padEnd(40)} crawled ${r.lastCrawlTime}  (${r.coverageState})`);
     await new Promise(res => setTimeout(res, INSPECT_DELAY_MS));
   }
 
