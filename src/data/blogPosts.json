@@ -16595,5 +16595,61 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1788540673266,
+    "status": "published",
+    "slug": "protect-mortgage-bond-market-turmoil",
+    "url": "/insights/protect-mortgage-bond-market-turmoil",
+    "title": "Bond market turmoil is pushing mortgage rates up: what borrowers can do now",
+    "excerpt": "UK borrowing costs have hit their highest levels in nearly three decades, and mortgage rates are starting to climb in response. Here's what it means if you're due to remortgage soon.",
+    "metaTitle": "Bond Market Turmoil: How to Protect Your Mortgage Now",
+    "metaDescription": "UK gilt yields have hit near 30-year highs, pushing mortgage rates up. Here's what it means for homeowners coming off fixed deals and how to respond.",
+    "keywords": "mortgage rate, mortgage, bank of england, interest rate, landlord, buy-to-let",
+    "date": "2026-09-04",
+    "publishedAt": "2026-09-04T16:51:13.267Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/protect-mortgage-bond-market-turmoil.webp",
+    "heroVersion": 36709135,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why are mortgage rates rising if the Bank of England hasn't raised the base rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fixed mortgage rates are priced off swap rates, which are influenced by gilt yields and market expectations for future interest rates, not just the current Bank of England base rate. When gilt yields rise, as they have recently reached levels not seen for almost 30 years, lenders' funding costs increase and fixed rates tend to follow, even without a base rate change."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I lock in a mortgage rate now if my deal doesn't end for a few months?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Many lenders let you reserve a new rate several months before your current deal ends, and some allow you to switch to a lower rate if one appears before completion. Given the current upward pressure on rates, checking how early you can lock in with your lender is a sensible step rather than waiting until the last minute."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if I do nothing and my fixed rate expires?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you take no action, you'll typically move onto your lender's standard variable rate, which is usually significantly higher than fixed deals available on the market. This can mean a noticeable jump in monthly payments, so it's worth reviewing your options well before your current deal ends."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Mortgage rates are edging higher after UK government borrowing costs, known as gilt yields, hit their highest levels in nearly three decades earlier this week. For anyone with a fixed-rate deal ending in the coming months, this matters because lenders price their mortgages off exactly this kind of movement in the bond market, and rates can shift before you've even started shopping around.</p><p>As <a href=\"https://www.thisismoney.co.uk/money/mortgageshome/article-16102739/protect-mortgage-bond-market-experts-borrowers.html?ns_mchannel=rss&ns_campaign=1490&ito=1490\">reported by This Is Money</a>, experts are now advising borrowers on practical steps to shield themselves from further rises as the bond market storm continues.</p><h2>Why gilt yields affect your mortgage</h2><p>It can seem strange that government borrowing costs have anything to do with your monthly mortgage payment, but the link is direct. Lenders fund fixed-rate mortgages largely through the swap rate market, which tracks expectations for gilt yields and future interest rates. When gilt yields rise sharply, as they have done recently, lenders' funding costs go up too, and they typically pass at least some of that on through higher fixed rates. This is separate from the Bank of England's base rate decisions, which is why mortgage pricing can move even between meetings of the Monetary Policy Committee.</p><h2>What this means if your fix is ending soon</h2><p>If your current deal has a few months left to run, the practical advice from experts is to act rather than wait. Most lenders allow you to lock in a new rate months ahead of your existing deal expiring, often with the option to switch to a cheaper rate if one becomes available before completion. Sitting on your hands in the hope that rates settle down could mean missing a window and rolling onto a lender's standard variable rate, which is usually far more expensive than any fixed deal on the market.</p><p>For homeowners who are unsure whether to fix for two years or five, the current volatility is a reminder that longer fixes offer more certainty against further bond market swings, while shorter fixes leave you exposed to another round of rate movements sooner. There's no universally right answer, it depends on your appetite for risk and how tight your monthly budget is.</p><h2>What it means for landlords and buyers</h2><p>Landlords with buy-to-let mortgages face the same repricing pressure, and given that rental yields are often tighter than owner-occupier finances, even a modest rate rise can affect whether a property still stacks up financially. Anyone currently in the process of buying, particularly those relying on a mortgage offer that was agreed weeks ago, should check whether their offer is still valid and whether a better rate has since appeared, since some lenders allow switching before completion.</p><p>For those relying on short-term finance, such as bridging loans to complete a purchase quickly or to cover a gap before a longer-term mortgage is arranged, a period of rising rates makes it worth reviewing funding costs across the whole chain rather than assuming the numbers agreed last month still hold. Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> page is a useful starting point for anyone weighing up options while the mortgage market remains unsettled.</p><h2>Frequently Asked Questions</h2><h3>Why are mortgage rates rising if the Bank of England hasn't raised the base rate?</h3><p>Fixed mortgage rates are priced off swap rates, which are influenced by gilt yields and market expectations for future interest rates, not just the current Bank of England base rate. When gilt yields rise, as they have recently reached levels not seen for almost 30 years, lenders' funding costs increase and fixed rates tend to follow, even without a base rate change.</p><h3>Should I lock in a mortgage rate now if my deal doesn't end for a few months?</h3><p>Many lenders let you reserve a new rate several months before your current deal ends, and some allow you to switch to a lower rate if one appears before completion. Given the current upward pressure on rates, checking how early you can lock in with your lender is a sensible step rather than waiting until the last minute.</p><h3>What happens if I do nothing and my fixed rate expires?</h3><p>If you take no action, you'll typically move onto your lender's standard variable rate, which is usually significantly higher than fixed deals available on the market. This can mean a noticeable jump in monthly payments, so it's worth reviewing your options well before your current deal ends.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
