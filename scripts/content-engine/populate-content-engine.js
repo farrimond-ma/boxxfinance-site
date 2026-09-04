@@ -40,7 +40,12 @@ const SERVICE_META = {
     category: 'Invoice Finance',
   },
   'Bridging Finance': {
-    slug: 'bridging-finance',
+    // 'bridging-finance' until 2026-09 — pre-rebrand slug that only reached a
+    // live page via the .htaccess 301 (bridging-finance-(.+) -> bridging-loans-$1)
+    // rather than landing on the canonical URL directly. Same defect found and
+    // fixed in seed-content-engine.js's SERVICE_SLUG; this is the second copy
+    // of it, in the quarterly seeder.
+    slug: 'bridging-loans',
     author: 'Mark Higgins',
     serviceUrl: '/funding-solutions/bridging-loans',
     category: 'Bridging Finance',
@@ -1532,19 +1537,23 @@ const CITIES_TIER4 = [
 
 const ALL_CITIES = [...CITIES_TIER1, ...CITIES_TIER2, ...CITIES_TIER3, ...CITIES_TIER4];
 
-// All 11 services for location pages (11 × 166 = 1,826 pages)
+// 2026-09: was all 11 services (11 × 166 = 1,826 pages) — a cross-product built
+// for an earlier "sell everything to everyone" content strategy, predating both
+// the July bridging-only pivot and the September six-focus-service narrowing.
+// Nobody had trimmed it for either, so this quarterly seeder just kept
+// re-queuing location rows for services publish-location.yml's SERVICE_FILTER
+// (pinned to 'Bridging Finance') can never publish — dead weight that only
+// grows every quarter. By the time this was noticed the sheet held ~4,700
+// location rows against ~370 actually-live pages.
+//
+// Trimmed to the one service with working location-publish infrastructure
+// today. When per-service location pages are built (see
+// docs/landlord-cities-research.md / secured-loan-cities-research.md for the
+// city research already done), extend this list AND publish-location.yml's
+// SERVICE_FILTER together — adding a service here without the filter change
+// just recreates the same dead-weight problem for that service instead.
 const LOCATION_SERVICES = [
-  'Business Loans',
-  'Asset Finance',
-  'Invoice Finance',
   'Bridging Finance',
-  'Commercial Mortgage',
-  'Development Finance',
-  'Working Capital',
-  'Trade Finance',
-  'Cashflow Finance',
-  'Mezzanine Finance',
-  'Structured Finance',
 ];
 
 // ─── Services covered by the Keyword_Backlog ─────────────────────────────────

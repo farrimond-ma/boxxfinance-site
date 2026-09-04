@@ -312,16 +312,27 @@ export default function ContentDashboard() {
                 Location page queue
               </h3>
               <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 1px 3px rgba(0,0,0,0.08)', padding: '1rem 1.25rem', marginBottom: '1.5rem', fontSize: '0.85rem', color: '#1f2937' }}>
-                {pipeline.locationQueue.remaining === 0 ? (
+                {pipeline.locationQueue.reachable === 0 ? (
                   <span style={{ color: '#991b1b', fontWeight: 600 }}>⚠ Queue is empty — refill with Seed Content Engine before the next run.</span>
                 ) : (
                   <>
-                    <strong>{pipeline.locationQueue.remaining}</strong> location page(s) queued
+                    <strong>{pipeline.locationQueue.reachable}</strong> location page(s) queued and publishable
                     (~<strong>{pipeline.locationQueue.estimatedDaysRemaining}</strong> day{pipeline.locationQueue.estimatedDaysRemaining === 1 ? '' : 's'} at 2/day)
-                    {' · '}
-                    {Object.entries(pipeline.locationQueue.byService).map(([s, n]) => `${s}: ${n}`).join(', ')}
                   </>
                 )}
+                {/* Rows for a service publish-location.yml's SERVICE_FILTER doesn't
+                    admit — inert until either the filter or that row's service
+                    changes. Surfaced rather than folded into the total, since a
+                    quarterly seeder produced ~450 of these silently in 2026-09
+                    before anyone noticed the queue wasn't actually draining. */}
+                {pipeline.locationQueue.orphaned > 0 && (
+                  <div style={{ marginTop: '0.5rem', color: '#92400e' }}>
+                    ⚠ <strong>{pipeline.locationQueue.orphaned}</strong> more queued for services SERVICE_FILTER excludes — will never publish as things stand.
+                  </div>
+                )}
+                <div style={{ marginTop: '0.5rem', color: '#6b7280' }}>
+                  {Object.entries(pipeline.locationQueue.byService).map(([s, n]) => `${s}: ${n}`).join(', ')}
+                </div>
               </div>
 
               {/* Two-column: upcoming + recently published */}

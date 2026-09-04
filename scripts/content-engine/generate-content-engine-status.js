@@ -152,15 +152,29 @@ async function main() {
     .map(r => ({ type: r.type, service: r.service, title: r.title, notes: r.notes }));
 
   // ── Location queue health ────────────────────────────────────────────────
+  // publish-location.yml's own SERVICE_FILTER, duplicated here (small and
+  // rarely changes) so "days remaining" reflects rows that can actually
+  // publish, not rows sitting inert because they're for a service the
+  // filter blocks. Found 2026-09: populate-content-engine.js was queuing
+  // location rows for 11 services against a filter that only ever admitted
+  // one, so ~450 rows were scheduled but permanently unreachable — remaining
+  // silently large forever rather than draining. See LOCATION_SERVICES in
+  // that script for the fix and the full story.
+  const LOCATION_SERVICE_FILTER = new Set(['Bridging Finance']);
+
   const locationRows = rows.filter(r => r.type === 'location');
-  const locationRemaining = locationRows.filter(r => r.status === 'scheduled').length;
+  const scheduledLocationRows = locationRows.filter(r => r.status === 'scheduled');
+  const locationRemaining = scheduledLocationRows.length;
   const locationByService = {};
-  for (const r of locationRows.filter(r => r.status === 'scheduled')) {
+  for (const r of scheduledLocationRows) {
     locationByService[r.service || '(none)'] = (locationByService[r.service || '(none)'] || 0) + 1;
   }
+  const locationReachable = scheduledLocationRows.filter(r => LOCATION_SERVICE_FILTER.has(r.service)).length;
+  const locationOrphaned = locationRemaining - locationReachable;
+
   // publish-location.js processes up to 2/day (LOCATIONS_PER_DAY in the seeder).
   const LOCATIONS_PER_DAY = 2;
-  const locationDaysRemaining = Math.ceil(locationRemaining / LOCATIONS_PER_DAY);
+  const locationDaysRemaining = Math.ceil(locationReachable / LOCATIONS_PER_DAY);
 
   const snapshot = {
     generatedAt: new Date().toISOString(),
@@ -173,6 +187,8 @@ async function main() {
     skippedDuplicates,
     locationQueue: {
       remaining: locationRemaining,
+      reachable: locationReachable,
+      orphaned: locationOrphaned,
       estimatedDaysRemaining: locationDaysRemaining,
       byService: locationByService,
     },
