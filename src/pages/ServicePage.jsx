@@ -50,7 +50,12 @@ const ServicePage = () => {
 
             <div className="resource-column">
                 <div className="resource-main-card">
-                    <div className="blog-post-content">
+                    {/* service-page-content: service content only ever uses h3 as its
+                        one heading level (no h2), so it needs real subheading
+                        styling. blog-post-content's h3 rule is deliberately styled as
+                        an FAQ question chip (small, grey card) for blog Q&A pairs —
+                        wrong here, and smaller than body text to boot. See ServicePage.css. */}
+                    <div className="blog-post-content service-page-content">
                         {service.content}
                     </div>
                 </div>

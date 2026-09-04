@@ -166,3 +166,33 @@
     margin-top: 0;
     margin-bottom: 1.5rem;
 }
+/* Service content (src/data/services.jsx) only ever uses h3 as its single
+   heading level — there's no h2 above it. Blog.css's .blog-post-content h3
+   rule is tuned for a different job: it renders FAQ questions as a small
+   grey chip that visually bleeds into the answer paragraph, which is why
+   it's smaller than body text (1.05rem vs 1.1rem) and carries a card
+   background. Reused here it made every service subheading look smaller
+   than the copy underneath it. Two classes beats Blog.css's one-class
+   selector, so this wins without touching real FAQ styling on blog posts,
+   which still goes through the same .blog-post-content class. */
+/* .blog-post-content.service-page-content (two classes on one element) beats
+   Blog.css's .blog-post-content h3 (one class) on specificity regardless of
+   which stylesheet loads last — .service-page-content h3 alone is the SAME
+   specificity as that rule and was losing to it on source order. */
+.blog-post-content.service-page-content h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    background: none;
+    padding: 0;
+    margin: 2.25rem 0 1rem;
+}
+
+.blog-post-content.service-page-content h3 + p {
+    font-size: 1.1rem;
+    color: #333;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    border-bottom: none;
+    background: none;
+}
