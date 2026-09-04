@@ -80,9 +80,19 @@ function publishedLocationKeys() {
 }
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
+// SERVICE stays 'Bridging Finance' — the internal service identity used for
+// SERVICE_FILTER matching everywhere in the engine, unchanged by the 2026-07
+// rebrand. SERVICE_SLUG and SERVICE_URL are the PUBLIC-facing strings and were
+// still 'bridging-finance' until 2026-09 — a leftover pre-rebrand slug that
+// only reaches a live page via the .htaccess 301 (bridging-finance-(.+) ->
+// bridging-loans-$1) rather than landing on the canonical URL directly, and
+// meant every freshly seeded row's title/keyword/meta carried the retired
+// "Bridging Finance <city> | Commercial Finance Broker" branding instead of
+// the "Bridging Loans <city>" form every real published page actually uses
+// (see src/data/locationPages.json).
 const SERVICE        = 'Bridging Finance';
-const SERVICE_SLUG   = 'bridging-finance';
-const SERVICE_URL    = '/funding-solutions/bridging-finance';
+const SERVICE_SLUG   = 'bridging-loans';
+const SERVICE_URL    = '/funding-solutions/bridging-loans';
 const DAYS_AHEAD     = 90;
 
 // ─── Google Sheets Auth ──────────────────────────────────────────────────────
@@ -395,16 +405,16 @@ function toLocationSlug(city) {
   return `${SERVICE_SLUG}-${city.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
 }
 function toLocationKeyword(city) {
-  return `bridging finance ${city.toLowerCase()}`;
+  return `bridging loans ${city.toLowerCase()}`;
 }
 function toLocationTitle(city) {
-  return `Bridging Finance ${city} | Commercial Finance Broker`;
+  return `Bridging Loans ${city} | Commercial Finance Broker`;
 }
 function toLocationMetaTitle(city) {
-  return `Bridging Finance in ${city} | Boxx Finance`;
+  return `Bridging Loans in ${city} | Boxx Finance`;
 }
 function toLocationMetaDesc(city) {
-  return `Independent bridging finance broker in ${city}. Whole-of-market access, fast decisions. Speak to our team today.`;
+  return `Independent bridging loans broker in ${city}. Whole-of-market access, fast decisions. Speak to our team today.`;
 }
 
 // ─── Build a blog row array ───────────────────────────────────────────────────
@@ -459,7 +469,7 @@ function buildLocationRow(id, date, city) {
     SERVICE,
     city,
     toLocationKeyword(city),
-    `Bridging finance for businesses in ${city}`,
+    `Bridging loans in ${city}`,
     toLocationTitle(city),
     toLocationSlug(city),
     '',          // url

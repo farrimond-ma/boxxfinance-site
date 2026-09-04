@@ -579,10 +579,17 @@ async function main() {
   for (const row of dueRows) {
     console.log(`\n── Processing: ${row.service} in ${row.city} (${row.publishDate} ${row.publishSlot}) ──`);
 
-    // Skip if slug already exists
-    if (pages.find(p => p.slug === row.slug)) {
+    // Skip if slug already exists — a stale queue row for a page that was
+    // published long ago, most likely from before the published-page dedup
+    // check existed in the seeder. Mark the row so it stops resurfacing, but
+    // record the page's REAL publish date, not today. Stamping today's date
+    // here (the previous behaviour) made months-old pages look freshly
+    // published on the /dashboard queue snapshot — confusing, and wrong.
+    const existingPage = pages.find(p => p.slug === row.slug);
+    if (existingPage) {
       console.log(`  Slug "${row.slug}" already exists — marking as published and skipping generation`);
-      await updateSheetRow(sheets, row.rowIndex, row.slug, `https://boxxfinance.co.uk/locations/${row.slug}`, new Date().toISOString());
+      const realPublishedAt = existingPage.publishedAt || row.publishDate || new Date().toISOString();
+      await updateSheetRow(sheets, row.rowIndex, row.slug, `https://boxxfinance.co.uk/locations/${row.slug}`, realPublishedAt);
       continue;
     }
 
