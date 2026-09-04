@@ -2,9 +2,9 @@ name: Add Focus-Service Topics
 
 # Manual only. Queues the curated launch content in
 # src/data/serviceContentTopics.json into ContentEngine as scheduled blog rows —
-# supporting articles for the three focus services that had a service page but
+# supporting articles for the four focus services that had a service page but
 # no content behind them (secured loans, bad credit mortgages, buy to let
-# refinance).
+# refinance, second charge mortgages).
 #
 # No schedule: the topic list is hand-written and reviewed, so it only needs
 # running after someone edits it. The script is idempotent, so a repeat run
@@ -29,7 +29,7 @@ on:
           - PM
           - AM
       service:
-        description: 'Limit to one service (blank = all three, interleaved)'
+        description: 'Limit to one service (blank = all four, interleaved)'
         required: false
         default: ''
         type: choice
@@ -38,6 +38,7 @@ on:
           - Secured Loans
           - Bad Credit Mortgages
           - Buy To Let Refinance
+          - Second Charge Mortgages
       start:
         description: 'First publish date, YYYY-MM-DD (blank = tomorrow)'
         required: false

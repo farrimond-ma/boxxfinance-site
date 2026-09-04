@@ -1,5 +1,5 @@
 {
-  "_comment": "Curated launch content for the three focus services that had no pipeline behind them (secured loans, bad credit mortgages, buy to let refinance). Hand-written rather than generated: these are the head terms each service page needs supporting content for, chosen so no two overlap and none competes with the service page itself. Queued into the ContentEngine sheet by scripts/content-engine/add-service-topics.js.",
+  "_comment": "Curated launch content for the four focus services that had no pipeline behind them (secured loans, bad credit mortgages, buy to let refinance, second charge mortgages). Hand-written rather than generated: these are the head terms each service page needs supporting content for, chosen so no two overlap and none competes with the service page itself. Second Charge Mortgages was added after the first three, deliberately kept narrow — secured loans covers the broad first/second-charge, personal/business umbrella; second charge covers ONE decision (is it cheaper than remortgaging given your rate and any ERC) and the mechanics unique to sitting behind an existing first charge. Every second-charge topic was checked against the secured-loans list for an obvious mirror before being written. Queued into the ContentEngine sheet by scripts/content-engine/add-service-topics.js.",
   "services": [
     {
       "service": "Secured Loans",
@@ -136,6 +136,52 @@
           "keyword": "buy to let refinance bad credit",
           "title": "Buy To Let Refinance With Adverse Credit",
           "brief": "Landlords with credit issues often assume they are stuck on a reversion rate, and frequently are not. Cover why strong rental cover and modest loan to value can carry an application that would fail on personal credit alone, how specialist BTL lenders assess adverse credit, and when the better route is to reduce the loan rather than chase the same amount. Link to the bad credit mortgages page."
+        }
+      ]
+    },
+    {
+      "service": "Second Charge Mortgages",
+      "serviceUrl": "/funding-solutions/second-charge-mortgages",
+      "topics": [
+        {
+          "keyword": "second charge mortgage early repayment charge",
+          "title": "Second Charge Mortgage vs Remortgage: The Early Repayment Charge Question",
+          "brief": "Not the general secured-vs-remortgage comparison (that lives on the secured loans page) — this is specifically about the ERC arithmetic. Work through a full example: outstanding mortgage balance, ERC percentage and how it's typically tapered, the ERC in pounds, and the point at which that figure alone makes remortgaging the whole balance more expensive than raising the smaller sum separately. Cover how to find the ERC on a mortgage offer or annual statement, and when an ERC is due to expire soon enough that waiting beats borrowing now."
+        },
+        {
+          "keyword": "second charge mortgage first mortgage consent",
+          "title": "How a Second Charge Mortgage Affects Your First Mortgage",
+          "brief": "The mechanical question homeowners actually have: does this touch my existing mortgage at all. Explain that the rate, term and payment on the first charge are completely unchanged, that the first-charge lender's consent is required (and why — they're being asked to accept a claim behind them), what that consent process involves and how long it takes, and how combined loan to value across both charges is calculated and capped. This is a 'nothing changes on your existing mortgage' reassurance piece as much as an explainer."
+        },
+        {
+          "keyword": "is a second charge mortgage regulated",
+          "title": "Is a Second Charge Mortgage Regulated? What Homeowners Need to Know",
+          "brief": "A second charge on a property you live in is a regulated mortgage contract under MCOB, same conduct standards as your first mortgage — affordability assessment, a right to a fair sales process, access to the Financial Ombudsman. A second charge on a buy-to-let or commercial property is usually unregulated. Explain what regulation actually changes for the borrower in practice (not just the legal fact of it), and why the distinction matters when comparing two lenders' second charge products."
+        },
+        {
+          "keyword": "second charge mortgage debt consolidation",
+          "title": "Using a Second Charge Mortgage to Consolidate Debt Without Losing Your Mortgage Rate",
+          "brief": "Debt consolidation is the largest single use of second charge lending (60%+ of the market), and this should be the definitive piece on it. Lead with the mechanism: consolidating unsecured debt (credit cards, loans) into a second charge converts it into debt secured on the home, spread over a much longer term — lower monthly payment, but more total interest and the property now at risk on debt that previously wasn't secured on anything. Be explicit about that trade-off; don't sell past it. Cover when it is genuinely the right call (unsustainable unsecured repayments, a rate worth protecting) and when it isn't (a small balance that would clear in a year or two anyway). Carry the repossession warning prominently, not as a footnote."
+        },
+        {
+          "keyword": "second charge mortgage during fixed rate",
+          "title": "Can You Get a Second Charge Mortgage Mid-Fix?",
+          "brief": "For homeowners who are two years into a five-year fix and need money now, not at renewal. Confirm that yes, a second charge can be arranged at any point during an existing fixed rate, since it doesn't touch the first mortgage at all. Cover what changes (if anything) about lender appetite depending on how much of the fixed term remains, and contrast directly with what breaking the fix early to remortgage would cost in ERC — this is the scenario the whole 'second charge over remortgage' case is built on, made concrete."
+        },
+        {
+          "keyword": "second charge mortgage on sale",
+          "title": "What Happens to a Second Charge Mortgage When You Sell or Remortgage?",
+          "brief": "Explain the redemption order: on a sale, the first charge is repaid from the proceeds first, then the second charge, then the balance to the seller. On a full remortgage, the new lender will generally require the second charge to be repaid or consented to remain — cover which is more common and why most homeowners redeem it. Address what happens if the property has fallen in value and there isn't enough equity to clear both charges on sale."
+        },
+        {
+          "keyword": "second charge buy to let mortgage",
+          "title": "Second Charge Buy to Let Mortgages: Raising Capital Without Breaking Your Fix",
+          "brief": "The landlord-specific angle, narrower than the general buy-to-let-refinance content: a landlord holding a good fixed rate on a rental property who needs to raise capital — for a deposit on the next purchase, a refurbishment, or a tax bill — without remortgaging and losing that rate. Cover how second charge BTL lending is assessed (rental cover on top of the existing mortgage, not instead of it), consent from the existing BTL lender, and typical combined LTV limits, which run more conservatively than on a residential second charge."
+        },
+        {
+          "keyword": "further advance declined second charge",
+          "title": "Your Mortgage Lender Said No to a Further Advance — What a Second Charge Offers Instead",
+          "brief": "A further advance from the existing lender is usually the first thing homeowners try, and a decline there doesn't mean the borrowing isn't possible — it means one lender's underwriting said no. Cover the common reasons a further advance is declined (income assessment tightened since the original mortgage, the lender's own LTV cap, product simply not offered on that mortgage book) and why a second charge lender, assessing the new borrowing independently on its own criteria, will often approve where the existing lender wouldn't."
         }
       ]
     }

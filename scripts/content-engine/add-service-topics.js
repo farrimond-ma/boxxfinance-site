@@ -10,7 +10,7 @@
  * let refinance therefore had a service page each and nothing supporting them.
  * This seeds that supporting content.
  *
- * Rows are interleaved across the three services rather than queued in blocks,
+ * Rows are interleaved across the services rather than queued in blocks,
  * so the published sequence does not read as three runs of eight near-identical
  * articles — which is both what a reader would notice and what the duplicate
  * guard in publish-blog.js exists to prevent.

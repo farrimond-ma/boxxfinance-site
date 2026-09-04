@@ -76,7 +76,7 @@ jobs:
           PEXELS_API_KEY:    ${{ secrets.PEXELS_API_KEY }}
           GITHUB_OWNER:      farrimond-ma
           GITHUB_REPO:       boxxfinance-site
-          # Per-run, not global: the 19:37 run publishes the three newer focus
+          # Per-run, not global: the 19:37 run publishes the four newer focus
           # services, the other two publish bridging. A manual dispatch defaults
           # to bridging unless service_filter is given.
           #
@@ -88,7 +88,7 @@ jobs:
             ${{ github.event.inputs.service_filter != ''
                 && github.event.inputs.service_filter
                 || (github.event.schedule == '37 18 * * *'
-                    && 'Secured Loans,Bad Credit Mortgages,Buy To Let Refinance'
+                    && 'Secured Loans,Bad Credit Mortgages,Buy To Let Refinance,Second Charge Mortgages'
                     || 'Bridging Finance') }}
         run: node publish-blog.js
         working-directory: scripts/content-engine
