@@ -224,9 +224,14 @@
     font-size: 0.9rem;
 }
 
-/* Funding cards */
+/* Funding cards — "You may also need". Panel treatment (see below) so it
+   reads as its own block against the plain guides list that follows it. */
 .resource-funding-cards {
     margin-top: 1.75rem;
+    background: #f7f5ef;
+    border: 1px solid #e6ddc4;
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
 }
 .resource-funding-cards h2 {
     color: var(--color-primary);
@@ -242,7 +247,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    background: #fff;
+    background: #fffdf8;
     border: 1px solid #ece9df;
     border-radius: 12px;
     padding: 1.1rem 1.25rem;
@@ -303,9 +308,15 @@
     color: #b8860b;
 }
 
-/* Popular locations */
+/* Popular locations — panel, mirroring "You may also need" above, with the
+   plain guides list between them so the page reads panel / plain / panel
+   rather than one long stripe. */
 .resource-locations {
     margin-top: 1.75rem;
+    background: #f7f5ef;
+    border: 1px solid #e6ddc4;
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
 }
 .resource-locations h2 {
     color: var(--color-primary);
@@ -318,7 +329,7 @@
     gap: 0.6rem;
 }
 .resource-location-pill {
-    background: #fff;
+    background: #fffdf8;
     border: 1px solid #ece9df;
     border-radius: 999px;
     padding: 0.5rem 1.1rem;
@@ -502,5 +513,12 @@
     }
     .resource-guides-grid {
         grid-template-columns: 1fr;
+    }
+    /* The panel's own horizontal padding compounds with the rail's reduced
+       side padding above — ease it back so the cards inside don't feel
+       squeezed against the panel edge. */
+    .resource-funding-cards,
+    .resource-locations {
+        padding: 1.4rem 1.25rem;
     }
 }
