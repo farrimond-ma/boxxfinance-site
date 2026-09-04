@@ -76,9 +76,11 @@ jobs:
           PEXELS_API_KEY:    ${{ secrets.PEXELS_API_KEY }}
           GITHUB_OWNER:      farrimond-ma
           GITHUB_REPO:       boxxfinance-site
-          # Per-run, not global: the 19:37 run publishes the four newer focus
-          # services, the other two publish bridging. A manual dispatch defaults
-          # to bridging unless service_filter is given.
+          # Per-run, not global: the 19:37 run publishes the five non-bridging
+          # focus services, the other two publish bridging only — kept
+          # deliberately separate (Mark's call, 2026-09) rather than folding
+          # Development Finance into the bridging slots. A manual dispatch
+          # defaults to bridging unless service_filter is given.
           #
           # Never leave this unset. The sheet still holds scheduled rows for the
           # de-listed services (invoice finance and the rest), and an empty
@@ -88,7 +90,7 @@ jobs:
             ${{ github.event.inputs.service_filter != ''
                 && github.event.inputs.service_filter
                 || (github.event.schedule == '37 18 * * *'
-                    && 'Secured Loans,Bad Credit Mortgages,Buy To Let Refinance,Second Charge Mortgages'
+                    && 'Secured Loans,Bad Credit Mortgages,Buy To Let Refinance,Second Charge Mortgages,Development Finance'
                     || 'Bridging Finance') }}
         run: node publish-blog.js
         working-directory: scripts/content-engine
