@@ -58,7 +58,8 @@ const ProgressApplication = () => {
         securityValue: '',
         loanAmount: '',
         exitStrategy: '',
-        exitStrategyDetail: '',
+        hasAdverseCredit: '',
+        adverseCreditDetails: '',
     });
     const [status, setStatus] = useState('idle'); // idle | sending | done | error
     const [token, setToken] = useState(null); // set once a valid ?t=... link is confirmed
@@ -104,7 +105,8 @@ const ProgressApplication = () => {
                 params.append('security_value', form.securityValue);
                 params.append('loan_amount_required', form.loanAmount);
                 params.append('exit_strategy', form.exitStrategy);
-                params.append('exit_strategy_notes', form.exitStrategyDetail);
+                params.append('adverse_credit', form.hasAdverseCredit === 'yes' ? '1' : '0');
+                if (form.hasAdverseCredit === 'yes') params.append('adverse_credit_details', form.adverseCreditDetails);
                 const res = await fetch(CRM_PROGRESS_SUBMIT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -124,7 +126,8 @@ const ProgressApplication = () => {
                 `Loan amount required: £${form.loanAmount ? Number(form.loanAmount).toLocaleString() : 'n/a'}`,
                 `Purchase property: ${form.purchaseAddress} (£${form.purchasePrice ? Number(form.purchasePrice).toLocaleString() : 'n/a'})`,
                 `Security property: ${form.securityAddress} (£${form.securityValue ? Number(form.securityValue).toLocaleString() : 'n/a'})`,
-                `Exit strategy: ${form.exitStrategy}${form.exitStrategyDetail ? ' — ' + form.exitStrategyDetail : ''}`,
+                `Exit strategy: ${form.exitStrategy}`,
+                `Adverse credit: ${form.hasAdverseCredit === 'yes' ? 'Yes — ' + form.adverseCreditDetails : 'No'}`,
                 `DOB: ${form.dob}`,
             ].join(' | ');
 
@@ -161,7 +164,8 @@ const ProgressApplication = () => {
                 crmParams.append('security_value', form.securityValue);
                 crmParams.append('loan_amount', form.loanAmount);
                 crmParams.append('exit_strategy', form.exitStrategy);
-                crmParams.append('exit_strategy_notes', form.exitStrategyDetail);
+                crmParams.append('adverse_credit', form.hasAdverseCredit === 'yes' ? '1' : '0');
+                if (form.hasAdverseCredit === 'yes') crmParams.append('adverse_credit_details', form.adverseCreditDetails);
                 fetch(CRM_INTAKE_URL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -245,10 +249,28 @@ const ProgressApplication = () => {
                                     {EXIT_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
                                 </select>
                             </div>
+                            <h3>Credit history</h3>
                             <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Anything else we should know? (optional)</label>
-                                <textarea name="exitStrategyDetail" className="quiz-input" rows="3" value={form.exitStrategyDetail} onChange={onChange} />
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
+                                    Have you had any missed mortgage or loan payments, County Court Judgments (CCJs), or been subject to bankruptcy, an IVA or administration proceedings in the last 3 years?
+                                </label>
+                                <div style={{ display: 'flex', gap: '2rem' }}>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                        <input type="radio" name="hasAdverseCredit" value="yes" checked={form.hasAdverseCredit === 'yes'} onChange={onChange} required />
+                                        Yes
+                                    </label>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                        <input type="radio" name="hasAdverseCredit" value="no" checked={form.hasAdverseCredit === 'no'} onChange={onChange} required />
+                                        No
+                                    </label>
+                                </div>
                             </div>
+                            {form.hasAdverseCredit === 'yes' && (
+                                <div className="quiz-input-group">
+                                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Please give details</label>
+                                    <textarea name="adverseCreditDetails" className="quiz-input" rows="3" required value={form.adverseCreditDetails} onChange={onChange} />
+                                </div>
+                            )}
 
                             <button type="submit" className="btn btn-primary" disabled={status === 'sending'} style={{ width: '100%', marginTop: '1rem' }}>
                                 {status === 'sending' ? 'Sending…' : 'Submit details'}
