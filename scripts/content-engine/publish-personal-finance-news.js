@@ -382,8 +382,30 @@ async function generateValidatedArticle(story, marketAngle) {
 // the buy-to-let one. Linking BTL there would have been irrelevant at best.
 //
 // Ordered most-specific-first, so a landlord story about an auction purchase
-// gets the auction article rather than the generic BTL one. Every target is a
-// real published article, checked 2026-08-26 — verify before adding more.
+// gets the auction article rather than the generic BTL one. Verified
+// 2026-08-26; two targets updated 2026-09-06 — see the note on each below.
+//
+// The site narrowed to six focus services (2026-09), and this router still
+// sent every story to bridging, including "landlords and buy-to-let" — the
+// one theme that is now a plainly better fit for Buy To Let Refinance than
+// for bridging. Most acute, urgent scenarios (auction, chain break, refurb/
+// EPC/HMO, leasehold/unmortgageable, probate) are already intercepted by the
+// more specific entries above it in this list, so by the time a story falls
+// through to the landlord entry it is almost always a rate, tax or
+// regulation story — a "protect my mortgage" story, not a "buy this fast"
+// one. Retargeted rather than split in two: the existing ordering already
+// does the discrimination.
+//
+// Added a mortgage-decline/credit-history theme for Bad Credit Mortgages,
+// placed ahead of the landlord entry since a specific credit signal beats a
+// generic landlord mention.
+//
+// Two targets below point at a service page rather than a specific article,
+// because no Buy To Let Refinance or Bad Credit Mortgages article has
+// published yet (both services are mid-rollout — see
+// src/data/serviceContentTopics.json). Upgrade each to its natural article
+// once one exists: "When to Start Your Buy To Let Remortgage" and "Getting a
+// Mortgage With a Default on Your Credit File" are the obvious candidates.
 const STORY_LINKS = [
   {
     theme: 'leasehold or unmortgageable property',
@@ -411,9 +433,14 @@ const STORY_LINKS = [
     url: 'https://boxxfinance.co.uk/insights/bridging-loans-for-hmo-conversion',
   },
   {
+    theme: 'mortgage decline or credit history',
+    match: /mortgage (?:rejected|declined|refused|decline)|credit score|adverse credit|bad credit|\bccj\b|county court judgment|mortgage prisoner|affordability (?:rules|criteria|test)/i,
+    url: 'https://boxxfinance.co.uk/funding-solutions/bad-credit-mortgages', // no dedicated article yet — see note above
+  },
+  {
     theme: 'landlords and buy-to-let',
     match: /landlord|buy.to.let|\bbtl\b|rental propert|rented sector|tenanc|tenant|letting|holiday let|serviced accommodation/i,
-    url: 'https://boxxfinance.co.uk/insights/bridging-finance-for-buy-to-let',
+    url: 'https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance', // no dedicated article yet — see note above
   },
 ];
 

@@ -1504,5 +1504,18 @@ async function main() {
 
 main().catch((err) => {
   console.error('Fatal error:', err.message);
+  // A crash here otherwise leaves only the raw job log, which needs
+  // repo-admin API access to fetch — reading it meant asking Mark to paste
+  // it by hand (2026-09-06, the 4 Sept evening-run failure). The empty-queue
+  // path already writes to the step summary; an unexpected exception is the
+  // other way this run fails and it had no equivalent visibility.
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    try {
+      require('fs').appendFileSync(
+        process.env.GITHUB_STEP_SUMMARY,
+        `## ❌ Blog publisher crashed\n\n\`${err.message}\`\n\n${err.stack ? '```\n' + err.stack.split('\n').slice(0, 8).join('\n') + '\n```\n' : ''}`,
+      );
+    } catch { /* non-fatal */ }
+  }
   process.exit(1);
 });
