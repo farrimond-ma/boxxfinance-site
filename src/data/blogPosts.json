@@ -17168,5 +17168,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1788694732925,
+    "status": "published",
+    "slug": "subsidence-claims-surge-hottest-summer-homeowners",
+    "url": "/insights/subsidence-claims-surge-hottest-summer-homeowners",
+    "title": "Subsidence claims surge after record heat: what it means for homeowners and buyers",
+    "excerpt": "Insurers report a sharp rise in subsidence claims following the hottest summer on record, with one firm seeing claims jump nearly 140% in August. Here's what that could mean for your home and mortgage.",
+    "metaTitle": "Subsidence Claims Surge After Record Heat: Homeowner Impact",
+    "metaDescription": "UK insurers report a surge in subsidence claims after record heat. Here's what rising claims mean for insurability, valuations and mortgages.",
+    "keywords": "mortgage, landlord, remortgage, homeowner",
+    "date": "2026-09-06",
+    "publishedAt": "2026-09-06T11:38:52.926Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/subsidence-claims-surge-hottest-summer-homeowners.webp",
+    "heroVersion": 37623824,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I know if cracks in my house are subsidence rather than normal settlement?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Subsidence cracks are typically wider than a 10p coin, run diagonally, and often appear or worsen suddenly following a dry spell, particularly near doors and windows. Ordinary settlement cracks tend to be finer and more stable over time. If you're unsure, it's worth getting a structural engineer or surveyor to assess it rather than guessing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will a subsidence claim make my property harder to insure in future?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can. Insurers often ask about subsidence history when quoting for buildings cover, and a past claim, even one that's been resolved, may lead to higher premiums or more limited cover. Specialist insurers do exist for properties with a subsidence history, though cover may cost more."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does subsidence affect my ability to remortgage or sell?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, potentially. Lenders usually require adequate buildings insurance before approving a mortgage, so a property that insurers are reluctant to cover can be harder to remortgage or sell on standard terms. Buyers' solicitors will often ask for evidence that any past subsidence has been properly repaired and monitored."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>UK insurers are reporting a significant rise in subsidence claims following the hottest summer on record, with Hastings Direct telling of a near 140% jump in August claims to an all-time high. For homeowners, this isn't just an abstract weather story. Subsidence affects whether a property can be insured, what it's worth, and whether a lender will approve a mortgage against it, and a spike like this could ripple through all three over the coming months.</p><p>As <a href=\"https://www.theguardian.com/business/2026/sep/05/uk-insurers-surge-subsidence-claims-hottest-summer-on-record\">reported by The Guardian</a>, several insurers in England and Wales have described a busy August as prolonged dry, hot conditions caused clay-rich soils to shrink and shift beneath foundations, a classic trigger for subsidence. This is a well understood mechanism, but the scale of this summer's heat appears to have pushed many more properties past the point where cracks and structural movement become visible.</p><h2>Why this matters beyond the immediate repair bill</h2><p>Subsidence is one of the few property issues that can genuinely stall a sale or a remortgage. Once a claim has been made, or once a property is flagged as having a history of subsidence, insurers tend to ask more questions, charge higher premiums, or in some cases decline cover altogether. Mortgage lenders generally require buildings insurance to be in place before they'll lend, so a property that's hard to insure can quickly become a property that's hard to sell or refinance.</p><p>For existing homeowners in clay soil areas, particularly older properties or those with trees close to the foundations, this surge in claims is a reminder to keep an eye on any new cracking, especially where it appears suddenly after a dry spell and follows a diagonal pattern around windows and doors. Catching movement early and getting a structural engineer's assessment can make the difference between a straightforward insurance claim and a much more drawn out dispute.</p><h2>What it means for buyers and landlords</h2><p>Buyers looking at properties in areas known for clay soils may want to factor in the possibility of higher insurance premiums or a request for a specialist subsidence survey before exchanging contracts. Landlords with older housing stock, particularly Victorian or Edwardian terraces built on shallow foundations, should expect more scrutiny from insurers at renewal time, and possibly higher premiums across their portfolios if claims data continues to climb in their region.</p><p>There's also a knock-on effect for anyone trying to sell a property that's had a subsidence claim, even a resolved one. Some buyers and their solicitors will want to see evidence of remedial work and ongoing monitoring, which can slow a transaction down at exactly the point sellers want speed, particularly if there's a chain involved or a purchase depending on the sale completing.</p><h2>What homeowners can do now</h2><p>If a property does need structural repairs, such as underpinning, before it can be sold, remortgaged or insured properly, the timeline can be longer than a typical mortgage application allows for. In situations like this, some homeowners look at short-term finance to bridge the gap between identifying the problem and getting a long-term insurance and mortgage position sorted. Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> page sets out some of the options available for property owners who need to move quickly on repair or refinancing work.</p><h2>Frequently Asked Questions</h2><h3>How do I know if cracks in my house are subsidence rather than normal settlement?</h3><p>Subsidence cracks are typically wider than a 10p coin, run diagonally, and often appear or worsen suddenly following a dry spell, particularly near doors and windows. Ordinary settlement cracks tend to be finer and more stable over time. If you're unsure, it's worth getting a structural engineer or surveyor to assess it rather than guessing.</p><h3>Will a subsidence claim make my property harder to insure in future?</h3><p>It can. Insurers often ask about subsidence history when quoting for buildings cover, and a past claim, even one that's been resolved, may lead to higher premiums or more limited cover. Specialist insurers do exist for properties with a subsidence history, though cover may cost more.</p><h3>Does subsidence affect my ability to remortgage or sell?</h3><p>Yes, potentially. Lenders usually require adequate buildings insurance before approving a mortgage, so a property that insurers are reluctant to cover can be harder to remortgage or sell on standard terms. Buyers' solicitors will often ask for evidence that any past subsidence has been properly repaired and monitored.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
