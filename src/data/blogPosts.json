@@ -17448,5 +17448,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1788787802682,
+    "status": "published",
+    "slug": "mortgage-lenders-hike-rates-bond-market-turmoil",
+    "url": "/insights/mortgage-lenders-hike-rates-bond-market-turmoil",
+    "title": "Five mortgage lenders raise rates after bond market turmoil linked to Iran conflict",
+    "excerpt": "Several mortgage lenders have increased rates on their deals after volatility in the bond markets, driven partly by the escalating conflict in Iran, pushing up borrowing costs for buyers and remortgagers.",
+    "metaTitle": "Mortgage Lenders Hike Rates After Bond Market Turmoil",
+    "metaDescription": "Five lenders have raised mortgage rates following bond market volatility linked to the Iran conflict. Here's what it means for UK borrowers.",
+    "keywords": "property market, mortgage rate, mortgage, landlord, buy-to-let, homeowner",
+    "date": "2026-09-07",
+    "publishedAt": "2026-09-07T13:30:02.682Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/mortgage-lenders-hike-rates-bond-market-turmoil.webp",
+    "heroVersion": 37541387,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Will mortgage rates keep rising after this?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is not possible to say for certain, since further movements will depend on how the situation in the bond markets and the wider geopolitical picture develop. Borrowers should expect the possibility of further changes and stay in close contact with their broker or lender for updates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I rush to lock in a mortgage rate now?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you have a renewal coming up, it can be worth securing a rate sooner rather than later, particularly if lenders continue to reprice upwards. However, this is a personal decision that depends on your circumstances, and speaking to a broker about your specific situation is generally the safest approach."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this affect existing fixed-rate mortgages?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, if you are already locked into a fixed-rate deal, these changes do not affect your current payments. The impact is felt by those taking out new deals, remortgaging, or partway through a mortgage application where the rate has not yet been secured."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Five mortgage lenders have increased rates on their home loan products today, reacting to turmoil in the bond markets that has been stoked by the escalating conflict in Iran. As reported by <a href=\"https://www.thisismoney.co.uk/money/mortgageshome/article-16111413/Bad-news-mortgage-borrowers-five-lenders-hike-rates-following-bond-market-turmoil.html?ns_mchannel=rss&ns_campaign=1490&ito=1490\">This Is Money</a>, the moves mean higher borrowing costs for anyone taking out a new mortgage or remortgaging in the near term, at a moment when many hoped rates were finally settling down.</p><p>Mortgage pricing in the UK is closely linked to what happens in the bond markets, particularly the yields on government bonds known as gilts. When gilt yields rise sharply, as they have done amid the geopolitical uncertainty around Iran, lenders tend to reprice their fixed-rate deals upwards fairly quickly to protect their margins. This is exactly the pattern being seen now, with several major lenders pulling or repricing products within a short space of time.</p><h2>What this means if you're remortgaging soon</h2><p>If your current fixed deal is coming to an end in the next few months, this is a reminder that mortgage pricing can move quickly and without much warning. Rates that looked competitive last week may no longer be on the table, and the deal you were expecting to get could now come with a higher monthly payment. It is worth checking with a broker or your existing lender sooner rather than later, since many lenders allow you to lock in a rate months ahead of your renewal date, which can offer some protection against further rises while you wait to see how things settle.</p><h2>Buyers midway through a purchase</h2><p>Anyone who has had an offer accepted and is going through the mortgage application process may find that the rate they were quoted is no longer guaranteed if their lender is one of those repricing. It is sensible to speak to your broker or lender directly to confirm exactly where your application stands and whether your rate is secured. Delays in the conveyancing process become more costly in this kind of environment, since every extra week can mean exposure to further rate changes.</p><h2>Landlords and buy-to-let considerations</h2><p>Landlords with mortgages coming up for renewal face the same pressures as residential borrowers, but often with less room to absorb higher costs given rental yields are already tightly calculated. A jump in mortgage rates can quickly turn a marginal investment into a loss-making one, which is why many landlords are watching bond market developments closely even though the underlying cause, a geopolitical conflict, feels far removed from the UK property market.</p><h2>Why bond markets and mortgages are connected</h2><p>It can seem strange that a conflict in another part of the world has any bearing on what a UK homeowner pays on their mortgage, but the connection runs through investor confidence and government borrowing costs. When global uncertainty rises, investors often demand higher returns for holding government debt, pushing up yields. Lenders use these yields as a benchmark for pricing fixed-rate mortgages, so a spike in gilt yields tends to filter through into higher mortgage rates within days rather than months.</p><h2>Frequently Asked Questions</h2><h3>Will mortgage rates keep rising after this?</h3><p>It is not possible to say for certain, since further movements will depend on how the situation in the bond markets and the wider geopolitical picture develop. Borrowers should expect the possibility of further changes and stay in close contact with their broker or lender for updates.</p><h3>Should I rush to lock in a mortgage rate now?</h3><p>If you have a renewal coming up, it can be worth securing a rate sooner rather than later, particularly if lenders continue to reprice upwards. However, this is a personal decision that depends on your circumstances, and speaking to a broker about your specific situation is generally the safest approach.</p><h3>Does this affect existing fixed-rate mortgages?</h3><p>No, if you are already locked into a fixed-rate deal, these changes do not affect your current payments. The impact is felt by those taking out new deals, remortgaging, or partway through a mortgage application where the rate has not yet been secured.</p><p>For property buyers, landlords or developers who need certainty over funding while mortgage markets remain volatile, it can help to understand the wider range of options available, including short-term and bridging finance, via Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions hub</a>.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
