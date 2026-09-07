@@ -17071,7 +17071,8 @@
     "fbPosted": false,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "heroVersion": 24524484
   },
   {
     "id": 1788693726888,
@@ -17349,6 +17350,7 @@
     "fbPosted": false,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "heroVersion": 20943692
   }
 ]
