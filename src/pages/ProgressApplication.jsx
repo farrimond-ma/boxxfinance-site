@@ -40,24 +40,37 @@ const CurrencyInput = ({ label, name, value, onChange, placeholder, required }) 
 };
 
 const EXIT_OPTIONS = ['Sale of the security property', 'Refinance onto a mortgage', 'Sale of another property', 'Other'];
+const APPLICANT_TYPE_OPTIONS = ['UK Resident', 'UK Company', 'Non-UK Resident', 'Non-UK Company'];
+const SECURITY_TYPE_OPTIONS = ['Residential', 'Semi-commercial', 'Commercial', 'Land'];
+const TENURE_OPTIONS = ['Freehold', 'Leasehold'];
 
-// Generic, un-personalised page — anyone with the link can submit, no lookup
-// of an existing enquiry. Captures exactly the four things asked for: the
-// two properties (purchase + security), the exit strategy, and the client's
-// identity (name + DOB). Posts to the same sheet as every other form, tagged
-// distinctly so it's easy to filter to "progressing" submissions.
+// Generic, un-personalised page — anyone with the link can submit, no lookup of an existing
+// enquiry. Mirrors the fields on Boxx's standard bridging enquiry form (applicant type, broker,
+// security details, purchase-or-refinance loan purpose, loan amount, exit strategy, adverse
+// credit, plus a project summary and experience free-text).
 const ProgressApplication = () => {
     const [form, setForm] = useState({
         fullName: '',
         dob: '',
         email: '',
         phone: '',
+        applicantType: '',
+        securityAddress: '',
+        securityType: '',
+        securityValue: '',
+        chargeType: '',
+        tenure: '',
+        leaseholdYearsRemaining: '',
+        loanPurposeType: '', // Purchase | Refinance
         purchaseAddress: '',
         purchasePrice: '',
-        securityAddress: '',
-        securityValue: '',
+        existingLenderName: '',
+        existingLoanOutstanding: '',
         loanAmount: '',
+        loanAmountBasis: '', // Net | Gross
         exitStrategy: '',
+        projectSummary: '',
+        investmentExperience: '',
         hasAdverseCredit: '',
         adverseCreditDetails: '',
     });
@@ -85,6 +98,26 @@ const ProgressApplication = () => {
 
     const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
+    const buildCommonFields = () => ({
+        applicant_type: form.applicantType,
+        security_address: form.securityAddress,
+        security_type: form.securityType,
+        security_value: form.securityValue,
+        charge_type: form.chargeType,
+        tenure: form.tenure,
+        leasehold_years_remaining: form.tenure === 'Leasehold' ? form.leaseholdYearsRemaining : '',
+        loan_purpose_type: form.loanPurposeType,
+        purchase_address: form.loanPurposeType === 'Purchase' ? form.purchaseAddress : '',
+        purchase_price: form.loanPurposeType === 'Purchase' ? form.purchasePrice : '',
+        existing_lender_name: form.loanPurposeType === 'Refinance' ? form.existingLenderName : '',
+        existing_loan_outstanding: form.loanPurposeType === 'Refinance' ? form.existingLoanOutstanding : '',
+        loan_amount_required: form.loanAmount,
+        loan_amount_basis: form.loanAmountBasis,
+        exit_strategy: form.exitStrategy,
+        project_summary: form.projectSummary,
+        investment_experience: form.investmentExperience,
+    });
+
     const onSubmit = async (e) => {
         e.preventDefault();
         setStatus('sending');
@@ -99,14 +132,9 @@ const ProgressApplication = () => {
                 params.append('client_dob', form.dob);
                 params.append('client_email', form.email);
                 params.append('client_phone', form.phone);
-                params.append('purchase_address', form.purchaseAddress);
-                params.append('purchase_price', form.purchasePrice);
-                params.append('security_address', form.securityAddress);
-                params.append('security_value', form.securityValue);
-                params.append('loan_amount_required', form.loanAmount);
-                params.append('exit_strategy', form.exitStrategy);
                 params.append('adverse_credit', form.hasAdverseCredit === 'yes' ? '1' : '0');
                 if (form.hasAdverseCredit === 'yes') params.append('adverse_credit_details', form.adverseCreditDetails);
+                Object.entries(buildCommonFields()).forEach(([k, v]) => params.append(k, v));
                 const res = await fetch(CRM_PROGRESS_SUBMIT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -123,10 +151,15 @@ const ProgressApplication = () => {
 
         try {
             const summary = [
-                `Loan amount required: £${form.loanAmount ? Number(form.loanAmount).toLocaleString() : 'n/a'}`,
-                `Purchase property: ${form.purchaseAddress} (£${form.purchasePrice ? Number(form.purchasePrice).toLocaleString() : 'n/a'})`,
-                `Security property: ${form.securityAddress} (£${form.securityValue ? Number(form.securityValue).toLocaleString() : 'n/a'})`,
+                `Applicant type: ${form.applicantType || 'n/a'}`,
+                `Loan amount required: £${form.loanAmount ? Number(form.loanAmount).toLocaleString() : 'n/a'} (${form.loanAmountBasis || 'n/a'})`,
+                form.loanPurposeType === 'Refinance'
+                    ? `Refinance: existing lender ${form.existingLenderName || 'n/a'}, balance £${form.existingLoanOutstanding ? Number(form.existingLoanOutstanding).toLocaleString() : 'n/a'}`
+                    : `Purchase property: ${form.purchaseAddress} (£${form.purchasePrice ? Number(form.purchasePrice).toLocaleString() : 'n/a'})`,
+                `Security property: ${form.securityAddress} (£${form.securityValue ? Number(form.securityValue).toLocaleString() : 'n/a'}, ${form.securityType || 'n/a'}, ${form.chargeType || 'n/a'}, ${form.tenure || 'n/a'}${form.tenure === 'Leasehold' ? ' - ' + (form.leaseholdYearsRemaining || 'n/a') + ' yrs remaining' : ''})`,
                 `Exit strategy: ${form.exitStrategy}`,
+                `Project summary: ${form.projectSummary || 'n/a'}`,
+                `Experience: ${form.investmentExperience || 'n/a'}`,
                 `Adverse credit: ${form.hasAdverseCredit === 'yes' ? 'Yes — ' + form.adverseCreditDetails : 'No'}`,
                 `DOB: ${form.dob}`,
             ].join(' | ');
@@ -158,14 +191,9 @@ const ProgressApplication = () => {
                 crmParams.append('client_dob', form.dob);
                 crmParams.append('email', form.email);
                 crmParams.append('phone', form.phone);
-                crmParams.append('purchase_address', form.purchaseAddress);
-                crmParams.append('purchase_price', form.purchasePrice);
-                crmParams.append('security_address', form.securityAddress);
-                crmParams.append('security_value', form.securityValue);
-                crmParams.append('loan_amount', form.loanAmount);
-                crmParams.append('exit_strategy', form.exitStrategy);
                 crmParams.append('adverse_credit', form.hasAdverseCredit === 'yes' ? '1' : '0');
                 if (form.hasAdverseCredit === 'yes') crmParams.append('adverse_credit_details', form.adverseCreditDetails);
+                Object.entries(buildCommonFields()).forEach(([k, v]) => crmParams.append(k, v));
                 fetch(CRM_INTAKE_URL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -204,9 +232,9 @@ const ProgressApplication = () => {
                         <p>Loading your details…</p>
                     ) : (
                         <form onSubmit={onSubmit}>
-                            <h3 style={{ marginTop: 0 }}>About the applicant</h3>
+                            <h3 style={{ marginTop: 0 }}>Your details</h3>
                             <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Applicant's Full Name</label>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Full name</label>
                                 <input type="text" name="fullName" className="quiz-input" required value={form.fullName} onChange={onChange} />
                             </div>
                             <div className="quiz-input-group">
@@ -223,23 +251,114 @@ const ProgressApplication = () => {
                                     <input type="tel" name="phone" className="quiz-input" required value={form.phone} onChange={onChange} />
                                 </div>
                             )}
-
-                            <h3>The property you want to buy</h3>
                             <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address</label>
-                                <textarea name="purchaseAddress" className="quiz-input" rows="5" required value={form.purchaseAddress} onChange={onChange} />
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Which best describes you?</label>
+                                <select name="applicantType" className="quiz-input" required value={form.applicantType} onChange={onChange}>
+                                    <option value="" disabled>Select an option</option>
+                                    {APPLICANT_TYPE_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
+                                </select>
                             </div>
-                            <CurrencyInput label="Purchase price" name="purchasePrice" value={form.purchasePrice} onChange={onChange} placeholder="e.g. £ 350,000" required />
-
-                            <h3>The property securing the bridge</h3>
+                            <h3>Security</h3>
                             <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address</label>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Property security address</label>
                                 <textarea name="securityAddress" className="quiz-input" rows="5" required value={form.securityAddress} onChange={onChange} />
                             </div>
-                            <CurrencyInput label="Value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 500,000" required />
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Security type</label>
+                                <select name="securityType" className="quiz-input" required value={form.securityType} onChange={onChange}>
+                                    <option value="" disabled>Select an option</option>
+                                    {SECURITY_TYPE_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
+                                </select>
+                            </div>
+                            <CurrencyInput label="Estimated value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 500,000" required />
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Charge type</label>
+                                <div style={{ display: 'flex', gap: '2rem' }}>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                        <input type="radio" name="chargeType" value="1st charge" checked={form.chargeType === '1st charge'} onChange={onChange} required />
+                                        1st charge
+                                    </label>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                        <input type="radio" name="chargeType" value="2nd charge" checked={form.chargeType === '2nd charge'} onChange={onChange} required />
+                                        2nd charge
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Tenure</label>
+                                <div style={{ display: 'flex', gap: '2rem' }}>
+                                    {TENURE_OPTIONS.map((o) => (
+                                        <label key={o} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                            <input type="radio" name="tenure" value={o} checked={form.tenure === o} onChange={onChange} required />
+                                            {o}
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+                            {form.tenure === 'Leasehold' && (
+                                <div className="quiz-input-group">
+                                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Years remaining on term</label>
+                                    <input type="number" min="0" name="leaseholdYearsRemaining" className="quiz-input" required value={form.leaseholdYearsRemaining} onChange={onChange} />
+                                </div>
+                            )}
 
-                            <h3>How much do you need to borrow?</h3>
+                            <h3>Loan purpose</h3>
+                            <div className="quiz-input-group">
+                                <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                        <input type="radio" name="loanPurposeType" value="Purchase" checked={form.loanPurposeType === 'Purchase'} onChange={onChange} required />
+                                        Borrowing to purchase
+                                    </label>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                        <input type="radio" name="loanPurposeType" value="Refinance" checked={form.loanPurposeType === 'Refinance'} onChange={onChange} required />
+                                        Borrowing to refinance and/or raise capital
+                                    </label>
+                                </div>
+                            </div>
+                            {form.loanPurposeType === 'Purchase' && (
+                                <>
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address of the property you want to buy</label>
+                                        <textarea name="purchaseAddress" className="quiz-input" rows="5" required value={form.purchaseAddress} onChange={onChange} />
+                                    </div>
+                                    <CurrencyInput label="Purchase price" name="purchasePrice" value={form.purchasePrice} onChange={onChange} placeholder="e.g. £ 350,000" required />
+                                </>
+                            )}
+                            {form.loanPurposeType === 'Refinance' && (
+                                <>
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Name of existing lender</label>
+                                        <input type="text" name="existingLenderName" className="quiz-input" required value={form.existingLenderName} onChange={onChange} />
+                                    </div>
+                                    <CurrencyInput label="Current loan outstanding" name="existingLoanOutstanding" value={form.existingLoanOutstanding} onChange={onChange} placeholder="e.g. £ 150,000" required />
+                                </>
+                            )}
+
+                            <h3>Loan details</h3>
                             <CurrencyInput label="Loan amount required" name="loanAmount" value={form.loanAmount} onChange={onChange} placeholder="e.g. £ 250,000" required />
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Net or gross?</label>
+                                <div style={{ display: 'flex', gap: '2rem' }}>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                        <input type="radio" name="loanAmountBasis" value="Net" checked={form.loanAmountBasis === 'Net'} onChange={onChange} required />
+                                        Net
+                                    </label>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                        <input type="radio" name="loanAmountBasis" value="Gross" checked={form.loanAmountBasis === 'Gross'} onChange={onChange} required />
+                                        Gross
+                                    </label>
+                                </div>
+                            </div>
+
+                            <h3>Further details</h3>
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Project summary — any details to help us understand the project</label>
+                                <textarea name="projectSummary" className="quiz-input" rows="4" value={form.projectSummary} onChange={onChange} />
+                            </div>
+                            <div className="quiz-input-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Experience — property investment experience, previous projects, current portfolio, any professional qualifications etc.</label>
+                                <textarea name="investmentExperience" className="quiz-input" rows="4" value={form.investmentExperience} onChange={onChange} />
+                            </div>
 
                             <h3>How will you exit the bridge?</h3>
                             <div className="quiz-input-group">
@@ -249,6 +368,7 @@ const ProgressApplication = () => {
                                     {EXIT_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
                                 </select>
                             </div>
+
                             <h3>Credit history</h3>
                             <div className="quiz-input-group">
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
