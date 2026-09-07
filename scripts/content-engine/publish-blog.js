@@ -1049,6 +1049,16 @@ async function fetchPexelsImage(keyword, service) {
     'mezzanine-finance':   'UK city financial district skyline',
     'structured-finance':  'UK city London financial district',
     'business-loans':      'UK small business entrepreneur office',
+    // Added 2026-09-07: these four had no entry, so every one of their posts
+    // fell through to the generic 'UK business professionals meeting office'
+    // fallback — an office/cafe photo on an article about mortgages and
+    // homes, which is what prompted this fix. Queries match the ones already
+    // used for each service's own page hero (fetch-service-heroes.js), for
+    // visual consistency between a service page and its supporting articles.
+    'bad-credit-mortgages':   'UK suburban semi detached houses',
+    'secured-loans':          'UK detached house driveway exterior',
+    'buy-to-let-refinance':   'UK rental apartment building exterior',
+    'second-charge-mortgages':'UK terraced houses residential street',
   };
   const primaryQuery = SERVICE_QUERIES[serviceKey] || 'UK business professionals meeting office';
 

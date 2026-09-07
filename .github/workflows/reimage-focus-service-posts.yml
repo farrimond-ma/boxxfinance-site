@@ -1,0 +1,62 @@
+name: Re-image Focus-Service Posts
+
+# Manual one-off backfill. Bad Credit Mortgages, Secured Loans, Buy To Let
+# Refinance and Second Charge Mortgages had no entry in publish-blog.js's
+# SERVICE_QUERIES map, so their posts got a generic office/cafe fallback
+# image instead of something relevant. The map is fixed (2026-09-07); this
+# re-sources the images that were already fetched under it.
+#
+# No schedule — run by hand, and shouldn't normally need running again once
+# every affected post has been re-imaged (it skips posts that already have
+# a heroVersion, i.e. have already been through this once).
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (report what would change, write nothing)'
+        required: false
+        default: 'true'
+      only:
+        description: 'Optional: re-image only these slugs (comma-separated). Leave blank for all eligible.'
+        required: false
+        default: ''
+      force:
+        description: 'Re-image even posts that already have a heroVersion'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+  reimage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: scripts/content-engine
+
+      - name: Re-image focus-service posts
+        env:
+          GH_TOKEN:       ${{ secrets.GH_PAT }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          GITHUB_OWNER:   farrimond-ma
+          GITHUB_REPO:    boxxfinance-site
+        run: |
+          node reimage-focus-service-posts.js \
+            ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }} \
+            ${{ github.event.inputs.only != '' && format('--only {0}', github.event.inputs.only) || '' }} \
+            ${{ github.event.inputs.force == 'true' && '--force' || '' }}
+        working-directory: scripts/content-engine
