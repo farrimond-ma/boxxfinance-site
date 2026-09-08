@@ -76,7 +76,7 @@ async function fetchPexelsImage(queries, usedPhotoIds = new Set()) {
     const imgRes = await fetch(pick.src.large2x || pick.src.large);
     if (!imgRes.ok) continue;
     console.log(`  Image: "${query}" -> photo ${pick.id}${british[0] ? ' (UK-tagged)' : ''} — ${pick.alt || 'no alt'}`);
-    return { buffer: Buffer.from(await imgRes.arrayBuffer()), photoId: pick.id };
+    return { buffer: Buffer.from(await imgRes.arrayBuffer()), photoId: pick.id, photographer: pick.photographer, url: pick.url };
   }
 
   // Nothing British-tagged anywhere: take any unused non-foreign result rather
@@ -86,7 +86,7 @@ async function fetchPexelsImage(queries, usedPhotoIds = new Set()) {
   const imgRes = await fetch(fallback.src.large2x || fallback.src.large);
   if (!imgRes.ok) return null;
   console.log(`  Image: fallback -> photo ${fallback.id} — ${fallback.alt || 'no alt'}`);
-  return { buffer: Buffer.from(await imgRes.arrayBuffer()), photoId: fallback.id };
+  return { buffer: Buffer.from(await imgRes.arrayBuffer()), photoId: fallback.id, photographer: fallback.photographer, url: fallback.url };
 }
 
 module.exports = { deriveImageQueries, fetchPexelsImage, NON_UK_MARKERS, UK_MARKERS };

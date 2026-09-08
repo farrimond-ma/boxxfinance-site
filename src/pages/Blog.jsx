@@ -44,6 +44,13 @@ const cleanExcerpt = (s) =>
     String(s || '').replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1').replace(/\s{2,}/g, ' ').trim();
 
 const DEFAULT_IMG = '/images/hero/service-commercial-mortgages.webp';
+// The hub's own banner image — separate from DEFAULT_IMG above (that one is
+// a neutral card-fallback, used for whichever service has no better photo).
+// This page is now overwhelmingly bridging/property content, so its single
+// hero banner should look like the site's own property photography rather
+// than a generic office-building stock shot — a genuine UK terraced-street
+// image from the same curated pool bridging posts use (heroPool.js).
+const HUB_HERO_IMG = '/images/hero/bridging-9.webp';
 // heroForPost routes bridging posts through the curated pool (variety), so cards
 // stop showing the content engine's duplicate per-slug stock photos and always
 // match the article they link to. Service image / default cover any gaps.
@@ -95,7 +102,7 @@ const Blog = () => {
             {/* Same navy→property-image hero used across the site (ResourcePage.css). */}
             <div
                 className="resource-hero has-hero-image"
-                style={{ '--hero-image': `url("${DEFAULT_IMG}")` }}
+                style={{ '--hero-image': `url("${HUB_HERO_IMG}")` }}
             >
                 <div className="container resource-hero-grid">
                     <div className="resource-hero-text">

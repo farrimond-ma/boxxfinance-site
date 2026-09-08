@@ -6,20 +6,25 @@ import './ResourcePage.css';
 // service/landing pages, so the visual language stays identical and can't
 // drift. Navy panel blending into a full-height background image, dual CTAs,
 // trust ticks.
-export const ResourceHero = ({ title, description, heroImage, primaryCtaTo = '/chat-about-funding' }) => {
-    // Title is white by default; if it contains a colon (mainly blog titles
-    // like "Raising Capital for Growth: Debt vs. Equity"), the part after the
-    // colon is gold.
-    const colonIdx = (title || '').indexOf(':');
-    const titleWhite = colonIdx !== -1 ? title.slice(0, colonIdx + 1) : title;
-    const titleGold = colonIdx !== -1 ? title.slice(colonIdx + 1).trim() : '';
+export const ResourceHero = ({ eyebrow, title, description, heroImage, primaryCtaTo = '/chat-about-funding', afterTrust }) => {
+    // Title is a plain string for every existing caller (blog/service/location
+    // pages) and gets the usual colon-split white/gold treatment (mainly blog
+    // titles like "Raising Capital for Growth: Debt vs. Equity"). The homepage
+    // needs its own two-line "Bridging Loans. / Funded Fast." layout that a
+    // colon split can't produce, so a caller may pass a ReactNode instead —
+    // rendered as-is, skipping the split and the long-title scale-down (which
+    // only makes sense for a plain string's length).
+    const isString = typeof title === 'string';
+    const colonIdx = isString ? title.indexOf(':') : -1;
+    const titleWhite = isString ? (colonIdx !== -1 ? title.slice(0, colonIdx + 1) : title) : title;
+    const titleGold = isString && colonIdx !== -1 ? title.slice(colonIdx + 1).trim() : '';
     // Most titles are ~50-55 characters and read fine at the full hero size.
     // Longer, more conversational titles (trigger-event and news content
     // especially — e.g. "Landlords Who Incorporated Their Property
     // Businesses Could Face Surprise Capital Gains Tax Bills" at 96 chars)
     // wrap to 4-5 lines and dominate the hero. Scale down rather than
     // shrink every title uniformly.
-    const isLongTitle = (title || '').length > 70;
+    const isLongTitle = isString && title.length > 70;
 
     return (
         <div
@@ -28,6 +33,7 @@ export const ResourceHero = ({ title, description, heroImage, primaryCtaTo = '/c
         >
             <div className="container resource-hero-grid">
                 <div className="resource-hero-text">
+                    {eyebrow && <p className="resource-hero-eyebrow">{eyebrow}</p>}
                     <h1 className={isLongTitle ? 'is-long-title' : undefined}>
                         {titleWhite}
                         {titleGold && <> <span className="text-highlight">{titleGold}</span></>}
@@ -49,6 +55,8 @@ export const ResourceHero = ({ title, description, heroImage, primaryCtaTo = '/c
                         <li>Whole of market</li>
                         <li>Fast decisions</li>
                     </ul>
+
+                    {afterTrust}
                 </div>
             </div>
         </div>

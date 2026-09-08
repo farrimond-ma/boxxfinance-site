@@ -28,11 +28,9 @@ const AUTO_OPEN_KEY = 'boxx_contact_menu_auto_opened';
 // 07915 377969 → 44 7915 377969
 const WHATSAPP_URL = 'https://wa.me/447915377969';
 
-// No booking tool is set up yet, so this entry does not render. Set it to the
-// scheduling URL (Calendly, Cal.com, HubSpot meetings, whatever gets used) and
-// "Book a Meeting" appears. Deliberately not pointed at the enquiry form —
-// that is a form, not a booking, and labelling it as one would mislead.
-const BOOKING_URL = null;
+// Internal route (src/pages/BookAppointment.jsx), not an external scheduling
+// tool — kept as a Link rather than an <a> so it's a normal client-side nav.
+const BOOKING_PATH = '/book-an-appointment';
 
 const Icon = ({ d, children }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -114,19 +112,17 @@ const ContactMenu = () => {
                                 Live Chat
                             </button>
                         </li>
-                        {BOOKING_URL && (
-                            <li>
-                                <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
-                                    <Icon>
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                                        <line x1="16" y1="2" x2="16" y2="6" />
-                                        <line x1="8" y1="2" x2="8" y2="6" />
-                                        <line x1="3" y1="10" x2="21" y2="10" />
-                                    </Icon>
-                                    Book a Meeting
-                                </a>
-                            </li>
-                        )}
+                        <li>
+                            <Link to={BOOKING_PATH} onClick={() => setOpen(false)}>
+                                <Icon>
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                    <line x1="16" y1="2" x2="16" y2="6" />
+                                    <line x1="8" y1="2" x2="8" y2="6" />
+                                    <line x1="3" y1="10" x2="21" y2="10" />
+                                </Icon>
+                                Book an Appointment
+                            </Link>
+                        </li>
                         <li>
                             <Link to="/chat-about-funding" onClick={() => setOpen(false)}>
                                 <Icon>
