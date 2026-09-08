@@ -16,15 +16,20 @@ export const useChatWidget = () => {
 
 export const ChatWidgetProvider = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
+    // Set once by a re-engagement link (?t=&a=yes/no — see ReengageOpener) to seed the
+    // conversation with who the visitor is and what they just tapped, so the widget can open
+    // straight into a personalised reply instead of the generic greeting.
+    const [seed, setSeed] = useState(null);
 
     const openChat = () => setIsOpen(true);
     const closeChat = () => setIsOpen(false);
     const toggleChat = () => setIsOpen((v) => !v);
+    const openChatWithSeed = (s) => { setSeed(s); setIsOpen(true); };
 
     return (
-        <ChatWidgetContext.Provider value={{ isOpen, openChat, closeChat, toggleChat }}>
+        <ChatWidgetContext.Provider value={{ isOpen, openChat, closeChat, toggleChat, openChatWithSeed }}>
             {children}
-            <ChatWidget isOpen={isOpen} onClose={closeChat} />
+            <ChatWidget isOpen={isOpen} onClose={closeChat} seed={seed} onSeedConsumed={() => setSeed(null)} />
         </ChatWidgetContext.Provider>
     );
 };

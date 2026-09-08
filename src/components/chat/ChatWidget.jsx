@@ -28,7 +28,7 @@ function TypingIndicator() {
     );
 }
 
-const ChatWidget = ({ isOpen, onClose }) => {
+const ChatWidget = ({ isOpen, onClose, seed, onSeedConsumed }) => {
     const location = useLocation();
     const [messages, setMessages] = useState([]); // {role: 'user'|'assistant', content}
     const [input, setInput] = useState('');
@@ -43,6 +43,19 @@ const ChatWidget = ({ isOpen, onClose }) => {
             setTimeout(() => inputRef.current?.focus(), 300);
         }
     }, [isOpen]);
+
+    // A re-engagement text link (see reengage.php) opens the widget already knowing who the
+    // visitor is and whether they tapped YES or NO — phrased as a normal opening message so it
+    // reads like something they'd have typed themselves, rather than a hidden system prompt.
+    useEffect(() => {
+        if (!isOpen || !seed || messages.length > 0) return;
+        const opener = seed.name
+            ? `Hi, I'm ${seed.name}. I got a text asking if I still want a bridging loan — ${seed.answer === 'no' ? "no, I don't need one anymore." : 'yes, I still do.'}`
+            : `I got a text asking if I still want a bridging loan — ${seed.answer === 'no' ? "no, I don't need one anymore." : 'yes, I still do.'}`;
+        sendMessage(opener);
+        onSeedConsumed?.();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOpen, seed]);
 
     useEffect(() => {
         if (listRef.current) {

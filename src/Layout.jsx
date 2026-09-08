@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ChatWidgetProvider } from './components/chat/ChatWidgetContext';
+import ReengageOpener from './components/chat/ReengageOpener';
 import ContactMenu from './components/ContactMenu';
 import { useEffect } from 'react';
 
@@ -26,6 +27,7 @@ const Layout = () => {
     return (
         <div className="App">
             <ChatWidgetProvider>
+                <ReengageOpener />
                 <Navbar minimal={pathname === '/progress-your-application' || pathname === '/book-an-appointment'} />
                 <main>
                     <Outlet />
