@@ -5,13 +5,15 @@ import './MultiStepForm.css';
 // Same CRM shared secret every other public form on the site uses.
 const CRM_SLOTS_URL = 'https://crm.boxxfinance.co.uk/appointment_slots.php';
 const CRM_BOOK_URL = 'https://crm.boxxfinance.co.uk/book_appointment.php';
+const CRM_LOOKUP_URL = 'https://crm.boxxfinance.co.uk/lookup.php';
 const CRM_INTAKE_KEY = '83cb574fb096ff8c62df4e117ac969a5f601c1ec43d5e91f';
 
 const DAY_LABEL = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
 
-// Public self-service booking — "Book an appointment with an advisor". No login, no lookup of an
-// existing enquiry; picking a slot and confirming always creates a fresh case (source "Booked
-// appointment") assigned to whichever advisor is actually free, and adds it to their Diary.
+// Public self-service booking — "Book an appointment with an advisor". Opened plain (no login, no
+// lookup), a booking always creates a fresh case. Opened via a chase email's ?t=... link — same
+// token progress-your-application uses — it pre-fills the client's name/email and the booking
+// updates their existing case instead, via book_appointment.php resolving the token server-side.
 const BookAppointment = () => {
     const [slotsStatus, setSlotsStatus] = useState('loading'); // loading | ready | error
     const [slots, setSlots] = useState([]);
@@ -21,6 +23,7 @@ const BookAppointment = () => {
     const [status, setStatus] = useState('picking'); // picking | sending | done | error
     const [errorMsg, setErrorMsg] = useState('');
     const [confirmed, setConfirmed] = useState(null);
+    const [token, setToken] = useState(null); // set once a valid ?t=... link is confirmed
 
     useEffect(() => {
         fetch(`${CRM_SLOTS_URL}?intake_key=${encodeURIComponent(CRM_INTAKE_KEY)}`)
@@ -31,6 +34,17 @@ const BookAppointment = () => {
                 setSlotsStatus('ready');
             })
             .catch(() => setSlotsStatus('error'));
+
+        const t = new URLSearchParams(window.location.search).get('t');
+        if (!t) return;
+        fetch(`${CRM_LOOKUP_URL}?t=${encodeURIComponent(t)}`)
+            .then((r) => (r.ok ? r.json() : Promise.reject()))
+            .then((data) => {
+                if (!data.ok) throw new Error();
+                setToken(t);
+                setForm((f) => ({ ...f, name: data.full_name || '', email: data.email || '' }));
+            })
+            .catch(() => { /* invalid/expired link — falls back to a normal blank booking */ });
     }, []);
 
     const days = useMemo(() => {
@@ -61,6 +75,7 @@ const BookAppointment = () => {
             params.append('email', form.email);
             params.append('phone', form.phone);
             params.append('slot', selectedSlot.start);
+            if (token) params.append('t', token);
             const res = await fetch(CRM_BOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
