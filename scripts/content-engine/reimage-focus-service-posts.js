@@ -125,7 +125,15 @@ async function main() {
 
     if (isDryRun) { console.log(`  would use photo ${result.photoId}`); continue; }
 
-    const imagePath = post.heroImage.replace(/^\//, '');
+    // MUST be prefixed with the public/ dir — that's what Vite copies into
+    // dist/ at build time and what the FTP deploy actually ships. Without it
+    // (the bug this had until 2026-09-08) this writes a new file to
+    // images/blog/<slug>.webp at the repo ROOT: a path nothing builds from,
+    // so the commit looks right, the deploy reports success, and the live
+    // site's actual file is never touched. That's why three "fixed" posts
+    // kept serving their original image with the original Last-Modified
+    // date, no matter how many times this ran.
+    const imagePath = `public${post.heroImage}`;
     await replaceImage(imagePath, result.buffer);
     post.heroVersion = result.photoId;
     changed = true;
