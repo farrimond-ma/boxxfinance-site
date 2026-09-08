@@ -2,19 +2,27 @@
  * reimage-focus-service-posts.js
  *
  * One-off backfill for posts published under Bad Credit Mortgages, Secured
- * Loans, Buy To Let Refinance and Second Charge Mortgages before 2026-09-07.
+ * Loans, Buy To Let Refinance and Second Charge Mortgages before the image
+ * sourcing was fixed properly.
  *
- * Those four services had no entry in publish-blog.js's SERVICE_QUERIES map,
- * so every post fell through to the generic 'UK business professionals
- * meeting office' fallback — an office/cafe photo on an article about a
- * mortgage or a home. Mark flagged this from the /insights cards (the Bad
- * Credit Mortgages post showed people at what looks like a bar). The map is
- * fixed; this re-sources the images that were already fetched under it.
+ * Two bugs, found in sequence:
  *
- * Re-fetches through the SAME query strings now in SERVICE_QUERIES (kept in
- * step manually — small map, rarely changes, and importing a local function
- * out of publish-blog.js isn't worth the refactor for a one-off script; see
- * reimage-news-posts.js for the same tradeoff made the same way).
+ *   1. (2026-09-07) Those four services had no entry in publish-blog.js's
+ *      image-query map, so every post fell through to a generic
+ *      'UK business professionals meeting office' fallback — an office/cafe
+ *      photo on an article about a mortgage or a home.
+ *   2. (2026-09-08) Adding an entry wasn't enough on its own — a single
+ *      "UK <subject>" string barely constrains Pexels, which is US-heavy. A
+ *      buy-to-let-refinance post got an American apartment block through the
+ *      fixed-but-still-single-string query the very next night. The actual
+ *      fix is lib/news-images.js's fetchPexelsImage, built for exactly this
+ *      failure on the news pipeline: several query variants tried in order,
+ *      filtered against explicit non-UK markers (US cities, $, etc.) and
+ *      preferring explicitly UK-tagged results.
+ *
+ * Now shares BOTH the query list (lib/service-image-queries.js) and the
+ * fetching/filtering logic (lib/news-images.js) with publish-blog.js, so the
+ * two paths cannot drift apart again the way the single-string duplicate did.
  *
  * Bumps heroVersion so the change actually shows: heroPool.js's
  * heroForPost() appends it as a cache-busting query string for every
@@ -22,7 +30,7 @@
  * the file at the same path without bumping the version and a browser that
  * already cached the wrong photo keeps showing it.
  *
- * Safe to re-run: only touches posts still using the fallback-era image (or
+ * Safe to re-run: only touches posts still using a fallback-era image (or
  * everything, if --force is passed), so a repeat run without --force changes
  * nothing once every post has been re-imaged once.
  *
@@ -32,6 +40,8 @@
 require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
 const sharp = require('sharp');
+const { fetchPexelsImage } = require('./lib/news-images');
+const { serviceImageQueries } = require('./lib/service-image-queries');
 
 const GITHUB_OWNER = process.env.GITHUB_OWNER || 'farrimond-ma';
 const GITHUB_REPO  = process.env.GITHUB_REPO  || 'boxxfinance-site';
@@ -39,13 +49,15 @@ const BLOG_FILE    = 'src/data/blogPosts.json';
 
 const octokit = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_TOKEN });
 
-// Kept identical to SERVICE_QUERIES in publish-blog.js for these four keys.
-const SERVICE_QUERIES = {
-  'bad-credit-mortgages':    'UK suburban semi detached houses',
-  'secured-loans':           'UK detached house driveway exterior',
-  'buy-to-let-refinance':    'UK rental apartment building exterior',
-  'second-charge-mortgages': 'UK terraced houses residential street',
-};
+// The four services this backfill covers. serviceImageQueries() falls back to
+// a generic query for anything not in its map, which would silently "fix"
+// unrelated services with the wrong photo — restricting the target list here
+// keeps this script doing only what it says on the tin.
+const COVERED_SERVICES = new Set(['bad-credit-mortgages', 'secured-loans', 'buy-to-let-refinance', 'second-charge-mortgages']);
+
+function serviceKey(service) {
+  return (service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+}
 
 async function getJsonFile(path) {
   const { data } = await octokit.repos.getContent({ owner: GITHUB_OWNER, repo: GITHUB_REPO, path });
@@ -71,25 +83,6 @@ async function replaceImage(imagePath, buffer) {
   });
 }
 
-async function fetchPexelsPhoto(query, usedIds) {
-  const apiKey = process.env.PEXELS_API_KEY;
-  const res = await fetch(
-    `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=15&orientation=landscape&size=large`,
-    { headers: { Authorization: apiKey } },
-  );
-  if (!res.ok) return null;
-  const data = await res.json();
-  const candidates = (data.photos || []).filter(p => {
-    const desc = ((p.alt || '') + ' ' + (p.photographer || '')).toLowerCase();
-    return !desc.match(/\$|dollar|euro|€|usd|eur/i) && !usedIds.has(p.id);
-  });
-  return candidates[0] || null;
-}
-
-function serviceKey(service) {
-  return (service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
-}
-
 async function main() {
   const isDryRun = process.argv.includes('--dry-run');
   const force    = process.argv.includes('--force');
@@ -106,13 +99,12 @@ async function main() {
 
   const targets = posts.filter(p => {
     if (only && !only.has(p.slug)) return false;
-    const key = serviceKey(p.service);
-    if (!SERVICE_QUERIES[key]) return false;
-    // Without --force, only touch posts that never got a proper query-driven
-    // image — i.e. ones with no heroVersion recorded, which is what every
-    // post published before this fix looks like (fetchPexelsImage never set
-    // one for these services). A post re-imaged once has a heroVersion and
-    // is left alone on a repeat run.
+    if (!COVERED_SERVICES.has(serviceKey(p.service))) return false;
+    // Without --force, only touch posts that never got a properly-filtered
+    // image — i.e. no heroVersion recorded. Every post published before
+    // 2026-09-08 looks like this (fetchPexelsImage never set one for these
+    // services, even after the 09-07 query-map fix). A post re-imaged once
+    // has a heroVersion and is left alone on a repeat run.
     if (!force && p.heroVersion) return false;
     return true;
   });
@@ -120,30 +112,24 @@ async function main() {
   console.log(`${targets.length} post(s) to re-image` + (only ? ` (filtered to ${only.size} requested slug(s))` : ''));
   if (targets.length === 0) { console.log('\nNothing to do.'); return; }
 
-  const usedIds = new Set();
+  const usedPhotoIds = new Set();
   let changed = false;
 
   for (const post of targets) {
-    const key = serviceKey(post.service);
-    const query = SERVICE_QUERIES[key];
-    console.log(`\n${post.slug}  [${post.service}]  query: "${query}"`);
+    const queries = serviceImageQueries(post.service);
+    console.log(`\n${post.slug}  [${post.service}]  queries: ${queries.map(q => `"${q}"`).join(', ')}`);
 
-    const photo = await fetchPexelsPhoto(query, usedIds);
-    if (!photo) { console.log('  no result — leaving existing image in place'); continue; }
-    usedIds.add(photo.id);
-    console.log(`  found: ${photo.url}`);
+    const result = await fetchPexelsImage(queries, usedPhotoIds);
+    if (!result) { console.log('  no usable result — leaving existing image in place'); continue; }
+    usedPhotoIds.add(result.photoId);
 
-    if (isDryRun) continue;
-
-    const imgRes = await fetch(photo.src.large2x || photo.src.large);
-    if (!imgRes.ok) { console.log(`  download failed (${imgRes.status}) — skipping`); continue; }
-    const buffer = Buffer.from(await imgRes.arrayBuffer());
+    if (isDryRun) { console.log(`  would use photo ${result.photoId}`); continue; }
 
     const imagePath = post.heroImage.replace(/^\//, '');
-    await replaceImage(imagePath, buffer);
-    post.heroVersion = photo.id;
+    await replaceImage(imagePath, result.buffer);
+    post.heroVersion = result.photoId;
     changed = true;
-    console.log(`  replaced ${imagePath}, heroVersion → ${photo.id}`);
+    console.log(`  replaced ${imagePath}, heroVersion → ${result.photoId}`);
 
     await new Promise(r => setTimeout(r, 400)); // stay well under Pexels' rate limit
   }

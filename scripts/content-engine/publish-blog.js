@@ -3,6 +3,17 @@ const { Octokit } = require('@octokit/rest');
 const { createOpenAICompatClient } = require('./lib/anthropic-openai-shim');
 const { isBridgingService, pickBridgingHero } = require('./lib/bridging-hero');
 const { parseModelJson, logJsonFailure } = require('./lib/parse-model-json');
+// UK-filtered Pexels sourcing — the module built for the news pipeline after
+// "UK residential property" kept returning American apartment blocks (Pexels
+// is US-heavy; the word "UK" in a query barely constrains it). publish-blog.js
+// had its own, older, weaker fetchPexelsImage that only rejected photos with a
+// $/dollar/euro in the alt text — a buy-to-let-refinance post got an American
+// apartment block through it on 2026-09-07/08, the exact failure this module
+// exists to prevent. Reusing it rather than re-patching the local copy, per
+// the module's own header: "so the two cannot drift apart on what counts as a
+// usable, British-looking photo."
+const { fetchPexelsImage } = require('./lib/news-images');
+const { serviceImageQueries } = require('./lib/service-image-queries');
 
 // Schema for the generated article, passed as a structured output so the model
 // CANNOT return unparseable JSON. Without it, the model occasionally emits an
@@ -1006,79 +1017,8 @@ async function findYouTubeVideo(keyword) {
   return video ? video.id.videoId : null;
 }
 
-// ─── Pexels: fetch a relevant hero image ─────────────────────────────────────
-async function fetchPexelsImage(keyword, service) {
-  const apiKey = process.env.PEXELS_API_KEY;
-  if (!apiKey) {
-    console.log('  No PEXELS_API_KEY set — skipping hero image');
-    return null;
-  }
-
-  console.log(`  Searching Pexels for: ${keyword}`);
-
-  const trySearch = async (query) => {
-    const res = await fetch(
-      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=8&orientation=landscape&size=large`,
-      { headers: { Authorization: apiKey } }
-    );
-    if (!res.ok) return null;
-    const data = await res.json();
-    if (!data.photos || data.photos.length === 0) return null;
-    // Filter out photos that likely show non-UK currency (avoid generic money shots)
-    const filtered = data.photos.filter(p => {
-      const desc = ((p.alt || '') + ' ' + (p.photographer || '')).toLowerCase();
-      return !desc.match(/\$|dollar|euro|€|usd|eur/i);
-    });
-    return filtered[0] || data.photos[0];
-  };
-
-  // Service → curated image query mapping.
-  // Deliberately avoids generic "money/cash/coins" searches that return
-  // US dollars and euros. Uses professional UK business context instead.
-  const serviceKey = (service || '').toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
-  const SERVICE_QUERIES = {
-    'bridging-finance':    'UK residential property house exterior',
-    'development-finance': 'UK property construction architect',
-    'commercial-mortgages':'UK commercial property building office',
-    'commercial-mortgage': 'UK commercial property building office',
-    'invoice-finance':     'UK business paperwork accounts desk',
-    'asset-finance':       'UK industrial machinery factory equipment',
-    'working-capital':     'UK business team meeting growth',
-    'trade-finance':       'UK port shipping logistics supply chain',
-    'cashflow-finance':    'UK business professional office meeting',
-    'mezzanine-finance':   'UK city financial district skyline',
-    'structured-finance':  'UK city London financial district',
-    'business-loans':      'UK small business entrepreneur office',
-    // Added 2026-09-07: these four had no entry, so every one of their posts
-    // fell through to the generic 'UK business professionals meeting office'
-    // fallback — an office/cafe photo on an article about mortgages and
-    // homes, which is what prompted this fix. Queries match the ones already
-    // used for each service's own page hero (fetch-service-heroes.js), for
-    // visual consistency between a service page and its supporting articles.
-    'bad-credit-mortgages':   'UK suburban semi detached houses',
-    'secured-loans':          'UK detached house driveway exterior',
-    'buy-to-let-refinance':   'UK rental apartment building exterior',
-    'second-charge-mortgages':'UK terraced houses residential street',
-  };
-  const primaryQuery = SERVICE_QUERIES[serviceKey] || 'UK business professionals meeting office';
-
-  const photo = (await trySearch(primaryQuery))
-             || (await trySearch('UK business professionals office'))
-             || (await trySearch('British business meeting'));
-
-  if (!photo) {
-    console.log('  No Pexels image found — will use pillar image fallback');
-    return null;
-  }
-
-  console.log(`  Pexels image found: ${photo.url}`);
-  const imgRes = await fetch(photo.src.large2x || photo.src.large);
-  if (!imgRes.ok) throw new Error(`Failed to download Pexels image: ${imgRes.status}`);
-
-  const buffer = Buffer.from(await imgRes.arrayBuffer());
-  console.log(`  Image downloaded (${Math.round(buffer.length / 1024)} KB)`);
-  return buffer;
-}
+// serviceImageQueries lives in ./lib/service-image-queries.js — shared with
+// reimage-focus-service-posts.js, imported at the top of this file.
 
 async function uploadHeroImage(slug, imageBuffer) {
   // Convert to WebP for better performance (typically 25-35% smaller than JPEG)
@@ -1446,15 +1386,17 @@ async function main() {
   // shown — the root cause of dozens of cards sharing the same stock photo.
   // Assign a pool image directly; only non-bridging posts fetch their own.
   let heroImagePath = null;
+  let heroPhotoId = null;
   if (isBridgingService(row.service)) {
     heroImagePath = pickBridgingHero(finalSlug);
     console.log(`  Bridging post — using curated pool image ${heroImagePath} (no Pexels fetch)`);
   } else {
     console.log('Fetching hero image from Pexels...');
     try {
-      const imageBuffer = await fetchPexelsImage(row.keyword, row.service);
-      if (imageBuffer) {
-        heroImagePath = await uploadHeroImage(finalSlug, imageBuffer);
+      const result = await fetchPexelsImage(serviceImageQueries(row.service));
+      if (result) {
+        heroImagePath = await uploadHeroImage(finalSlug, result.buffer);
+        heroPhotoId = result.photoId;
       }
     } catch (err) {
       console.warn(`  Hero image fetch failed (non-fatal): ${err.message}`);
@@ -1487,6 +1429,11 @@ async function main() {
     authorEmail: authorEmails[row.author] || 'mark@boxxfinance.co.uk',
     service: row.service || '',
     heroImage: heroImagePath || getPillarImage(row.service),
+    // Cache-busting query string appended by heroPool.js's heroForPost() —
+    // images are served with a 7-day max-age, so re-sourcing this post's
+    // image later (as the two 2026-09 posts needed) requires a version bump
+    // to actually show, not just an overwrite at the same path.
+    heroVersion: heroPhotoId || null,
     videoId: videoId || null,
     schema: article.faqSchema || null,
     relatedLocationUrls: locationLinks.map(l => {
