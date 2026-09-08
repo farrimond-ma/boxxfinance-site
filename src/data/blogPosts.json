@@ -17943,5 +17943,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1788897363562,
+    "status": "published",
+    "slug": "lenders-hike-mortgage-rates-interest-rate-fears",
+    "url": "/insights/lenders-hike-mortgage-rates-interest-rate-fears",
+    "title": "Five Lenders Raise Mortgage Rates as Bank of England Rate Threat Returns",
+    "excerpt": "Barclays and four other lenders have pushed up mortgage rates, including a rise in Barclays' two-year fixed to 5.53%, as fears grow the Bank of England could raise rates again.",
+    "metaTitle": "Five Lenders Hike Mortgage Rates Amid Rate Fears",
+    "metaDescription": "Barclays and four other lenders have raised mortgage rates as fears grow over a Bank of England rate rise. Here's what it means for UK borrowers.",
+    "keywords": "mortgage rate, mortgage, bank of england, interest rate, landlord, first-time buyer",
+    "date": "2026-09-08",
+    "publishedAt": "2026-09-08T19:56:03.563Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/lenders-hike-mortgage-rates-interest-rate-fears.webp",
+    "heroVersion": 38536456,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Will more lenders follow with rate increases?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It's not possible to say for certain, but when several lenders move in the same direction within a short period, as reported here, it often reflects a broader shift in market expectations that other lenders may also respond to. Keeping an eye on rate news over the coming weeks is sensible if you're planning to borrow."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I fix my mortgage rate now or wait?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This depends on your personal circumstances and risk appetite, and a mortgage broker can help assess your options. Generally, if rates appear to be trending upwards, locking in a deal sooner rather than later reduces the risk of paying more later, especially since many offers can be arranged in advance of your current deal ending."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does a Bank of England rate rise affect existing fixed-rate mortgages?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you're already on a fixed rate, a Bank of England change won't affect your payments until that fixed term ends. It's borrowers coming off fixed deals, or those on variable or tracker rates, who feel the impact most directly and quickly."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Five mortgage lenders have raised the price of their home loan deals as concerns grow that the Bank of England could push interest rates higher rather than lower. Barclays was among those to move, lifting rates on a range of products by close to 0.2 percentage points, with its two-year fixed rate now standing at 5.53 per cent, as reported by <a href=\"https://www.cityam.com/five-lenders-hike-mortgage-prices-as-interest-rate-threat-looms/\">City A.M.</a></p><p>For most of this year, the general expectation among borrowers has been that mortgage rates were on a slow path downward as inflation eased. This latest round of increases is a reminder that path is not guaranteed. Lenders price their fixed-rate deals based on where they expect the Bank of England base rate and wider financial markets to head, not just where rates sit today. If swap rates rise because markets think the Bank is more likely to hold or increase rates, lenders quickly follow by repricing upwards.</p><h2>What this means if you're remortgaging soon</h2><p>Anyone coming to the end of a fixed deal in the next few months should treat this as a signal to act rather than wait. Mortgage offers can typically be locked in months ahead of when a new deal actually starts, so securing a rate now protects against further increases even if you don't complete for a while yet. Waiting in the hope that rates fall further carries real risk if the trend among lenders is currently moving the other way.</p><h2>What it means for buyers and affordability</h2><p>For first-time buyers and home movers, a jump like the one seen in Barclays' two-year fixed rate directly affects how much can be borrowed and what monthly repayments will look like. Even a small increase in the headline rate adds meaningfully to costs over the life of a loan and can shift how lenders assess affordability, particularly for buyers already stretching their budgets. It's worth speaking to a broker to understand exactly how a rate change like this affects your specific borrowing position, rather than relying on general market commentary.</p><h2>Landlords and buy-to-let borrowing</h2><p>Landlords tend to feel rate rises more acutely, since buy-to-let lending is often assessed against rental income coverage ratios that are sensitive to the interest rate used in the calculation. A higher rate can reduce the amount a landlord is able to borrow against a given rental income, which matters for anyone planning to refinance an existing property or raise finance to expand a portfolio.</p><h2>Why lenders are moving now</h2><p>The City A.M. report frames these increases around the threat of the Bank of England raising rates, rather than a confirmed decision. Lenders often move in anticipation of a change in the base rate, adjusting their fixed-rate pricing based on swap rate movements and market sentiment well before any formal announcement. That means mortgage pricing can shift even without the Bank actually acting, simply because the market believes a move is coming.</p><h2>Frequently Asked Questions</h2><h3>Will more lenders follow with rate increases?</h3><p>It's not possible to say for certain, but when several lenders move in the same direction within a short period, as reported here, it often reflects a broader shift in market expectations that other lenders may also respond to. Keeping an eye on rate news over the coming weeks is sensible if you're planning to borrow.</p><h3>Should I fix my mortgage rate now or wait?</h3><p>This depends on your personal circumstances and risk appetite, and a mortgage broker can help assess your options. Generally, if rates appear to be trending upwards, locking in a deal sooner rather than later reduces the risk of paying more later, especially since many offers can be arranged in advance of your current deal ending.</p><h3>How does a Bank of England rate rise affect existing fixed-rate mortgages?</h3><p>If you're already on a fixed rate, a Bank of England change won't affect your payments until that fixed term ends. It's borrowers coming off fixed deals, or those on variable or tracker rates, who feel the impact most directly and quickly.</p><p>For property investors, landlords or developers who need to move quickly on a purchase or refinance while mortgage pricing remains unsettled, it can help to understand the alternative options available. Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> page sets out some of the short-term finance routes that exist outside standard mortgage lending.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
