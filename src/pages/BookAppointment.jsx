@@ -110,21 +110,34 @@ const BookAppointment = () => {
                         <>
                             <h3 style={{ marginTop: 0 }}>Choose a day</h3>
                             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
-                                {days.map((d) => (
-                                    <button
-                                        key={d.date}
-                                        type="button"
-                                        className={`btn ${d.date === selectedDate ? 'btn-primary' : 'btn-outline'}`}
-                                        onClick={() => setSelectedDate(d.date)}
-                                    >
-                                        {DAY_LABEL.format(new Date(d.date + 'T00:00:00'))}
-                                    </button>
-                                ))}
+                                {days.map((d) => {
+                                    const active = d.date === selectedDate;
+                                    return (
+                                        <button
+                                            key={d.date}
+                                            type="button"
+                                            onClick={() => setSelectedDate(d.date)}
+                                            style={{
+                                                padding: '0.6rem 1rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 600,
+                                                border: active ? '2px solid #d4af37' : '2px solid #cdd6df',
+                                                background: active ? '#d4af37' : '#fff',
+                                                color: active ? '#0b1526' : '#0b1526',
+                                            }}
+                                        >
+                                            {DAY_LABEL.format(new Date(d.date + 'T00:00:00'))}
+                                        </button>
+                                    );
+                                })}
                             </div>
                             <h3>Choose a time</h3>
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(90px, 1fr))', gap: '0.5rem' }}>
                                 {activeDaySlots.map((s) => (
-                                    <button key={s.start} type="button" className="btn btn-outline" onClick={() => setSelectedSlot(s)}>
+                                    <button
+                                        key={s.start}
+                                        type="button"
+                                        onClick={() => setSelectedSlot(s)}
+                                        style={{ padding: '0.6rem 0.5rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 600, border: '2px solid #cdd6df', background: '#fff', color: '#0b1526' }}
+                                    >
                                         {s.time}
                                     </button>
                                 ))}
