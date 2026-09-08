@@ -6,7 +6,7 @@ import './ResourcePage.css';
 // service/landing pages, so the visual language stays identical and can't
 // drift. Navy panel blending into a full-height background image, dual CTAs,
 // trust ticks.
-export const ResourceHero = ({ eyebrow, title, description, heroImage, primaryCtaTo = '/chat-about-funding', afterTrust }) => {
+export const ResourceHero = ({ eyebrow, title, description, heroImage, primaryCtaTo = '/chat-about-funding', afterTrust, showTrust = true }) => {
     // Title is a plain string for every existing caller (blog/service/location
     // pages) and gets the usual colon-split white/gold treatment (mainly blog
     // titles like "Raising Capital for Growth: Debt vs. Equity"). The homepage
@@ -50,11 +50,13 @@ export const ResourceHero = ({ eyebrow, title, description, heroImage, primaryCt
                         </a>
                     </div>
 
-                    <ul className="resource-hero-trust" aria-label="Why choose Boxx">
-                        <li>Independent broker</li>
-                        <li>Whole of market</li>
-                        <li>Fast decisions</li>
-                    </ul>
+                    {showTrust && (
+                        <ul className="resource-hero-trust" aria-label="Why choose Boxx">
+                            <li>Independent broker</li>
+                            <li>Whole of market</li>
+                            <li>Fast decisions</li>
+                        </ul>
+                    )}
 
                     {afterTrust}
                 </div>

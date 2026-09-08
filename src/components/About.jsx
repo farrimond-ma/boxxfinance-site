@@ -20,6 +20,21 @@ const About = () => {
                         around your exit strategy, not just the headline rate.{' '}
                         <Link to="/about-us">Read our full story and meet the team →</Link>
                     </p>
+
+                    {/* Moved here from the homepage hero (2026-09) — the hero is
+                        now just the headline claim and the two CTAs; these read
+                        better as evidence backing the story above than as more
+                        copy competing with the hero's call to action. */}
+                    <ul className="about-trust-ticks" aria-label="Why choose Boxx">
+                        <li>Independent broker</li>
+                        <li>Whole of market</li>
+                        <li>Fast decisions</li>
+                    </ul>
+
+                    <p className="about-funding-line">
+                        Also arranging asset finance, commercial mortgages, development finance and
+                        invoice finance — <Link to="/funding-solutions">see all funding options</Link>.
+                    </p>
                 </div>
 
                 <div className="director-cards">

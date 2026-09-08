@@ -37,6 +37,47 @@
     white-space: nowrap;
 }
 
+/* Trust ticks + funding-solutions line — moved here from the homepage hero.
+   Light-background equivalent of .resource-hero-trust (which is styled for
+   the navy hero and reads as invisible on white). */
+.about-trust-ticks {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+    padding: 0;
+    margin: 1.5rem 0 0;
+}
+
+.about-trust-ticks li {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    padding-left: 1.4rem;
+    position: relative;
+}
+
+.about-trust-ticks li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: var(--color-secondary);
+}
+
+.about-funding-line {
+    margin: 1.25rem 0 0;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.about-funding-line a {
+    color: var(--color-secondary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
 /* ── Director Cards ── */
 .director-cards {
     display: grid;

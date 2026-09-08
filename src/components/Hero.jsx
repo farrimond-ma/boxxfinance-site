@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ResourceHero } from './resource/ResourceHero';
 
 /**
@@ -13,6 +12,13 @@ import { ResourceHero } from './resource/ResourceHero';
  * drift that's caused real bugs elsewhere in this codebase when two things
  * meant to look identical are actually maintained as two things.
  *
+ * The trust ticks ("Independent broker / Whole of market / Fast decisions")
+ * and the "also arranging..." funding-solutions link both moved out of the
+ * hero and into the About teaser section below (About.jsx) — the hero is now
+ * just the headline claim and the two primary CTAs, with the supporting
+ * trust signals sitting where a visitor reads them as evidence rather than
+ * as more copy competing with the call to action.
+ *
  * The site's content strategy is overwhelmingly bridging loans — 156 of 205
  * location pages, 66 of 103 blog posts, and the last 25 posts without
  * exception. Visitors arriving from that content previously landed on a
@@ -20,8 +26,9 @@ import { ResourceHero } from './resource/ResourceHero';
  * one of ten equal products: a mismatch between where the traffic comes from
  * and what the page answers.
  *
- * This leads with bridging while keeping the brand line and an explicit route
- * to the full range, so broader enquiries are not lost.
+ * This leads with bridging while keeping the brand line and (via the About
+ * section) an explicit route to the full range, so broader enquiries are not
+ * lost.
  */
 const Hero = () => (
     <ResourceHero
@@ -33,14 +40,9 @@ const Hero = () => (
             </>
         }
         description="Short-term property funding for auction purchases, chain breaks, refurbishments and probate. We structure bridging loans for homeowners, landlords, investors and developers — around a clear exit plan, not just a headline rate."
-        heroImage="/images/hero/bridging-1.webp"
+        heroImage="/images/hero/bridging-4.webp"
         primaryCtaTo="/chat-about-funding/bridging-loans"
-        afterTrust={
-            <p className="resource-hero-secondary">
-                Also arranging asset finance, commercial mortgages, development finance and
-                invoice finance — <Link to="/funding-solutions">see all funding options</Link>.
-            </p>
-        }
+        showTrust={false}
     />
 );
 
