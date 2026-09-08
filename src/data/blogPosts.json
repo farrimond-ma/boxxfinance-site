@@ -17847,5 +17847,61 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1788887718215,
+    "status": "published",
+    "slug": "low-deposit-mortgages-highest-since-2008",
+    "url": "/insights/low-deposit-mortgages-highest-since-2008",
+    "title": "Low deposit mortgages hit highest level since 2008, Bank of England data shows",
+    "excerpt": "The proportion of new mortgages with deposits under 10% has risen to its highest level since the financial crisis, as first-time buyers stretch further to get on the property ladder.",
+    "metaTitle": "Low Deposit Mortgages Hit Highest Level Since 2008",
+    "metaDescription": "Bank of England data shows a rise in low deposit mortgages this year. Here's what it means for first-time buyers, homeowners and lenders.",
+    "keywords": "house price, property market, mortgage rate, mortgage, bank of england, interest rate",
+    "date": "2026-09-08",
+    "publishedAt": "2026-09-08T17:15:18.215Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/low-deposit-mortgages-highest-since-2008.webp",
+    "heroVersion": 37089578,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What counts as a low deposit mortgage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A low deposit mortgage generally refers to a loan where the borrower puts down less than 10% of the property's value, meaning the loan itself covers 90% or more, often described as a high loan-to-value or high LTV mortgage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are low deposit mortgages considered riskier?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because the borrower has less equity in the property from the outset, a fall in house prices can more easily push them into negative equity, where the mortgage balance exceeds the home's value, which can make remortgaging or selling more difficult."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this mean mortgage rates will rise for everyone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily. This trend mainly affects pricing and availability for high LTV deals specifically, rather than the whole mortgage market, though it is a signal worth watching as part of the broader lending environment."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>The share of new mortgages taken out with a deposit of less than 10% has climbed to its highest level since 2008, according to Bank of England data reported by <a href=\"https://www.thisismoney.co.uk/money/mortgageshome/article-16114069/Risky-low-deposit-mortgages-hit-high-not-seen-2008-Bank-England-data-shows.html?ns_mchannel=rss&ns_campaign=1490&ito=1490\">This Is Money</a>. The rise reflects how many buyers, particularly first-time buyers, are being pushed towards smaller deposits and larger loans simply to afford a home in today's market.</p><p>This matters because low deposit mortgages, often called high loan-to-value or high LTV deals, carry more risk for both borrowers and lenders. When someone borrows 90% or more of a property's value, they have very little cushion if prices fall. A modest drop in the market could leave them owing more than the home is worth, a position known as negative equity. It was exactly this kind of exposure that caused so much pain during and after the 2008 financial crisis, which is why the comparison being drawn now is a significant one.</p><h2>Why lenders are loosening criteria</h2><p>The increase in low deposit lending suggests banks and building societies are becoming more willing to approve mortgages for buyers with smaller savings pots. For years, many first-time buyers have found the deposit, rather than monthly affordability, to be the biggest barrier to homeownership. House prices have risen faster than wages in large parts of the country, making it harder to save the traditional 15% or 20% deposit that was once considered standard.</p><p>Lenders loosening their criteria can be read two ways. On one hand, it opens the door to buyers who would otherwise be locked out of the market indefinitely, unable to save fast enough to keep pace with rising prices. On the other, it means more borrowers are entering the market with thinner margins for error, at a time when interest rates and the broader economic outlook remain uncertain for many households.</p><h2>What it means for buyers and existing homeowners</h2><p>If you are a first-time buyer considering a low deposit mortgage, the practical implication is straightforward: you will likely face a higher interest rate than someone with a bigger deposit, since lenders price higher LTV deals as greater risk. Monthly repayments will be higher relative to the loan size, and there is less room to absorb a fall in the property's value without slipping into negative equity.</p><p>For existing homeowners, particularly those who bought with a small deposit in recent years, this trend is a reminder to keep a close eye on their own loan-to-value position, especially as fixed-rate deals come up for renewal. A property market that cools even modestly can change the remortgaging options available to someone with limited equity built up.</p><p>Landlords and property investors should also take note. While this data point relates mainly to owner-occupier mortgages, it reflects wider pressure in the housing market and signals how sensitive the whole system is to shifts in prices and borrowing conditions. Anyone relying on refinancing a portfolio at a good rate will want to understand how exposed their own borrowing is to a market downturn.</p><h2>A note of caution, not alarm</h2><p>It is worth being clear that a rise in low deposit lending does not automatically mean a repeat of 2008 is coming. Mortgage regulation and affordability checks introduced since the financial crisis are far stricter than they were then, and lenders today are required to stress test borrowers against higher interest rates before approving a loan. But the comparison being drawn by the Bank of England's own figures is a useful signal that risk in the mortgage market is building again, even if the guardrails are different this time.</p><h2>Frequently Asked Questions</h2><h3>What counts as a low deposit mortgage?</h3><p>A low deposit mortgage generally refers to a loan where the borrower puts down less than 10% of the property's value, meaning the loan itself covers 90% or more, often described as a high loan-to-value or high LTV mortgage.</p><h3>Why are low deposit mortgages considered riskier?</h3><p>Because the borrower has less equity in the property from the outset, a fall in house prices can more easily push them into negative equity, where the mortgage balance exceeds the home's value, which can make remortgaging or selling more difficult.</p><h3>Does this mean mortgage rates will rise for everyone?</h3><p>Not necessarily. This trend mainly affects pricing and availability for high LTV deals specifically, rather than the whole mortgage market, though it is a signal worth watching as part of the broader lending environment.</p><p>For homeowners, landlords or buyers weighing up their options in a shifting mortgage market, it can help to speak to a specialist about the full range of borrowing routes available, including short-term and bridging solutions. You can explore what is available through Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions hub</a>.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
