@@ -1,37 +1,27 @@
 import { Link } from 'react-router-dom';
 import './About.css';
 
+// Homepage teaser (2026-09). The full six-paragraph story plus these same
+// director cards used to live only here, reachable at /#about — no URL of
+// its own, no title tag. Moved to a dedicated /about-us page (see
+// src/pages/AboutUs.jsx) for the SEO surface and E-E-A-T signals a named
+// team page gives a financial site. This stays as a short trust signal for a
+// first-time homepage visitor, linking through for the full story rather
+// than either duplicating it or dropping it from the homepage entirely.
 const About = () => {
     return (
         <section className="section about" id="about">
-            <div className="container about-container">
-
-                {/* ── Row 1: Story + Image ── */}
-                <div className="about-content">
-                    <h2>UK Bridging Loan Specialists <span className="text-highlight">— And Your Whole-of-Market Partner</span></h2>
-
-                    <p><strong>Speed and structure, not just approval.</strong> Boxx Finance built its reputation arranging fast, whole-of-market bridging loans for UK property buyers, landlords and developers — funding structured around your exit strategy, not just the headline rate. We were built by directors who spent years watching businesses and investors lose deals, miss opportunities and pay over the odds because their funding was wrong for their situation. We set out to change that.</p>
-
-                    <p>With access to a panel of 50+ lenders — from high street banks and challenger lenders to specialist and private debt providers — we go to the whole market on your behalf, whether that's a bridging loan completing in days or a longer-term commercial facility.</p>
-
-                    <p><strong>Who we work with:</strong> property investors and developers, UK-based SMEs, business owners seeking growth capital, and entrepreneurs restructuring or refinancing existing facilities. Whether you're raising £50,000 or £5 million, we treat every case with the same rigour.</p>
-
-                    <p><strong>Our approach is deliberate.</strong> Every facility we arrange starts with a strategy conversation — not a form. We analyse your situation, your timescales and your exit before approaching a single lender. That preparation is what separates a structured deal from a rejected application, and it's why our clients consistently secure better terms than they expected.</p>
-
-                    <p>Beyond bridging loans, we arrange funding across the full spectrum of commercial finance — commercial mortgages, development finance, asset finance, invoice finance, structured finance and working capital. Whether you need a straightforward facility or a complex multi-tranche structure, we have the experience and the lender relationships to deliver.</p>
-
-                    <p>Based in Coatbridge and operating across the whole of the UK, we work with clients from Manchester to Edinburgh, London to Belfast. Distance is no barrier — what matters is that your funding is right for your business.</p>
-
-
-                </div>
-
-                <div className="about-image">
-                    <div className="about-img-container"></div>
-                </div>
-            </div>
-
-            {/* ── Row 2: Director Cards ── */}
             <div className="container">
+                <div className="about-teaser-intro">
+                    <h2>UK Bridging Loan Specialists <span className="text-highlight">— And Your Whole-of-Market Partner</span></h2>
+                    <p>
+                        Speed and structure, not just approval. With access to a panel of 50+
+                        lenders, we go to the whole market on your behalf — funding structured
+                        around your exit strategy, not just the headline rate.{' '}
+                        <Link to="/about-us">Read our full story and meet the team →</Link>
+                    </p>
+                </div>
+
                 <div className="director-cards">
                     <div className="director-card">
                         <img src="/images/mark-higgins.webp" alt="Mark Higgins, Managing Partner at Boxx Finance" className="director-avatar-photo" />
@@ -86,7 +76,6 @@ const About = () => {
                     <Link to="/chat-about-funding" className="btn btn-primary">Start Your Funding Conversation</Link>
                 </div>
             </div>
-
         </section>
     );
 };

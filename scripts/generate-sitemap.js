@@ -17,6 +17,7 @@ const staticRoutes = [
     '/insights',
     '/locations',
     '/partners',
+    '/about-us',
     '/chat-about-funding',
     '/bridging-loan-calculator',
     '/uk-sme-funding-index',

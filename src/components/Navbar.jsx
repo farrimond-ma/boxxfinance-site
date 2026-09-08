@@ -35,7 +35,7 @@ const Navbar = ({ minimal = false }) => {
                     {!minimal && (
                         <>
                             <Link to="/funding-solutions" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Funding Solutions</Link>
-                            <a href="/#about" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>About Us</a>
+                            <Link to="/about-us" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>About Us</Link>
                             <Link to="/insights" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Insights</Link>
                             <a href="/#case-studies" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Case Studies</a>
                         </>

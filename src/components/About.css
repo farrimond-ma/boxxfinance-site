@@ -3,29 +3,6 @@
     overflow: hidden;
 }
 
-.about-container {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-}
-
-@media (min-width: 900px) {
-    .about-container {
-        flex-direction: row;
-        align-items: stretch;
-    }
-
-    .about-content {
-        flex: 1;
-    }
-
-    .about-image {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-    }
-}
-
 .about h2 {
     font-size: 2.2rem;
     margin-bottom: 1.5rem;
@@ -38,77 +15,26 @@
     }
 }
 
-.about-intro {
-    font-weight: 700;
-    /* Bold */
-    margin-bottom: 1.5rem;
-    color: #333;
-    /* Slightly darker for emphasis */
+/* Homepage teaser intro — short story + link through to /about-us, replacing
+   the full six-paragraph block that used to sit here (2026-09). */
+.about-teaser-intro {
+    max-width: 760px;
+    margin: 0 auto 1rem;
+    text-align: center;
 }
 
-.stats-grid {
-    display: flex;
-    gap: 1rem;
-    margin: 2.5rem 0;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    padding: 1.5rem 0;
+.about-teaser-intro p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #555;
 }
 
-.stat-item {
-    flex: 1;
-}
-
-.stat-item h3 {
+.about-teaser-intro a {
     color: var(--color-secondary);
-    font-size: 2rem;
-    margin-bottom: 0.25rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
     white-space: nowrap;
-}
-
-.stat-item p {
-    font-size: 0.9rem;
-    margin: 0;
-    color: #777;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.about-img-container {
-    flex: 1;
-    width: 100%;
-    min-height: 450px;
-    background-color: #f5f5f5;
-    /* Was a generic café-owner stock photo — unrelated to the bridging-loan
-       focus. Elegant Georgian terrace, same vetted pool used across every
-       bridging location/blog hero, aspirational property visual for the
-       About section rather than another generic small-business shot. */
-    background-image: url('/images/hero/bridging-15.webp');
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
-    box-shadow: var(--shadow-lg);
-}
-
-@media (max-width: 768px) {
-    /* Kept text left-aligned by removing .about-content { text-align: center; } */
-
-    .stats-grid {
-        justify-content: center;
-        gap: 1.5rem;
-        /* slightly increased gap for better spacing */
-    }
-
-    .stat-item {
-        text-align: center;
-        flex: 1;
-        /* Ensure they share width */
-    }
-
-    .about-content .btn {
-        display: table;
-        margin: 0 auto;
-    }
 }
 
 /* ── Director Cards ── */
@@ -224,32 +150,4 @@
     width: 20px;
     height: 20px;
     fill: currentColor;
-}
-
-/* ── Trust Signals Bar ── */
-.trust-bar {
-    background: var(--color-primary);
-    margin-top: 3rem;
-    padding: 1.5rem 0;
-}
-
-.trust-bar-inner {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem 3rem;
-}
-
-.trust-item {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    color: #fff;
-    font-size: 0.9rem;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.trust-icon {
-    font-size: 1.1rem;
 }

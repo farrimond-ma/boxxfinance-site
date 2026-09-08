@@ -20,6 +20,7 @@ import CountyPage from './pages/CountyPage';
 import Locations from './pages/Locations';
 import FundingSolutions from './pages/FundingSolutions';
 import Partners from './pages/Partners';
+import AboutUs from './pages/AboutUs';
 import AdLandingBridgingLoans from './pages/AdLandingBridgingLoans';
 import ProgressApplication from './pages/ProgressApplication';
 import BookAppointment from './pages/BookAppointment';
@@ -55,6 +56,7 @@ function App() {
           <Route path="bridging-loan-calculator" element={<BridgingCalculatorPage />} />
           <Route path="uk-sme-funding-index" element={<SmeFundingIndex />} />
           <Route path="partners" element={<Partners />} />
+          <Route path="about-us" element={<AboutUs />} />
           <Route path="locations" element={<Locations />} />
           <Route path="locations/county/:countySlug" element={<CountyPage />} />
           <Route path="locations/:slug" element={<LocationPage />} />

@@ -17,7 +17,7 @@ const Footer = () => {
                         <h4>Quick Links</h4>
                         <ul>
                             <li><Link to="/funding-solutions">Funding Solutions</Link></li>
-                            <li><a href="/#about">About Us</a></li>
+                            <li><Link to="/about-us">About Us</Link></li>
                             <li><Link to="/insights">Insights</Link></li>
                             <li><Link to="/uk-sme-funding-index">UK SME Funding Index</Link></li>
                             {/* The locations hub — the footer link is what gives all
