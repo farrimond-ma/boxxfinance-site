@@ -17786,5 +17786,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1788869263691,
+    "status": "published",
+    "slug": "mortgage-rates-rise-borrowers-hopes-dashed",
+    "url": "/insights/mortgage-rates-rise-borrowers-hopes-dashed",
+    "title": "Mortgage rates are rising again, not falling, major lenders confirm",
+    "excerpt": "Several big lenders have pushed up rates on new mortgage deals just as many borrowers were hoping for cuts, meaning anyone coming off a fix soon may need to act rather than wait.",
+    "metaTitle": "Mortgage Rates Rise: What It Means for UK Borrowers",
+    "metaDescription": "Major lenders have raised mortgage rates instead of cutting them. Here's what it means if you're remortgaging, buying or holding out for a better deal.",
+    "keywords": "mortgage rate, mortgage, bank of england, interest rate, landlord, buy-to-let",
+    "date": "2026-09-08",
+    "publishedAt": "2026-09-08T12:07:43.693Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/mortgage-rates-rise-borrowers-hopes-dashed.webp",
+    "heroVersion": 12432689,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Should I lock in a mortgage rate now or wait for rates to fall?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There's no guaranteed right answer, but if your current deal is ending soon, it's generally worth securing a rate you can afford now rather than gambling on a future drop that may not materialise. Many lenders let you switch to a cheaper deal later if rates fall before your new mortgage actually starts, so locking in early doesn't necessarily mean missing out."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why did mortgage rates go up if the Bank of England hasn't changed the base rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mortgage rates are influenced by lenders' own funding costs and their expectations of where interest rates are heading in future, not just the current base rate. When those expectations shift, lenders can reprice deals upward even without any change from the Bank of England itself."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do if my fixed-rate mortgage deal is ending soon?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Start looking at your options well in advance rather than waiting until the deal expires. Speaking to a broker or lender a few months ahead gives you time to compare deals, potentially reserve a rate, and avoid being forced onto a lender's standard variable rate, which is usually more expensive."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Anyone hoping for cheaper mortgages this year has just had those hopes dashed. According to <a href=\"https://www.bbc.co.uk/news/articles/c770v7y63r0o?at_medium=RSS&at_campaign=rss\">BBC News — Business</a>, several major lenders have raised rates on new mortgage deals in recent days, wrongfooting borrowers who had been banking on further falls. The result is a growing number of homeowners now facing a decision about whether to lock in a deal now or hold out for something better later.</p><p>For much of the past couple of years, the general expectation has been that mortgage rates would gradually ease as inflation cooled. That assumption has been the basis for a lot of household budgeting, particularly for the large number of people whose fixed-rate deals are due to expire in the coming months. This latest move by lenders is a reminder that rates don't move in a straight line, and that waiting for a better deal is not a risk-free strategy.</p><h2>Why lenders are moving rates up now</h2><p>Lenders price mortgage deals based on their own funding costs and expectations about where interest rates are heading, not simply on the Bank of England's current base rate. When those expectations shift, even slightly, lenders can reprice their products upward at short notice, as has happened here. It's a pattern that's played out repeatedly over the past few years, and it tends to catch out borrowers who assume rates will only move in one direction.</p><h2>What this means if you're remortgaging soon</h2><p>If your current fixed deal is ending in the next few months, this is the moment to start paying close attention rather than assuming a better rate will appear later. Many lenders allow borrowers to secure a new deal several months ahead of their existing one ending, often with the option to switch to a cheaper rate if one becomes available before the deal starts. That gives you some protection against further rises without locking you into today's rates if things do improve. Speaking to a mortgage broker now, rather than waiting until the last minute, gives you more room to weigh up your options calmly.</p><h2>What it means for buyers and landlords</h2><p>For those still house-hunting, a higher rate environment changes the sums on affordability and monthly repayments, and it's worth revisiting what you can realistically borrow before making an offer. Landlords face a similar squeeze, since buy-to-let mortgage costs feeding through into higher rates can eat into rental yields at a time when many are already managing tighter margins. For landlords or property owners who need to move quickly on a purchase, refinance, or short-term cash requirement while mortgage rates are in flux, it can be worth looking at alternative routes to funding rather than waiting on a standard mortgage offer to come through, and Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> are designed for exactly that kind of short-notice situation.</p><h2>Frequently Asked Questions</h2><h3>Should I lock in a mortgage rate now or wait for rates to fall?</h3><p>There's no guaranteed right answer, but if your current deal is ending soon, it's generally worth securing a rate you can afford now rather than gambling on a future drop that may not materialise. Many lenders let you switch to a cheaper deal later if rates fall before your new mortgage actually starts, so locking in early doesn't necessarily mean missing out.</p><h3>Why did mortgage rates go up if the Bank of England hasn't changed the base rate?</h3><p>Mortgage rates are influenced by lenders' own funding costs and their expectations of where interest rates are heading in future, not just the current base rate. When those expectations shift, lenders can reprice deals upward even without any change from the Bank of England itself.</p><h3>What should I do if my fixed-rate mortgage deal is ending soon?</h3><p>Start looking at your options well in advance rather than waiting until the deal expires. Speaking to a broker or lender a few months ahead gives you time to compare deals, potentially reserve a rate, and avoid being forced onto a lender's standard variable rate, which is usually more expensive.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
