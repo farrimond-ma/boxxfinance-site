@@ -38,7 +38,13 @@
         min-height: 100vh;
         display: flex;
         align-items: center;
-        padding: 7rem 0 4rem;
+        /* Was 7rem — genuinely less than the fixed navbar's own height
+           (1.5rem padding top+bottom + 4.9rem logo ≈ 7.9rem), so the eyebrow
+           text sat with no clearance under the navbar at exactly this
+           breakpoint. This affects every page through ResourceHero, not
+           just the homepage — flagged from the bridging hero, but the fix
+           is shared. */
+        padding: 9.5rem 0 4rem;
     }
     .resource-hero .container {
         width: 100%;
