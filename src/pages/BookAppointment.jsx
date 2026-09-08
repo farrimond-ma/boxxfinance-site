@@ -95,7 +95,7 @@ const BookAppointment = () => {
                         <div>
                             <h2>You're booked in.</h2>
                             <p>
-                                {confirmed?.advisor_name ? `${confirmed.advisor_name} will call you` : "We'll call you"}
+                                One of our advisers will call you
                                 {selectedSlot ? ` on ${new Date(selectedSlot.start).toLocaleString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}` : ''}.
                             </p>
                             <p>Reference: {confirmed?.reference}</p>
