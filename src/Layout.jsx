@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 // Pages where the floating "Talk to us" chat pill would compete with an
 // already-open conversion funnel, so it's suppressed there.
-const HIDE_FLOATING_CTA = ['/progress-your-application'];
+const HIDE_FLOATING_CTA = ['/progress-your-application', '/book-an-appointment'];
 const hideFloatingCta = (pathname) =>
     HIDE_FLOATING_CTA.includes(pathname) || pathname.startsWith('/chat-about-funding');
 
@@ -26,7 +26,7 @@ const Layout = () => {
     return (
         <div className="App">
             <ChatWidgetProvider>
-                <Navbar minimal={pathname === '/progress-your-application'} />
+                <Navbar minimal={pathname === '/progress-your-application' || pathname === '/book-an-appointment'} />
                 <main>
                     <Outlet />
                 </main>

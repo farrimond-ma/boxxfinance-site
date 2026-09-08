@@ -22,6 +22,7 @@ import FundingSolutions from './pages/FundingSolutions';
 import Partners from './pages/Partners';
 import AdLandingBridgingLoans from './pages/AdLandingBridgingLoans';
 import ProgressApplication from './pages/ProgressApplication';
+import BookAppointment from './pages/BookAppointment';
 import ChatbotTest from './pages/ChatbotTest';
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="chat-about-funding" element={<MultiStepForm />} />
           <Route path="chat-about-funding/:slug" element={<MultiStepForm />} />
           <Route path="progress-your-application" element={<ProgressApplication />} />
+          <Route path="book-an-appointment" element={<BookAppointment />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="legal-disclaimer" element={<LegalDisclaimer />} />
           <Route path="terms-and-conditions" element={<TermsConditions />} />
