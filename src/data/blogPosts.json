@@ -3623,38 +3623,38 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What is a bridging loan?",
+          "question": "Who are the biggest bridging loan lenders in the UK?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A bridging loan is a short-term loan to cover the period between buying a new property and selling an existing one. It helps bridge the financial gap."
+            "text": "The specialist bridging market includes non-bank lenders such as LendInvest, MT Finance, Together, West One Loans and Octopus Real Estate, alongside specialist banks such as Shawbrook Bank and United Trust Bank. Market share shifts regularly as lenders adjust criteria and pricing."
           }
         },
         {
-          "question": "How quickly can I get a bridging loan?",
+          "question": "Is it better to use a broker or go direct to a bridging lender?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Bridging loans can be arranged quickly, often within a week. Some lenders offer expedited services for urgent finance needs."
+            "text": "Most specialist bridging lenders are intermediary-only or strongly intermediary-led, meaning a broker typically has access to pricing and underwriter relationships a direct applicant does not. A broker also compares your case against the whole panel rather than one lender's single set of criteria."
           }
         },
         {
-          "question": "Are bridging loans regulated in the UK?",
+          "question": "Do all bridging lenders check credit history?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, many bridging loans are regulated by the Financial Conduct Authority, ensuring borrower protections and guidelines are in place."
+            "text": "No. Some lenders, including MT Finance and West One Loans, do not credit-score bridging applications and focus underwriting on the security and exit strategy instead. Others price more conservatively for adverse credit or decline it outright. This varies enough between lenders that credit history should be disclosed upfront rather than assumed to be disqualifying."
           }
         },
         {
-          "question": "Can I get a bridging loan with poor credit?",
+          "question": "What is the typical minimum bridging loan amount?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "While a good credit score improves your options, some lenders offer bridging loans with flexibility for those with less than perfect credit."
+            "text": "Most specialist lenders set a minimum around £50,000-£75,000, though this varies by lender and, for some, by borrower type - several lenders set a materially higher minimum for limited company, SPV or trust borrowers than for individuals."
           }
         },
         {
-          "question": "What are typical fees associated with bridging loans?",
+          "question": "Do bridging lenders use automated valuations (AVMs) instead of a full survey?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Typical fees include arrangement charges, exit fees, and interest. Speak to your lender for a full breakdown before committing."
+            "text": "Some do, for straightforward residential cases up to a set loan-to-value and property value - this can meaningfully speed up completion. Unusual property types, higher-value cases, or anything outside standard criteria will still need a full physical valuation."
           }
         }
       ]
