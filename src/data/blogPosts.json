@@ -18239,5 +18239,61 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1788973769720,
+    "status": "published",
+    "slug": "millions-face-paying-housing-costs-in-retirement",
+    "url": "/insights/millions-face-paying-housing-costs-in-retirement",
+    "title": "Millions of Britons face still paying rent or a mortgage after they retire",
+    "excerpt": "A growing number of people are entering retirement without having paid off their home, or without owning one at all, raising fresh questions about how later-life housing costs will be met.",
+    "metaTitle": "Millions Face Rent or Mortgage Costs in Retirement",
+    "metaDescription": "Millions of UK adults say they don't know how they'll cover rent or mortgage payments in retirement. Here's what it means for homeowners and buyers.",
+    "keywords": "house price, mortgage, rental market, landlord, renter, homeowner",
+    "date": "2026-09-09",
+    "publishedAt": "2026-09-09T17:09:29.720Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/millions-face-paying-housing-costs-in-retirement.webp",
+    "heroVersion": 31672063,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why are more people still paying a mortgage in retirement?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because many buyers are getting onto the property ladder later in life and taking out longer mortgage terms to keep monthly repayments affordable, those terms increasingly stretch beyond the age at which people stop working full time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What can homeowners do if their mortgage will still be running when they retire?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Common approaches include using savings or a pension lump sum to pay down the balance, downsizing to a cheaper property, or looking into later-life lending options such as retirement interest-only mortgages. Speaking to a mortgage or financial adviser before retirement is generally recommended."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this issue affect renters as well as homeowners?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. People who rent rather than own face the same underlying problem, needing to cover ongoing housing costs from pension income or savings with no fixed end point, since they won't have a mortgage to eventually pay off."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>A significant number of Britons say they have no clear plan for how they'll afford rent or mortgage payments once they retire, according to <a href=\"https://www.thisismoney.co.uk/money/mortgageshome/article-16117555/Ticking-timebomb-6million-Britons-say-dont-know-theyll-afford-rent-pay-mortgage-retirement.html?ns_mchannel=rss&ns_campaign=1490&ito=1490\">This Is Money</a>. The pattern behind it is straightforward: people are buying homes later in life, taking out longer mortgage terms to make the repayments manageable, and in many cases still renting well into their fifties and sixties. The result is a growing group heading into retirement with housing costs that don't stop when the pay cheques do.</p><p>This isn't a fringe issue. It reflects a structural shift in how people get onto the property ladder and how long it takes them to pay off what they borrow. Where previous generations often cleared their mortgage well before retiring, more people today are still years, sometimes decades, from being mortgage-free when they reach pension age. Others have never bought at all and remain in the rental market indefinitely.</p><h2>Why longer mortgage terms are catching up with people</h2><p>Stretching a mortgage over a longer term is a common way to keep monthly payments affordable when house prices are high relative to income. But the trade-off is that the debt lasts longer, and for a growing number of borrowers that means the mortgage term now runs past the age most people expect to stop working. Lenders have adapted by offering products designed to run into later life, but that only shifts the problem rather than solving it. The borrower still needs an income, whether from a pension, savings, part-time work or the sale of an asset, to keep meeting those payments once employment income stops.</p><h2>What this means for renters as well as owners</h2><p>The story isn't only about mortgages. A meaningful share of the people facing this issue are renters who never bought a home and now face paying market rent indefinitely, with no equity built up and no fixed end point to the cost. For this group, retirement planning has to account for housing as an ongoing expense rather than something that gets resolved by owning a paid-off home. That changes the maths on how much pension income or savings someone actually needs.</p><h2>Practical implications for homeowners and landlords</h2><p>For existing homeowners approaching retirement with mortgage debt still outstanding, the options generally involve either continuing to work longer, using savings or a pension lump sum to reduce or clear the balance, downsizing to release equity, or exploring later-life lending products such as retirement interest-only mortgages or equity release. Each comes with different costs and risks, and none should be treated as a default fix without proper advice.</p><p>For landlords, the same dynamics matter in reverse. Tenants who expect to be renting for the long term, including into retirement, represent a different kind of demand than the traditional younger renter market. Landlords planning ahead may need to think about longer tenancy expectations and the type of property that suits older tenants, rather than assuming turnover will always come from people eventually buying and leaving the rental sector.</p><p>Anyone weighing up whether to release equity from a property, restructure existing borrowing, or bridge a gap while arranging longer-term finance may find it useful to look at the range of options set out on Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> page, which covers different ways of accessing property finance depending on individual circumstances.</p><h2>Frequently Asked Questions</h2><h3>Why are more people still paying a mortgage in retirement?</h3><p>Because many buyers are getting onto the property ladder later in life and taking out longer mortgage terms to keep monthly repayments affordable, those terms increasingly stretch beyond the age at which people stop working full time.</p><h3>What can homeowners do if their mortgage will still be running when they retire?</h3><p>Common approaches include using savings or a pension lump sum to pay down the balance, downsizing to a cheaper property, or looking into later-life lending options such as retirement interest-only mortgages. Speaking to a mortgage or financial adviser before retirement is generally recommended.</p><h3>Does this issue affect renters as well as homeowners?</h3><p>Yes. People who rent rather than own face the same underlying problem, needing to cover ongoing housing costs from pension income or savings with no fixed end point, since they won't have a mortgage to eventually pay off.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
