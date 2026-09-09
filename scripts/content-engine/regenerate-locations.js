@@ -135,8 +135,8 @@ This must feel written by someone who actually brokers deals in ${city} — not 
 4. <h2>Our ${service} Solutions for ${city} Businesses</h2>
 What Boxx actually offers — amounts, terms, lender types, timescales. Link ${serviceUrl} at least once more using keyword-rich anchor text (e.g. "specialist ${service.toLowerCase()} solutions"). Practical and specific — no waffle. 1–2 paragraphs.
 
-5. <h2>A Recent ${city} Success Story</h2>
-An anonymised but realistic case study. "Recently, we helped a ${city}-based [specific type of business]..." — include a realistic funding amount, the challenge they faced, what product was arranged, and the outcome. This is highly persuasive for local visitors. 1 solid paragraph.
+5. <h2>What a Typical ${service} Deal in ${city} Looks Like</h2>
+Open with exactly this sentence: "The example below is illustrative — a composite reflecting the shape of deals of this kind, not a specific, identifiable transaction." Then ONE example framed explicitly as hypothetical — "Consider a ${city}-based [specific type of business] that needs..." NOT "Recently, we helped..." or any other phrasing that claims this is a real, specific, previously-completed Boxx case. Include a realistic funding amount, the challenge faced, what product would be arranged, and the likely outcome. 1 solid paragraph.
 
 6. <h2>How the Process Works</h2>
 Four clear steps: initial enquiry → lender matching → offer received → completion. Brief and reassuring — show it's straightforward. Use a numbered list or 4 short sentences.

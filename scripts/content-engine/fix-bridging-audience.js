@@ -80,8 +80,8 @@ This must feel written by someone who actually arranges bridging loans in ${city
 4. <h2>Our Bridging Loan Solutions for ${city} Borrowers</h2>
 What Boxx actually offers — loan amounts, terms, lender types, timescales, exit strategies (sale, remortgage, development completion). Link ${serviceUrl} at least once more using keyword-rich anchor text (e.g. "specialist bridging loan solutions"). Practical and specific — no waffle. 1–2 paragraphs.
 
-5. <h2>A Recent ${city} Success Story</h2>
-An anonymised but realistic case study about a homeowner, landlord, or property investor — NOT a business. "Recently, we helped a ${city}-based [homeowner / landlord / property investor]..." — include a realistic loan amount, the challenge they faced (chain break, auction deadline, refurbishment), what was arranged, and the outcome. 1 solid paragraph.
+5. <h2>What a Typical Bridging Loan in ${city} Looks Like</h2>
+Open with exactly this sentence: "The example below is illustrative — a composite reflecting the shape of deals of this kind, not a specific, identifiable transaction." Then ONE example about a homeowner, landlord, or property investor — NOT a business — framed explicitly as hypothetical: "Consider a ${city}-based [homeowner / landlord / property investor] who needs..." NOT "Recently, we helped..." or any other phrasing that claims this is a real, specific, previously-completed Boxx case. Include a realistic loan amount, the challenge (chain break, auction deadline, refurbishment), what would be arranged, and the likely outcome. 1 solid paragraph.
 
 6. <h2>How the Process Works</h2>
 Four clear steps: initial enquiry → lender matching → offer received → completion. Brief and reassuring — show it's straightforward. Use a numbered list or 4 short sentences.
