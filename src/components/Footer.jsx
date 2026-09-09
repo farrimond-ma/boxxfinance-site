@@ -47,6 +47,7 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-bottom">
+                    <p className="footer-disclaimer">Boxx Finance is a trading name of Birchwood Wealth Ltd, registered in Scotland, company number SC692076.</p>
                     <p className="footer-disclaimer">We are a commercial finance broker and not a lender. Funding is subject to lender criteria, status and terms. Commercial finance is not regulated by the Financial Conduct Authority. We may receive commission from lenders for arranging finance. The amount of commission may vary depending on the lender and product.</p>
                     {/* Regulated side of the business. The paragraph above covers
                         unregulated commercial finance; this covers the products

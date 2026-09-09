@@ -21,6 +21,12 @@ const Home = () => {
                         "@context": "https://schema.org",
                         "@type": "Organization",
                         "name": "Boxx Finance",
+                        "legalName": "Birchwood Wealth Ltd",
+                        "identifier": {
+                            "@type": "PropertyValue",
+                            "propertyID": "GB:CRN",
+                            "value": "SC692076"
+                        },
                         "url": "https://boxxfinance.co.uk",
                         "logo": "https://boxxfinance.co.uk/logo.png",
                         "contactPoint": {
