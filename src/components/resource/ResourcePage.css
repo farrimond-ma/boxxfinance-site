@@ -79,6 +79,12 @@
 .resource-hero h1.is-long-title {
     font-size: 1.9rem;
 }
+/* Titles carrying a .hero-subline (currently just the homepage) can run
+   bigger — the subline sits right underneath at a fraction of the size,
+   so there's headroom the single-line titles don't have. */
+.resource-hero h1:has(.hero-subline) {
+    font-size: 2.7rem;
+}
 @media (min-width: 993px) {
     .resource-hero h1 {
         font-size: 3.4rem;
@@ -87,9 +93,23 @@
     .resource-hero h1.is-long-title {
         font-size: 2.6rem;
     }
+    .resource-hero h1:has(.hero-subline) {
+        font-size: 4rem;
+    }
 }
 .resource-hero .text-highlight {
     color: var(--color-secondary-light);
+}
+/* Optional smaller second line within the h1 — e.g. the homepage's
+   "Bridging Loans. / For auctions, refurbs..." Sized in em so it scales
+   with the h1 across both breakpoints instead of needing its own. */
+.resource-hero h1 .hero-subline {
+    display: block;
+    font-size: 0.4em;
+    font-weight: 600;
+    color: var(--color-secondary-light);
+    line-height: 1.3;
+    margin-top: 0.15em;
 }
 .resource-hero-lead {
     font-size: 1.1rem;
