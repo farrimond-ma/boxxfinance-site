@@ -32,7 +32,6 @@ import { ResourceHero } from './resource/ResourceHero';
  */
 const Hero = () => (
     <ResourceHero
-        eyebrow="UK Bridging Loan Specialists"
         title={
             <>
                 Bridging Loans.<br />
