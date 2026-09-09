@@ -18178,5 +18178,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1788956405398,
+    "status": "published",
+    "slug": "prs-database-65-fee-landlords",
+    "url": "/insights/prs-database-65-fee-landlords",
+    "title": "Landlords face £65 annual fee per property under new national rental register",
+    "excerpt": "A new government registration scheme will charge landlords £65 per property each year, as HMRC takes on a bigger role overseeing rent increase disputes across England.",
+    "metaTitle": "Landlords face £65 annual PRS Database fee",
+    "metaDescription": "Landlords in England will pay a £65 per-property annual fee under the new PRS Database, with HMRC taking on rent dispute oversight.",
+    "keywords": "mortgage, landlord, buy-to-let",
+    "date": "2026-09-09",
+    "publishedAt": "2026-09-09T12:20:05.400Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/prs-database-65-fee-landlords.webp",
+    "heroVersion": 11935240,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do all landlords in England have to pay the £65 fee?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Based on what has been confirmed, the fee applies per rental property as the PRS Database rolls out regionally across England, so landlords with multiple properties will pay the fee multiple times, once for each one registered."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the £65 fee a one-off charge or does it recur?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It has been described as an annual fee, meaning landlords should expect to budget for it every year rather than treating it as a single upfront registration cost."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should landlords do to prepare for HMRC's role in rent disputes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While full details are still emerging, landlords may want to keep clearer records of how and why rent increases are decided, so they have evidence ready if a dispute is raised."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Landlords across England are being told to expect a new annual cost of doing business: a £65 registration fee per rental property, payable through the government's incoming \"Register Your Rental Property\" service. As reported by <a href=\"https://www.property118.com/landlords-face-65-annual-prs-database-fee-as-hmrc-takes-on-rent-increase-disputes/\">Property118</a>, the fee forms part of the new Private Rented Sector Database, which will be rolled out region by region, and comes alongside a bigger role for HMRC in overseeing rent increase disputes. For anyone letting out property, whether a single flat or a small portfolio, this is another compliance cost and administrative step to factor into the numbers.</p><h2>What the PRS Database actually means for landlords</h2><p>The PRS Database is designed to give the government, tenants and local authorities a single, searchable record of who owns and lets which properties. In practice, that means landlords will need to register each individual rental property they own, not just their business or letting entity as a whole. With a £65 fee attached per property, the cost scales directly with the size of a portfolio. A landlord with one buy-to-let pays £65 a year. A landlord with ten properties is looking at £650 a year, every year, simply to remain compliant and visible on the register.</p><p>This is not a one-off setup charge either, based on how it has been described: it is an annual fee, meaning it needs to be treated as a recurring running cost alongside insurance, gas safety certificates, EPC renewals and any letting agent fees. For landlords who run tight margins on individual properties, particularly in lower-yield areas or where mortgage costs have already squeezed profitability in recent years, an extra recurring per-property charge is the kind of thing that needs to go into the annual budget rather than being treated as an afterthought.</p><h2>HMRC's expanded role in rent disputes</h2><p>The other significant element of this story is HMRC's growing involvement in rent increase disputes. Details remain limited at this stage, but the direction of travel is clear: rent increases are being brought more firmly into a framework of central oversight, rather than being left purely as a matter between landlord and tenant or handled solely through existing tribunal routes. For landlords, this suggests that rent reviews and increases may need to be better documented and justified than has historically been the case, particularly if HMRC ends up with visibility over disputed cases.</p><p>Landlords who are used to setting rents informally, or increasing them without much of a paper trail, may want to start being more methodical about how and why rent changes are decided, simply to be prepared if a dispute does arise. This is especially relevant for those managing several properties, where inconsistent approaches across a portfolio could look messier under closer scrutiny.</p><h2>Budgeting and portfolio decisions going forward</h2><p>None of this changes the fundamentals of buy-to-let investment, but it does add another line item to the annual cost of ownership, at a time when many landlords are already reassessing whether individual properties still stack up financially once mortgage costs, tax changes and compliance obligations are all added together. Some landlords may decide this is the moment to consolidate a portfolio, sell off marginal properties, or refinance existing borrowing to free up better terms and cash flow to absorb these additional costs. Landlords weighing up whether to restructure borrowing across a portfolio in light of rising compliance costs may find it useful to look at the <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinancing options</a> available, which can help free up equity or improve terms across multiple properties.</p><h2>Frequently Asked Questions</h2><h3>Do all landlords in England have to pay the £65 fee?</h3><p>Based on what has been confirmed, the fee applies per rental property as the PRS Database rolls out regionally across England, so landlords with multiple properties will pay the fee multiple times, once for each one registered.</p><h3>Is the £65 fee a one-off charge or does it recur?</h3><p>It has been described as an annual fee, meaning landlords should expect to budget for it every year rather than treating it as a single upfront registration cost.</p><h3>What should landlords do to prepare for HMRC's role in rent disputes?</h3><p>While full details are still emerging, landlords may want to keep clearer records of how and why rent increases are decided, so they have evidence ready if a dispute is raised.</p><p>For landlords reassessing their finances in light of new compliance costs like this, it may be worth exploring the wider <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> available to help manage cash flow and restructure borrowing across a rental portfolio.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
