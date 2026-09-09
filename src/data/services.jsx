@@ -624,6 +624,26 @@ export const serviceContent = {
                 <p>But speed alone is not enough. The structure of the facility determines whether the transaction strengthens your position or creates unnecessary risk.</p>
                 <p>At Boxx Finance, we structure every bridging loan around your exit strategy, not simply the loan term.</p>
 
+                <div className="service-spec-block">
+                    <div className="service-spec-item">
+                        <span className="service-spec-value">£50,000&ndash;£30m</span>
+                        <span className="service-spec-label">Loan size</span>
+                    </div>
+                    <div className="service-spec-item">
+                        <span className="service-spec-value">From 0.45% pcm</span>
+                        <span className="service-spec-label">Rate</span>
+                    </div>
+                    <div className="service-spec-item">
+                        <span className="service-spec-value">Up to 75%</span>
+                        <span className="service-spec-label">Loan-to-value</span>
+                    </div>
+                    <div className="service-spec-item">
+                        <span className="service-spec-value">50+</span>
+                        <span className="service-spec-label">Lenders on our panel</span>
+                    </div>
+                </div>
+                <p className="service-spec-note">Indicative range across our bridging lender panel as of September 2026 &mdash; not a quote. Actual rate and LTV depend on the property, exit strategy and loan purpose; some lenders on our panel offer up to 80% LTV on selected cases.</p>
+
                 <h3>What Is a Bridging Loan?</h3>
                 <p>A bridging loan is a short-term secured loan used to “bridge” the gap between an immediate funding requirement and a planned repayment event.</p>
                 <p>Common repayment events include: Sale of a property, refinancing onto a commercial mortgage, completion of refurbishment, planning uplift, or a development exit.</p>

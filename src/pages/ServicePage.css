@@ -196,3 +196,43 @@
     border-bottom: none;
     background: none;
 }
+
+/* Above-the-fold spec block — real, sourced panel figures (Priority 6,
+   site remediation brief). Only rendered where we actually have real
+   figures to show; do not add to a service without sourced data. */
+.service-spec-block {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    background: #f7f5ef;
+    border: 1px solid #e6ddc4;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0 0.75rem;
+}
+@media (min-width: 560px) {
+    .service-spec-block {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+.service-spec-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+}
+.service-spec-value {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+.service-spec-label {
+    font-size: 0.8rem;
+    color: #666;
+}
+.service-spec-note {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0 0 1.5rem;
+}
