@@ -8,7 +8,7 @@ const caseStudies = [
         title: 'Glasgow Portfolio Expansion',
         loanAmount: '£95,000',
         ltv: '68% LTV',
-        completionTime: '11 days',
+        completionTime: '23 days',
         narrative: [
             'A landlord in Glasgow identified an opportunity to purchase a two-bedroom flat that had been discounted because it required extensive refurbishment. Traditional lenders were unable to provide funding within the seller\'s timescale, putting the purchase at risk.',
             'A bridging facility of £95,000 was arranged at 68% loan-to-value, enabling the client to complete the purchase and begin refurbishment immediately — a new kitchen, bathroom and heating system. Once the improvements were complete, the property\'s value increased significantly.'
@@ -21,7 +21,7 @@ const caseStudies = [
         title: 'Manchester Buy-to-Let Acquisition',
         loanAmount: '£245,000',
         ltv: '72% LTV',
-        completionTime: '14 days',
+        completionTime: '26 days',
         narrative: [
             'An experienced landlord in Manchester was given the opportunity to acquire a four-property package from a retiring investor. The transaction needed to complete quickly to prevent the properties being marketed more widely.',
             'A bridging loan of £245,000 was arranged at 72% loan-to-value, allowing the client to secure all four properties within the required timeframe. Because the properties were already tenanted, the landlord generated rental income immediately after completion.'
@@ -34,7 +34,7 @@ const caseStudies = [
         title: 'Liverpool Property Conversion Project',
         loanAmount: '£425,000',
         ltv: '70% LTV',
-        completionTime: '9 days',
+        completionTime: '28 days',
         narrative: [
             'A landlord in Liverpool acquired a large residential property intending to convert it into multiple self-contained apartments. Although the project was commercially viable, the property\'s condition made it unsuitable for conventional mortgage funding.',
             'A bridging facility of £425,000 was arranged at 70% loan-to-value, providing the speed and flexibility required to complete the purchase. The conversion took six months and created four modern apartments, quickly let to long-term tenants.'
