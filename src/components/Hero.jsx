@@ -35,7 +35,7 @@ const Hero = () => (
         title={
             <>
                 Bridging Loans.<br />
-                <span className="text-highlight">Funded Fast.</span>
+                <span className="text-highlight">Funded in Days, Not Months.</span>
             </>
         }
         description="Short-term property funding for auction purchases, chain breaks, refurbishments and probate. We structure bridging loans for homeowners, landlords, investors and developers — around a clear exit plan, not just a headline rate."
