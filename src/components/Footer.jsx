@@ -51,7 +51,7 @@ const Footer = () => {
                     {/* Regulated side of the business. The paragraph above covers
                         unregulated commercial finance; this covers the products
                         where we introduce rather than broker. */}
-                    <p className="footer-disclaimer">For mortgages, remortgages and secured loans we act as introducers to Fluent Money. Fluent Money Ltd is authorised and regulated by the Financial Conduct Authority. Firm Reference Number 654425.</p>
+                    <p className="footer-disclaimer">For regulated business we act as appointed representatives of Cornerstone Finance Group Ltd. Cornerstone Finance Group Ltd is authorised and regulated by The Financial Conduct Authority No.767202.</p>
                     <p>&copy; {new Date().getFullYear()} Boxx Finance. All rights reserved.</p>
                 </div>
             </div>
