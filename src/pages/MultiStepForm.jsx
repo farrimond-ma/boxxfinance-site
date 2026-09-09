@@ -150,8 +150,12 @@ const MultiStepForm = () => {
                 // With no-cors, we can't read the response body, but we can assume success if it doesn't throw
 
                 // Also send bridging leads straight to the CRM, best-effort — if this fails the
-                // Sheet above still has the lead, so it never blocks the "thanks" screen.
-                if (isBridging) {
+                // Sheet above still has the lead, so it never blocks the "thanks" screen. Covers
+                // both the dedicated bridging-loans landing page (isBridging) and the generic
+                // multi-step form where someone picks "Bridging Loans" from the funding-type
+                // dropdown themselves — previously only the first path ever reached the CRM.
+                const isBridgingLead = isBridging || formData.fundingType === 'Bridging Loans';
+                if (isBridgingLead) {
                     const crmParams = new URLSearchParams();
                     crmParams.append('intake_key', CRM_INTAKE_KEY);
                     crmParams.append('full_name', formData.contactName);
@@ -159,7 +163,7 @@ const MultiStepForm = () => {
                     crmParams.append('client_phone', formData.phone);
                     crmParams.append('loan_amount_required', formData.amount);
                     const crmNotes = [
-                        formData.purpose && `How soon: ${formData.purpose}`,
+                        formData.purpose && `${isBridging ? 'How soon' : 'Purpose'}: ${formData.purpose}`,
                         referral && `Referral: ${referral}`,
                     ].filter(Boolean).join(' | ');
                     if (crmNotes) crmParams.append('notes', crmNotes);
