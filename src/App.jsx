@@ -22,6 +22,7 @@ import FundingSolutions from './pages/FundingSolutions';
 import Partners from './pages/Partners';
 import AboutUs from './pages/AboutUs';
 import AdLandingBridgingLoans from './pages/AdLandingBridgingLoans';
+import AdLandingBridgingUnregulated from './pages/AdLandingBridgingUnregulated';
 import ProgressApplication from './pages/ProgressApplication';
 import BookAppointment from './pages/BookAppointment';
 import ChatbotTest from './pages/ChatbotTest';
@@ -68,6 +69,7 @@ function App() {
             see a single-purpose page with a form in the hero, not the full
             site nav pulling attention away from conversion. */}
         <Route path="/ads/bridging-loans" element={<AdLandingBridgingLoans />} />
+        <Route path="/ads/bridging-finance" element={<AdLandingBridgingUnregulated />} />
         {/* Internal chatbot test page — outside Layout, noindex'd, not in the
             sitemap, not linked from anywhere. See src/pages/ChatbotTest.jsx. */}
         <Route path="/internal/chatbot-preview" element={<ChatbotTest />} />
