@@ -1,0 +1,68 @@
+name: Publish Scheduled Articles
+# Promotes pre-written articles from status "scheduled" to "published" once
+# their `date` arrives — see publish-scheduled-articles.js. Built 2026-09-10
+# to stage the named-lender content batch 2 a day over 8 days rather than
+# publishing all 16 at once; reusable for any future pre-written batch that
+# should roll out gradually (just set status: "scheduled" and a future date
+# on the row).
+#
+# Deliberately separate from publish-blog.yml, which generates NEW content
+# from the ContentEngine sheet via OpenAI — this workflow does no
+# generation and needs no AI/Sheets credentials, only repo write access.
+
+on:
+  schedule:
+    - cron: '0 7 * * *'  # 07:00 UTC (close enough to UK morning year-round)
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  publish-scheduled:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout latest
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Promote due articles
+        run: node publish-scheduled-articles.js
+        working-directory: scripts/content-engine
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/blogPosts.json
+          if git diff --staged --quiet; then
+            echo "No scheduled articles were due — nothing to commit"
+            exit 0
+          fi
+
+          COUNT=$(git diff --staged src/data/blogPosts.json | grep -c '"status": "published"' || echo 0)
+          git commit -m "chore: publish ${COUNT} scheduled article(s)"
+
+          # Other publishers can push to blogPosts.json around the same
+          # time — retry with rebase rather than failing on a benign race
+          # (same pattern as regenerate-sitemap.yml).
+          for attempt in 1 2 3 4 5; do
+            if git push origin main; then
+              echo "Pushed (attempt ${attempt})"
+              exit 0
+            fi
+            echo "Push failed (attempt ${attempt}) — pulling and retrying"
+            git pull --rebase origin main
+            sleep 3
+          done
+          echo "Failed to push after 5 attempts"
+          exit 1
