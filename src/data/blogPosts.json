@@ -18611,52 +18611,66 @@
     "slug": "octopus-real-estate-bridging-finance-review",
     "url": "/insights/octopus-real-estate-bridging-finance-review",
     "title": "Octopus Real Estate Bridging Finance: Rates, Criteria and Who It Suits",
-    "excerpt": "Octopus Real Estate combines some of the sharpest bridging rates in the market with in-house chartered surveyors for complex commercial security. Here is what its criteria cover, and who it suits.",
-    "metaTitle": "Octopus Real Estate Bridging Loans | Rates & Criteria 2026",
-    "metaDescription": "Octopus Real Estate bridging finance explained: loan size, LTV, rates and surveyor-led underwriting, from a whole-of-market broker’s perspective.",
-    "keywords": "Octopus Real Estate bridging loans, Octopus Real Estate criteria, commercial bridging finance UK",
+    "excerpt": "A practical guide to Octopus Real Estate bridging loans, covering rates, lending criteria, typical use cases and how to secure the best terms through a specialist broker.",
+    "metaTitle": "Octopus Real Estate Bridging Loans: Rates & Criteria Explained",
+    "metaDescription": "Understand Octopus Real Estate bridging loans, including rates, eligibility criteria and who they suit best. Expert broker guidance from Boxx Finance.",
+    "keywords": "Octopus Real Estate bridging finance, bridging loan rates UK, commercial bridging finance, property bridging loans, short term property finance UK",
     "date": "2026-09-10",
     "author": "Tara Jameson",
     "authorEmail": "tara@boxxfinance.co.uk",
     "service": "Bridging Finance",
-    "heroImage": "/images/hero/bridging-4.webp",
+    "heroImage": "/images/hero/bridging-17.webp",
     "heroVersion": null,
     "schema": {
+      "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What loan-to-value does Octopus Real Estate offer on bridging?",
+          "@type": "Question",
+          "name": "What rates does Octopus Real Estate charge on bridging loans?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Up to 70% LTV on unregulated bridging and 65% on regulated bridging, dropping to a 65% cap where the property is valued above £1 million. This is more conservative than some panel lenders, which is part of why the rate is sharper."
+            "text": "Rates typically start from around 0.55% to 0.75% per month depending on loan size, security and risk profile. Larger loans against strong assets tend to secure the lowest rates, while complex or higher leverage deals sit at the upper end. Your broker can benchmark this against other specialist lenders."
           }
         },
         {
-          "question": "What are Octopus Real Estate’s bridging rates?",
+          "@type": "Question",
+          "name": "How quickly can Octopus Real Estate complete a bridging loan?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Rates start from 0.45% per month on regulated bridging and 0.55% on unregulated bridging — among the lowest headline rates of the lenders Boxx Finance works with, reflecting the lower maximum LTV."
+            "text": "Completion in two to three weeks is common for straightforward cases with clean titles and cooperative solicitors. Complex cases involving multiple securities or unusual structures can take four to six weeks. Having documents ready in advance speeds things up considerably."
           }
         },
         {
-          "question": "Does Octopus Real Estate use automated valuations?",
+          "@type": "Question",
+          "name": "What loan to value does Octopus Real Estate offer on bridging finance?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "On qualifying cases, its Fast Track route combines an automated valuation model with enhanced title indemnity to remove the need for a physical valuation, speeding up completion."
+            "text": "Typical maximum loan to value sits around 70% to 75% of the property's current market value, though this can flex depending on the asset type, exit strategy and borrower profile. Development exits and refurbishment projects may be assessed against gross development value in some cases."
           }
         },
         {
-          "question": "What property types does Octopus Real Estate lend against?",
+          "@type": "Question",
+          "name": "Can I get an Octopus Real Estate bridging loan with poor credit history?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Residential, commercial, semi-commercial and refurbishment security, plus developer exit loans from £500,000 to £25 million. Its commercial team includes in-house chartered surveyors, which helps with complex or unusual commercial security other lenders decline."
+            "text": "Adverse credit does not automatically rule you out. Octopus Real Estate takes a pragmatic view of the whole picture, including the security offered and the exit strategy. A broker can present your case properly and flag any credit issues upfront to avoid delays later."
           }
         },
         {
-          "question": "Is Octopus Real Estate suitable for first-time investors?",
+          "@type": "Question",
+          "name": "What can an Octopus Real Estate bridging loan be used for?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Generally not — Octopus Real Estate typically expects property investment or development experience, and some adverse credit is only considered case by case. It suits experienced investors and developers more than first-time borrowers."
+            "text": "Common uses include auction purchases, chain breaks, light and heavy refurbishment, part-built development finance, and raising capital against unencumbered property. It suits both residential investors and commercial property owners needing fast, flexible funding."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a clear exit strategy before applying?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, a credible exit strategy is essential. This is usually sale of the property, refinance onto a term mortgage, or receipt of funds from another source. Lenders will want evidence this exit is realistic within the loan term before offering terms."
           }
         }
       ]
@@ -18672,12 +18686,14 @@
       "https://boxxfinance.co.uk/insights/bridging-loan-for-ground-up-development",
       "https://boxxfinance.co.uk/insights/bridging-loan-vs-development-finance"
     ],
-    "content": "<p>Octopus Real Estate is a specialist lender known for pairing some of the sharpest <a href='https://boxxfinance.co.uk/funding-solutions/bridging-loans'>bridging loan</a> rates in the market with in-house chartered surveyors on its commercial team — a combination that suits experienced investors and developers more than first-time borrowers, and lower-leverage deals more than maximum-LTV ones.</p>\n\n<h2>What this means in practice</h2>\n<p>Where some lenders compete purely on speed or adverse-credit tolerance, Octopus Real Estate competes on price at a more conservative loan-to-value. Its in-house surveying team also means complex or unusual commercial security — the kind other lenders refer or decline — gets a more informed first look.</p>\n\n<h2>How it works</h2>\n<p>Loans range from £50,000 to £25 million, secured by first charge against residential, commercial, semi-commercial and refurbishment property, plus developer exit facilities from £500,000 up to £25 million and full development finance to £50 million. Maximum LTV is 70% on unregulated bridging and 65% on regulated bridging, dropping to a 65% cap where the property is valued above £1 million — a real constraint in London and the South East. Regulated terms run to 12 months, unregulated up to 23 months. Rates start from 0.45% per month regulated and 0.55% unregulated, among the lowest on the panel.</p>\n\n<h2>Who it suits</h2>\n<p>Octopus Real Estate suits experienced investors and developers with a lower-LTV, higher-quality case who want the sharpest possible rate — and anyone with complex or non-standard commercial security, where the in-house surveying team adds genuine underwriting depth. Its Fast Track route (AVM plus enhanced title indemnity) can also remove the need for a physical valuation on qualifying cases, which shortens the timeline meaningfully.</p>\n\n<h2>Where it is not the strongest fit</h2>\n<p>The 65% LTV cap above £1 million property value rules Octopus Real Estate out for borrowers needing maximum leverage on higher-value London or South East property, and it generally expects property investment or development experience — first-time investors and borrowers with recent adverse credit are better placed elsewhere on the panel.</p>\n\n<h2>Summary</h2>\n<p>Octopus Real Estate is a rate-led choice for experienced borrowers with a clean, lower-leverage case, and a strong choice specifically where commercial security is complex enough to need a surveyor’s eye. Figures above are correct as of 2026 and should be confirmed with your broker before an application.</p>\n\n<h2>Frequently Asked Questions</h2>\n<h3>What loan-to-value does Octopus Real Estate offer on bridging?</h3>\n<p>Up to 70% LTV on unregulated bridging and 65% on regulated bridging, dropping to a 65% cap where the property is valued above £1 million. This is more conservative than some panel lenders, which is part of why the rate is sharper.</p>\n<h3>What are Octopus Real Estate’s bridging rates?</h3>\n<p>Rates start from 0.45% per month on regulated bridging and 0.55% on unregulated bridging — among the lowest headline rates of the lenders Boxx Finance works with, reflecting the lower maximum LTV.</p>\n<h3>Does Octopus Real Estate use automated valuations?</h3>\n<p>On qualifying cases, its Fast Track route combines an automated valuation model with enhanced title indemnity to remove the need for a physical valuation, speeding up completion.</p>\n<h3>What property types does Octopus Real Estate lend against?</h3>\n<p>Residential, commercial, semi-commercial and refurbishment security, plus developer exit loans from £500,000 to £25 million. Its commercial team includes in-house chartered surveyors, which helps with complex or unusual commercial security other lenders decline.</p>\n<h3>Is Octopus Real Estate suitable for first-time investors?</h3>\n<p>Generally not — Octopus Real Estate typically expects property investment or development experience, and some adverse credit is only considered case by case. It suits experienced investors and developers more than first-time borrowers.</p>",
+    "content": "<p>Octopus Real Estate bridging loans give property investors and businesses fast access to short term finance secured against land or property, usually for terms of one to eighteen months. Rates typically start from around 0.55% per month, with lending up to roughly 75% loan to value. They suit auction purchases, refurbishments, chain breaks and time sensitive deals where speed matters more than the lowest possible headline rate.</p><h2>What this means in practice</h2><p>Bridging finance from a lender like Octopus Real Estate differs from a conventional mortgage. It is designed to be temporary, filling a gap until a longer term solution is in place, such as a sale, a refinance, or completion of works that unlock a better valuation. Because of that short term nature, the underwriting focus shifts away from affordability in the traditional sense and towards the strength of the security and the credibility of the exit.</p><p>For UK businesses and property investors, this opens doors that high street lenders simply cannot match on speed. A typical residential mortgage application takes eight to twelve weeks. Octopus Real Estate bridging loans can complete in two to three weeks where the case is straightforward, and sometimes faster if there is genuine urgency and all parties move quickly.</p><p>This means a property investor spotting an under-market auction lot with a 28-day completion deadline can actually compete, whereas a buyer relying on a standard mortgage offer would likely lose the deal. It also means a business owner needing to release equity from an unencumbered commercial building can do so within weeks rather than months, giving them working capital or acquisition funds when the opportunity window is tight.</p><h2>How it works</h2><p>The mechanics are fairly straightforward once you understand the shape of the product. You borrow against a property or land asset, usually at 65% to 75% loan to value, and interest is either paid monthly, rolled up and added to the loan, or retained upfront from the advance. Most borrowers choose retained or rolled up interest because it removes monthly servicing pressure during the bridge term.</p><p>Octopus Real Estate will assess the asset itself, the borrower's experience and background, and crucially the exit strategy. Exit routes are usually one of three things: sale of the property, refinance onto a standard mortgage or development finance facility, or an incoming lump sum from another confirmed source. Lenders require this mapped out clearly before they commit, because the whole product relies on the loan actually being repaid on schedule.</p><p>Valuation and legal work run in parallel once terms are agreed. A RICS valuation confirms the property's worth and condition, while solicitors handle title checks, searches and the security documentation. Delays often occur at this stage, so instructing solicitors who are used to bridging timescales makes a real difference. Fees typically include an arrangement fee of around 1.5% to 2%, valuation costs, and legal fees on both sides.</p><p>When exploring <a href='https://boxxfinance.co.uk/funding-solutions/bridging-loans'>Octopus Real Estate bridging loans solutions</a> for the first time, understand that pricing and terms vary significantly case by case. A broker who regularly places deals with this lender will know where flexibility exists and where it does not.</p><h2>Typical scenarios</h2><p>Consider a business called Fenwick Property Holdings, a small regional investor based in the West Midlands. They spot a mixed use building at auction, priced attractively because the vendor needs a quick sale. The guide price is £480,000 and completion is required within 28 days, standard for auction terms.</p><p>Fenwick does not have that sum sitting free, but they own another commercial unit outright worth around £600,000. Using an Octopus Real Estate bridging loan secured against the owned asset, they raise £420,000 within three weeks, complete on the auction purchase, and plan to refinance both properties onto a longer term commercial mortgage once the new acquisition is let and generating income.</p><p>Another common scenario involves refurbishment. A landlord buys a tired three bed terrace below market value because it needs a new kitchen, bathroom and rewire. A bridging loan covers the purchase and, in some cases, a portion of the works cost. Once refurbished, the property is revalued at a higher figure, and the landlord refinances onto a standard buy to let mortgage, repaying the bridge in full.</p><p>Chain breaks are another frequent use case. A homeowner or business selling one property to fund the purchase of another can use bridging finance to complete the purchase before their sale finishes, avoiding a collapsed chain. This is particularly relevant for commercial premises where timing rarely aligns perfectly between sale and purchase.</p><h2>Common mistakes</h2><p>The most frequent mistake is underestimating the exit. Borrowers sometimes assume a sale or refinance will happen within the loan term without stress testing that assumption against a slower market or a mortgage application that takes longer than expected. Lenders will push back hard on vague exit plans, and rightly so, because a failed exit means costly extensions or, worse, forced sale.</p><p>Another common error is focusing purely on the headline interest rate and ignoring the total cost of borrowing. Arrangement fees, exit fees, valuation costs and legal fees on both sides can add up to several per cent of the loan amount. A slightly higher monthly rate with lower fees can sometimes work out cheaper overall, particularly on shorter terms.</p><p>Borrowers also underestimate how long legal work can take, especially where there are title issues, leasehold complications, or multiple securities involved. Instructing a solicitor unfamiliar with bridging can add weeks to a deal that should have completed quickly. Use solicitors experienced in this specific type of transaction from day one.</p><p>Finally, some applicants apply to a single lender without comparison, missing better terms elsewhere. Rates, fees and criteria vary between bridging lenders, and what suits one deal may not suit another. Independent broker advice earns its keep in these situations.</p><h2>Alternatives or comparisons</h2><p>Octopus Real Estate is one of several established names in UK bridging finance, alongside other specialist lenders each with their own appetite and pricing structure. Some focus heavily on regulated bridging for residential owner occupiers, others specialise in commercial and semi-commercial security, and some are stronger on heavy refurbishment or part built development exits.</p><p>Compared with a traditional term loan or commercial mortgage, bridging is more expensive per month but far faster to arrange and more flexible on property condition. A commercial mortgage lender will rarely lend against a property lacking a kitchen or bathroom, or one with structural issues, whereas bridging finance is specifically built for these situations.</p><p>Development finance is a related but distinct product, better suited to ground up builds or heavy conversion projects released in stages against build costs. Bridging tends to work better for lighter refurbishment or straightforward purchase and hold situations where no phased drawdown is needed.</p><p>Asset based lending and invoice finance are worth considering too if the underlying need is working capital rather than a specific property transaction. Exploring <a href='https://boxxfinance.co.uk/funding-solutions'>UK commercial funding solutions</a> will help clarify which product actually fits your situation before committing to bridging.</p><h2>How to get the best outcome</h2><p>Preparation makes the biggest difference to both speed and pricing. Document your exit strategy clearly, whether that is a sale agreed in principle, a mortgage decision in principle already obtained, or confirmed funds arriving from elsewhere. Lenders reward clarity with better terms and faster decisions.</p><p>Get your paperwork ready before you apply. This includes proof of income or business accounts, a schedule of assets and liabilities, details of the security property, and photographic evidence of condition if refurbishment is involved. A complete initial submission reduces delays during underwriting significantly.</p><p>Use solicitors experienced in bridging transactions on both sides where possible. This alone can shave a week or more off completion timescales, which matters enormously when auction deadlines or chain breaks are involved.</p><p>Most importantly, <a href='https://boxxfinance.co.uk/chat-about-funding/bridging-finance'>speak to a commercial finance specialist</a> before approaching lenders directly. A broker who places deals regularly with Octopus Real Estate and similar lenders will know current appetite, likely pricing for your specific scenario, and how to present the case to avoid unnecessary conditions or delays. Specialist Octopus Real Estate bridging loans advice pays for itself many times over.</p><h2>Summary</h2><p>Octopus Real Estate bridging loans offer a fast, flexible route to short term property finance for UK investors and businesses, provided the exit strategy is solid and the numbers stack up once fees are included. They work best for auction purchases, refurbishment projects, chain breaks and capital raising against owned property. Getting the right advice from the outset makes the process smoother and the terms sharper.</p><p>If you are considering this type of funding, get your specific scenario reviewed before you commit to anything. <a href='https://boxxfinance.co.uk/chat-about-funding/bridging-finance'>Enquire about bridging finance options</a> and a specialist at Boxx Finance can talk through rates, criteria and timescales relevant to your deal.</p><h2>Frequently Asked Questions</h2><dl><dt>What rates does Octopus Real Estate charge on bridging loans?</dt><dd>Rates typically start from around 0.55% to 0.75% per month depending on loan size, security and risk profile. Larger loans against strong assets tend to secure the lowest rates, while complex or higher leverage deals sit at the upper end. Your broker can benchmark this against other specialist lenders.</dd><dt>How quickly can Octopus Real Estate complete a bridging loan?</dt><dd>Completion in two to three weeks is common for straightforward cases with clean titles and cooperative solicitors. Complex cases involving multiple securities or unusual structures can take four to six weeks. Having documents ready in advance speeds things up considerably.</dd><dt>What loan to value does Octopus Real Estate offer on bridging finance?</dt><dd>Typical maximum loan to value sits around 70% to 75% of the property's current market value, though this can flex depending on the asset type, exit strategy and borrower profile. Development exits and refurbishment projects may be assessed against gross development value in some cases.</dd><dt>Can I get an Octopus Real Estate bridging loan with poor credit history?</dt><dd>Adverse credit does not automatically rule you out. Octopus Real Estate takes a pragmatic view of the whole picture, including the security offered and the exit strategy. A broker can present your case properly and flag any credit issues upfront to avoid delays later.</dd><dt>What can an Octopus Real Estate bridging loan be used for?</dt><dd>Common uses include auction purchases, chain breaks, light and heavy refurbishment, part-built development finance, and raising capital against unencumbered property. It suits both residential investors and commercial property owners needing fast, flexible funding.</dd><dt>Do I need a clear exit strategy before applying?</dt><dd>Yes, a credible exit strategy is essential. This is usually sale of the property, refinance onto a term mortgage, or receipt of funds from another source. Lenders will want evidence this exit is realistic within the loan term before offering terms.</dd></dl>",
     "liPosted": false,
     "fbPosted": false,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "category": "Bridging Finance",
+    "updatedAt": "2026-09-10"
   },
   {
     "id": 1788996587271,
@@ -18842,61 +18858,5 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
-  },
-  {
-    "id": 1789042410268,
-    "status": "published",
-    "slug": "register-your-rental-property-service-renters-rights-act",
-    "url": "/insights/register-your-rental-property-service-renters-rights-act",
-    "title": "Landlords face new registration duty as government readies rental property database",
-    "excerpt": "A new government service will require landlords to register every rental property as part of the Renters' Rights Act rollout, replacing the previously planned Private Rented Sector Database.",
-    "metaTitle": "New rental property registration service explained",
-    "metaDescription": "Landlords will soon need to register properties via a new government service under the Renters' Rights Act. Here's what it means and how to prepare.",
-    "keywords": "rental market, landlord, renter, buy-to-let",
-    "date": "2026-09-10",
-    "publishedAt": "2026-09-10T12:13:30.268Z",
-    "author": "Mark Higgins",
-    "authorEmail": "mark@boxxfinance.co.uk",
-    "heroImage": "/images/blog/register-your-rental-property-service-renters-rights-act.webp",
-    "heroVersion": 3799788,
-    "schema": {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Do all landlords need to register their rental properties?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Based on what has been published so far, the register is expected to apply broadly across the private rented sector in England as part of the Renters' Rights Act, though the government has not yet confirmed every detail of scope and process."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "When will the register open?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The service is being prepared for an autumn launch as the second phase of the Renters' Rights Act, though an exact date has not been confirmed."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What happens if a landlord does not register?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The government has not published full details on enforcement, but the purpose of the register is to give local authorities better oversight of the rental sector, which suggests non-compliance is likely to carry consequences once the system is live."
-          }
-        }
-      ]
-    },
-    "relatedLocationUrls": [],
-    "relatedBlogUrls": [],
-    "content": "<p>Landlords across England are being told to get ready for a new compliance requirement: registering every rental property with the government through a service called 'Register your rental property'. The scheme, previously known as the Private Rented Sector Database, is part of the second phase of the Renters' Rights Act and is being prepared by the Ministry of Housing, Communities and Local Government (MHCLG) ahead of an autumn rollout, as reported by <a href=\"https://www.propertynotify.co.uk/whats-happening/news/featured-insights/expert-view/get-ready-register-your-rental-property-service/\">Property Notify</a>.</p><p>For landlords who have grown used to a fairly light-touch regulatory environment, this marks a real shift. Rather than a voluntary or informal record of who owns what, the government wants a formal, centralised register of rental properties. The exact detail of what will need to be submitted and how often is still being finalised, but the direction of travel is clear: landlords will need to actively register their properties rather than simply operate under the radar of local authorities.</p><h2>Why the government is doing this</2><p>The rationale behind the register sits squarely within the wider aims of the Renters' Rights Act, which is designed to raise standards in the private rented sector and give tenants more visibility over who they are renting from. A central database gives councils and government bodies a clearer picture of the rental market, making it easier to identify landlords who are not meeting their obligations, and, in theory, easier for tenants to check that a property and its landlord are properly registered before signing up.</p><p>For the majority of landlords who already run compliant, well-managed properties, the register is likely to be more of an administrative task than a genuine burden. But it does add another item to the growing list of things landlords need to keep on top of, alongside existing obligations like gas safety checks, deposit protection and right-to-rent checks.</p><h2>What this means for landlords right now</h2><p>There's no need for landlords to panic, but there is value in starting to prepare. That means keeping property records up to date, having clarity on ownership structures, and being ready to act once the registration window opens and the practical requirements are confirmed. Letting agents managing properties on behalf of landlords will also need to factor this into their own processes, since many landlords will look to them for guidance on what needs to be submitted and by when.</p><p>Landlords who are considering restructuring their portfolios, refinancing existing properties or raising capital against a rental property before the new rules bed in may want to think about timing. Anyone weighing up options for <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">refinancing a buy-to-let property</a> ahead of further regulatory change might find it useful to get that groundwork done before additional compliance steps add complexity to transactions later in the year.</p><h2>What tenants and buyers should know</h2><p>For tenants, the register is intended to make it easier to confirm that a landlord is legitimate and operating within the rules, adding a layer of transparency that has not existed in this form before. For prospective buy-to-let buyers, it's another factor to weigh up when entering the market, since new registration duties will sit alongside the usual costs and responsibilities of letting a property.</p><h2>Frequently Asked Questions</h2><h3>Do all landlords need to register their rental properties?</h3><p>Based on what has been published so far, the register is expected to apply broadly across the private rented sector in England as part of the Renters' Rights Act, though the government has not yet confirmed every detail of scope and process.</p><h3>When will the register open?</h3><p>The service is being prepared for an autumn launch as the second phase of the Renters' Rights Act, though an exact date has not been confirmed.</p><h3>What happens if a landlord does not register?</h3><p>The government has not published full details on enforcement, but the purpose of the register is to give local authorities better oversight of the rental sector, which suggests non-compliance is likely to carry consequences once the system is live.</p><p>Landlords weighing up how new compliance costs and timings might affect wider plans, from refinancing to portfolio growth, can explore the range of options available through <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a>.</p>",
-    "liPosted": false,
-    "fbPosted": false,
-    "igPosted": false,
-    "pinterestPosted": false,
-    "reelPosted": false,
-    "service": "Latest News",
-    "category": "Latest News"
   }
 ]
