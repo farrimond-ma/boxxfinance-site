@@ -39,6 +39,15 @@ const MIN_WORDS    = 1200; // posts below this get regenerated
 // entirely news posts.
 const EXCLUDED_SERVICES = new Set(['Latest News']);
 
+// Same failure mode, narrower scope: individual posts marked
+// `noRegenerate: true` are skipped regardless of service. Added 2026-09-10
+// after this script picked up a newly-published, deliberately concise,
+// hand-sourced lender-comparison article (factual figures from a real
+// lender panel, not padded prose) and "fixed" it by regenerating ~1200
+// words of generic, unsourced filler — including a wrong headline rate and
+// LTV figure the original got right. Use this flag for any post whose
+// length is intentional rather than thin.
+
 const octokit   = new Octokit({ auth: process.env.GH_TOKEN || process.env.GITHUB_TOKEN });
 // Migrated from OpenAI gpt-4o to Claude (2026-07-20) via a drop-in shim. Same call sites.
 const openai    = createOpenAICompatClient({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -348,6 +357,7 @@ async function main() {
   const candidates = posts
     .filter(p => p.status === 'published')
     .filter(p => !EXCLUDED_SERVICES.has(p.service))
+    .filter(p => !p.noRegenerate)
     .map(p => ({ p, wc: wordCount(p.content) }))
     .filter(({ wc }) => wc < MIN_WORDS)
     .sort((a, b) => a.wc - b.wc);
