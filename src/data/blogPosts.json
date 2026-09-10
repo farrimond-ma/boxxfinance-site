@@ -18842,5 +18842,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1789042410268,
+    "status": "published",
+    "slug": "register-your-rental-property-service-renters-rights-act",
+    "url": "/insights/register-your-rental-property-service-renters-rights-act",
+    "title": "Landlords face new registration duty as government readies rental property database",
+    "excerpt": "A new government service will require landlords to register every rental property as part of the Renters' Rights Act rollout, replacing the previously planned Private Rented Sector Database.",
+    "metaTitle": "New rental property registration service explained",
+    "metaDescription": "Landlords will soon need to register properties via a new government service under the Renters' Rights Act. Here's what it means and how to prepare.",
+    "keywords": "rental market, landlord, renter, buy-to-let",
+    "date": "2026-09-10",
+    "publishedAt": "2026-09-10T12:13:30.268Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/register-your-rental-property-service-renters-rights-act.webp",
+    "heroVersion": 3799788,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do all landlords need to register their rental properties?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Based on what has been published so far, the register is expected to apply broadly across the private rented sector in England as part of the Renters' Rights Act, though the government has not yet confirmed every detail of scope and process."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When will the register open?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The service is being prepared for an autumn launch as the second phase of the Renters' Rights Act, though an exact date has not been confirmed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if a landlord does not register?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The government has not published full details on enforcement, but the purpose of the register is to give local authorities better oversight of the rental sector, which suggests non-compliance is likely to carry consequences once the system is live."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Landlords across England are being told to get ready for a new compliance requirement: registering every rental property with the government through a service called 'Register your rental property'. The scheme, previously known as the Private Rented Sector Database, is part of the second phase of the Renters' Rights Act and is being prepared by the Ministry of Housing, Communities and Local Government (MHCLG) ahead of an autumn rollout, as reported by <a href=\"https://www.propertynotify.co.uk/whats-happening/news/featured-insights/expert-view/get-ready-register-your-rental-property-service/\">Property Notify</a>.</p><p>For landlords who have grown used to a fairly light-touch regulatory environment, this marks a real shift. Rather than a voluntary or informal record of who owns what, the government wants a formal, centralised register of rental properties. The exact detail of what will need to be submitted and how often is still being finalised, but the direction of travel is clear: landlords will need to actively register their properties rather than simply operate under the radar of local authorities.</p><h2>Why the government is doing this</2><p>The rationale behind the register sits squarely within the wider aims of the Renters' Rights Act, which is designed to raise standards in the private rented sector and give tenants more visibility over who they are renting from. A central database gives councils and government bodies a clearer picture of the rental market, making it easier to identify landlords who are not meeting their obligations, and, in theory, easier for tenants to check that a property and its landlord are properly registered before signing up.</p><p>For the majority of landlords who already run compliant, well-managed properties, the register is likely to be more of an administrative task than a genuine burden. But it does add another item to the growing list of things landlords need to keep on top of, alongside existing obligations like gas safety checks, deposit protection and right-to-rent checks.</p><h2>What this means for landlords right now</h2><p>There's no need for landlords to panic, but there is value in starting to prepare. That means keeping property records up to date, having clarity on ownership structures, and being ready to act once the registration window opens and the practical requirements are confirmed. Letting agents managing properties on behalf of landlords will also need to factor this into their own processes, since many landlords will look to them for guidance on what needs to be submitted and by when.</p><p>Landlords who are considering restructuring their portfolios, refinancing existing properties or raising capital against a rental property before the new rules bed in may want to think about timing. Anyone weighing up options for <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">refinancing a buy-to-let property</a> ahead of further regulatory change might find it useful to get that groundwork done before additional compliance steps add complexity to transactions later in the year.</p><h2>What tenants and buyers should know</h2><p>For tenants, the register is intended to make it easier to confirm that a landlord is legitimate and operating within the rules, adding a layer of transparency that has not existed in this form before. For prospective buy-to-let buyers, it's another factor to weigh up when entering the market, since new registration duties will sit alongside the usual costs and responsibilities of letting a property.</p><h2>Frequently Asked Questions</h2><h3>Do all landlords need to register their rental properties?</h3><p>Based on what has been published so far, the register is expected to apply broadly across the private rented sector in England as part of the Renters' Rights Act, though the government has not yet confirmed every detail of scope and process.</p><h3>When will the register open?</h3><p>The service is being prepared for an autumn launch as the second phase of the Renters' Rights Act, though an exact date has not been confirmed.</p><h3>What happens if a landlord does not register?</h3><p>The government has not published full details on enforcement, but the purpose of the register is to give local authorities better oversight of the rental sector, which suggests non-compliance is likely to carry consequences once the system is live.</p><p>Landlords weighing up how new compliance costs and timings might affect wider plans, from refinancing to portfolio growth, can explore the range of options available through <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a>.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
