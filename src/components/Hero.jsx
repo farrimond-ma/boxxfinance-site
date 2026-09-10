@@ -35,11 +35,11 @@ const Hero = () => (
         title={
             <>
                 Bridging Loans.<br />
-                <span className="hero-subline">For auctions, refurbs, chain breaks and refinancing.</span>
+                <span className="hero-subline">Finance for Developers.</span>
             </>
         }
         description="Short-term property funding for auction purchases, chain breaks, refurbishments and probate. We structure bridging loans for homeowners, landlords, investors and developers — around a clear exit plan, not just a headline rate."
-        heroImage="/images/hero/bridging-4.webp"
+        heroImage="/images/hero/bridging-9.webp"
         primaryCtaTo="/chat-about-funding/bridging-loans"
         showTrust={false}
     />
