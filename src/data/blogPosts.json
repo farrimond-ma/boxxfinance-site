@@ -20373,5 +20373,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1789240657001,
+    "status": "published",
+    "slug": "subsidence-claims-surge-hot-summers-homeowners",
+    "url": "/insights/subsidence-claims-surge-hot-summers-homeowners",
+    "title": "Subsidence claims are rising after two hot summers, and it could hit your insurance and sale plans",
+    "excerpt": "Insurers are seeing more subsidence claims as dry ground follows record-hot summers, with homeowners reporting cracked walls. Here's what that means for insurance costs, sales and mortgages.",
+    "metaTitle": "Subsidence Claims Rise: What UK Homeowners Need to Know",
+    "metaDescription": "UK subsidence claims are climbing after hot, dry summers. Find out how this affects home insurance, property sales and mortgage approvals.",
+    "keywords": "mortgage, landlord, homeowner, conveyancing",
+    "date": "2026-09-12",
+    "publishedAt": "2026-09-12T19:17:37.001Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/subsidence-claims-surge-hot-summers-homeowners.webp",
+    "heroVersion": 24429494,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does buildings insurance normally cover subsidence?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most standard UK buildings insurance policies include subsidence cover, but the excess for subsidence claims is often much higher than for other types of damage, and some cheaper or older policies may exclude it altogether or impose conditions, so it's worth checking your policy wording directly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will a past subsidence claim affect my ability to sell my house?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can. Sellers are generally expected to disclose any known subsidence history, and buyers' surveyors and mortgage lenders will look closely at this, sometimes requesting evidence that repairs were properly carried out and monitored before agreeing to lend."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the warning signs of subsidence I should look out for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Diagonal cracks wider than a few millimetres, cracks that run through brickwork rather than just surface plaster, and doors or windows that suddenly stick or won't close properly are commonly cited signs worth having assessed by a professional."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>UK insurers are dealing with a rise in subsidence claims after two record-hot summers left the ground beneath homes drying out and shifting, according to <a href=\"https://www.theguardian.com/business/2026/sep/12/subsidence-uk-insurers-double-surge-claims-hot-summers\">reporting by The Guardian</a>. Homeowners across the country are describing cracks appearing in walls, including one Gloucestershire couple who say a diagonal crack in their home is now wide enough to see through to the next room. For anyone who owns, is buying, or is selling a home, this matters because subsidence isn't just a repair headache, it can affect what you pay for insurance, how easily you can sell, and whether a lender will touch a property at all.</p><h2>Why hot, dry summers cause subsidence</h2><p>Subsidence typically happens when clay-rich soil dries out and contracts during prolonged dry spells, pulling away from a building's foundations. When the weather turns wet again, the ground can swell back, and this repeated cycle of shrinking and swelling puts stress on walls and foundations that shows up as cracking. The Guardian's report links the current wave of claims to two consecutive record-hot summers, which suggests this isn't a one-off blip but a pattern that could keep repeating as extreme heat becomes more common. Older homes on clay soil, and properties near large trees whose roots draw moisture from the ground, tend to be most exposed.</p><h2>What it means for insurance premiums</h2><p>A rise in claims tends to feed through into pricing eventually, because insurers price policies based on the risk they're covering across the whole market. Homeowners in areas known for clay soil or a history of subsidence may already find buildings insurance harder to get at a competitive price, and a sustained increase in claims could push that further. If your property has ever had a subsidence claim, even one settled years ago, insurers will usually ask about it and price accordingly, so it's worth understanding your property's history before you assume a policy will be straightforward or cheap.</p><h2>The knock-on effect for buying, selling and mortgages</h2><p>Subsidence history follows a property. Once a claim has been recorded, it typically has to be disclosed to future insurers and often to buyers during conveyancing, and it can complicate a sale even after repairs have been carried out. Mortgage lenders can be cautious about properties with known subsidence, sometimes asking for structural reports, monitoring periods, or evidence that underpinning or other remedial work has been properly certified before they'll lend. For sellers, this can mean a longer, more complicated sale process. For buyers, it means a subsidence flag on a survey is worth taking seriously rather than dismissing as a minor issue, since it can affect both your ability to insure the home and to get a mortgage on it.</p><h2>What homeowners can do</h2><p>If you notice new cracking, particularly diagonal cracks wider than a few millimetres, cracks that run through brickwork rather than just plaster, or doors and windows that suddenly stick, it's worth getting a professional assessment rather than waiting to see if it settles. Keeping trees at a sensible distance from the house, maintaining drainage so water isn't pooling near foundations, and flagging any changes to your insurer promptly can all help. If you already have a policy, check whether it covers subsidence as standard, since some older or cheaper policies exclude it or apply a high excess specifically for subsidence claims.</p><p>Where subsidence repairs or a delayed sale create a short-term cash flow gap, for example needing to complete on a new purchase before a subsidence-affected property sells, it's worth knowing what short-term finance options exist. Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> page outlines the kind of bridging and short-term lending that can help homeowners and landlords manage timing gaps like these.</p><h2>Frequently Asked Questions</h2><h3>Does buildings insurance normally cover subsidence?</h3><p>Most standard UK buildings insurance policies include subsidence cover, but the excess for subsidence claims is often much higher than for other types of damage, and some cheaper or older policies may exclude it altogether or impose conditions, so it's worth checking your policy wording directly.</p><h3>Will a past subsidence claim affect my ability to sell my house?</h3><p>It can. Sellers are generally expected to disclose any known subsidence history, and buyers' surveyors and mortgage lenders will look closely at this, sometimes requesting evidence that repairs were properly carried out and monitored before agreeing to lend.</p><h3>What are the warning signs of subsidence I should look out for?</h3><p>Diagonal cracks wider than a few millimetres, cracks that run through brickwork rather than just surface plaster, and doors or windows that suddenly stick or won't close properly are commonly cited signs worth having assessed by a professional.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
