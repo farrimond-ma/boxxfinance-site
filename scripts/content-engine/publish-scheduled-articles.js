@@ -31,8 +31,20 @@ function todayUK() {
 }
 
 function main() {
-  const posts = JSON.parse(fs.readFileSync(BLOG_FILE, 'utf8'));
+  const raw = fs.readFileSync(BLOG_FILE, 'utf8');
+  const posts = JSON.parse(raw);
   const today = todayUK();
+  // Detect the file's actual line ending rather than assuming one — this
+  // repo's stored content is LF, but a local Windows checkout normalises it
+  // to CRLF on the way out (git's autocrlf), which previously led this
+  // script to hardcode CRLF. That's fine when committed locally (Windows
+  // git's clean filter converts it back to LF before it hits the object
+  // database), but the GitHub Actions runner is Linux with no such
+  // filter — writing CRLF there landed real CRLF bytes in the commit and
+  // touched every line in the diff (see the 2026-09-11 "510 scheduled
+  // article(s)" commit this comment is fixing). Detecting from the file
+  // itself works correctly in both environments.
+  const eol = raw.includes('\r\n') ? '\r\n' : '\n';
 
   const promoted = [];
   for (const post of posts) {
@@ -47,9 +59,7 @@ function main() {
     return;
   }
 
-  // blogPosts.json is stored with CRLF line endings — match it, or every
-  // line shows as changed in the diff even though only status fields moved.
-  const out = (JSON.stringify(posts, null, 2) + '\n').replace(/\n/g, '\r\n');
+  const out = (JSON.stringify(posts, null, 2) + '\n').replace(/\n/g, eol);
   fs.writeFileSync(BLOG_FILE, out);
   console.log(`Promoted ${promoted.length} article(s) to published (today: ${today}):`);
   promoted.forEach((slug) => console.log(`  - ${slug}`));
@@ -60,6 +70,15 @@ function main() {
       summaryPath,
       `### Published ${promoted.length} scheduled article(s)\n\n${promoted.map((s) => `- ${s}`).join('\n')}\n`
     );
+  }
+
+  // Report the real count via GITHUB_OUTPUT so the workflow's commit
+  // message doesn't have to infer it by grepping the diff — that approach
+  // previously miscounted as 510 instead of 2 when an unrelated line-ending
+  // mismatch touched every line in the file.
+  const outputPath = process.env.GITHUB_OUTPUT;
+  if (outputPath) {
+    fs.appendFileSync(outputPath, `count=${promoted.length}\n`);
   }
 }
 

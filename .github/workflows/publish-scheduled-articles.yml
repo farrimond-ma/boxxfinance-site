@@ -36,6 +36,7 @@ jobs:
           node-version: 20
 
       - name: Promote due articles
+        id: promote
         run: node publish-scheduled-articles.js
         working-directory: scripts/content-engine
 
@@ -49,8 +50,7 @@ jobs:
             exit 0
           fi
 
-          COUNT=$(git diff --staged src/data/blogPosts.json | grep -c '"status": "published"' || echo 0)
-          git commit -m "chore: publish ${COUNT} scheduled article(s)"
+          git commit -m "chore: publish ${{ steps.promote.outputs.count }} scheduled article(s)"
 
           # Other publishers can push to blogPosts.json around the same
           # time — retry with rebase rather than failing on a benign race
