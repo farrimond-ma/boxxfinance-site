@@ -34,8 +34,7 @@ const Hero = () => (
     <ResourceHero
         title={
             <>
-                Bridging Loans<br />
-                <span className="hero-subline">Finance for Developers</span>
+                Bridging Loans &amp; <span className="text-highlight">Development Finance</span>
             </>
         }
         description="Short-term property funding for auction purchases, chain breaks, refurbishments and probate. We structure bridging loans for homeowners, landlords, investors and developers — around a clear exit plan, not just a headline rate."
