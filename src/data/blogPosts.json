@@ -20607,5 +20607,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1789303392589,
+    "status": "published",
+    "slug": "stamp-duty-cost-moving-across-street",
+    "url": "/insights/stamp-duty-cost-moving-across-street",
+    "title": "Couple's £22,000 stamp duty bill for moving across the street shows the real cost of relocating over renovating",
+    "excerpt": "A couple who moved to an identical house directly across their cul-de-sac paid £22,000 in stamp duty, a reminder that even the smallest relocation can trigger a full tax bill in England and Northern Ireland.",
+    "metaTitle": "£22k Stamp Duty to Move Across the Street: What It Means",
+    "metaDescription": "A couple paid £22,000 in stamp duty moving to an identical home across the street. Here's why relocating can cost more than renovating in place.",
+    "keywords": "mortgage, stamp duty, landlord, remortgage, homeowner, renovation",
+    "date": "2026-09-13",
+    "publishedAt": "2026-09-13T12:43:12.590Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/stamp-duty-cost-moving-across-street.webp",
+    "heroVersion": 13764558,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does stamp duty apply even if I am moving to a nearby or identical property?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Stamp duty land tax in England and Northern Ireland is based on the purchase price of the property you are buying, not on how far you are moving or how similar the new home is to your old one. A move across the street can trigger the same tax bill as a move across the country."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is renovating my current home always cheaper than moving?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not always, but it often avoids costs that a move does not, including stamp duty, estate agent fees and legal costs. Whether renovating works out cheaper depends on the scale of the project and the value of the property, so it is worth comparing the full cost of both routes before deciding."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does stamp duty work the same way in Scotland and Wales?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Scotland charges Land and Buildings Transaction Tax and Wales charges Land Transaction Tax, both with their own rates and thresholds that differ from stamp duty land tax in England and Northern Ireland."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>A couple who wanted to stay in the same cul-de-sac they had lived in for 13 years ended up paying £22,000 in stamp duty simply to move into a near-identical house on the opposite side of the street, as <a href=\"https://inews.co.uk/inews-lifestyle/money/property-and-mortgages/paid-stamp-duty-move-across-street-4759655\">reported by i — Property</a>. The couple then took on a substantial renovation project to make their new, but essentially equivalent, home work for them. It is a striking example of how stamp duty land tax (SDLT) applies regardless of how far you actually move, and it raises a question more homeowners should be asking themselves: is moving really worth it, or would extending and renovating the home you already own get you further for less money.</p><h2>Distance has nothing to do with the tax bill</h2><p>Stamp duty in England and Northern Ireland is charged on the price paid for a property, not on how much your circumstances or location actually change. A move of a few yards across a cul-de-sac attracts exactly the same tax treatment as a move across the country, provided the purchase price and any applicable surcharges are the same. For this couple, staying in a neighbourhood they already knew and loved still meant handing over a five-figure sum before they had even started on the renovation work needed to make the new house suit their family. It is worth remembering that stamp duty land tax rules apply specifically in England and Northern Ireland. Scotland has its own Land and Buildings Transaction Tax, and Wales has Land Transaction Tax, both with different rates and thresholds, so the exact figures involved would differ north and west of the border.</p><h2>Why renovating in place is often the cheaper route</h2><p>This case highlights a calculation that a lot of homeowners skip over. Moving house involves stamp duty, estate agent fees, legal costs and the general upheaval of packing up a life and starting again, even if the destination is barely any distance away. Renovating or extending an existing home avoids the transaction tax altogether, and the money that would have gone to HMRC can instead go directly into the fabric of the property. For homeowners who are otherwise happy with their location and simply need more space, better layout or updated living standards, a well-planned renovation can end up delivering more usable home for the same or less overall spend.</p><p>Large-scale renovation and conversion projects do need proper funding in place before work starts, particularly where a property needs to be substantially altered or where the works are extensive enough to affect mortgage lending in the short term. For homeowners or landlords weighing up a similar project, it is worth looking at how <a href=\"https://boxxfinance.co.uk/insights/bridging-loans-for-hmo-conversion\">bridging finance can support a conversion or refurbishment project</a> from the point of purchase or planning through to completion, rather than assuming a full remortgage is the only option.</p><h2>What this means if you are weighing up a move</h2><p>Before committing to a house move, even a local one, it is worth running the full cost comparison rather than assuming that staying close to home keeps costs low. Stamp duty is charged on price, not proximity, so a lateral move to a similarly priced property can still trigger a substantial bill. Factoring in the tax alongside moving costs and the renovation work that may be needed anyway in the new property can make staying put and adapting the existing home the more financially sensible option for many families.</p><h2>Frequently Asked Questions</h2><h3>Does stamp duty apply even if I am moving to a nearby or identical property?</h3><p>Yes. Stamp duty land tax in England and Northern Ireland is based on the purchase price of the property you are buying, not on how far you are moving or how similar the new home is to your old one. A move across the street can trigger the same tax bill as a move across the country.</p><h3>Is renovating my current home always cheaper than moving?</h3><p>Not always, but it often avoids costs that a move does not, including stamp duty, estate agent fees and legal costs. Whether renovating works out cheaper depends on the scale of the project and the value of the property, so it is worth comparing the full cost of both routes before deciding.</p><h3>Does stamp duty work the same way in Scotland and Wales?</h3><p>No. Scotland charges Land and Buildings Transaction Tax and Wales charges Land Transaction Tax, both with their own rates and thresholds that differ from stamp duty land tax in England and Northern Ireland.</p><p>For anyone considering a major renovation or conversion instead of a house move, it can help to explore the range of <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions available for property projects</a> before deciding which route makes the most financial sense.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
