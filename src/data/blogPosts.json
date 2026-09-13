@@ -20663,5 +20663,61 @@
     "reelPosted": false,
     "service": "Latest News",
     "category": "Latest News"
+  },
+  {
+    "id": 1789318688052,
+    "status": "published",
+    "slug": "landlord-incorporation-second-opinion-motives",
+    "url": "/insights/landlord-incorporation-second-opinion-motives",
+    "title": "Landlord incorporation warnings: why it pays to check who's giving the advice",
+    "excerpt": "A growing number of advisers are telling landlords their incorporation structure was set up wrong, and offering paid fixes. Property118 argues that commercial incentive deserves scrutiny too.",
+    "metaTitle": "Landlord Incorporation: Who Profits From Saying It Went Wrong?",
+    "metaDescription": "Property118 warns landlords to question the motives behind advice claiming their incorporation was flawed, since reviews, fixes and claims can all carry fees.",
+    "keywords": "mortgage, landlord, buy-to-let",
+    "date": "2026-09-13",
+    "publishedAt": "2026-09-13T16:58:08.052Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/landlord-incorporation-second-opinion-motives.webp",
+    "heroVersion": 38033696,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I know if my landlord incorporation was actually done wrong?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ask for specifics rather than general concerns, and get an independent view from an accountant or solicitor you have chosen yourself, not one introduced by the person raising the issue. A genuine problem should be explainable in plain terms and should stand up to scrutiny from someone with no financial stake in your decision."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What questions should I ask before paying for a review of my structure?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ask exactly what is being reviewed, what the fee covers, what happens if the review finds nothing wrong, and whether the reviewer earns anything further from any restructuring or claim they subsequently recommend."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it ever worth unwinding or restructuring an incorporation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sometimes, if there is a clear and demonstrable error affecting your tax position or mortgage terms. But restructuring has its own costs and risks, so it should only follow independent advice, not just the word of whoever first flagged the concern."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>A number of landlords who incorporated their buy-to-let portfolios in recent years are now being told, by advisers other than the ones who originally set the structure up, that it was done badly. According to <a href=\"https://www.property118.com/landlord-incorporation-who-profits-from-telling-you-it-went-wrong/\">Property118</a>, that warning is not always as neutral as it sounds, because there is money to be made at every stage of \"fixing\" the problem: a fee to review the original arrangement, a fee to replace it, and potentially a fee for pursuing a claim against whoever advised on it first.</p><p>This matters because incorporation, moving a personally-held property portfolio into a limited company, is a significant, often irreversible decision that many landlords took to manage mortgage interest relief changes and tax exposure. If someone now tells you that decision was flawed, the natural instinct is to trust the warning and move fast to correct it. Property118's point is that the commercial reality behind that warning deserves just as much scrutiny as the original advice being criticised.</p><h2>Why a second opinion isn't automatically a neutral one</h2><p>When someone reviews your incorporation structure and concludes it needs to be redone, they are rarely doing it for free out of concern for your finances. There is typically a fee for the review itself, then further fees if restructuring is recommended, and in some cases the added possibility of a claim against the original adviser, which can also generate income for whoever brings it. None of that automatically means the criticism is wrong. But landlords should recognise that whoever is delivering the warning has a direct financial stake in you agreeing with it.</p><h2>What this means if you incorporated your portfolio</h2><p>If you have already moved property into a limited company structure and someone approaches you suggesting it was done incorrectly, the sensible response is not panic, and it is not blind trust either. Ask what specifically is wrong, ask what the alternative costs to fix it, and ask what the person raising the concern gets paid at each stage, the review, the restructuring, and any claim. A second opinion from someone with no financial interest in the outcome, such as your own accountant or a solicitor you instruct independently rather than one introduced to you by the party flagging the problem, is worth seeking before committing to any changes.</p><p>It is also worth remembering that restructuring a portfolio, whether that means unwinding an incorporation, refinancing under a company structure, or raising funds to cover legal and transaction costs, often has real cash flow implications alongside the fees involved. Landlords weighing up a restructure sometimes need short-term finance to bridge the gap while a limited company mortgage is arranged or a portfolio is refinanced, and it is worth understanding what <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinance options</a> are available before signing up to a costly correction.</p><h2>The wider lesson for anyone considering incorporation now</h2><p>For landlords who have not yet incorporated but are weighing it up, the same logic applies in reverse. Anyone recommending incorporation should be asked how they are paid, whether that is a flat fee, a percentage, or a referral arrangement with a solicitor or accountant. Good advice can come with a fee attached. The point Property118 is making is not that all advisers pushing incorporation reviews are acting in bad faith, but that the incentives at play are rarely disclosed clearly, and landlords are entitled to ask.</p><h2>Frequently Asked Questions</h2><h3>How do I know if my landlord incorporation was actually done wrong?</h3><p>Ask for specifics rather than general concerns, and get an independent view from an accountant or solicitor you have chosen yourself, not one introduced by the person raising the issue. A genuine problem should be explainable in plain terms and should stand up to scrutiny from someone with no financial stake in your decision.</p><h3>What questions should I ask before paying for a review of my structure?</h3><p>Ask exactly what is being reviewed, what the fee covers, what happens if the review finds nothing wrong, and whether the reviewer earns anything further from any restructuring or claim they subsequently recommend.</p><h3>Is it ever worth unwinding or restructuring an incorporation?</h3><p>Sometimes, if there is a clear and demonstrable error affecting your tax position or mortgage terms. But restructuring has its own costs and risks, so it should only follow independent advice, not just the word of whoever first flagged the concern.</p><p>If a restructure or refinance does turn out to be genuinely necessary, it helps to know your options in advance. Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> page sets out the short-term finance routes available to landlords navigating exactly this kind of situation.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
