@@ -1,4 +1,44 @@
-# Personal Finance / Google Discover Pilot — 2026-08-20 (narrowed 2026-08-24)
+# Personal Finance / Google Discover Pilot — 2026-08-20 (narrowed 2026-08-24, refocused to buy-to-let 2026-09-14)
+
+## 2026-09-14: Discover returned zero. Section refocused on buy-to-let.
+
+This is the outcome the "Decision point" section at the bottom asks for.
+
+**Discover has produced no impressions at all**, in any window, across the
+pilot's entire run. Confirmed in the 2026-09-07 Report B run and again by
+`gsc-daily-diagnostic.js` on 2026-09-14 (0 → 0 over both the last 7 days and
+the prior 7). The pilot's founding hypothesis — that broad consumer content
+would earn Discover pickup where bridging content never could — has not been
+borne out.
+
+**Correction to the 2026-08-24 note below.** It records that Mark "found a
+published post picking up thousands of impressions — so Discover traffic does
+work". That was a misattribution. The spike was real (4,288 impressions on
+2026-08-23) but it was **web search, not Discover** — the giveaway is that it
+carried an average position of 9.6, and Discover has no position because
+nothing is ranked in a feed. Discover was zero then and is zero now. The
+content earns ordinary search impressions; it has never earned a Discover one.
+
+**What that left.** Web-search impressions on consumer queries — "mortgage 6.5
+times salary", "bond market turmoil", "council forces homeowner remove
+pergola" — which spike for roughly 72 hours and decay to nothing. For a B2B
+property finance broker those readers carry close to zero commercial intent,
+and the spikes make the site's impression trend hard to read (they are what
+prompted the 2026-09-14 "why are impressions falling?" investigation, where
+the answer was simply a news spike decaying to a stable ~600/day baseline).
+The pipeline also draws on the same Anthropic credit budget as the daily
+bridging posts; when credits ran out on 2026-09-12, the bridging posts were
+what got skipped.
+
+**The decision: keep the pipeline, change what it points at.** Rather than
+parking it, the section now covers one market — **buy-to-let and the private
+rented sector**. Landlords are core bridging and development finance clients
+(auction purchases, refurbishment, portfolio refinancing), so the readership
+and the commercial proposition finally point the same way. Owner-occupier
+stories are now out of scope.
+
+Discover is no longer the success measure. Judge this on whether it earns
+impressions from landlord and BTL queries, and whether any of it converts.
 
 ## What this is
 
@@ -30,6 +70,11 @@ bridging posts and exist to earn Discover traffic, so they do **not** need a
 bridging-loan angle. Landlords, property, auctions, mortgages, conveyancing
 and property taxes are all wanted. Party politics and general
 cost-of-living/household-bills content are not.
+
+> **Superseded 2026-09-14** — see the section at the top of this doc. Scope is
+> now buy-to-let and the private rented sector only; conveyancing and other
+> owner-occupier stories are out. Gate fixtures moved from 8 true / 2 false to
+> 6 true / 4 false to match, and still pass 10/10.
 
 An earlier version of this gate got that wrong in the other direction — it
 demanded a concrete bridging-loan use case, which would have rejected most of
