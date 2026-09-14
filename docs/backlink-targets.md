@@ -88,6 +88,38 @@ you are the product rather than the customer.
 | **markhigginsmortgages.com** (same owner) | Worth one contextual link for **referral traffic and entity association**, not for ranking — a self-owned link is not an independent vote. Different IPs, so hosting is not the issue; common ownership is. Avoid sitewide footer links or exact-match anchors. |
 | **Press release distribution** (PRWeb, EIN, Newswire etc.) | Not a backlink route. Google's policy is that press release links should be `nofollow`/`sponsored`. Any service promising dofollow links from releases is selling a link scheme. Earned digital PR is the real version — but see the trade-press finding above before aiming it at this sector. |
 
+## Auction houses and solicitors — checked 2026-09-14
+
+**Not a cold-outreach route.** Every candidate page was fetched and its outbound
+links checked, not judged from search snippets.
+
+**Auction houses sell one exclusive finance slot, and it is almost always taken.**
+The finance page links to a single partner, usually on a referral-fee basis —
+a commercial arrangement, not an open broker list:
+
+| Auction house | Finance partner | Link |
+|---|---|---|
+| Auction House UK & Auction House Scotland | Together (lender, referral fee disclosed) | none on page |
+| Future Property Auctions (Scotland's largest) | Together — suppliers page lists one firm per service | followed, to Together |
+| Town & Country Property Auctions | Together | followed, to Together |
+| Auction Estates | Together | followed, to Together |
+| Allsop | Empire Global Finance | followed, to Empire |
+| Savills Auctions | SPF Private Clients | none on page |
+| SDL, Clive Emson, Barnard Marcus, Network Auctions, Auction House London, Property Solvers | no broker linked | — |
+
+**The one open lead: Braveheart Auctions** (braveheartauctions.co.uk — Glasgow,
+Ayrshire, Edinburgh). Its auction-finance page says it works with "a number of
+financial advisors and mortgage brokers" but names and links none, and it runs a
+referral scheme for financial advisors and solicitors. A genuine two-way
+relationship — Boxx refers quick-sale clients, Braveheart refers buyers needing
+bridging and names Boxx on that page — is a legitimate, relevant, local link.
+
+**Solicitors don't link to brokers.** Bridging/auction pages at SO Legal, Starck
+Uberoi, Taylor Rose, Bishops and McEwan Fraser Legal have no outbound finance
+links. Scottish solicitor-estate agents such as Aberdein Considine use in-house
+mortgage advisers. The realistic solicitor links are firms Boxx already refers
+work to — a "recommended partners" mention — not strangers.
+
 ## When the NACFB listing goes live
 
 Worth getting right first time:
