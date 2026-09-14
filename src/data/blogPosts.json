@@ -3230,7 +3230,7 @@
   },
   {
     "id": 1781009341768,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-rates-uk-2026",
     "url": "/insights/bridging-loan-rates-uk-2026",
     "title": "UK Bridging Loan Rates in 2025/2026",
@@ -3299,7 +3299,8 @@
     "pinterestPosted": false,
     "reelPosted": true,
     "category": "Bridging Finance",
-    "updatedAt": "2026-06-18"
+    "updatedAt": "2026-06-18",
+    "redirectTo": "/insights/bridging-loan-rates-uk"
   },
   {
     "id": 1781088229103,
@@ -3535,7 +3536,7 @@
   },
   {
     "id": 1781187129614,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-application-process",
     "url": "/insights/bridging-loan-application-process",
     "title": "The Bridging Loan Application Process Step by Step",
@@ -3602,7 +3603,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/bridging-loan-process-timeline"
   },
   {
     "id": 1781261556427,
@@ -3747,7 +3749,7 @@
     "igPosted": true,
     "pinterestPosted": false,
     "reelPosted": true,
-    "redirectTo": "/insights/same-day-bridging-loan-uk"
+    "redirectTo": "/insights/quick-bridging-loan-for-property-uk"
   },
   {
     "id": 1781343938125,
@@ -4104,7 +4106,7 @@
     "igPosted": true,
     "pinterestPosted": false,
     "reelPosted": true,
-    "redirectTo": "/insights/same-day-bridging-loan-uk"
+    "redirectTo": "/insights/quick-bridging-loan-for-property-uk"
   },
   {
     "id": 1781539001783,
@@ -4398,7 +4400,7 @@
   },
   {
     "id": 1781704757218,
-    "status": "published",
+    "status": "redirected",
     "slug": "retained-interest-bridging-loan",
     "url": "/insights/retained-interest-bridging-loan",
     "title": "Retained Interest Bridging Loans Explained",
@@ -4465,7 +4467,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/bridging-loan-interest-options"
   },
   {
     "id": 1781780413722,
@@ -5738,7 +5741,7 @@
   },
   {
     "id": 1782551725477,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-finance-for-commercial-property",
     "url": "/insights/bridging-finance-for-commercial-property",
     "title": "Bridging Loans for Commercial Property: What Lenders Want to See",
@@ -5805,7 +5808,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/commercial-bridging-loan-uk"
   },
   {
     "id": 1782560697080,
@@ -5954,7 +5958,7 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false,
-    "redirectTo": "/insights/same-day-bridging-loan-uk"
+    "redirectTo": "/insights/quick-bridging-loan-for-property-uk"
   },
   {
     "id": 1782647854776,
@@ -6114,7 +6118,7 @@
   },
   {
     "id": 1783346451825,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-term-length",
     "url": "/insights/bridging-loan-term-length",
     "title": "Bridging Loan Terms: How Long Can You Borrow?",
@@ -6180,7 +6184,8 @@
     "fbPosted": false,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/bridging-loan-maximum-term"
   },
   {
     "id": 1783418929611,
@@ -7557,7 +7562,32 @@
     "heroImage": "/images/hero/bridging-9.webp",
     "schema": {
       "@type": "FAQPage",
-      "mainEntity": []
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the typical term length for a bridging loan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Typically, bridging loans in the UK have term lengths ranging from 1 to 12 months. However, they can be extended up to 24 months depending on the lender and the borrower's needs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I repay a bridging loan early?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, most bridging loans allow for early repayment without penalties. It's essential to discuss this option with your lender to understand any possible implications fully."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the term length affect bridging finance costs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The term length impacts the cost of a bridging loan, as longer terms can carry higher interest. Shorter terms might reduce total interest payable, but remember to factor in fees and other charges."
+          }
+        }
+      ]
     },
     "relatedLocationUrls": [
       "https://boxxfinance.co.uk/locations/bridging-loans-london",
@@ -7775,6 +7805,38 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Straightforward cases with clean title and clear exits typically complete in 7 to 14 working days regardless of interest structure, though serviced interest cases can take slightly longer due to additional affordability checks on income evidence."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if I can't repay a bridging loan with rolled up interest at the end of the term?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you cannot repay at term end, most lenders will consider a short extension or a refinance onto a new facility, provided the security value still covers the growing balance, but default interest rates typically apply from that point. This is why lenders scrutinise the exit strategy so heavily before completion, and why borrowers should build in a realistic contingency period."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is retained interest the same as rolled up interest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, retained interest and rolled up interest are different structures, even though they're often confused. Retained interest deducts the full term's interest from the gross loan at completion and holds it with the lender, while rolled up interest compounds monthly on the outstanding balance, which usually makes retained interest marginally cheaper overall."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which is better for a property developer, rolled up or serviced interest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rolled up interest generally suits property developers better because refurbishment and development projects rarely generate income until units are sold or let, so there's no rental or trading income to service monthly payments from. Serviced interest tends to suit landlords or investors with existing rental income who want to minimise the total cost of borrowing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are there costs associated with retained interest bridging loans?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, lenders may charge arrangement fees, and interest is deducted upfront. It's crucial to assess total cost structures before proceeding."
           }
         }
       ]
@@ -8190,7 +8252,7 @@
   },
   {
     "id": 1784825122839,
-    "status": "published",
+    "status": "redirected",
     "slug": "why-use-whole-of-market-bridging-broker",
     "url": "/insights/why-use-whole-of-market-bridging-broker",
     "title": "Why Use a Whole-of-Market Bridging Broker?",
@@ -8224,7 +8286,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/bridging-loan-whole-market-search"
   },
   {
     "id": 1784884136263,
@@ -10801,7 +10864,7 @@
   },
   {
     "id": 1785600776246,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-rolled-up-interest",
     "url": "/insights/bridging-loan-rolled-up-interest",
     "title": "Rolled-Up Interest on Bridging Loans: A Full Guide",
@@ -10893,7 +10956,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/bridging-loan-interest-options"
   },
   {
     "id": 1785661246744,
@@ -11648,14 +11712,14 @@
     "heroImage": "/images/hero/bridging-12.webp",
     "videoId": null,
     "schema": {
-      "@type": " F A QP a g e",
+      "@type": "FAQPage",
       "mainEntity": [
         {
-          "@type": " Que sti on",
-          "name": " Ca n I ge t a br idg ing loa n fo r auction property wit h b ad c red it ?",
+          "@type": "Question",
+          "name": "Can I get a bridging loan for auction property with bad credit?",
           "acceptedAnswer": {
-            "@type": " Ans we r",
-            "text": " Ba d c re dit will g ener ally not st op you g etti ng a b rid ging loan f or auct ion pr operty be caus e lend ers wei gh th e pr operty a nd exit st rateg y ov er your cred it sc ore. Most sp ecialist b ridging lenders ig nore historic missed pa yme nts or de faults an d f oc us inste ad on the LT V and how you plan t o rep ay t he loa n, so ap plica nts w ith p oor c redit re gul arly get app roved w hen a high st reet mortgag e wo uld be re fused."
+            "@type": "Answer",
+            "text": "Bad credit will generally not stop you getting a bridging loan for auction property, because lenders weigh the property and exit strategy over your credit score. Most specialist bridging lenders look past historic missed payments or defaults and focus instead on the LTV and how you plan to repay the loan, so applicants with poor credit are regularly approved where a high street mortgage would be refused."
           }
         }
       ]
@@ -11776,7 +11840,7 @@
   },
   {
     "id": 1786089377803,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-28-day-completion-uk",
     "url": "/insights/bridging-loan-28-day-completion-uk",
     "title": "Fast-Track Property Sales: 28-Day Bridging Loans in the UK",
@@ -11868,7 +11932,8 @@
     "fbPosted": true,
     "igPosted": true,
     "pinterestPosted": false,
-    "reelPosted": true
+    "reelPosted": true,
+    "redirectTo": "/insights/auction-finance-28-days-uk"
   },
   {
     "id": 1786100797021,
@@ -11928,7 +11993,40 @@
     "videoId": null,
     "schema": {
       "@type": "FAQPage",
-      "mainEntity": []
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What LTV can I get on a bridging loan for auction property?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most lenders offer between 65% and 75% loan-to-value on auction property purchases, based on the purchase price or valuation, whichever is lower. Some specialist lenders will stretch to 80% on strong residential stock where a remortgage exit is already agreed in principle."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I get a bridging loan for auction property with bad credit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bad credit will generally not stop you getting a bridging loan for auction property because lenders weigh the property value and exit strategy more heavily than your credit score. Specialist lenders regularly fund borrowers with historic defaults or CCJs, though rates may be slightly higher to reflect the risk."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What documents do I need to complete a bridging loan quickly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You need proof of ID and address, evidence of the deposit or existing equity, a clear exit strategy such as a mortgage offer or sale agreement, and for developers a costed schedule of works with planning documentation. Having these ready before applying is the single biggest factor in hitting a 28-day deadline."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can property developers use a 28 day bridging loan for refurbishment projects?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, developers regularly use fast bridging loans and developer finance to secure sites quickly, particularly where planning consent is time-limited or a vendor wants a quick sale. The exit is usually either a sale of the completed units or a refinance onto a longer-term development finance facility once works are underway."
+          }
+        }
+      ]
     },
     "relatedLocationUrls": [
       "https://boxxfinance.co.uk/locations/bridging-loans-london",
@@ -12035,11 +12133,11 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false,
-    "redirectTo": "/insights/same-day-bridging-loan-uk"
+    "redirectTo": "/insights/quick-bridging-loan-for-property-uk"
   },
   {
     "id": 1786261223350,
-    "status": "published",
+    "status": "redirected",
     "slug": "fast-bridging-loan-for-auction-property",
     "url": "/insights/fast-bridging-loan-for-auction-property",
     "title": "Quick Bridging Loans for Auction Properties",
@@ -12123,7 +12221,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/auction-finance-28-days-uk"
   },
   {
     "id": 1786272678598,
@@ -12259,7 +12358,7 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false,
-    "redirectTo": "/insights/fast-bridging-loan-for-auction-property"
+    "redirectTo": "/insights/auction-finance-28-days-uk"
   },
   {
     "id": 1786360826692,
@@ -12311,7 +12410,7 @@
   },
   {
     "id": 1786434746825,
-    "status": "published",
+    "status": "redirected",
     "slug": "bridging-loan-for-unconditional-auction",
     "url": "/insights/bridging-loan-for-unconditional-auction",
     "title": "Bridging Loans for Unconditional Property Auctions",
@@ -12346,7 +12445,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/how-to-finance-auction-property-uk"
   },
   {
     "id": 1786446276990,
@@ -12615,7 +12715,7 @@
   },
   {
     "id": 1786608359838,
-    "status": "published",
+    "status": "redirected",
     "slug": "same-day-bridging-loan-uk",
     "url": "/insights/same-day-bridging-loan-uk",
     "title": "Same Day Bridging Loans in the UK: Fast Cash Solutions",
@@ -12650,7 +12750,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/quick-bridging-loan-for-property-uk"
   },
   {
     "id": 1786619486445,
@@ -12795,7 +12896,7 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false,
-    "redirectTo": "/insights/same-day-bridging-loan-uk"
+    "redirectTo": "/insights/quick-bridging-loan-for-property-uk"
   },
   {
     "id": 1786699406375,
@@ -13019,7 +13120,7 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false,
-    "redirectTo": "/insights/same-day-bridging-loan-uk"
+    "redirectTo": "/insights/quick-bridging-loan-for-property-uk"
   },
   {
     "id": 1786783599846,
@@ -14734,7 +14835,7 @@
   },
   {
     "id": 1787872105969,
-    "status": "published",
+    "status": "redirected",
     "slug": "how-quickly-can-i-get-a-bridging-loan-uk",
     "url": "/insights/how-quickly-can-i-get-a-bridging-loan-uk",
     "title": "How Fast Can You Get a Bridging Loan in the UK?",
@@ -14769,7 +14870,8 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/bridging-loan-process-timeline"
   },
   {
     "id": 1787943786114,

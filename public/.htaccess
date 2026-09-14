@@ -87,12 +87,12 @@ Options -Indexes -MultiViews
   # generation prompt) or — where real internal link data existed — already
   # had inbound links from location pages. See src/data/blogPosts.json entries
   # with "status": "redirected" for the full record of what was merged where.
-  RewriteRule ^insights/fastest-bridging-loan-uk/?$ /insights/same-day-bridging-loan-uk [R=301,L]
-  RewriteRule ^insights/bridging-finance-24-hours-uk/?$ /insights/same-day-bridging-loan-uk [R=301,L]
-  RewriteRule ^insights/bridging-loan-fast-completion/?$ /insights/same-day-bridging-loan-uk [R=301,L]
-  RewriteRule ^insights/fast-bridging-loans-uk/?$ /insights/same-day-bridging-loan-uk [R=301,L]
-  RewriteRule ^insights/how-fast-can-you-get-bridging-loan/?$ /insights/same-day-bridging-loan-uk [R=301,L]
-  RewriteRule ^insights/how-quickly-can-you-get-a-bridging-loan/?$ /insights/same-day-bridging-loan-uk [R=301,L]
+  RewriteRule ^insights/fastest-bridging-loan-uk/?$ /insights/quick-bridging-loan-for-property-uk [R=301,L]
+  RewriteRule ^insights/bridging-finance-24-hours-uk/?$ /insights/quick-bridging-loan-for-property-uk [R=301,L]
+  RewriteRule ^insights/bridging-loan-fast-completion/?$ /insights/quick-bridging-loan-for-property-uk [R=301,L]
+  RewriteRule ^insights/fast-bridging-loans-uk/?$ /insights/quick-bridging-loan-for-property-uk [R=301,L]
+  RewriteRule ^insights/how-fast-can-you-get-bridging-loan/?$ /insights/quick-bridging-loan-for-property-uk [R=301,L]
+  RewriteRule ^insights/how-quickly-can-you-get-a-bridging-loan/?$ /insights/quick-bridging-loan-for-property-uk [R=301,L]
   RewriteRule ^insights/open-vs-closed-bridging-loan/?$ /insights/closed-vs-open-bridging-loan [R=301,L]
   RewriteRule ^insights/open-vs-closed-bridging-loans/?$ /insights/closed-vs-open-bridging-loan [R=301,L]
   RewriteRule ^insights/auction-finance-uk/?$ /insights/how-to-finance-auction-property-uk [R=301,L]
@@ -100,7 +100,7 @@ Options -Indexes -MultiViews
   RewriteRule ^insights/finance-for-property-auction-uk-guide/?$ /insights/how-to-finance-auction-property-uk [R=301,L]
   RewriteRule ^insights/how-long-do-you-actually-have-to-complete-on-an-auction-property/?$ /insights/auction-finance-28-days-uk [R=301,L]
   RewriteRule ^insights/bridging-loans-for-auction-purchases/?$ /insights/auction-finance-28-days-uk [R=301,L]
-  RewriteRule ^insights/property-auction-finance-same-day-decision/?$ /insights/fast-bridging-loan-for-auction-property [R=301,L]
+  RewriteRule ^insights/property-auction-finance-same-day-decision/?$ /insights/auction-finance-28-days-uk [R=301,L]
   RewriteRule ^insights/bridging-loan-for-uninhabitable-property/?$ /insights/short-term-finance-for-unmortgageable-property-uk [R=301,L]
   RewriteRule ^insights/bridging-finance-unmortgageable-property/?$ /insights/short-term-finance-for-unmortgageable-property-uk [R=301,L]
   RewriteRule ^insights/bridging-loan-uninhabitable-property-uk/?$ /insights/short-term-finance-for-unmortgageable-property-uk [R=301,L]
@@ -108,6 +108,22 @@ Options -Indexes -MultiViews
   RewriteRule ^insights/bridging-loan-valuation-process/?$ /insights/bridging-loan-valuation-uk [R=301,L]
   RewriteRule ^insights/bridging-loan-without-full-valuation/?$ /insights/desktop-valuation-bridging-loan [R=301,L]
   RewriteRule ^insights/monthly-vs-rolled-up-interest-bridging/?$ /insights/bridging-loan-interest-options [R=301,L]
+  # 2026-09-14 consolidation: overlapping posts merged into the URL each group
+  # already performed best on (90-day Search Console clicks/impressions/position,
+  # scripts/content-engine/gsc-page-report.js). Unique FAQs were folded into the
+  # keeper first. Older rules that pointed at a retired URL are repointed above.
+  RewriteRule ^insights/bridging-loan-rates-uk-2026/?$ /insights/bridging-loan-rates-uk [R=301,L]
+  RewriteRule ^insights/bridging-loan-rolled-up-interest/?$ /insights/bridging-loan-interest-options [R=301,L]
+  RewriteRule ^insights/retained-interest-bridging-loan/?$ /insights/bridging-loan-interest-options [R=301,L]
+  RewriteRule ^insights/fast-bridging-loan-for-auction-property/?$ /insights/auction-finance-28-days-uk [R=301,L]
+  RewriteRule ^insights/bridging-loan-28-day-completion-uk/?$ /insights/auction-finance-28-days-uk [R=301,L]
+  RewriteRule ^insights/bridging-loan-for-unconditional-auction/?$ /insights/how-to-finance-auction-property-uk [R=301,L]
+  RewriteRule ^insights/bridging-finance-for-commercial-property/?$ /insights/commercial-bridging-loan-uk [R=301,L]
+  RewriteRule ^insights/how-quickly-can-i-get-a-bridging-loan-uk/?$ /insights/bridging-loan-process-timeline [R=301,L]
+  RewriteRule ^insights/bridging-loan-application-process/?$ /insights/bridging-loan-process-timeline [R=301,L]
+  RewriteRule ^insights/bridging-loan-term-length/?$ /insights/bridging-loan-maximum-term [R=301,L]
+  RewriteRule ^insights/same-day-bridging-loan-uk/?$ /insights/quick-bridging-loan-for-property-uk [R=301,L]
+  RewriteRule ^insights/why-use-whole-of-market-bridging-broker/?$ /insights/bridging-loan-whole-market-search [R=301,L]
 
   # 2026-08-28: the calculator cluster. Two articles were both titled as
   # calculators — "Bridging Loan Calculator UK" and "Bridging Finance
