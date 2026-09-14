@@ -144,9 +144,23 @@ function fmtDate(iso) {
   return new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 
+// The Bank's IADB accepts only three-letter month abbreviations. Do NOT build
+// this with toLocaleString('en-GB', { month: 'short' }): modern ICU/CLDR
+// renders September as "Sept" (four letters) in en-GB, which the IADB rejects
+// with a 302 to its error page — the fetch follows the redirect, gets HTML
+// instead of CSV, and the run fails with "no usable observations". That is
+// exactly what broke this script for the whole of September 2026: every other
+// month abbreviates to three letters, so it ran clean all year and only became
+// wrong once the calendar reached September. Explicit table, no locale.
+const IADB_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function iadbDate(d) {
+  return `${String(d.getDate()).padStart(2, '0')}/${IADB_MONTHS[d.getMonth()]}/${d.getFullYear()}`;
+}
+
 async function main() {
   const today = new Date();
-  const to = `${String(today.getDate()).padStart(2, '0')}/${today.toLocaleString('en-GB', { month: 'short' })}/${today.getFullYear()}`;
+  const to = iadbDate(today);
 
   console.log('Fetching UK SME funding data from the Bank of England IADB...');
   console.log(`  Range: ${HISTORY_FROM} → ${to}\n`);
