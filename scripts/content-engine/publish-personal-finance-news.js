@@ -70,19 +70,27 @@ function loadActiveFeeds() {
 const RSS_FEEDS = loadActiveFeeds();
 
 // Cheap pre-filter only — it just cuts down how many stories get sent to the
-// model. checkMarketRelevance() below is the actual editorial decision.
-// 'inflation' and 'cost of living' were deliberately removed (2026-08-24):
-// they were the route by which two general cost-of-living stories with no
-// property angle reached publication. Genuine property stories that happen to
-// mention inflation still match on their property terms instead.
+// model. checkMarketRelevance() below is the actual editorial decision, so this
+// list stays deliberately LOOSE: a term here only buys a story the right to be
+// considered, and over-tightening it starves the gate of candidates before it
+// ever gets to judge them.
+// 'inflation' and 'cost of living' were removed 2026-08-24 — they were the
+// route by which two general cost-of-living stories reached publication.
+// Narrowed to buy-to-let 2026-09-14: owner-occupier-only terms ('first-time
+// buyer', 'conveyancing', 'chain break', 'homeowner') came out, since the
+// section now covers the private rented sector rather than property generally.
+// Broad terms like 'mortgage' and 'stamp duty' stay — plenty of genuine
+// landlord stories are worded that way, and the gate rejects the rest.
 const RELEVANT_KEYWORDS = [
-  'house price', 'property market', 'mortgage rate', 'mortgage', 'stamp duty',
-  'bank of england', 'interest rate', 'rental market', 'landlord', 'renter',
-  'remortgage', 'first-time buyer', 'first time buyer', 'buy-to-let', 'buy to let',
-  'homeowner', 'housing market', 'rent prices', 'property price',
-  'capital gains tax', 'inheritance tax', 'conveyancing',
-  'auction', 'probate', 'repossession', 'chain break', 'renovation',
-  'refurbishment', 'planning permission', 'developer', 'development finance',
+  'landlord', 'buy-to-let', 'buy to let', 'btl', 'private rented', 'rented sector',
+  'rental market', 'rental property', 'rent prices', 'rents', 'renter', 'tenant',
+  'tenancy', 'eviction', 'section 21', 'section 24', 'renters rights',
+  'hmo', 'licensing', 'epc', 'mees', 'incorporation', 'portfolio landlord',
+  'yield', 'void period', 'build-to-rent', 'build to rent',
+  'mortgage rate', 'mortgage', 'remortgage', 'stamp duty', 'capital gains tax',
+  'bank of england', 'interest rate', 'property market', 'housing market',
+  'auction', 'repossession', 'refurbishment', 'planning permission',
+  'developer', 'development finance',
 ];
 
 // ── RSS parser (no external dependency — same approach as publish-linkedin-news.js) ──
@@ -216,20 +224,24 @@ async function checkMarketRelevance(story) {
     messages: [
       {
         role: 'system',
-        content: `You are an editorial gatekeeper for Boxx Finance, a UK property finance broker. Decide whether a news story belongs in a UK property news section.
+        content: `You are an editorial gatekeeper for Boxx Finance, a UK property finance broker. This news section covers ONE market: buy-to-let and the private rented sector. Decide whether a story belongs in it.
 
-PUBLISH (property market and property ownership):
-- Landlords and the private rented sector: tax, incorporation, regulation, EPC and licensing rules, tenant/landlord relations, rental yields
-- Buying and selling: house prices, mortgage rates and lending criteria, first-time buyers, conveyancing, chain breaks, auctions, probate and inherited property
-- Property investment and development: buy-to-let, refurbishment, planning, development sites, repossessions
-- Taxes levied on property specifically: stamp duty/SDLT/LBTT/LTT, capital gains tax on property, mansion or council tax on homes, inheritance tax where the story is about property
+The reader is a landlord or property investor running rental property as a business. Publish what affects that business.
+
+PUBLISH (buy-to-let and the private rented sector):
+- Landlord taxation and structure: incorporation and incorporation relief, capital gains tax on rental property, Section 24, company/LLP structures, the SDLT surcharge on additional property
+- Private rented sector regulation: the Renters' Rights Act, tenancy and eviction rules, EPC and MEES requirements, selective and HMO licensing, landlord registration
+- Rental market economics: rents, yields, tenant demand, voids, rental supply, landlords entering or leaving the sector
+- Buy-to-let lending: BTL mortgage rates and stress tests, lending criteria, portfolio landlord rules, remortgaging rental property
+- Property bought to let: HMOs, multi-unit blocks, auction purchases for rental, refurbishment to let, build-to-rent, rental portfolio development
 
 DO NOT PUBLISH:
-- Party politics: what a politician, party, mayor or minister said, wants, or might do; elections; political rows. A tax story only qualifies if it is about the actual property tax rules, not about the politics of who is proposing what.
-- General cost-of-living and household bills with no substantive property angle: energy bills, food prices, benefits, debt advice, savings accounts, budgeting schemes, broad inflation coverage
-- Business, markets or economy stories that merely mention housing in passing
+- Owner-occupier stories with no landlord or rental angle: first-time buyers, chain breaks, homeowner conveyancing, mansion or council tax on someone's own home, homeowner insurance and subsidence, general house-price coverage aimed at people buying somewhere to live
+- Party politics: what a politician, party, mayor or minister said, wants, or might do; elections; political rows. A tax story qualifies only if it is about actual rules landlords face, not the politics of who is proposing what.
+- General cost-of-living and household bills: energy bills, food prices, benefits, debt advice, savings accounts, budgeting schemes, broad inflation coverage
+- Business, markets or economy stories that merely mention housing or rents in passing
 
-The test is what the story is genuinely ABOUT, not what it briefly mentions. If the property angle is incidental or would have to be invented to make the piece work, say no. Return only a raw JSON object.`,
+The test is whether a landlord would read this as news about their own lettings business. General property news that happens to affect everyone who owns a home is NOT enough — the story must bear on letting property out. If the buy-to-let angle is incidental, or would have to be invented to make the piece work, say no. Return only a raw JSON object.`,
       },
       {
         role: 'user',
@@ -543,10 +555,15 @@ async function pushBlogPostsFile(posts, sha, slug) {
 // ── Gate regression fixtures ──────────────────────────────────────────────────
 // The ten stories this script actually published between 2026-08-21 and
 // 2026-08-24, before any relevance gate existed, with the verdict each one
-// SHOULD get. Mark reviewed these against his criteria: property, landlords
-// and auctions are wanted; party politics and general cost-of-living are not.
-// Run with --test-gate to check the gate still agrees. Needs ANTHROPIC_API_KEY,
-// so in practice this runs in CI rather than locally.
+// SHOULD get. Run with --test-gate to check the gate still agrees. Needs
+// ANTHROPIC_API_KEY, so in practice this runs in CI rather than locally.
+//
+// Expectations were 8 true / 2 false while the section covered property
+// generally. Narrowing to buy-to-let (2026-09-14) flipped two to false — the
+// conveyancing-fraud and mansion-tax stories are about people buying or living
+// in their own homes, with no lettings angle. They were correctly published
+// under the old, wider scope; they would be correctly rejected under this one.
+// Now 6 true / 4 false.
 const GATE_FIXTURES = [
   { expect: true,  title: 'Landlords Who Incorporated Their Property Businesses Could Face Surprise Capital Gains Tax Bills', description: 'Landlords who moved their property portfolios into limited companies may face unexpected capital gains tax bills.' },
   { expect: false, title: 'Andy Burnham may need tax rises to fund cost of living support, economists warn', description: 'Economists warn the Greater Manchester mayor may need to raise taxes to fund cost of living support measures.' },
@@ -554,11 +571,29 @@ const GATE_FIXTURES = [
   { expect: false, title: "Pay-it-forward schemes exist to help with bills, so why aren't more people using them", description: 'Pay-it-forward schemes can help households struggling with energy and other bills, but take-up remains low.' },
   { expect: true,  title: 'HMRC changes the rules for landlords incorporating their property businesses from 2026', description: 'HMRC has updated incorporation relief rules affecting landlords transferring property businesses to companies.' },
   { expect: true,  title: 'Royal Estates Face £10m EPC Bill, But Landlords Collectively Face Almost £10bn', description: 'EPC upgrade requirements will cost the royal estates millions and private landlords billions collectively.' },
-  { expect: true,  title: "'Friday Afternoon Fraud': Why Homebuyers Are Losing Their Deposits to Fake Solicitor Emails", description: 'Homebuyers are losing deposits to fraudsters impersonating conveyancing solicitors by email.' },
-  { expect: true,  title: 'HMRC to Send Inspectors Into Homes to Check Who Owes the New Mansion Tax', description: 'HMRC inspectors will carry out property valuations to determine liability for the new mansion tax on high value homes.' },
+  { expect: false, title: "'Friday Afternoon Fraud': Why Homebuyers Are Losing Their Deposits to Fake Solicitor Emails", description: 'Homebuyers are losing deposits to fraudsters impersonating conveyancing solicitors by email.' },
+  { expect: false, title: 'HMRC to Send Inspectors Into Homes to Check Who Owes the New Mansion Tax', description: 'HMRC inspectors will carry out property valuations to determine liability for the new mansion tax on high value homes.' },
   { expect: true,  title: 'HMRC softens 20-hour rule guidance for landlords incorporating their property business', description: 'HMRC has relaxed guidance on the 20-hour week test landlords must meet for incorporation relief.' },
   { expect: true,  title: 'NRLA research points to growing hostility towards landlords, but what does it mean for the private rented sector?', description: 'New NRLA research suggests rising public hostility towards private landlords and questions the impact on the rented sector.' },
 ];
+
+// A run that publishes nothing looks identical to a correct quiet run — which
+// is how an over-tight gate hides. Report how long it has actually been since
+// anything published, and escalate to a GitHub Actions warning past the
+// threshold, so a starved pipeline surfaces instead of just going quiet.
+const DRY_STREAK_WARN_DAYS = 3;
+
+function reportDryStreak(covered, reason) {
+  const dates = (covered || []).map(c => c.publishedAt).filter(Boolean).sort();
+  if (!dates.length) return;
+  const last = new Date(dates[dates.length - 1]);
+  const days = (Date.now() - last.getTime()) / 86400000;
+  const line = `Last published ${days.toFixed(1)} days ago (${dates[dates.length - 1].split('T')[0]}) — ${reason}.`;
+  console.log(line);
+  if (days >= DRY_STREAK_WARN_DAYS) {
+    console.log(`::warning::Personal-finance news has published nothing for ${days.toFixed(1)} days. ${reason}. Check whether the relevance gate is too tight for the current feed mix.`);
+  }
+}
 
 async function testGate() {
   console.log('Testing market-relevance gate against 10 known stories...\n');
@@ -607,6 +642,7 @@ async function main() {
 
   if (candidates.length === 0) {
     console.log('No new relevant story found this run. Nothing to publish — this is expected most runs.');
+    reportDryStreak(covered, 'no candidate passed the keyword pre-filter');
     return;
   }
 
@@ -627,7 +663,8 @@ async function main() {
   }
 
   if (!story) {
-    console.log('\nNo candidate was genuinely property-market relevant this run. Nothing to publish.');
+    console.log('\nNo candidate was genuinely buy-to-let relevant this run. Nothing to publish.');
+    reportDryStreak(covered, 'candidates were found but all were rejected by the relevance gate');
     return;
   }
 
