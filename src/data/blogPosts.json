@@ -21001,5 +21001,61 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1789394391479,
+    "status": "published",
+    "slug": "goldman-sachs-bank-of-england-rate-rise-four-percent",
+    "url": "/insights/goldman-sachs-bank-of-england-rate-rise-four-percent",
+    "title": "Goldman Sachs predicts Bank of England will raise rates to 4% this year: what it means for mortgages and landlords",
+    "excerpt": "Goldman Sachs has warned the Bank of England could raise interest rates to four per cent by year end amid inflation concerns, a shift that would push up mortgage and buy-to-let borrowing costs.",
+    "metaTitle": "BoE Rate Rise to 4%: What It Means for Landlords",
+    "metaDescription": "Goldman Sachs predicts the Bank of England will raise rates to 4% this year. Here's what a rate rise could mean for mortgages, remortgaging and landlords.",
+    "keywords": "landlord, buy-to-let, rents, mortgage, remortgage, bank of england",
+    "date": "2026-09-14",
+    "publishedAt": "2026-09-14T13:59:51.479Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/goldman-sachs-bank-of-england-rate-rise-four-percent.webp",
+    "heroVersion": 34002434,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this mean the Bank of England has already decided to raise rates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. This is a prediction from Goldman Sachs, not a decision by the Bank of England. Interest rate forecasts from banks and analysts change frequently depending on economic data, and the Bank of England will make its own decision based on inflation and other factors closer to the time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How would a rate rise affect someone about to remortgage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If Bank Rate rises, new fixed and variable mortgage deals are likely to become more expensive, and lenders' affordability checks may become stricter. Anyone due to remortgage this year may want to start comparing options earlier than usual and factor in the possibility of higher costs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do landlords feel rate rises more than other borrowers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Buy-to-let lending is typically assessed against rental income using stress tests set by lenders. When rates rise, the mortgage cost relative to rental income increases, which can squeeze landlord margins more directly than it affects owner-occupiers on a standard mortgage."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [],
+    "content": "<p>Goldman Sachs has warned that the Bank of England is likely to raise interest rates to four per cent by the end of the year, a notable U-turn in expectations after months of speculation that rates were more likely to fall than rise. The Wall Street bank says the shift is being driven by concerns that inflation could run hotter than previously forecast, as <a href=\"https://www.cityam.com/bank-of-england-predicted-to-raise-interest-rates-this-year/\">reported by City A.M.</a> For anyone with a mortgage, or anyone renting out property, this is worth paying attention to now rather than waiting for it to actually happen.</p><p>For most of the last couple of years, the conversation around Bank Rate has been about when it might come down, not go up. A prediction like this from a major investment bank does not mean a rate rise is certain, but it does mean the direction of travel is suddenly less predictable than many homeowners and landlords had assumed when planning their finances for the rest of the year.</p><h2>What a higher Bank Rate would mean for mortgages</h2><p>Bank Rate feeds directly into the cost of borrowing across the mortgage market. Anyone on a variable rate or tracker mortgage would see monthly payments rise fairly quickly if the Bank of England did move rates higher. Fixed-rate borrowers are protected until their current deal ends, but anyone coming up to remortgage this year should treat this as a signal to start planning earlier rather than later, since the deals available when their fix expires may not be as favourable as they had hoped.</p><p>It also matters for anyone still house hunting. Lenders use current and expected interest rates to run affordability stress tests, and a higher rate environment generally means borrowers can secure less against their income. Buyers who have had a mortgage offer in principle based on today's rates should be aware that this could change if the market moves in the direction Goldman Sachs is suggesting.</p><h2>Why landlords should pay particularly close attention</h2><p>Buy-to-let mortgages are especially sensitive to rate movements because lenders apply their own stress tests, often requiring rental income to comfortably exceed the mortgage cost by a set margin. If Bank Rate rises towards four per cent, the interest rates on new buy-to-let deals and remortgages would likely follow, squeezing the gap between rental income and mortgage payments that many landlords rely on for their margin.</p><p>Landlords remortgaging this year, particularly those on interest-only deals, may find affordability calculations tighter than when they first took out the loan. Some may need to consider raising rents, reducing borrowing, or restructuring their portfolio to keep the numbers working. Landlords who had been counting on rate cuts to ease pressure on their finances this year may now need to plan for the opposite scenario instead.</p><h2>What this means in practice right now</h2><p>It is worth being clear that this is a prediction from one bank, not a decision by the Bank of England itself. Interest rate forecasts change regularly and the actual path of rates will depend on how inflation and the wider economy behave over the coming months. Even so, the fact that a major bank has upgraded its rate expectations is a useful early warning that the assumption of falling rates should not be taken for granted.</p><p>For homeowners and landlords with borrowing decisions on the horizon, whether that is remortgaging, buying, or restructuring a portfolio, this is a moment to review plans with a bit more caution than before, and to make sure financing arrangements can flex if rates do move higher than expected. Those exploring short-term or specialist finance options as part of that planning can look at Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> to see what is available.</p><h2>Frequently Asked Questions</h2><h3>Does this mean the Bank of England has already decided to raise rates?</h3><p>No. This is a prediction from Goldman Sachs, not a decision by the Bank of England. Interest rate forecasts from banks and analysts change frequently depending on economic data, and the Bank of England will make its own decision based on inflation and other factors closer to the time.</p><h3>How would a rate rise affect someone about to remortgage?</h3><p>If Bank Rate rises, new fixed and variable mortgage deals are likely to become more expensive, and lenders' affordability checks may become stricter. Anyone due to remortgage this year may want to start comparing options earlier than usual and factor in the possibility of higher costs.</p><h3>Why do landlords feel rate rises more than other borrowers?</h3><p>Buy-to-let lending is typically assessed against rental income using stress tests set by lenders. When rates rise, the mortgage cost relative to rental income increases, which can squeeze landlord margins more directly than it affects owner-occupiers on a standard mortgage.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
