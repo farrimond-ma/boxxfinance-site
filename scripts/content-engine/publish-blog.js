@@ -263,29 +263,9 @@ const SLOT_PRIORITY = ['TRIGGER', 'AM', 'PM'];
 // keyword match is too blunt ("bridging loan rates" vs "cost of a bridging
 // loan" are the same article with different words), and asking the model about
 // all ~180 published posts every run is wasteful.
-const STOPWORDS = new Set(['a','an','the','and','or','for','to','of','in','on','is','are','can','do','does','you','your','uk','with','what','how','my','i','it','be']);
-
-// Plurals are folded to singular ("flats" -> "flat"). Without it,
-// "what happens to your flat if the freeholder goes bust" scored 0.38 against
-// the published freeholder-insolvency post (0.40 needed), the model was never
-// consulted, and a straight duplicate went live on 2026-09-14.
-function singular(w) {
-  if (w.length > 4 && w.endsWith('ies')) return w.slice(0, -3) + 'y';
-  if (w.length > 3 && w.endsWith('s') && !/(ss|us|is)$/.test(w)) return w.slice(0, -1);
-  return w;
-}
-
-function topicTokens(str) {
-  return new Set(String(str || '').toLowerCase().replace(/[^a-z0-9\s-]/g, ' ')
-    .split(/[\s-]+/).filter(w => w.length > 2 && !STOPWORDS.has(w)).map(singular));
-}
-
-function overlapScore(a, b) {
-  if (!a.size || !b.size) return 0;
-  let shared = 0;
-  for (const t of a) if (b.has(t)) shared++;
-  return shared / Math.min(a.size, b.size); // how much of the SHORTER topic is covered
-}
+// Shared with rebuild-related-links.js so duplicate screening and related-article
+// linking agree on what "the same topic" means.
+const { topicTokens, overlapScore, postTokens } = require('./topic-similarity');
 
 // The published posts most likely to clash with what we are about to write.
 function shortlistSimilar(row, posts, limit = 6) {
@@ -474,28 +454,18 @@ async function getPublishedLocations(_sheets, service) {
 }
 
 // ─── Get published blogs for related article linking ─────────────────────────
-async function getPublishedBlogs(sheets, service) {
-  const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: SPREADSHEET_ID,
-    range: 'ContentEngine!A2:L',
-  });
-
-  const rows = res.data.values || [];
-  const blogs = [];
-
-  for (const row of rows) {
-    const type = (row[1] || '').toLowerCase().trim();
-    const status = (row[2] || '').toLowerCase().trim();
-    const rowService = (row[5] || '').toLowerCase().trim();
-    const url = row[11] || '';
-    const title = row[9] || '';
-
-    if (type === 'blog' && status === 'published' && rowService === service.toLowerCase() && url) {
-      blogs.push({ url: url.startsWith('http') ? url : `https://boxxfinance.co.uk${url}`, title });
-    }
-  }
-
-  return blogs.slice(0, 3);
+// Related articles by topic, not sheet order. This used to return the first
+// three published rows in the sheet, so every post linked the same three hubs
+// and 225 of 263 published posts had no internal link pointing at them.
+function pickRelatedBlogs(row, posts, limit = 3) {
+  const planned = topicTokens(`${row.keyword || ''} ${row.title || ''} ${row.topic || ''}`);
+  const service = (row.service || '').toLowerCase();
+  return posts
+    .filter(p => p.status === 'published' && p.slug && (p.service || '').toLowerCase() === service)
+    .map(p => ({ p, s: overlapScore(planned, postTokens(p)) }))
+    .sort((a, b) => (b.s - a.s) || String(b.p.date || '').localeCompare(String(a.p.date || '')))
+    .slice(0, limit)
+    .map(({ p }) => ({ url: `https://boxxfinance.co.uk/insights/${p.slug}`, title: p.title }));
 }
 
 // "Bridging Finance" is the internal service identity (used for SERVICE_FILTER
@@ -1306,8 +1276,8 @@ async function main() {
   const locationLinks = await getPublishedLocations(sheets, row.service);
   console.log(`Found ${locationLinks.length} published location pages for ${row.service}`);
 
-  const relatedBlogs = await getPublishedBlogs(sheets, row.service);
-  console.log(`Found ${relatedBlogs.length} related published blogs for ${row.service}`);
+  const relatedBlogs = pickRelatedBlogs(row, posts);
+  console.log(`Related articles by topic: ${relatedBlogs.map(b => b.url.split('/insights/')[1]).join(', ') || 'none'}`);
 
   // blogPosts.json was already fetched above for the duplicate check.
   // The "slug already published" case is handled in the candidate loop, which
@@ -1460,6 +1430,16 @@ async function main() {
     reelPosted:      false,
   };
 
+  // Inbound link at birth: the new post takes the second (visible) related slot
+  // on its closest existing match. Otherwise a new post only ever links out and
+  // stays an orphan until something happens to link back.
+  const host = relatedBlogs.length ? posts.find(p => relatedBlogs[0].url.endsWith(`/insights/${p.slug}`)) : null;
+  if (host) {
+    const list = (host.relatedBlogUrls || []).filter(u => !u.endsWith(`/insights/${finalSlug}`));
+    list.splice(1, 0, `https://boxxfinance.co.uk/insights/${finalSlug}`);
+    host.relatedBlogUrls = list.slice(0, 3);
+    console.log(`Inbound related-article link added from: ${host.slug}`);
+  }
   posts.push(newPost);
   await pushBlogPostsFile(posts, sha, finalSlug);
   await updateSheetRow(sheets, row.rowIndex, finalSlug, fullUrl, publishedAt);
