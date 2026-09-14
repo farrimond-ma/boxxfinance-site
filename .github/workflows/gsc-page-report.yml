@@ -1,0 +1,30 @@
+name: GSC Page Report
+
+# Manual, read-only per-URL Search Console report for choosing which article to
+# keep when merging overlapping posts. Writes nothing, calls no AI.
+
+on:
+  workflow_dispatch:
+    inputs:
+      groups:
+        description: 'Slug groups: slugs comma-separated, groups separated by ";"'
+        required: true
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+      - name: Run page report
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          GROUPS: ${{ github.event.inputs.groups }}
+        run: node gsc-page-report.js
