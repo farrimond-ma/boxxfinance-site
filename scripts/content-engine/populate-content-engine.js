@@ -1672,7 +1672,8 @@ function addDays(dateStr, n) {
 
 function buildBlogRow(id, date, topic) {
   const meta = SERVICE_META[topic.service] || {};
-  const metaTitle = `${topic.title} | Boxx Finance`;
+  // No brand suffix: SEO.jsx appends "| Boxx Finance" to every title tag.
+  const metaTitle = topic.title;
   return [
     String(id),                       // A: id
     'blog',                           // B: type
@@ -1712,7 +1713,7 @@ function buildLocationRow(id, date, service, city) {
   const title = `${service} ${city}`;
   const keyword = `${service.toLowerCase()} ${city.toLowerCase()}`;
   const url = `/locations/${slug}`;
-  const metaTitle = `${title} | Boxx Finance`;
+  const metaTitle = title;
   return [
     String(id),                       // A: id
     'location',                       // B: type

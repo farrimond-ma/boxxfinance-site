@@ -711,7 +711,7 @@ async function main() {
     url: `/insights/${article.slug}`,
     title: article.title,
     excerpt: article.excerpt,
-    metaTitle: article.metaTitle,
+    metaTitle: (article.metaTitle || '').replace(/(\s*\|\s*Boxx Finance)+\s*$/i, '').trim(),
     metaDescription: article.metaDescription,
     keywords: RELEVANT_KEYWORDS.filter(kw => (article.title + article.contentHtml).toLowerCase().includes(kw)).slice(0, 6).join(', '),
     date: new Date().toISOString().split('T')[0],

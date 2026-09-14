@@ -114,7 +114,7 @@ OUTPUT FORMAT RULES:
 - No markdown, backticks, code fences, or curly quotes — raw JSON only
 - slug format: ${serviceSlug}-${city.toLowerCase().replace(/\s+/g, '-')} (e.g. business-loans-leeds)
 - title format: "${service} ${city}" (e.g. "Business Loans Leeds")
-- metaTitle format: "${service} ${city} | Boxx Finance"
+- metaTitle format: "${service} ${city}" — do NOT append "| Boxx Finance" or any brand suffix (the site template adds the brand automatically)
 
 CONTENT STRUCTURE — follow this exact order:
 
