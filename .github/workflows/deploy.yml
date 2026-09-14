@@ -37,6 +37,13 @@ jobs:
       - name: Setup Chrome
         id: setup-chrome
         uses: browser-actions/setup-chrome@v1
+        # Pinned to stable. The action's default ("latest") is the newest
+        # Chromium *snapshot* — a nightly trunk build. Snapshot 1697379
+        # (2026-09-14) crashed on launch under prerender.js's --single-process
+        # args ("FATAL extensions_client.cc: Check failed: !g_client"), which
+        # failed every deploy for a day with zero repo changes to explain it.
+        with:
+          chrome-version: stable
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
