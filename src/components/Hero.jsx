@@ -13,11 +13,8 @@ import { ResourceHero } from './resource/ResourceHero';
  * meant to look identical are actually maintained as two things.
  *
  * The trust ticks ("Independent broker / Whole of market / Fast decisions")
- * and the "also arranging..." funding-solutions link both moved out of the
- * hero and into the About teaser section below (About.jsx) — the hero is now
- * just the headline claim and the two primary CTAs, with the supporting
- * trust signals sitting where a visitor reads them as evidence rather than
- * as more copy competing with the call to action.
+ * sit under the CTAs, matching every other ResourceHero page. The "also
+ * arranging..." funding-solutions link lives in the About teaser (About.jsx).
  *
  * The site's content strategy is overwhelmingly bridging loans — 156 of 205
  * location pages, 66 of 103 blog posts, and the last 25 posts without
@@ -40,7 +37,6 @@ const Hero = () => (
         description="Short-term property funding for auction purchases, chain breaks, refurbishments and probate. We structure bridging loans for homeowners, landlords, investors and developers — around a clear exit plan, not just a headline rate."
         heroImage="/images/hero/bridging-9.webp"
         primaryCtaTo="/chat-about-funding/bridging-loans"
-        showTrust={false}
     />
 );
 
