@@ -1,0 +1,37 @@
+name: GSC Daily Diagnostic
+
+# Manual, read-only day-level Search Console diagnostic — for answering
+# "why did impressions move this week?", which the 28/90-day reports cannot
+# because they average a recent dip into invisibility.
+#
+# Deliberately manual-only (no schedule): this writes nothing, schedules
+# nothing and calls no AI, so it is safe to run on demand, but there is no
+# value in it running unattended.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    name: Day-level GSC diagnostic
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        working-directory: scripts/content-engine
+        run: npm install --legacy-peer-deps
+
+      - name: Run diagnostic
+        working-directory: scripts/content-engine
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: node gsc-daily-diagnostic.js
