@@ -42,6 +42,7 @@ const sharp = require('sharp');
 const { createOpenAICompatClient } = require('./lib/anthropic-openai-shim');
 const { parseModelJson, logJsonFailure } = require('./lib/parse-model-json');
 const { deriveImageQueries, fetchPexelsImage } = require('./lib/news-images');
+const { postTokens, relatedByTopic, addInboundLink } = require('./topic-similarity');
 
 const GITHUB_OWNER = process.env.GITHUB_OWNER || 'farrimond-ma';
 const GITHUB_REPO  = process.env.GITHUB_REPO  || 'boxxfinance-site';
@@ -732,6 +733,11 @@ async function main() {
     category: PILLAR_NAME,
   };
 
+  // News posts used to ship with relatedBlogUrls: [], so each one linked nowhere
+  // and nothing linked to it. Related by topic, plus an inbound link at birth.
+  const related = relatedByTopic(postTokens(newPost), posts, PILLAR_NAME);
+  newPost.relatedBlogUrls = related.map(p => `https://boxxfinance.co.uk/insights/${p.slug}`);
+  if (addInboundLink(related[0], article.slug)) console.log(`Inbound related-article link added from: ${related[0].slug}`);
   posts.push(newPost);
   await pushBlogPostsFile(posts, sha, article.slug);
   console.log(`\n✅ Published: ${article.slug}`);

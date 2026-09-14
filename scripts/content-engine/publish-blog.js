@@ -265,7 +265,7 @@ const SLOT_PRIORITY = ['TRIGGER', 'AM', 'PM'];
 // all ~180 published posts every run is wasteful.
 // Shared with rebuild-related-links.js so duplicate screening and related-article
 // linking agree on what "the same topic" means.
-const { topicTokens, overlapScore, postTokens } = require('./topic-similarity');
+const { topicTokens, overlapScore, relatedByTopic, addInboundLink } = require('./topic-similarity');
 
 // The published posts most likely to clash with what we are about to write.
 function shortlistSimilar(row, posts, limit = 6) {
@@ -459,13 +459,8 @@ async function getPublishedLocations(_sheets, service) {
 // and 225 of 263 published posts had no internal link pointing at them.
 function pickRelatedBlogs(row, posts, limit = 3) {
   const planned = topicTokens(`${row.keyword || ''} ${row.title || ''} ${row.topic || ''}`);
-  const service = (row.service || '').toLowerCase();
-  return posts
-    .filter(p => p.status === 'published' && p.slug && (p.service || '').toLowerCase() === service)
-    .map(p => ({ p, s: overlapScore(planned, postTokens(p)) }))
-    .sort((a, b) => (b.s - a.s) || String(b.p.date || '').localeCompare(String(a.p.date || '')))
-    .slice(0, limit)
-    .map(({ p }) => ({ url: `https://boxxfinance.co.uk/insights/${p.slug}`, title: p.title }));
+  return relatedByTopic(planned, posts, row.service, limit)
+    .map(p => ({ url: `https://boxxfinance.co.uk/insights/${p.slug}`, title: p.title, slug: p.slug }));
 }
 
 // "Bridging Finance" is the internal service identity (used for SERVICE_FILTER
@@ -1430,16 +1425,8 @@ async function main() {
     reelPosted:      false,
   };
 
-  // Inbound link at birth: the new post takes the second (visible) related slot
-  // on its closest existing match. Otherwise a new post only ever links out and
-  // stays an orphan until something happens to link back.
-  const host = relatedBlogs.length ? posts.find(p => relatedBlogs[0].url.endsWith(`/insights/${p.slug}`)) : null;
-  if (host) {
-    const list = (host.relatedBlogUrls || []).filter(u => !u.endsWith(`/insights/${finalSlug}`));
-    list.splice(1, 0, `https://boxxfinance.co.uk/insights/${finalSlug}`);
-    host.relatedBlogUrls = list.slice(0, 3);
-    console.log(`Inbound related-article link added from: ${host.slug}`);
-  }
+  const host = relatedBlogs.length ? posts.find(p => p.slug === relatedBlogs[0].slug) : null;
+  if (addInboundLink(host, finalSlug)) console.log(`Inbound related-article link added from: ${host.slug}`);
   posts.push(newPost);
   await pushBlogPostsFile(posts, sha, finalSlug);
   await updateSheetRow(sheets, row.rowIndex, finalSlug, fullUrl, publishedAt);

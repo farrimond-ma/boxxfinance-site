@@ -29,4 +29,29 @@ function overlapScore(a, b) {
 
 const postTokens = (p) => topicTokens(`${p.keywords || ''} ${p.title || ''} ${p.slug || ''}`);
 
-module.exports = { STOPWORDS, singular, topicTokens, overlapScore, postTokens };
+const SITE = 'https://boxxfinance.co.uk';
+
+// Published posts in the same service, most topically similar first. Every
+// publisher must use this rather than sheet order: sheet order gave every post
+// the same three related articles and left 236 of 263 posts orphaned.
+function relatedByTopic(planned, posts, service, limit = 3) {
+  const svc = String(service || '').toLowerCase();
+  return posts
+    .filter(p => p.status === 'published' && p.slug && String(p.service || '').toLowerCase() === svc)
+    .map(p => ({ p, s: overlapScore(planned, postTokens(p)) }))
+    .sort((a, b) => (b.s - a.s) || String(b.p.date || '').localeCompare(String(a.p.date || '')))
+    .slice(0, limit)
+    .map(({ p }) => p);
+}
+
+// Inbound link at birth: the new post takes the second (visible) related slot
+// on its closest existing match. Otherwise it only ever links out.
+function addInboundLink(host, newSlug, limit = 3) {
+  if (!host) return false;
+  const list = (host.relatedBlogUrls || []).filter(u => !u.endsWith(`/insights/${newSlug}`));
+  list.splice(1, 0, `${SITE}/insights/${newSlug}`);
+  host.relatedBlogUrls = list.slice(0, limit);
+  return true;
+}
+
+module.exports = { STOPWORDS, singular, topicTokens, overlapScore, postTokens, relatedByTopic, addInboundLink };
