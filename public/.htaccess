@@ -192,6 +192,7 @@ Options -Indexes -MultiViews
 
   # Blog posts retitled to "bridging loans" (2026-07)
   RewriteRule ^insights/bridging-finance-for-hmo-conversion$ /insights/bridging-loans-for-hmo-conversion [R=301,L]
+  RewriteRule ^insights/what-happens-to-your-flat-if-the-freeholder-goes-bust/?$ /insights/freeholder-insolvency-leaseholder-mortgage-risk [R=301,L]
 
   # Old application form
   RewriteRule ^start-application/.*$ /chat-about-funding [R=301,L]

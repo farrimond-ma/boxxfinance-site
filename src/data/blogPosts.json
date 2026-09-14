@@ -21060,7 +21060,7 @@
   },
   {
     "id": 1789412223003,
-    "status": "published",
+    "status": "redirected",
     "slug": "what-happens-to-your-flat-if-the-freeholder-goes-bust",
     "url": "/insights/what-happens-to-your-flat-if-the-freeholder-goes-bust",
     "title": "What Happens To Your Flat If The Freeholder Goes Bust?",
@@ -21153,6 +21153,7 @@
     "fbPosted": true,
     "igPosted": false,
     "pinterestPosted": false,
-    "reelPosted": false
+    "reelPosted": false,
+    "redirectTo": "/insights/freeholder-insolvency-leaseholder-mortgage-risk"
   }
 ]
