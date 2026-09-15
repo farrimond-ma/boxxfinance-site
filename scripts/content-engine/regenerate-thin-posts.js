@@ -405,7 +405,7 @@ async function main() {
   //    image directly (no per-slug Pexels duplicate). Non-bridging re-fetches.
   let heroImage = post.heroImage;
   if (isBridgingService(service)) {
-    heroImage = pickBridgingHero(post.slug);
+    heroImage = pickBridgingHero(post.slug, post.title);
     console.log(`  Bridging post — using curated pool image ${heroImage} (no Pexels fetch)`);
   } else {
     console.log('Fetching Pexels image...');

@@ -8,11 +8,27 @@
 // 1,3-7 = Pexels property shots; 9-11 = user-supplied refurbishment/extension
 // photos. (2 and 8 are close-ups, excluded — they show only texture cropped
 // behind the hero gradient.)
+import HERO_TOPICS from './heroTopics.json';
+
 const HERO_POOL = [1, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].map((i) => `/images/hero/bridging-${i}.webp`);
 
-export const pickHero = (slug) => {
-    const sum = [...String(slug)].reduce((a, c) => a + c.charCodeAt(0), 0);
-    return HERO_POOL[sum % HERO_POOL.length];
+const slugHash = (slug) => [...String(slug)].reduce((a, c) => a + c.charCodeAt(0), 0);
+
+// Pages with no specific subject (locations, counties, service pages).
+export const pickHero = (slug) => HERO_POOL[slugHash(slug) % HERO_POOL.length];
+
+// Bridging articles are matched to a picture of what they are about. The old
+// slug hash alone put Cotswold cottages on a post about flats and a building
+// site on one about listed buildings. Rules live in heroTopics.json, which the
+// publisher also reads so the stored social image matches the rendered one.
+const TOPICS = HERO_TOPICS.topics.map((t) => ({ ...t, re: new RegExp(t.pattern, 'i') }));
+const topicImagePath = (img) => (typeof img === 'number' ? `/images/hero/bridging-${img}.webp` : img);
+
+export const pickTopicHero = (post) => {
+    const text = `${post.title || ''} ${post.slug || ''}`.replace(/-/g, ' ');
+    const topic = TOPICS.find((t) => t.re.test(text));
+    const images = topic ? topic.images : HERO_TOPICS.generic;
+    return topicImagePath(images[slugHash(post.slug) % images.length]);
 };
 
 // Slugs with a genuinely bespoke, hand-made topical hero that should override
@@ -28,8 +44,8 @@ const BESPOKE_HERO_SLUGS = new Set([
 
 // The hero image for a post, used identically by the /insights cards and the
 // article hero so a card always matches the page it links to.
-//   - Bridging posts → the curated 9-image property pool (visual variety),
-//     unless the post is on the bespoke allowlist above.
+//   - Bridging posts → a curated image matched to the post's subject
+//     (pickTopicHero), unless the post is on the bespoke allowlist above.
 //   - Other services → the post's own image (caller supplies any fallback).
 // Re-sourcing a hero replaces the file at the SAME path, so browsers that
 // already cached it keep showing the old picture (images are served with a
@@ -46,7 +62,7 @@ export const heroForPost = (post) => {
     const isBridging = /bridging/i.test(post.service || '');
     if (isBridging) {
         if (own && BESPOKE_HERO_SLUGS.has(post.slug)) return withVersion(own, post.heroVersion);
-        return pickHero(post.slug);
+        return pickTopicHero(post);
     }
     return withVersion(own, post.heroVersion);
 };

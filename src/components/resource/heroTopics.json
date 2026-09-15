@@ -1,0 +1,41 @@
+{
+  "_note": "Topic-matched hero images for bridging posts. Shared by heroPool.js (what pages render) and scripts/content-engine/lib/bridging-hero.js (the stored heroImage / social image), so they cannot drift. First matching topic wins, tested against the post title + slug; within a topic the image is picked deterministically by slug. Posts matching no topic use 'generic'. Descriptions checked visually against each file 2026-09-15.",
+  "images": {
+    "1": "Victorian bay-fronted terraces",
+    "3": "gutted interior mid-refurbishment",
+    "4": "aerial view of a town and new estates",
+    "5": "terraced street with parked cars",
+    "6": "modern contemporary detached house",
+    "7": "empty room mid-refurbishment",
+    "9": "house extension under construction",
+    "10": "brick house with extension and scaffolding",
+    "11": "construction site with scaffolding",
+    "12": "colourful Victorian terraces, London",
+    "13": "grand stucco terraces / mansion blocks, London",
+    "14": "Georgian facades",
+    "15": "stucco Georgian terraces, London",
+    "16": "Cotswold stone cottages",
+    "17": "Tudor timber-framed cottage",
+    "18": "modern new build with for-sale sign",
+    "19": "house with for-sale sign",
+    "20": "hillside town view",
+    "21": "modern brick detached houses",
+    "22": "modern apartment blocks",
+    "23": "apartment block facade",
+    "24": "residential building under construction",
+    "25": "scaffolding on an apartment building"
+  },
+  "topics": [
+    { "name": "listed", "pattern": "\\blisted\\b|heritage|grade[- ]i|conservation area|thatch|period (?:property|home|house)|georgian|victorian|tudor", "images": [17, 16, 14] },
+    { "name": "flat", "pattern": "\\bflats?\\b|leasehold|freehold|apartment|block of|multi[- ]unit|mufb", "images": [23, 22, 13, 15] },
+    { "name": "rental", "pattern": "\\bhmos?\\b|buy[- ]to[- ]let|landlord|rental|portfolio|student", "images": [5, 1, 12, 20] },
+    { "name": "commercial", "pattern": "commercial|office|retail|\\bshops?\\b|warehouse|industrial|care home|hotel|\\bpubs?\\b|mixed[- ]use", "images": ["/images/hero/service-commercial-mortgages.webp"] },
+    { "name": "land", "pattern": "\\bland\\b|\\bplots?\\b|planning (?:gain|permission)|permitted development", "images": [4] },
+    { "name": "development", "pattern": "develop|new[- ]?build|ground[- ]up|construction|self[- ]build", "images": [11, 24, 25, "/images/hero/service-development-finance.webp"] },
+    { "name": "refurb", "pattern": "refurb|renovat|extension|\\bloft\\b|unmortgageable|uninhabitable|kitchen|bathroom|asbestos|\\bdamp\\b|subsidence|conversion|change of use", "images": [3, 7, 9, 10] },
+    { "name": "sale", "pattern": "chain|downsiz|sell before|before (?:you )?sell|moving home|buy before|probate|inherit|sale falls", "images": [19, 18] },
+    { "name": "rural", "pattern": "\\bbarns?\\b|rural|\\bfarms?\\b|countryside|village|agricultur|equestrian", "images": [16, 17, 4] },
+    { "name": "high-value", "pattern": "high[- ]value|luxury|\\bprime\\b|london|mayfair|chelsea|kensington", "images": [13, 15, 14, 6] }
+  ],
+  "generic": [1, 5, 12, 20, 21, 6, 13, 15]
+}

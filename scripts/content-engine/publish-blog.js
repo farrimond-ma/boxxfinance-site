@@ -1363,8 +1363,8 @@ async function main() {
   let heroImagePath = null;
   let heroPhotoId = null;
   if (isBridgingService(row.service)) {
-    heroImagePath = pickBridgingHero(finalSlug);
-    console.log(`  Bridging post — using curated pool image ${heroImagePath} (no Pexels fetch)`);
+    heroImagePath = pickBridgingHero(finalSlug, finalTitle);
+    console.log(`  Bridging post — topic-matched curated image ${heroImagePath} (no Pexels fetch)`);
   } else {
     console.log('Fetching hero image from Pexels...');
     try {

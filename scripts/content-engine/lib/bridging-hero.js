@@ -38,12 +38,24 @@ function isBridgingService(service) {
   return /bridging/i.test(service || '');
 }
 
-// Mirrors pickHero() in heroPool.js exactly (sum of char codes % pool length),
-// so the stored heroImage matches the image the page will render.
-function pickBridgingHero(slug) {
+const TOPICS_FILE = path.resolve(__dirname, '../../../src/components/resource/heroTopics.json');
+const slugHash = (slug) => [...String(slug)].reduce((a, c) => a + c.charCodeAt(0), 0);
+
+// With a title: mirrors pickTopicHero() in heroPool.js exactly (same rules file,
+// same text, same hash), so the stored heroImage — also the social-share image —
+// matches what the article renders. Without one: mirrors pickHero(), for pages
+// that have no specific subject.
+function pickBridgingHero(slug, title) {
+  if (title !== undefined) {
+    const cfg = JSON.parse(fs.readFileSync(TOPICS_FILE, 'utf8'));
+    const text = `${title || ''} ${slug || ''}`.replace(/-/g, ' ');
+    const topic = cfg.topics.find((t) => new RegExp(t.pattern, 'i').test(text));
+    const images = topic ? topic.images : cfg.generic;
+    const img = images[slugHash(slug) % images.length];
+    return typeof img === 'number' ? `/images/hero/bridging-${img}.webp` : img;
+  }
   const idx = poolIndices();
-  const sum = [...String(slug)].reduce((a, c) => a + c.charCodeAt(0), 0);
-  return `/images/hero/bridging-${idx[sum % idx.length]}.webp`;
+  return `/images/hero/bridging-${idx[slugHash(slug) % idx.length]}.webp`;
 }
 
 module.exports = { isBridgingService, pickBridgingHero };
