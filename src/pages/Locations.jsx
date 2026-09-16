@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { FinalCtaBand } from '../components/resource/ResourceHero';
 import { pickHero } from '../components/resource/heroPool';
-import locationPages from '../data/locationPages.json';
-import countyPages from '../data/countyPages.json';
+// Index files, not the full data: this page only needs slug/location/service/
+// status. Importing locationPages.json + countyPages.json pulled ~4MB of page
+// HTML into the client bundle (369 article bodies in the built JS) for every
+// visitor to every page, which is what dragged mobile performance to 59.
+import locationPages from '../data/locationIndex.json';
+import countyPages from '../data/countyIndex.json';
 import { countyForTown, nationForCounty } from '../data/townCounties';
 
 const countySlugByName = new Map(
