@@ -195,8 +195,11 @@ Options -Indexes -MultiViews
   RewriteRule ^funding-solutions/cashflow-finance/?$ /funding-solutions/working-capital [R=301,L]
   RewriteRule ^funding-solutions/mezzanine-finance/?$ /funding-solutions/structured-finance [R=301,L]
 
-  # /about-us was never a route — About lives on the homepage. NE preserves the #.
-  RewriteRule ^about-us/?$ /#about [R=301,NE,L]
+  # 2026-09-16: removed "RewriteRule ^about-us/?$ /#about" — it was written when
+  # About lived only on the homepage, but /about-us is now a real route
+  # (App.jsx -> AboutUs.jsx), is prerendered, is in the sitemap, and the
+  # homepage About section links to it. The rule was bouncing every visitor who
+  # clicked "About Us" back to the homepage, and pointing Google at a redirect.
 
   # ── Legacy URL redirects ────────────────────────────────────────────────────
   # Old /advice/* posts moved to /insights/*
