@@ -28,26 +28,23 @@
 
   <!-- Meta Pixel Code -->
   <script>
-    // Standard Meta snippet, with ONE change: the fbevents.js <script> is
-    // injected on window load instead of immediately. The pixel pulls ~178KB
-    // (fbevents.js + two config requests) and on a throttled phone that
-    // competes for bandwidth with the CSS and hero image the first paint
-    // needs — it was the heaviest thing on the page after our own bundle.
-    // Nothing is lost: the stub below still defines fbq and queues calls, so
-    // init/PageView (and Lead, fired later by the forms) replay in order as
-    // soon as the real script arrives.
-    !function (f, b, e, v, n, t, s) {
-      if (f.fbq) return; n = f.fbq = function () { n.callMethod ?
-        n.callMethod.apply(n, arguments) : n.queue.push(arguments) };
-      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-      n.queue = [];
-      f.addEventListener('load', function () {
-        t = b.createElement(e); t.async = !0;
-        t.src = v; s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      });
-    }(window, document, 'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
+    // Standard Meta snippet, loaded immediately — do NOT defer it to window
+    // load. That was tried on 2026-09-16 to stop its ~178KB competing for a
+    // phone's bandwidth, and measured worse: the pixel costs ~130ms of
+    // main-thread work wherever it runs (desktop 93 with it, 96 with Facebook
+    // blocked), and deferring moves that work AFTER first paint, which is
+    // exactly the window Total Blocking Time measures. Desktop went 96 -> 87
+    // on PSI; mobile gained nothing outside noise. Loading it early gets the
+    // work done before first paint, and tracks every visitor rather than only
+    // those who stay past load.
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '3452187911622354');
     fbq('track', 'PageView');
   </script>
