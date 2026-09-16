@@ -161,6 +161,17 @@ async function renderRoute(browser, route, options = {}) {
   // mobile. Injecting the preload per route (not into index.html, where it
   // would preload the wrong image on every other page) starts that download
   // with the HTML instead.
+  // Restore the non-blocking font link. index.html ships it as
+  // <link rel="preload" as="style" onload="...this.rel='stylesheet'">, but that
+  // onload fires in this headless browser before page.content() runs, so the
+  // captured HTML has rel="stylesheet" — every prerendered page was shipping a
+  // render-blocking font request again, which is the thing the preload exists
+  // to avoid. Put it back to how index.html declares it.
+  html = html.replace(
+    /<link rel="stylesheet" as="style" (href="https:\/\/fonts\.googleapis\.com[^"]*")/g,
+    '<link rel="preload" as="style" $1',
+  );
+
   const heroMatch = html.match(/--hero-image:\s*url\(\s*(?:&quot;|["'])?([^"'&)]+)/);
   if (heroMatch && !html.includes('rel="preload" as="image"')) {
     html = html.replace('</head>', `  <link rel="preload" as="image" href="${heroMatch[1]}">\n</head>`);
