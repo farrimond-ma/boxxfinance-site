@@ -1376,6 +1376,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://boxxfinance.co.uk/insights/shawbrook-vs-united-trust-bank-bridging-loans</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/insights/roma-finance-vs-hope-capital-bridging-loans</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://boxxfinance.co.uk/insights/raising-business-capital-against-a-rental-property-you-already-own</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1477,6 +1487,11 @@
   </url>
   <url>
     <loc>https://boxxfinance.co.uk/insights/how-does-development-finance-drawdown-work</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://boxxfinance.co.uk/insights/landlord-registration-scheme-december-2026</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
