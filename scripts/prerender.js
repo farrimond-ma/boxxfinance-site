@@ -153,7 +153,18 @@ async function renderRoute(browser, route, options = {}) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const finalUrl = page.url();
-  const html = await page.content();
+  let html = await page.content();
+
+  // Preload this page's hero image. Every hero is a CSS background set through
+  // --hero-image, so the browser cannot discover it until the stylesheet has
+  // parsed and the element has matched — it was the LCP element at 6.4s on
+  // mobile. Injecting the preload per route (not into index.html, where it
+  // would preload the wrong image on every other page) starts that download
+  // with the HTML instead.
+  const heroMatch = html.match(/--hero-image:\s*url\(\s*(?:&quot;|["'])?([^"'&)]+)/);
+  if (heroMatch && !html.includes('rel="preload" as="image"')) {
+    html = html.replace('</head>', `  <link rel="preload" as="image" href="${heroMatch[1]}">\n</head>`);
+  }
 
   if (isArticleRoute) {
     if (
