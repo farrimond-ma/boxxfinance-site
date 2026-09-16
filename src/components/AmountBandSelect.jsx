@@ -8,7 +8,7 @@ import React from 'react';
 export const AMOUNT_BANDS = [
     { value: '0-49,999', label: 'Up to £49,999' },
     { value: '50,000-99,000', label: '£50,000 – £99,000' },
-    { value: '100,000-249,000', label: '£100,000 – £249,000' },
+    { value: '100,000-249,999', label: '£100,000 – £249,999' },
     { value: '250,000+', label: '£250,000+' },
 ];
 
