@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="footer-content">
                     <div className="footer-brand">
                         <Link to="/" className="footer-logo">
-                            <img src="/logo.png" alt="Boxx Finance" className="footer-logo-img" />
+                            <img src="/logo.png" alt="Boxx Finance" className="footer-logo-img" loading="lazy" />
                         </Link>
                         <p>Bridging Loans and Commercial Finance</p>
                     </div>

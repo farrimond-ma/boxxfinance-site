@@ -16,24 +16,36 @@
        PSI measured at ~1.5s on mobile. display=swap means text still paints
        immediately in the fallback face. -->
   <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
     onload="this.onload=null;this.rel='stylesheet'">
   <noscript>
     <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap">
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap">
   </noscript>
   <!-- Per-page <title> is rendered by each route's SEO component (React 19 hoists it here) -->
 
   <!-- Meta Pixel Code -->
   <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
+    // Standard Meta snippet, with ONE change: the fbevents.js <script> is
+    // injected on window load instead of immediately. The pixel pulls ~178KB
+    // (fbevents.js + two config requests) and on a throttled phone that
+    // competes for bandwidth with the CSS and hero image the first paint
+    // needs — it was the heaviest thing on the page after our own bundle.
+    // Nothing is lost: the stub below still defines fbq and queues calls, so
+    // init/PageView (and Lead, fired later by the forms) replay in order as
+    // soon as the real script arrives.
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () { n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments) };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = [];
+      f.addEventListener('load', function () {
+        t = b.createElement(e); t.async = !0;
+        t.src = v; s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      });
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '3452187911622354');
     fbq('track', 'PageView');
   </script>

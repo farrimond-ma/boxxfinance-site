@@ -39,7 +39,7 @@ const About = () => {
 
                 <div className="director-cards">
                     <div className="director-card">
-                        <img src="/images/mark-higgins.webp" alt="Mark Higgins, Managing Partner at Boxx Finance" className="director-avatar-photo" />
+                        <img src="/images/mark-higgins.webp" alt="Mark Higgins, Managing Partner at Boxx Finance" className="director-avatar-photo" loading="lazy" />
                         <div className="director-info">
                             <h4>Mark Higgins</h4>
                             <p className="director-title">Managing Partner, Commercial Finance</p>
@@ -63,7 +63,7 @@ const About = () => {
                         </div>
                     </div>
                     <div className="director-card">
-                        <img src="/images/tara-jameson.webp" alt="Tara Jameson, Commercial Finance and Bridging Loans Specialist at Boxx Finance" className="director-avatar-photo" />
+                        <img src="/images/tara-jameson.webp" alt="Tara Jameson, Commercial Finance and Bridging Loans Specialist at Boxx Finance" className="director-avatar-photo" loading="lazy" />
                         <div className="director-info">
                             <h4>Tara Jameson</h4>
                             <p className="director-title">Commercial Finance and Bridging Loans Specialist</p>

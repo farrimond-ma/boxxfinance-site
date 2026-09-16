@@ -104,7 +104,7 @@ const ResourcePage = ({
 
                         {author && (
                             <div className="resource-author">
-                                <img src={author.image} alt={author.name} className="resource-author-photo" />
+                                <img src={author.image} alt={author.name} className="resource-author-photo" loading="lazy" />
                                 <div className="resource-author-info">
                                     <h3>{author.name}</h3>
                                     {author.title && <p className="resource-author-title">{author.title}</p>}
