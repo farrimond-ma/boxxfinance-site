@@ -93,7 +93,10 @@ const FundingSolutions = () => {
             {/* Same navy→property-image hero used across the site (ResourcePage.css). */}
             <div
                 className="resource-hero has-hero-image"
-                style={{ '--hero-image': 'url("/images/hero/bridging-5.webp")' }}
+                style={{
+                    '--hero-image': 'url("/images/hero/bridging-5.webp")',
+                    '--hero-image-mobile': 'url("/images/hero/bridging-5-800.webp")',
+                }}
             >
                 <div className="container resource-hero-grid">
                     <div className="resource-hero-text">

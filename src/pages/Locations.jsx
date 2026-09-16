@@ -119,7 +119,10 @@ const Locations = () => {
             {/* Same navy→property-image hero used across the site */}
             <div
                 className="resource-hero has-hero-image"
-                style={{ '--hero-image': `url("${pickHero('locations-hub')}")` }}
+                style={{
+                    '--hero-image': `url("${pickHero('locations-hub')}")`,
+                    '--hero-image-mobile': `url("${pickHero('locations-hub').replace(/\.webp$/i, '-800.webp')}")`,
+                }}
             >
                 <div className="container resource-hero-grid">
                     <div className="resource-hero-text">

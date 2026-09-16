@@ -29,7 +29,13 @@ export const ResourceHero = ({ eyebrow, title, description, heroImage, primaryCt
     return (
         <div
             className={`resource-hero${heroImage ? ' has-hero-image' : ''}`}
-            style={heroImage ? { '--hero-image': `url("${heroImage}")` } : undefined}
+            /* --hero-image-mobile is the 800px variant phones load (written by
+               scripts/optimise-heroes.js); the mobile CSS falls back to the
+               full image if one is missing. */
+            style={heroImage ? {
+                '--hero-image': `url("${heroImage}")`,
+                '--hero-image-mobile': `url("${heroImage.replace(/\.webp$/i, '-800.webp')}")`,
+            } : undefined}
         >
             <div className="container resource-hero-grid">
                 <div className="resource-hero-text">

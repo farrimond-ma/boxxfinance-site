@@ -102,7 +102,10 @@ const Blog = () => {
             {/* Same navy→property-image hero used across the site (ResourcePage.css). */}
             <div
                 className="resource-hero has-hero-image"
-                style={{ '--hero-image': `url("${HUB_HERO_IMG}")` }}
+                style={{
+                    '--hero-image': `url("${HUB_HERO_IMG}")`,
+                    '--hero-image-mobile': `url("${HUB_HERO_IMG.replace(/\.webp$/i, '-800.webp')}")`,
+                }}
             >
                 <div className="container resource-hero-grid">
                     <div className="resource-hero-text">

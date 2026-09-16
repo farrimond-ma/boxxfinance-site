@@ -71,7 +71,7 @@
                 rgba(1, 8, 22, 0.8) 30%,
                 var(--color-primary) 50%,
                 var(--color-primary) 100%),
-            var(--hero-image);
+            var(--hero-image-mobile, var(--hero-image));
         background-size: cover;
         background-position: top center;
         background-repeat: no-repeat;

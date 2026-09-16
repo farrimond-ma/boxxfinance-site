@@ -79,7 +79,10 @@ const Partners = () => {
                 hero scrim on this professional, broker-facing page. */}
             <div
                 className="resource-hero has-hero-image"
-                style={{ '--hero-image': 'url("/images/hero/bridging-5.webp")' }}
+                style={{
+                    '--hero-image': 'url("/images/hero/bridging-5.webp")',
+                    '--hero-image-mobile': 'url("/images/hero/bridging-5-800.webp")',
+                }}
             >
                 <div className="container resource-hero-grid">
                     <div className="resource-hero-text">

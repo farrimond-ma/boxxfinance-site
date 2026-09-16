@@ -174,7 +174,17 @@ async function renderRoute(browser, route, options = {}) {
 
   const heroMatch = html.match(/--hero-image:\s*url\(\s*(?:&quot;|["'])?([^"'&)]+)/);
   if (heroMatch && !html.includes('rel="preload" as="image"')) {
-    html = html.replace('</head>', `  <link rel="preload" as="image" href="${heroMatch[1]}">\n</head>`);
+    // Two preloads, matched to the CSS breakpoint (640px in ResourcePage.css):
+    // phones render --hero-image-mobile, so preloading the full 1400px hero
+    // there would fetch ~146KB the page never paints, on top of the 51KB it
+    // does. media= keeps each device to the one it will actually use.
+    const full = heroMatch[1];
+    const mobile = full.replace(/\.webp$/i, '-800.webp');
+    const tags = [
+      `<link rel="preload" as="image" href="${mobile}" media="(max-width: 640px)">`,
+      `<link rel="preload" as="image" href="${full}" media="(min-width: 641px)">`,
+    ].join('\n  ');
+    html = html.replace('</head>', `  ${tags}\n</head>`);
   }
 
   if (isArticleRoute) {

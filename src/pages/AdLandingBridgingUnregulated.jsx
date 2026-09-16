@@ -36,7 +36,10 @@ const AdLandingBridgingUnregulated = () => (
             </Link>
         </header>
 
-        <section className="adlp-hero has-hero-image" style={{ '--hero-image': 'url("/images/hero/bridging-5.webp")' }}>
+        <section className="adlp-hero has-hero-image" style={{
+            '--hero-image': 'url("/images/hero/bridging-5.webp")',
+            '--hero-image-mobile': 'url("/images/hero/bridging-5-800.webp")',
+        }}>
             <div className="adlp-hero-inner adlp-hero-single">
                 <div className="adlp-hero-copy">
                     <h1>Bridging Finance for <span className="text-highlight">Property Investors & Developers</span></h1>
