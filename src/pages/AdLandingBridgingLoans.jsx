@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import { AMOUNT_BANDS } from '../components/AmountBandSelect';
 import './AdLandingBridgingLoans.css';
 
 /**
@@ -149,7 +150,12 @@ const AdLandingBridgingLoans = () => {
                                 </label>
                                 <div className="adlp-field-row">
                                     <label>Amount needed
-                                        <input name="amount" placeholder="e.g. £250,000" value={form.amount} onChange={onChange} />
+                                        <select name="amount" value={form.amount} onChange={onChange}>
+                                            <option value="">Select amount...</option>
+                                            {AMOUNT_BANDS.map((b) => (
+                                                <option key={b.value} value={b.value}>{b.label}</option>
+                                            ))}
+                                        </select>
                                     </label>
                                     <label>When needed
                                         <input name="timing" placeholder="e.g. 2 weeks" value={form.timing} onChange={onChange} />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AMOUNT_BANDS } from './AmountBandSelect';
 import './Contact.css';
 
 const Contact = () => {
@@ -127,10 +128,12 @@ const Contact = () => {
 
                         <div className="form-group">
                             <label htmlFor="amount">How Much Do You Want to Borrow?</label>
-                            <div className="currency-input">
-                                <span>£</span>
-                                <input type="number" id="amount" name="amount" placeholder="50,000" min="1000" value={formData.amount} onChange={handleChange} />
-                            </div>
+                            <select id="amount" name="amount" value={formData.amount} onChange={handleChange}>
+                                <option value="">Select amount...</option>
+                                {AMOUNT_BANDS.map((b) => (
+                                    <option key={b.value} value={b.value}>{b.label}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <button type="submit" className="btn btn-primary" disabled={isSubmitting}>

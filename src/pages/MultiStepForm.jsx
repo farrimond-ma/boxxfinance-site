@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { serviceContent } from '../data/services';
+import AmountBandSelect from '../components/AmountBandSelect';
 import './MultiStepForm.css';
 
 // Helper component for currency input
@@ -281,12 +282,11 @@ const MultiStepForm = () => {
                                 All information is handled confidentially and reviewed by a funding specialist. We do not share details without your consent.
                             </p>
 
-                            <CurrencyInput
+                            <AmountBandSelect
                                 label="Loan amount required"
                                 name="amount"
                                 value={formData.amount}
                                 onChange={handleChange}
-                                placeholder="e.g. £ 250,000"
                             />
 
                             <div className="quiz-input-group">
@@ -364,12 +364,11 @@ const MultiStepForm = () => {
                                 </div>
                             )}
 
-                            <CurrencyInput
+                            <AmountBandSelect
                                 label="Approximate funding amount required"
                                 name="amount"
                                 value={formData.amount}
                                 onChange={handleChange}
-                                placeholder="e.g. £ 50,000"
                             />
 
                             <div className="quiz-input-group">

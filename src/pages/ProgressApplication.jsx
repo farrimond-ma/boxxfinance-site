@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SEO from '../components/SEO';
+import AmountBandSelect from '../components/AmountBandSelect';
 import './MultiStepForm.css';
 
 // Same Apps Script endpoint every other form on the site posts to.
@@ -335,7 +336,7 @@ const ProgressApplication = () => {
                             )}
 
                             <h3>Loan details</h3>
-                            <CurrencyInput label="Loan amount required" name="loanAmount" value={form.loanAmount} onChange={onChange} placeholder="e.g. £ 250,000" required />
+                            <AmountBandSelect label="Loan amount required" name="loanAmount" value={form.loanAmount} onChange={onChange} required />
                             <div className="quiz-input-group">
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Net or gross?</label>
                                 <div style={{ display: 'flex', gap: '2rem' }}>
