@@ -1,23 +1,15 @@
 name: Publish Location
 
+# 2026-09-16: schedule removed — Mark's call, "we have enough" location pages
+# (370 live). The daily cron had no queue left to work from, so it failed every
+# single day on publish-location.js's "published === 0" guard. A job that fails
+# daily is worse than no job: it trains everyone to ignore red runs, which is
+# how the indexing fault went unnoticed for four months.
+#
+# Manual runs still work. To restart the stream, seed rows first (Seed Content
+# Engine, monthly on the 1st) and add a cron back here — the five priority
+# towns in docs/secured-loan-cities-research.md sit at the front of the pool.
 on:
-  schedule:
-    # 8:09 AM UTC = 9:09 AM UK time (BST). Runs every day. (staggered off :00
-    # to dodge scheduler queueing.) Publishes ALL location pages due today or
-    # earlier, capped at MAX_PER_RUN, bridging only (SERVICE_FILTER below).
-    #
-    # 2026-09-03: was paused briefly after it was found to be running daily
-    # and reporting SUCCESS while creating nothing — every due row hit the
-    # "slug already exists" branch, so the loop finished with published === 0
-    # and still exited 0. publish-location.js now exits 1 on published === 0,
-    # so a green run means real output; re-enabled on that basis.
-    #
-    # Five priority towns (Dartford, Fleet, Sevenoaks, Stafford, Airdrie — see
-    # docs/secured-loan-cities-research.md) sit at the front of the seeder's
-    # city pool. They only reach the sheet once Seed Content Engine runs —
-    # its own cron is monthly (1st, 04:20 UTC), so run it manually if these
-    # five (or any new rows) are needed sooner than that.
-    - cron: '9 8 * * *'
   workflow_dispatch:
 
 permissions:

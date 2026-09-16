@@ -14,7 +14,12 @@ name: Publish Personal Finance News
 
 on:
   schedule:
-    - cron: '15 7,13,17 * * *'   # 3x/day: ~8:15am, ~2:15pm, ~6:15pm BST
+    # 2026-09-16: was 3x/day (~21 news pieces a week) against 3 articles a
+    # week, so news outnumbered the commercial content 7:1 — the opposite of
+    # what cutting the article cadence was meant to achieve, and news carries
+    # the least buying intent. Now 3x/week, matching the article rota, on days
+    # that have no article (articles: Mon + Thu bridging, Tue focus services).
+    - cron: '15 7 * * 3,5,0'   # Wed/Fri/Sun ~8:15am BST
   workflow_dispatch:
     inputs:
       mode:
