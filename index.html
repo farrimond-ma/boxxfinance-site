@@ -8,9 +8,20 @@
   <meta name="robots" content="max-image-preview:large" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Fredoka:wght@300..700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
+  <!-- Only the two families the site actually uses: Outfit (headings) and Inter
+       (body), per --font-heading / --font-body in src/index.css. Baloo 2 and
+       Fredoka were requested here and referenced nowhere.
+       Loaded non-blocking (preload + onload swap): a normal stylesheet link
+       here blocks the first paint on the network round trip to Google, which
+       PSI measured at ~1.5s on mobile. display=swap means text still paints
+       immediately in the fallback face. -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap">
+  </noscript>
   <!-- Per-page <title> is rendered by each route's SEO component (React 19 hoists it here) -->
 
   <!-- Meta Pixel Code -->

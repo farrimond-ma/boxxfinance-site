@@ -39,9 +39,12 @@
   <FilesMatch "\.(xml)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
-  # Moderate cache for images and fonts
+  # Images and fonts: 30 days. Was 7, which PSI counts as an inefficient cache
+  # lifetime (~206KiB of repeat-visit downloads). Not a year, because re-imaging
+  # replaces a file at the same path; heroForPost's ?v=<photo id> already
+  # defeats the cache when that happens, so 30 days is safe.
   <FilesMatch "\.(png|jpg|jpeg|gif|webp|svg|ico|woff|woff2|ttf)$">
-    Header set Cache-Control "public, max-age=604800"
+    Header set Cache-Control "public, max-age=2592000"
   </FilesMatch>
 
   # NOTE (2026-08-25): a SetEnvIf/Request_URI rule was tried here to force

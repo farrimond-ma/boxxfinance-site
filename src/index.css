@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+/* Fonts are requested once, from index.html. A CSS @import is only discovered
+   after this stylesheet downloads, so it chains a second render-blocking
+   request — PSI flagged ~1.5s of render-blocking on mobile. Baloo 2 was also
+   loaded here and is not used anywhere: headings are Outfit, body is Inter. */
 
 :root {
   /* Colors */
