@@ -40,7 +40,7 @@ on:
     # consolidating those and to links. Both streams kept: bridging Mon + Thu,
     # focus services Tue.
     - cron: '37 6 * * 1'   # Mon 07:37 UK (BST) — bridging
-    - cron: '37 6 * * 4'   # Thu 07:37 UK (BST) — bridging or development finance
+    - cron: '37 6 * * 4'   # Thu 07:37 UK (BST) — bridging
     - cron: '37 18 * * 2'  # Tue 19:37 UK (BST) — secured loans / bad credit / BTL refinance
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
     inputs:
@@ -92,19 +92,20 @@ jobs:
           # de-listed services (invoice finance and the rest), and an empty
           # filter means "publish anything", which would start producing them
           # again.
-          # Mon: bridging. Tue: the focus services. Thu: bridging OR development
-          # finance — added 2026-09-17 so the six queued development topics are
-          # not stuck behind the other focus services at one a week. While that
-          # queue drains, a Thursday may publish development finance instead of
-          # bridging; that is the intended trade, since bridging already has 168
-          # articles and development finance had 6.
+          # Mon and Thu: bridging. Tue: the focus services, development finance
+          # among them.
+          #
+          # Development finance was briefly added to Thursday (2026-09-17) to
+          # drain the six queued topics faster, then removed the same day:
+          # bridging is the business (it places easily and completes), while
+          # development finance is slower and likelier not to fund, so it must
+          # not take one of only two bridging slots. The six drain through
+          # Tuesday instead.
           SERVICE_FILTER: >-
             ${{ github.event.inputs.service_filter != ''
                 && github.event.inputs.service_filter
                 || (github.event.schedule == '37 18 * * 2'
                     && 'Secured Loans,Bad Credit Mortgages,Buy To Let Refinance,Second Charge Mortgages,Development Finance'
-                    || (github.event.schedule == '37 6 * * 4'
-                        && 'Bridging Finance,Development Finance'
-                        || 'Bridging Finance')) }}
+                    || 'Bridging Finance') }}
         run: node publish-blog.js
         working-directory: scripts/content-engine
