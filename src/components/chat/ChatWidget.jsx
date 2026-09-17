@@ -76,6 +76,15 @@ const ChatWidget = ({ isOpen, onClose, seed, onSeedConsumed }) => {
         const trimmed = text.trim();
         if (!trimmed || isTyping) return;
 
+        // Fires once per browser session, on the first message only — a real Meta standard event
+        // ("someone engaged in a contact/chat"), separate from the "Lead" event that only fires
+        // once details are actually captured. Lets Meta build Custom/Lookalike audiences from
+        // people who show this earlier-funnel interest, even if they never become a full lead.
+        if (messages.length === 0 && typeof window.fbq === 'function' && !sessionStorage.getItem('boxx_chat_contact_fired')) {
+            window.fbq('track', 'Contact');
+            sessionStorage.setItem('boxx_chat_contact_fired', '1');
+        }
+
         const nextMessages = [...messages, { role: 'user', content: trimmed }];
         setMessages(nextMessages);
         setInput('');
