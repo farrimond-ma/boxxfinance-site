@@ -76,6 +76,10 @@ const BookAppointment = () => {
             params.append('phone', form.phone);
             params.append('slot', selectedSlot.start);
             if (token) params.append('t', token);
+            // Only meaningful when this booking creates a fresh case — book_appointment_slot()
+            // ignores it when updating an existing one via the token above.
+            const landingPage = sessionStorage.getItem('boxx_landing_page');
+            if (landingPage) params.append('landing_page', landingPage);
             const res = await fetch(CRM_BOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

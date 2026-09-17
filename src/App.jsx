@@ -35,6 +35,16 @@ function App() {
     if (ref) sessionStorage.setItem('boxx_ref', ref.slice(0, 40));
   }, []);
 
+  // Capture the very first page of this session — full URL incl. query string, so any
+  // utm_*/gclid params a paid campaign attaches survive — and keep it for every form the visitor
+  // might eventually submit, however many pages they browse first. Guarded so a later hard
+  // refresh on some other page doesn't overwrite the true landing page with wherever they are now.
+  useEffect(() => {
+    if (!sessionStorage.getItem('boxx_landing_page')) {
+      sessionStorage.setItem('boxx_landing_page', window.location.href.slice(0, 500));
+    }
+  }, []);
+
   return (
     <>
       <ScrollToTop />

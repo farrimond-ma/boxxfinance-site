@@ -67,6 +67,9 @@ const ChatWidget = ({ isOpen, onClose, seed, onSeedConsumed }) => {
         url: typeof window !== 'undefined' ? window.location.href : '',
         title: typeof document !== 'undefined' ? document.title : '',
         category: inferPageCategory(location.pathname),
+        // First page of the session (see App.jsx) — distinct from `url` above, which is wherever
+        // the chat happens to be opened, not necessarily where the visitor actually landed.
+        landingPage: typeof window !== 'undefined' ? (sessionStorage.getItem('boxx_landing_page') || '') : '',
     };
 
     const sendMessage = async (text) => {

@@ -163,6 +163,8 @@ const MultiStepForm = () => {
                     crmParams.append('client_email', formData.email);
                     crmParams.append('client_phone', formData.phone);
                     crmParams.append('loan_amount_required', formData.amount);
+                    const landingPage = sessionStorage.getItem('boxx_landing_page');
+                    if (landingPage) crmParams.append('landing_page', landingPage);
                     const crmNotes = [
                         formData.purpose && `${isBridging ? 'How soon' : 'Purpose'}: ${formData.purpose}`,
                         referral && `Referral: ${referral}`,

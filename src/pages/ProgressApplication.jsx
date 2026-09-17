@@ -194,6 +194,10 @@ const ProgressApplication = () => {
                 crmParams.append('phone', form.phone);
                 crmParams.append('adverse_credit', form.hasAdverseCredit === 'yes' ? '1' : '0');
                 if (form.hasAdverseCredit === 'yes') crmParams.append('adverse_credit_details', form.adverseCreditDetails);
+                // Only sent on the "creates a new case" path — the token path below updates a
+                // case that already has its real landing page recorded from when it first came in.
+                const landingPage = sessionStorage.getItem('boxx_landing_page');
+                if (landingPage) crmParams.append('landing_page', landingPage);
                 Object.entries(buildCommonFields()).forEach(([k, v]) => crmParams.append(k, v));
                 fetch(CRM_INTAKE_URL, {
                     method: 'POST',

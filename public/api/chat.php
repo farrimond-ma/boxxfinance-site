@@ -298,6 +298,7 @@ function submitLeadToCrm($lead, $pageContext, $transcript, $config) {
         'lead_quality' => $lead['lead_quality'] ?? 'COLD',
         'chat_transcript' => trim($transcriptText),
         'page_url' => $pageContext['url'] ?? '',
+        'landing_page' => $pageContext['landingPage'] ?? '',
     ];
 
     $ch = curl_init($config['CRM_CHATBOT_URL']);
