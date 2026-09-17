@@ -493,8 +493,16 @@ async function action1_fixLowCTR(posts, lowCtrData, isDryRun) {
   const toFix = [];
   for (const entry of lowCtrData.slice(0, MAX_META_FIXES * 3)) {
     const queryWords = entry.query.toLowerCase().split(' ');
+    // noRegenerate means the copy is hand-written and deliberate — the same
+    // flag the thin-post regenerator honours. The lender review pages carry it,
+    // and they are exactly what this action would grab: they rank 4-12 on brand
+    // searches ("united trust bridging loans") where the searcher wants the
+    // lender's own site, so their CTR is near zero however good the title is.
+    // Their titles were rewritten by hand on 2026-09-17 to test whether an
+    // independent-view angle earns the click; an automated rewrite days later
+    // would destroy that test and the reasoning behind it.
     const match = posts.find(p =>
-      p.status === 'published' &&
+      p.status === 'published' && !p.noRegenerate &&
       queryWords.some(w => w.length > 4 && (p.slug.includes(w) || (p.keywords || '').toLowerCase().includes(w)))
     );
     if (match && !toFix.find(f => f.slug === match.slug)) {
