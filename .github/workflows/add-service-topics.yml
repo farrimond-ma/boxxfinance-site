@@ -39,6 +39,7 @@ on:
           - Bad Credit Mortgages
           - Buy To Let Refinance
           - Second Charge Mortgages
+          - Development Finance
       start:
         description: 'First publish date, YYYY-MM-DD (blank = tomorrow)'
         required: false
