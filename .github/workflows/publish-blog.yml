@@ -92,11 +92,19 @@ jobs:
           # de-listed services (invoice finance and the rest), and an empty
           # filter means "publish anything", which would start producing them
           # again.
+          # Mon: bridging. Tue: the focus services. Thu: bridging OR development
+          # finance — added 2026-09-17 so the six queued development topics are
+          # not stuck behind the other focus services at one a week. While that
+          # queue drains, a Thursday may publish development finance instead of
+          # bridging; that is the intended trade, since bridging already has 168
+          # articles and development finance had 6.
           SERVICE_FILTER: >-
             ${{ github.event.inputs.service_filter != ''
                 && github.event.inputs.service_filter
                 || (github.event.schedule == '37 18 * * 2'
                     && 'Secured Loans,Bad Credit Mortgages,Buy To Let Refinance,Second Charge Mortgages,Development Finance'
-                    || 'Bridging Finance') }}
+                    || (github.event.schedule == '37 6 * * 4'
+                        && 'Bridging Finance,Development Finance'
+                        || 'Bridging Finance')) }}
         run: node publish-blog.js
         working-directory: scripts/content-engine
