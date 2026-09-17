@@ -184,6 +184,42 @@
           "brief": "A further advance from the existing lender is usually the first thing homeowners try, and a decline there doesn't mean the borrowing isn't possible — it means one lender's underwriting said no. Cover the common reasons a further advance is declined (income assessment tightened since the original mortgage, the lender's own LTV cap, product simply not offered on that mortgage book) and why a second charge lender, assessing the new borrowing independently on its own criteria, will often approve where the existing lender wouldn't."
         }
       ]
+    },
+    {
+      "service": "Development Finance",
+      "serviceUrl": "/funding-solutions/development-finance",
+      "topics": [
+        {
+          "keyword": "commercial development finance",
+          "title": "Commercial Development Finance: How Lenders Price Offices, Retail and Industrial Schemes",
+          "brief": "Commercial schemes are underwritten differently from residential ones. Explain what changes: the lender looks at end value against a letting or investment sale rather than unit sales, so pre-lets, tenant covenant strength and lease length drive both the loan size and the rate. Cover typical loan to cost and loan to GDV thinking, why exit is the first question asked, and why an unlet speculative scheme prices higher than one with an agreement for lease. Explain the interest position plainly: interest is usually rolled up and repaid at exit, so cash flow during the build is not the issue people expect. No invented rates or LTVs. Close on when a broker adds value, which is finding the lenders comfortable with the specific asset type."
+        },
+        {
+          "keyword": "residential development finance",
+          "title": "Residential Development Finance: What Lenders Fund and What They Hold Back",
+          "brief": "A practical walk through how money is actually released on a residential scheme. Land or purchase tranche first, then staged drawdowns against a monitoring surveyor sign off as works complete, which is the part first time developers misjudge because they assume the full facility is available on day one. Explain retentions, why the surveyor visit governs cash flow, and what happens if a stage overruns. Cover the difference between experienced developer terms and first scheme terms, and what evidence of track record actually means. Be clear that exit is either unit sales or refinance onto a term product, and that lenders test the exit before the build."
+        },
+        {
+          "keyword": "land development finance",
+          "title": "Land Development Finance: Funding Plots With and Without Planning",
+          "brief": "Planning status is the dividing line. Explain why land without planning is funded at a much lower proportion of value and usually by a different set of lenders than land with detailed consent, and why outline consent sits between the two. Cover the practical route most buyers take: acquire with short term funding, secure or improve planning, then refinance onto development finance for the build. Explain planning gain as a strategy and its risk, which is that value uplift is not guaranteed and the exit must survive a refusal. Mention services charges and access as common valuation issues on bare plots. No invented figures."
+        },
+        {
+          "keyword": "development finance broker",
+          "title": "What a Development Finance Broker Actually Does, and When You Need One",
+          "brief": "Honest explanation of the role rather than a sales piece. A development lender is chosen for appetite, not headline rate: the right lender for a six unit residential scheme is rarely the right one for a barn conversion or an office to residential change of use. Explain what a broker does in practice, which is packaging the appraisal, matching the scheme to lenders whose criteria fit, and managing the monitoring surveyor and legal process so drawdowns are not delayed. Be straightforward about cost: brokers are usually paid by fee, lender commission or both, and the borrower should ask which. Say plainly when a developer does not need a broker, which is when they already have a funding line with a lender who knows their track record."
+        },
+        {
+          "keyword": "business loan for property development",
+          "title": "Business Loan or Development Finance for a Property Project?",
+          "brief": "Developers often ask for a business loan because it is the product they know. Explain why the two are structured differently: a business loan is repaid monthly from trading income and sized on affordability, while development finance is sized on the scheme, drawn in stages and repaid in one go at exit from sales or refinance. Work through where each genuinely fits, including the case for an unsecured business loan covering pre planning costs or a deposit gap on a small scheme. Cover the personal guarantee position on both. Be clear that using a monthly repayment product for a project with no income until completion is the mistake this article exists to prevent."
+        },
+        {
+          "keyword": "property development mortgages",
+          "title": "Property Development Mortgages: Why Most Projects Need Development Finance Instead",
+          "brief": "People search for a development mortgage and find the product does not really exist in the form they imagine. Explain why a standard mortgage cannot fund a build: it advances in full against current value and requires a habitable property, while a build needs staged money against rising value and a property that is not yet mortgageable. Set out what is actually used instead, which is development finance for the build then a term mortgage or buy to let product as the exit once the property is complete and has a certificate. Cover refurbishment as the borderline case where a heavier refurbishment product may serve. Explain the timing trap, which is arranging the exit too late."
+        }
+      ]
     }
   ]
 }
