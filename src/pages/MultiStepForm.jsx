@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { serviceContent } from '../data/services';
 import AmountBandSelect from '../components/AmountBandSelect';
+import { useChatWidget } from '../components/chat/ChatWidgetContext';
 import './MultiStepForm.css';
 
 // Helper component for currency input
@@ -42,6 +43,7 @@ const MultiStepForm = () => {
     // Bridging is a fast-capture form now — just enough to start a conversation (same idea as
     // the Facebook lead form), so it's a single step rather than the full 3-step wizard.
     const isBridging = slug === 'bridging-loans';
+    const { openChat } = useChatWidget();
     const [step, setStep] = useState(1);
     const totalSteps = isBridging ? 1 : 3;
     const [submitted, setSubmitted] = useState(false);
@@ -97,6 +99,15 @@ const MultiStepForm = () => {
         if (step > 1) setStep(step - 1);
     };
 
+    // Panel bridging lenders start at £50,000 (see the spec block on
+    // /funding-solutions/bridging-loans), so this band is below criteria rather
+    // than simply small: there is no lender to place it with. These enquiries
+    // still reach the Sheet, but they are not pushed into the CRM callback
+    // queue and are handed to the assistant, which can cover the alternatives
+    // (a secured loan or second charge) without occupying a specialist.
+    const BELOW_MINIMUM_BAND = '0-49,999';
+    const isBelowMinimum = isBridging && formData.amount === BELOW_MINIMUM_BAND;
+
     const handleSubmit = async () => {
         setIsSubmitting(true);
         setSubmitError(null);
@@ -128,7 +139,9 @@ const MultiStepForm = () => {
 
                 // Bridging is now just amount + "how soon" (formData.purpose covers both,
                 // labelled dynamically below) — same shape as the Facebook lead form.
-                params.append('funding_purpose', formData.purpose || '');
+                params.append('funding_purpose', isBelowMinimum
+                    ? [formData.purpose, 'Below £50,000 bridging minimum — routed to the assistant, not sent to CRM'].filter(Boolean).join(' | ')
+                    : (formData.purpose || ''));
                 if (!isBridging) params.append('preferred_contact', formData.preferredContact);
 
                 // Referral attribution: a partner's ?ref=CODE is stashed in
@@ -155,7 +168,7 @@ const MultiStepForm = () => {
                 // both the dedicated bridging-loans landing page (isBridging) and the generic
                 // multi-step form where someone picks "Bridging Loans" from the funding-type
                 // dropdown themselves — previously only the first path ever reached the CRM.
-                const isBridgingLead = isBridging || formData.fundingType === 'Bridging Loans';
+                const isBridgingLead = (isBridging || formData.fundingType === 'Bridging Loans') && !isBelowMinimum;
                 if (isBridgingLead) {
                     const crmParams = new URLSearchParams();
                     crmParams.append('intake_key', CRM_INTAKE_KEY);
@@ -179,7 +192,10 @@ const MultiStepForm = () => {
                 }
             }
 
-            if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
+            // Not a Lead when it is below the lending minimum: Meta optimises
+            // delivery towards whatever is reported as a Lead, so counting
+            // enquiries we cannot place would buy more of exactly those.
+            if (!isBelowMinimum && typeof window.fbq === 'function') window.fbq('track', 'Lead');
             setSubmitted(true);
             window.scrollTo(0, 0);
         } catch (error) {
@@ -191,6 +207,36 @@ const MultiStepForm = () => {
     };
 
     const progressPercentage = ((step - 1) / totalSteps) * 100;
+
+    // Below the £50,000 bridging minimum: say so plainly rather than promising a
+    // callback that is not coming, and hand them to the assistant.
+    if (submitted && isBelowMinimum) {
+        return (
+            <div className="multi-step-page">
+                <SEO title="Enquiry Received" description="Your enquiry has been received by Boxx Finance." type="article" noIndex={true} />
+                <div className="service-hero">
+                    <div className="container">
+                        <h1>We Can&rsquo;t Place a <span className="text-highlight">Bridging Loan</span> This Size</h1>
+                        <p>Bridging lenders on our panel start at £50,000, so a smaller bridging loan is not something we can arrange. That does not mean there is no route open to you.</p>
+                    </div>
+                </div>
+                <div className="container service-layout single-column">
+                    <div className="multi-step-container" style={{ textAlign: 'center' }}>
+                        <h2 className="step-title">What might work instead</h2>
+                        <p style={{ maxWidth: '600px', margin: '1rem auto 2rem', lineHeight: 1.6 }}>
+                            A secured loan or a second charge against a property you already own can often cover smaller amounts,
+                            and both are things we do arrange. Our assistant can talk through which fits, straight away.
+                        </p>
+                        <button type="button" className="btn btn-primary" onClick={openChat}>Ask the assistant</button>
+                        <p style={{ marginTop: '1.5rem', fontSize: '0.9rem', color: '#666' }}>
+                            Prefer to read first? See <Link to="/funding-solutions/secured-loans">secured loans</Link> or{' '}
+                            <Link to="/funding-solutions/second-charge-mortgages">second charge mortgages</Link>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     if (submitted) {
         return (
@@ -290,6 +336,18 @@ const MultiStepForm = () => {
                                 value={formData.amount}
                                 onChange={handleChange}
                             />
+
+                            {isBelowMinimum && (
+                                <div className="quiz-input-group" style={{ background: '#fff8e6', border: '1px solid #f0d488', borderRadius: '8px', padding: '1rem', marginBottom: '1.5rem' }}>
+                                    <p style={{ margin: '0 0 0.75rem', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                                        Bridging lenders on our panel start at <strong>£50,000</strong>, so we cannot place a loan below that.
+                                        A secured loan or second charge may suit instead — our assistant can tell you in a couple of minutes.
+                                    </p>
+                                    <button type="button" className="btn btn-primary" onClick={openChat} style={{ fontSize: '0.9rem' }}>
+                                        Ask the assistant
+                                    </button>
+                                </div>
+                            )}
 
                             <div className="quiz-input-group">
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>How soon is the loan needed?</label>
