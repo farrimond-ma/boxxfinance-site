@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AMOUNT_BANDS } from './AmountBandSelect';
+import { useChatWidget } from './chat/ChatWidgetContext';
 import './Contact.css';
 
 const Contact = () => {
@@ -14,6 +16,15 @@ const Contact = () => {
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwF7_EU1ekXaviBoRU_Xay1P4uzAhIm7t_Ded9j73jh9B_fpObwNdspWtSji8YLrpHFag/exec';
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [belowMinimumSent, setBelowMinimumSent] = useState(false);
+    const { openChat } = useChatWidget();
+
+    // Panel bridging lenders start at £50,000, so this combination is below
+    // criteria — there is no lender to place it with. Bridging only: the other
+    // options here (asset finance, invoice finance and the rest) have no such
+    // floor. Same handling as the enquiry form: recorded, but not treated as a
+    // lead and not promised a callback.
+    const isBelowMinimum = formData.interest === 'Bridging Loan' && formData.amount === '0-49,999';
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,7 +42,9 @@ const Contact = () => {
             params.append('phone', formData.phone);
             params.append('funding_type', formData.interest);
             params.append('funding_amount', formData.amount);
-            params.append('additional_info', 'Submitted via Contact Form');
+            params.append('additional_info', isBelowMinimum
+                ? 'Submitted via Contact Form | Below £50,000 bridging minimum — routed to the assistant'
+                : 'Submitted via Contact Form');
 
             await fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
@@ -42,8 +55,11 @@ const Contact = () => {
                 body: params.toString()
             });
 
-            if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
-            alert('Thank you for your enquiry. We will be in touch shortly.');
+            // Not a Lead below the lending minimum: Meta optimises towards
+            // whatever is reported as one, so it would buy more of these.
+            if (!isBelowMinimum && typeof window.fbq === 'function') window.fbq('track', 'Lead');
+            if (isBelowMinimum) setBelowMinimumSent(true);
+            else alert('Thank you for your enquiry. We will be in touch shortly.');
             setFormData({
                 name: '',
                 email: '',
@@ -97,6 +113,20 @@ const Contact = () => {
                         </div>
                     </div>
 
+                    {belowMinimumSent ? (
+                        <div className="contact-form" style={{ background: '#fff8e6', border: '1px solid #f0d488', borderRadius: '8px', padding: '1.5rem' }}>
+                            <h3 style={{ marginTop: 0 }}>We can&rsquo;t place a bridging loan that size</h3>
+                            <p style={{ lineHeight: 1.6 }}>
+                                Bridging lenders on our panel start at £50,000. A secured loan or a second charge against a property
+                                you already own can often cover smaller amounts, and both are things we do arrange.
+                            </p>
+                            <button type="button" className="btn btn-primary" onClick={openChat}>Ask the assistant</button>
+                            <p style={{ marginTop: '1rem', fontSize: '0.9rem' }}>
+                                Or read about <Link to="/funding-solutions/secured-loans">secured loans</Link> and{' '}
+                                <Link to="/funding-solutions/second-charge-mortgages">second charge mortgages</Link>.
+                            </p>
+                        </div>
+                    ) : (
                     <form className="contact-form" onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label htmlFor="name">Full Name</label>
@@ -136,10 +166,23 @@ const Contact = () => {
                             </select>
                         </div>
 
+                        {isBelowMinimum && (
+                            <div className="form-group" style={{ background: '#fff8e6', border: '1px solid #f0d488', borderRadius: '8px', padding: '1rem' }}>
+                                <p style={{ margin: '0 0 0.75rem', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                                    Bridging lenders on our panel start at <strong>£50,000</strong>. A secured loan or second charge
+                                    may suit instead &mdash; our assistant can tell you in a couple of minutes.
+                                </p>
+                                <button type="button" className="btn btn-primary" onClick={openChat} style={{ fontSize: '0.9rem' }}>
+                                    Ask the assistant
+                                </button>
+                            </div>
+                        )}
+
                         <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
                             {isSubmitting ? 'Sending...' : 'Start Your Funding Conversation'}
                         </button>
                     </form>
+                    )}
                 </div>
             </div>
         </section>
