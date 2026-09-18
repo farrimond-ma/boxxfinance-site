@@ -219,6 +219,10 @@ exit;
 // ─── Deliver the lead to the same Sheet every other form uses ────────────
 function submitLead($lead, $pageContext, $googleScriptUrl) {
     $summaryParts = [];
+    // First, so the team sees when to call before anything else.
+    if (!empty($lead['callback_time'])) {
+        $summaryParts[] = 'CALLBACK REQUESTED: ' . $lead['callback_time'];
+    }
     foreach ([
         'purpose', 'property_type', 'property_location', 'property_value',
         'purchase_price', 'loan_required', 'existing_mortgage', 'ltv_estimate',
@@ -301,7 +305,9 @@ function submitLeadToCrm($lead, $pageContext, $transcript, $config) {
         'required_completion_date' => $lead['required_completion_date'] ?? '',
         'term_required' => $lead['term_required'] ?? '',
         'borrower_type' => $lead['borrower_type'] ?? '',
-        'additional_information' => $lead['additional_information'] ?? '',
+        'callback_time' => $lead['callback_time'] ?? '',
+        // Also prefixed here so it's visible even where the CRM doesn't map callback_time.
+        'additional_information' => trim((!empty($lead['callback_time']) ? 'CALLBACK REQUESTED: ' . $lead['callback_time'] . '. ' : '') . ($lead['additional_information'] ?? '')),
         'conversation_summary' => $lead['conversation_summary'] ?? '',
         'lead_quality' => $lead['lead_quality'] ?? 'COLD',
         'chat_transcript' => trim($transcriptText),
