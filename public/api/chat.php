@@ -177,9 +177,12 @@ if (preg_match('/<reply>(.*?)<\/reply>/s', $modelText, $m)) {
 // House style: no em or en dashes in anything the visitor sees. The prompt asks for this,
 // but the model still slips, so enforce it here. Numeric ranges become "to" ("65 to 70%"),
 // any other dash becomes a comma, then tidy any doubled punctuation that leaves behind.
-$reply = preg_replace('/(\d[kKmM%]?)\s*[\x{2013}\x{2014}]\s*(£?\d)/u', '$1 to $2', $reply);
+// A hyphen with spaces round it is the same dash in disguise, so it's treated the same; a
+// hyphen at the start of a line is a list bullet and is left alone.
+$reply = preg_replace('/(\d[kKmM%]?)\s*(?:[\x{2013}\x{2014}]|[ \t]-[ \t])\s*(£?\d)/u', '$1 to $2', $reply);
 $reply = preg_replace('/^[ \t]*[\x{2013}\x{2014}][ \t]*/mu', '- ', $reply);
 $reply = preg_replace('/[ \t]*[\x{2013}\x{2014}][ \t]*/u', ', ', $reply);
+$reply = preg_replace('/(?<=\S)[ \t]+-[ \t]+(?=\S)/u', ', ', $reply);
 $reply = preg_replace('/,\s*([.,;:!?])/u', '$1', $reply);
 
 $leadData = null;
