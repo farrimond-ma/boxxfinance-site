@@ -41,18 +41,52 @@ const SPLITS = [
 // rendered with blank questions for eight days — nothing failed, so nothing
 // noticed. Normalising here means a bad shape in the source data can never
 // reach a page again, whichever script or hand edit produced it.
+// Recover FAQs from the article body when the schema list is empty. The page strips
+// the body FAQ section and renders the accordion from the schema, so an empty list
+// means no FAQs visible at all. Handles <p><strong>Q</strong><br>A</p> and <h3>Q</h3><p>A</p>.
+const stripTags = (s) => s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+function faqsFromBody(html) {
+  const start = String(html || '').search(/<h2[^>]*>[^<]*(FAQ|Frequently Asked)/i);
+  if (start < 0) return [];
+  let section = html.slice(start).replace(/^<h2[^>]*>.*?<\/h2>/i, '');
+  const next = section.search(/<h2[\s>]/i);
+  if (next >= 0) section = section.slice(0, next);
+  const out = [];
+  for (const m of section.matchAll(/<p>\s*<strong>([\s\S]*?)<\/strong>\s*(?:<br\s*\/?>)?([\s\S]*?)<\/p>/gi)) {
+    out.push({ q: stripTags(m[1]), a: stripTags(m[2]) });
+  }
+  if (!out.length) {
+    for (const m of section.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/gi)) {
+      out.push({ q: stripTags(m[1]), a: stripTags(m[2]) });
+    }
+  }
+  return out.filter((f) => f.q.endsWith('?') && f.a);
+}
+
 function normaliseFaqSchema(item) {
-  const schema = item.schema || item.faqSchema;
-  if (!schema || !Array.isArray(schema.mainEntity)) return item;
-  const mainEntity = schema.mainEntity
+  const key = item.schema ? 'schema' : item.faqSchema ? 'faqSchema' : null;
+  if (!key) return item;
+  const schema = item[key];
+  if (!Array.isArray(schema.mainEntity)) return item;
+  let mainEntity = schema.mainEntity
     .map((q) => ({
       '@type': 'Question',
       name: q.name || q.question || '',
       acceptedAnswer: { '@type': 'Answer', text: (q.acceptedAnswer && q.acceptedAnswer.text) || q.answer || '' },
     }))
     .filter((q) => q.name && q.acceptedAnswer.text);
-  const fixed = { ...schema, '@type': schema['@type'] || 'FAQPage', mainEntity };
-  return item.schema ? { ...item, schema: fixed } : { ...item, faqSchema: fixed };
+  if (!mainEntity.length) {
+    mainEntity = faqsFromBody(item.content).map((f) => ({
+      '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a },
+    }));
+  }
+  // No FAQs anywhere: drop the schema rather than publish an empty FAQPage.
+  if (!mainEntity.length) {
+    const { [key]: _drop, ...rest } = item;
+    return rest;
+  }
+  // mainEntity of Questions is only valid on an FAQPage; repair corrupted @type values.
+  return { ...item, [key]: { ...schema, '@type': 'FAQPage', mainEntity } };
 }
 
 for (const { source, index, contentDir, heavyFields } of SPLITS) {
