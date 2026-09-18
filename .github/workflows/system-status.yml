@@ -86,12 +86,12 @@ jobs:
           curl --silent --show-error --fail \
             -T scripts/content-engine/status-out/system-status.json \
             --user "${FTP_USERNAME}:${FTP_PASSWORD}" \
-            "ftp://${FTP_HOSTNAME}/boxxfinance.co.uk/public_html/system-status.json"
+            "ftp://${FTP_HOSTNAME}/public_html/system-status.json"
           echo "Uploaded system-status.json"
           curl --silent --show-error --fail \
             -T scripts/content-engine/status-out/content-engine-status.json \
             --user "${FTP_USERNAME}:${FTP_PASSWORD}" \
-            "ftp://${FTP_HOSTNAME}/boxxfinance.co.uk/public_html/content-engine-status.json"
+            "ftp://${FTP_HOSTNAME}/public_html/content-engine-status.json"
           echo "Uploaded content-engine-status.json"
 
       - name: Post summary
