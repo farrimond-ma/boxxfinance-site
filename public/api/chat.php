@@ -78,7 +78,7 @@ function rateLimitOk($ip) {
 $clientIp = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown';
 if (!rateLimitOk($clientIp)) {
     http_response_code(429);
-    echo json_encode(['error' => 'Too many messages — please try again shortly, or call ' . $config['PHONE_NUMBER'] . '.']);
+    echo json_encode(['error' => 'Too many messages. Please try again shortly, or call ' . $config['PHONE_NUMBER'] . '.']);
     exit;
 }
 
@@ -146,7 +146,7 @@ curl_close($ch);
 
 if ($curlError || $httpCode !== 200) {
     http_response_code(502);
-    echo json_encode(['error' => 'Chat is temporarily unavailable — please call ' . $config['PHONE_NUMBER'] . ' instead.']);
+    echo json_encode(['error' => 'Chat is temporarily unavailable. Please call ' . $config['PHONE_NUMBER'] . ' instead.']);
     exit;
 }
 
@@ -173,6 +173,14 @@ if (preg_match('/<reply>(.*?)<\/reply>/s', $modelText, $m)) {
     $fallback = trim($fallback);
     $reply = $fallback !== '' ? $fallback : "Sorry, could you rephrase that?";
 }
+
+// House style: no em or en dashes in anything the visitor sees. The prompt asks for this,
+// but the model still slips, so enforce it here. Numeric ranges become "to" ("65 to 70%"),
+// any other dash becomes a comma, then tidy any doubled punctuation that leaves behind.
+$reply = preg_replace('/(\d[kKmM%]?)\s*[\x{2013}\x{2014}]\s*(£?\d)/u', '$1 to $2', $reply);
+$reply = preg_replace('/^[ \t]*[\x{2013}\x{2014}][ \t]*/mu', '- ', $reply);
+$reply = preg_replace('/[ \t]*[\x{2013}\x{2014}][ \t]*/u', ', ', $reply);
+$reply = preg_replace('/,\s*([.,;:!?])/u', '$1', $reply);
 
 $leadData = null;
 if (preg_match('/<lead_data>(.*?)<\/lead_data>/s', $modelText, $m)) {

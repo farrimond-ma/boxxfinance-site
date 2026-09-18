@@ -20,6 +20,15 @@ function inferPageCategory(pathname) {
     return 'general site page';
 }
 
+// Pacing so replies feel typed by a person rather than instant. The dots appear after a short
+// "reading" pause, and a reply is held until a length-based minimum has passed. Time the API
+// already took counts towards that minimum, so slow responses get little or no extra wait.
+const READ_DELAY_MS = 600;
+const TYPE_BASE_MS = 900;
+const TYPE_PER_CHAR_MS = 10;
+const TYPE_MAX_MS = 4500;
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 function TypingIndicator() {
     return (
         <div className="chat-bubble chat-bubble-assistant chat-typing" aria-label="Typing">
@@ -32,7 +41,8 @@ const ChatWidget = ({ isOpen, onClose, seed, onSeedConsumed }) => {
     const location = useLocation();
     const [messages, setMessages] = useState([]); // {role: 'user'|'assistant', content}
     const [input, setInput] = useState('');
-    const [isTyping, setIsTyping] = useState(false);
+    const [isTyping, setIsTyping] = useState(false); // request in flight; locks the input
+    const [showDots, setShowDots] = useState(false); // typing indicator, after the read pause
     const [leadCaptured, setLeadCaptured] = useState(false);
     const [error, setError] = useState('');
     const listRef = useRef(null);
@@ -50,8 +60,8 @@ const ChatWidget = ({ isOpen, onClose, seed, onSeedConsumed }) => {
     useEffect(() => {
         if (!isOpen || !seed || messages.length > 0) return;
         const opener = seed.name
-            ? `Hi, I'm ${seed.name}. I got a text asking if I still want a bridging loan — ${seed.answer === 'no' ? "no, I don't need one anymore." : 'yes, I still do.'}`
-            : `I got a text asking if I still want a bridging loan — ${seed.answer === 'no' ? "no, I don't need one anymore." : 'yes, I still do.'}`;
+            ? `Hi, I'm ${seed.name}. I got a text asking if I still want a bridging loan: ${seed.answer === 'no' ? "no, I don't need one anymore." : 'yes, I still do.'}`
+            : `I got a text asking if I still want a bridging loan: ${seed.answer === 'no' ? "no, I don't need one anymore." : 'yes, I still do.'}`;
         sendMessage(opener);
         onSeedConsumed?.();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,7 +71,7 @@ const ChatWidget = ({ isOpen, onClose, seed, onSeedConsumed }) => {
         if (listRef.current) {
             listRef.current.scrollTop = listRef.current.scrollHeight;
         }
-    }, [messages, isTyping]);
+    }, [messages, showDots]);
 
     const pageContext = {
         url: typeof window !== 'undefined' ? window.location.href : '',
@@ -90,6 +100,8 @@ const ChatWidget = ({ isOpen, onClose, seed, onSeedConsumed }) => {
         setInput('');
         setIsTyping(true);
         setError('');
+        const startedAt = Date.now();
+        const dotsTimer = setTimeout(() => setShowDots(true), READ_DELAY_MS);
 
         try {
             const res = await fetch('/api/chat.php', {
@@ -100,16 +112,21 @@ const ChatWidget = ({ isOpen, onClose, seed, onSeedConsumed }) => {
             const data = await res.json();
 
             if (!res.ok) {
-                setError(data.error || `Something went wrong — you can also call us on ${PHONE_DISPLAY}.`);
-                setIsTyping(false);
+                setError(data.error || `Something went wrong. You can also call us on ${PHONE_DISPLAY}.`);
                 return;
             }
+
+            const typingMs = Math.min(TYPE_BASE_MS + String(data.reply || '').length * TYPE_PER_CHAR_MS, TYPE_MAX_MS);
+            const remaining = READ_DELAY_MS + typingMs - (Date.now() - startedAt);
+            if (remaining > 0) await sleep(remaining);
 
             setMessages((prev) => [...prev, { role: 'assistant', content: data.reply }]);
             if (data.leadCaptured) setLeadCaptured(true);
         } catch {
-            setError(`Chat is having trouble connecting — you can call us directly on ${PHONE_DISPLAY}.`);
+            setError(`Chat is having trouble connecting. You can call us directly on ${PHONE_DISPLAY}.`);
         } finally {
+            clearTimeout(dotsTimer);
+            setShowDots(false);
             setIsTyping(false);
         }
     };
@@ -166,11 +183,11 @@ const ChatWidget = ({ isOpen, onClose, seed, onSeedConsumed }) => {
                     </div>
                 ))}
 
-                {isTyping && <TypingIndicator />}
+                {showDots && <TypingIndicator />}
 
                 {leadCaptured && (
                     <div className="chat-lead-confirmation">
-                        Thanks — a member of the team will be in touch shortly. You can keep chatting or call {PHONE_DISPLAY} any time.
+                        Thanks, a member of the team will be in touch shortly. You can keep chatting or call {PHONE_DISPLAY} any time.
                     </div>
                 )}
 
