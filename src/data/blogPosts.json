@@ -1886,36 +1886,47 @@
     "schema": {
       "mainEntity": [
         {
-          "question": "How does invoice finance work?",
+          "@type": "Question",
+          "name": "How does invoice finance work?",
           "acceptedAnswer": {
+            "@type": "Answer",
             "text": "Invoice finance allows businesses to borrow against outstanding invoices. The provider advances a percentage of the invoice total, improving cash flow. Once the customer pays, the remaining balance minus fees is returned."
           }
         },
         {
-          "question": "Is invoice finance suitable for all businesses?",
+          "@type": "Question",
+          "name": "Is invoice finance suitable for all businesses?",
           "acceptedAnswer": {
+            "@type": "Answer",
             "text": "Not every business benefits equally from invoice finance. It's most suitable for companies with slow-paying clients or those looking to improve immediate cash flow without incurring debt."
           }
         },
         {
-          "question": "How much does invoice finance cost?",
+          "@type": "Question",
+          "name": "How much does invoice finance cost?",
           "acceptedAnswer": {
+            "@type": "Answer",
             "text": "Costs vary but typically range from 1% to 3% of the invoice value per month. Factors include the number of invoices, industry, and risk assessment of the clients involved."
           }
         },
         {
-          "question": "What are the risks of invoice finance?",
+          "@type": "Question",
+          "name": "What are the risks of invoice finance?",
           "acceptedAnswer": {
+            "@type": "Answer",
             "text": "Risks include contractual obligations and potential impacts on client relationships. Mismanagement of the borrowed funds can lead to financial strain if invoices remain unpaid."
           }
         },
         {
-          "question": "Can invoice finance improve business growth?",
+          "@type": "Question",
+          "name": "Can invoice finance improve business growth?",
           "acceptedAnswer": {
+            "@type": "Answer",
             "text": "Yes, by providing immediate cash flow, businesses can reinvest in staff, equipment, or other growth opportunities. This funding model supports expansion without taking on traditional debt."
           }
         }
-      ]
+      ],
+      "@type": "FAQPage"
     },
     "relatedLocationUrls": [
       "https://boxxfinance.co.uk/locations/invoice-finance-bristol",
@@ -3794,35 +3805,40 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Who are the biggest bridging loan lenders in the UK?",
+          "@type": "Question",
+          "name": "Who are the biggest bridging loan lenders in the UK?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "The specialist bridging market includes non-bank lenders such as LendInvest, MT Finance, Together, West One Loans and Octopus Real Estate, alongside specialist banks such as Shawbrook Bank and United Trust Bank. Market share shifts regularly as lenders adjust criteria and pricing."
           }
         },
         {
-          "question": "Is it better to use a broker or go direct to a bridging lender?",
+          "@type": "Question",
+          "name": "Is it better to use a broker or go direct to a bridging lender?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Most specialist bridging lenders are intermediary-only or strongly intermediary-led, meaning a broker typically has access to pricing and underwriter relationships a direct applicant does not. A broker also compares your case against the whole panel rather than one lender's single set of criteria."
           }
         },
         {
-          "question": "Do all bridging lenders check credit history?",
+          "@type": "Question",
+          "name": "Do all bridging lenders check credit history?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No. Some lenders, including MT Finance and West One Loans, do not credit-score bridging applications and focus underwriting on the security and exit strategy instead. Others price more conservatively for adverse credit or decline it outright. This varies enough between lenders that credit history should be disclosed upfront rather than assumed to be disqualifying."
           }
         },
         {
-          "question": "What is the typical minimum bridging loan amount?",
+          "@type": "Question",
+          "name": "What is the typical minimum bridging loan amount?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Most specialist lenders set a minimum around £50,000-£75,000, though this varies by lender and, for some, by borrower type - several lenders set a materially higher minimum for limited company, SPV or trust borrowers than for individuals."
           }
         },
         {
-          "question": "Do bridging lenders use automated valuations (AVMs) instead of a full survey?",
+          "@type": "Question",
+          "name": "Do bridging lenders use automated valuations (AVMs) instead of a full survey?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Some do, for straightforward residential cases up to a set loan-to-value and property value - this can meaningfully speed up completion. Unusual property types, higher-value cases, or anything outside standard criteria will still need a full physical valuation."
@@ -4227,32 +4243,42 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What is a bridging loan and how does it work?",
+          "@type": "Question",
+          "name": "What is a bridging loan and how does it work?",
           "acceptedAnswer": {
+            "@type": "Answer",
             "text": "A bridging loan is a short-term finance option designed to bridge a gap between buying and selling properties. It provides quick funds to secure a property while longer-term financing is arranged."
           }
         },
         {
-          "question": "Who can benefit from fast bridging loans?",
+          "@type": "Question",
+          "name": "Who can benefit from fast bridging loans?",
           "acceptedAnswer": {
+            "@type": "Answer",
             "text": "Fast bridging loans are ideal for property developers, investors, and businesses needing rapid financing for property purchases, chain breaks, or auction buys."
           }
         },
         {
-          "question": "How quickly can a bridging loan be arranged?",
+          "@type": "Question",
+          "name": "How quickly can a bridging loan be arranged?",
           "acceptedAnswer": {
+            "@type": "Answer",
             "text": "Most fast bridging loans can be arranged within 1-2 weeks, with some lenders able to provide funds in as little as 48 hours, depending on the complexity of the case."
           }
         },
         {
-          "question": "What are the typical use cases for a bridging loan?",
+          "@type": "Question",
+          "name": "What are the typical use cases for a bridging loan?",
           "acceptedAnswer": {
+            "@type": "Answer",
             "text": "Bridging loans are commonly used for property purchases at auctions, chain breaks, refurbishments, or to prevent a property sale from falling through due to delays in traditional finance."
           }
         },
         {
-          "question": "How much can I borrow with a fast bridging loan?",
+          "@type": "Question",
+          "name": "How much can I borrow with a fast bridging loan?",
           "acceptedAnswer": {
+            "@type": "Answer",
             "text": "The amount you can borrow depends on the property's value and your ability to provide security. Typically, borrowing ranges from £25,000 to £10 million or more."
           }
         }
@@ -5120,28 +5146,32 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What is a bridging loan without full valuation?",
+          "@type": "Question",
+          "name": "What is a bridging loan without full valuation?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "It's a type of short-term finance enabling rapid property purchase or refurbishment, ideal when immediate funding is needed and full valuation isn't feasible."
           }
         },
         {
-          "question": "Who can benefit from these loans?",
+          "@type": "Question",
+          "name": "Who can benefit from these loans?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Property developers, investors, and residential buyers who require quick access to funds for time-sensitive opportunities can benefit the most."
           }
         },
         {
-          "question": "Are there risks to consider?",
+          "@type": "Question",
+          "name": "Are there risks to consider?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, like any financial product, potential downsides include high-interest rates and lender fees. Professional advice is essential to mitigate risks."
           }
         },
         {
-          "question": "How quickly can funds be accessed?",
+          "@type": "Question",
+          "name": "How quickly can funds be accessed?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Funds can often be accessed within days, a critical advantage over traditional bank loans which may take weeks or longer."
@@ -5187,28 +5217,32 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What is a property chain?",
+          "@type": "Question",
+          "name": "What is a property chain?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "A property chain is a sequence of linked property sales, each dependent on the preceding and succeeding sales being completed. The entire chain can sometimes break if one transaction falters."
           }
         },
         {
-          "question": "How does bridging finance help with property chains?",
+          "@type": "Question",
+          "name": "How does bridging finance help with property chains?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Bridging finance provides short-term funding to cover the gap until the sale of your existing property, allowing you to proceed with a purchase without delay in a chain situation."
           }
         },
         {
-          "question": "What is LTV in bridging finance?",
+          "@type": "Question",
+          "name": "What is LTV in bridging finance?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "LTV, or Loan to Value, represents the ratio of the loan to the value of the property. In bridging finance, this is often 70-75%, though it can vary by lender."
           }
         },
         {
-          "question": "Can developers use bridging finance?",
+          "@type": "Question",
+          "name": "Can developers use bridging finance?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, developers frequently use bridging finance for various purposes, such as funding the initial stages of development, refurbishment projects, or smooth transitions during property sales."
@@ -14849,10 +14883,10 @@
       "@type": " FAQPage",
       "mainEntity": [
         {
-          "@type": " Q uestion",
+          "@type": "Question",
           "name": "placeholder",
           "acceptedAnswer": {
-            "@type": "An swer",
+            "@type": "Answer",
             "text": "placeholder"
           }
         }
@@ -15135,10 +15169,10 @@
       "@type": " FAQ Page",
       "mainEntity": [
         {
-          "@type": " Question",
+          "@type": "Question",
           "name": " Is a bridging loan the right way to break a property chain?",
           "acceptedAnswer": {
-            "@type": " Answer",
+            "@type": "Answer",
             "text": " A bridging loan is usually the right tool when you have a genuine, evidenced exit such as a sale under offer or a refinance in progress, because lenders price and structure the loan around that exit. It is the wrong tool if you have no realistic route to repay within the agreed term."
           }
         }
@@ -16507,10 +16541,10 @@
       "@type": " F A Q P a g e",
       "mainEntity": [
         {
-          "@type": " Question",
+          "@type": "Question",
           "name": "eventually",
           "acceptedAnswer": {
-            "@type": " Answer",
+            "@type": "Answer",
             "text": "placeholder"
           }
         }
@@ -19028,35 +19062,40 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What is the minimum loan MT Finance will offer?",
+          "@type": "Question",
+          "name": "What is the minimum loan MT Finance will offer?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "MT Finance’s minimum bridging loan is £50,000, with facilities available up to £10 million. There is no published maximum for exceptionally strong cases referred directly to the lender."
           }
         },
         {
-          "question": "Does MT Finance accept borrowers with bad credit?",
+          "@type": "Question",
+          "name": "Does MT Finance accept borrowers with bad credit?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes. MT Finance does not credit-score bridging applications and will consider adverse credit, CCJs and arrears, underwriting instead on the strength of the security and exit strategy. No personal guarantors are required."
           }
         },
         {
-          "question": "How fast can MT Finance complete a bridging loan?",
+          "@type": "Question",
+          "name": "How fast can MT Finance complete a bridging loan?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "MT Finance’s average completion is around 11 working days, making it one of the faster lenders in the specialist bridging market, particularly for auction purchases and chain breaks."
           }
         },
         {
-          "question": "Are there upfront fees with MT Finance?",
+          "@type": "Question",
+          "name": "Are there upfront fees with MT Finance?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Many of MT Finance’s unregulated bridging products carry no upfront fees, with costs paid only on completion — useful for borrowers who need to preserve cash during the transaction."
           }
         },
         {
-          "question": "Does MT Finance lend to foreign nationals?",
+          "@type": "Question",
+          "name": "Does MT Finance lend to foreign nationals?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, strongly. MT Finance does not require a UK credit footprint, making it one of the more accessible lenders for foreign nationals and expats compared with mainstream bridging lenders."
@@ -19103,35 +19142,40 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What loan-to-value does Octopus Real Estate offer on bridging?",
+          "@type": "Question",
+          "name": "What loan-to-value does Octopus Real Estate offer on bridging?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Up to 70% LTV on unregulated bridging and 65% on regulated bridging, dropping to a 65% cap where the property is valued above £1 million. This is more conservative than some panel lenders, which is part of why the rate is sharper."
           }
         },
         {
-          "question": "What are Octopus Real Estate’s bridging rates?",
+          "@type": "Question",
+          "name": "What are Octopus Real Estate’s bridging rates?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Rates start from 0.45% per month on regulated bridging and 0.55% on unregulated bridging — among the lowest headline rates of the lenders Boxx Finance works with, reflecting the lower maximum LTV."
           }
         },
         {
-          "question": "Does Octopus Real Estate use automated valuations?",
+          "@type": "Question",
+          "name": "Does Octopus Real Estate use automated valuations?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "On qualifying cases, its Fast Track route combines an automated valuation model with enhanced title indemnity to remove the need for a physical valuation, speeding up completion."
           }
         },
         {
-          "question": "What property types does Octopus Real Estate lend against?",
+          "@type": "Question",
+          "name": "What property types does Octopus Real Estate lend against?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Residential, commercial, semi-commercial and refurbishment security, plus developer exit loans from £500,000 to £25 million. Its commercial team includes in-house chartered surveyors, which helps with complex or unusual commercial security other lenders decline."
           }
         },
         {
-          "question": "Is Octopus Real Estate suitable for first-time investors?",
+          "@type": "Question",
+          "name": "Is Octopus Real Estate suitable for first-time investors?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Generally not — Octopus Real Estate typically expects property investment or development experience, and some adverse credit is only considered case by case. It suits experienced investors and developers more than first-time borrowers."
@@ -19178,28 +19222,32 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Is MT Finance or Together better for bad credit bridging loans?",
+          "@type": "Question",
+          "name": "Is MT Finance or Together better for bad credit bridging loans?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Both accept adverse credit, but differently. MT Finance does not credit-score at all and underwrites purely on security and exit. Together assesses credit history rather than score, disregarding adverse over 12 months old and considering satisfied IVAs on regulated second charge. Together’s approach suits more complex or older credit histories; MT Finance suits borrowers who want credit history to not be scored at all."
           }
         },
         {
-          "question": "Which is faster, MT Finance or Together?",
+          "@type": "Question",
+          "name": "Which is faster, MT Finance or Together?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "MT Finance, generally — it averages around 11 working days to completion and is priced and processed for speed. Together does not compete primarily on speed; it is chosen for accepting complexity other lenders decline, which typically takes longer to underwrite properly."
           }
         },
         {
-          "question": "Which lender offers a higher loan-to-value, MT Finance or Together?",
+          "@type": "Question",
+          "name": "Which lender offers a higher loan-to-value, MT Finance or Together?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Together’s unregulated first-charge residential bridging goes up to 75% LTV, against MT Finance’s 70% cap across property types. Most other Together products cap at 70%, similar to MT Finance."
           }
         },
         {
-          "question": "Does either lender accept unusual property types?",
+          "@type": "Question",
+          "name": "Does either lender accept unusual property types?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Together is the stronger fit here — it is known specifically for non-standard or unusual security that other lenders, including MT Finance, may not consider."
@@ -19246,35 +19294,40 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What loan-to-value does LendInvest offer on bridging?",
+          "@type": "Question",
+          "name": "What loan-to-value does LendInvest offer on bridging?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Up to 75% gross on regulated residential bridging, extending to 80% by request. Semi-commercial is capped at 70% and commercial at 65% above £1 million."
           }
         },
         {
-          "question": "What is LendInvest’s minimum loan size?",
+          "@type": "Question",
+          "name": "What is LendInvest’s minimum loan size?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "£75,000 for standard bridging, rising to £200,000 for commercial security and £250,000 for development exit loans."
           }
         },
         {
-          "question": "Does LendInvest offer free legals?",
+          "@type": "Question",
+          "name": "Does LendInvest offer free legals?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes — legals and valuation are free when refinancing onto a LendInvest buy-to-let mortgage on standard properties, a genuine saving for a bridge-to-let strategy."
           }
         },
         {
-          "question": "How does LendInvest value property?",
+          "@type": "Question",
+          "name": "How does LendInvest value property?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Its process is portal-driven and uses title insurance in many cases rather than always requiring a full physical valuation, which speeds up standard, vanilla-to-medium-complexity cases considerably."
           }
         },
         {
-          "question": "Does LendInvest lend outside England and Wales?",
+          "@type": "Question",
+          "name": "Does LendInvest lend outside England and Wales?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No — LendInvest’s bridging coverage is limited to England and Wales, so it is not an option for Scottish or Northern Irish security."
@@ -19321,35 +19374,40 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What is Lendco’s minimum loan for a limited company?",
+          "@type": "Question",
+          "name": "What is Lendco’s minimum loan for a limited company?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Lendco’s general minimum is £100,000, but limited company, SPV, LLP and Trust borrowers face a higher £500,000 minimum — this rules Lendco out for smaller corporate-structured cases."
           }
         },
         {
-          "question": "Does Lendco lend to trusts and offshore companies?",
+          "@type": "Question",
+          "name": "Does Lendco lend to trusts and offshore companies?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes. Lendco accepts individuals, portfolio landlords, limited companies, SPVs, LLPs, trading companies, Trusts, joint ventures, and Jersey, Guernsey or Isle of Man registered entities — up to six applicants."
           }
         },
         {
-          "question": "What is Lendco’s appetite for large multi-unit blocks?",
+          "@type": "Question",
+          "name": "What is Lendco’s appetite for large multi-unit blocks?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Lendco lends against MUFBs with no restriction on unit count, up to £3 million at 65% LTV or £2 million at 75% LTV, and will consider an aggregated rather than single-investor valuation."
           }
         },
         {
-          "question": "Does Lendco offer dual legal representation?",
+          "@type": "Question",
+          "name": "Does Lendco offer dual legal representation?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes — Lendco offers dual representation as standard, which can simplify and speed up the legal process compared with lenders that require separate solicitors."
           }
         },
         {
-          "question": "Is Lendco a regulated lender?",
+          "@type": "Question",
+          "name": "Is Lendco a regulated lender?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No — Lendco is an unregulated bridging lender only, so it is not suitable for a loan secured against a property the borrower or an immediate family member will occupy."
@@ -19396,35 +19454,40 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What loan-to-value does Hope Capital offer on refurbishment bridging?",
+          "@type": "Question",
+          "name": "What loan-to-value does Hope Capital offer on refurbishment bridging?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "It varies by scope: residential light or medium refurbishment reaches 75% LTV, heavy refurbishment 65-70%; semi-commercial light or medium reaches 70%, heavy 65%; commercial light or medium reaches 65%, heavy 60%."
           }
         },
         {
-          "question": "What is Hope Capital’s FLIP product?",
+          "@type": "Question",
+          "name": "What is Hope Capital’s FLIP product?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "FLIP moves a bridging loan into a refurbishment loan without refinancing or reapplying if the scope of works grows mid-project, avoiding a second legal and underwriting process. It carries a single £1,250 admin fee that includes legals for the flip transaction."
           }
         },
         {
-          "question": "Does Hope Capital lend in Scotland?",
+          "@type": "Question",
+          "name": "Does Hope Capital lend in Scotland?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes — Hope Capital covers England, Wales and Scotland, and offers dual legal representation up to £1 million including in Scotland."
           }
         },
         {
-          "question": "What is Hope Capital’s minimum loan size?",
+          "@type": "Question",
+          "name": "What is Hope Capital’s minimum loan size?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "£50,000, reduced from £100,000 in July 2026, making it more accessible for smaller refurbishment projects than it was previously."
           }
         },
         {
-          "question": "Does Hope Capital use instant valuations?",
+          "@type": "Question",
+          "name": "Does Hope Capital use instant valuations?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "On qualifying residential cases up to £1 million (doubled from £500,000 in July 2026), with a pre-completion video walkthrough sometimes required at no cost to the borrower."
@@ -19471,35 +19534,40 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Does Together credit-score bridging applications?",
+          "@type": "Question",
+          "name": "Does Together credit-score bridging applications?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No — Together assesses credit history rather than a score, and disregards adverse credit older than 12 months when pricing a case."
           }
         },
         {
-          "question": "Will Together lend against unusual property?",
+          "@type": "Question",
+          "name": "Will Together lend against unusual property?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes — Together is specifically known for non-standard or unusual security that other lenders decline, more so than most of the panel."
           }
         },
         {
-          "question": "Does Together accept borrowers with an active IVA?",
+          "@type": "Question",
+          "name": "Does Together accept borrowers with an active IVA?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Satisfied IVAs are accepted on regulated second charge lending. Active IVAs are considered by referral, generally requiring three years’ payment history, with the loan structured to clear the IVA in full."
           }
         },
         {
-          "question": "What loan-to-value does Together offer?",
+          "@type": "Question",
+          "name": "What loan-to-value does Together offer?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Up to 75% on unregulated first-charge residential bridging; most other Together products cap at 70%."
           }
         },
         {
-          "question": "Is Together a fast bridging lender?",
+          "@type": "Question",
+          "name": "Is Together a fast bridging lender?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Not particularly — Together is chosen for accepting complexity other lenders decline rather than for speed, and cases involving unusual property or credit typically take longer to underwrite properly regardless of lender."
@@ -19546,35 +19614,40 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What loan-to-value does Shawbrook Bank offer on commercial bridging?",
+          "@type": "Question",
+          "name": "What loan-to-value does Shawbrook Bank offer on commercial bridging?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Up to 75% following a July 2026 increase — a genuine strength, since commercial LTV is capped lower at several other lenders."
           }
         },
         {
-          "question": "What is Shawbrook’s minimum bridging loan?",
+          "@type": "Question",
+          "name": "What is Shawbrook’s minimum bridging loan?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "£100,000, lowered from £150,000 in June 2026, with loans available up to £25 million or more by referral."
           }
         },
         {
-          "question": "Does Shawbrook offer day-one refurbishment advances?",
+          "@type": "Question",
+          "name": "Does Shawbrook offer day-one refurbishment advances?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes — day-one advances of up to 90% on refurbishment projects, among the more generous day-one figures in the specialist bridging market."
           }
         },
         {
-          "question": "Does Shawbrook accept adverse credit?",
+          "@type": "Question",
+          "name": "Does Shawbrook accept adverse credit?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Only by exception, and generally alongside a strong asset and exit — Shawbrook prefers cleaner credit profiles overall."
           }
         },
         {
-          "question": "Is Shawbrook fast to complete?",
+          "@type": "Question",
+          "name": "Is Shawbrook fast to complete?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Not typically for rushed, sub-two-week completions — it suits larger, cleaner deals where balance-sheet certainty matters more than the fastest possible timeline."
@@ -19621,35 +19694,40 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "What is United Trust Bank’s near prime range?",
+          "@type": "Question",
+          "name": "What is United Trust Bank’s near prime range?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Launched in August 2026 across both regulated and non-regulated bridging, it supports borrowers with historical credit blips who miss standard criteria — a genuine widening of UTB’s appetite."
           }
         },
         {
-          "question": "Does UTB offer dual legal representation?",
+          "@type": "Question",
+          "name": "Does UTB offer dual legal representation?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, extended to non-regulated cases, purchases and refinances, across England and Wales, on loans up to £1 million for standard residential and light refurbishment."
           }
         },
         {
-          "question": "What loan-to-value does UTB offer on semi-commercial security?",
+          "@type": "Question",
+          "name": "What loan-to-value does UTB offer on semi-commercial security?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "An enhanced structure where the residential element can cover up to 100% of the facility, subject to the value of that element — useful for mixed-use property."
           }
         },
         {
-          "question": "What is UTB’s appetite for refurbishment?",
+          "@type": "Question",
+          "name": "What is UTB’s appetite for refurbishment?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Up to 75% LTV on light, medium and heavy refurbishment (heavy refurbishment was reintroduced in 2026), with light refurbishment works funded to 25% of the initial LTV up to a £200,000 works budget."
           }
         },
         {
-          "question": "Is United Trust Bank good for re-bridging?",
+          "@type": "Question",
+          "name": "Is United Trust Bank good for re-bridging?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes — UTB is one of the stronger options on the panel for re-bridging, up to 70% LTV generally and 75% on a closed bridge, backed by bank-level certainty of funds."
@@ -19696,35 +19774,40 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Does West One Loans credit-score bridging applications?",
+          "@type": "Question",
+          "name": "Does West One Loans credit-score bridging applications?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No, unless the client specifically permits it — West One does not credit-score or check employment on bridging, and underwrites manually throughout."
           }
         },
         {
-          "question": "What is West One Loans’ maximum loan size?",
+          "@type": "Question",
+          "name": "What is West One Loans’ maximum loan size?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "£30 million, with larger cases considered by referral. The minimum is £75,000 for bridging."
           }
         },
         {
-          "question": "Are there upfront fees with West One Loans?",
+          "@type": "Question",
+          "name": "Are there upfront fees with West One Loans?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes — unlike some panel lenders, West One applies upfront fees on bridging per its published tariff of charges, which is worth factoring in for fee-poor borrowers."
           }
         },
         {
-          "question": "Does West One Loans offer second charge bridging?",
+          "@type": "Question",
+          "name": "Does West One Loans offer second charge bridging?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, including for capital raises — second-charge borrowers do not need separate legal representation, and IVAs and DMPs can potentially be discharged by the loan."
           }
         },
         {
-          "question": "Does West One Loans lend to expats and foreign nationals?",
+          "@type": "Question",
+          "name": "Does West One Loans lend to expats and foreign nationals?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, considered by referral — expats can be considered to 65% LTV, and two years’ UK residency generally applies for second-charge buy-to-let."
@@ -19771,35 +19854,40 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "How fast does Roma Finance complete bridging loans?",
+          "@type": "Question",
+          "name": "How fast does Roma Finance complete bridging loans?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Over 80% of RomaFLOW cases complete within 28 days, making it one of the faster lenders on the panel for refurbishment and conversion projects specifically."
           }
         },
         {
-          "question": "What is RomaPRO?",
+          "@type": "Question",
+          "name": "What is RomaPRO?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Roma’s own suite of term exit products — buy-to-let, HMO, holiday let and serviced accommodation — that a bridge can exit onto directly, avoiding a separate refinance search once works are complete."
           }
         },
         {
-          "question": "What is Roma Finance’s minimum loan size?",
+          "@type": "Question",
+          "name": "What is Roma Finance’s minimum loan size?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "£75,000, with a ceiling of £3 million before requiring referral for a larger facility — Roma is not built as a large-loan lender."
           }
         },
         {
-          "question": "Does Roma Finance charge an exit fee?",
+          "@type": "Question",
+          "name": "Does Roma Finance charge an exit fee?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No exit fee applies across most of its product range, which is a genuine cost saving compared with lenders that charge on redemption."
           }
         },
         {
-          "question": "What property types does Roma Finance lend against?",
+          "@type": "Question",
+          "name": "What property types does Roma Finance lend against?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "A wide range including auction purchases, conversions, renovations, developer exit, ground-up, HMOs, serviced accommodation, holiday lets, Grade II listed buildings and part-built sites."
@@ -19846,28 +19934,32 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Which is cheaper, LendInvest or Octopus Real Estate?",
+          "@type": "Question",
+          "name": "Which is cheaper, LendInvest or Octopus Real Estate?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Octopus Real Estate, on headline rate — from 0.45% per month regulated versus LendInvest’s 0.82%. Octopus’s lower rate comes with a lower maximum LTV (70% unregulated, 65% regulated) compared with LendInvest’s 75-80%."
           }
         },
         {
-          "question": "Which offers a higher loan-to-value, LendInvest or Octopus Real Estate?",
+          "@type": "Question",
+          "name": "Which offers a higher loan-to-value, LendInvest or Octopus Real Estate?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "LendInvest — up to 75% gross on regulated residential, extending to 80% by request, against Octopus’s 70% unregulated and 65% regulated cap."
           }
         },
         {
-          "question": "Which is faster to complete, LendInvest or Octopus Real Estate?",
+          "@type": "Question",
+          "name": "Which is faster to complete, LendInvest or Octopus Real Estate?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Both are built for speed on standard cases. LendInvest’s broker portal and title-insurance route suits vanilla-to-medium complexity; Octopus’s Fast Track (AVM plus enhanced title indemnity) removes the physical valuation on qualifying cases. Neither is the choice for a genuinely complex file."
           }
         },
         {
-          "question": "Which lender suits a higher-value London property?",
+          "@type": "Question",
+          "name": "Which lender suits a higher-value London property?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "LendInvest, generally — Octopus Real Estate’s LTV caps at 65% for any property over £1 million, which bites hard in London and the South East. LendInvest has no equivalent value-based LTV reduction."
@@ -19914,28 +20006,32 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Should I use West One Loans or Together for messy paperwork?",
+          "@type": "Question",
+          "name": "Should I use West One Loans or Together for messy paperwork?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "West One Loans — it does not credit-score bridging applications or check employment unless the client permits it, and underwrites manually, making it a strong fit where exit paperwork or employment evidence is incomplete."
           }
         },
         {
-          "question": "Should I use West One Loans or Together for unusual property?",
+          "@type": "Question",
+          "name": "Should I use West One Loans or Together for unusual property?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Together — it is specifically known for unusual or non-standard security that other lenders, including West One, may not consider."
           }
         },
         {
-          "question": "Which is better for a second-charge capital raise?",
+          "@type": "Question",
+          "name": "Which is better for a second-charge capital raise?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "West One Loans — second-charge borrowers do not need separate legal representation, and existing IVAs or DMPs can potentially be discharged by the loan."
           }
         },
         {
-          "question": "Which has lower fees, West One Loans or Together?",
+          "@type": "Question",
+          "name": "Which has lower fees, West One Loans or Together?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Neither is a no-upfront-fee lender — West One applies upfront fees per its published tariff on bridging, and Together prices fees case by case. Neither should be assumed cheaper without confirming current terms."
@@ -19982,28 +20078,32 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Which offers higher commercial LTV, Shawbrook or United Trust Bank?",
+          "@type": "Question",
+          "name": "Which offers higher commercial LTV, Shawbrook or United Trust Bank?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Shawbrook, following its July 2026 increase to 75% on commercial security — UTB’s commercial LTV is by referral rather than a published headline figure."
           }
         },
         {
-          "question": "Which is better for refurbishment, Shawbrook or United Trust Bank?",
+          "@type": "Question",
+          "name": "Which is better for refurbishment, Shawbrook or United Trust Bank?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Shawbrook offers day-one advances up to 90% on refurbishment projects. UTB reaches 75% LTV on light, medium and heavy refurbishment, with heavy refurbishment reintroduced in 2026 — both are genuine options, with Shawbrook’s day-one figure the more generous headline number."
           }
         },
         {
-          "question": "Which accepts adverse credit, Shawbrook or United Trust Bank?",
+          "@type": "Question",
+          "name": "Which accepts adverse credit, Shawbrook or United Trust Bank?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "United Trust Bank, more so — its August 2026 near prime range specifically supports borrowers with historical credit blips. Shawbrook prefers cleaner profiles and considers adverse only by exception."
           }
         },
         {
-          "question": "Which is faster, Shawbrook or United Trust Bank?",
+          "@type": "Question",
+          "name": "Which is faster, Shawbrook or United Trust Bank?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Neither is built for rushed, sub-two-week completions — both suit larger, more considered cases where balance-sheet certainty matters more than the fastest possible timeline."
@@ -20050,28 +20150,32 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Which is faster for refurbishment bridging, Roma Finance or Hope Capital?",
+          "@type": "Question",
+          "name": "Which is faster for refurbishment bridging, Roma Finance or Hope Capital?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Roma Finance — over 80% of its RomaFLOW cases complete within 28 days, a strong speed benchmark specifically for refurbishment and conversion projects."
           }
         },
         {
-          "question": "What happens if the refurbishment scope grows mid-project?",
+          "@type": "Question",
+          "name": "What happens if the refurbishment scope grows mid-project?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Hope Capital has a specific answer — its FLIP product converts the bridge into a refurbishment loan without refinancing or reapplying if the scope grows, avoiding duplicated legal and underwriting costs. Roma does not have an equivalent named product."
           }
         },
         {
-          "question": "Which lender offers a built-in term exit after refurbishment?",
+          "@type": "Question",
+          "name": "Which lender offers a built-in term exit after refurbishment?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Roma Finance, via RomaPRO — its own buy-to-let, HMO, holiday let and serviced accommodation term products, letting a bridge exit directly onto a Roma product without a separate refinance search."
           }
         },
         {
-          "question": "Which lender covers Scotland?",
+          "@type": "Question",
+          "name": "Which lender covers Scotland?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Hope Capital — it covers England, Wales and Scotland with dual legal representation up to £1 million. Roma Finance covers mainland UK generally but does not have Hope Capital’s specific Scottish dual-representation structure."
@@ -20118,28 +20222,32 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Which is better for an SPV or Trust bridging loan, Lendco or Shawbrook?",
+          "@type": "Question",
+          "name": "Which is better for an SPV or Trust bridging loan, Lendco or Shawbrook?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Lendco — it explicitly accepts SPVs, LLPs, Trusts, joint ventures and even offshore-registered entities as standard, though with a £500,000 minimum loan for these borrower types. Shawbrook lends to experienced investors and SPVs but is not built specifically around unusual ownership structures."
           }
         },
         {
-          "question": "Which offers higher commercial LTV, Lendco or Shawbrook?",
+          "@type": "Question",
+          "name": "Which offers higher commercial LTV, Lendco or Shawbrook?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Shawbrook, following its July 2026 increase to 75% on commercial security. Lendco’s commercial LTV is capped at 70%."
           }
         },
         {
-          "question": "Which is better for a large multi-unit freehold block?",
+          "@type": "Question",
+          "name": "Which is better for a large multi-unit freehold block?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Lendco — it has no restriction on MUFB unit count and will consider an aggregated valuation rather than a single-investor basis, up to £3 million at 65% LTV or £2 million at 75%."
           }
         },
         {
-          "question": "Which is better for a smaller limited company case?",
+          "@type": "Question",
+          "name": "Which is better for a smaller limited company case?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Shawbrook — Lendco’s £500,000 minimum loan for corporate, SPV, LLP or Trust borrowers rules it out for smaller limited-company facilities that Shawbrook, with its £100,000 minimum, can still accommodate."
@@ -20186,28 +20294,32 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Do UK bridging lenders require a UK credit history?",
+          "@type": "Question",
+          "name": "Do UK bridging lenders require a UK credit history?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Not universally — MT Finance, for example, does not require a UK credit footprint at all, making it one of the more accessible lenders for foreign nationals without UK credit history."
           }
         },
         {
-          "question": "Which lenders are strongest for foreign nationals?",
+          "@type": "Question",
+          "name": "Which lenders are strongest for foreign nationals?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "MT Finance has the strongest published stance, requiring no UK credit footprint. LendInvest accepts non-UK, non-EU and non-EEA nationals under a tier-two criteria set, subject to underwriter approval. West One Loans considers expats by referral, generally to 65% LTV."
           }
         },
         {
-          "question": "Does UK residency length matter for a bridging loan?",
+          "@type": "Question",
+          "name": "Does UK residency length matter for a bridging loan?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "It can. LendInvest’s top borrower tier requires three years’ UK residency, and West One Loans generally expects two years’ UK residency for second-charge buy-to-let — shorter or no UK residency moves a case into a referral or lower tier at both lenders."
           }
         },
         {
-          "question": "Can an offshore company borrow a UK bridging loan?",
+          "@type": "Question",
+          "name": "Can an offshore company borrow a UK bridging loan?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, in specific cases — Lendco explicitly accepts Jersey, Guernsey and Isle of Man registered entities as borrowers, alongside Trusts and joint ventures, though subject to a £500,000 minimum loan for corporate-structured borrowers."
@@ -20254,28 +20366,32 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Which bridging lenders don’t credit-score applications?",
+          "@type": "Question",
+          "name": "Which bridging lenders don’t credit-score applications?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "MT Finance does not credit-score bridging applications at all. West One Loans does not credit-score unless the client permits it, and also skips employment checks. Both underwrite instead on the strength of the security and exit strategy."
           }
         },
         {
-          "question": "Does \"no credit check\" mean no checks at all?",
+          "@type": "Question",
+          "name": "Does \"no credit check\" mean no checks at all?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No — lenders that skip credit scoring still verify identity, source of funds, the property itself and the exit strategy in detail. What changes is that a credit score or file does not gate the decision the way it would with a mainstream lender."
           }
         },
         {
-          "question": "Which lenders assess credit history without scoring it?",
+          "@type": "Question",
+          "name": "Which lenders assess credit history without scoring it?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Together takes this middle approach — it assesses credit history rather than a score, and disregards adverse older than 12 months when pricing, without going as far as MT Finance or West One’s no-scoring position."
           }
         },
         {
-          "question": "Are rates higher on a no-credit-check bridging loan?",
+          "@type": "Question",
+          "name": "Are rates higher on a no-credit-check bridging loan?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Not necessarily because of the lack of a credit check itself — rate is driven mainly by LTV, security type and exit strength. MT Finance’s rates, for example, start from 0.89% per month, priced for speed and credit flexibility rather than being the cheapest on the panel."
@@ -20322,28 +20438,32 @@
       "@type": "FAQPage",
       "mainEntity": [
         {
-          "question": "Which bridging lender has the fastest average completion time?",
+          "@type": "Question",
+          "name": "Which bridging lender has the fastest average completion time?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "MT Finance publishes the clearest benchmark — around 11 working days on average. Roma Finance is close behind, with over 80% of RomaFLOW cases completing within 28 days specifically for refurbishment and conversion deals."
           }
         },
         {
-          "question": "What actually makes a bridging loan complete faster?",
+          "@type": "Question",
+          "name": "What actually makes a bridging loan complete faster?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "A clean credit history disclosed upfront, an AVM-eligible standard property rather than something unusual, a solicitor already used to bridging transactions, and a clear, realistic exit plan all matter more than which lender is chosen."
           }
         },
         {
-          "question": "Do automated valuations speed up completion?",
+          "@type": "Question",
+          "name": "Do automated valuations speed up completion?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, where available — LendInvest’s portal-and-title-insurance route and Octopus Real Estate’s Fast Track (AVM plus enhanced title indemnity) both remove the need for a physical valuation on qualifying standard residential cases, which is often the single biggest time saving available."
           }
         },
         {
-          "question": "Are the fastest lenders also the cheapest?",
+          "@type": "Question",
+          "name": "Are the fastest lenders also the cheapest?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Not necessarily — MT Finance, for example, is priced for speed and credit flexibility rather than the lowest headline rate on the panel. Speed and price are usually a trade-off, not a package."

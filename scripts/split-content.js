@@ -34,6 +34,27 @@ const SPLITS = [
   },
 ];
 
+// FAQ items must be { '@type': 'Question', name, acceptedAnswer: { '@type':
+// 'Answer', text } }: FaqAccordion renders q.name, and Google's FAQPage rich
+// result requires exactly that shape. A one-off batch wrote `question` instead
+// of `name` on 24 posts (incl. all 20 lender articles, 2026-09-10) and the FAQs
+// rendered with blank questions for eight days — nothing failed, so nothing
+// noticed. Normalising here means a bad shape in the source data can never
+// reach a page again, whichever script or hand edit produced it.
+function normaliseFaqSchema(item) {
+  const schema = item.schema || item.faqSchema;
+  if (!schema || !Array.isArray(schema.mainEntity)) return item;
+  const mainEntity = schema.mainEntity
+    .map((q) => ({
+      '@type': 'Question',
+      name: q.name || q.question || '',
+      acceptedAnswer: { '@type': 'Answer', text: (q.acceptedAnswer && q.acceptedAnswer.text) || q.answer || '' },
+    }))
+    .filter((q) => q.name && q.acceptedAnswer.text);
+  const fixed = { ...schema, '@type': schema['@type'] || 'FAQPage', mainEntity };
+  return item.schema ? { ...item, schema: fixed } : { ...item, faqSchema: fixed };
+}
+
 for (const { source, index, contentDir, heavyFields } of SPLITS) {
   const items = JSON.parse(fs.readFileSync(source, 'utf8'));
 
@@ -51,7 +72,7 @@ for (const { source, index, contentDir, heavyFields } of SPLITS) {
     if (!item || item.status !== 'published') continue;
     const slug = String(item.slug || '');
     if (!/^[a-z0-9][a-z0-9-]*$/i.test(slug)) continue; // guard against path escapes
-    fs.writeFileSync(path.join(contentDir, `${slug}.json`), JSON.stringify(item));
+    fs.writeFileSync(path.join(contentDir, `${slug}.json`), JSON.stringify(normaliseFaqSchema(item)));
     written++;
   }
 
