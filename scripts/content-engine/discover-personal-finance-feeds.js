@@ -36,6 +36,7 @@
 
 require('dotenv').config();
 const { Octokit } = require('@octokit/rest');
+const { fetchListingItems } = require('./listing-source');
 
 const GITHUB_OWNER = process.env.GITHUB_OWNER || 'farrimond-ma';
 const GITHUB_REPO  = process.env.GITHUB_REPO  || 'boxxfinance-site';
@@ -59,7 +60,17 @@ async function pushFeedsFile(registry, sha, summary) {
   });
 }
 
-async function testFeed(url) {
+async function testFeed(url, feed = {}) {
+  // Listing-page sources have no <item>s; validate them by what the reader actually gets.
+  if (feed.type === 'listing') {
+    try {
+      const { items, linksFound } = await fetchListingItems(feed);
+      if (items.length < MIN_ITEMS) return { ok: false, note: `listing page: ${items.length} dated articles from ${linksFound} links (too few)` };
+      return { ok: true, note: `listing page: ${items.length} dated articles` };
+    } catch (err) {
+      return { ok: false, note: `listing page: ${err.message}` };
+    }
+  }
   try {
     const res = await fetch(url, {
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BoxxFinanceBot/1.0)' },
@@ -88,7 +99,7 @@ async function main() {
   for (const feed of registry.feeds) {
     if (feed.status === 'excluded' || feed.status === 'rejected') continue; // never auto-touch permanent/editorial exclusions
 
-    const result = await testFeed(feed.url);
+    const result = await testFeed(feed.url, feed);
     const wasActive = feed.status === 'active';
 
     if (result.ok && !wasActive) {

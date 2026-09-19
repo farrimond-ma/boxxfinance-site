@@ -102,6 +102,22 @@
       "status": "active"
     },
     {
+      "type": "listing",
+      "url": "https://www.landlordzone.co.uk/",
+      "articlePattern": "^/news/[a-z0-9-]{15,}$",
+      "name": "LandlordZONE",
+      "status": "active",
+      "note": "added 2026-09-19. No RSS feed; read from the homepage news listing via listing-source.js"
+    },
+    {
+      "type": "listing",
+      "url": "https://www.nrla.org.uk/news",
+      "articlePattern": "^/news/(?!latest-articles$)[a-z0-9-]{15,}$",
+      "name": "NRLA News",
+      "status": "active",
+      "note": "added 2026-09-19. No RSS feed; read from the /news listing via listing-source.js"
+    },
+    {
       "url": "https://www.propertyindustryeye.com/feed/",
       "name": "Property Industry Eye",
       "status": "candidate",

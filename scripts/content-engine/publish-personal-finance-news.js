@@ -66,9 +66,11 @@ const openai  = createOpenAICompatClient({ apiKey: process.env.ANTHROPIC_API_KEY
 // file for the full list of what was tested and why candidates were excluded.
 function loadActiveFeeds() {
   const registry = JSON.parse(fs.readFileSync(FEEDS_FILE, 'utf8'));
-  return registry.feeds.filter(f => f.status === 'active').map(f => ({ url: f.url, name: f.name }));
+  return registry.feeds.filter(f => f.status === 'active')
+    .map(f => ({ url: f.url, name: f.name, type: f.type || 'rss', articlePattern: f.articlePattern }));
 }
 const RSS_FEEDS = loadActiveFeeds();
+const { fetchListingItems } = require('./listing-source');
 
 // Cheap pre-filter only — it just cuts down how many stories get sent to the
 // model. checkMarketRelevance() below is the actual editorial decision, so this
@@ -148,6 +150,17 @@ function isRecent(item) {
 async function fetchAllArticles() {
   const all = [];
   for (const feed of RSS_FEEDS) {
+    // Sites with no RSS feed (LandlordZONE, NRLA): read their news listing page instead.
+    if (feed.type === 'listing') {
+      try {
+        const { items, linksFound, undated } = await fetchListingItems(feed);
+        console.log(`  ${feed.name}: ${items.length} items (listing page, ${linksFound} links, ${undated} undated skipped)`);
+        all.push(...items.map(i => ({ ...i, source: feed.name })));
+      } catch (err) {
+        console.warn(`  ${feed.name}: ${err.message}`);
+      }
+      continue;
+    }
     try {
       const res = await fetch(feed.url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BoxxFinanceBot/1.0)' } });
       if (!res.ok) { console.warn(`  ${feed.name}: HTTP ${res.status}`); continue; }
