@@ -25,6 +25,12 @@ const AUTHORS = {
 
 const SITE_URL = 'https://boxxfinance.co.uk';
 
+// Keyed by the post's service. Event names are what appear in Meta Events Manager.
+const PIXEL_EVENT_BY_SERVICE = {
+    'Landlord Guides': 'LandlordGuideView',
+    'Bridging Finance': 'BridgingArticleView',
+};
+
 const BlogPost = () => {
     const { slug } = useParams();
 
@@ -50,6 +56,16 @@ const BlogPost = () => {
             .then((data) => { if (!cancelled) setFullPost(data); })
             .catch(() => {});
         return () => { cancelled = true; };
+    }, [post && post.slug]);
+
+    // Meta Pixel custom events per content stream, so Meta can build separate
+    // retargeting audiences ("read a landlord guide", "read a bridging article")
+    // without a hand-kept list of URLs. Skipped in automated browsers: the build's
+    // Puppeteer prerender visits every page, and those visits are not people.
+    useEffect(() => {
+        if (!post || typeof window.fbq !== 'function' || navigator.webdriver) return;
+        const event = PIXEL_EVENT_BY_SERVICE[post.service];
+        if (event) window.fbq('trackCustom', event, { content_name: post.slug, content_category: post.service });
     }, [post && post.slug]);
 
     if (!post) {
