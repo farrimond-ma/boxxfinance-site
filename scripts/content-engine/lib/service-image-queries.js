@@ -37,6 +37,7 @@ function serviceImageQueries(service) {
     'bad-credit-mortgages':    ['UK suburban semi detached houses', 'British terraced houses street', 'English suburban street houses'],
     'secured-loans':           ['UK detached house driveway exterior', 'British semi detached house', 'English suburban houses'],
     'buy-to-let-refinance':    ['British terraced houses street', 'Victorian terraced houses London', 'UK semi detached houses'],
+    'landlord-guides':         ['British terraced houses street', 'UK rental flat interior living room', 'English terraced house front door'],
     'second-charge-mortgages': ['UK terraced houses residential street', 'British semi detached houses street', 'English brick townhouses'],
   };
   return MAP[key] || ['UK business professionals meeting office', 'British office team meeting', 'UK small business owner'];

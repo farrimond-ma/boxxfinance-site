@@ -516,10 +516,38 @@ const TRIGGER_EVENT_COMPLIANCE = `COMPLIANCE — UK FINANCIAL PROMOTIONS (hard c
 - If the worked cost example needs to mention property purchase tax (stamp duty in England/NI, LBTT in Scotland, LTT in Wales — different rules and rates in each), do NOT default to "stamp duty" as if it's UK-wide. Either name the relevant one for the specific location this piece is for, or — if the piece isn't location-specific — describe it generically ("an additional property purchase tax or surcharge — the rules differ across England, Scotland and Wales") rather than picking one jurisdiction's term by default.
 - This is educational content, not advice. Never write "you should take a bridging loan" or similar direct recommendation — direct the reader to speak to a broker for advice specific to their situation, and frame the CTA that way rather than as a foregone conclusion.`;
 
+// ─── Landlord guides (added 2026-09-19) ─────────────────────────────────────
+// A separate, practical stream for landlords on letting and property management
+// topics (tenants, repairs, compliance), published Saturdays. Its job is to
+// bring landlords to the site so they join the Meta retargeting audience, not
+// to sell a product, so it gets its own shape: shorter than the finance
+// articles, genuinely useful, with ONE natural section where the topic meets
+// finance. Forcing the finance-article rules (3000 words, a lender section, a
+// worked loan example, a finance link in the opening line) onto "how to deal
+// with utility debt left by tenants" would produce padded, salesy copy.
+const LANDLORD_GUIDE_SERVICE = 'Landlord Guides';
+const GUIDE_MIN_WORDS = 2000; // seo-audit.js warns below 2000
+const isLandlordGuide = (row) => row.service === LANDLORD_GUIDE_SERVICE;
+
+const LANDLORD_GUIDE_STRUCTURE = `ARTICLE STRUCTURE: this is a practical guide for UK landlords, NOT a finance article. Adapt headings to the topic, following this pattern:
+- Open with a single <p> of 50-70 words that directly answers the reader's question in plain, declarative language. No links in this paragraph.
+- 4-6 <h2> sections covering what the landlord actually needs: what the rules are (England unless the brief says otherwise; say where Scotland or Wales differ if it matters), what to do step by step, what it costs or risks, and the mistakes landlords commonly make. Use a numbered list for any step-by-step process and a <table> only where there is something genuinely comparable.
+- ONE <h2> section where the topic genuinely meets property finance, placed near the end (e.g. "When this becomes a finance question"). Keep it honest and proportionate: for example, EPC upgrade works that need funding, a refurbishment before re-letting, releasing equity to fund repairs, or buying the next property. Link to the finance page (SERVICE_URL) once or twice here with natural 2-5 word anchors. If the topic genuinely has no finance angle, keep this section short and general rather than inventing one.
+- <h2> Summary</h2>
+- <h2> Frequently Asked Questions</h2>: 4-6 Q&As, each question as its own <h3> using the EXACT SAME WORDING as the matching faqSchema question, immediately followed by a <p> answer.
+
+VOICE: an experienced adviser who works with landlords every week, practical and direct. Guide the reader to a view where there is a sensible default. Do not claim specific Boxx case history ("our clients", "we see").
+ACCURACY: legal and regulatory rules change (the Renters' Rights Act in particular). State rules plainly, but tell the reader to check current guidance on GOV.UK or with a professional before acting where getting it wrong has serious consequences. Never invent a statute, section number, fine amount or deadline you are not sure of; describe it in general terms instead.
+WORD COUNT: at least 2000 words of visible text, aim for 2000-2500. Depth comes from practical detail, not padding. Each FAQ answer 40-70 words.
+CALL TO ACTION: one short closing paragraph (before the FAQ) linking to CHAT_URL with a natural anchor such as "talk to a landlord finance specialist" or "discuss funding for your rental". No mid-article CTA.
+Do NOT include a "What lenders look for" section, a worked loan example, or a "Typical scenarios" section with loan figures.`;
+
 // ─── Generate article with OpenAI ────────────────────────────────────────────
 async function generateArticle(row, locationLinks, relatedBlogs) {
   console.log(`Generating article for: ${row.keyword || row.title}`);
   const isTriggerEvent = row.contentFramework === 'trigger-event';
+  const isGuide = isLandlordGuide(row);
+  if (isGuide) console.log('  Landlord guide format active');
   if (isTriggerEvent) console.log(`  Trigger-event framework active${row.notes ? ` (${row.notes})` : ''}`);
 
   const serviceUrl = row.internalLinkService
@@ -529,7 +557,7 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
   const serviceCtaSlug = toPublicServiceSlug(row.service);
   const chatUrl = `https://boxxfinance.co.uk/chat-about-funding/${serviceCtaSlug}`;
 
-  const locationLinksText = locationLinks.length > 0
+  const locationLinksText = !isGuide && locationLinks.length > 0
     ? `\nInternal location links (embed each naturally in the article body using the anchor text shown — do not alter the anchor or the URL):\n${locationLinks.map(l => `  URL: https://boxxfinance.co.uk${l.url}  Anchor text: "${l.anchor}"`).join('\n')}`
     : '';
 
@@ -544,7 +572,9 @@ async function generateArticle(row, locationLinks, relatedBlogs) {
     messages: [
       {
         role: 'system',
-        content: isTriggerEvent
+        content: isGuide
+          ? `You are an experienced UK property finance adviser who works with landlords every week, writing a practical guide for landlords for Boxx Finance. The reader is a UK landlord with a real letting or property-management question. Help them properly first; finance comes in only where it genuinely fits. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases ("in today's fast-paced world", "navigating the landscape", "it's worth noting", "delve", etc.). Never use markdown formatting, backticks, or code fences. Return only a raw JSON object with no wrapper, no explanation, no markdown.`
+          : isTriggerEvent
           ? `You are an experienced UK bridging finance broker writing for Boxx Finance. The reader has landed on this page because a specific deal or life event just went wrong and a deadline is now running — a chain collapsed, an auction deposit is at risk, a mortgage was declined days before exchange, a probate deadline is looming. You are the person who meets them at that exact moment: calm, precise, numbers-first. Write in a natural, human, UK tone. Never use em dashes. Never use generic AI phrases ("in today's fast-paced world", "navigating the landscape", "it's worth noting", "delve", "unlock the potential", etc.). Never use markdown formatting, backticks, or code fences. Return only a raw JSON object with no wrapper, no explanation, no markdown.`
           : `You are an experienced UK commercial finance broker writing a blog article for Boxx Finance. Write in a natural, human, UK tone — as a trusted adviser speaking directly to a UK SME owner. Never use em dashes. Never use generic AI phrases ("in today's fast-paced world", "navigating the landscape", "it's worth noting", etc.). Never use markdown formatting, backticks, or code fences. Return only a raw JSON object with no wrapper, no explanation, no markdown.`,
       },
@@ -575,7 +605,7 @@ TONE AND STYLE:
 - IMPORTANT: do NOT phrase these as "in our experience", "we see", "our clients" or similar first-person claims of specific Boxx case history — that presents invented statistics as real, verified track record under Boxx's name, which is misleading if untrue (a real published article did exactly this and was flagged by an external review). State the same observation as general, confident industry knowledge instead — the voice stays authoritative, it just isn't claiming to be a specific real statistic you don't actually have.
 - Guide the reader to a view. Where there is a sensible default choice, say so and say why, rather than only listing advantages and disadvantages.
 ${isTriggerEvent ? '\n' + TRIGGER_EVENT_VOICE + '\n' : ''}
-${isTriggerEvent ? TRIGGER_EVENT_STRUCTURE : `ARTICLE STRUCTURE (adapt headings to fit the specific topic, but follow this pattern):
+${isGuide ? LANDLORD_GUIDE_STRUCTURE.replace('SERVICE_URL', serviceUrl).replace('CHAT_URL', chatUrl) : isTriggerEvent ? TRIGGER_EVENT_STRUCTURE : `ARTICLE STRUCTURE (adapt headings to fit the specific topic, but follow this pattern):
 - Open with a single <p> of 50-70 words that directly and definitively answers the core question. Use declarative language ("X is...", "Businesses use X when...") — NOT hedging. This is what Google AI Overviews and ChatGPT extract as a featured answer. Within this opening paragraph, link the product name to the service page (${serviceUrl}) using keyword-rich anchor text (e.g. "${row.keyword}") — this counts toward the 3+ service-page links required below.
 - <h2> What this means in practice</h2>
 - <h2> How it works</h2>
@@ -591,11 +621,12 @@ Each <h2> section must open with 1-2 sentences that directly answer the section 
 
 If the article naturally involves comparing 2 or more numeric values side by side (e.g. typical LTV by property type, rates by term, fees by lender type${isTriggerEvent ? ', the options table required above' : ''}), include one simple <table> with a header row summarising them — AI engines preferentially extract and cite tabular data over prose.${isTriggerEvent ? '' : ' Do not force a table where nothing is genuinely comparable; most articles will not need one.'}
 
-WORD COUNT — this is a hard requirement, not a guideline:
+${isGuide ? '' : `WORD COUNT — this is a hard requirement, not a guideline:
 - The full article must be at least ${isTriggerEvent ? '3200 words of visible text — aim for 3500-4000, because the options table and worked cost example require real detail, not padding' : '3000 words of visible text — aim for 3200-3800'}
 - Every <h2> section except Summary and the FAQ must be at least 220 words — this is a longer, more detailed article format than before, so depth must come from genuinely expanding every section, not padding a couple of them
 - Each FAQ answer must be 40-70 words
 - Articles under 2000 words fail the site's SEO audit and are rejected, so expand thin sections with practical detail, realistic UK figures and broker insight before returning
+`}
 
 AI SEARCH (AEO) — additional rules for Google AI Overviews and Perplexity:
 - Include specific UK data points, FCA context, or regulatory facts where relevant
@@ -603,7 +634,7 @@ AI SEARCH (AEO) — additional rules for Google AI Overviews and Perplexity:
 - faqSchema must be a valid FAQ schema object with @type: FAQPage matching the FAQ in contentHtml exactly, including word-for-word question wording as the <h3> headings
 - Each FAQ answer's first sentence must stand alone as a complete answer — see faqSchema description for the exact standard
 
-CALLS TO ACTION (both required):
+${isGuide ? `LINKS FOR THIS GUIDE: the finance page link(s) and the closing CTA described in the structure above; related blog posts below where genuinely relevant; nothing else. Do not link the funding-solutions hub or the SME Funding Index. Only use links explicitly provided — do not invent any URLs. Never use "click here", "read more", "learn more", "contact us" or "get in touch" as anchor text.` : `CALLS TO ACTION (both required):
 - Mid-article CTA: include one paragraph encouraging the reader to get advice, linking to ${chatUrl}. Use a 2-5 word anchor built around the PRODUCT NAME ("bridging loans"), e.g. "compare bridging loan rates", "arrange a bridging loan", "get a bridging loan quote", "find a bridging loan broker" — NEVER generic phrases like "click here", "contact us", "speak to a specialist", or "get in touch"
 - CRITICAL — do NOT paste the target keyword into a CTA template. The keyword for this article is a DESCRIPTIVE PHRASE, not a product name, and slotting it in produces broken English. A real example that reached the live site: keyword "bridging loan borrowers over 70" became the anchor "get a bridging loan borrowers over 70 quote" and "find a bridging loan borrowers over 70 broker". Write anchors that read as natural English a person would say out loud. If an anchor would not survive being read aloud, rewrite it.
 - Closing CTA: end the article (before the FAQ) with a short paragraph linking to ${chatUrl} using a different natural anchor from the mid-article CTA
@@ -615,7 +646,7 @@ INTERNAL LINKS — anchor text rules are MANDATORY. Follow 2026 SEO/AEO best pra
 - Related blog posts: embed naturally in a sentence using keyword-rich anchor text describing what the post covers, NOT the raw post title and NOT generic phrases. E.g. for a post about bridging loan rates write "current UK bridging loan rates" — NEVER "Read Article", "this article", or just the page URL
 - Location links: use the exact anchor text provided in the location links list below — do not alter it — only link to the URLs explicitly provided, never invent location URLs
 - Do NOT add a link to https://boxxfinance.co.uk/#about — that anchor adds no SEO value
-- Only use links explicitly provided — do not invent any URLs
+- Only use links explicitly provided — do not invent any URLs`}
 ${locationLinksText}
 ${relatedBlogsText}
 ${isTriggerEvent ? '\n' + TRIGGER_EVENT_COMPLIANCE + '\n' : ''}
@@ -651,13 +682,14 @@ ${row.service === 'Bridging Finance' ? `BRIDGING LOANS TERMINOLOGY (mandatory fo
   // (early posts came back well short), so verify and expand.
   let words = wordCount(article.contentHtml);
   console.log(`  Draft word count: ${words}`);
-  for (let attempt = 1; attempt <= 3 && words < GENERATION_MIN_WORDS; attempt++) {
-    console.log(`  Below ${GENERATION_MIN_WORDS}-word minimum — expansion pass ${attempt}...`);
-    article.contentHtml = await expandArticleHtml(article.contentHtml, row.keyword, words);
+  const minWords = isGuide ? GUIDE_MIN_WORDS : GENERATION_MIN_WORDS;
+  for (let attempt = 1; attempt <= 3 && words < minWords; attempt++) {
+    console.log(`  Below ${minWords}-word minimum — expansion pass ${attempt}...`);
+    article.contentHtml = await expandArticleHtml(article.contentHtml, row.keyword, words, minWords);
     words = wordCount(article.contentHtml);
     console.log(`  Word count after expansion: ${words}`);
   }
-  if (words < GENERATION_MIN_WORDS) {
+  if (words < minWords) {
     console.warn(`  Still ${words} words after expansion passes — publishing anyway, seo-audit will flag if under ${TARGET_WORDS}`);
   }
 
@@ -705,14 +737,14 @@ ${row.service === 'Bridging Finance' ? `BRIDGING LOANS TERMINOLOGY (mandatory fo
     }
   }
 
-  let linkIssues = auditContentHtml(article.contentHtml, row.keyword);
+  let linkIssues = auditContentHtml(article.contentHtml, row.keyword, { guide: isGuide });
   for (let attempt = 1; attempt <= 2 && linkIssues.length > 0; attempt++) {
     console.log(`  Link audit: ${linkIssues.length} issue(s) found — fix pass ${attempt}...`);
     linkIssues.forEach(i => console.log(`    ⚠ ${i}`));
     article.contentHtml = await fixContentIssues(article.contentHtml, linkIssues, {
       serviceUrl, chatUrl, keyword: row.keyword, locationLinksText, relatedBlogsText,
     });
-    linkIssues = auditContentHtml(article.contentHtml, row.keyword);
+    linkIssues = auditContentHtml(article.contentHtml, row.keyword, { guide: isGuide });
     console.log(`  After fix pass ${attempt}: ${linkIssues.length} issue(s) remaining`);
   }
   if (linkIssues.length > 0) {
@@ -777,7 +809,7 @@ async function fixMetaField(text, fieldName, issues, keyword) {
 }
 
 // ─── Inline content audit — same rules as seo-audit.js ──────────────────────
-function auditContentHtml(html, keyword) {
+function auditContentHtml(html, keyword, { guide = false } = {}) {
   const issues = [];
 
   // Keyword-stuffed anchors. The CTA templates used to interpolate the target
@@ -819,7 +851,7 @@ function auditContentHtml(html, keyword) {
     issues.push('Link to /#about found — remove this link entirely (brand-name anchor adds no SEO value)');
 
   const firstParaMatch = html.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
-  if (firstParaMatch && !/href=/i.test(firstParaMatch[1]))
+  if (!guide && firstParaMatch && !/href=/i.test(firstParaMatch[1]))
     issues.push('Opening paragraph contains no link — add a link to the service page using keyword-rich anchor text');
 
   // Link COUNT checks. Without these the audit only ever required a single
@@ -830,14 +862,15 @@ function auditContentHtml(html, keyword) {
   // judge. Quality rules cannot substitute for a presence check.
   const hrefs = [...html.matchAll(/href=['"]([^'"]+)['"]/g)].map(m => m[1]);
 
-  if (hrefs.length < MIN_TOTAL_LINKS)
-    issues.push(`Only ${hrefs.length} link(s) in the article — needs at least ${MIN_TOTAL_LINKS} (3+ service page, 1 funding-solutions hub, related blog and location links, plus mid-article and closing CTAs)`);
+  const minTotal = guide ? 2 : MIN_TOTAL_LINKS; // guide: finance page + closing CTA
+  if (hrefs.length < minTotal)
+    issues.push(`Only ${hrefs.length} link(s) in the article — needs at least ${minTotal} (3+ service page, 1 funding-solutions hub, related blog and location links, plus mid-article and closing CTAs)`);
 
   const serviceLinks = hrefs.filter(h => /\/funding-solutions\/[a-z-]+/i.test(h)).length;
   if (serviceLinks < MIN_SERVICE_LINKS)
     issues.push(`Only ${serviceLinks} service-page link(s) — needs at least ${MIN_SERVICE_LINKS}, each with distinct keyword-rich anchor text`);
 
-  if (!hrefs.some(h => /\/funding-solutions\/?$/i.test(h)))
+  if (!guide && !hrefs.some(h => /\/funding-solutions\/?$/i.test(h)))
     issues.push('No link to the /funding-solutions hub — add one near the end using descriptive 2-5 word anchor text');
 
   if (!hrefs.some(h => /\/chat-about-funding/i.test(h)))
@@ -910,11 +943,11 @@ ${html}`,
 }
 
 // ─── Expand an article that came back under the word-count minimum ───────────
-async function expandArticleHtml(html, keyword, currentWords) {
+async function expandArticleHtml(html, keyword, currentWords, minWords = GENERATION_MIN_WORDS) {
   // A jump straight to GENERATION_MIN_WORDS can be a big ask in one pass at
   // the current 2000+ word target, so aim for meaningful, achievable
   // progress each call rather than the full gap every time.
-  const passTarget = Math.max(GENERATION_MIN_WORDS, currentWords + 800);
+  const passTarget = Math.max(minWords, currentWords + 800);
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
     max_tokens: 12000,
@@ -925,7 +958,7 @@ async function expandArticleHtml(html, keyword, currentWords) {
       },
       {
         role: 'user',
-        content: `The article below is ${currentWords} words. The minimum is ${GENERATION_MIN_WORDS} words. Expand it to at least ${passTarget} words by deepening the existing sections: add practical detail, realistic UK figures, concrete steps, and broker insight on "${keyword}".
+        content: `The article below is ${currentWords} words. The minimum is ${minWords} words. Expand it to at least ${passTarget} words by deepening the existing sections: add practical detail, realistic UK figures, concrete steps, and broker insight on "${keyword}".
 
 RULES:
 - Keep every existing HTML tag, link, href and attribute exactly as it is — do not remove or rewrite any <a> link

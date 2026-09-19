@@ -220,6 +220,102 @@
           "brief": "People search for a development mortgage and find the product does not really exist in the form they imagine. Explain why a standard mortgage cannot fund a build: it advances in full against current value and requires a habitable property, while a build needs staged money against rising value and a property that is not yet mortgageable. Set out what is actually used instead, which is development finance for the build then a term mortgage or buy to let product as the exit once the property is complete and has a certificate. Cover refurbishment as the borderline case where a heavier refurbishment product may serve. Explain the timing trap, which is arranging the exit too late."
         }
       ]
+    },
+    {
+      "service": "Bridging Finance",
+      "serviceUrl": "/funding-solutions/bridging-loans",
+      "_note": "Added 2026-09-19: two landlord bridging gaps found by comparing Pauzible's knowledge hub against published coverage. Original articles; nothing taken from their copy.",
+      "topics": [
+        {
+          "keyword": "title splitting bridging loan",
+          "title": "Title Splitting with a Bridging Loan: Buying a Block and Selling or Refinancing Flat by Flat",
+          "brief": "For landlords and investors buying a block of flats (or a house already split into self-contained flats) held on one freehold title, then splitting it into individual leasehold titles to refinance or sell each flat separately. Explain why the split can add value (lenders and buyers value individual flats on their own, and a single-title block is harder to mortgage and sell), what the split involves in practice (leases drafted for each flat, a management structure for the freehold, Land Registry registration, planning and building control checks that each flat is lawful), and how a bridging loan funds the purchase and the time it takes. Cover the exit honestly: refinancing individual flats onto buy-to-let mortgages or selling them, and what lenders want to see before they will lend on the new titles. Mention that leasehold reform is changing the rules, so a solicitor should confirm the current position. Landlord example first. No invented rates, LTVs or uplift percentages; describe value gains as possible, never guaranteed."
+        },
+        {
+          "keyword": "raise deposit from buy to let equity",
+          "title": "Using the Equity in Your Rental to Fund the Deposit on Your Next Purchase",
+          "brief": "For portfolio landlords who have equity in an existing buy-to-let and want to use it as the deposit on the next property, without selling. Set out the three realistic routes and when each fits: remortgaging the existing property (cheapest if the current mortgage has no early repayment charge and the rent still covers the new lender's stress test), a second charge loan behind the existing mortgage (keeps a good existing rate), and a bridging loan secured against the existing property or both properties (fastest, suited to auctions and time-limited deals, but needs a clear exit such as a later remortgage). Explain that lenders will want to know where the deposit came from and that borrowed deposits change how the new purchase is assessed. Cover the risk of over-leveraging a portfolio. Landlord examples throughout. No invented rates or LTVs."
+        }
+      ]
+    },
+    {
+      "service": "Landlord Guides",
+      "serviceUrl": "/funding-solutions/bridging-loans",
+      "_note": "Added 2026-09-19. Practical letting and property-management guides published Saturdays, to bring landlords to the site for Meta retargeting. Published in the landlord-guide format in publish-blog.js (2000-2500 words, one proportionate finance section). Each topic names the finance page that genuinely fits it.",
+      "topics": [
+        {
+          "keyword": "utility debt left by tenant",
+          "title": "Utility Debt Left by a Tenant: Who Pays and What Landlords Should Do",
+          "serviceUrl": "/funding-solutions/buy-to-let-refinance",
+          "brief": "Who is liable for gas, electricity, water and council tax when a tenant leaves owing money, and what changes if bills are in the landlord's name or the property is an HMO. Step by step: meter readings at check-out, notifying suppliers and the council, dealing with debt collectors writing to the property, and what can and cannot be claimed from the deposit. Finance angle, kept short: keeping cash flow steady across a void and between tenancies."
+        },
+        {
+          "keyword": "prevent burst pipes rental property",
+          "title": "Burst Pipes and Winter Damage: A Landlord's Prevention Checklist",
+          "serviceUrl": "/funding-solutions/secured-loans",
+          "brief": "Practical winter protection for rental property: lagging, heating settings during voids, stopcock access, what to tell tenants, checks for empty properties, and what insurers typically expect (including unoccupancy clauses). What to do when a pipe bursts, and who pays for what between landlord, tenant and insurer. Finance angle: funding a major repair or upgrade when an insurance claim does not cover everything."
+        },
+        {
+          "keyword": "lodger vs tenant",
+          "title": "Lodgers vs Tenants: The Differences Every Landlord Should Understand",
+          "serviceUrl": "/funding-solutions/second-charge-mortgages",
+          "brief": "The legal difference between a lodger and a tenant in England, and why it matters: notice, eviction, deposits, the Rent a Room scheme, and what changes if the landlord moves out. Include a comparison table. Mention that mortgage lenders and insurers usually need to be told. Finance angle: raising money against your own home without disturbing the existing mortgage."
+        },
+        {
+          "keyword": "preparing rental property between tenancies",
+          "title": "Between Tenancies: How to Turn a Rental Around Quickly and Profitably",
+          "serviceUrl": "/funding-solutions/bridging-loans",
+          "brief": "A practical void-period plan: the check-out, deposit deductions, a snagging and compliance list (gas, electrical, smoke and CO alarms, EPC), deciding what to refresh versus replace, marketing while works finish, and the cost of each week empty. Finance angle: when the gap is the right moment for a bigger refurbishment, and how short-term finance can fund it."
+        },
+        {
+          "keyword": "damp and mould landlord responsibilities",
+          "title": "Damp and Mould in Rental Homes: Landlord Duties and Lasting Fixes",
+          "serviceUrl": "/funding-solutions/secured-loans",
+          "brief": "What landlords are responsible for on damp and mould, how to tell condensation from rising or penetrating damp, how to respond to a tenant report and document it, and which fixes actually last (ventilation, insulation, guttering, damp-proofing). Note that rules on response times are tightening and landlords should check current guidance. Finance angle: funding larger remedial works."
+        },
+        {
+          "keyword": "letting agent vs self managing",
+          "title": "Letting Agent or Self-Manage? An Honest Cost and Time Comparison",
+          "serviceUrl": "/funding-solutions/buy-to-let-refinance",
+          "brief": "Compare let-only, rent collection and full management against self-managing: fee structures in general terms, the hours involved, compliance risk, and who each suits. Include a comparison table without invented percentages. Finance angle, short: how management costs and net rent feed into refinancing and lender stress tests."
+        },
+        {
+          "keyword": "landlord insurance what cover do I need",
+          "title": "Landlord Insurance: What Cover You Actually Need",
+          "serviceUrl": "/funding-solutions/buy-to-let-refinance",
+          "brief": "Buildings, contents, liability, rent guarantee, legal expenses and unoccupancy cover: what each does, what is usually excluded, and what mortgage lenders require. Common mistakes: under-insurance, not declaring HMOs or lodgers, and leaving property empty past the policy limit. Finance angle: lender insurance conditions when refinancing or bridging."
+        },
+        {
+          "keyword": "landlord safety certificates checklist",
+          "title": "The Landlord Safety Calendar: Gas, Electrics, Alarms and When Each Is Due",
+          "serviceUrl": "/funding-solutions/bridging-loans",
+          "brief": "A year-round compliance calendar for landlords in England: annual gas safety checks, electrical installation reports, smoke and carbon monoxide alarms, EPC, legionella risk assessment, and HMO extras. What to give tenants and when, and what records to keep. Advise checking current rules. Finance angle, short: compliance paperwork lenders ask for when you refinance or buy."
+        },
+        {
+          "keyword": "renting to tenants with pets",
+          "title": "Renting to Tenants with Pets: Rules, Risks and Protecting Your Property",
+          "serviceUrl": "/funding-solutions/buy-to-let-refinance",
+          "brief": "How the rules on pet requests are changing under the Renters' Rights Act (tell readers to check the current position), what landlords can reasonably ask for, insurance options, inventories and photographs, and which property types suit pets. Finance angle, short: a wider tenant pool supports the rental income used in refinancing."
+        },
+        {
+          "keyword": "tenant wants to leave early",
+          "title": "When a Tenant Wants to Leave Early: Break Clauses, Surrenders and Your Options",
+          "serviceUrl": "/funding-solutions/buy-to-let-refinance",
+          "brief": "What happens when a tenant asks to leave before the end of a tenancy: break clauses, agreeing a surrender, finding a replacement tenant, and what can be charged. Note that the Renters' Rights Act changes tenancy structures and readers should check the current position. Finance angle: managing a void and cash flow, and when it is a moment to refinance or sell."
+        },
+        {
+          "keyword": "planning a rental refurbishment",
+          "title": "Planning a Rental Refurbishment: Scope, Budget and Timing",
+          "serviceUrl": "/funding-solutions/bridging-loans",
+          "brief": "How landlords plan a refurbishment between tenancies: deciding scope by target rent and tenant type, getting quotes, building in contingency, which works need building regulations or planning, and scheduling to minimise the void. Finance angle: how refurbishment bridging works and when it makes sense."
+        },
+        {
+          "keyword": "making tax digital landlords",
+          "title": "Making Tax Digital for Landlords: What Changes and How to Prepare",
+          "serviceUrl": "/funding-solutions/buy-to-let-refinance",
+          "brief": "What Making Tax Digital for Income Tax means for landlords: who is brought in and from when (tell readers to confirm thresholds and dates on GOV.UK), quarterly updates, compatible software, record keeping, and how jointly owned property is treated. Practical preparation steps. Finance angle, short: tidy digital records make refinancing and lender applications quicker."
+        }
+      ]
     }
   ]
 }

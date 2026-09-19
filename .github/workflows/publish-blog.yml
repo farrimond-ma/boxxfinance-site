@@ -42,6 +42,11 @@ on:
     - cron: '37 6 * * 1'   # Mon 07:37 UK (BST) — bridging
     - cron: '37 6 * * 4'   # Thu 07:37 UK (BST) — bridging
     - cron: '37 18 * * 2'  # Tue 19:37 UK (BST) — secured loans / bad credit / BTL refinance
+    # 2026-09-19: Saturday landlord guides (practical letting/management topics,
+    # published in their own shorter format, see LANDLORD_GUIDE_* in
+    # publish-blog.js). Purpose: bring landlords to the site for Meta
+    # retargeting without taking a bridging slot.
+    - cron: '37 7 * * 6'   # Sat 08:37 UK (BST) — landlord guides
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
     inputs:
       service_filter:
@@ -106,6 +111,8 @@ jobs:
                 && github.event.inputs.service_filter
                 || (github.event.schedule == '37 18 * * 2'
                     && 'Secured Loans,Bad Credit Mortgages,Buy To Let Refinance,Second Charge Mortgages,Development Finance'
-                    || 'Bridging Finance') }}
+                    || (github.event.schedule == '37 7 * * 6'
+                        && 'Landlord Guides'
+                        || 'Bridging Finance')) }}
         run: node publish-blog.js
         working-directory: scripts/content-engine

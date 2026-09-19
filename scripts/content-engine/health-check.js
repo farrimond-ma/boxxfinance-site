@@ -170,9 +170,9 @@ const dow = CHECK_DATE.getUTCDay(); // 0=Sun .. 6=Sat, of the day being checked
 const isWeekday = dow >= 1 && dow <= 5;
 
 const REGISTRY = [
-  // Blog publishes Mon, Tue (evening) and Thu only; see publish-blog.yml crons.
+  // Blog publishes Mon, Tue (evening), Thu and Sat (landlord guides); see publish-blog.yml crons.
   { key: 'publish-blog',          file: 'publish-blog.yml',          label: 'Blog Publisher',
-    when: () => dow === 1 || dow === 2 || dow === 4,        verify: (ctx) => verifyQueueDrain(ctx, { type: 'blog', slot: 'AM', label: 'blog' }) },
+    when: () => dow === 1 || dow === 2 || dow === 4 || dow === 6,        verify: (ctx) => verifyQueueDrain(ctx, { type: 'blog', slot: 'AM', label: 'blog' }) },
   { key: 'publish-blog-pm',       file: 'publish-blog-pm.yml',       label: 'Blog Publisher (PM / visibility-gap)',
     when: () => false, /* schedule removed; manual only */        verify: (ctx) => verifyQueueDrain(ctx, { type: 'blog', slot: 'PM', label: 'blog' }) },
   { key: 'publish-location',      file: 'publish-location.yml',      label: 'Location Page Publisher',

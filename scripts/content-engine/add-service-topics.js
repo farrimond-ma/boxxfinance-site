@@ -90,7 +90,7 @@ function buildRow(id, date, slot, service, serviceUrl, topic, author) {
     topic.keyword, '', topic.title, slug,
     `https://boxxfinance.co.uk/insights/${slug}`,
     `${topic.title} | Boxx Finance`, '',
-    service, topic.brief, serviceUrl,
+    service, topic.brief, topic.serviceUrl || serviceUrl, // a topic may name its own finance page (landlord guides)
     '', '', '',
     '', '', '',
     'yes', 'yes', author,
