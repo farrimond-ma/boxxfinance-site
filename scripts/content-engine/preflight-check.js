@@ -99,8 +99,12 @@ async function checkSheets() {
     return record('Google Sheets', false, 'GOOGLE_CREDENTIALS or SPREADSHEET_ID not set', { fatal: true });
   }
   try {
+    // GOOGLE_CREDENTIALS is stored base64-encoded (see add-gap-topics.js); accept raw JSON too.
+    let credentials;
+    try { credentials = JSON.parse(Buffer.from(process.env.GOOGLE_CREDENTIALS, 'base64').toString('utf8')); }
+    catch { credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS); }
     const auth = new google.auth.GoogleAuth({
-      credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS),
+      credentials,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
     const sheets = google.sheets({ version: 'v4', auth: await auth.getClient() });

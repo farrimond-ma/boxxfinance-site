@@ -28,8 +28,18 @@ async function getJsonFile(path) {
   return JSON.parse(Buffer.from(content, 'base64').toString('utf8'));
 }
 
+// The check is scheduled for 22:53 UTC, but GitHub often starts crons hours late. On
+// 2026-09-19 it ran at 00:42 UTC, checked the new (empty) day and reported every
+// publisher as "no run recorded". Before 06:00 UTC, check the day that just ended.
+const CHECK_DATE = (() => {
+  const d = new Date();
+  if (d.getUTCHours() < 6) d.setUTCDate(d.getUTCDate() - 1);
+  return d;
+})();
+const CHECK_DAY = CHECK_DATE.toISOString().split('T')[0];
+
 async function getRunsToday(workflowFile) {
-  const todayStr = new Date().toISOString().split('T')[0];
+  const todayStr = CHECK_DAY;
   try {
     const { data } = await octokit.actions.listWorkflowRuns({
       owner: GITHUB_OWNER, repo: GITHUB_REPO, workflow_id: workflowFile, per_page: 15,
@@ -156,20 +166,21 @@ function verifyRunOnly(ctx, { runs, label }) {
 }
 
 // ─── Workflow registry ───────────────────────────────────────────────────────
-const dow = new Date().getUTCDay(); // 0=Sun .. 6=Sat
+const dow = CHECK_DATE.getUTCDay(); // 0=Sun .. 6=Sat, of the day being checked
 const isWeekday = dow >= 1 && dow <= 5;
 
 const REGISTRY = [
-  { key: 'publish-blog',          file: 'publish-blog.yml',          label: 'Blog Publisher (AM)',
-    when: () => true,        verify: (ctx) => verifyQueueDrain(ctx, { type: 'blog', slot: 'AM', label: 'blog' }) },
+  // Blog publishes Mon, Tue (evening) and Thu only; see publish-blog.yml crons.
+  { key: 'publish-blog',          file: 'publish-blog.yml',          label: 'Blog Publisher',
+    when: () => dow === 1 || dow === 2 || dow === 4,        verify: (ctx) => verifyQueueDrain(ctx, { type: 'blog', slot: 'AM', label: 'blog' }) },
   { key: 'publish-blog-pm',       file: 'publish-blog-pm.yml',       label: 'Blog Publisher (PM / visibility-gap)',
-    when: () => true,        verify: (ctx) => verifyQueueDrain(ctx, { type: 'blog', slot: 'PM', label: 'blog' }) },
+    when: () => false, /* schedule removed; manual only */        verify: (ctx) => verifyQueueDrain(ctx, { type: 'blog', slot: 'PM', label: 'blog' }) },
   { key: 'publish-location',      file: 'publish-location.yml',      label: 'Location Page Publisher',
-    when: () => true,        verify: (ctx) => verifyQueueDrain(ctx, { type: 'location', slot: null, label: 'location page' }) },
+    when: () => false, /* paused 2026-09-03; manual only */        verify: (ctx) => verifyQueueDrain(ctx, { type: 'location', slot: null, label: 'location page' }) },
   { key: 'publish-facebook',      file: 'publish-facebook.yml',      label: 'Facebook Publisher',
     when: () => true,        verify: (ctx) => verifySocialFlag(ctx, 'fbPosted', 'Facebook') },
   { key: 'publish-facebook-reels',file: 'publish-facebook-reels.yml',label: 'Facebook/Instagram Reels Publisher',
-    when: () => true,        verify: (ctx) => verifySocialFlag(ctx, 'reelPosted', 'Facebook/Instagram Reels') },
+    when: () => false, /* cron commented out; manual only */        verify: (ctx) => verifySocialFlag(ctx, 'reelPosted', 'Facebook/Instagram Reels') },
   { key: 'publish-pinterest',     file: 'publish-pinterest.yml',     label: 'Pinterest Publisher',
     when: () => true,        verify: (ctx) => verifySocialFlag(ctx, 'pinterestPosted', 'Pinterest') },
   { key: 'publish-linkedin',      file: 'publish-linkedin.yml',      label: 'LinkedIn Publisher',
@@ -261,7 +272,8 @@ async function main() {
   console.log(`Running at: ${new Date().toISOString()}`);
   console.log(`SERVICE_FILTER: "${SERVICE_FILTER}"`);
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = CHECK_DAY;
+  console.log(`Checking day: ${today}`);
 
   const [posts, locations, sheetRows] = await Promise.all([
     getJsonFile(BLOG_FILE).catch(err => { console.warn(`  Could not read ${BLOG_FILE}: ${err.message}`); return null; }),
