@@ -37,6 +37,15 @@
     // on PSI; mobile gained nothing outside noise. Loading it early gets the
     // work done before first paint, and tracks every visitor rather than only
     // those who stay past load.
+    // Skipped in automated browsers (2026-09-19). The build prerenders every
+    // page with Puppeteer, which ran this snippet ~650 times per deploy: each
+    // one sent a PageView from the build server, inflating Meta's counts, and
+    // the inserted fbevents.js <script> tag was then serialised into the
+    // prerendered HTML, so live pages shipped a second copy of it. Real
+    // browsers do not set navigator.webdriver, so this changes nothing for
+    // visitors: the pixel still loads here, before first paint, per the note
+    // above.
+    if (!navigator.webdriver) {
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -47,6 +56,7 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '3452187911622354');
     fbq('track', 'PageView');
+    }
   </script>
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=3452187911622354&ev=PageView&noscript=1"
