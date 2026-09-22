@@ -253,20 +253,20 @@ const ApplicationForm = ({
                             {(!multiStep || step === 1) && (
                                 <>
                                     <div className="quiz-input-group">
-                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Name</label>
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Your name</label>
                                         <input type="text" name="fullName" className="quiz-input" required value={form.fullName} onChange={onChange} />
                                     </div>
                                     <div className="quiz-input-group">
-                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Date of birth</label>
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Your date of birth</label>
                                         <input type="date" name="dob" className="quiz-input" required value={form.dob} onChange={onChange} />
                                     </div>
                                     <div className="quiz-input-group">
-                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Email</label>
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Email address</label>
                                         <input type="email" name="email" className="quiz-input" required value={form.email} onChange={onChange} />
                                     </div>
                                     {!token && (
                                         <div className="quiz-input-group">
-                                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Phone</label>
+                                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Phone number</label>
                                             <input type="tel" name="phone" className="quiz-input" required value={form.phone} onChange={onChange} />
                                         </div>
                                     )}
@@ -276,12 +276,12 @@ const ApplicationForm = ({
                             {(!multiStep || step === 2) && (
                                 <>
                                     <div className="quiz-input-group">
-                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address of security</label>
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>The address of the property you're at risk of losing</label>
                                         <textarea name="securityAddress" className="quiz-input" rows="5" required value={form.securityAddress} onChange={onChange} />
                                     </div>
-                                    <CurrencyInput label="Current value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 500,000" required />
+                                    <CurrencyInput label="Approximate current value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 500,000" required />
                                     <div className="quiz-input-group">
-                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Main residence or Investment?</label>
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Is this your home, or a buy-to-let/investment property?</label>
                                         <div style={{ display: 'flex', gap: '2rem' }}>
                                             {SECURITY_USE_OPTIONS.map((o) => (
                                                 <label key={o} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
@@ -291,9 +291,9 @@ const ApplicationForm = ({
                                             ))}
                                         </div>
                                     </div>
-                                    <CurrencyInput label="Amount owed on all mortgages and charges" name="amountOwed" value={form.amountOwed} onChange={onChange} placeholder="e.g. £ 150,000" required />
+                                    <CurrencyInput label="How much do you currently owe on it? (all mortgages and charges combined)" name="amountOwed" value={form.amountOwed} onChange={onChange} placeholder="e.g. £ 150,000" required />
                                     <div className="quiz-input-group">
-                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Threat of repossession or receivership?</label>
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Are you facing repossession or receivership?</label>
                                         <div style={{ display: 'flex', gap: '2rem' }}>
                                             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
                                                 <input type="radio" name="repossessionThreat" value="yes" checked={form.repossessionThreat === 'yes'} onChange={onChange} required />
@@ -306,14 +306,14 @@ const ApplicationForm = ({
                                         </div>
                                     </div>
                                     <div className="quiz-input-group">
-                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Reason for funds</label>
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>What would you use the funds for?</label>
                                         <textarea name="reasonForFunds" className="quiz-input" rows="4" required value={form.reasonForFunds} onChange={onChange} />
                                     </div>
 
                                     <h3>Credit history</h3>
                                     <div className="quiz-input-group">
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
-                                            Have you had any missed mortgage or loan payments, County Court Judgments (CCJs), or been subject to bankruptcy, an IVA or administration proceedings in the last 3 years?
+                                            Have you had any missed mortgage or loan payments, County Court Judgments (CCJs), or been declared bankrupt or subject to an IVA or administration in the last 3 years?
                                         </label>
                                         <div style={{ display: 'flex', gap: '2rem' }}>
                                             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
