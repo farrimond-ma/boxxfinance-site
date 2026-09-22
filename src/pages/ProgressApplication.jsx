@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SEO from '../components/SEO';
+import { useChatWidget } from '../components/chat/ChatWidgetContext';
 import './MultiStepForm.css';
 
 // Same Apps Script endpoint every other form on the site posts to.
@@ -64,6 +65,7 @@ const ProgressApplication = () => {
     const [status, setStatus] = useState('idle'); // idle | sending | done | error
     const [token, setToken] = useState(null); // set once a valid ?t=... link is confirmed
     const [prefillStatus, setPrefillStatus] = useState('idle'); // idle | loading | found | not_found
+    const { openChat } = useChatWidget();
 
     // If this page was opened via a client's unique link (?t=...), resolve it to their name/email
     // and pre-fill the form. An invalid/expired token just falls back to a normal blank form —
@@ -194,6 +196,15 @@ const ProgressApplication = () => {
             <div className="service-hero">
                 <h1>Progress Your <span className="text-highlight">Application</span></h1>
                 <p className="progress-hero-subtitle">We just need a few more details so we can move your bridging loan forward.</p>
+                <p className="progress-hero-subtitle">
+                    <button
+                        type="button"
+                        onClick={openChat}
+                        style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit', textDecoration: 'underline', cursor: 'pointer' }}
+                    >
+                        Do you have any questions?
+                    </button>
+                </p>
             </div>
 
             <div className="service-layout single-column">
