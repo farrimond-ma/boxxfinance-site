@@ -313,7 +313,13 @@ function readSitemapRoutes() {
     .map((r) => (r === '' ? '/' : r))
     .filter((r) => r.startsWith('/'));
 
-  const unique = [...new Set(routes)];
+  // noindex pages that are sent to clients as links (SMS, WhatsApp, email).
+  // They're rightly kept out of the sitemap, but without prerendering they're
+  // served the bare shell, whose meta tags are the homepage's, so every link
+  // preview showed the homepage title and image instead of the page's own.
+  const SHARED_NOINDEX_ROUTES = ['/progress-your-application', '/book-an-appointment'];
+
+  const unique = [...new Set([...routes, ...SHARED_NOINDEX_ROUTES])];
   if (unique.length === 0) {
     throw new Error(`No <loc> entries found in ${file} — refusing to prerender nothing.`);
   }
