@@ -24,6 +24,7 @@ import AboutUs from './pages/AboutUs';
 import AdLandingBridgingLoans from './pages/AdLandingBridgingLoans';
 import AdLandingBridgingUnregulated from './pages/AdLandingBridgingUnregulated';
 import ProgressApplication from './pages/ProgressApplication';
+import AdStopRepossession from './pages/AdStopRepossession';
 import BookAppointment from './pages/BookAppointment';
 import ChatbotTest from './pages/ChatbotTest';
 
@@ -58,6 +59,11 @@ function App() {
           <Route path="chat-about-funding" element={<MultiStepForm />} />
           <Route path="chat-about-funding/:slug" element={<MultiStepForm />} />
           <Route path="progress-your-application" element={<ProgressApplication />} />
+          {/* Facebook ad landing page sending cold traffic straight to the repossession fact
+              find (same fields/submit path as ProgressApplication, via ApplicationForm) —
+              nested under Layout (unlike the ad pages below) so it keeps the site header and
+              the AI chat widget, since this is a full fact-find form, not a single-CTA page. */}
+          <Route path="ads/stop-repossession" element={<AdStopRepossession />} />
           <Route path="book-an-appointment" element={<BookAppointment />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="legal-disclaimer" element={<LegalDisclaimer />} />

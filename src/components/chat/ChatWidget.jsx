@@ -10,6 +10,7 @@ const PHONE_TEL = 'tel:01236702070';
 // brief) without needing every page to explicitly wire it up.
 function inferPageCategory(pathname) {
     if (/^\/progress-your-application/.test(pathname)) return 'progress application page (existing case, repossession risk)';
+    if (/^\/ads\/stop-repossession/.test(pathname)) return 'stop repossession ad landing page (new enquiry, repossession/receivership risk, contact details not yet given)';
     if (/^\/funding-solutions\/bridging-loans/.test(pathname)) return 'bridging finance service page';
     if (/^\/funding-solutions\//.test(pathname)) return 'commercial finance service page (non-bridging)';
     if (/^\/ads\/bridging-loans/.test(pathname)) return 'bridging loans ad landing page';
