@@ -56,7 +56,12 @@ const ApplicationForm = ({
     fundingTypeLabel,
     enableTokenLookup = true,
     showQuestionsLink = true,
+    multiStep = false,
 }) => {
+    // Only meaningful when multiStep — page 1 asks contact details, page 2 asks everything else.
+    // Splitting the fields across two native <form> submits (rather than one long form) means the
+    // browser's own required-field validation still gates moving on, without extra JS validation.
+    const [step, setStep] = useState(1);
     const [form, setForm] = useState({
         fullName: '',
         dob: '',
@@ -98,6 +103,14 @@ const ApplicationForm = ({
     }, [enableTokenLookup]);
 
     const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+
+    // Page 1 (contact details) just advances to page 2 — nothing is sent until the whole form is
+    // actually complete, so Meta's pixel/CAPI "Lead" event (fired below, only on final success)
+    // still tracks a fully completed form, not someone who only filled in their contact details.
+    const onStep1Next = (e) => {
+        e.preventDefault();
+        setStep(2);
+    };
 
     const buildCommonFields = () => ({
         security_address: form.securityAddress,
@@ -188,6 +201,12 @@ const ApplicationForm = ({
                 }).catch(() => { /* best-effort, Sheet already has the lead */ });
             }
 
+            // Fires once the whole form (both steps, where applicable) has actually been
+            // completed and submitted — same "Lead" event and same point in the flow every other
+            // lead-capture form on the site fires it at, so Meta optimises ad delivery towards
+            // people who finish the form, not just start it.
+            if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
+
             setStatus('done');
         } catch {
             setStatus('error');
@@ -224,86 +243,113 @@ const ApplicationForm = ({
                     ) : prefillStatus === 'loading' ? (
                         <p>Loading your details…</p>
                     ) : (
-                        <form onSubmit={onSubmit}>
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Name</label>
-                                <input type="text" name="fullName" className="quiz-input" required value={form.fullName} onChange={onChange} />
-                            </div>
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Date of birth</label>
-                                <input type="date" name="dob" className="quiz-input" required value={form.dob} onChange={onChange} />
-                            </div>
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Email</label>
-                                <input type="email" name="email" className="quiz-input" required value={form.email} onChange={onChange} />
-                            </div>
-                            {!token && (
-                                <div className="quiz-input-group">
-                                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Phone</label>
-                                    <input type="tel" name="phone" className="quiz-input" required value={form.phone} onChange={onChange} />
-                                </div>
+                        <form onSubmit={multiStep && step === 1 ? onStep1Next : onSubmit}>
+                            {multiStep && (
+                                <p className="step-subtitle" style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1.5rem' }}>
+                                    Step {step} of 2
+                                </p>
                             )}
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address of security</label>
-                                <textarea name="securityAddress" className="quiz-input" rows="5" required value={form.securityAddress} onChange={onChange} />
-                            </div>
-                            <CurrencyInput label="Current value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 500,000" required />
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Main residence or Investment?</label>
-                                <div style={{ display: 'flex', gap: '2rem' }}>
-                                    {SECURITY_USE_OPTIONS.map((o) => (
-                                        <label key={o} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
-                                            <input type="radio" name="securityUse" value={o} checked={form.securityUse === o} onChange={onChange} required />
-                                            {o}
+
+                            {(!multiStep || step === 1) && (
+                                <>
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Name</label>
+                                        <input type="text" name="fullName" className="quiz-input" required value={form.fullName} onChange={onChange} />
+                                    </div>
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Date of birth</label>
+                                        <input type="date" name="dob" className="quiz-input" required value={form.dob} onChange={onChange} />
+                                    </div>
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Email</label>
+                                        <input type="email" name="email" className="quiz-input" required value={form.email} onChange={onChange} />
+                                    </div>
+                                    {!token && (
+                                        <div className="quiz-input-group">
+                                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Phone</label>
+                                            <input type="tel" name="phone" className="quiz-input" required value={form.phone} onChange={onChange} />
+                                        </div>
+                                    )}
+                                </>
+                            )}
+
+                            {(!multiStep || step === 2) && (
+                                <>
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address of security</label>
+                                        <textarea name="securityAddress" className="quiz-input" rows="5" required value={form.securityAddress} onChange={onChange} />
+                                    </div>
+                                    <CurrencyInput label="Current value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 500,000" required />
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Main residence or Investment?</label>
+                                        <div style={{ display: 'flex', gap: '2rem' }}>
+                                            {SECURITY_USE_OPTIONS.map((o) => (
+                                                <label key={o} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                                    <input type="radio" name="securityUse" value={o} checked={form.securityUse === o} onChange={onChange} required />
+                                                    {o}
+                                                </label>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <CurrencyInput label="Amount owed on all mortgages and charges" name="amountOwed" value={form.amountOwed} onChange={onChange} placeholder="e.g. £ 150,000" required />
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Threat of repossession or receivership?</label>
+                                        <div style={{ display: 'flex', gap: '2rem' }}>
+                                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                                <input type="radio" name="repossessionThreat" value="yes" checked={form.repossessionThreat === 'yes'} onChange={onChange} required />
+                                                Yes
+                                            </label>
+                                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                                <input type="radio" name="repossessionThreat" value="no" checked={form.repossessionThreat === 'no'} onChange={onChange} required />
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Reason for funds</label>
+                                        <textarea name="reasonForFunds" className="quiz-input" rows="4" required value={form.reasonForFunds} onChange={onChange} />
+                                    </div>
+
+                                    <h3>Credit history</h3>
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
+                                            Have you had any missed mortgage or loan payments, County Court Judgments (CCJs), or been subject to bankruptcy, an IVA or administration proceedings in the last 3 years?
                                         </label>
-                                    ))}
-                                </div>
-                            </div>
-                            <CurrencyInput label="Amount owed on all mortgages and charges" name="amountOwed" value={form.amountOwed} onChange={onChange} placeholder="e.g. £ 150,000" required />
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Threat of repossession or receivership?</label>
-                                <div style={{ display: 'flex', gap: '2rem' }}>
-                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
-                                        <input type="radio" name="repossessionThreat" value="yes" checked={form.repossessionThreat === 'yes'} onChange={onChange} required />
-                                        Yes
-                                    </label>
-                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
-                                        <input type="radio" name="repossessionThreat" value="no" checked={form.repossessionThreat === 'no'} onChange={onChange} required />
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Reason for funds</label>
-                                <textarea name="reasonForFunds" className="quiz-input" rows="4" required value={form.reasonForFunds} onChange={onChange} />
-                            </div>
-
-                            <h3>Credit history</h3>
-                            <div className="quiz-input-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
-                                    Have you had any missed mortgage or loan payments, County Court Judgments (CCJs), or been subject to bankruptcy, an IVA or administration proceedings in the last 3 years?
-                                </label>
-                                <div style={{ display: 'flex', gap: '2rem' }}>
-                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
-                                        <input type="radio" name="hasAdverseCredit" value="yes" checked={form.hasAdverseCredit === 'yes'} onChange={onChange} required />
-                                        Yes
-                                    </label>
-                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
-                                        <input type="radio" name="hasAdverseCredit" value="no" checked={form.hasAdverseCredit === 'no'} onChange={onChange} required />
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            {form.hasAdverseCredit === 'yes' && (
-                                <div className="quiz-input-group">
-                                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Please give details</label>
-                                    <textarea name="adverseCreditDetails" className="quiz-input" rows="3" required value={form.adverseCreditDetails} onChange={onChange} />
-                                </div>
+                                        <div style={{ display: 'flex', gap: '2rem' }}>
+                                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                                <input type="radio" name="hasAdverseCredit" value="yes" checked={form.hasAdverseCredit === 'yes'} onChange={onChange} required />
+                                                Yes
+                                            </label>
+                                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                                <input type="radio" name="hasAdverseCredit" value="no" checked={form.hasAdverseCredit === 'no'} onChange={onChange} required />
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {form.hasAdverseCredit === 'yes' && (
+                                        <div className="quiz-input-group">
+                                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Please give details</label>
+                                            <textarea name="adverseCreditDetails" className="quiz-input" rows="3" required value={form.adverseCreditDetails} onChange={onChange} />
+                                        </div>
+                                    )}
+                                </>
                             )}
 
-                            <button type="submit" className="btn btn-primary" disabled={status === 'sending'} style={{ width: '100%', marginTop: '1rem' }}>
-                                {status === 'sending' ? 'Sending…' : 'Submit details'}
-                            </button>
+                            <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                                {multiStep && step === 2 && (
+                                    <button
+                                        type="button"
+                                        onClick={() => setStep(1)}
+                                        disabled={status === 'sending'}
+                                        style={{ background: 'none', border: '2px solid currentColor', borderRadius: '4px', padding: '0 1.5rem', cursor: 'pointer', font: 'inherit' }}
+                                    >
+                                        ← Back
+                                    </button>
+                                )}
+                                <button type="submit" className="btn btn-primary" disabled={status === 'sending'} style={{ flex: 1 }}>
+                                    {multiStep && step === 1 ? 'Next →' : status === 'sending' ? 'Sending…' : 'Submit details'}
+                                </button>
+                            </div>
                             {status === 'error' && <p style={{ color: '#a3271f', marginTop: '0.75rem' }}>Something went wrong — call <a href="tel:01236702070">01236 702070</a> instead.</p>}
                         </form>
                     )}

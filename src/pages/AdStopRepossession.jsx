@@ -14,6 +14,7 @@ const AdStopRepossession = () => (
         fundingTypeLabel="Stop Repossession (Bridging)"
         enableTokenLookup={false}
         showQuestionsLink={true}
+        multiStep={true}
     />
 );
 
