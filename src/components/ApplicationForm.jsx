@@ -52,7 +52,10 @@ const ApplicationForm = ({
     heroSubtitle,
     seoTitle,
     seoDescription,
-    seoImage = '/application_hero_bg.png',
+    // Link-preview image for these client-facing links (WhatsApp, SMS, email). The signing-desk
+    // photo read as too formal, so both application pages default to the brand card: the gold
+    // logo on navy, centred so it survives a square crop.
+    seoImage = '/og-boxx.png',
     fundingTypeLabel,
     enableTokenLookup = true,
     showQuestionsLink = true,
