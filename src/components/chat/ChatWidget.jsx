@@ -171,10 +171,10 @@ const ChatWidget = ({ isOpen, onClose, seed, onSeedConsumed }) => {
                 {messages.length === 0 && (
                     <div className="chat-greeting">
                         <div className="chat-bubble chat-bubble-assistant">
-                            Hi, welcome to Boxx Finance.
+                            Hi, my name is Tara.
                         </div>
                         <div className="chat-bubble chat-bubble-assistant">
-                            How can we help?
+                            How can I help?
                         </div>
                     </div>
                 )}
