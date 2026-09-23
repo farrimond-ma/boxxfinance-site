@@ -171,7 +171,7 @@ const ChatWidget = ({ isOpen, onClose, seed, onSeedConsumed }) => {
                 {messages.length === 0 && (
                     <div className="chat-greeting">
                         <div className="chat-bubble chat-bubble-assistant">
-                            Hi, my name is Tara.
+                            Hi, my name is Claire.
                         </div>
                         <div className="chat-bubble chat-bubble-assistant">
                             How can I help?
