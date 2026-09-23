@@ -1541,6 +1541,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://boxxfinance.co.uk/insights/buy-to-let-rental-yield-threshold</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://boxxfinance.co.uk/locations/business-loans-london</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
