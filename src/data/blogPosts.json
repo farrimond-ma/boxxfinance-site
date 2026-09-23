@@ -24433,8 +24433,8 @@
     "relatedLocationUrls": [],
     "relatedBlogUrls": [
       "https://boxxfinance.co.uk/insights/mandatory-landlord-registration-scheme-december",
-      "https://boxxfinance.co.uk/insights/tenancy-deposit-disputes-landlord-guide",
-      "https://boxxfinance.co.uk/insights/zoopla-doubles-rental-growth-forecast"
+      "https://boxxfinance.co.uk/insights/buy-to-let-rental-yield-threshold",
+      "https://boxxfinance.co.uk/insights/tenancy-deposit-disputes-landlord-guide"
     ],
     "content": "<p>A new mandatory registration scheme for landlords in England is due to launch on 15 December 2026, requiring rental property owners to sign up through a government \"Register your rental property\" service and pay an annual charge of £65 per property. The rollout will happen in stages across different regions rather than all at once, as reported by <a href=\"https://www.property118.com/landlord-registration-starts-in-december-download-our-free-guide/\">Property118</a>. On paper it sounds simple, but the detail matters more than the headline.</p><p>For anyone letting out a property in England, this is a cost and compliance step that needs to go into next year's planning now, not in November 2026 when the deadline is looming. The scheme applies per property, not per landlord, so anyone with several rentals across a portfolio is looking at multiplying that £65 charge by however many units they own. It is a modest figure on its own, but it stacks up alongside existing costs like licensing schemes some councils already run, gas safety checks, EPC requirements and insurance.</p><h2>Why a phased rollout matters</h2><p>Because different regions are joining the scheme at different times, landlords with properties spread across England could find themselves registering on different timetables for different addresses. That is worth flagging early, particularly for anyone who manages their own portfolio without a letting agent handling admin. Missing a regional deadline because you assumed a national start date could mean falling foul of a requirement you did not realise had already kicked in locally. It is the kind of detail that gets missed when landlords are juggling multiple tenancies, renewals and maintenance requests, so it is worth putting a reminder in the diary well before your region's date is confirmed.</p><h2>Budgeting for another annual cost</h2><p>The £65 charge itself is unlikely to break anyone's finances, but it is another recurring cost to factor into rental yield calculations, especially for landlords already absorbing higher mortgage rates, stricter energy efficiency rules and looming changes to renters' rights. For portfolio landlords remortgaging or restructuring finance around these pressures, it is worth reviewing overall running costs rather than treating each new charge in isolation. Landlords looking at their wider financing position, including how borrowing is structured against a portfolio, may find it useful to look at options such as <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinancing</a>, particularly if registration costs are landing alongside other upcoming obligations.</p><h2>What landlords should do now</h2><p>The sensible move is to treat this the way most regulatory changes should be treated: read the detail before it becomes urgent. Property118's guide is aimed at answering the practical questions landlords are likely to have, such as how registration interacts with existing local licensing schemes, what happens if a property changes hands mid-tenancy, and how enforcement is expected to work. Given the scheme is still over a year away from its December 2026 start, there is time to get organised, but that time shrinks fast once regional dates start being confirmed one by one.</p><h2>Frequently Asked Questions</h2><h3>Do I need to register every rental property I own?</h3><p>Based on what has been announced, the charge and registration requirement apply per property rather than per landlord, so anyone with multiple rental properties in England should expect to register and pay for each one individually.</p><h3>Will the scheme start at the same time everywhere in England?</h3><p>No. The service is due to launch on 15 December 2026 but different regions are joining in stages, so landlords with properties in different areas may face different registration timelines rather than one single national deadline.</p><h3>Does this replace existing council licensing schemes for landlords?</h3><p>The source does not specify how this new national registration will interact with existing local licensing requirements, so landlords already registered under a council scheme should check for confirmation on whether both will run alongside each other.</p><p>For landlords weighing up how new compliance costs fit alongside financing decisions on their properties, it may be worth exploring <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a> to see what options are available.</p>",
     "liPosted": false,
@@ -24734,5 +24734,65 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1790167609808,
+    "status": "published",
+    "slug": "buy-to-let-rental-yield-threshold",
+    "url": "/insights/buy-to-let-rental-yield-threshold",
+    "title": "Buy-to-let only pays off now if landlords hit a strict rental yield target, new analysis shows",
+    "excerpt": "With property prices flat and costs rising, analysts say landlords need to focus on a minimum rental yield to avoid losing money, even though bargain-priced properties are plentiful.",
+    "metaTitle": "Buy-to-let landlords need this yield to stay profitable",
+    "metaDescription": "Falling prices mean cheaper buy-to-let stock, but rising costs mean landlords must hit a strict rental yield to actually make money. Here's what it means.",
+    "keywords": "landlord, buy-to-let, buy to let, rental property, rents, tenant",
+    "date": "2026-09-23",
+    "publishedAt": "2026-09-23T12:46:49.808Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/buy-to-let-rental-yield-threshold.webp",
+    "heroVersion": 30683462,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is rental yield and how is it worked out?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rental yield is generally calculated as the annual rent a property generates divided by its purchase price or current value, expressed as a percentage. It gives a rough measure of how much income a property produces relative to what it cost, before accounting for mortgage payments, costs and tax."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are buy-to-let properties cheaper right now?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The source reporting describes the market as remaining in the doldrums, meaning subdued demand and pricing have left more properties available at lower prices than in recent years, giving investors wider choice."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I sell a rental property if it doesn't hit the required yield?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "That depends on individual circumstances, including whether the property has other benefits such as long-term capital growth potential, and what selling would cost in fees and tax. It's worth reviewing the full picture, including financing options, rather than making a decision on yield alone."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [
+      "https://boxxfinance.co.uk/insights/landlord-registration-scheme-december-2026",
+      "https://boxxfinance.co.uk/insights/zoopla-doubles-rental-growth-forecast",
+      "https://boxxfinance.co.uk/insights/prs-database-65-fee-landlords"
+    ],
+    "content": "<p>Buy-to-let investors have more cheap property to choose from than they've had in years, but that doesn't mean the numbers add up. According to <a href=\"https://www.thisismoney.co.uk/money/buytolet/article-16102337/Why-buy-let-no-longer-stacks-investors-despite-rents-surging-ran-numbers-landlords-need-7-7-yield-avoid-losing-money-year.html?ns_mchannel=rss&ns_campaign=1490&ito=1490\">This Is Money's Buy to Let coverage</a>, the market remains in the doldrums, with prices low enough that landlords are spoilt for choice on properties they can pick up at bargain prices. The catch is that a cheap purchase price alone no longer makes a deal worthwhile. Landlords now need to hit a specific rental yield threshold just to avoid running the investment at a loss, once higher costs and taxation are factored in.</p><p>That's a significant shift from the assumptions many landlords built their portfolios on a decade or more ago, when cheap mortgage rates and lighter tax treatment meant even modest yields could produce a decent return. Today, the maths has changed, and anyone thinking about buying a rental property, or holding on to one, needs to understand why.</p><h2>Why yield now matters more than price</h2><p>For years, many buy-to-let investors judged a deal mainly on whether the purchase price looked cheap relative to the area, or whether they expected the property to rise in value over time. Rental income was often treated as a bonus on top of capital growth. That approach is much harder to justify now. With mortgage costs higher than they were, and tax relief on finance costs for landlords much less generous than it used to be, the income a property actually generates each month matters far more than it once did.</p><p>A property that looks like a bargain on price can still lose money every month if the rent it commands doesn't clear a certain yield hurdle once mortgage payments, maintenance, insurance, letting agent fees and tax are accounted for. That's the core message from this analysis: cheap isn't the same as viable.</p><h2>What this means for existing landlords</h2><p>If you already own rental property, this is a moment to revisit the numbers rather than assume the deal still works the way it did when you bought. Rents have generally been rising, which helps, but so have costs, particularly where a fixed-rate mortgage deal is coming up for renewal and needs to be replaced at a higher rate. Landlords refinancing an existing portfolio, especially those looking to release equity to fund further purchases or cover a shortfall while restructuring finances, may find it useful to look at options such as a <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinance</a> designed specifically around rental property rather than a standard residential remortgage.</p><h2>What it means for prospective buyers</h2><p>For anyone considering entering the buy-to-let market for the first time, or expanding a portfolio while prices are soft, the message is to run the numbers properly before assuming a low asking price equals a good investment. That means being honest about likely rental income, factoring in realistic void periods, maintenance costs and current mortgage rates, and checking whether the resulting yield clears the threshold needed to actually turn a profit rather than just break even or lose money slowly. A property that's cheap to buy but structurally unable to hit that yield is not a bargain, whatever the asking price suggests.</p><h2>The bigger picture for the housing market</h2><p>This isn't just a landlord issue. A buy-to-let market where fewer deals stack up can affect the supply of rental homes available to tenants, and it can also shape which properties come up for sale as some landlords decide to exit rather than refinance at higher cost. Anyone buying a home in an area with a high concentration of rental stock may see knock-on effects in local supply and pricing over time.</p><h2>Frequently Asked Questions</h2><h3>What is rental yield and how is it worked out?</h3><p>Rental yield is generally calculated as the annual rent a property generates divided by its purchase price or current value, expressed as a percentage. It gives a rough measure of how much income a property produces relative to what it cost, before accounting for mortgage payments, costs and tax.</p><h3>Why are buy-to-let properties cheaper right now?</h3><p>The source reporting describes the market as remaining in the doldrums, meaning subdued demand and pricing have left more properties available at lower prices than in recent years, giving investors wider choice.</p><h3>Should I sell a rental property if it doesn't hit the required yield?</h3><p>That depends on individual circumstances, including whether the property has other benefits such as long-term capital growth potential, and what selling would cost in fees and tax. It's worth reviewing the full picture, including financing options, rather than making a decision on yield alone.</p><p>For landlords weighing up whether to refinance, restructure or free up capital to respond to a changing market, it's worth exploring the range of <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> available to see what fits your situation.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
