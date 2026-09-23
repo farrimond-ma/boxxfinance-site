@@ -276,9 +276,28 @@ const ApplicationForm = ({
                             {(!multiStep || step === 2) && (
                                 <>
                                     <div className="quiz-input-group">
-                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>The address of the property you're at risk of losing</label>
-                                        <textarea name="securityAddress" className="quiz-input" rows="5" required value={form.securityAddress} onChange={onChange} />
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Are you facing repossession or receivership?</label>
+                                        <div style={{ display: 'flex', gap: '2rem' }}>
+                                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                                <input type="radio" name="repossessionThreat" value="yes" checked={form.repossessionThreat === 'yes'} onChange={onChange} required />
+                                                Yes
+                                            </label>
+                                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                                <input type="radio" name="repossessionThreat" value="no" checked={form.repossessionThreat === 'no'} onChange={onChange} required />
+                                                No
+                                            </label>
+                                        </div>
                                     </div>
+                                    {form.repossessionThreat !== '' && (
+                                        <div className="quiz-input-group">
+                                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
+                                                {form.repossessionThreat === 'yes'
+                                                    ? "The address of the property you're at risk of losing"
+                                                    : 'The address of the property you\'re using as security'}
+                                            </label>
+                                            <textarea name="securityAddress" className="quiz-input" rows="5" required value={form.securityAddress} onChange={onChange} />
+                                        </div>
+                                    )}
                                     <CurrencyInput label="Approximate current value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 500,000" required />
                                     <div className="quiz-input-group">
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Is this your home, or a buy-to-let/investment property?</label>
@@ -292,19 +311,6 @@ const ApplicationForm = ({
                                         </div>
                                     </div>
                                     <CurrencyInput label="How much do you currently owe on it? (all mortgages and charges combined)" name="amountOwed" value={form.amountOwed} onChange={onChange} placeholder="e.g. £ 150,000" required />
-                                    <div className="quiz-input-group">
-                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Are you facing repossession or receivership?</label>
-                                        <div style={{ display: 'flex', gap: '2rem' }}>
-                                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
-                                                <input type="radio" name="repossessionThreat" value="yes" checked={form.repossessionThreat === 'yes'} onChange={onChange} required />
-                                                Yes
-                                            </label>
-                                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
-                                                <input type="radio" name="repossessionThreat" value="no" checked={form.repossessionThreat === 'no'} onChange={onChange} required />
-                                                No
-                                            </label>
-                                        </div>
-                                    </div>
                                     <div className="quiz-input-group">
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>What would you use the funds for?</label>
                                         <textarea name="reasonForFunds" className="quiz-input" rows="4" required value={form.reasonForFunds} onChange={onChange} />
