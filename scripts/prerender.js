@@ -317,7 +317,16 @@ function readSitemapRoutes() {
   // They're rightly kept out of the sitemap, but without prerendering they're
   // served the bare shell, whose meta tags are the homepage's, so every link
   // preview showed the homepage title and image instead of the page's own.
-  const SHARED_NOINDEX_ROUTES = ['/progress-your-application', '/book-an-appointment'];
+  // Ad landing pages are here for the same reason: they're kept out of the sitemap, but the
+  // URLs are pasted into Facebook ads, messages and emails, where the preview bot reads the
+  // served HTML and got the homepage's title and image for every one of them.
+  const SHARED_NOINDEX_ROUTES = [
+    '/progress-your-application',
+    '/book-an-appointment',
+    '/ads/stop-repossession',
+    '/ads/bridging-loans',
+    '/fb/bridging-funding',
+  ];
 
   const unique = [...new Set([...routes, ...SHARED_NOINDEX_ROUTES])];
   if (unique.length === 0) {
