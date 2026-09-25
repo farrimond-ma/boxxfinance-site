@@ -24590,8 +24590,8 @@
     "relatedLocationUrls": [],
     "relatedBlogUrls": [
       "https://boxxfinance.co.uk/insights/landlords-leaving-private-rented-sector",
-      "https://boxxfinance.co.uk/insights/zoopla-doubles-rental-growth-forecast",
-      "https://boxxfinance.co.uk/insights/mandatory-landlord-registration-scheme-december"
+      "https://boxxfinance.co.uk/insights/landlord-compliance-evidence-proving-standards",
+      "https://boxxfinance.co.uk/insights/zoopla-doubles-rental-growth-forecast"
     ],
     "content": "<p>Smaller landlords are leaving the private rented sector, but this is not shrinking the overall number of homes available to rent, according to new analysis from the Joseph Rowntree Foundation. The findings, reported by <a href=\"https://www.property118.com/call-for-rent-controls-as-smaller-landlords-quit-the-prs/\">Property118</a>, challenge the widely held view that the PRS itself is contracting, and the foundation is now calling for rent controls to be introduced in England without delay.</p><p>This matters because it cuts against a narrative landlords have used for years: that increased regulation and taxation are driving smaller investors out and shrinking supply, which in turn pushes rents up. The Joseph Rowntree Foundation's analysis suggests something different is happening. Smaller, often amateur landlords appear to be selling up, but the homes they leave behind are not disappearing from the rental market. Instead, the evidence points to consolidation, with those properties likely being absorbed by larger landlords, build-to-rent operators or new entrants, keeping overall stock broadly stable even as the ownership structure shifts.</p><h2>Why this changes the political conversation</h2><p>For years, the property industry has warned that further intervention, from tax changes to stricter licensing and energy efficiency rules, would accelerate landlords leaving and cause a supply crunch that hurts tenants through higher rents. If the JRF's analysis holds up to scrutiny, that argument becomes harder to sustain politically. Campaigners and some policymakers may feel emboldened to push for rent controls, arguing that fears over supply shortages are overstated. That is a meaningful shift in the debate, because concerns about reduced housing stock have historically been one of the strongest arguments landlords and their representative groups have used against tighter rent regulation.</p><h2>What this means for landlords today</h2><p>Smaller landlords weighing up whether to stay in the sector should treat this as a signal, not a verdict. Rent controls are not yet policy in England, but the direction of travel in the debate is worth watching closely. If controls were introduced, they could affect achievable rents, remortgaging calculations and the overall attractiveness of buy-to-let compared with other investments. Landlords already considering an exit, whether due to tax changes, higher borrowing costs or the practical burden of compliance, may want to weigh up timing carefully rather than reacting to headlines alone.</p><p>For those looking to restructure rather than sell, whether that means consolidating a portfolio, moving properties into a limited company, or simply raising capital against existing equity to buy elsewhere while conditions are still relatively landlord-friendly, it can help to understand the options for <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">refinancing existing buy-to-let properties</a> before regulatory changes narrow the window.</p><h2>What tenants and buyers should take from this</h2><p>For tenants, the reassurance is that overall rental supply does not appear to be collapsing, even if it feels harder to find a home in some local markets. For prospective buyers, particularly those eyeing up ex-rental stock coming onto the market as smaller landlords sell, this could mean more choice in the coming months, though pricing will depend heavily on local demand and whether larger operators are actively buying up the same properties.</p><h2>Frequently Asked Questions</h2><h3>Are rent controls actually being introduced in England?</h3><p>Not at this stage. The Joseph Rowntree Foundation is calling for rent controls based on its analysis, but this is a campaign position rather than confirmed government policy. Any change would need to go through the usual legislative process.</p><h3>Does this mean fewer homes are available to rent?</h3><p>According to the analysis reported by Property118, no. While smaller landlords are leaving the sector, the evidence does not support the claim that the private rented sector itself is shrinking, suggesting other landlords or operators are taking on the stock.</p><h3>Should landlords sell up because of this news?</h3><p>Not necessarily. This is one piece of analysis feeding into an ongoing policy debate, not a confirmed change in law. Landlords should keep watching how the rent control conversation develops rather than making rushed decisions based on a single report.</p><p>Landlords reassessing their portfolio strategy in light of a shifting regulatory backdrop can explore wider borrowing and refinancing options through <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a>.</p>",
     "liPosted": false,
@@ -24834,5 +24834,65 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1790340521525,
+    "status": "published",
+    "slug": "landlord-compliance-evidence-proving-standards",
+    "url": "/insights/landlord-compliance-evidence-proving-standards",
+    "title": "Why Landlords Need to Prove Compliance, Not Just Achieve It",
+    "excerpt": "NRLA's Wales representative Gill Owens says landlords touring forums this summer are worried less about meeting standards and more about proving they've met them. Here's what that means in practice.",
+    "metaTitle": "Landlords: Proving Compliance Matters as Much as Meeting It",
+    "metaDescription": "NRLA's Gill Owens warns landlords that keeping evidence of compliance is now as important as meeting the standards themselves. Here's what to do.",
+    "keywords": "landlord, buy-to-let, private rented, rented sector, rental property, tenant",
+    "date": "2026-09-25",
+    "publishedAt": "2026-09-25T12:48:41.526Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/landlord-compliance-evidence-proving-standards.webp",
+    "heroVersion": 39660862,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What documents should landlords keep to prove compliance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Typically this includes gas safety certificates, electrical installation condition reports, energy performance certificates, and any fire safety documentation relevant to the property, along with dated records of repairs, inspections and communications with tenants. Requirements can vary depending on the property type and local licensing rules, so it's worth checking what applies in your specific area."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if a landlord can't produce evidence when asked?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Local authorities and tribunals generally treat a lack of evidence in a similar way to a lack of compliance itself, since there's no way to verify that standards were actually met. This can lead to enforcement action, fines, or a weaker position in a tenant dispute, even if the underlying work was genuinely carried out."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this only relevant to landlords in licensing areas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. While selective and additional licensing schemes make evidence requests more likely, any landlord can be asked to prove compliance during a tenancy dispute, an insurance claim, or a sale. Keeping organised records is good practice regardless of whether a property currently sits in a licensed area."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [
+      "https://boxxfinance.co.uk/insights/rent-controls-call-smaller-landlords-quit-prs",
+      "https://boxxfinance.co.uk/insights/landlords-leaving-private-rented-sector",
+      "https://boxxfinance.co.uk/insights/buy-to-let-rental-yield-threshold"
+    ],
+    "content": "<p>A new diary entry from the National Residential Landlords Association has flagged a shift in what's worrying landlords day to day. It's not just whether their properties meet safety and quality standards, but whether they can actually prove it if challenged. Gill Owens, the NRLA's Wales representative, has spent the summer visiting landlord forums around the country and reports that evidence, not just compliance itself, is now top of mind for many. The piece was published by <a href=\"https://www.nrla.org.uk/news/wales-gills-diary-september-2026\">NRLA News</a>, and it's a useful nudge for anyone renting out property in the UK today.</p><p>This matters because the private rented sector has become far more scrutinised in recent years. Councils run licensing schemes, tenants can raise disputes, and regulators expect paperwork to back up any claim that a property is safe and well maintained. A landlord might genuinely have a valid gas safety certificate, working smoke alarms and an up-to-date electrical report, but if those documents are disorganised, out of date, or simply hard to lay hands on quickly, it can look the same as not having them at all when someone comes asking.</p><h2>Why evidence has become the real test</h2><p>Local authorities and tribunals don't take a landlord's word for it anymore. When a dispute arises, whether over a deposit, a repair, or a licensing check, the burden tends to fall on the landlord to produce dated, specific proof that work was done and standards were met. That could mean gas safety certificates, electrical installation condition reports, energy performance certificates, fire risk assessments for larger properties, and records of any repairs or inspections carried out during a tenancy. Landlords who keep these documents scattered across emails, paper files and old phone photos are the ones most likely to struggle when they're asked to produce them at short notice.</p><h2>What this means for ordinary landlords today</h2><p>For most landlords, especially those with one or two properties rather than a large portfolio, the fix isn't complicated. It's about building a habit of keeping every certificate, invoice and inspection report in one place, ideally with clear dates and property references, so nothing has to be dug out under pressure. This is particularly relevant for anyone in a selective licensing area, where councils can request documentation with little notice, or for landlords going through a tenancy dispute where timing matters. Buying a rental property, refinancing one, or bringing a new one into a portfolio is also a natural moment to get compliance paperwork properly organised from day one rather than trying to reconstruct it later. Landlords looking at refinancing options as part of that process may find it worth exploring a <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinance option</a> that fits alongside a genuine compliance overhaul, rather than treating the two as separate jobs.</p><h2>The bigger picture for the rented sector</h2><p>Owens' point, gathered from landlords across various forums, reflects a broader direction of travel in the sector. Regulation isn't just about hitting a standard once and forgetting about it. It's about being able to demonstrate, on demand, that the standard has been met and maintained throughout a tenancy. That shift puts more weight on record-keeping as a practical skill, alongside the more familiar landlord responsibilities like maintenance and safety checks themselves.</p><h2>Frequently Asked Questions</h2><h3>What documents should landlords keep to prove compliance?</h3><p>Typically this includes gas safety certificates, electrical installation condition reports, energy performance certificates, and any fire safety documentation relevant to the property, along with dated records of repairs, inspections and communications with tenants. Requirements can vary depending on the property type and local licensing rules, so it's worth checking what applies in your specific area.</p><h3>What happens if a landlord can't produce evidence when asked?</h3><p>Local authorities and tribunals generally treat a lack of evidence in a similar way to a lack of compliance itself, since there's no way to verify that standards were actually met. This can lead to enforcement action, fines, or a weaker position in a tenant dispute, even if the underlying work was genuinely carried out.</p><h3>Is this only relevant to landlords in licensing areas?</h3><p>No. While selective and additional licensing schemes make evidence requests more likely, any landlord can be asked to prove compliance during a tenancy dispute, an insurance claim, or a sale. Keeping organised records is good practice regardless of whether a property currently sits in a licensed area.</p><p>For landlords looking to reorganise their finances alongside their compliance record, whether that's refinancing a property or funding improvement works, it's worth browsing the <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> available to see what might fit.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
