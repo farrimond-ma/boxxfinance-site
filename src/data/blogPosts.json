@@ -24590,8 +24590,8 @@
     "relatedLocationUrls": [],
     "relatedBlogUrls": [
       "https://boxxfinance.co.uk/insights/landlords-leaving-private-rented-sector",
-      "https://boxxfinance.co.uk/insights/landlord-compliance-evidence-proving-standards",
-      "https://boxxfinance.co.uk/insights/zoopla-doubles-rental-growth-forecast"
+      "https://boxxfinance.co.uk/insights/burnham-crackdown-poor-quality-prs-homes",
+      "https://boxxfinance.co.uk/insights/landlord-compliance-evidence-proving-standards"
     ],
     "content": "<p>Smaller landlords are leaving the private rented sector, but this is not shrinking the overall number of homes available to rent, according to new analysis from the Joseph Rowntree Foundation. The findings, reported by <a href=\"https://www.property118.com/call-for-rent-controls-as-smaller-landlords-quit-the-prs/\">Property118</a>, challenge the widely held view that the PRS itself is contracting, and the foundation is now calling for rent controls to be introduced in England without delay.</p><p>This matters because it cuts against a narrative landlords have used for years: that increased regulation and taxation are driving smaller investors out and shrinking supply, which in turn pushes rents up. The Joseph Rowntree Foundation's analysis suggests something different is happening. Smaller, often amateur landlords appear to be selling up, but the homes they leave behind are not disappearing from the rental market. Instead, the evidence points to consolidation, with those properties likely being absorbed by larger landlords, build-to-rent operators or new entrants, keeping overall stock broadly stable even as the ownership structure shifts.</p><h2>Why this changes the political conversation</h2><p>For years, the property industry has warned that further intervention, from tax changes to stricter licensing and energy efficiency rules, would accelerate landlords leaving and cause a supply crunch that hurts tenants through higher rents. If the JRF's analysis holds up to scrutiny, that argument becomes harder to sustain politically. Campaigners and some policymakers may feel emboldened to push for rent controls, arguing that fears over supply shortages are overstated. That is a meaningful shift in the debate, because concerns about reduced housing stock have historically been one of the strongest arguments landlords and their representative groups have used against tighter rent regulation.</p><h2>What this means for landlords today</h2><p>Smaller landlords weighing up whether to stay in the sector should treat this as a signal, not a verdict. Rent controls are not yet policy in England, but the direction of travel in the debate is worth watching closely. If controls were introduced, they could affect achievable rents, remortgaging calculations and the overall attractiveness of buy-to-let compared with other investments. Landlords already considering an exit, whether due to tax changes, higher borrowing costs or the practical burden of compliance, may want to weigh up timing carefully rather than reacting to headlines alone.</p><p>For those looking to restructure rather than sell, whether that means consolidating a portfolio, moving properties into a limited company, or simply raising capital against existing equity to buy elsewhere while conditions are still relatively landlord-friendly, it can help to understand the options for <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">refinancing existing buy-to-let properties</a> before regulatory changes narrow the window.</p><h2>What tenants and buyers should take from this</h2><p>For tenants, the reassurance is that overall rental supply does not appear to be collapsing, even if it feels harder to find a home in some local markets. For prospective buyers, particularly those eyeing up ex-rental stock coming onto the market as smaller landlords sell, this could mean more choice in the coming months, though pricing will depend heavily on local demand and whether larger operators are actively buying up the same properties.</p><h2>Frequently Asked Questions</h2><h3>Are rent controls actually being introduced in England?</h3><p>Not at this stage. The Joseph Rowntree Foundation is calling for rent controls based on its analysis, but this is a campaign position rather than confirmed government policy. Any change would need to go through the usual legislative process.</p><h3>Does this mean fewer homes are available to rent?</h3><p>According to the analysis reported by Property118, no. While smaller landlords are leaving the sector, the evidence does not support the claim that the private rented sector itself is shrinking, suggesting other landlords or operators are taking on the stock.</p><h3>Should landlords sell up because of this news?</h3><p>Not necessarily. This is one piece of analysis feeding into an ongoing policy debate, not a confirmed change in law. Landlords should keep watching how the rent control conversation develops rather than making rushed decisions based on a single report.</p><p>Landlords reassessing their portfolio strategy in light of a shifting regulatory backdrop can explore wider borrowing and refinancing options through <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a>.</p>",
     "liPosted": false,
@@ -25174,5 +25174,65 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1790775977083,
+    "status": "published",
+    "slug": "burnham-crackdown-poor-quality-prs-homes",
+    "url": "/insights/burnham-crackdown-poor-quality-prs-homes",
+    "title": "Andy Burnham warns landlords over poor-quality rentals: what a PRS crackdown could mean",
+    "excerpt": "Andy Burnham says landlords letting the worst-quality homes could face warnings or council takeover of their properties, part of a wider push on housing standards and empty homes.",
+    "metaTitle": "Burnham Crackdown on Poor-Quality Rental Homes Explained",
+    "metaDescription": "Andy Burnham has pledged action against landlords letting substandard homes, with warnings and potential council takeover on the table. Here's what it means.",
+    "keywords": "landlord, buy-to-let, private rented, rented sector, tenant",
+    "date": "2026-09-30",
+    "publishedAt": "2026-09-30T13:46:17.084Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/burnham-crackdown-poor-quality-prs-homes.webp",
+    "heroVersion": 39660870,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this mean councils can already take over rental properties?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. This is a pledge made at a party conference rather than a change in the law. Any move to give councils powers to take over poor-quality rental homes would need to go through a formal policy and legislative process, and the details of how it would work have not been announced."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What counts as a poor-quality rental home?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The source comments do not set out precise criteria for what would be classed as the worst-quality homes. In general, previous government efforts in this area have focused on issues like damp, mould, poor heating and general disrepair, so landlords with older or poorly maintained stock are likely to be the main focus of any future enforcement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should landlords act now or wait for firm rules?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Waiting is an option, but given the direction of recent policy on rental standards, addressing known issues with a property sooner rather than later is generally the lower-risk approach, both to avoid future enforcement and to keep the property lettable and attractive to tenants."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [
+      "https://boxxfinance.co.uk/insights/rent-controls-call-smaller-landlords-quit-prs",
+      "https://boxxfinance.co.uk/insights/landlord-compliance-evidence-proving-standards",
+      "https://boxxfinance.co.uk/insights/landlords-leaving-private-rented-sector"
+    ],
+    "content": "<p>Andy Burnham has pledged a crackdown on poor-quality homes in the private rented sector, warning that landlords who let out the worst properties could be issued formal warnings and, in the most serious cases, have their homes taken over by local councils. Speaking at the Labour Party conference, Burnham also said he wanted to reform Right to Buy and address the ongoing problem of empty homes, as <a href=\"https://www.property118.com/andy-burnham-pledges-crackdown-on-poor-quality-prs-homes/\">reported by Property118</a>. For landlords, particularly those with older or lower-spec properties, this is a clear signal that housing quality is moving further up the political agenda.</p><p>The details of exactly how enforcement would work, what counts as \"worst-quality\", and what powers councils would actually be given have not been set out in full. But the direction of travel is unmistakable: government is prepared to talk about intervention that goes beyond fines, right up to the point of councils stepping in to take control of a property. That is a significant escalation in tone, even before any legislation or formal policy detail follows.</p><h2>What this means for landlords right now</h2><p>Nothing changes overnight. This is a political pledge made at a party conference, not a new law or regulation that landlords need to comply with today. But it does add to a pattern that has been building for some time, with successive governments tightening expectations around energy efficiency, damp and mould, and general property condition in the rented sector. Landlords who have been putting off repairs or upgrades, hoping standards would stay where they are, should treat this as another reminder that the bar is likely to keep rising rather than staying still.</p><p>For landlords with a portfolio that includes older stock, particularly homes bought some years ago and never significantly modernised, the sensible response is to start assessing where the gaps are before any formal requirements land. That might mean addressing damp, upgrading heating systems, or dealing with general disrepair that could otherwise attract attention under future enforcement regimes. Landlords weighing up whether to fund that kind of work through remortgaging or restructuring existing borrowing may want to look at options such as <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinancing</a>, which can free up capital against a property's value to cover improvement costs without necessarily needing to sell.</p><h2>Wider housing pledges add to the picture</h2><p>Burnham's comments were not limited to the private rented sector. He also raised reform of Right to Buy and tackling the number of empty homes across the country, both long-standing issues that touch on the broader housing supply problem. None of this has been translated into firm policy yet, but taken together it suggests a government keen to be seen acting across several fronts at once: quality in the rented sector, access to homeownership through Right to Buy, and bringing unused housing stock back into use.</p><p>For tenants, the pledge on rental quality is likely to be welcome, particularly for those currently living in homes with unresolved issues around damp, disrepair or poor insulation. For landlords, it is another data point suggesting that compliance costs and expectations are heading in one direction. Buyers and homeowners are less directly affected, though anyone considering purchasing a property to let out should factor rising quality expectations into their calculations from the outset, rather than treating minimum standards as a fixed target.</p><h2>What landlords should do while details are unclear</h2><p>With no firm legislation yet in place, the most useful thing landlords can do is get ahead of the issue rather than wait for it to become mandatory. That means an honest audit of property condition, particularly around damp, mould, heating efficiency and general safety, and a realistic view of what upgrades might cost. Where cash flow is tight, some landlords are likely to look at restructuring finance to release equity for improvement work rather than facing a scramble later if and when enforcement becomes concrete.</p><h2>Frequently Asked Questions</h2><h3>Does this mean councils can already take over rental properties?</h3><p>No. This is a pledge made at a party conference rather than a change in the law. Any move to give councils powers to take over poor-quality rental homes would need to go through a formal policy and legislative process, and the details of how it would work have not been announced.</p><h3>What counts as a poor-quality rental home?</h3><p>The source comments do not set out precise criteria for what would be classed as the worst-quality homes. In general, previous government efforts in this area have focused on issues like damp, mould, poor heating and general disrepair, so landlords with older or poorly maintained stock are likely to be the main focus of any future enforcement.</p><h3>Should landlords act now or wait for firm rules?</h3><p>Waiting is an option, but given the direction of recent policy on rental standards, addressing known issues with a property sooner rather than later is generally the lower-risk approach, both to avoid future enforcement and to keep the property lettable and attractive to tenants.</p><p>Landlords looking at how to fund repairs, upgrades or wider portfolio changes ahead of any tightening in rental standards can explore the range of options at <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a>.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
