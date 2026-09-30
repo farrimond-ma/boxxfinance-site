@@ -30,4 +30,9 @@ return [
     // just a no-op until the CRM side exists.
     'CRM_CHATBOT_URL' => '',
     'CRM_CHATBOT_KEY' => '',
+
+    // Shared secret the CRM sends (as an X-Sms-Reply-Key header) when it calls sms_reply.php to
+    // draft an automatic text reply to a closed-lead nurture text. Must match the CRM's own
+    // 'ai_sms_reply_key' config value exactly. Leave as CHANGE_ME to keep that endpoint disabled.
+    'SMS_REPLY_KEY' => 'CHANGE_ME',
 ];
