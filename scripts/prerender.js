@@ -329,7 +329,15 @@ function readSitemapRoutes() {
     '/fb/bridging-funding',
   ];
 
-  const unique = [...new Set([...routes, ...SHARED_NOINDEX_ROUTES])];
+  // /chat-about-funding/<service> is the CTA target in every article and service page, but
+  // only the bare /chat-about-funding is in the sitemap, so the per-service ones were served
+  // the shell: crawlers saw the homepage's content and title on the site's main conversion
+  // page. Derived from the service routes so a new service can't be missed.
+  const chatRoutes = routes
+    .filter((r) => /^\/funding-solutions\/[^/]+$/.test(r))
+    .map((r) => r.replace('/funding-solutions/', '/chat-about-funding/'));
+
+  const unique = [...new Set([...routes, ...SHARED_NOINDEX_ROUTES, ...chatRoutes])];
   if (unique.length === 0) {
     throw new Error(`No <loc> entries found in ${file} — refusing to prerender nothing.`);
   }
@@ -357,6 +365,9 @@ function optionsForRoute(route, ctx) {
 
 // Mirrors the output logic in renderRoute so main() can verify every route
 // actually produced a file on disk.
+// Deliberately a path no real page can occupy, so <NotFound> renders.
+const NOT_FOUND_RENDER_ROUTE = '/__prerender-404__';
+
 function outputPathForRoute(route) {
   if (route === '/') return path.join(distDir, 'index.html');
   const clean = route.replace(/^\//, '');
@@ -429,6 +440,17 @@ async function main() {
     for (const route of routes) {
       await renderRoute(browser, route, optionsForRoute(route, ctx));
     }
+
+    // 404.html — Apache serves this (with a real 404 status) for any URL that isn't a
+    // prerendered page, via ErrorDocument in public/.htaccess. Without it, every made-up
+    // URL returned the homepage with HTTP 200, which Google logs as a soft 404 and treats
+    // as duplicate homepage content. Rendered from a route that cannot exist, so it is
+    // whatever <NotFound> actually looks like rather than a hand-maintained copy.
+    await renderRoute(browser, NOT_FOUND_RENDER_ROUTE);
+    const rendered = outputPathForRoute(NOT_FOUND_RENDER_ROUTE);
+    fs.copyFileSync(rendered, path.join(distDir, '404.html'));
+    fs.rmSync(path.dirname(rendered), { recursive: true, force: true });
+    console.log('  404.html written from <NotFound>');
   } finally {
     await browser.close();
     server.close();

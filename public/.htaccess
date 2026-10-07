@@ -249,10 +249,28 @@ Options -Indexes -MultiViews
   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.html -f
   RewriteRule ^(.+[^/])$ $1.html [L]
 
-  # ── SPA routing: serve index.html for all non-file, non-dir requests ────────
+  # ── Unknown URLs: a real 404, not the homepage ─────────────────────────────
+  # Until 2026-10-07 the last rule here served index.html with HTTP 200 for ANY
+  # unknown URL, so /insights/anything-made-up returned the homepage's content
+  # and title at a 200. Google logs those as soft 404s and as duplicates of the
+  # homepage, which is why the retired-page 301s above had to be written one by
+  # one. Every real page is prerendered (the completeness gate in
+  # scripts/prerender.js fails the build otherwise), so anything still unmatched
+  # at this point genuinely does not exist.
+  #
+  # 404.html is the prerendered <NotFound> page and still loads the app bundle,
+  # so a visitor who lands on a mistyped URL gets the real site, just with an
+  # honest status code for crawlers.
+  ErrorDocument 404 /404.html
+
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
-  RewriteRule ^ index.html [L]
+
+  # Internal JS-only tools: deliberately never prerendered and never indexed,
+  # so they keep the SPA fallback instead of 404ing.
+  RewriteRule ^(dashboard|internal/.*)/?$ index.html [L]
+
+  RewriteRule ^ - [R=404,L]
 </IfModule>
