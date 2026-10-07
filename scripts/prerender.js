@@ -325,6 +325,7 @@ function readSitemapRoutes() {
     '/book-an-appointment',
     '/ads/stop-repossession',
     '/ads/bridging-loans',
+    '/meta/bridging-loans',
     '/fb/bridging-funding',
   ];
 
@@ -393,8 +394,13 @@ async function main() {
     process.env.CHROME_BIN ||
     undefined;
 
-  // --single-process/--no-zygote are needed for CI containers but are
-  // unsupported on Windows (Chrome crashes with "frame was detached")
+  // --no-sandbox/--disable-dev-shm-usage are what CI actually needs. --single-process
+  // and --no-zygote were dropped on 2026-10-07: Chrome died on launch with them
+  // ("Failed to launch the browser process: Code: null"), which failed every deploy
+  // from 2026-10-06 22:49 and stopped the site updating. Chrome has been moving away
+  // from --single-process for a while; the same pair caused the 2026-09-14 crash
+  // noted in deploy.yml. They were never needed on a GitHub runner (a VM, not a
+  // container). Windows keeps its own minimal set.
   const browser = await puppeteer.launch({
     headless: true,
     executablePath,
@@ -405,8 +411,6 @@ async function main() {
           '--disable-setuid-sandbox',
           '--disable-dev-shm-usage',
           '--disable-gpu',
-          '--no-zygote',
-          '--single-process'
         ]
   });
 
