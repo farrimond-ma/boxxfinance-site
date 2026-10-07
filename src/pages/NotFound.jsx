@@ -7,8 +7,11 @@ const NotFound = () => {
     return (
         <div className="blog-post-page">
             <SEO
-                title="Page Not Found | Boxx Finance"
+                // SEO appends " | Boxx Finance", so the brand was being printed twice.
+                title="Page Not Found"
                 description="The page you are looking for could not be found. Browse our funding solutions or get in touch with our team."
+                // 404.html is a real file at /404.html, so without this it is indexable in its own right.
+                noIndex={true}
             />
             <div className="legal-hero" style={{ padding: '10rem 0 6rem' }}>
                 <div className="container">
