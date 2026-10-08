@@ -589,6 +589,7 @@ OUTPUT RULES:
 - No markdown, no backticks, no code fences, no curly quotes — return raw JSON only
 - slug should be the keyword in lowercase with hyphens
 - metaTitle must be 20-60 characters and must NOT include "| Boxx Finance" or any brand suffix — the site template appends the brand automatically
+- NEVER put a year in the title or metaTitle. A real article published in October 2026 went out as "Bridging Loan Rates for UK Residential Developers 2024" — a year that appeared nowhere in the article and was two years stale, which makes the page look abandoned in search results. The content is not year-specific, so it does not need dating. If the topic genuinely is tied to a year (a Budget, a rule change with a start date), name it in the body, not the title.
 - excerpt and metaDescription must be PLAIN TEXT ONLY — absolutely no markdown links "[text](url)", no HTML tags, no URLs. They are rendered as raw text on listing cards, in Google results and in social posts, so any markup shows literally to the reader. Links belong in contentHtml only.
 - excerpt and metaDescription must read as natural sentences a person would write, never as an instruction to yourself or a note about the page structure. A real example that reached the live site: excerpt ending "Link to the service page to explore bridging finance for commercial property and how it can work for you." — that is a leaked generator instruction, not copy, and must never happen. Similarly, never paste the raw target keyword phrase into the middle of a sentence unchanged (e.g. "Discover more about how do bridging loans require income proof can support your business ambitions" is broken English caused by inserting the keyword literally) — reword the keyword into a grammatical sentence instead.
 - secondaryKeywords must be a JSON array of strings
@@ -734,6 +735,30 @@ ${row.service === 'Bridging Finance' ? `BRIDGING LOANS TERMINOLOGY (mandatory fo
         article[field] = article[field].replace(/bridging finance/gi, m => m[0] === 'B' ? 'Bridging loans' : 'bridging loans');
         console.log(`  ${field} corrected to "bridging loans"`);
       }
+    }
+  }
+
+  // ── Stale year in the title (2026-10-08)
+  // "Bridging Loan Rates for UK Residential Developers 2024" published on
+  // 2026-10-05: the model appended a year that appeared nowhere in the body and
+  // was two years out of date, which makes the article look abandoned in the
+  // search results. Drop a past year outright rather than bumping it to the
+  // current one: nothing in the piece is actually year-specific, and a year in
+  // the title only has to be maintained later.
+  const currentYear = new Date().getFullYear();
+  for (const field of ['title', 'metaTitle']) {
+    if (!article[field]) continue;
+    // Only when EVERY year present is in the past: "Rates in 2025/2026" is current, and
+    // stripping just the 2025 from it left "Rates in/".
+    const years = [...article[field].matchAll(/\b20\d{2}\b/g)].map((m) => Number(m[0]));
+    if (years.length > 0 && years.every((y) => y < currentYear)) {
+      const before = article[field];
+      article[field] = article[field]
+        .replace(/[\s:,-]*\b20\d{2}\b/g, '')
+        .replace(/\s{2,}/g, ' ')
+        .replace(/[\s:,-]+$/, '')
+        .trim();
+      console.log(`  ${field} had a stale year: "${before}" → "${article[field]}"`);
     }
   }
 
