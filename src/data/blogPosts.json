@@ -24590,8 +24590,8 @@
     "relatedLocationUrls": [],
     "relatedBlogUrls": [
       "https://boxxfinance.co.uk/insights/landlords-leaving-private-rented-sector",
-      "https://boxxfinance.co.uk/insights/landlord-sell-offs-tenant-displacement-prs",
-      "https://boxxfinance.co.uk/insights/landlord-sentiment-survey-q3-2026-what-it-means"
+      "https://boxxfinance.co.uk/insights/renters-rights-act-student-landlords-faqs",
+      "https://boxxfinance.co.uk/insights/landlord-sell-offs-tenant-displacement-prs"
     ],
     "content": "<p>Smaller landlords are leaving the private rented sector, but this is not shrinking the overall number of homes available to rent, according to new analysis from the Joseph Rowntree Foundation. The findings, reported by <a href=\"https://www.property118.com/call-for-rent-controls-as-smaller-landlords-quit-the-prs/\">Property118</a>, challenge the widely held view that the PRS itself is contracting, and the foundation is now calling for rent controls to be introduced in England without delay.</p><p>This matters because it cuts against a narrative landlords have used for years: that increased regulation and taxation are driving smaller investors out and shrinking supply, which in turn pushes rents up. The Joseph Rowntree Foundation's analysis suggests something different is happening. Smaller, often amateur landlords appear to be selling up, but the homes they leave behind are not disappearing from the rental market. Instead, the evidence points to consolidation, with those properties likely being absorbed by larger landlords, build-to-rent operators or new entrants, keeping overall stock broadly stable even as the ownership structure shifts.</p><h2>Why this changes the political conversation</h2><p>For years, the property industry has warned that further intervention, from tax changes to stricter licensing and energy efficiency rules, would accelerate landlords leaving and cause a supply crunch that hurts tenants through higher rents. If the JRF's analysis holds up to scrutiny, that argument becomes harder to sustain politically. Campaigners and some policymakers may feel emboldened to push for rent controls, arguing that fears over supply shortages are overstated. That is a meaningful shift in the debate, because concerns about reduced housing stock have historically been one of the strongest arguments landlords and their representative groups have used against tighter rent regulation.</p><h2>What this means for landlords today</h2><p>Smaller landlords weighing up whether to stay in the sector should treat this as a signal, not a verdict. Rent controls are not yet policy in England, but the direction of travel in the debate is worth watching closely. If controls were introduced, they could affect achievable rents, remortgaging calculations and the overall attractiveness of buy-to-let compared with other investments. Landlords already considering an exit, whether due to tax changes, higher borrowing costs or the practical burden of compliance, may want to weigh up timing carefully rather than reacting to headlines alone.</p><p>For those looking to restructure rather than sell, whether that means consolidating a portfolio, moving properties into a limited company, or simply raising capital against existing equity to buy elsewhere while conditions are still relatively landlord-friendly, it can help to understand the options for <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">refinancing existing buy-to-let properties</a> before regulatory changes narrow the window.</p><h2>What tenants and buyers should take from this</h2><p>For tenants, the reassurance is that overall rental supply does not appear to be collapsing, even if it feels harder to find a home in some local markets. For prospective buyers, particularly those eyeing up ex-rental stock coming onto the market as smaller landlords sell, this could mean more choice in the coming months, though pricing will depend heavily on local demand and whether larger operators are actively buying up the same properties.</p><h2>Frequently Asked Questions</h2><h3>Are rent controls actually being introduced in England?</h3><p>Not at this stage. The Joseph Rowntree Foundation is calling for rent controls based on its analysis, but this is a campaign position rather than confirmed government policy. Any change would need to go through the usual legislative process.</p><h3>Does this mean fewer homes are available to rent?</h3><p>According to the analysis reported by Property118, no. While smaller landlords are leaving the sector, the evidence does not support the claim that the private rented sector itself is shrinking, suggesting other landlords or operators are taking on the stock.</p><h3>Should landlords sell up because of this news?</h3><p>Not necessarily. This is one piece of analysis feeding into an ongoing policy debate, not a confirmed change in law. Landlords should keep watching how the rent control conversation develops rather than making rushed decisions based on a single report.</p><p>Landlords reassessing their portfolio strategy in light of a shifting regulatory backdrop can explore wider borrowing and refinancing options through <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a>.</p>",
     "liPosted": false,
@@ -26191,5 +26191,65 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1792153659633,
+    "status": "published",
+    "slug": "renters-rights-act-student-landlords-faqs",
+    "url": "/insights/renters-rights-act-student-landlords-faqs",
+    "title": "Student landlords face fresh compliance questions as Renters' Rights Act reshapes the market",
+    "excerpt": "The NRLA has answered landlords' questions on how the Renters' Rights Act is hitting the student lettings sector harder than most, from tenancy timing to possession rules.",
+    "metaTitle": "Renters' Rights Act: What It Means for Student Landlords",
+    "metaDescription": "The NRLA has tackled landlords' questions on how the Renters' Rights Act affects student lettings. Here's what it means for anyone letting to students.",
+    "keywords": "landlord, buy-to-let, private rented, rented sector, rental market, renter",
+    "date": "2026-10-16",
+    "publishedAt": "2026-10-16T12:27:39.634Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/renters-rights-act-student-landlords-faqs.webp",
+    "heroVersion": 36462292,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does the Renters' Rights Act ban fixed-term student tenancies?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Act moves most of the private rented sector onto periodic tenancies, but there is specific provision intended to accommodate student lets and purpose-built student accommodation given their reliance on the academic year. Landlords letting to students should check exactly how this applies to their particular situation rather than assuming the general rules apply unchanged."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why has the student market been affected more than other rentals?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Student lettings are usually built around fixed academic year cycles, with tenants signed up well in advance and turnover concentrated around the summer. A shift towards more flexible, tenant-led notice periods sits awkwardly with that model, which is why the NRLA says the impact has been disproportionate compared with other parts of the rental market."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should a student landlord do now to prepare?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Landlords are being encouraged to get a clear picture of how the new possession grounds and notice rules apply to their specific lets, keep thorough records, and stay close to guidance from bodies such as the NRLA as the detail of implementation becomes clearer."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [
+      "https://boxxfinance.co.uk/insights/rent-controls-call-smaller-landlords-quit-prs",
+      "https://boxxfinance.co.uk/insights/landlords-leaving-private-rented-sector",
+      "https://boxxfinance.co.uk/insights/renters-rights-act-early-impact-landlords-tenants"
+    ],
+    "content": "<p>Student landlords have had a difficult year, and the National Residential Landlords Association says the Renters' Rights Act has hit this part of the market harder than most other types of letting. The NRLA hosted a webinar to address landlords' concerns and has now published a set of frequently asked questions, as reported by <a href=\"https://www.nrla.org.uk/news/student-lettings-faqs\">NRLA News</a>. For anyone who lets to students, or is thinking about it, the changes are worth understanding properly before the next academic cycle begins.</p><p>Student lets have always worked differently to other rentals. Landlords typically sign tenants up months in advance, often for a fixed academic year, with move-in and move-out dates built around term times. The Renters' Rights Act moves the whole private rented sector away from fixed terms and towards periodic tenancies with greater tenant flexibility to leave with notice. That clashes directly with the rhythm of the student market, where landlords rely on being able to plan turnover around the academic calendar and re-let properties to a new cohort each summer.</p><h2>Why students are a special case under the new rules</h2><p>The government has recognised that purpose-built student accommodation and certain landlords letting to full-time students need some distinct treatment, because the usual periodic tenancy model does not fit a market built around fixed academic years. But the detail of how this works in practice, including which grounds for possession apply and how notice periods interact with term dates, has been a major source of uncertainty. That is exactly the kind of practical, day-to-day question the NRLA's webinar and FAQ session were set up to answer.</p><h2>What this means for smaller student landlords</h2><p>Much of the anxiety has come from individual landlords and small portfolio owners who let houses in multiple occupation to students, rather than large build-to-rent operators. These landlords tend to have less room to absorb a change in the usual letting cycle, because their income and their ability to plan maintenance, refurbishment or refinancing around a predictable annual turnover is tied to the academic year pattern. If tenancies become more open-ended, landlords may need to rethink how far in advance they advertise rooms, how they handle a tenant who wants to leave early, and how they manage the risk of a property standing empty outside the usual September changeover.</p><p>For landlords weighing up whether to hold onto a student property, convert it to a different kind of letting, or restructure borrowing against it while they adjust to the new rules, it can help to understand the <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">options available for refinancing a buy-to-let property</a> rather than making a rushed decision under pressure.</p><h2>Opportunities alongside the challenges</h2><p>The NRLA's session did not only focus on the difficulties. Despite the disruption, demand for student housing in university towns and cities remains strong, and landlords who get to grips with the new compliance requirements early are better placed to compete for tenants than those who are caught out later. Understanding exactly which possession grounds apply to student lets, keeping on top of licensing and HMO rules, and communicating clearly with prospective tenants about tenancy terms are all likely to matter more under the new system than they did before.</p><h2>Frequently Asked Questions</h2><h3>Does the Renters' Rights Act ban fixed-term student tenancies?</h3><p>The Act moves most of the private rented sector onto periodic tenancies, but there is specific provision intended to accommodate student lets and purpose-built student accommodation given their reliance on the academic year. Landlords letting to students should check exactly how this applies to their particular situation rather than assuming the general rules apply unchanged.</p><h3>Why has the student market been affected more than other rentals?</h3><p>Student lettings are usually built around fixed academic year cycles, with tenants signed up well in advance and turnover concentrated around the summer. A shift towards more flexible, tenant-led notice periods sits awkwardly with that model, which is why the NRLA says the impact has been disproportionate compared with other parts of the rental market.</p><h3>What should a student landlord do now to prepare?</h3><p>Landlords are being encouraged to get a clear picture of how the new possession grounds and notice rules apply to their specific lets, keep thorough records, and stay close to guidance from bodies such as the NRLA as the detail of implementation becomes clearer.</p><p>Landlords adjusting their plans around a student property, whether that means refinancing, raising capital for works, or restructuring borrowing to cope with a less predictable letting cycle, can explore the range of options on the Boxx Finance <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions hub</a>.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
