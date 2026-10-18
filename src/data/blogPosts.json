@@ -25527,8 +25527,8 @@
     "relatedLocationUrls": [],
     "relatedBlogUrls": [
       "https://boxxfinance.co.uk/insights/landlord-database-faqs-what-it-means",
-      "https://boxxfinance.co.uk/insights/selling-buy-to-let-with-tenants-in-situ",
-      "https://boxxfinance.co.uk/insights/tenant-to-buyer-direct-sale-landlords"
+      "https://boxxfinance.co.uk/insights/landlords-deciding-which-rental-properties-sell-first",
+      "https://boxxfinance.co.uk/insights/selling-buy-to-let-with-tenants-in-situ"
     ],
     "content": "<p>Many landlords who could comfortably afford to sell up, pay their tax and enjoy retirement simply don't. That's the core observation in a recent piece from <a href=\"https://www.property118.com/the-invisible-cage-keeping-landlords-from-the-life-they-worked-for/\">Property118</a>, written by someone who has spent nearly four decades helping landlords build property wealth and now spends much of their time helping those same landlords work out how to actually use it. The barrier, it argues, usually isn't financial. It's psychological, and it's one that a huge number of buy-to-let owners approaching later life will recognise.</p><p>The piece describes landlords who have spent decades accumulating property, often one purchase at a time, building up equity and rental income through years of mortgage payments, tenant management and reinvestment. When the question of selling comes up, the conversation tends to start with practical matters such as which properties to dispose of and how to manage the tax bill. But underneath that, the article suggests, sits a much harder question: whether these landlords can give themselves permission to live differently, and whether they have a practical plan for doing so.</p><h2>Why selling up is harder than it sounds</h2><p>For anyone who hasn't built a portfolio from scratch, it might seem obvious that reaching retirement age with valuable rental property should mean cashing in and enjoying the proceeds. But landlords who have spent thirty or forty years in the business often describe their properties as part of their identity, not just an investment line on a spreadsheet. The rental income has become a structure for daily life, a reason to get up and deal with agents, tenants and maintenance. Giving that up can feel less like financial freedom and more like losing a sense of purpose.</p><p>There's also a practical dimension. Selling an entire portfolio, or even a handful of properties, rarely happens cleanly in one go. Landlords have to think about capital gains tax exposure, the order in which properties are sold, whether to sell with sitting tenants or wait for vacant possession, and how any proceeds will be managed or passed on to family. None of that is simple, and the uncertainty can be enough to keep someone stuck in a holding pattern for years longer than they intended.</p><h2>What this means for landlords thinking about their own exit</h2><p>If this sounds familiar, the first practical step isn't necessarily picking a date to sell everything. It's getting a clear picture of what the portfolio is actually worth, what selling would trigger in tax terms, and what retirement income would look like without the rental cash flow. That often means involving an accountant alongside anyone advising on the property side, since the tax treatment of a staged disposal can look very different from selling in one block.</p><p>For landlords who aren't ready to sell but want to restructure how their portfolio works, refinancing can sometimes bridge the gap between the life they have and the one they want. Releasing equity from one or two properties, for example, can fund lifestyle changes or reduce reliance on active rental management without forcing a full exit. Landlords exploring this route may find it useful to look at options for <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">refinancing a buy-to-let portfolio</a> as part of working out what a partial or staged exit could look like.</p><h2>Succession planning matters too</h2><p>Not every landlord wants to sell at all. Some would rather pass properties down to children or other family members, which brings its own set of decisions around inheritance tax planning, ownership structures and timing. The Property118 piece is a reminder that these conversations tend to go better when they start early, well before retirement becomes urgent, rather than being forced by ill health or a sudden change in circumstances.</p><h2>Frequently Asked Questions</h2><h3>Do I have to sell my entire rental portfolio at once?</h3><p>No. Many landlords sell gradually over several years to manage their tax position and avoid flooding the market with their own properties at the same time, though this needs planning around how each sale is structured.</p><h3>What tax should I think about before selling rental property?</h3><p>Capital gains tax is usually the main consideration when selling a rental property that has risen in value, and the rules can differ depending on how the property is owned, so professional advice is generally recommended before any sale.</p><h3>Is refinancing a sensible alternative to selling?</h3><p>For some landlords, yes. Refinancing can release equity without giving up ownership, which may suit those who want to change their circumstances without fully exiting the rental market.</p><p>For landlords weighing up whether to sell, refinance or restructure a portfolio ahead of retirement, Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> page sets out some of the options available for managing that transition.</p>",
     "liPosted": false,
@@ -26336,5 +26336,65 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1792325097899,
+    "status": "published",
+    "slug": "landlords-deciding-which-rental-properties-sell-first",
+    "url": "/insights/landlords-deciding-which-rental-properties-sell-first",
+    "title": "Landlords rethinking their portfolios: how to decide which properties to sell first",
+    "excerpt": "With many landlords restructuring buy-to-let portfolios, Property118 sets out how to prioritise which properties to sell and which to keep, based on income, time and long-term goals.",
+    "metaTitle": "Which Rental Properties Should Landlords Sell First?",
+    "metaDescription": "Property118 outlines how landlords can decide which buy-to-let properties to sell first. Here's what it means for restructuring a rental portfolio.",
+    "keywords": "landlord, buy-to-let, rental property, tenant, yield, mortgage",
+    "date": "2026-10-18",
+    "publishedAt": "2026-10-18T12:04:57.899Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/landlords-deciding-which-rental-properties-sell-first.webp",
+    "heroVersion": 30967519,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I know if a rental property is worth keeping?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Look beyond the headline rental yield and consider how much time and money the property actually demands, how reliable tenant demand has been, and whether it fits with your long-term plans for the portfolio rather than just its current year's profit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I sell my worst-performing property or my best one?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There's no single right answer, but the general principle from portfolio restructuring advice is to sell properties that take disproportionate time or money relative to their return, while holding onto those that are low-maintenance and perform reliably."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is refinancing a sensible alternative to selling a buy-to-let property?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can be, particularly if the property still has long-term potential but you need to release capital. Refinancing lets you access equity without giving up the asset, though it depends on your mortgage terms, rental income and overall financial position."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [
+      "https://boxxfinance.co.uk/insights/landlords-exit-planning-retirement-portfolios",
+      "https://boxxfinance.co.uk/insights/landlord-database-faqs-what-it-means",
+      "https://boxxfinance.co.uk/insights/landlord-sell-offs-tenant-displacement-prs"
+    ],
+    "content": "<p>A growing number of landlords are asking the same question: if I'm going to trim my portfolio, which properties should go first? A new piece from <a href=\"https://www.property118.com/which-properties-should-i-consider-selling-first/\">Property118</a> tackles exactly that, framing the decision not as a panic sale but as a deliberate restructuring exercise aimed at building a property business that produces better income, takes up less time and gives landlords' families a clearer financial future.</p><p>This matters because plenty of landlords are sitting on portfolios built up over many years, often made up of a mix of good performers and properties that quietly drain time, cash or patience. The Property118 piece argues that the starting point isn't a spreadsheet of yields, it's deciding what you actually want your wealth to do next. That's a mindset shift for landlords used to thinking purely in terms of rental income and capital growth.</p><h2>Why selling decisions are becoming more common</h2><p>Buy-to-let has become harder to run profitably for some landlords in recent years, with tighter mortgage criteria, higher borrowing costs at various points, and tax changes all squeezing margins on certain properties. Against that backdrop, it's understandable that more landlords are reviewing their portfolios and asking whether every property still earns its place. The Property118 article positions this as an opportunity rather than a retreat, suggesting that selling the right properties can actually strengthen a portfolio by freeing up time and capital to focus on the assets that perform best.</p><h2>What ordinary landlords should take from this</h2><p>For a landlord with two or three properties, or someone managing a larger portfolio alongside a day job, the practical takeaway is to look honestly at each property rather than treating the portfolio as one block. Properties that demand disproportionate time, such as those with frequent maintenance issues, high tenant turnover or weak local demand, may be worth reconsidering even if they still turn a modest profit. Conversely, well-performing properties with low management overhead and solid tenant demand are the ones worth holding onto and potentially building around.</p><p>The Property118 piece also touches on the idea that this is as much about family and long-term planning as it is about yield calculations. That's a useful reminder that portfolio decisions shouldn't be made purely on numbers from a single year, but on where a landlord wants to be in five or ten years' time, and how much time and stress they're willing to put in to get there.</p><h2>Refinancing instead of selling everything</h2><p>Selling isn't always the only option. Some landlords find that refinancing a property, rather than offloading it, lets them release equity to reinvest elsewhere or to pay down debt on weaker-performing assets, while keeping a property that still has long-term potential in the portfolio. Landlords weighing up these options alongside a sale may find it useful to look at <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinancing options</a> as part of the wider restructuring picture, rather than assuming a sale is the only route to freeing up capital.</p><h2>Timing and practicalities matter too</h2><p>Once a landlord has decided which properties to sell, the practical side of the sale, including timing around tenancies, mortgage redemption terms and chain-free buyers, can significantly affect how smoothly the process goes and how much value is retained. None of this changes the core message from Property118, which is that the decision should start with a clear view of the end goal, not simply with whichever property happens to be easiest to list.</p><h2>Frequently Asked Questions</h2><h3>How do I know if a rental property is worth keeping?</h3><p>Look beyond the headline rental yield and consider how much time and money the property actually demands, how reliable tenant demand has been, and whether it fits with your long-term plans for the portfolio rather than just its current year's profit.</p><h3>Should I sell my worst-performing property or my best one?</h3><p>There's no single right answer, but the general principle from portfolio restructuring advice is to sell properties that take disproportionate time or money relative to their return, while holding onto those that are low-maintenance and perform reliably.</p><h3>Is refinancing a sensible alternative to selling a buy-to-let property?</h3><p>It can be, particularly if the property still has long-term potential but you need to release capital. Refinancing lets you access equity without giving up the asset, though it depends on your mortgage terms, rental income and overall financial position.</p><p>Landlords weighing up a sale, a refinance, or a mix of both across their portfolio may want to explore the range of options available through <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a>, which can help bridge the gap while a longer-term restructuring plan comes together.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
