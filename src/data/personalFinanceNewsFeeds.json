@@ -1,5 +1,5 @@
 {
-  "lastChecked": "2026-08-24T07:00:33.153Z",
+  "lastChecked": "2026-10-19T12:25:47.080Z",
   "feeds": [
     {
       "url": "https://www.theguardian.com/money/property/rss",
@@ -106,8 +106,8 @@
       "url": "https://www.landlordzone.co.uk/",
       "articlePattern": "^/news/[a-z0-9-]{15,}$",
       "name": "LandlordZONE",
-      "status": "active",
-      "note": "added 2026-09-19. No RSS feed; read from the homepage news listing via listing-source.js"
+      "status": "candidate",
+      "note": "demoted 2026-10-19 — listing page: HTTP 403"
     },
     {
       "type": "listing",
