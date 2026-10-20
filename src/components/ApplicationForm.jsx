@@ -292,7 +292,7 @@ const ApplicationForm = ({
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address of the property</label>
                                         <textarea name="securityAddress" className="quiz-input" rows="4" required value={form.securityAddress} onChange={onChange} />
                                     </div>
-                                    <CurrencyInput label="Current value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 250,000" required />
+                                    <CurrencyInput label="Roughly what is the property worth today? Your best estimate is fine." name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 250,000" required />
                                     <div className="quiz-input-group">
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Is it your main residence, or an investment property?</label>
                                         <div style={{ display: 'flex', gap: '2rem' }}>
@@ -304,7 +304,7 @@ const ApplicationForm = ({
                                             ))}
                                         </div>
                                     </div>
-                                    <CurrencyInput label="Amount owed on all mortgages and charges" name="amountOwed" value={form.amountOwed} onChange={onChange} placeholder="e.g. £ 150,000" required />
+                                    <CurrencyInput label="Roughly how much do you owe on the property in total? Include your mortgage, any arrears and any other loans secured on it." name="amountOwed" value={form.amountOwed} onChange={onChange} placeholder="e.g. £ 150,000" required />
                                     <div className="quiz-input-group">
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Is there a threat of repossession or receivership?</label>
                                         <div style={{ display: 'flex', gap: '2rem' }}>
