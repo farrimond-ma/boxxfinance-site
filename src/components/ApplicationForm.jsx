@@ -60,6 +60,10 @@ const ApplicationForm = ({
     enableTokenLookup = true,
     showQuestionsLink = true,
     multiStep = false,
+    // Same sections, order and wording as the CRM's Fact Find tab (Applicant, Security, Reason for
+    // funds, Credit history). Used on Progress Your Application; the ad landing page keeps its own
+    // order (repossession question first).
+    factFindLayout = false,
 }) => {
     // Only meaningful when multiStep — page 1 asks contact details, page 2 asks everything else.
     // Splitting the fields across two native <form> submits (rather than one long form) means the
@@ -253,6 +257,7 @@ const ApplicationForm = ({
                                 </p>
                             )}
 
+                            {factFindLayout && (!multiStep || step === 1) && <h3>Applicant</h3>}
                             {(!multiStep || step === 1) && (
                                 <>
                                     <div className="quiz-input-group">
@@ -263,10 +268,14 @@ const ApplicationForm = ({
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Your date of birth</label>
                                         <input type="date" name="dob" className="quiz-input" required value={form.dob} onChange={onChange} />
                                     </div>
-                                    <div className="quiz-input-group">
-                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Email address</label>
-                                        <input type="email" name="email" className="quiz-input" required value={form.email} onChange={onChange} />
-                                    </div>
+                                    {/* The Fact Find has no email question (it's on the case already), so a
+                                        client opening their own link isn't asked it again. */}
+                                    {!(factFindLayout && token) && (
+                                        <div className="quiz-input-group">
+                                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Email address</label>
+                                            <input type="email" name="email" className="quiz-input" required value={form.email} onChange={onChange} />
+                                        </div>
+                                    )}
                                     {!token && (
                                         <div className="quiz-input-group">
                                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Phone number</label>
@@ -276,7 +285,46 @@ const ApplicationForm = ({
                                 </>
                             )}
 
-                            {(!multiStep || step === 2) && (
+                            {factFindLayout && (!multiStep || step === 2) && (
+                                <>
+                                    <h3>Security</h3>
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address of the property</label>
+                                        <textarea name="securityAddress" className="quiz-input" rows="4" required value={form.securityAddress} onChange={onChange} />
+                                    </div>
+                                    <CurrencyInput label="Current value" name="securityValue" value={form.securityValue} onChange={onChange} placeholder="e.g. £ 250,000" required />
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Is it your main residence, or an investment property?</label>
+                                        <div style={{ display: 'flex', gap: '2rem' }}>
+                                            {SECURITY_USE_OPTIONS.map((o) => (
+                                                <label key={o} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                                    <input type="radio" name="securityUse" value={o} checked={form.securityUse === o} onChange={onChange} required />
+                                                    {o}
+                                                </label>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <CurrencyInput label="Amount owed on all mortgages and charges" name="amountOwed" value={form.amountOwed} onChange={onChange} placeholder="e.g. £ 150,000" required />
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Is there a threat of repossession or receivership?</label>
+                                        <div style={{ display: 'flex', gap: '2rem' }}>
+                                            {['yes', 'no'].map((o) => (
+                                                <label key={o} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'normal' }}>
+                                                    <input type="radio" name="repossessionThreat" value={o} checked={form.repossessionThreat === o} onChange={onChange} required />
+                                                    {o === 'yes' ? 'Yes' : 'No'}
+                                                </label>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <h3>Reason for funds</h3>
+                                    <div className="quiz-input-group">
+                                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>What do you need the funds for?</label>
+                                        <textarea name="reasonForFunds" className="quiz-input" rows="4" required value={form.reasonForFunds} onChange={onChange} />
+                                    </div>
+                                </>
+                            )}
+                            {!factFindLayout && (!multiStep || step === 2) && (
                                 <>
                                     <div className="quiz-input-group">
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Are you facing repossession or receivership?</label>
@@ -318,7 +366,10 @@ const ApplicationForm = ({
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>What would you use the funds for?</label>
                                         <textarea name="reasonForFunds" className="quiz-input" rows="4" required value={form.reasonForFunds} onChange={onChange} />
                                     </div>
-
+                                </>
+                            )}
+                            {(!multiStep || step === 2) && (
+                                <>
                                     <h3>Credit history</h3>
                                     <div className="quiz-input-group">
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>

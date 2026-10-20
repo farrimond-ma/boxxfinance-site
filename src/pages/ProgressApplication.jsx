@@ -12,6 +12,7 @@ const ProgressApplication = () => (
         fundingTypeLabel="Progress Application (Bridging)"
         enableTokenLookup={true}
         showQuestionsLink={true}
+        factFindLayout={true}
     />
 );
 
