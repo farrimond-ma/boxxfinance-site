@@ -100,6 +100,7 @@ const BookAppointment = () => {
             <SEO
                 title="Book an Appointment"
                 description="Book a call with a Boxx Finance advisor at a time that suits you."
+                image="/og-terraces.jpg"
                 noIndex={true}
             />
 
