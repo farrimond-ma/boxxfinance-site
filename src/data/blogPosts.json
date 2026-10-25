@@ -26086,8 +26086,8 @@
     "relatedLocationUrls": [],
     "relatedBlogUrls": [
       "https://boxxfinance.co.uk/insights/rent-controls-call-smaller-landlords-quit-prs",
-      "https://boxxfinance.co.uk/insights/budget-2025-landlords-what-chancellor-needs-to-do",
-      "https://boxxfinance.co.uk/insights/landlord-sentiment-survey-q3-2026-what-it-means"
+      "https://boxxfinance.co.uk/insights/landlords-rent-rises-higher-earners",
+      "https://boxxfinance.co.uk/insights/budget-2025-landlords-what-chancellor-needs-to-do"
     ],
     "content": "<p>Almost half of landlords with 21 or more rental properties, 46.2% of those surveyed, have sold at least one of their properties in the past year. More strikingly, in four out of ten sales where a tenant was living in the property at the time, the landlord either lost track of where that tenant ended up or the local council had to step in and rehouse them. The figures, reported by <a href=\"https://www.property118.com/where-the-homes-and-the-tenants-go-when-landlords-sell/\">Property118</a>, offer a rare look at what actually happens to tenants once a landlord decides to exit, and they add weight to the wider story of landlords leaving the private rented sector.</p><p>For anyone trying to read the health of the UK's rental market, this matters. A landlord selling up isn't just a transaction between buyer and seller, it's a home that may or may not stay a rental, and a tenant whose future often isn't the landlord's primary concern once the decision to sell has been made.</p><h2>Why landlords are selling now</h2><p>Portfolio landlords, particularly those with sizeable holdings, have faced a stretch of tougher conditions: tighter mortgage criteria, rising compliance costs, tax changes affecting how buy-to-let profits are treated, and swings in interest rates that have squeezed the numbers on properties bought years ago under very different assumptions. When the sums no longer work, or when a landlord simply decides the hassle outweighs the return, selling becomes the obvious move. That nearly half of larger landlords have made at least one sale in the past year suggests this isn't a handful of isolated cases but a pattern playing out across the sector.</p><p>What's less often discussed is what happens next to the property itself, and to the tenant inside it. If a rental sells to an owner-occupier, that home effectively leaves the rental stock for good. If it sells to another landlord, it may stay in the sector but often with a new tenancy, new terms and sometimes a higher rent to reflect the sale price paid. Either way, the existing tenant frequently isn't part of that equation.</p><h2>What it means for tenants and the wider rental market</h2><p>The finding that landlords often don't know where a displaced tenant went, or that councils had to rehouse them, points to a gap in how sales are handled. Tenants with no fault of their own can end up scrambling for a new home in a market where supply is already tight in many areas. For local authorities, this adds pressure to housing teams already stretched by homelessness demand. For the rental market more broadly, every property that exits via a sale to an owner-occupier is one fewer home available to rent, which can push up competition and rents for everyone else still searching.</p><p>This is the practical, on-the-ground version of a trend that's been discussed in the abstract for a while: landlords leaving the sector reduces the pool of rental housing, and tenants bear the brunt of that shrinkage through less choice and higher costs.</p><h2>What this means for landlords weighing their own next move</h2><p>For landlords reading this and wondering whether to sell or hold, the picture is mixed. Selling can make sense where the numbers genuinely don't stack up any more, but a straight sale isn't the only option. Some landlords are instead restructuring finance on existing properties to improve cash flow or release equity for other opportunities, rather than exiting altogether. Those considering that route, rather than a sale, may want to look at options for <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">refinancing a buy-to-let property</a> to free up capital or secure better terms, which can sometimes buy time to reassess rather than forcing an immediate sale.</p><p>Landlords who do decide to sell, particularly those managing several transactions at once or needing to move quickly to catch a buyer, sometimes also need short-term finance to bridge gaps between sales, purchases or portfolio restructuring. It's worth being aware of what's available before a decision is forced by circumstance rather than chosen on your own terms.</p><h2>Frequently Asked Questions</h2><h3>Why don't more landlords know what happens to tenants after a sale?</h3><p>Once a sale completes, the legal relationship between landlord and tenant typically ends, and there's no requirement for the landlord to follow up. Many simply don't ask, especially if the sale was prompted by a desire to exit the sector altogether.</p><h3>Does selling a rental property always mean it leaves the rental market?</h3><p>Not always. If another landlord buys the property, it can stay as a rental, though usually with a new tenancy agreement and potentially different rent. If it sells to someone planning to live in it themselves, it leaves the rental stock entirely.</p><h3>What protections do tenants have if their landlord sells the property?</h3><p>Tenants generally keep the protections attached to their tenancy agreement regardless of who owns the property, but a sale can still lead to a notice to vacate if the new owner wants to use the property differently, which is often the trigger for a tenant needing to find a new home.</p><p>For landlords weighing up whether to sell, refinance or restructure a portfolio, it's worth exploring the range of options at <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a> before committing to a decision under pressure.</p>",
     "liPosted": false,
@@ -26766,5 +26766,65 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1792931735832,
+    "status": "published",
+    "slug": "landlords-rent-rises-higher-earners",
+    "url": "/insights/landlords-rent-rises-higher-earners",
+    "title": "Nearly Half of Landlords Raised Rents Last Year, and Most Were Higher Earners",
+    "excerpt": "New research shows almost half of UK landlords increased rents in the past year, with the majority of those doing so earning £100,000 or more annually, pointing to a divide in how landlords are responding to rising costs.",
+    "metaTitle": "Nearly Half of Landlords Raised Rents, Research Finds",
+    "metaDescription": "Almost half of UK landlords put up rent last year, and most who did earned £100,000 or more. Here's what it means for tenants, landlords and investors.",
+    "keywords": "landlord, buy-to-let, private rented, rented sector, rental market, rents",
+    "date": "2026-10-25",
+    "publishedAt": "2026-10-25T12:35:35.832Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/landlords-rent-rises-higher-earners.webp",
+    "heroVersion": 18729426,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why do some landlords raise rents while others don't?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reasons vary widely and can include rising mortgage or maintenance costs, local market rates, portfolio size, and a landlord's personal appetite for risk versus tenant retention. The research suggests higher-earning landlords are more likely to increase rents, though the exact reasons behind this pattern are not fully spelled out."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does a rent increase have to match what other landlords are charging locally?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There is no requirement for a landlord to match local rates, though many base rent reviews on comparable properties in the area. Tenants can ask for the reasoning behind an increase and, where appropriate, negotiate or seek advice if they believe it is unreasonable."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is now a good time for landlords to review their mortgage or financing arrangements?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on individual circumstances, including when a current deal ends and how rental income has moved. Given shifting costs across the sector, many landlords do use rent reviews as a prompt to also check whether their existing finance still suits their portfolio."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [
+      "https://boxxfinance.co.uk/insights/landlord-sell-offs-tenant-displacement-prs",
+      "https://boxxfinance.co.uk/insights/rent-controls-call-smaller-landlords-quit-prs",
+      "https://boxxfinance.co.uk/insights/budget-2025-landlords-what-chancellor-needs-to-do"
+    ],
+    "content": "<p>Almost half of UK landlords raised rents on their tenants in the past year, and the majority of those who did were higher earners taking home £100,000 or more annually, according to new research reported by <a href=\"https://www.thisismoney.co.uk/money/buytolet/article-16229417/Almost-half-landlords-rent-year-did-earned-100-000-more.html?ns_mchannel=rss&ns_campaign=1490&ito=1490\">This Is Money</a>. The findings suggest a split in the private rented sector, with wealthier landlords more willing or able to push through rent increases than smaller-scale operators.</p><p>For tenants, this is a reminder that rent rises are not uniform across the market. For landlords and investors, it offers a useful benchmark: if you have held rents steady while others have raised them, you may be out of step with where a significant part of the market is heading, or you may simply be managing your portfolio more cautiously. Either way, the data gives a clearer picture of behaviour across the sector than individual anecdotes usually allow.</p><h2>Why higher-earning landlords are more likely to raise rents</h2><p>The research suggests that landlords with higher personal incomes are more inclined to increase what they charge tenants. This could reflect a number of things. Landlords who earn more outside their property income may run larger portfolios, meaning rent reviews are a more routine, built-in part of how they manage multiple properties. It could also reflect scale: a landlord with several properties has more opportunities, and arguably more commercial pressure, to adjust rents in line with market rates than someone with a single let who may feel more hesitant about increasing costs for a long-standing tenant.</p><p>It is also possible that landlords with higher incomes are simply better placed to absorb the admin and occasional voids that come with renegotiating tenancies, whereas smaller landlords may prioritise keeping a reliable tenant over maximising rent.</p><h2>What this means for tenants and the rental market</h2><p>For tenants, the research underlines that rent increases are widespread but not universal. Just over half of landlords did not raise rents in the past year, which suggests there remains a meaningful share of the market where costs have stayed flat. Tenants facing a rent review may find it worth asking their landlord directly about their reasoning, particularly if the increase feels out of step with local comparables.</p><p>For the market more broadly, the pattern points to rising costs, whether mortgage rates, maintenance, insurance or regulatory compliance, continuing to filter through into rents, particularly among landlords running their lettings more commercially.</p><h2>What it means for landlords weighing up their own approach</h2><p>If you are a landlord deciding whether to increase rent, this data offers a reality check rather than a rulebook. Raising rent is not automatically the right move for every portfolio, and it needs to be weighed against tenant retention, local demand and the cost of any potential void period. But for landlords looking to restructure borrowing to free up cash for improvements, extend a portfolio, or simply get a better deal on existing finance, it can be worth reviewing how your current mortgage arrangements stack up. Landlords exploring their options around <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">refinancing an existing buy-to-let property</a> may find this is a natural moment to reassess, particularly if rental income has shifted or a fixed-rate deal is coming to an end.</p><h2>Frequently Asked Questions</h2><h3>Why do some landlords raise rents while others don't?</h3><p>Reasons vary widely and can include rising mortgage or maintenance costs, local market rates, portfolio size, and a landlord's personal appetite for risk versus tenant retention. The research suggests higher-earning landlords are more likely to increase rents, though the exact reasons behind this pattern are not fully spelled out.</p><h3>Does a rent increase have to match what other landlords are charging locally?</h3><p>There is no requirement for a landlord to match local rates, though many base rent reviews on comparable properties in the area. Tenants can ask for the reasoning behind an increase and, where appropriate, negotiate or seek advice if they believe it is unreasonable.</p><h3>Is now a good time for landlords to review their mortgage or financing arrangements?</h3><p>It depends on individual circumstances, including when a current deal ends and how rental income has moved. Given shifting costs across the sector, many landlords do use rent reviews as a prompt to also check whether their existing finance still suits their portfolio.</p><p>As this research shows, rent-setting behaviour varies significantly depending on a landlord's circumstances and scale. For landlords reassessing their finances in light of these trends, Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> may be worth a look.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
