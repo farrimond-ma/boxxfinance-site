@@ -26,7 +26,9 @@ const BookAppointment = () => {
     const [token, setToken] = useState(null); // set once a valid ?t=... link is confirmed
 
     useEffect(() => {
-        fetch(`${CRM_SLOTS_URL}?intake_key=${encodeURIComponent(CRM_INTAKE_KEY)}`)
+        // A booking link from a chase email carries ?t=...: the CRM then offers only the slots of the person the client's case is with.
+        const linkToken = new URLSearchParams(window.location.search).get('t');
+        fetch(`${CRM_SLOTS_URL}?intake_key=${encodeURIComponent(CRM_INTAKE_KEY)}${linkToken ? `&t=${encodeURIComponent(linkToken)}` : ''}`)
             .then((r) => (r.ok ? r.json() : Promise.reject()))
             .then((data) => {
                 if (!data.ok) throw new Error();
