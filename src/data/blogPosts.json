@@ -24156,8 +24156,8 @@
     "relatedLocationUrls": [],
     "relatedBlogUrls": [
       "https://boxxfinance.co.uk/insights/individual-vs-portfolio-landlords-divide",
-      "https://boxxfinance.co.uk/insights/landlords-leaving-private-rented-sector",
-      "https://boxxfinance.co.uk/insights/renters-rights-act-early-impact-landlords-tenants"
+      "https://boxxfinance.co.uk/insights/landlords-quitting-over-tax-hike",
+      "https://boxxfinance.co.uk/insights/landlords-leaving-private-rented-sector"
     ],
     "content": "<p>Zoopla has doubled its forecast for UK rental growth this year, now expecting rents on new lets to be 4% to 5% higher by the end of 2026. The property portal points to what it calls a &quot;perfect storm&quot; of falling landlord supply, weak new investment in rental property and higher mortgage costs, all pushing rents upward at a faster pace than previously expected, as reported by <a href=\"https://www.buyassociationgroup.com/en-gb/news/zoopla-doubles-its-forecast-for-rental-prices/\">BuyAssociation</a>.</p><p>For anyone renting, buying or letting a property in the UK right now, this is not just an abstract statistic. It reflects a rental market that is getting tighter, not looser, and the reasons behind it matter as much as the number itself.</p><h2>Why rents are being pushed higher</h2><p>The forces Zoopla identifies are all connected. Fewer landlords are bringing new properties to the rental market, which reduces the choice available to tenants. At the same time, existing landlords face higher mortgage costs than they did a few years ago, which puts pressure on the returns they need from rent to make letting viable. Add in low levels of new investment from landlords buying additional property, and you get a smaller pool of rental homes chasing steady or growing tenant demand. When supply falls and demand holds up, prices rise. That is the basic mechanic behind Zoopla doubling its forecast rather than simply nudging it up.</p><h2>What this means if you are a landlord</h2><p>For existing landlords, a stronger rental growth forecast is, on the face of it, good news. Higher achievable rents can help offset the higher borrowing costs that have squeezed margins across the buy-to-let sector in recent years. But it is worth being realistic about what is driving this: it is a shrinking market, not a booming one. Fewer landlords investing in new stock means less competition among landlords themselves, but it also means the sector as a whole may be contracting, which raises longer-term questions about supply for tenants and sustainability for the market.</p><p>Landlords weighing up whether to hold, expand or refinance existing property in this environment may find it useful to look at how their current mortgage arrangements stack up against today's rates and rental income projections. Those considering restructuring existing borrowing to make the most of stronger rental income potential can find more detail on <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinancing options</a> designed for exactly this kind of repositioning.</p><h2>What this means if you are a tenant or renter</h2><p>For tenants, the picture is less encouraging. A tighter rental market with less new supply typically means more competition for available properties and less room to negotiate on price. If rents do rise 4% to 5% by the end of 2026 as Zoopla now forecasts, that adds real pressure to household budgets, particularly for those already stretched by the cost of living. It may also push some renters to reconsider whether buying, even with today's higher mortgage rates, works out more affordable over time than continuing to rent into a market that is expected to keep tightening.</p><h2>What this means if you are thinking of buying</h2><p>For prospective buyers, and especially first-time buyers weighing rent against a mortgage, a rising rental forecast can shift the calculation. If rents are expected to climb faster than previously thought, the gap between renting and owning may narrow in some areas, even accounting for higher mortgage rates and deposit requirements. It is not a reason to rush a decision, but it is a factor worth weighing alongside affordability, job security and how long you plan to stay in an area.</p><h2>Frequently Asked Questions</h2><h3>Why has Zoopla doubled its rental growth forecast?</h3><p>Zoopla points to a combination of falling landlord supply, low levels of new landlord investment and higher mortgage costs, all of which are reducing the number of rental homes available while demand remains steady, pushing rents up faster than previously expected.</p><h3>Does higher rental growth mean buy-to-let is a better investment now?</h3><p>It can improve rental income potential for existing landlords, but it also reflects a shrinking supply of rental property, so anyone considering buy-to-let should weigh stronger rents against higher borrowing costs and the broader question of market sustainability.</p><h3>Should renters consider buying instead if rents keep rising?</h3><p>It depends on individual circumstances including deposit, income and how long someone plans to stay in an area, but a widening gap between rental costs and mortgage costs is a factor worth including in that decision alongside affordability and market conditions locally.</p><p>Landlords looking at how to fund a refinance, extend a portfolio or bridge a gap while restructuring finances in light of these shifting rental conditions can explore the range of <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> available through Boxx Finance.</p>",
     "liPosted": false,
@@ -27173,5 +27173,65 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1793369507160,
+    "status": "published",
+    "slug": "landlords-quitting-over-tax-hike",
+    "url": "/insights/landlords-quitting-over-tax-hike",
+    "title": "Landlords say tax changes under John Healey are pushing them out of buy-to-let",
+    "excerpt": "Two landlords say property tax changes have made buy-to-let unworkable, adding to signs that landlords are leaving the rental market faster than new ones are joining it.",
+    "metaTitle": "Why landlords are quitting buy-to-let over tax changes",
+    "metaDescription": "Landlords say property tax changes are making buy-to-let unviable. Here's what it could mean for renters, buyers and remaining landlords in the UK.",
+    "keywords": "landlord, buy-to-let, rental market, rents, renter, tenant",
+    "date": "2026-10-30",
+    "publishedAt": "2026-10-30T14:11:47.161Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/landlords-quitting-over-tax-hike.webp",
+    "heroVersion": 39932417,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why are landlords blaming tax changes for leaving the market?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Landlords quoted in the i report say that recent property tax changes associated with housing secretary John Healey have eroded their profit margins to the point where continuing to let out their properties no longer makes financial sense compared with selling."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will landlords leaving the market push rents up?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If more landlords sell rental properties than new investors buy them, the overall supply of rental homes shrinks. In a market where demand for rental housing is already high, reduced supply tends to put upward pressure on rents, though the scale of any effect will vary by local area."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should landlords consider refinancing instead of selling?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For some landlords, restructuring existing borrowing or releasing equity through refinancing can be a way to manage rising costs without exiting the market entirely, though whether this suits an individual landlord depends on their specific financial position and goals."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [
+      "https://boxxfinance.co.uk/insights/zoopla-doubles-rental-growth-forecast",
+      "https://boxxfinance.co.uk/insights/renters-rights-act-early-impact-landlords-tenants",
+      "https://boxxfinance.co.uk/insights/landlords-second-tax-raid-budget-2027"
+    ],
+    "content": "<p>Two landlords have told the i newspaper they feel forced out of the private rental market, blaming property tax changes linked to housing secretary John Healey for making buy-to-let no longer financially worthwhile. Their frustration points to a wider pattern that matters well beyond their own portfolios: when landlords sell up faster than new investors buy in, the pool of homes available to rent shrinks, and that has knock-on effects for tenants, buyers and the landlords who choose to stay.</p><p>As <a href=\"https://inews.co.uk/inews-lifestyle/money/property-and-mortgages/furious-quit-landlord-not-fair-4861432\">reported by i — Property</a>, the two landlords interviewed say the sums simply no longer add up once the tax changes are factored in. Rather than being an isolated gripe, their experience echoes concerns raised repeatedly across the private rental sector over the past few years, as successive tax and regulatory changes have chipped away at landlord returns.</p><h2>What this means for renters</h2><p>If landlords continue to sell rental properties rather than hold onto them, the immediate effect is fewer homes available to rent in a market where demand already outstrips supply in many areas. Fewer available properties tends to push rents higher and gives tenants less room to negotiate or shop around. For renters already struggling with affordability, a shrinking private rental sector is not an abstract policy debate, it is a direct squeeze on where they can afford to live.</p><h2>What this means for existing landlords</h2><p>For landlords who intend to stay in the market, the exit of others can actually ease some competitive pressure on tenant demand, but it also raises the stakes around how a portfolio is financed and managed. Rising costs, tighter margins and tax changes mean that refinancing decisions matter more than ever. Landlords looking at how to restructure borrowing against their properties, release equity, or move a loan onto better terms as circumstances change may want to look at options such as <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinancing solutions</a>, which can help landlords adjust their finance structure rather than simply selling up.</p><h2>What this means for buyers</h2><p>If landlords are selling in greater numbers, that can mean more ex-rental properties coming onto the sales market, which could be good news for first-time buyers or those looking to move up the ladder, particularly in areas with a high concentration of rental stock. But it is a double-edged sword, because a smaller rental sector also means more people competing to buy rather than rent, which can add pressure to house prices in some areas. The net effect will likely vary significantly by region and property type.</p><h2>A sector under strain</h2><p>The two landlords quoted by i describe feeling that the system is stacked against them, with one saying the situation feels unfair given how much they feel they have invested in their properties and tenants over the years. Their frustration is a reminder that buy-to-let has become a harder business to run profitably than it once was, with tax treatment, regulation and financing costs all working together to squeeze returns. Whether this leads to a broader wave of landlord exits, or whether it remains a vocal minority, is something only time and further data will show.</p><h2>Frequently Asked Questions</h2><h3>Why are landlords blaming tax changes for leaving the market?</h3><p>Landlords quoted in the i report say that recent property tax changes associated with housing secretary John Healey have eroded their profit margins to the point where continuing to let out their properties no longer makes financial sense compared with selling.</p><h3>Will landlords leaving the market push rents up?</h3><p>If more landlords sell rental properties than new investors buy them, the overall supply of rental homes shrinks. In a market where demand for rental housing is already high, reduced supply tends to put upward pressure on rents, though the scale of any effect will vary by local area.</p><h3>Should landlords consider refinancing instead of selling?</h3><p>For some landlords, restructuring existing borrowing or releasing equity through refinancing can be a way to manage rising costs without exiting the market entirely, though whether this suits an individual landlord depends on their specific financial position and goals.</p><p>Landlords weighing up whether to sell, hold or restructure their borrowing in response to these pressures may find it useful to explore the range of <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> available to property investors before making a final decision.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
