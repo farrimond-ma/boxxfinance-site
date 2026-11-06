@@ -15818,8 +15818,8 @@
     "relatedLocationUrls": [],
     "relatedBlogUrls": [
       "https://boxxfinance.co.uk/insights/selling-buy-to-let-with-tenants-in-situ",
-      "https://boxxfinance.co.uk/insights/landlords-exit-buy-to-let-first-time-buyers-opportunity",
-      "https://boxxfinance.co.uk/insights/tenant-to-buyer-direct-sale-landlords"
+      "https://boxxfinance.co.uk/insights/budget-2026-landlord-tax-first-time-buyers",
+      "https://boxxfinance.co.uk/insights/landlords-exit-buy-to-let-first-time-buyers-opportunity"
     ],
     "content": "<p>Landlords are selling up in large numbers, with one in four flats currently on the market having been put up for sale by a landlord rather than an owner-occupier, according to <a href=\"https://www.thisismoney.co.uk/money/buytolet/article-16066681/One-four-flats-sale-offloaded-landlord-does-want-buy-them.html?ns_mchannel=rss&ns_campaign=1490&ito=1490\">This Is Money</a>. The exodus is being driven by falling rental profits and stricter regulation on buy-to-let, but the report raises an awkward question: with so many flats flooding the market, is anyone actually queuing up to buy them?</p><p>This matters because it points to two things happening at once. Landlords are finding flats less worthwhile to hold onto, and buyers are not necessarily rushing in to fill the gap. For anyone trying to make sense of the property market right now, whether they are hoping to buy their first home, sell an investment property, or work out whether to keep letting, this shift is worth paying attention to.</p><h2>Why landlords are selling now</h2><p>Buy-to-let has become less attractive for a combination of reasons that have been building for a while: tighter mortgage rules, additional tax changes affecting landlords, and rising costs of compliance with safety and energy regulations have all squeezed profit margins. On top of that, tenant demand and rental yields have not always kept pace with the costs of running a flat, particularly in blocks with service charges or leasehold complications. Put simply, for a growing number of landlords the sums no longer add up the way they once did, and selling looks like the sensible option.</p><h2>What it means if you are trying to buy</h2><p>A glut of landlord-sold flats hitting the market in theory means more choice and potentially softer prices for buyers, since sellers who are exiting an investment are often more motivated to agree a deal than someone selling their family home. But the source is clear that demand for flats is not guaranteed. Many buyers, especially first-time buyers, have become more cautious about flats generally, put off by service charges, leasehold uncertainty, and stories about buildings with unresolved safety issues. That means the extra supply does not automatically translate into a buyer's bargain. It may take patience, and a willingness to negotiate hard, to turn this into a genuine opportunity.</p><h2>What it means if you are a landlord</h2><p>If you are a landlord weighing up whether to sell, you are far from alone, and that is precisely the problem. A market where a quarter of flats for sale are landlord exits is a crowded one, and crowded markets tend to mean slower sales and more haggling over price. Landlords thinking about selling may need to be realistic about timelines and pricing, particularly if their flat sits in a block or area where several other units are also being marketed by landlords at the same time. For those weighing up whether to sell now or wait, the practical question is less about long-term rental yield and more about how quickly a sale needs to happen and what condition the flat is in to attract a cautious pool of buyers.</p><h2>Frequently Asked Questions</h2><h3>Does more landlord selling mean flat prices will fall?</h3><p>Not necessarily straight away, but a larger pool of sellers competing for a smaller pool of interested buyers tends to put downward pressure on asking prices over time, particularly for flats that need work or sit in leasehold blocks with higher service charges.</p><h3>Is now a good time to buy a flat from a landlord?</h3><p>It can be, since landlords selling for financial or regulatory reasons are often more open to negotiation than owner-occupiers. But buyers should still do their usual checks on service charges, lease length and building safety before assuming a bargain.</p><h3>Why are buy-to-let profits falling for landlords?</h3><p>The source points to a mix of stricter regulation and squeezed margins, on top of costs landlords already face such as mortgage interest, maintenance and compliance, which together are making letting less profitable than it used to be for many.</p><p>For landlords who decide selling isn't the right move and instead need to refinance, raise capital against a property, or bridge a gap while a sale is negotiated, it's worth exploring what options exist through <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a>.</p>",
     "liPosted": false,
@@ -27671,5 +27671,65 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1793977521452,
+    "status": "published",
+    "slug": "budget-2026-landlord-tax-first-time-buyers",
+    "url": "/insights/budget-2026-landlord-tax-first-time-buyers",
+    "title": "Budget 2026: first-time buyers get a boost, but landlords face yet another tax rise",
+    "excerpt": "The latest Budget brings welcome help for first-time buyers and social housing, but landlords are facing a further tax increase that adds to years of mounting pressure on buy-to-let.",
+    "metaTitle": "Budget 2026: Help for Buyers, More Tax Pain for Landlords",
+    "metaDescription": "Budget 2026 offers first-time buyers a lift but hits landlords with another tax rise. Here's what it means for buyers, homeowners and landlords.",
+    "keywords": "landlord, buy-to-let, rental property, incorporation, mortgage, remortgage",
+    "date": "2026-11-06",
+    "publishedAt": "2026-11-06T15:05:21.452Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/budget-2026-landlord-tax-first-time-buyers.webp",
+    "heroVersion": 15754015,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Will this tax increase cause landlords to sell up in large numbers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Property Notify's assessment suggests not. While the increase adds to existing pressure on landlords, it is not expected on its own to trigger a mass exodus from the rental sector, though it may influence decisions at the margins."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the Budget mean for someone trying to buy their first home?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Budget includes measures described as genuinely helpful for first-time buyers, alongside extra funding for social housing, suggesting a renewed policy focus on improving access to home ownership rather than just managing existing homeowners' costs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should landlords consider refinancing in response to tax changes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on individual circumstances, but for landlords feeling squeezed by cumulative tax changes, reviewing financing arrangements, including refinancing options, can be a useful way to improve cash flow without having to sell a property outright."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [
+      "https://boxxfinance.co.uk/insights/landlords-selling-flats-buyers-opportunity",
+      "https://boxxfinance.co.uk/insights/landlords-budget-tax-raid-sell-up-or-restructure",
+      "https://boxxfinance.co.uk/insights/first-time-buyer-mortgage-6-5-times-salary-5-deposit"
+    ],
+    "content": "<p>The 2026 Budget has landed with a mixed verdict for the property market: some genuine relief for first-time buyers and extra investment in social housing, but another tax increase squarely aimed at landlords. As <a href=\"https://www.uk-propertynews.co.uk/whats-happening/news/featured-insights/our-view/budget-2026-some-good-news-for-first-time-buyers-but-another-tax-hit-for-landlords/\">Property Notify reports</a>, the overall package was fairly low-key by Budget standards, described as broadly 'OK' rather than dramatic, but the detail matters a lot more if you're a landlord than if you're simply reading the headlines.</p><p>For most households, this was not a Budget that will change daily life overnight. There was support aimed at easing everyday living costs, additional funding for social housing, and what's being flagged as probably the most significant property-market measure: new help for first-time buyers trying to get onto the ladder. For landlords, though, it's a different story. Another tax increase has been added to a list that has been growing for several years, and while commentators don't expect it to trigger a sudden mass sell-off, it will push more landlords to reassess whether holding onto rental property still makes financial sense.</p><h2>What this means for first-time buyers</h2><p>Anyone trying to buy their first home will welcome the direction of travel here. The details of exactly how the support will work are still being digested, but the principle, that government is trying to make it easier rather than harder to get a foot on the ladder, is a notable shift in tone. Combined with extra money going into social housing, it suggests housing supply and access are being treated as a genuine priority rather than an afterthought. For buyers who have been saving for years and watching affordability slip further out of reach, even modest practical help is meaningful.</p><h2>Another squeeze for landlords</h2><p>The less welcome news is for landlords, who are facing yet another tax rise layered on top of changes already absorbed over recent years, from mortgage interest relief restrictions to stamp duty surcharges on additional properties and tighter regulation generally. Property Notify's own assessment is measured: this latest increase alone is unlikely to cause the wave of landlord exits some are predicting. But cumulative pressure matters. Each individual change might be manageable, but stacked together they are steadily eroding the returns that made buy-to-let attractive in the first place, and more landlords are likely to quietly reconsider their position rather than dramatically rush for the exit.</p><p>For landlords weighing up whether to hold, sell, remortgage or restructure a portfolio in response, it's worth understanding the full range of options before making a decision under pressure. Those looking at ways to release equity or restructure borrowing across a portfolio may find it useful to look at <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinancing options</a> designed to help landlords adjust their finances without necessarily having to sell up.</p><h2>Should landlords be worried?</h2><p>It's understandable that another tax hit feels like confirmation that the environment for private landlords is only getting tougher. But it's worth keeping some perspective. Rental demand across the UK remains strong, and a single additional tax measure, while unwelcome, is not automatically the thing that tips a profitable portfolio into an unprofitable one. The more realistic outcome is that some landlords, particularly those with thinner margins or smaller portfolios, will look harder at incorporation, refinancing, or selective disposals rather than exiting the sector entirely. Others may simply absorb the cost and carry on, treating it as one more line item in an already complex set of calculations.</p><h2>Frequently Asked Questions</h2><h3>Will this tax increase cause landlords to sell up in large numbers?</h3><p>Property Notify's assessment suggests not. While the increase adds to existing pressure on landlords, it is not expected on its own to trigger a mass exodus from the rental sector, though it may influence decisions at the margins.</p><h3>What does the Budget mean for someone trying to buy their first home?</h3><p>The Budget includes measures described as genuinely helpful for first-time buyers, alongside extra funding for social housing, suggesting a renewed policy focus on improving access to home ownership rather than just managing existing homeowners' costs.</p><h3>Should landlords consider refinancing in response to tax changes?</h3><p>It depends on individual circumstances, but for landlords feeling squeezed by cumulative tax changes, reviewing financing arrangements, including refinancing options, can be a useful way to improve cash flow without having to sell a property outright.</p><p>For landlords and property investors working through what this latest round of tax changes means for their plans, it may be worth exploring the <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions available through Boxx Finance</a> to see what options fit your situation.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
