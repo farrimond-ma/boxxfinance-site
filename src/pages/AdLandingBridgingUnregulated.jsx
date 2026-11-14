@@ -26,7 +26,7 @@ const AdLandingBridgingUnregulated = () => (
     <div className="adlp">
         <SEO
             title="Bridging Finance for Property Investors | Boxx Finance"
-            description="Fast, whole-of-market bridging finance for auction purchases, refurbishment and commercial property. Speak to a specialist or book an appointment."
+            description="Fast bridging finance from a panel of lenders for auction purchases, refurbishment and commercial property. Speak to a specialist or book an appointment."
             noIndex={true}
         />
 
@@ -44,7 +44,7 @@ const AdLandingBridgingUnregulated = () => (
                 <div className="adlp-hero-copy">
                     <h1>Bridging Finance for <span className="text-highlight">Property Investors & Developers</span></h1>
                     <p className="adlp-hero-lead">
-                        Fast, whole-of-market bridging finance for auction purchases, refurbishment projects
+                        Fast bridging finance from a panel of lenders for auction purchases, refurbishment projects
                         and commercial or portfolio refinancing. We structure every facility around your exit
                         strategy — not just the headline rate.
                     </p>

@@ -35,7 +35,7 @@ export const MidCta = ({ service }) => (
             we can help structure the right solution for your timescales.
         </p>
         <ul className="article-cta-ticks">
-            <li>Whole-of-market access to specialist lenders</li>
+            <li>Access to a panel of specialist lenders</li>
             <li>Terms structured around your exit strategy</li>
             <li>Decisions in days, not weeks</li>
         </ul>

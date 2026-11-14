@@ -93,8 +93,8 @@ const AdLandingBridgingLoans = () => {
     return (
         <div className="adlp">
             <SEO
-                title="Bridging Loans UK | Fast, Whole-of-Market Funding Quote"
-                description="Fast bridging loans from £50,000. Whole-of-market comparison, completion from 7 days, terms from 3 to 18 months. Get a same-day quote from Boxx Finance."
+                title="Bridging Loans UK | Fast Funding Quote"
+                description="Fast bridging loans from £50,000. Panel-of-lenders comparison, completion from 7 days, terms from 3 to 18 months. Get a same-day quote from Boxx Finance."
                 noIndex={true}
             />
 
@@ -116,7 +116,7 @@ const AdLandingBridgingLoans = () => {
                     <div className="adlp-hero-copy">
                         <h1>Fast Bridging Loans, <span className="text-highlight">Structured Properly</span></h1>
                         <p className="adlp-hero-lead">
-                            Whole-of-market bridging finance for auction purchases, chain breaks, refurbishment and
+                            Bridging finance from a panel of lenders for auction purchases, chain breaks, refurbishment and
                             short-term refinancing. We structure every facility around your exit — not just the rate.
                         </p>
                         <ul className="adlp-bullets">

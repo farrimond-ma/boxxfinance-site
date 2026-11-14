@@ -13,10 +13,10 @@ const About = () => {
         <section className="section about" id="about">
             <div className="container">
                 <div className="about-teaser-intro">
-                    <h2>UK Bridging Loan Specialists <span className="text-highlight">— And Your Whole-of-Market Partner</span></h2>
+                    <h2>UK Bridging Loan Specialists <span className="text-highlight">— And Your Funding Partner</span></h2>
                     <p>
                         Speed and structure, not just approval. With access to a panel of 50+
-                        lenders, we go to the whole market on your behalf — funding structured
+                        lenders, we find a potentially suitable arrangement for you — funding structured
                         around your exit strategy, not just the headline rate.{' '}
                         <Link to="/about-us">Read our full story and meet the team →</Link>
                     </p>
@@ -27,7 +27,7 @@ const About = () => {
                         copy competing with the hero's call to action. */}
                     <ul className="about-trust-ticks" aria-label="Why choose Boxx">
                         <li>Independent broker</li>
-                        <li>Whole of market</li>
+                        <li>Panel of lenders</li>
                         <li>Fast decisions</li>
                     </ul>
 

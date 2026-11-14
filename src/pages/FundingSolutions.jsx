@@ -104,7 +104,7 @@ const FundingSolutions = () => {
                             Our Range of <span className="text-highlight">Funding Solutions</span>
                         </h1>
                         <p className="resource-hero-lead">
-                            We are a whole-of-market commercial finance broker, not a lender — our only job
+                            We are a commercial finance broker, not a lender — our only job
                             is to find the structure that serves you, not the product that suits our
                             book. Below, a plain-English overview of the six areas we specialise in.
                         </p>
@@ -119,7 +119,7 @@ const FundingSolutions = () => {
                         </div>
                         <ul className="resource-hero-trust" aria-label="Why choose Boxx">
                             <li>Independent broker</li>
-                            <li>Whole of market</li>
+                            <li>Panel of lenders</li>
                             <li>Fast decisions</li>
                         </ul>
                     </div>
