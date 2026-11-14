@@ -35,7 +35,7 @@ const USE_CASES = ['Auction purchases', 'Chain breaks', 'Refurbishment projects'
 
 const STEPS = [
     { n: '01', title: 'Tell us what you need', text: 'Share the basics — property, amount, timing — using the form above.' },
-    { n: '02', title: 'We compare the market', text: 'We match your deal to the right lender from our whole-of-market panel, structured around your exit.' },
+    { n: '02', title: 'We compare the market', text: 'We match your deal to the right lender from our panel of lenders, structured around your exit.' },
     { n: '03', title: 'Get your terms', text: 'A specialist calls you back with indicative terms, usually the same working day.' },
 ];
 
@@ -246,8 +246,8 @@ const AdLandingBridgingLoans = () => {
 
             <footer className="adlp-footer">
                 <p>
-                    We are a commercial finance broker and not a lender. Funding is subject to lender criteria, status
-                    and terms. Commercial finance is not regulated by the Financial Conduct Authority. We may receive
+                    We work with a panel of lenders whose particulars will be supplied upon request to find a potentially suitable arrangement for your consideration. We are a commercial finance broker and not a lender. Funding is subject to lender criteria, status
+                    and terms. Commercial finance is not regulated by the Financial Conduct Authority. Typically we will receive
                     commission from lenders for arranging finance. The amount of commission may vary depending on the
                     lender and product.
                 </p>
