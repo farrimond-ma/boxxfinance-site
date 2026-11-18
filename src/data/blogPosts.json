@@ -27998,8 +27998,8 @@
     "relatedLocationUrls": [],
     "relatedBlogUrls": [
       "https://boxxfinance.co.uk/insights/renters-rights-act-student-landlords-faqs",
-      "https://boxxfinance.co.uk/insights/renters-rights-act-five-months-on-landlords",
-      "https://boxxfinance.co.uk/insights/rent-controls-call-smaller-landlords-quit-prs"
+      "https://boxxfinance.co.uk/insights/deposit-disputes-rolling-tenancies-landlords",
+      "https://boxxfinance.co.uk/insights/renters-rights-act-five-months-on-landlords"
     ],
     "content": "<p>Landlords who used to ask tenants for rent in advance as a safety net now have to find other ways of managing risk, because the Renters' Rights Act has banned the practice. According to <a href=\"https://www.nrla.org.uk/news/the-importance-of-consumer-choice\">NRLA News</a>, a growing number of landlords are turning to professional rent guarantor services and similar products to fill the gap, as the sector adjusts to a much more restricted set of tools for protecting against arrears and financial risk.</p><p>For years, asking a new tenant to pay several months' rent upfront was a simple, if sometimes controversial, way for landlords to reduce exposure to non-payment. It gave landlords a cushion and gave some tenants a way to secure a property despite a thin credit history or lack of a UK-based guarantor. The Renters' Rights Act has closed that option off, which means landlords now need to find other ways to achieve something similar without falling foul of the new rules.</p><h2>Why this matters even if you're not a landlord</h2><p>If you're a tenant, this shift affects how you'll be asked to prove you can afford a tenancy. Instead of being asked for rent upfront, you may increasingly be asked to use a professional guarantor service, where a third-party company effectively insures the landlord against your non-payment, usually for a fee paid by the tenant or built into the cost of the tenancy. For people without a parent or friend able to act as a traditional guarantor, this could actually open doors that were previously closed, which is part of the point NRLA News is making about consumer choice.</p><p>If you're a landlord, particularly one letting through an agent or managing a small portfolio yourself, this is a prompt to review how you screen tenants and manage risk. Relying on the old default of a deposit plus a chunk of rent upfront is no longer available, so landlords need to get comfortable with newer products such as guarantor schemes, rent protection insurance, or more rigorous referencing, and build the cost of these into how a letting is priced and managed.</p><h2>What this means for arrears risk and cash flow</h2><p>The underlying concern for landlords hasn't changed. Void periods and arrears still hit cash flow, and a buy-to-let property with a mortgage attached doesn't stop needing its payments made just because a tenant has stopped paying theirs. What has changed is the toolkit available to manage that risk before it happens. Professional rent guarantor services are being positioned as a direct replacement for rent in advance, giving landlords a similar level of reassurance without breaching the new rules, though as with any new product category, landlords will want to understand exactly what's covered, for how long, and under what conditions a claim can actually be made.</p><p>For landlords who are refinancing a buy-to-let property or restructuring how a portfolio is funded in light of these changes, it can be worth reviewing options through a dedicated <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinance</a> route, particularly where rental income calculations or lender requirements are affected by the new tenancy rules.</p><h2>A wider pattern of adaptation</h2><p>This story is really about the private rented sector finding its feet after a significant change in the rules. Whenever a long-standing practice is banned, a market tends to respond by developing substitutes, and that's what appears to be happening here. Whether these new products end up being cheaper, fairer, or simply different for tenants and landlords alike will likely become clearer as they're used more widely and reviewed by regulators and consumer groups.</p><h2>Frequently Asked Questions</h2><h3>Why has rent in advance been banned?</h3><p>The Renters' Rights Act has restricted the methods landlords can use to secure a tenancy financially, and rent in advance is one of the practices it has removed, as part of a wider set of changes aimed at the private rented sector.</p><h3>What is a professional rent guarantor service?</h3><p>It's a product where a third-party company stands behind a tenant's rent obligations, similar to a traditional guarantor, typically for a fee, giving landlords a form of protection against arrears without needing a personal guarantor or rent paid upfront.</p><h3>Does this affect my existing tenancy or mortgage?</h3><p>If you already have a tenancy in place with rent in advance previously agreed, the practical effect depends on your specific arrangement, but landlords renewing or starting new tenancies will need to use the newly available alternatives going forward.</p><p>Landlords reassessing how a let is financed or reviewing their wider portfolio funding in light of these changes may find it useful to look at the range of options summarised on Boxx Finance's <a href=\"https://boxxfinance.co.uk/funding-solutions\">funding solutions</a> page.</p>",
     "liPosted": false,
@@ -28336,5 +28336,65 @@
     "igPosted": false,
     "pinterestPosted": false,
     "reelPosted": false
+  },
+  {
+    "id": 1795019339668,
+    "status": "published",
+    "slug": "deposit-disputes-rolling-tenancies-landlords",
+    "url": "/insights/deposit-disputes-rolling-tenancies-landlords",
+    "title": "Tenant Deposit Complaints Persist Even After England's No-Fault Eviction Ban",
+    "excerpt": "The Guardian is investigating deposit return problems faced by private renters in England, despite May's overhaul of tenancy law. Landlords should take note of what still needs to change.",
+    "metaTitle": "Deposit Disputes Still Dogging England's New Rental Rules",
+    "metaDescription": "England scrapped no-fault evictions in May 2026, but deposit protection complaints persist. Here's what it means for landlords managing end-of-tenancy deductions.",
+    "keywords": "landlord, buy-to-let, private rented, rented sector, renter, tenant",
+    "date": "2026-11-18",
+    "publishedAt": "2026-11-18T16:28:59.669Z",
+    "author": "Mark Higgins",
+    "authorEmail": "mark@boxxfinance.co.uk",
+    "heroImage": "/images/blog/deposit-disputes-rolling-tenancies-landlords.webp",
+    "heroVersion": 16010070,
+    "schema": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do landlords still need to protect deposits under a rolling tenancy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The requirement to protect a tenant's deposit in a government-approved scheme and provide prescribed information has not changed with the move to rolling tenancies. The obligation applies for as long as the tenancy, now open-ended, continues."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should landlords do to avoid deposit disputes under the new rules?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Keep thorough check-in and check-out records, including photos and an inventory, and communicate clearly and promptly with tenants about any proposed deductions. Since rolling tenancies no longer have a fixed end date, building a habit of regular condition reviews can help avoid disagreements over what changed and when."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a tenant challenge a deposit deduction they think is unfair?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, tenants can raise a dispute through the free alternative dispute resolution service offered by their deposit protection scheme, which will look at evidence from both sides before deciding how much of the deposit, if any, should be withheld."
+          }
+        }
+      ]
+    },
+    "relatedLocationUrls": [],
+    "relatedBlogUrls": [
+      "https://boxxfinance.co.uk/insights/landlords-rent-guarantors-renters-rights-act",
+      "https://boxxfinance.co.uk/insights/tenancy-deposit-disputes-landlord-guide",
+      "https://boxxfinance.co.uk/insights/budget-2025-landlords-what-chancellor-needs-to-do"
+    ],
+    "content": "<p>The Guardian is asking private renters in England to share their experiences of trying to get rental deposits back, highlighting that deposit protection remains a sticking point even after the government's overhaul of the private rented sector earlier this year. In May 2026, no-fault evictions were abolished and private tenancies shifted to rolling contracts, a change widely described as the biggest shake-up of renting in England for decades. But as <a href=\"https://www.theguardian.com/money/2026/nov/18/private-renters-in-england-have-you-struggled-to-get-your-deposit-back\">The Guardian reports</a>, the end of fixed-term tenancies has not resolved long-standing frustrations around deposits, disputes over deductions, and how easily tenants can get their money back at the end of a tenancy.</p><p>For landlords, this is a reminder that the end of fixed terms does not mean the end of scrutiny on how deposits are handled. If anything, rolling tenancies change the rhythm of when deposit questions arise, since there is no longer a clean contract end date to anchor an inspection or a deduction claim around. That makes clear record-keeping and fair, well-evidenced deductions more important than ever.</p><h2>What rolling tenancies change for deposit handling</h2><p>Before the reform, a fixed-term tenancy gave both sides a natural point to check the property, agree deductions and return the deposit through one of the government-approved protection schemes. With rolling contracts now the norm, tenancies can end at various points depending on notice given by either party, rather than on a fixed anniversary. Landlords and agents will need to be just as rigorous about check-in and check-out documentation as before, but without the predictability of a lease-end date to build process around. Disputes over cleaning costs, wear and tear, or damage are exactly the kind of thing adjudicators at deposit protection schemes are used to seeing, and poor documentation is usually what tips a case against the landlord.</p><h2>Why deposit protection compliance still matters</h2><p>Every deposit taken on an assured shorthold tenancy in England must be protected in one of the government-backed schemes, and landlords who fail to protect a deposit correctly, or who do not provide the required prescribed information to the tenant, can face financial penalties and restrictions on using certain possession routes. With the broader eviction process already changed by the abolition of Section 21, the administrative side of letting, including deposits, is one of the few areas landlords can still control tightly. Getting the paperwork right at the start of a tenancy, and being transparent and prompt about any deductions at the end, reduces the chance of a dispute escalating to a scheme adjudicator or the small claims court.</p><h2>What this means for landlords managing cash flow</h2><p>Deposit disputes can also have a knock-on effect on a landlord's finances, particularly where a property needs repair work before it can be re-let and a chunk of the deposit is tied up in a dispute rather than available to cover costs. Landlords juggling multiple properties, or looking to refinance a portfolio while rental income is temporarily disrupted by a void period or a dispute, may want to look at a <a href=\"https://boxxfinance.co.uk/funding-solutions/buy-to-let-refinance\">buy-to-let refinance option</a> designed to free up capital tied up in existing properties without waiting on resolution of a deposit claim.</p><h2>Frequently Asked Questions</h2><h3>Do landlords still need to protect deposits under a rolling tenancy?</h3><p>Yes. The requirement to protect a tenant's deposit in a government-approved scheme and provide prescribed information has not changed with the move to rolling tenancies. The obligation applies for as long as the tenancy, now open-ended, continues.</p><h3>What should landlords do to avoid deposit disputes under the new rules?</h3><p>Keep thorough check-in and check-out records, including photos and an inventory, and communicate clearly and promptly with tenants about any proposed deductions. Since rolling tenancies no longer have a fixed end date, building a habit of regular condition reviews can help avoid disagreements over what changed and when.</p><h3>Can a tenant challenge a deposit deduction they think is unfair?</h3><p>Yes, tenants can raise a dispute through the free alternative dispute resolution service offered by their deposit protection scheme, which will look at evidence from both sides before deciding how much of the deposit, if any, should be withheld.</p><p>If deposit disputes or a void period are affecting a landlord's cash flow while a property is relet or repaired, it may be worth exploring <a href=\"https://boxxfinance.co.uk/funding-solutions\">Boxx Finance's funding solutions</a> to bridge the gap.</p>",
+    "liPosted": false,
+    "fbPosted": false,
+    "igPosted": false,
+    "pinterestPosted": false,
+    "reelPosted": false,
+    "service": "Latest News",
+    "category": "Latest News"
   }
 ]
