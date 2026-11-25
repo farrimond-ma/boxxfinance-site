@@ -113,7 +113,7 @@ const Partners = () => {
                     <p>
                         Most residential and mainstream brokers see bridging enquiries they'd rather not
                         take on — auction deadlines, chain breaks, refurbishment funding, probate. Instead
-                        of turning them away, refer them to us. We're a whole-of-market bridging specialist,
+                        of turning them away, refer them to us. We're a bridging specialist working with a panel of lenders,
                         so your client gets the right outcome and you get paid for the introduction.
                     </p>
                 </section>
@@ -144,7 +144,7 @@ const Partners = () => {
                     <ul className="partners-benefit-list">
                         <li><strong>A referral fee on every completed case</strong> — the structure is agreed up front in your introducer agreement.</li>
                         <li><strong>Your client stays your client.</strong> We handle the bridging piece and hand back cleanly.</li>
-                        <li><strong>Whole-of-market placement</strong> — we compare lenders so your client gets a proper outcome, not a default product.</li>
+                        <li><strong>Panel-of-lenders placement</strong> — we compare the lenders on our panel so your client gets a proper outcome, not a default product.</li>
                         <li><strong>Fast turnaround</strong> — terms in principle often same-day, so your client isn't left waiting.</li>
                     </ul>
                 </section>

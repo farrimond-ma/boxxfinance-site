@@ -37,7 +37,7 @@ const AboutUs = () => {
         <div className="resource-page">
             <SEO
                 title="About Boxx Finance"
-                description="UK whole-of-market commercial finance broker specialising in bridging loans. Meet the team, our approach to structuring finance, and why we work the way we do."
+                description="UK commercial finance broker specialising in bridging loans. Meet the team, our approach to structuring finance, and why we work the way we do."
                 keywords="about Boxx Finance, commercial finance broker Scotland, bridging loan specialists, Mark Higgins, Tara Jameson"
                 schema={schema}
             />
@@ -45,7 +45,7 @@ const AboutUs = () => {
             <ResourceHero
                 eyebrow="Who We Are"
                 title="About Boxx Finance"
-                description="Speed and structure, not just approval. We built our reputation arranging fast, whole-of-market bridging loans for UK property buyers, landlords and developers — funding structured around your exit strategy, not just the headline rate."
+                description="Speed and structure, not just approval. We built our reputation arranging fast bridging loans for UK property buyers, landlords and developers — funding structured around your exit strategy, not just the headline rate."
                 heroImage="/images/hero/bridging-15.webp"
                 primaryCtaTo="/chat-about-funding"
             />
@@ -59,11 +59,11 @@ const AboutUs = () => {
                             their funding was wrong for their situation. We set out to change that.
                         </p>
 
-                        <h2>Whole of market, not one panel</h2>
+                        <h2>A panel of lenders, not just one</h2>
                         <p>
                             With access to a panel of 50+ lenders — from high street banks and
                             challenger lenders to specialist and private debt providers — we go to
-                            the whole market on your behalf, whether that's a bridging loan
+                            our panel on your behalf, whether that's a bridging loan
                             completing in days or a longer-term commercial facility.
                         </p>
 

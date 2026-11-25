@@ -59,7 +59,7 @@ export const ResourceHero = ({ eyebrow, title, description, heroImage, primaryCt
                     {showTrust && (
                         <ul className="resource-hero-trust" aria-label="Why choose Boxx">
                             <li>Independent broker</li>
-                            <li>Whole of market</li>
+                            <li>Panel of lenders</li>
                             <li>Fast decisions</li>
                         </ul>
                     )}

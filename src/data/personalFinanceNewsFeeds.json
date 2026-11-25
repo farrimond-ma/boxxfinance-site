@@ -1,5 +1,5 @@
 {
-  "lastChecked": "2026-10-19T12:25:47.080Z",
+  "lastChecked": "2026-11-09T15:28:21.182Z",
   "feeds": [
     {
       "url": "https://www.theguardian.com/money/property/rss",
@@ -120,8 +120,8 @@
     {
       "url": "https://www.propertyindustryeye.com/feed/",
       "name": "Property Industry Eye",
-      "status": "candidate",
-      "note": "connection failed 2026-08-21"
+      "status": "active",
+      "note": "promoted 2026-11-09 — 20 items"
     },
     {
       "url": "https://www.homebuilding.co.uk/feed",

@@ -1,5 +1,75 @@
 [
   {
+    "url": "https://www.cityam.com/slumping-london-flat-prices-spark-landlord-return/",
+    "title": "Slumping London flat prices spark landlord return",
+    "slug": "london-flat-prices-landlord-buy-to-let-return",
+    "photoId": 40979401,
+    "publishedAt": "2026-11-22T15:19:21.548Z"
+  },
+  {
+    "url": "https://www.nrla.org.uk/news/nrla-ico-privacy-concerns",
+    "title": "Landlords' personal details should not be public knowledge",
+    "slug": "landlord-database-privacy-concerns",
+    "photoId": 8076031,
+    "publishedAt": "2026-11-20T16:11:09.058Z"
+  },
+  {
+    "url": "https://www.theguardian.com/money/2026/nov/18/private-renters-in-england-have-you-struggled-to-get-your-deposit-back",
+    "title": "Private renters in England: have you struggled to get your deposit back?",
+    "slug": "deposit-disputes-rolling-tenancies-landlords",
+    "photoId": 16010070,
+    "publishedAt": "2026-11-18T16:29:03.470Z"
+  },
+  {
+    "url": "https://www.thisismoney.co.uk/money/buytolet/article-16258375/Were-quitting-buy-let-make-profit-landlords-pay-tax-fixing-flats-trashed-tenants.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+    "title": "We're quitting buy-to-let as we can't make a profit: Everything landlords have to pay, from tax to fixing flats trashed by tenants",
+    "slug": "why-landlords-quitting-buy-to-let-profit-squeeze",
+    "photoId": 40979400,
+    "publishedAt": "2026-11-15T14:47:00.938Z"
+  },
+  {
+    "url": "https://www.property118.com/buyers-havent-disappeared-but-their-budgets-and-behaviours-have-changed/",
+    "title": "Buyers haven’t disappeared but their budgets and behaviours have changed",
+    "slug": "buyer-behaviour-changes-landlord-sales",
+    "photoId": 38033690,
+    "publishedAt": "2026-11-13T15:25:52.301Z"
+  },
+  {
+    "url": "https://www.nrla.org.uk/news/the-importance-of-consumer-choice",
+    "title": "The importance of consumer choice",
+    "slug": "landlords-rent-guarantors-renters-rights-act",
+    "photoId": 15993243,
+    "publishedAt": "2026-11-11T15:15:02.397Z"
+  },
+  {
+    "url": "https://www.uk-propertynews.co.uk/whats-happening/news/featured-insights/our-view/budget-2026-some-good-news-for-first-time-buyers-but-another-tax-hit-for-landlords/",
+    "title": "Budget 2026: Some good news for first-time buyers, but another tax hit for landlords",
+    "slug": "budget-2026-landlord-tax-first-time-buyers",
+    "photoId": 15754015,
+    "publishedAt": "2026-11-06T15:05:23.869Z"
+  },
+  {
+    "url": "https://www.property118.com/government-insists-property-tax-rise-will-have-little-impact-on-rents/",
+    "title": "Government insists property tax rise will have little impact on rents",
+    "slug": "landlord-tax-rise-rents-impact",
+    "photoId": 30683445,
+    "publishedAt": "2026-11-04T15:27:50.449Z"
+  },
+  {
+    "url": "https://www.thisismoney.co.uk/money/buytolet/article-16255225/retirement-landlords-latest-Budget-tax-raid-boost-profits.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+    "title": "'Buy-to-let was my retirement plan - now I'm being forced to sell up': Hard-pressed landlords fear the latest Budget tax raid will be the final straw... but experts say there is a way to boost your profits",
+    "slug": "landlords-budget-tax-raid-sell-up-or-restructure",
+    "photoId": 38241942,
+    "publishedAt": "2026-11-01T14:18:02.981Z"
+  },
+  {
+    "url": "https://inews.co.uk/inews-lifestyle/money/property-and-mortgages/furious-quit-landlord-not-fair-4861432",
+    "title": "I’m furious at having to quit as a landlord – it’s not fair",
+    "slug": "landlords-quitting-over-tax-hike",
+    "photoId": 39932417,
+    "publishedAt": "2026-10-30T14:11:49.763Z"
+  },
+  {
     "url": "https://www.property118.com/budget-sees-landlords-facing-second-property-tax-raid/",
     "title": "Budget sees landlords facing second property tax raid",
     "slug": "landlords-second-tax-raid-budget-2027",

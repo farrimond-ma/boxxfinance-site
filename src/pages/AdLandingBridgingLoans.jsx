@@ -35,7 +35,7 @@ const USE_CASES = ['Auction purchases', 'Chain breaks', 'Refurbishment projects'
 
 const STEPS = [
     { n: '01', title: 'Tell us what you need', text: 'Share the basics — property, amount, timing — using the form above.' },
-    { n: '02', title: 'We compare the market', text: 'We match your deal to the right lender from our whole-of-market panel, structured around your exit.' },
+    { n: '02', title: 'We compare the market', text: 'We match your deal to the right lender from our panel of lenders, structured around your exit.' },
     { n: '03', title: 'Get your terms', text: 'A specialist calls you back with indicative terms, usually the same working day.' },
 ];
 
@@ -93,8 +93,8 @@ const AdLandingBridgingLoans = () => {
     return (
         <div className="adlp">
             <SEO
-                title="Bridging Loans UK | Fast, Whole-of-Market Funding Quote"
-                description="Fast bridging loans from £50,000. Whole-of-market comparison, completion from 7 days, terms from 3 to 18 months. Get a same-day quote from Boxx Finance."
+                title="Bridging Loans UK | Fast Funding Quote"
+                description="Fast bridging loans from £50,000. Panel-of-lenders comparison, completion from 7 days, terms from 3 to 18 months. Get a same-day quote from Boxx Finance."
                 noIndex={true}
             />
 
@@ -116,7 +116,7 @@ const AdLandingBridgingLoans = () => {
                     <div className="adlp-hero-copy">
                         <h1>Fast Bridging Loans, <span className="text-highlight">Structured Properly</span></h1>
                         <p className="adlp-hero-lead">
-                            Whole-of-market bridging finance for auction purchases, chain breaks, refurbishment and
+                            Bridging finance from a panel of lenders for auction purchases, chain breaks, refurbishment and
                             short-term refinancing. We structure every facility around your exit — not just the rate.
                         </p>
                         <ul className="adlp-bullets">
@@ -246,8 +246,8 @@ const AdLandingBridgingLoans = () => {
 
             <footer className="adlp-footer">
                 <p>
-                    We are a commercial finance broker and not a lender. Funding is subject to lender criteria, status
-                    and terms. Commercial finance is not regulated by the Financial Conduct Authority. We may receive
+                    We work with a panel of lenders whose particulars will be supplied upon request to find a potentially suitable arrangement for your consideration. We are a commercial finance broker and not a lender. Funding is subject to lender criteria, status
+                    and terms. Commercial finance is not regulated by the Financial Conduct Authority. Typically we will receive
                     commission from lenders for arranging finance. The amount of commission may vary depending on the
                     lender and product.
                 </p>

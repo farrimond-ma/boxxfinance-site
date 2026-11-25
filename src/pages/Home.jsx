@@ -14,18 +14,18 @@ const Home = () => {
         <>
             <SEO
                 title="Bridging Loans & Development Finance UK"
-                description="Fast, whole-of-market bridging loans for UK property purchases, chain breaks and refurbishment — plus commercial mortgages, asset finance and the full range of business funding solutions."
+                description="Fast bridging loans from a panel of lenders for UK property purchases, chain breaks and refurbishment — plus commercial mortgages, asset finance and the full range of business funding solutions."
                 keywords="bridging loans UK, commercial finance UK, business funding UK, commercial mortgages, asset finance, specialist finance broker"
                 schema={[
                     {
                         "@context": "https://schema.org",
                         "@type": "Organization",
                         "name": "Boxx Finance",
-                        "legalName": "Birchwood Wealth Ltd",
+                        "legalName": "Boxx Finance Ltd",
                         "identifier": {
                             "@type": "PropertyValue",
                             "propertyID": "GB:CRN",
-                            "value": "SC692076"
+                            "value": "SC905235"
                         },
                         "url": "https://boxxfinance.co.uk",
                         "logo": "https://boxxfinance.co.uk/logo.png",

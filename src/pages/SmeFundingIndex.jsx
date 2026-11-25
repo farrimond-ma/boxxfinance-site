@@ -216,7 +216,7 @@ const SmeFundingIndex = () => {
                     <p>
                         If you want to know what your business would actually be offered,{' '}
                         <Link to="/chat-about-funding">talk to us about your funding requirements</Link> and we will
-                        compare the whole market for you.
+                        compare the lenders on our panel for you.
                     </p>
                 </section>
 

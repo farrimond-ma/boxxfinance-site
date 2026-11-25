@@ -1,6 +1,6 @@
 # Boxx Finance
 
-> A whole-of-market UK commercial finance broker. Boxx arranges bridging loans, commercial mortgages, development finance, asset finance, invoice finance and working capital for UK businesses, homeowners, landlords, property investors and developers.
+> A UK commercial finance broker working with a panel of lenders. Boxx arranges bridging loans, commercial mortgages, development finance, asset finance, invoice finance and working capital for UK businesses, homeowners, landlords, property investors and developers.
 
 Boxx Finance is a **broker, not a lender**. We compare lenders across the whole of the UK market and arrange the funding, rather than lending our own money. Nothing on the site is a quote or an offer of finance; actual terms depend on the borrower, the security and the lender.
 
