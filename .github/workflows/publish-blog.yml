@@ -106,11 +106,18 @@ jobs:
           # development finance is slower and likelier not to fund, so it must
           # not take one of only two bridging slots. The six drain through
           # Tuesday instead.
+          #
+          # 2026-11-25: Mark's call to concentrate purely on bridging loans and
+          # development finance. Secured Loans, Bad Credit Mortgages, Buy To Let
+          # Refinance and Second Charge Mortgages are no longer published; their
+          # existing articles stay live and indexed, the queue just stops feeding
+          # them. Tuesday now drains the development finance queue and falls back
+          # to bridging when that queue is empty, so the slot is never wasted.
           SERVICE_FILTER: >-
             ${{ github.event.inputs.service_filter != ''
                 && github.event.inputs.service_filter
                 || (github.event.schedule == '37 18 * * 2'
-                    && 'Secured Loans,Bad Credit Mortgages,Buy To Let Refinance,Second Charge Mortgages,Development Finance'
+                    && 'Development Finance,Bridging Finance'
                     || (github.event.schedule == '37 7 * * 6'
                         && 'Landlord Guides'
                         || 'Bridging Finance')) }}
