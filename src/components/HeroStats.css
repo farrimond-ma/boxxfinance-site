@@ -1,0 +1,56 @@
+/* Headline figures band, directly under the homepage hero. Deliberately its own
+   full-width strip rather than part of the hero text column: inside the column
+   the three figures wrapped two-then-one at every width, which reads as a
+   mistake. */
+.hero-stats {
+    background: var(--color-primary);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2.5rem 0 2rem;
+}
+
+.hero-stats dl {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem 2rem;
+    margin: 0;
+    text-align: center;
+}
+
+.hero-stats dt {
+    font-family: var(--font-heading, inherit);
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    line-height: 1.15;
+}
+
+.hero-stats dd {
+    margin: 0.35rem 0 0;
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+/* The figures are a financial promotion, so the qualifier travels with them. */
+.hero-stats-note {
+    margin: 2rem auto 0;
+    max-width: 46rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 640px) {
+    .hero-stats {
+        padding: 2rem 0 1.75rem;
+    }
+    /* One per row on a phone: three columns squeezed "£25,000 to £30m" onto two
+       lines and the figures stopped scanning. */
+    .hero-stats dl {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    .hero-stats dt {
+        font-size: 1.5rem;
+    }
+}
