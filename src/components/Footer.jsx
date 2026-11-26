@@ -27,7 +27,9 @@ const Footer = () => {
                                 height="101"
                                 loading="lazy"
                             />
-                            <span>Proud member of the NACFB</span>
+                            {/* Membership number from the NACFB welcome email, 25 Nov 2026.
+                                Shown because it is verifiable, which a logo alone is not. */}
+                            <span>Proud member of the NACFB, member 39886</span>
                         </a>
                     </div>
 

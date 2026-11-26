@@ -75,7 +75,7 @@ const AboutUs = () => {
                                 height="101"
                                 loading="lazy"
                             />
-                            <span>Proud member of the National Association of Commercial Finance Brokers</span>
+                            <span>Proud member of the National Association of Commercial Finance Brokers, member 39886</span>
                         </a>
 
                         <h2>A panel of lenders, not just one</h2>

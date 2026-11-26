@@ -47,7 +47,7 @@ const About = () => {
                             height="101"
                             loading="lazy"
                         />
-                        <span>Proud member of the NACFB</span>
+                        <span>Proud member of the NACFB, member 39886</span>
                     </a>
 
                     <p className="about-funding-line">
