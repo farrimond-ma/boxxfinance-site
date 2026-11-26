@@ -60,9 +60,11 @@ const ApplicationForm = ({
     enableTokenLookup = true,
     showQuestionsLink = true,
     multiStep = false,
-    // Same sections, order and wording as the CRM's Fact Find tab (Applicant, Security, Reason for
-    // funds, Credit history). Used on Progress Your Application; the ad landing page keeps its own
-    // order (repossession question first).
+    // Same sections and order as the CRM's Fact Find tab, so staff can map the two: Applicant,
+    // Security, Reason for funds, Credit history. The visitor-facing headings were softened on
+    // 2026-11-26 (About you / The property / What the money is for) because the CRM's internal
+    // labels read as jargon to a borrower; the order still matches, which is what staff rely on.
+    // Used on the details page; the ad landing page keeps its own order (repossession first).
     factFindLayout = false,
 }) => {
     // Only meaningful when multiStep — page 1 asks contact details, page 2 asks everything else.
@@ -245,7 +247,7 @@ const ApplicationForm = ({
                     {status === 'done' ? (
                         <div>
                             <h2>Thanks — we've got everything we need.</h2>
-                            <p>A member of the team will be in touch shortly to progress your application.</p>
+                            <p>A member of the team will be in touch shortly to talk it through.</p>
                         </div>
                     ) : prefillStatus === 'loading' ? (
                         <p>Loading your details…</p>
@@ -257,7 +259,7 @@ const ApplicationForm = ({
                                 </p>
                             )}
 
-                            {factFindLayout && (!multiStep || step === 1) && <h3>Applicant</h3>}
+                            {factFindLayout && (!multiStep || step === 1) && <h3>About you</h3>}
                             {(!multiStep || step === 1) && (
                                 <>
                                     <div className="quiz-input-group">
@@ -287,7 +289,7 @@ const ApplicationForm = ({
 
                             {factFindLayout && (!multiStep || step === 2) && (
                                 <>
-                                    <h3>Security</h3>
+                                    <h3>The property</h3>
                                     <div className="quiz-input-group">
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Address of the property</label>
                                         <textarea name="securityAddress" className="quiz-input" rows="4" required value={form.securityAddress} onChange={onChange} />
@@ -317,7 +319,7 @@ const ApplicationForm = ({
                                         </div>
                                     </div>
 
-                                    <h3>Reason for funds</h3>
+                                    <h3>What the money is for</h3>
                                     <div className="quiz-input-group">
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>What do you need the funds for?</label>
                                         <textarea name="reasonForFunds" className="quiz-input" rows="4" required value={form.reasonForFunds} onChange={onChange} />
