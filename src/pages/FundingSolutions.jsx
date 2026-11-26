@@ -94,8 +94,9 @@ const FundingSolutions = () => {
             <div
                 className="resource-hero has-hero-image"
                 style={{
-                    '--hero-image': 'url("/images/hero/bridging-5.webp")',
-                    '--hero-image-mobile': 'url("/images/hero/bridging-5-800.webp")',
+                    /* Swapped with the homepage hero on 2026-11-26 (Mark's call). */
+                    '--hero-image': 'url("/images/hero/home-bristol-terraces.webp")',
+                    '--hero-image-mobile': 'url("/images/hero/home-bristol-terraces-800.webp")',
                 }}
             >
                 <div className="container resource-hero-grid">

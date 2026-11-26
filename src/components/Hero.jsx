@@ -35,7 +35,9 @@ const Hero = () => (
             </>
         }
         description="Short-term property funding for auction purchases, chain breaks, refurbishments, probate and stopping repossessions. We structure bridging loans for homeowners, landlords, investors and developers around a clear exit plan, not just a headline rate."
-        heroImage="/images/hero/home-bristol-terraces.webp"
+        /* Swapped with the funding-solutions hero on 2026-11-26 (Mark's call): this
+           street scene sits better behind the homepage headline. */
+        heroImage="/images/hero/bridging-5.webp"
         primaryCtaTo="/chat-about-funding/bridging-loans"
     />
 );
