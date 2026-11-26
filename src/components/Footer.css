@@ -34,6 +34,10 @@
 .footer-nacfb {
     display: inline-flex;
     flex-direction: column;
+    /* Without this the image is a stretched flex item: align-items defaults to stretch, so
+       in a column it fills the container's width while height stays 26px, and the wordmark
+       came out squashed wide. */
+    align-items: flex-start;
     gap: 0.4rem;
     margin-top: 1.25rem;
     text-decoration: none;
