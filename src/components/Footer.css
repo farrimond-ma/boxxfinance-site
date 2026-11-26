@@ -29,6 +29,33 @@
     object-fit: contain;
 }
 
+/* NACFB membership badge. Deliberately smaller than the Boxx logo above it:
+   it is supporting evidence, not a second brand. */
+.footer-nacfb {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+    text-decoration: none;
+}
+.footer-nacfb img {
+    height: 26px;
+    width: auto;
+    opacity: 0.92;
+}
+/* .footer-brand span is gold and comes later in this file, so the badge caption
+   needs the extra class to stay muted supporting text rather than brand gold. */
+.footer-brand .footer-nacfb span {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+.footer-nacfb:hover img {
+    opacity: 1;
+}
+.footer-nacfb:hover span {
+    color: rgba(255, 255, 255, 0.85);
+}
+
 .footer-logo-text {
     font-size: 1.25rem;
     font-weight: 700;

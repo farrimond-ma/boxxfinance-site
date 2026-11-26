@@ -59,6 +59,25 @@ const AboutUs = () => {
                             their funding was wrong for their situation. We set out to change that.
                         </p>
 
+                        {/* NACFB membership, approved November 2026. Placed before the panel
+                            section because it is the strongest third-party credential on the
+                            page and belongs near the top, not buried under the team. */}
+                        <a
+                            href="https://www.nacfb.org/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="about-nacfb"
+                        >
+                            <img
+                                src="/images/nacfb-member.webp"
+                                alt="Member of the National Association of Commercial Finance Brokers"
+                                width="420"
+                                height="101"
+                                loading="lazy"
+                            />
+                            <span>Proud member of the National Association of Commercial Finance Brokers</span>
+                        </a>
+
                         <h2>A panel of lenders, not just one</h2>
                         <p>
                             With access to a panel of 50+ lenders — from high street banks and

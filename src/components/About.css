@@ -65,6 +65,47 @@
     color: var(--color-secondary);
 }
 
+/* NACFB membership badge, under the trust ticks. The supplied wordmark sits on
+   white, which matches this section's background. */
+.about-nacfb {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 1.5rem;
+    max-width: 100%;
+    text-decoration: none;
+}
+.about-nacfb img {
+    height: 30px;
+    width: auto;
+    flex-shrink: 0;
+}
+/* Both contexts underline their links (.about-teaser-intro here,
+   .blog-post-content on the About Us page); the badge is not body copy, so opt
+   out at a specificity that beats each of them. */
+.about .about-nacfb,
+.about .about-nacfb span,
+.blog-post-content a.about-nacfb,
+.blog-post-content a.about-nacfb span {
+    text-decoration: none;
+}
+.about-nacfb span {
+    font-size: 0.875rem;
+    color: #666;
+    line-height: 1.45;
+    text-align: left;
+}
+.about-nacfb:hover span {
+    color: var(--color-primary);
+}
+@media (max-width: 560px) {
+    .about-nacfb {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
 .about-funding-line {
     margin: 1.25rem 0 0;
     font-size: 0.9rem;

@@ -31,6 +31,25 @@ const About = () => {
                         <li>Fast decisions</li>
                     </ul>
 
+                    {/* NACFB membership, approved November 2026. Sits with the trust ticks
+                        because that is what it is: third-party evidence, not decoration.
+                        Dark wordmark here (white section); the footer uses the inverse. */}
+                    <a
+                        href="https://www.nacfb.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="about-nacfb"
+                    >
+                        <img
+                            src="/images/nacfb-member.webp"
+                            alt="Member of the National Association of Commercial Finance Brokers"
+                            width="420"
+                            height="101"
+                            loading="lazy"
+                        />
+                        <span>Proud member of the NACFB</span>
+                    </a>
+
                     <p className="about-funding-line">
                         Also arranging asset finance, commercial mortgages, development finance and
                         invoice finance — <Link to="/funding-solutions">see all funding options</Link>.

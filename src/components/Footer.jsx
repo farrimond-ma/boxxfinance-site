@@ -11,6 +11,24 @@ const Footer = () => {
                             <img src="/logo.png" alt="Boxx Finance" className="footer-logo-img" loading="lazy" />
                         </Link>
                         <p>Bridging Loans and Commercial Finance</p>
+                        {/* NACFB membership approved November 2026. The white wordmark is the
+                            inverse version NACFB supplies for dark backgrounds; the original
+                            files they issued are kept alongside it in public/images. */}
+                        <a
+                            href="https://www.nacfb.org/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="footer-nacfb"
+                        >
+                            <img
+                                src="/images/nacfb-member-white.webp"
+                                alt="Member of the National Association of Commercial Finance Brokers"
+                                width="420"
+                                height="101"
+                                loading="lazy"
+                            />
+                            <span>Proud member of the NACFB</span>
+                        </a>
                     </div>
 
                     <div className="footer-links">
