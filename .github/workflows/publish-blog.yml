@@ -46,7 +46,11 @@ on:
     # published in their own shorter format, see LANDLORD_GUIDE_* in
     # publish-blog.js). Purpose: bring landlords to the site for Meta
     # retargeting without taking a bridging slot.
-    - cron: '37 7 * * 6'   # Sat 08:37 UK (BST) — landlord guides
+    - cron: '37 7 * * 6'   # Sat 08:37 UK — repossession campaign (was landlord guides)
+    # 2026-11-26: fifth evergreen slot for the six-week repossession campaign
+    # (5 articles a week, alternating landlord and homeowner weeks). Evening so
+    # it does not collide with Friday's 08:15 news run.
+    - cron: '37 18 * * 5'  # Fri 18:37 UK — repossession campaign
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
     inputs:
       service_filter:
@@ -113,13 +117,15 @@ jobs:
           # existing articles stay live and indexed, the queue just stops feeding
           # them. Tuesday now drains the development finance queue and falls back
           # to bridging when that queue is empty, so the slot is never wasted.
+          # 2026-11-26 to roughly 2026-01-10: every evergreen slot publishes Bridging
+          # Finance, which is where the 30 queued repossession topics live. That
+          # deliberately pauses the Tuesday development-finance queue and the Saturday
+          # landlord guides for six weeks. TO REVERT: put Tuesday back to
+          # 'Development Finance,Bridging Finance' and Saturday back to 'Landlord
+          # Guides', and drop the Friday cron above. A reminder is scheduled.
           SERVICE_FILTER: >-
             ${{ github.event.inputs.service_filter != ''
                 && github.event.inputs.service_filter
-                || (github.event.schedule == '37 18 * * 2'
-                    && 'Development Finance,Bridging Finance'
-                    || (github.event.schedule == '37 7 * * 6'
-                        && 'Landlord Guides'
-                        || 'Bridging Finance')) }}
+                || 'Bridging Finance' }}
         run: node publish-blog.js
         working-directory: scripts/content-engine
