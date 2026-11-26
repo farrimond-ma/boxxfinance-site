@@ -34,7 +34,14 @@ const Navbar = ({ minimal = false }) => {
                 <div className={`navbar-menu ${mobileMenuOpen ? 'active' : ''} ${minimal ? 'navbar-menu-minimal' : ''}`}>
                     {!minimal && (
                         <>
-                            <Link to="/funding-solutions" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Funding Solutions</Link>
+                            {/* 2026-11-26: the generic "Funding Solutions" hub came out of the
+                                nav and the two services Boxx actually sells went in. The hub
+                                page still exists and the other 14 service pages are still live
+                                and indexed, reachable from the footer, they are just no longer
+                                what the site leads with. URLs deliberately unchanged: both pages
+                                are indexed and ranking, and the path segment is cosmetic. */}
+                            <Link to="/funding-solutions/bridging-loans" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Bridging Loans</Link>
+                            <Link to="/funding-solutions/development-finance" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Development Finance</Link>
                             <Link to="/about-us" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>About Us</Link>
                             <Link to="/insights" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Insights</Link>
                             <a href="/#case-studies" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Case Studies</a>

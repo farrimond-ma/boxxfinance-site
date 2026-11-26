@@ -36,7 +36,11 @@ const Footer = () => {
                     <div className="footer-links">
                         <h4>Quick Links</h4>
                         <ul>
-                            <li><Link to="/funding-solutions">Funding Solutions</Link></li>
+                            <li><Link to="/funding-solutions/bridging-loans">Bridging Loans</Link></li>
+                            <li><Link to="/funding-solutions/development-finance">Development Finance</Link></li>
+                            {/* Keeps the other 14 service pages crawlable and reachable now
+                                that they are out of the main nav. */}
+                            <li><Link to="/funding-solutions">Other funding options</Link></li>
                             <li><Link to="/about-us">About Us</Link></li>
                             <li><Link to="/insights">Insights</Link></li>
                             <li><Link to="/uk-sme-funding-index">UK SME Funding Index</Link></li>
