@@ -22,8 +22,10 @@ import FundingSolutions from './pages/FundingSolutions';
 import Partners from './pages/Partners';
 import AboutUs from './pages/AboutUs';
 import AdLandingBridgingLoans from './pages/AdLandingBridgingLoans';
+import MetaBridgingLoans from './pages/MetaBridgingLoans';
 import AdLandingBridgingUnregulated from './pages/AdLandingBridgingUnregulated';
 import ProgressApplication from './pages/ProgressApplication';
+import EnquiryForm from './components/EnquiryForm';
 import AdStopRepossession from './pages/AdStopRepossession';
 import BookAppointment from './pages/BookAppointment';
 import ChatbotTest from './pages/ChatbotTest';
@@ -59,6 +61,12 @@ function App() {
           <Route path="chat-about-funding" element={<MultiStepForm />} />
           <Route path="chat-about-funding/:slug" element={<MultiStepForm />} />
           <Route path="progress-your-application" element={<ProgressApplication />} />
+          {/* 2026-11-26: the two web enquiry forms (brief, then the visitor chooses a call or
+              more questions). Deliberately separate from progress-your-application above,
+              which mirrors the CRM Fact Find and is used for repossession cases and chase
+              links; that flow is left untouched. */}
+          <Route path="bridging-enquiry" element={<EnquiryForm service="bridging" />} />
+          <Route path="development-finance-enquiry" element={<EnquiryForm service="development" />} />
           {/* Facebook ad landing page sending cold traffic straight to the repossession fact
               find (same fields/submit path as ProgressApplication, via ApplicationForm) —
               nested under Layout (unlike the ad pages below) so it keeps the site header and
@@ -85,6 +93,7 @@ function App() {
             see a single-purpose page with a form in the hero, not the full
             site nav pulling attention away from conversion. */}
         <Route path="/ads/bridging-loans" element={<AdLandingBridgingLoans />} />
+        <Route path="/meta/bridging-loans" element={<MetaBridgingLoans />} />
         <Route path="/fb/bridging-funding" element={<AdLandingBridgingUnregulated />} />
         {/* Internal chatbot test page — outside Layout, noindex'd, not in the
             sitemap, not linked from anywhere. See src/pages/ChatbotTest.jsx. */}

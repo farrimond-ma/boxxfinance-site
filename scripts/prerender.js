@@ -322,6 +322,8 @@ function readSitemapRoutes() {
   // served HTML and got the homepage's title and image for every one of them.
   const SHARED_NOINDEX_ROUTES = [
     '/progress-your-application',
+    '/bridging-enquiry',
+    '/development-finance-enquiry',
     '/book-an-appointment',
     '/ads/stop-repossession',
     '/ads/bridging-loans',
