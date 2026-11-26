@@ -15,8 +15,8 @@ const Home = () => {
         <>
             <SEO
                 title="Bridging Loans & Development Finance UK"
-                description="Fast bridging loans from a panel of lenders for UK property purchases, chain breaks and refurbishment — plus commercial mortgages, asset finance and the full range of business funding solutions."
-                keywords="bridging loans UK, commercial finance UK, business funding UK, commercial mortgages, asset finance, specialist finance broker"
+                description="Fast bridging loans and development finance from a panel of lenders, for UK property purchases, auctions, chain breaks, refurbishment, ground-up schemes and stopping repossessions."
+                keywords="bridging loans UK, development finance UK, auction finance, refurbishment finance, stop repossession bridging loan, specialist finance broker"
                 schema={[
                     {
                         "@context": "https://schema.org",

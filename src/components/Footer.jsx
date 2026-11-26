@@ -10,7 +10,7 @@ const Footer = () => {
                         <Link to="/" className="footer-logo">
                             <img src="/logo.png" alt="Boxx Finance" className="footer-logo-img" loading="lazy" />
                         </Link>
-                        <p>Bridging Loans and Commercial Finance</p>
+                        <p>Bridging Loans and Development Finance</p>
                         {/* NACFB membership approved November 2026. The white wordmark is the
                             inverse version NACFB supplies for dark backgrounds; the original
                             files they issued are kept alongside it in public/images. */}
@@ -71,7 +71,7 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-bottom">
-                    <p className="footer-disclaimer"><strong>Non-regulated</strong> – Boxx Finance Ltd, registered at 6th Floor Gordon Chambers, 90 Mitchell Street, Glasgow, G1 3NQ (company number SC905235), is not authorised by the Financial Conduct Authority and can only complete non-regulated introductions.</p>
+                    <p className="footer-disclaimer"><strong>Non-regulated:</strong> Boxx Finance Ltd, registered at Atrium Business Centre, North Caldeen Road, Coatbridge, ML5 4EF (company number SC905235), is not authorised by the Financial Conduct Authority and can only complete non-regulated introductions.</p>
                     <p className="footer-disclaimer">We work with a panel of lenders whose particulars will be supplied upon request to find a potentially suitable arrangement for your consideration. We are a commercial finance broker and not a lender. Funding is subject to lender criteria, status and terms. Typically we will receive commission from lenders for arranging finance. The amount of commission may vary depending on the lender and product.</p>
                     <p className="footer-disclaimer">ICO registration number: ZC273334.</p>
                     <p>&copy; {new Date().getFullYear()} Boxx Finance. All rights reserved.</p>

@@ -80,7 +80,7 @@ const Contact = () => {
             <div className="container">
                 <div className="section-header">
                     <h2>Get in <span className="text-highlight">Touch</span></h2>
-                    <p>Ready to discuss your funding requirements? Contact us today.</p>
+                    <p>Tell us about the property and the deadline, and we will tell you what is realistic.</p>
                 </div>
 
                 <div className="contact-wrapper">
@@ -179,7 +179,7 @@ const Contact = () => {
                         )}
 
                         <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                            {isSubmitting ? 'Sending...' : 'Start Your Funding Conversation'}
+                            {isSubmitting ? 'Sending...' : 'Send my enquiry'}
                         </button>
                     </form>
                     )}

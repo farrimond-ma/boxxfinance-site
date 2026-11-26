@@ -15,11 +15,11 @@ const Services = () => {
         <section className="section services" id="funding-solutions">
             <div className="container">
                 <div className="section-header">
-                    <h2>Our <span className="text-highlight">Funding Solutions</span></h2>
-                    <p>We don’t sell finance products. We design strategic funding solutions that solve real business challenges.<br />Every case is shaped around your cash flow, sector and growth plans.</p>
-                    <p>Explore our core funding options below, or speak to us directly to discuss your requirements.</p>
+                    <h2>What We <span className="text-highlight">Arrange</span></h2>
+                    <p>Two things, done properly: bridging loans and development finance.<br />Every case is shaped around the property, the timescale and how the loan gets repaid.</p>
+                    <p>Whether you are buying at auction, breaking a chain, refurbishing, building out a site or stopping a repossession, the questions are the same: what is the property worth, how fast do you need it, and what repays the loan.</p>
                     <br />
-                    <Link to="/chat-about-funding" className="btn btn-primary">Speak to a Funding Specialist</Link>
+                    <Link to="/bridging-enquiry" className="btn btn-primary">Talk to a bridging specialist</Link>
                 </div>
 
                 <div className="services-grid">

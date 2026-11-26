@@ -13,11 +13,11 @@ const About = () => {
         <section className="section about" id="about">
             <div className="container">
                 <div className="about-teaser-intro">
-                    <h2>UK Bridging Loan Specialists <span className="text-highlight">— And Your Funding Partner</span></h2>
+                    <h2>UK Bridging Loan and <span className="text-highlight">Development Finance Specialists</span></h2>
                     <p>
                         Speed and structure, not just approval. With access to a panel of 50+
-                        lenders, we find a potentially suitable arrangement for you — funding structured
-                        around your exit strategy, not just the headline rate.{' '}
+                        lenders, we find a potentially suitable arrangement for you, structured
+                        around your exit strategy rather than the headline rate.{' '}
                         <Link to="/about-us">Read our full story and meet the team →</Link>
                     </p>
 
@@ -51,8 +51,8 @@ const About = () => {
                     </a>
 
                     <p className="about-funding-line">
-                        Also arranging asset finance, commercial mortgages, development finance and
-                        invoice finance — <Link to="/funding-solutions">see all funding options</Link>.
+                        We also still arrange commercial mortgages, asset finance and invoice finance
+                        for existing clients, <Link to="/funding-solutions">see the full list</Link>.
                     </p>
                 </div>
 
@@ -86,7 +86,7 @@ const About = () => {
                         <div className="director-info">
                             <h4>Tara Jameson</h4>
                             <p className="director-title">Commercial Finance and Bridging Loans Specialist</p>
-                            <p className="director-bio">Tara specialises in bridging loans, invoice finance, asset finance and working capital solutions, with a strong track record in helping property investors and growth-stage businesses unlock the funding they need. Her whole-of-market approach ensures clients receive competitive, lender-agnostic advice.</p>
+                            <p className="director-bio">Tara specialises in bridging loans and development finance, with a strong track record in helping property investors, landlords and developers get deals funded to a deadline. She works across a panel of lenders, so the recommendation follows the case rather than any one lender's appetite.</p>
                             <div className="director-social-links">
                                 <div className="contact-link-row">
                                     <a href="mailto:tara@boxxfinance.co.uk" className="director-email gold-link">tara@boxxfinance.co.uk</a>
@@ -107,7 +107,7 @@ const About = () => {
                     </div>
                 </div>
                 <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-                    <Link to="/chat-about-funding" className="btn btn-primary">Start Your Funding Conversation</Link>
+                    <Link to="/bridging-enquiry" className="btn btn-primary">Get a free quote</Link>
                 </div>
             </div>
         </section>

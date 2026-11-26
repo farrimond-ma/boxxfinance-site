@@ -92,7 +92,7 @@ const CaseStudies = () => {
                 </div>
 
                 <div className="cs-cta">
-                    <Link to="/chat-about-funding" className="btn btn-primary">Speak to a Funding Specialist</Link>
+                    <Link to="/bridging-enquiry" className="btn btn-primary">Talk to a bridging specialist</Link>
                 </div>
             </div>
         </section>

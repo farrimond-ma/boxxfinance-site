@@ -35,7 +35,7 @@ const Sidebar = () => {
             <div className="sidebar-widget cta-widget">
                 <h3>Looking For <span className="text-highlight">Funding?</span></h3>
                 <p>Speak to our experts today to find the right solution for your business.</p>
-                <Link to={applicationLink} className="btn btn-primary">Speak to a Funding Specialist</Link>
+                <Link to={applicationLink} className="btn btn-primary">Talk to a specialist</Link>
                 <p className="sidebar-email-cta">If you have any questions about commercial funding please email <a href="mailto:hello@boxxfinance.co.uk" className="gold-link">hello@boxxfinance.co.uk</a></p>
             </div>
         </div>
