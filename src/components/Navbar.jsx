@@ -44,7 +44,6 @@ const Navbar = ({ minimal = false }) => {
                             <Link to="/funding-solutions/development-finance" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Development Finance</Link>
                             <Link to="/about-us" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>About Us</Link>
                             <Link to="/insights" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Insights</Link>
-                            <a href="/#case-studies" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Case Studies</a>
                         </>
                     )}
                     {/* Stays a tel: link. "Ring for a quote" keeps the action
